@@ -1,6 +1,6 @@
 import express, { Application } from 'express';
-import Server from './src/index';
 import { logger } from './src/utils/logger';
+import Server from './src/server';
 
 const app: Application = express();
 const server: Server = new Server(app);

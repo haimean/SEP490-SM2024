@@ -1,4 +1,4 @@
-import { logger } from '../utils/logger';
+import { logger } from './logger';
 
 // eslint-disable-next-line no-unused-vars
 const errorHandler = (err: any, req: any, res: any, next: any) => {
