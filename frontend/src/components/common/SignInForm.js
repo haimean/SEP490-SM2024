@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
-import FacebookLogin from '@greatsumini/react-facebook-login';
+import {jwtDecode} from 'jwt-decode';
+
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');
@@ -9,12 +10,12 @@ const SignInForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Validate email and password
+
     if (!email || !password) {
       setError('Please enter your email and password.');
       return;
     }
-    // Implement your login logic here
+
     console.log('Email:', email);
     console.log('Password:', password);
     // Reset the form
@@ -24,11 +25,22 @@ const SignInForm = () => {
   };
 
   const handleGoogleLogin = (credentialResponse) => {
-    console.log('Google Login:', credentialResponse);
+    if (credentialResponse.credential) {
+      const decodedToken = jwtDecode(credentialResponse.credential);
+      console.log('Google Login:', decodedToken);
+      const { email, name, picture } = decodedToken;
+      console.log('Email:', email);
+      console.log('Name:', name);
+      console.log('Avatar:', picture);
+
+    } else {
+      console.log('No credential response');
+    }
   };
 
-  const handleFacebookLogin = (response) => {
-    console.log('Facebook Login:', response);
+  const handleGoogleLoginFailure = (error) => {
+    console.log('Google Login Failed:', error);
+    setError('Google login failed. Please try again.');
   };
 
   return (
@@ -74,19 +86,11 @@ const SignInForm = () => {
             Forgot password?
           </a>
         </div>
-        <div className="mt-4 text-center">
+        <div className="mt-4 text-center flex justify-center w-full">
           <GoogleLogin
+            size='large'
             onSuccess={handleGoogleLogin}
-            onError={() => console.log('Login Failed')}
-          />
-        </div>
-        <div className="mt-4 text-center">
-          <FacebookLogin
-            appId="YOUR_FACEBOOK_APP_ID"
-            autoLoad={false}
-            fields="name,email,picture"
-            onClick={handleFacebookLogin}
-            cssClass="facebook-login-button"
+            onError={handleGoogleLoginFailure}
           />
         </div>
         <div className="mt-4 text-center">

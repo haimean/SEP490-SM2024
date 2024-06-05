@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
-import FacebookLogin from '@greatsumini/react-facebook-login';
+import {jwtDecode} from 'jwt-decode';
 
 const SignUpForm = () => {
   const [name, setName] = useState('');
@@ -11,7 +11,7 @@ const SignUpForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Validate form fields
+
     if (!name || !email || !password || !confirmPassword) {
       setError('Please fill in all the required fields.');
       return;
@@ -20,11 +20,11 @@ const SignUpForm = () => {
       setError('Passwords do not match.');
       return;
     }
-    // Implement your sign up logic here
+
     console.log('Name:', name);
     console.log('Email:', email);
     console.log('Password:', password);
-    // Reset the form
+
     setName('');
     setEmail('');
     setPassword('');
@@ -33,11 +33,17 @@ const SignUpForm = () => {
   };
 
   const handleGoogleSignUp = (credentialResponse) => {
-    console.log('Google Sign Up:', credentialResponse);
-  };
+    if (credentialResponse.credential) {
+      const decodedToken = jwtDecode(credentialResponse.credential);
+      console.log('Google Sign Up:', decodedToken);
+      const { name, email, picture } = decodedToken;
+      console.log('Name:', name);
+      console.log('Email:', email);
+      console.log('Avatar:', picture);
 
-  const handleFacebookSignUp = (response) => {
-    console.log('Facebook Sign Up:', response);
+    } else {
+      console.log('No credential response');
+    }
   };
 
   return (
@@ -102,19 +108,11 @@ const SignUpForm = () => {
             Sign Up
           </button>
         </form>
-        <div className="mt-4 text-center">
+        <div className="mt-4 text-center flex justify-center w-full">
           <GoogleLogin
             onSuccess={handleGoogleSignUp}
             onError={() => console.log('Sign Up Failed')}
-          />
-        </div>
-        <div className="mt-4 text-center">
-          <FacebookLogin
-            appId="YOUR_FACEBOOK_APP_ID"
-            autoLoad={false}
-            fields="name,email,picture"
-            onClick={handleFacebookSignUp}
-            cssClass="facebook-login-button"
+            text='signup_with'
           />
         </div>
         <div className="mt-4 text-center">
