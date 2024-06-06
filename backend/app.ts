@@ -1,15 +1,24 @@
 import express, { Application } from 'express';
 import { logger } from './src/utils/logger';
-import Server from './src/server';
+import cors, { CorsOptions } from 'cors';
+import { configDotenv } from 'dotenv';
+import routes from './src/modules/index.router';
+
+configDotenv();
+const PORT: number = Number(process.env.PORT ?? '8080');
+
+const corsOptions: CorsOptions = {
+  origin: process.env.FONT_END_URL ?? '3000',
+};
 
 const app: Application = express();
-const server: Server = new Server(app);
-const PORT: number = process.env.PORT
-  ? parseInt(process.env.PORT, 10)
-  : 8080;
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/api/', routes);
 
 app
-  .listen(PORT, 'localhost', function () {
+  .listen(PORT, async function () {
     logger.info(
       `Express server is listening at http://localhost:${PORT} 🚀`
     );

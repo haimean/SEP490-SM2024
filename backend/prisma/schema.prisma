@@ -7,18 +7,46 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
+model Account {
+  id                Int                 @id @default(autoincrement())
+  email             String              @unique
+  password          String
+  attributeCourt    AttributeCourt[]
+  attributeBranches AttributeBranches[]
 }
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  authorId  Int
-  author    User    @relation(fields: [authorId], references: [id])
+// Key attribute cở sở sân
+model AttributeKeyBranches {
+  id                Int                 @id @default(autoincrement())
+  name              String              @unique
+  description       String?
+  attributeBranches AttributeBranches[]
+}
+
+model AttributeBranches {
+  id                     Int                   @id @default(autoincrement())
+  value                  String
+  isPublic               Boolean               @default(false)
+  accountId              Int
+  attributeKeyBranchesId Int
+  account                Account               @relation(fields: [accountId], references: [id])
+  attributeKeyBranches   AttributeKeyBranches? @relation(fields: [attributeKeyBranchesId], references: [id])
+}
+
+// Key attribute sân
+model AttributeKeyCourt {
+  id             Int              @id @default(autoincrement())
+  name           String           @unique
+  description    String?
+  attributeCourt AttributeCourt[]
+}
+
+model AttributeCourt {
+  id                  Int                @id @default(autoincrement())
+  value               String
+  isPublic            Boolean            @default(false)
+  accountId           Int
+  attributeKeyCourtId Int
+  account             Account            @relation(fields: [accountId], references: [id])
+  attributeKeyCourt   AttributeKeyCourt? @relation(fields: [attributeKeyCourtId], references: [id])
 }

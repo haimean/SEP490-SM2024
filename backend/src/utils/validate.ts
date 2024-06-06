@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import CustomError from '../outcomes/customError.js';
 import { ObjectSchema } from 'joi';
+import CustomError from '../outcomes/customError';
 
 const validate = (schema: ObjectSchema) => {
   return async function (
