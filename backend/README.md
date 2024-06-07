@@ -7,4 +7,4 @@ npx prisma migrate dev
 **Chạy để gen kiểu dữ liệu**
 npx prisma generate
 
-Logger: dung logger
+Logger: sử dụng logger
