@@ -40,6 +40,8 @@ model AttributeBranches {
   attributeKeyBranchesId Int
   account                Account               @relation(fields: [accountId], references: [id])
   attributeKeyBranches   AttributeKeyBranches? @relation(fields: [attributeKeyBranchesId], references: [id])
+
+  @@unique([value, attributeKeyBranchesId])
 }
 
 // Key attribute sân
@@ -58,4 +60,6 @@ model AttributeCourt {
   attributeKeyCourtId Int
   account             Account            @relation(fields: [accountId], references: [id])
   attributeKeyCourt   AttributeKeyCourt? @relation(fields: [attributeKeyCourtId], references: [id])
+
+  @@unique([value, attributeKeyCourtId])
 }
