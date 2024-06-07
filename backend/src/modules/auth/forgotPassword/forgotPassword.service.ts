@@ -1,5 +1,5 @@
-import database from '../../../lib/db.server';
 import { Account } from '@prisma/client';
+import database from '../../../lib/db.server';
 
 const forgotPasswordService = {
   findEmail: async (email: string): Promise<Account | null> => {
@@ -26,6 +26,14 @@ const forgotPasswordService = {
         email: email,
       },
       data: { otp: null, otpExpired: null },
+    });
+  },
+  updatePassword: async (email: string, password: string) => {
+    return await database.account.update({
+      where: {
+        email: email,
+      },
+      data: { password },
     });
   },
 };

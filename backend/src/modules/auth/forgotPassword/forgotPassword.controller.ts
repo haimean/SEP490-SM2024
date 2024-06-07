@@ -1,5 +1,8 @@
 import RandExp from 'randexp';
 import ejs from 'ejs';
+import { Account } from '@prisma/client';
+import dotenv from 'dotenv';
+import bcrypt from 'bcrypt';
 import { NextFunction, Request, Response } from 'express';
 import forgotPasswordService from './forgotPassword.service';
 import CustomError from '../../../outcomes/customError';
@@ -9,8 +12,8 @@ import ResponseHandler from '../../../outcomes/responseHandler';
 import { join } from 'path';
 import { readFileSync } from 'fs';
 import NotFoundError from '../../../outcomes/notFoundError';
-import { Account } from '@prisma/client';
 
+dotenv.config();
 const getEmailContent = (otp: string) => {
   const templatePath = join(
     __dirname,
@@ -75,6 +78,29 @@ const forgotPasswordController = {
         }
       }
       next(new CustomError('Time to check otp is over', 500));
+    }
+  },
+  updatePassword: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      if (process.env.SECRET_JWT_KEY) {
+        const { email, password } = req.body;
+        const hashPassword = await bcrypt.hash(
+          password,
+          parseInt(process.env.SECRET_JWT_KEY)
+        );
+        const account: Account =
+          await forgotPasswordService.updatePassword(
+            email,
+            hashPassword
+          );
+        ResponseHandler(res, account);
+      }
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
     }
   },
 };

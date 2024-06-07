@@ -18,6 +18,11 @@ forgotPasswordRouter.post(
   forgotPasswordMiddleware.findEmail,
   forgotPasswordController.verifyOtp
 );
-forgotPasswordRouter.post('/new-pass');
+forgotPasswordRouter.post(
+  '/new-pass',
+  validate(forgotPasswordValidator.updatePassword),
+  forgotPasswordMiddleware.findEmail,
+  forgotPasswordController.updatePassword
+);
 
 export default forgotPasswordRouter;
