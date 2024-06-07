@@ -13,7 +13,7 @@ attributeCourtRouter.use('/key', attributeKeyCourtRouter);
 attributeCourtRouter.post(
   '/',
   validate(attributeCourtValidator.create),
-  attributeCourtMiddleware.findEmail,
+  attributeCourtMiddleware.findAttributeKeyCourt,
   attributeCourtController.create
 );
 
@@ -21,7 +21,7 @@ attributeCourtRouter.post(
 attributeCourtRouter.put(
   '/:id',
   validate(attributeCourtValidator.update),
-  attributeCourtMiddleware.findEmail,
+  attributeCourtMiddleware.findAttributeKeyCourt,
   attributeCourtController.update
 );
 

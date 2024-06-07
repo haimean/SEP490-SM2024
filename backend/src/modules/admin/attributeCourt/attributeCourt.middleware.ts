@@ -1,26 +1,26 @@
 import { NextFunction, Request, Response } from 'express';
 import CustomError from '../../../outcomes/customError';
-import { AttributeKeyBranches } from '@prisma/client';
+import { AttributeKeyCourt } from '@prisma/client';
 import attributeCourtService from './attributeCourt.service';
+import { AttributeCourtPayLoad } from './attributeCourt.model';
 
 const attributeCourtMiddleware = {
-  findEmail: async (
+  findAttributeKeyCourt: async (
     req: Request,
     res: Response,
     next: NextFunction
   ) => {
     try {
-      const attributeKeyBranchesId = req.body.attributeKeyBranchesId;
-      const attributeKeyBranches: AttributeKeyBranches | null =
-        await attributeCourtService.findAttributeBranches(
+      const data: AttributeCourtPayLoad = req.body;
+      const attributeKeyBranchesId = data.attributeKeyBranchesId;
+      const attributeKeyCourt: AttributeKeyCourt | null =
+        await attributeCourtService.findAttributeKeyCourt(
           attributeKeyBranchesId
         );
-      if (attributeKeyBranches) {
+      if (attributeKeyCourt) {
         next();
       } else {
-        next(
-          new CustomError('Attribute Branches does not exist.', 409)
-        );
+        next(new CustomError('Attribute Court does not exist.', 409));
       }
     } catch (error: any) {
       next(new CustomError(error?.message, 500));

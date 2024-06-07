@@ -1,4 +1,4 @@
-import { AttributeCourt, AttributeKeyBranches } from '@prisma/client';
+import { AttributeCourt, AttributeKeyCourt } from '@prisma/client';
 import database from '../../../lib/db.server';
 
 const removeIdInObject = (data: any) => {
@@ -49,10 +49,10 @@ const attributeCourtService = {
       })) ?? {}
     );
   },
-  findAttributeBranches: async (
+  findAttributeKeyCourt: async (
     id: number
-  ): Promise<AttributeKeyBranches | null> => {
-    return await database.attributeKeyBranches.findFirst({
+  ): Promise<AttributeKeyCourt | null> => {
+    return await database.attributeKeyCourt.findFirst({
       where: {
         id,
       },
