@@ -4,8 +4,15 @@ FONT_END_URL=http://localhost:3000
 
 SECRET_JWT_KEY = 'Hello every one'
 
+# test trên mail google
+SMTP_HOST=smtp.gmail.com
 SMTP_MAIL=haiminh.work@gmail.com
 SMTP_PASS=oxcx wvag qgta uwuo
+
+# test trên mail trap
+SMTP_HOST=sandbox.smtp.mailtrap.io
+SMTP_MAIL=385c7531498ac0
+SMTP_PASS=5236e289b95e1e
 
 DATABASE_URL="mysql://haimean:haimean@localhost:3306/test_prisma"
 
