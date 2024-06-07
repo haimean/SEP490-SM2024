@@ -18,6 +18,7 @@ const middlewares = {
       // if (Date.now() > (jwtObj?.exp || 0) * 1000) {
       //   next(new CustomError('Token is expired', 400));
       // }
+      req.body.account = jwtObj;
       next();
     } catch (e: unknown) {
       if (typeof e === 'string') {

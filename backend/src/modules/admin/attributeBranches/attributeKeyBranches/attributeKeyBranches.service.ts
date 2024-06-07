@@ -28,7 +28,11 @@ const attributeKeyBranchesService = {
     });
   },
   getAll: async (): Promise<any> => {
-    return await database.attributeKeyBranches.findMany();
+    return await database.attributeKeyBranches.findMany({
+      include: {
+        attributeBranches: true,
+      },
+    });
   },
 
   get: async (id: number): Promise<object> => {
@@ -36,6 +40,9 @@ const attributeKeyBranchesService = {
       (await database.attributeKeyBranches.findFirst({
         where: {
           id: id,
+        },
+        include: {
+          attributeBranches: true,
         },
       })) ?? {}
     );
