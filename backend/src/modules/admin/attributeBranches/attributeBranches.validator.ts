@@ -2,11 +2,11 @@ import Joi from 'joi';
 
 const attributeBranchesValidator = {
   update: Joi.object({
-    attributeKeyCourtId: Joi.number().required(),
+    attributeKeyBranchesId: Joi.number().required(),
     value: Joi.string().required(),
   }),
   create: Joi.object({
-    attributeKeyCourtId: Joi.number().required(),
+    attributeKeyBranchesId: Joi.number().required(),
     value: Joi.string().required(),
   }),
 };
