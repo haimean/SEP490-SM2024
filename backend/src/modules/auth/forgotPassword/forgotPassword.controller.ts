@@ -1,5 +1,4 @@
 import RandExp from 'randexp';
-import { Account } from '@prisma/client';
 import ejs from 'ejs';
 import { NextFunction, Request, Response } from 'express';
 import forgotPasswordService from './forgotPassword.service';
@@ -9,6 +8,8 @@ import regex from '../../../utils/regex';
 import ResponseHandler from '../../../outcomes/responseHandler';
 import { join } from 'path';
 import { readFileSync } from 'fs';
+import NotFoundError from '../../../outcomes/notFoundError';
+import { Account } from '@prisma/client';
 
 const getEmailContent = (otp: string) => {
   const templatePath = join(
@@ -47,6 +48,33 @@ const forgotPasswordController = {
       );
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
+    }
+  },
+  verifyOtp: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const otp: string = req.body.otp;
+    const account: Account = req.body.account;
+    //  check map otp
+    if (otp !== account.otp) {
+      next(new NotFoundError({ otp: 'OTP not match' }));
+    } else {
+      let date2: Date = new Date();
+      if (account.otpExpired !== null) {
+        date2 = account.otpExpired;
+        const differenceInMilliseconds = Math.abs(
+          new Date().getTime() - date2.getTime()
+        );
+        const twoMinutesInMilliseconds = 2 * 60 * 1000; // 2 minutes in milliseconds
+        // check time 2min
+        if (differenceInMilliseconds <= twoMinutesInMilliseconds) {
+          await forgotPasswordService.verifyCusses(account.email);
+          ResponseHandler(res, 'Verify OTP successful!');
+        }
+      }
+      next(new CustomError('Time to check otp is over', 500));
     }
   },
 };

@@ -9,6 +9,7 @@ import regex from '../../../utils/regex';
 import ResponseHandler from '../../../outcomes/responseHandler';
 import { join } from 'path';
 import { readFileSync } from 'fs';
+import NotFoundError from '../../../outcomes/notFoundError';
 
 const getEmailComtent = (name: string, otp: string) => {
   const templatePath = join(
@@ -32,6 +33,7 @@ const forgotPasswordMiddleware = {
       const account: Account | null =
         await forgotPasswordService.findEmail(email);
       if (account) {
+        req.body.account = account;
         next();
       } else {
         next(new CustomError('Email does not exist.', 409));

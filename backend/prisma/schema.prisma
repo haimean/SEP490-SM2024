@@ -12,6 +12,7 @@ model Account {
   email             String              @unique
   password          String
   otp               String?
+  otpExpired        DateTime?
   attributeCourt    AttributeCourt[]
   attributeBranches AttributeBranches[]
 }

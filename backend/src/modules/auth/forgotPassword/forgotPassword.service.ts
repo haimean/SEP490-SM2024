@@ -17,7 +17,15 @@ const forgotPasswordService = {
       where: {
         email: email,
       },
-      data: { otp },
+      data: { otp, otpExpired: new Date() },
+    });
+  },
+  verifyCusses: async (email: string): Promise<Account | null> => {
+    return await database.account.update({
+      where: {
+        email: email,
+      },
+      data: { otp: null, otpExpired: null },
     });
   },
 };
