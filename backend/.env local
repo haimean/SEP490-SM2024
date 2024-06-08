@@ -14,6 +14,18 @@ SMTP_HOST=sandbox.smtp.mailtrap.io
 SMTP_MAIL=385c7531498ac0
 SMTP_PASS=5236e289b95e1e
 
+# test tren gmail
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_POST=587
+MAIL_USERNAME=inuyashapc162@gmail.com
+MAIL_PASSWORD=juki sumt jtwf wbtm
+MAIL_ENCRYPTION=TLS
+MAIL_FROM_ADDRESS=inuyashapc162@gmail.com
+MAIL_FROM_NAME="${APP_NAME}"
+
+SECRET_KEY_JWT= '123123$$$@!23'
+
 DATABASE_URL="mysql://haimean:haimean@localhost:3306/test_prisma"
 
 CLOUDINARY_CLOUD_NAME='dqsjc7ny3'
