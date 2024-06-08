@@ -1,47 +1,46 @@
-/*
-  Warnings:
-
-  - You are about to drop the `post` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `user` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropForeignKey
-ALTER TABLE `post` DROP FOREIGN KEY `Post_authorId_fkey`;
-
--- DropTable
-DROP TABLE `post`;
-
--- DropTable
-DROP TABLE `user`;
-
 -- CreateTable
 CREATE TABLE `Account` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `email` VARCHAR(191) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
+    `role` ENUM('USER', 'HOST', 'ADMIN') NOT NULL DEFAULT 'USER',
+    `otp` VARCHAR(191) NULL,
+    `otpExpired` DATETIME(3) NULL,
+    `isVerified` BOOLEAN NOT NULL DEFAULT false,
+    `emailToken` VARCHAR(191) NULL,
 
     UNIQUE INDEX `Account_email_key`(`email`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `AttributeKeyBranche` (
+CREATE TABLE `User` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `accountId` INTEGER NOT NULL,
     `name` VARCHAR(191) NOT NULL,
-    `description` VARCHAR(191) NULL,
+    `dob` DATETIME(3) NOT NULL,
 
-    UNIQUE INDEX `AttributeKeyBranche_name_key`(`name`),
+    UNIQUE INDEX `User_accountId_key`(`accountId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `AttributeBranche` (
+CREATE TABLE `AttributeKeyBranches` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(191) NOT NULL,
+    `description` VARCHAR(191) NULL,
+
+    UNIQUE INDEX `AttributeKeyBranches_name_key`(`name`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `AttributeBranches` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `value` VARCHAR(191) NOT NULL,
     `isPublic` BOOLEAN NOT NULL DEFAULT false,
     `accountId` INTEGER NOT NULL,
-    `attributeKeyCourtId` INTEGER NOT NULL,
-    `attributeKeyBrancheId` INTEGER NULL,
+    `attributeKeyBranchesId` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -68,13 +67,13 @@ CREATE TABLE `AttributeCourt` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `AttributeBranche` ADD CONSTRAINT `AttributeBranche_accountId_fkey` FOREIGN KEY (`accountId`) REFERENCES `Account`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `User` ADD CONSTRAINT `User_accountId_fkey` FOREIGN KEY (`accountId`) REFERENCES `Account`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `AttributeBranche` ADD CONSTRAINT `AttributeBranche_attributeKeyBrancheId_fkey` FOREIGN KEY (`attributeKeyBrancheId`) REFERENCES `AttributeKeyBranche`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `AttributeBranches` ADD CONSTRAINT `AttributeBranches_accountId_fkey` FOREIGN KEY (`accountId`) REFERENCES `Account`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `AttributeBranche` ADD CONSTRAINT `AttributeBranche_attributeKeyCourtId_fkey` FOREIGN KEY (`attributeKeyCourtId`) REFERENCES `AttributeKeyCourt`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `AttributeBranches` ADD CONSTRAINT `AttributeBranches_attributeKeyBranchesId_fkey` FOREIGN KEY (`attributeKeyBranchesId`) REFERENCES `AttributeKeyBranches`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `AttributeCourt` ADD CONSTRAINT `AttributeCourt_accountId_fkey` FOREIGN KEY (`accountId`) REFERENCES `Account`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
