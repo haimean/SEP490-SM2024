@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
 import axios from "axios";
+import InputLabel from "../common/InputLabel";
 
 const CreateAttributeBranchCp = () => {
   const navigate = useNavigate();
@@ -18,12 +19,12 @@ const CreateAttributeBranchCp = () => {
         }
       );
       if (response) {
-        toast.success(`Create ${response?.data?.error} successful!`);
+        toast.success(`Create ${response?.data?.name} successful!`);
         navigate("/branch-attribute");
       }
-      console.log(response?.status);
     } catch (error) {
-      console.error("Error creating attribute:", error);
+      toast.error(error.response.data.error);
+      console.error("Error creating attribute:", error.response.data.error);
     }
   };
 
@@ -31,33 +32,21 @@ const CreateAttributeBranchCp = () => {
     <div className="flex justify-center mt-4">
       <div className="mb-4 w-2/3">
         <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
-          <label
-            htmlFor="name"
-            className="block text-gray-700 text-sm font-bold mb-2"
-          >
-            Name
-          </label>
-          <input
-            {...register("name", { required: true })}
+          <InputLabel
+            label="Name"
             id="name"
-            defaultValue=""
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            register={register}
+            errors={errors}
+            required={true}
           />
-          {errors.name && <p className="text-red-500 text-xs italic">Name is required.</p>}
 
-          <label
-            htmlFor="description"
-            className="block text-gray-700 text-sm font-bold mb-2 mt-4"
-          >
-            Description
-          </label>
-          <input
-            {...register("description", { required: true })}
+          <InputLabel
+            label="Description"
             id="description"
-            defaultValue=""
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            register={register}
+            errors={errors}
+            required={true}
           />
-          {errors.description && <p className="text-red-500 text-xs italic">Description is required.</p>}
 
           <div className="flex justify-end my-4">
             <button

@@ -1,15 +1,21 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/common/Navbar.js';
-import ForgotPassword from './pages/common/forgotPassword/ForgotPassword.js';
-import Login from "./pages/common/login/Login.js";
-import SignUpFormPlayer from './pages/player/signUp/SignUp.js';
-import ListAttributeBranch from './pages/admin/ListAttributeBranch.js';
-import CreateAttributeBranch from './pages/admin/CreateAttributeBranch.js';
-import DetailAttributeBranch from './pages/admin/DetailAttributeBranch.js';
-import { ToastContainer, toast } from 'react-toastify';
+import routes from './routes.js';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+  const getRoutes = () => {
+    return routes.map((route) => {
+      return (
+        <Route 
+          path={route.path}
+          element={route.component}
+          // key={route.path + route.layout}  chưa hiểu để làm gì
+        />
+      )
+    })
+  }
   return (
     <Router>
       <ToastContainer
@@ -28,12 +34,7 @@ function App() {
       <div className="App">
         <Navbar />
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/sign-up-player" element={<SignUpFormPlayer />} />
-          <Route path="/branch-attribute" element={<ListAttributeBranch />} />
-          <Route path="/detail-branch-attribute/:id" element={<DetailAttributeBranch />} />
-          <Route path="/create-branch-attribute" element={<CreateAttributeBranch />} />
+          {getRoutes()}
         </Routes>
       </div>
 
