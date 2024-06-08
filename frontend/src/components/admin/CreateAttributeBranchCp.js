@@ -1,30 +1,29 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { toast } from 'react-toastify';
-import axios from "axios";
 import InputLabel from "../common/InputLabel";
+import CallApi from "../../services/CallApi.js";
+import { toast } from "react-toastify";
 
 const CreateAttributeBranchCp = () => {
-  const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post(
-        "http://localhost:4200/api/admin/attribute-branches/key",
+      const response = await CallApi(
+        '/api/admin/attribute-branches/key',
+        'post',
         {
           name: data.name,
-          description: data.description,
-        }
-      );
-      if (response) {
-        toast.success(`Create ${response?.data?.name} successful!`);
-        navigate("/branch-attribute");
-      }
+          description: data.description
+        },
+        {}
+      )
+      toast.success(`Create ${response?.data?.name} successful!`);
+      navigate('/branch-attribute');
     } catch (error) {
-      toast.error(error.response.data.error);
-      console.error("Error creating attribute:", error.response.data.error);
+      toast.error(error.response?.data?.error);
     }
   };
 

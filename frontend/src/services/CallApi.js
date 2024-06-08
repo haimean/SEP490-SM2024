@@ -9,14 +9,14 @@ const CallApi = async (endpoint, method, body, headers = {}) => {
     headers: {
       ...headers,
     },
-    body,
+    data: body,
   };
 
   try {
     const response = await axios(config);
     return response.data;
   } catch (error) {
-    console.error("Error:", error.response?.data?.error);
+    throw error; //Ném lỗi sang bên component tự xử lý
   }
 };
 export default CallApi;

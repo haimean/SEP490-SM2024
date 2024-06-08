@@ -8,10 +8,11 @@ function App() {
   const getRoutes = () => {
     return routes.map((route) => {
       return (
-        <Route 
+        <Route
+          key={route.path}
           path={route.path}
           element={route.component}
-          // key={route.path + route.layout}  chưa hiểu để làm gì
+        // key={route.path + route.layout}  chưa hiểu để làm gì
         />
       )
     })
