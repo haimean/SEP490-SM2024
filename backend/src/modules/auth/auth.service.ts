@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
-import { PrismaClient, Prisma } from '@prisma/client';
-import bcrypt, { hashSync } from 'bcrypt';
-const prisma = new PrismaClient();
-
+import bcrypt from 'bcrypt';
+import crypto from 'crypto';
+import database from '../../lib/db.server';
+import { Role } from '@prisma/client';
 interface LoginParams {
   loginType: string;
   email: string;
@@ -11,17 +11,22 @@ interface LoginParams {
 interface Register {
   email: string;
   password: string;
+  role: Role;
+}
+interface VerifyEmail {
+  emailToken: string | undefined;
 }
 declare var process: {
   env: {
     SECRET_KEY: string;
     SECRET_KEY_JWT: string;
+    DATABASE_URL: string;
   };
 };
 const authService = {
   login: async ({ loginType, email, password }: LoginParams) => {
     try {
-      const existingUser = await prisma.user.findUnique({
+      const existingUser = await database.account.findUnique({
         where: {
           email,
         },
@@ -60,30 +65,68 @@ const authService = {
     }
   },
 
-  register: async ({ email, password }: Register) => {
+  register: async ({ email, password, role }: Register) => {
     try {
-      let user = await prisma.user.findUnique({
+      let account = await database.account.findUnique({
         where: { email },
       });
-      if (user) {
+      if (account) {
         throw new Error('Account exist');
       } else {
         const hashPassword = await bcrypt.hash(
           password,
           parseInt(process.env.SECRET_KEY)
         );
-        user = await prisma.user.create({
+        // Convert role from string to Role enum
+        // const enumRole = Role[role as keyof typeof Role];
+
+        // if (!enumRole) {
+        //   throw new Error('Invalid role');
+        // }
+        account = await database.account.create({
           data: {
             email,
             password: hashPassword,
+            emailToken: crypto.randomBytes(64).toString('hex'),
+            role,
           },
         });
-        return user;
+        return account;
       }
     } catch (error: any) {
       throw new Error(error.message);
     }
   },
+  findEmail: async ({ emailToken }: VerifyEmail) => {
+    console.log('🚀 ========= emailToken:', emailToken);
+    const account = await database.account.findFirst({
+      where: { emailToken },
+    });
+    // console.log('🚀 ========= account:', account);
+    if (account) {
+      await database.account.update({
+        where: {
+          email: account.email,
+        },
+        data: {
+          emailToken: null,
+          isVerified: true,
+        },
+      });
+      const token = createToken(account.id);
+      return {
+        id: account.id,
+        email: account.email,
+        token,
+        isVerified: account?.isVerified,
+      };
+    } else {
+      throw new Error('Email verification failed, invalid token');
+    }
+  },
 };
-
+const createToken = (id: Number) => {
+  const jwtSecretKey = process.env.SECRET_KEY_JWT;
+  return jwt.sign({ id }, jwtSecretKey, { expiresIn: '3d' });
+};
 export default authService;
