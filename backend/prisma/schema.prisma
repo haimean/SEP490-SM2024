@@ -11,8 +11,17 @@ model Account {
   id                Int                 @id @default(autoincrement())
   email             String              @unique
   password          String
+  role              Role                @default(USER)
+  otp               String?
+  otpExpired        DateTime?
   attributeCourt    AttributeCourt[]
   attributeBranches AttributeBranches[]
+}
+
+enum Role {
+  ADMIN
+  HOST
+  USER
 }
 
 // Key attribute cở sở sân
