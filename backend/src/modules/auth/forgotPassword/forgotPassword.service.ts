@@ -5,7 +5,7 @@ const forgotPasswordService = {
   findEmail: async (email: string): Promise<Account | null> => {
     return await database.account.findFirst({
       where: {
-        email: email,
+        email,
       },
     });
   },

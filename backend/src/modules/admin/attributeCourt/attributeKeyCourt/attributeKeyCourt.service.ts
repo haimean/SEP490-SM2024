@@ -28,7 +28,11 @@ const attributeKeyCourtService = {
     });
   },
   getAll: async (): Promise<any> => {
-    return await database.attributeKeyCourt.findMany();
+    return await database.attributeKeyCourt.findMany({
+      include: {
+        attributeCourt: true,
+      },
+    });
   },
 
   get: async (id: number): Promise<object> => {
@@ -36,6 +40,9 @@ const attributeKeyCourtService = {
       (await database.attributeKeyCourt.findFirst({
         where: {
           id: id,
+        },
+        include: {
+          attributeCourt: true,
         },
       })) ?? {}
     );

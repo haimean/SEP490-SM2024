@@ -10,11 +10,9 @@ import adminRouter from './admin/admin.router';
 const routes: Router = Router();
 routes.use('/', guestRouter);
 routes.use('/auth', authRouter);
-// TODO:  middlewares
-// routes.use('/admin', middlewares.admin, adminRouter);
 routes.use('/admin', adminRouter);
-routes.use('/host', hostRouter);
-routes.use('/player', playerRouter);
+routes.use('/host', middlewares.host, hostRouter);
+routes.use('/player', middlewares.player, playerRouter);
 
 routes.use(errorHandler);
 export default routes;

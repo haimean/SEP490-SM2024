@@ -1,15 +1,24 @@
 import { NextFunction, Request, Response } from 'express';
-import ResponseHandler from '../../../../outcomes/responseHandler';
-import CustomError from '../../../../outcomes/customError';
-import attributeKeyBranchesService from './attributeKeyBranches.service';
-import { AttributeKeyBranchesPayLoad } from './attributeKeyBranches.model';
+import attributeBranchesService from './attributeBranches.service';
+import { AttributeBranchesPayLoad } from './attributeBranches.model';
+import ResponseHandler from '../../../outcomes/responseHandler';
+import CustomError from '../../../outcomes/customError';
+import { AttributeBranches } from '@prisma/client';
 
-const attributeKeyBranchesController = {
+const attributeBranchesController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
-    const data: AttributeKeyBranchesPayLoad = req.body;
+    const data: AttributeBranchesPayLoad = req.body;
     try {
-      const attributeType = await attributeKeyBranchesService.create(
-        data
+      const attributeBranches: AttributeBranches = {
+        accountId: 1,
+        // accountId: req.body.account.id,
+        isPublic: true,
+        value: data.value,
+        attributeKeyBranchesId: data.attributeKeyBranchesId,
+        id: 0,
+      };
+      const attributeType = await attributeBranchesService.create(
+        attributeBranches
       );
       ResponseHandler(res, attributeType);
     } catch (error: any) {
@@ -23,11 +32,19 @@ const attributeKeyBranchesController = {
     }
   },
   update: async (req: Request, res: Response, next: NextFunction) => {
-    const data: AttributeKeyBranchesPayLoad = req.body;
+    const data: AttributeBranchesPayLoad = req.body;
     try {
-      const attributeType = await attributeKeyBranchesService.update(
+      const attributeBranches: AttributeBranches = {
+        accountId: 1,
+        // accountId: req.body.account.id,
+        isPublic: true,
+        value: data.value,
+        attributeKeyBranchesId: data.attributeKeyBranchesId,
+        id: 0,
+      };
+      const attributeType = await attributeBranchesService.update(
         Number(req.params.id),
-        data
+        attributeBranches
       );
       ResponseHandler(res, attributeType);
     } catch (error: any) {
@@ -45,7 +62,7 @@ const attributeKeyBranchesController = {
   },
   getAll: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const data = await attributeKeyBranchesService.getAll();
+      const data = await attributeBranchesService.getAll();
       ResponseHandler(res, data);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
@@ -54,7 +71,7 @@ const attributeKeyBranchesController = {
   get: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = Number(req.params.id);
-      const data = await attributeKeyBranchesService.get(id);
+      const data = await attributeBranchesService.get(id);
       ResponseHandler(res, data);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
@@ -62,4 +79,4 @@ const attributeKeyBranchesController = {
   },
 };
 
-export default attributeKeyBranchesController;
+export default attributeBranchesController;

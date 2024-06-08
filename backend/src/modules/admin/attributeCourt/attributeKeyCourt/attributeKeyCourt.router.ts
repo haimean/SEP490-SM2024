@@ -1,5 +1,4 @@
-import { Request, Response, Router } from 'express';
-import ResponseHandler from '../../../../outcomes/responseHandler';
+import { Router } from 'express';
 import attributeKeyCourtController from './attributeKeyCourt.controller';
 import attributeKeyCourtValidator from './attributeKeyCourt.validator';
 import validate from '../../../../utils/validate';
