@@ -7,6 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  USER
+  HOST
+  ADMIN
+}
+
 model Account {
   id                Int                 @id @default(autoincrement())
   email             String              @unique
@@ -16,12 +22,17 @@ model Account {
   otpExpired        DateTime?
   attributeCourt    AttributeCourt[]
   attributeBranches AttributeBranches[]
+  user              User?
+  isVerified        Boolean             @default(false)
+  emailToken        String?
 }
 
-enum Role {
-  ADMIN
-  HOST
-  USER
+model User {
+  id        Int      @id @default(autoincrement())
+  account   Account  @relation(fields: [accountId], references: [id])
+  accountId Int      @unique // relation scalar field (used in the `@relation` attribute above
+  name      String
+  dob       DateTime
 }
 
 // Key attribute cở sở sân
