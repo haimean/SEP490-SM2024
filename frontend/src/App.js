@@ -1,18 +1,44 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from "./pages/common/login/Login.js";
-import SignUpFormPlayer from './pages/player/signUp/SignUp.js';
-import ForgotPassword from './pages/common/forgotPassword/ForgotPassword.js';
+import Navbar from './components/layout/Navbar.js';
+import routes from './routes.js';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+  const getRoutes = () => {
+    return routes.map((route) => {
+      return (
+        <Route
+          key={route.path}
+          path={route.path}
+          element={route.component}
+        // key={route.path + route.layout}  chưa hiểu để làm gì
+        />
+      )
+    })
+  }
   return (
     <Router>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+
       <div className="App">
+        <Navbar />
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/sign-up-player" element={<SignUpFormPlayer/>} />
-          <Route path="/forgot-password" element={<ForgotPassword/>} />
+          {getRoutes()}
         </Routes>
       </div>
+
     </Router>
   )
 }
