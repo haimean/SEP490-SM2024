@@ -6,6 +6,7 @@ CREATE TABLE `Account` (
     `role` ENUM('USER', 'HOST', 'ADMIN') NOT NULL DEFAULT 'USER',
     `otp` VARCHAR(191) NULL,
     `otpExpired` DATETIME(3) NULL,
+    `isBan` BOOLEAN NOT NULL DEFAULT false,
     `isVerified` BOOLEAN NOT NULL DEFAULT false,
     `emailToken` VARCHAR(191) NULL,
 
@@ -19,6 +20,7 @@ CREATE TABLE `User` (
     `accountId` INTEGER NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `dob` DATETIME(3) NOT NULL,
+    `NumberPhone` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `User_accountId_key`(`accountId`),
     PRIMARY KEY (`id`)
@@ -42,6 +44,7 @@ CREATE TABLE `AttributeBranches` (
     `accountId` INTEGER NOT NULL,
     `attributeKeyBranchesId` INTEGER NOT NULL,
 
+    UNIQUE INDEX `AttributeBranches_value_attributeKeyBranchesId_key`(`value`, `attributeKeyBranchesId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -63,6 +66,7 @@ CREATE TABLE `AttributeCourt` (
     `accountId` INTEGER NOT NULL,
     `attributeKeyCourtId` INTEGER NOT NULL,
 
+    UNIQUE INDEX `AttributeCourt_value_attributeKeyCourtId_key`(`value`, `attributeKeyCourtId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

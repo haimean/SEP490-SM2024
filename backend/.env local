@@ -6,13 +6,17 @@ SECRET_JWT_KEY = 'Hello every one'
 
 # test trên mail google
 SMTP_HOST=smtp.gmail.com
-SMTP_MAIL=haiminh.work@gmail.com
-SMTP_PASS=oxcx wvag qgta uwuo
+SMTP_MAIL=inuyashapc162@gmail.com
+SMTP_PASS=juki sumt jtwf wbtm
+SMTP_PORT=587
+MAIL_FROM_ADDRESS=inuyashapc162@gmail.com
 
 # test trên mail trap
 SMTP_HOST=sandbox.smtp.mailtrap.io
 SMTP_MAIL=385c7531498ac0
 SMTP_PASS=5236e289b95e1e
+SMTP_PORT=2525 
+MAIL_FROM_ADDRESS=inuyashapc162@gmail.com
 
 DATABASE_URL="mysql://haimean:haimean@localhost:3306/test_prisma"
 

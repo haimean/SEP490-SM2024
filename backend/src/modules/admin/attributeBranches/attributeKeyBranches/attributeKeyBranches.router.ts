@@ -1,4 +1,4 @@
-import { Request, Response, Router } from 'express';
+import { Router } from 'express';
 import attributeKeyBranchesController from './attributeKeyBranches.controller';
 import attributeKeyBranchesValidator from './attributeKeyBranches.validator';
 import validate from '../../../../utils/validate';

@@ -6,7 +6,7 @@ dotenv.config();
 const transporter: Transporter = nodemailer.createTransport({
   // config mail server
   host: process.env.SMTP_HOST,
-  port: 2525,
+  port: Number(process.env.SMTP_PORT),
   auth: {
     user: process.env.SMTP_MAIL,
     pass: process.env.SMTP_PASS,
@@ -25,7 +25,7 @@ const sendEmail = async (
   callback: SendMailCallback
 ): Promise<void> => {
   const mainOptions = {
-    from: 'haiminh.work@gmail.com',
+    from: process.env.MAIL_FROM_ADDRESS,
     to: email,
     subject: subject,
     html: text,

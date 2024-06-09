@@ -1,9 +1,22 @@
 import { NextFunction, Request, Response } from 'express';
-import bcrypt from 'bcrypt';
 import authService from './auth.service';
 import ResponseHandler from '../../outcomes/responseHandler';
 import CustomError from '../../outcomes/customError';
-import { sendMail } from '../../lib/mailer';
+import sendEmail from '../../lib/sendEmail';
+import NotFoundError from '../../outcomes/notFoundError';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+import ejs from 'ejs';
+
+const getEmailContent = (link: string) => {
+  const templatePath = join(
+    __dirname,
+    '../../mailTemplate/sendVerify.ejs'
+  );
+  const template = readFileSync(templatePath, 'utf8');
+  return ejs.render(template, { link });
+};
+
 const authController = {
   login: async (req: Request, res: Response, next: NextFunction) => {
     const { loginType, email, password } = req.body;
@@ -30,23 +43,22 @@ const authController = {
         password,
         role,
       });
-
-      const verifyUrl = `http://localhost:4200/api/auth/verify-email/${newAccount.emailToken}`;
-      console.log('Verification URL:', verifyUrl);
-
-      const htmlContent = `<a href="${verifyUrl}">Verify</a>`;
-      sendMail({
-        to: email,
-        subject: 'Verify Email',
+      const verifyUrl = `${
+        req.protocol + '://' + req.get('host')
+      }/api/auth/verify-email/${newAccount.emailToken}`;
+      const htmlContent = getEmailContent(verifyUrl);
+      await sendEmail(
+        email,
         htmlContent,
-      })
-        .then((info) => {
-          console.log('Email sent successfully:', info);
-        })
-        .catch((error) => {
-          console.error('Error sending email:', error);
-        });
-      ResponseHandler(res, newAccount);
+        'Verify Email',
+        async (err: any) => {
+          if (err) {
+            next(new CustomError(err, 500));
+          } else {
+            ResponseHandler(res, newAccount);
+          }
+        }
+      );
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
     }
@@ -58,24 +70,12 @@ const authController = {
   ) => {
     try {
       const emailToken = req.params.emailToken;
-      console.log('🚀 ========= emailToken:', emailToken);
+
       if (!emailToken) {
-        next(new CustomError('Email token not found', 404));
+        next(new NotFoundError('Email token not found'));
       }
-      const data = await authService.findEmail({
-        emailToken,
-      });
-      // console.log('🚀 ========= data:', data);
-      if (data) {
-        ResponseHandler(res, data);
-      } else {
-        next(
-          new CustomError(
-            'Email verification failed, invalid token',
-            404
-          )
-        );
-      }
+      await authService.findEmail(emailToken);
+      res.redirect((process.env.FONT_END_URL as string) + '/login');
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
     }
