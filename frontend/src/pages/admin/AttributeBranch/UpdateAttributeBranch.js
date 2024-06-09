@@ -1,5 +1,5 @@
 import React from 'react';
-import UpdateAttributeBranchCp from '../../components/admin/UpdateAttributeBranchCp.js';
+import UpdateAttributeBranchCp from '../../../components/admin/AttributeBranch/UpdateAttributeBranchCp.js';
 
 const UpdateAttributeBranch = () => {
   return (

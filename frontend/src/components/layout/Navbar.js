@@ -3,6 +3,7 @@ import { useState } from 'react';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from 'react-router-dom';
 
 export default function ButtonAppBar() {
   const [open, setOpen] = useState(false);
@@ -19,7 +20,15 @@ export default function ButtonAppBar() {
             <div className="mr-4">
               <InboxIcon className="h-6 w-6" />
             </div>
-            <span><a href='/branch-attribute'>List Attribute Branch</a></span>
+            <span><Link to='/branch-attribute'>List Attribute Branch</Link></span>
+          </button>
+        </li>
+        <li>
+          <button className="flex items-center p-4 w-full hover:bg-gray-200">
+            <div className="mr-4">
+              <InboxIcon className="h-6 w-6" />
+            </div>
+            <span><Link to='/court-attribute'>List Attribute Court</Link></span>
           </button>
         </li>
       </ul>

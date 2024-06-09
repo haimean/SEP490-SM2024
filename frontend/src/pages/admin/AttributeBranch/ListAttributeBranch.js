@@ -1,5 +1,5 @@
 import React from 'react';
-import ListAttributeBranchCp from '../../components/admin/ListAttributeBranchCp.js';
+import ListAttributeBranchCp from '../../../components/admin/AttributeBranch/ListAttributeBranchCp.js';
 
 
 const ListAttributeBranch = () => {
