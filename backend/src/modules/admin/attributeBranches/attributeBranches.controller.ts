@@ -16,6 +16,8 @@ const attributeBranchesController = {
         value: data.value,
         attributeKeyBranchesId: data.attributeKeyBranchesId,
         id: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       };
       const attributeType = await attributeBranchesService.create(
         attributeBranches
@@ -41,6 +43,8 @@ const attributeBranchesController = {
         value: data.value,
         attributeKeyBranchesId: data.attributeKeyBranchesId,
         id: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       };
       const attributeType = await attributeBranchesService.update(
         Number(req.params.id),
