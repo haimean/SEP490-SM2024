@@ -15,8 +15,13 @@ interface Register {
   email: string;
   password: string;
   role: Role;
+  name: string;
 }
-
+interface LoginGoogle {
+  email: string;
+  role: Role;
+  name: string;
+}
 const authService = {
   login: async ({ loginType, email, password }: LoginParams) => {
     try {
@@ -59,7 +64,7 @@ const authService = {
     }
   },
 
-  register: async ({ email, password, role }: Register) => {
+  register: async ({ email, password, role, name }: Register) => {
     try {
       let account = await database.account.findUnique({
         where: { email },
@@ -78,6 +83,16 @@ const authService = {
             password: hashPassword,
             emailToken: crypto.randomBytes(64).toString('hex'),
             role,
+          },
+        });
+        const user = await database.user.create({
+          data: {
+            accountId: account.id,
+            name,
+            dob: null,
+            NumberPhone: '',
+            createdAt: new Date(),
+            updatedAt: new Date(),
           },
         });
         return account;
@@ -105,6 +120,63 @@ const authService = {
         email: account.email,
         isVerified: account?.isVerified,
       };
+    }
+  },
+  loginGoogle: async ({ email, role, name }: LoginGoogle) => {
+    try {
+      let account = await database.account.findUnique({
+        where: { email },
+      });
+      if (account) {
+        const token = jwt.sign(
+          {
+            data: account,
+          },
+          process.env.SECRET_JWT_KEY as string,
+          {
+            expiresIn: '1d',
+          }
+        );
+        return {
+          ...account,
+          token: token,
+        };
+      } else {
+        account = await database.account.create({
+          data: {
+            email,
+            password: '',
+            emailToken: '',
+            isVerified: true,
+            role,
+          },
+        });
+        const user = await database.user.create({
+          data: {
+            accountId: account.id,
+            name,
+            dob: null,
+            NumberPhone: '',
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+        });
+        const token = jwt.sign(
+          {
+            data: account,
+          },
+          process.env.SECRET_JWT_KEY as string,
+          {
+            expiresIn: '1d',
+          }
+        );
+        return {
+          ...account,
+          token: token,
+        };
+      }
+    } catch (error: any) {
+      throw new Error(error.message);
     }
   },
 };
