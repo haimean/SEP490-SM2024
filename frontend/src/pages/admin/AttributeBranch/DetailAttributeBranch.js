@@ -1,5 +1,5 @@
 import React from 'react';
-import DetailAttributeBranchCp from '../../components/admin/DetailAttributeBranchCp';
+import DetailAttributeBranchCp from '../../../components/admin/AttributeBranch/DetailAttributeBranchCp';
 
 const DetailAttributeBranch = () => {
   return (

@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
-import axios from "axios";
+import CallApi from "../../../services/CallApi.js";
 
 const ListAttributeBranchCp = () => {
-  const [branchAtbList, setBranchAtbList] = useState([]);
+  const [branchAtbKeyList, setBranchAtbKeyList] = useState([]);
 
-  const fetchBranchAtbList = async () => {
+  const fetchBranchAtbKeyList = async () => {
     try {
-      const result = await axios.get(
-        `http://localhost:4200/api/admin/attribute-branches/key`
-      );
-      setBranchAtbList(result?.data?.data);
+      const response = await CallApi(
+        '/api/admin/attribute-branches/key',
+        'get',
+      )
+      setBranchAtbKeyList(response?.data);
     } catch (error) {
-      console.log(
-        "=============== fetch list branch attribute ERROR: " + error
-      );
+      console.log("=============== fetch list branch attribute ERROR: " + error.response?.data?.error);
     }
   };
 
   useEffect(() => {
-    fetchBranchAtbList();
+    fetchBranchAtbKeyList();
   }, []);
 
   return (
@@ -48,7 +47,7 @@ const ListAttributeBranchCp = () => {
               </tr>
             </thead>
             <tbody>
-              {branchAtbList.map((items) => (
+              {branchAtbKeyList.map((items) => (
                 <tr key={items.id} className="border-b last:border-0">
                   <td className="px-4 py-2 border text-center">{items.id}</td>
                   <td className="px-4 py-2 border">

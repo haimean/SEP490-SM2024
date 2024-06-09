@@ -1,18 +1,18 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import InputLabel from "../common/InputLabel";
-import CallApi from "../../services/CallApi.js";
-import { toast } from "react-toastify";
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import InputLabel from '../../common/InputLabel';
+import CallApi from '../../../services/CallApi';
 
-const CreateAttributeBranchCp = () => {
+const CreateAttributeCourtCp = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     try {
       const response = await CallApi(
-        '/api/admin/attribute-branches/key',
+        '/api/admin/attribute-court/key',
         'post',
         {
           name: data.name,
@@ -21,7 +21,7 @@ const CreateAttributeBranchCp = () => {
         {}
       )
       toast.success(`Create ${response?.data?.name} successful!`);
-      navigate('/branch-attribute');
+      navigate('/court-attribute');
     } catch (error) {
       toast.error(error.response?.data?.error);
     }
@@ -61,4 +61,4 @@ const CreateAttributeBranchCp = () => {
   );
 };
 
-export default CreateAttributeBranchCp;
+export default CreateAttributeCourtCp;
