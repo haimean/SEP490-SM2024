@@ -1,6 +1,7 @@
 import ForgotPassword from "./pages/common/forgotPassword/ForgotPassword.js";
 import Login from "./pages/common/login/Login.js";
 import SignUpFormPlayer from "./pages/player/signUp/SignUp.js";
+import SignUpFormHost from "./pages/host/signUp/SignUp.js";
 import ListAttributeBranch from "./pages/admin/AttributeBranch/ListAttributeBranch.js";
 import CreateAttributeBranch from "./pages/admin/AttributeBranch/CreateAttributeBranch.js";
 import DetailAttributeBranch from "./pages/admin/AttributeBranch/DetailAttributeBranch.js";
@@ -23,6 +24,13 @@ const routes = [
     name: "Sign Up Player",
     component: <SignUpFormPlayer />,
     role: "player",
+    layout: "",
+  },
+  {
+    path: "/sign-up-host",
+    name: "Sign Up Host",
+    component: <SignUpFormHost />,
+    role: "host",
     layout: "",
   },
   {

@@ -1,16 +1,16 @@
 import React from 'react';
 import SignUpForm from '../../../components/common/SignUpForm.js';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-const SignUpFormPlayer = () => {
+const SignUpFormHost = () => {
   return (
     <div>
       <GoogleOAuthProvider
          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
-        <SignUpForm role="USER"/>
+        <SignUpForm role="HOST"/>
       </GoogleOAuthProvider>
 
     </div>
   );
 };
 
-export default SignUpFormPlayer;
+export default SignUpFormHost;
