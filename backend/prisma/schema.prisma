@@ -20,26 +20,35 @@ model Account {
   role              Role                @default(USER)
   otp               String?
   otpExpired        DateTime?
+  isBan             Boolean             @default(false)
   attributeCourt    AttributeCourt[]
   attributeBranches AttributeBranches[]
   user              User?
   isVerified        Boolean             @default(false)
   emailToken        String?
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  account   Account  @relation(fields: [accountId], references: [id])
-  accountId Int      @unique // relation scalar field (used in the `@relation` attribute above
-  name      String
-  dob       DateTime
+  id          Int      @id @default(autoincrement())
+  account     Account  @relation(fields: [accountId], references: [id])
+  accountId   Int      @unique // relation scalar field (used in the `@relation` attribute above
+  name        String
+  dob         DateTime
+  NumberPhone String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
+// trình độ
 // Key attribute cở sở sân
 model AttributeKeyBranches {
   id                Int                 @id @default(autoincrement())
   name              String              @unique
   description       String?
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
   attributeBranches AttributeBranches[]
 }
 
@@ -49,6 +58,8 @@ model AttributeBranches {
   isPublic               Boolean               @default(false)
   accountId              Int
   attributeKeyBranchesId Int
+  createdAt              DateTime              @default(now())
+  updatedAt              DateTime              @updatedAt
   account                Account               @relation(fields: [accountId], references: [id])
   attributeKeyBranches   AttributeKeyBranches? @relation(fields: [attributeKeyBranchesId], references: [id])
 
@@ -60,6 +71,8 @@ model AttributeKeyCourt {
   id             Int              @id @default(autoincrement())
   name           String           @unique
   description    String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
   attributeCourt AttributeCourt[]
 }
 
@@ -69,6 +82,8 @@ model AttributeCourt {
   isPublic            Boolean            @default(false)
   accountId           Int
   attributeKeyCourtId Int
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
   account             Account            @relation(fields: [accountId], references: [id])
   attributeKeyCourt   AttributeKeyCourt? @relation(fields: [attributeKeyCourtId], references: [id])
 
