@@ -11,7 +11,7 @@ authRouter.post(
   authController.login
 );
 authRouter.post('/register', authController.register);
-
+authRouter.post('/loginGoogle', authController.loginGoogle);
 authRouter.use('/forgot-password', forgotPasswordRouter);
 
 authRouter.get(

@@ -36,12 +36,13 @@ const authController = {
     res: Response,
     next: NextFunction
   ) => {
-    const { email, password, role } = req.body;
+    const { email, password, role, name } = req.body;
     try {
       const newAccount = await authService.register({
         email,
         password,
         role,
+        name,
       });
       const verifyUrl = `${
         req.protocol + '://' + req.get('host')
@@ -76,6 +77,23 @@ const authController = {
       }
       await authService.findEmail(emailToken);
       res.redirect((process.env.FONT_END_URL as string) + '/login');
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
+  loginGoogle: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const { email, role, name } = req.body;
+    try {
+      const newAccount = await authService.loginGoogle({
+        email,
+        role,
+        name,
+      });
+      ResponseHandler(res, newAccount);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
     }
