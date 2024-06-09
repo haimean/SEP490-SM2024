@@ -17,6 +17,8 @@ const attributeCourtController = {
         value: data.value,
         attributeKeyCourtId: data.attributeKeyBranchesId,
         id: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       };
 
       const attributeType = await attributeCourtService.create(
@@ -44,6 +46,8 @@ const attributeCourtController = {
         value: data.value,
         attributeKeyCourtId: data.attributeKeyBranchesId,
         id: Number(req.params.id),
+        createdAt: new Date(),
+        updatedAt: new Date(),
       };
 
       const attributeType = await attributeCourtService.update(

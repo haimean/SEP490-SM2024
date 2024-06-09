@@ -6,6 +6,8 @@ import database from '../../../lib/db.server';
 
 const removeIdInObject = (data: any) => {
   delete data.id;
+  delete data.createdAt;
+  delete data.updatedAt;
   return data;
 };
 
