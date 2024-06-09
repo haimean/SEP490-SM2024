@@ -47,7 +47,7 @@ const DetailAttributeBranchCp = () => {
               <tr>
                 <th className="px-4 py-2 border">ID</th>
                 <th className="px-4 py-2 border">Value</th>
-                <th className="px-4 py-2 border">Description</th>
+                <th className="px-4 py-2 border">isPulic</th>
               </tr>
             </thead>
             <tbody>
@@ -55,14 +55,9 @@ const DetailAttributeBranchCp = () => {
                 <tr key={items.id} className="border-b last:border-0">
                   <td className="px-4 py-2 border text-center">{items.id}</td>
                   <td className="px-4 py-2 border">
-                    <Link
-                      to={`/detail-branch-attribute/${items.id}`}
-                      className="text-blue-600"
-                    >
-                      {items.name}
-                    </Link>
+                      {items.value}
                   </td>
-                  <td className="px-4 py-2 border">{items.description}</td>
+                  <td className="px-4 py-2 border">{items.isPublic}</td>
                 </tr>
               ))}
             </tbody>
