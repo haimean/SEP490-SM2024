@@ -2,9 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CallApi from '../../../services/CallApi';
 import { FaPlus } from 'react-icons/fa';
+import CreateAttributeCourtCp from './CreateAttributeCourtCp';
 
 const ListAttributeCourtCp = () => {
   const [courtAtbKeyList, setCourtAtbKeyList] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    fetchCourtAtbKeyList();
+  }, []);
 
   const fetchCourtAtbKeyList = async () => {
     try {
@@ -18,23 +24,26 @@ const ListAttributeCourtCp = () => {
     }
   };
 
-  useEffect(() => {
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
     fetchCourtAtbKeyList();
-  }, []);
+  };
 
   return (
     <>
       <div className="flex justify-center min-h-screen py-2">
         <div className="max-w-3xl w-full">
           <div className="flex justify-end mb-4">
-            <button className="border p-2 rounded-md bg-blue-500 flex items-center">
+            <button
+              onClick={openModal}
+              className="border p-2 rounded-md bg-blue-500 flex items-center"
+            >
               <FaPlus className="mr-2 text-white" />
-              <Link
-                to="/create-court-attribute"
-                className="text-white uppercase"
-              >
-                <span className="text-white uppercase">Court Attribute</span>
-              </Link>
+              <span className="text-white uppercase">Court Attribute</span>
             </button>
           </div>
           <h1 className="text-center mb-4">COURT ATTRIBUTE</h1>
@@ -52,7 +61,7 @@ const ListAttributeCourtCp = () => {
                   <td className="px-4 py-2 border text-center">{items.id}</td>
                   <td className="px-4 py-2 border">
                     <Link
-                      to={`/detail-court-attribute/${items.id}`}
+                      to={`/admin/detail-court-attribute/${items.id}`}
                       className="text-blue-600"
                     >
                       {items.name}
@@ -65,6 +74,13 @@ const ListAttributeCourtCp = () => {
           </table>
         </div>
       </div>
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white rounded-lg shadow-lg w-3/4 max-w-2xl">
+            <CreateAttributeCourtCp closeModal={closeModal} />
+          </div>
+        </div>
+      )}
     </>
   );
 };

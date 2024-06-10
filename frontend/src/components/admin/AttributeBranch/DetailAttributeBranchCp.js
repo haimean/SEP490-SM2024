@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import CallApi from "../../../services/CallApi.js";
-import { Link } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 
 const DetailAttributeBranchCp = () => {

@@ -20,7 +20,7 @@ export default function ButtonAppBar() {
             <div className="mr-4">
               <InboxIcon className="h-6 w-6" />
             </div>
-            <span><Link to='/branch-attribute'>List Attribute Branch</Link></span>
+            <span><Link to='/admin/branch-attribute'>List Attribute Branch</Link></span>
           </button>
         </li>
         <li>
@@ -28,7 +28,7 @@ export default function ButtonAppBar() {
             <div className="mr-4">
               <InboxIcon className="h-6 w-6" />
             </div>
-            <span><Link to='/court-attribute'>List Attribute Court</Link></span>
+            <span><Link to='/admin/court-attribute'>List Attribute Court</Link></span>
           </button>
         </li>
       </ul>
