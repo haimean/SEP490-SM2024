@@ -9,6 +9,8 @@ CREATE TABLE `Account` (
     `isBan` BOOLEAN NOT NULL DEFAULT false,
     `isVerified` BOOLEAN NOT NULL DEFAULT false,
     `emailToken` VARCHAR(191) NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     UNIQUE INDEX `Account_email_key`(`email`),
     PRIMARY KEY (`id`)
@@ -18,9 +20,11 @@ CREATE TABLE `Account` (
 CREATE TABLE `User` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `accountId` INTEGER NOT NULL,
-    `name` VARCHAR(191) NOT NULL,
-    `dob` DATETIME(3) NOT NULL,
+    `name` VARCHAR(191) NULL,
+    `dob` DATETIME(3) NULL,
     `NumberPhone` VARCHAR(191) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     UNIQUE INDEX `User_accountId_key`(`accountId`),
     PRIMARY KEY (`id`)
@@ -31,6 +35,8 @@ CREATE TABLE `AttributeKeyBranches` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `description` VARCHAR(191) NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     UNIQUE INDEX `AttributeKeyBranches_name_key`(`name`),
     PRIMARY KEY (`id`)
@@ -43,6 +49,8 @@ CREATE TABLE `AttributeBranches` (
     `isPublic` BOOLEAN NOT NULL DEFAULT false,
     `accountId` INTEGER NOT NULL,
     `attributeKeyBranchesId` INTEGER NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     UNIQUE INDEX `AttributeBranches_value_attributeKeyBranchesId_key`(`value`, `attributeKeyBranchesId`),
     PRIMARY KEY (`id`)
@@ -53,6 +61,8 @@ CREATE TABLE `AttributeKeyCourt` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `description` VARCHAR(191) NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     UNIQUE INDEX `AttributeKeyCourt_name_key`(`name`),
     PRIMARY KEY (`id`)
@@ -65,6 +75,8 @@ CREATE TABLE `AttributeCourt` (
     `isPublic` BOOLEAN NOT NULL DEFAULT false,
     `accountId` INTEGER NOT NULL,
     `attributeKeyCourtId` INTEGER NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     UNIQUE INDEX `AttributeCourt_value_attributeKeyCourtId_key`(`value`, `attributeKeyCourtId`),
     PRIMARY KEY (`id`)

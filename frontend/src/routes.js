@@ -3,12 +3,10 @@ import Login from "./pages/common/login/Login.js";
 import SignUpFormPlayer from "./pages/player/signUp/SignUp.js";
 import SignUpFormHost from "./pages/host/signUp/SignUp.js";
 import ListAttributeBranch from "./pages/admin/AttributeBranch/ListAttributeBranch.js";
-import CreateAttributeBranch from "./pages/admin/AttributeBranch/CreateAttributeBranch.js";
 import DetailAttributeBranch from "./pages/admin/AttributeBranch/DetailAttributeBranch.js";
 import UpdateAttributeBranch from "./pages/admin/AttributeBranch/UpdateAttributeBranch.js";
 import ListAttributeCourt from "./pages/admin/AttributeCourt/ListAttributeCourt.js";
 import DetailAttributeCourt from "./pages/admin/AttributeCourt/DetailAttributeCourt.js";
-import CreateAttributeCourt from "./pages/admin/AttributeCourt/CreateAttributeCourt.js";
 import UpdateAttributeCourt from "./pages/admin/AttributeCourt/UpdateAttributeCourt.js";
 
 const routes = [
@@ -41,23 +39,16 @@ const routes = [
     layout: "",
   },
   {
-    path: "/branch-attribute",
+    path: "/admin/branch-attribute",
     name: "Branch Attribute",
     component: <ListAttributeBranch />,
     role: "admin",
     layout: "",
   },
   {
-    path: "/detail-branch-attribute/:id",
+    path: "/admin/detail-branch-attribute/:id",
     name: "Detail Branch Attribute",
     component: <DetailAttributeBranch />,
-    role: "admin",
-    layout: "",
-  },
-  {
-    path: "/create-branch-attribute",
-    name: "Create Branch Attribute",
-    component: <CreateAttributeBranch />,
     role: "admin",
     layout: "",
   },
@@ -69,23 +60,16 @@ const routes = [
     layout: "",
   },
   {
-    path: "/court-attribute",
+    path: "/admin/court-attribute",
     name: "Court Attribute",
     component: <ListAttributeCourt />,
     role: "admin",
     layout: "",
   },
   {
-    path: "/detail-court-attribute/:id",
+    path: "/admin/detail-court-attribute/:id",
     name: "Detail Court Attribute",
     component: <DetailAttributeCourt />,
-    role: "admin",
-    layout: "",
-  },
-  {
-    path: "/create-court-attribute",
-    name: "Create Court Attribute",
-    component: <CreateAttributeCourt />,
     role: "admin",
     layout: "",
   },

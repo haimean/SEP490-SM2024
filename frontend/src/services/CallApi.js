@@ -1,10 +1,8 @@
 import axios from "axios";
 
-const apiBaseURL = "http://localhost:4200";
-
 const CallApi = async (endpoint, method, body, headers = {}) => {
   const config = {
-    url: `${apiBaseURL}${endpoint}`,
+    url: `${process.env.REACT_APP_BASE_URL_API}${endpoint}`,
     method,
     headers: {
       ...headers,

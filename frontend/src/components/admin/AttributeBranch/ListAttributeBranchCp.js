@@ -2,9 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import CallApi from "../../../services/CallApi.js";
+import CreateAttributeBranchCp from "./CreateAttributeBranchCp.js";
 
 const ListAttributeBranchCp = () => {
   const [branchAtbKeyList, setBranchAtbKeyList] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    fetchBranchAtbKeyList();
+  }, []);
 
   const fetchBranchAtbKeyList = async () => {
     try {
@@ -18,23 +24,26 @@ const ListAttributeBranchCp = () => {
     }
   };
 
-  useEffect(() => {
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
     fetchBranchAtbKeyList();
-  }, []);
+  };
 
   return (
     <>
       <div className="flex justify-center min-h-screen py-2">
         <div className="max-w-3xl w-full">
           <div className="flex justify-end mb-4">
-            <button className="border p-2 rounded-md bg-blue-500 flex items-center">
+            <button
+              onClick={openModal}
+              className="border p-2 rounded-md bg-blue-500 flex items-center"
+            >
               <FaPlus className="mr-2 text-white" />
-              <Link
-                to="/create-branch-attribute"
-                className="text-white uppercase"
-              >
-                <span className="text-white uppercase">Branch Attribute</span>
-              </Link>
+              <span className="text-white uppercase">Branch Attribute</span>
             </button>
           </div>
           <h1 className="text-center mb-4">BRANCH ATTRIBUTE</h1>
@@ -52,7 +61,7 @@ const ListAttributeBranchCp = () => {
                   <td className="px-4 py-2 border text-center">{items.id}</td>
                   <td className="px-4 py-2 border">
                     <Link
-                      to={`/detail-branch-attribute/${items.id}`}
+                      to={`/admin/detail-branch-attribute/${items.id}`}
                       className="text-blue-600"
                     >
                       {items.name}
@@ -65,6 +74,9 @@ const ListAttributeBranchCp = () => {
           </table>
         </div>
       </div>
+      {isModalOpen && (
+        <CreateAttributeBranchCp closeModal={closeModal} />
+      )}
     </>
   );
 };

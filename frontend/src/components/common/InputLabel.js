@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
-const InputLabel = ({ label, id, register, errors, required, pattern, type = "text", minLength }) => {
+const InputLabel = ({ label, id, placeholder, register, errors, required, pattern, type = "text", minLength }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -24,6 +24,7 @@ const InputLabel = ({ label, id, register, errors, required, pattern, type = "te
           {...register(id, { required, pattern, minLength })}
           id={id}
           defaultValue=""
+          placeholder={placeholder}
           type={inputType}
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         />
