@@ -10,6 +10,7 @@ import ListAttributeCourt from "./pages/admin/AttributeCourt/ListAttributeCourt.
 import DetailAttributeCourt from "./pages/admin/AttributeCourt/DetailAttributeCourt.js";
 import CreateAttributeCourt from "./pages/admin/AttributeCourt/CreateAttributeCourt.js";
 import UpdateAttributeCourt from "./pages/admin/AttributeCourt/UpdateAttributeCourt.js";
+import Test from "./pages/test/Test.js";
 
 const routes = [
   {
@@ -94,6 +95,13 @@ const routes = [
     name: "Update Court Attribute",
     component: <UpdateAttributeCourt />,
     role: "admin",
+    layout: "",
+  },
+  {
+    path: "/test",
+    name: "Test",
+    component: <Test />,
+    role: "",
     layout: "",
   },
 ];
