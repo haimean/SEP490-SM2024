@@ -4,13 +4,19 @@ import SignUpFormPlayer from "./pages/player/signUp/SignUp.js";
 import SignUpFormHost from "./pages/host/signUp/SignUp.js";
 import ListAttributeBranch from "./pages/admin/AttributeBranch/ListAttributeBranch.js";
 import DetailAttributeBranch from "./pages/admin/AttributeBranch/DetailAttributeBranch.js";
-import UpdateAttributeBranch from "./pages/admin/AttributeBranch/UpdateAttributeBranch.js";
 import ListAttributeCourt from "./pages/admin/AttributeCourt/ListAttributeCourt.js";
 import DetailAttributeCourt from "./pages/admin/AttributeCourt/DetailAttributeCourt.js";
-import UpdateAttributeCourt from "./pages/admin/AttributeCourt/UpdateAttributeCourt.js";
+import LandingPage from './pages/common/LandingPage.js'
 import Test from "./pages/test/Test.js";
 
 const routes = [
+  {
+    path: "/",
+    name: "Landing Page",
+    component: <LandingPage />,
+    role: "",
+    layout: "",
+  },
   {
     path: "/login",
     name: "Login",
@@ -54,13 +60,6 @@ const routes = [
     layout: "",
   },
   {
-    path: "/update-branch-attribute",
-    name: "Update Branch Attribute",
-    component: <UpdateAttributeBranch />,
-    role: "admin",
-    layout: "",
-  },
-  {
     path: "/admin/court-attribute",
     name: "Court Attribute",
     component: <ListAttributeCourt />,
@@ -71,13 +70,6 @@ const routes = [
     path: "/admin/detail-court-attribute/:id",
     name: "Detail Court Attribute",
     component: <DetailAttributeCourt />,
-    role: "admin",
-    layout: "",
-  },
-  {
-    path: "/update-court-attribute",
-    name: "Update Court Attribute",
-    component: <UpdateAttributeCourt />,
     role: "admin",
     layout: "",
   },

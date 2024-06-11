@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CallApi from '../../../services/CallApi';
 import { FaPlus } from 'react-icons/fa';
-import CreateAttributeCourtCp from './CreateAttributeCourtCp';
+import CreateAttributeCourtCp from './CreateAttributeCourtCp.js';
+import UpdateAttributeCourtCp from './UpdateAttributeCourtCp.js'
 
 const ListAttributeCourtCp = () => {
   const [courtAtbKeyList, setCourtAtbKeyList] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
+  const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
+  const [id, setId] = useState(null);
 
   useEffect(() => {
     fetchCourtAtbKeyList();
@@ -24,22 +27,32 @@ const ListAttributeCourtCp = () => {
     }
   };
 
-  const openModal = () => {
-    setIsModalOpen(true);
+  const openCreateModal = () => {
+    setIsModalCreateOpen(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const closeCreateModal = () => {
+    setIsModalCreateOpen(false);
+    fetchCourtAtbKeyList();
+  };
+
+  const openUpdateModal = (id) => {
+    setId(id);
+    setIsModalUpdateOpen(true);
+  };
+
+  const closeUpdateModal = () => {
+    setIsModalUpdateOpen(false);
     fetchCourtAtbKeyList();
   };
 
   return (
     <>
-      <div className="flex justify-center min-h-screen py-2">
-        <div className="max-w-3xl w-full">
+      <div className="flex justify-center py-2">
+        <div className="max-w-6xl w-full p-10 border rounded-lg shadow bg-white">
           <div className="flex justify-end mb-4">
             <button
-              onClick={openModal}
+              onClick={openCreateModal}
               className="border p-2 rounded-md bg-blue-500 flex items-center"
             >
               <FaPlus className="mr-2 text-white" />
@@ -53,6 +66,7 @@ const ListAttributeCourtCp = () => {
                 <th className="px-4 py-2 border">ID</th>
                 <th className="px-4 py-2 border">Name</th>
                 <th className="px-4 py-2 border">Description</th>
+                <th className="px-4 py-2 border">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -68,19 +82,25 @@ const ListAttributeCourtCp = () => {
                     </Link>
                   </td>
                   <td className="px-4 py-2 border">{items.description}</td>
+                  <td className="px-4 py-2 border text-center w-1/5">
+                    <button
+                      onClick={() => openUpdateModal(items.id)}
+                      className="p-2 bg-blue-500 text-white rounded-md"
+                    >
+                      Edit
+                    </button>
+                    <button className="p-2 bg-red-500 text-white rounded-md ml-2">
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </div>
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white rounded-lg shadow-lg w-3/4 max-w-2xl">
-            <CreateAttributeCourtCp closeModal={closeModal} />
-          </div>
-        </div>
-      )}
+      {isModalCreateOpen && <CreateAttributeCourtCp closeModal={closeCreateModal} />}
+      {isModalUpdateOpen && <UpdateAttributeCourtCp closeModal={closeUpdateModal} id={id} />}
     </>
   );
 };

@@ -3,7 +3,7 @@ import InputLabel from '../../components/common/InputLabel.js'
 
 const ModalCreate = ({ closeModal, handleSubmit, onSubmit, handleClear, register, errors, fields }) => {
   return (
-    <div className="fixed inset-0 flex justify-center items-center bg-gray-600 bg-opacity-50">
+    <div className="fixed inset-0 flex justify-center items-center bg-gray-600 bg-opacity-50 z-[9999]">
       <div className="w-full max-w-md bg-white rounded-lg overflow-hidden">
         <div className="flex justify-between px-4 py-4">
           <div className="flex items-center">
@@ -23,6 +23,7 @@ const ModalCreate = ({ closeModal, handleSubmit, onSubmit, handleClear, register
                 key={input.id}
                 label={input.label}
                 id={input.id}
+                defaultValue={input.defaultValue}
                 placeholder={input.placeholder}
                 register={register}
                 pattern={input.pattern}

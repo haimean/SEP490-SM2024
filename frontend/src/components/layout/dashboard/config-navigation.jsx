@@ -1,4 +1,5 @@
 import SvgColor from "../../svg-color";
+import { FaTags, FaChartBar, FaCodeBranch } from "react-icons/fa";
 // ----------------------------------------------------------------------
 
 const icon = (name) => (
@@ -10,34 +11,19 @@ const icon = (name) => (
 
 const navConfig = [
   {
-    title: "dashboard",
-    path: "/",
-    icon: icon("ic_analytics"),
+    title: "Dashboard",
+    path: "/dashboard",
+    icon: <FaChartBar />,
   },
   {
-    title: "user",
-    path: "/user",
-    icon: icon("ic_user"),
+    title: "Manage Branch Attribute",
+    path: "/admin/branch-attribute",
+    icon: <FaCodeBranch/>,
   },
   {
-    title: "product",
-    path: "/products",
-    icon: icon("ic_cart"),
-  },
-  {
-    title: "blog",
-    path: "/blog",
-    icon: icon("ic_blog"),
-  },
-  {
-    title: "login",
-    path: "/login",
-    icon: icon("ic_lock"),
-  },
-  {
-    title: "Not found",
-    path: "/404",
-    icon: icon("ic_disabled"),
+    title: "Manage Court Attribute",
+    path: "/admin/court-attribute",
+    icon: <FaTags />,
   },
 ];
 
