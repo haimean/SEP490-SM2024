@@ -1,5 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import { AttributeCourtPayLoad } from './attributeCourt.model';
+import {
+  AttributeCourtPayLoad,
+  AttributeCourtUpdatePayLoad,
+} from './attributeCourt.model';
 import attributeCourtService from './attributeCourt.service';
 import ResponseHandler from '../../../outcomes/responseHandler';
 import CustomError from '../../../outcomes/customError';
@@ -17,6 +20,7 @@ const attributeCourtController = {
         value: data.value,
         attributeKeyCourtId: data.attributeKeyCourtId,
         id: 0,
+        isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -36,16 +40,17 @@ const attributeCourtController = {
     }
   },
   update: async (req: Request, res: Response, next: NextFunction) => {
-    const data: AttributeCourtPayLoad = req.body;
+    const data: AttributeCourtUpdatePayLoad = req.body;
     req.body.account.id = 1;
     try {
       const attributeCourt: AttributeCourt = {
+        id: Number(req.params.id),
         accountId: 1,
         // accountId: req.body.account.id,
         isPublic: true,
         value: data.value,
         attributeKeyCourtId: data.attributeKeyCourtId,
-        id: Number(req.params.id),
+        isActive: data.isActive,
         createdAt: new Date(),
         updatedAt: new Date(),
       };

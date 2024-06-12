@@ -1,4 +1,7 @@
-import { AttributeKeyCourtPayLoad } from './attributeKeyCourt.model';
+import {
+  AttributeKeyCourtPayLoad,
+  AttributeKeyCourtUpdatePayLoad,
+} from './attributeKeyCourt.model';
 import database from '../../../../lib/db.server';
 
 const attributeKeyCourtService = {
@@ -11,7 +14,7 @@ const attributeKeyCourtService = {
   },
   update: async (
     id: number,
-    payload: AttributeKeyCourtPayLoad
+    payload: AttributeKeyCourtUpdatePayLoad
   ): Promise<object> => {
     return await database.attributeKeyCourt.update({
       where: {

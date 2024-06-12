@@ -2,7 +2,10 @@ import { NextFunction, Request, Response } from 'express';
 import ResponseHandler from '../../../../outcomes/responseHandler';
 import CustomError from '../../../../outcomes/customError';
 import attributeKeyBranchesService from './attributeKeyBranches.service';
-import { AttributeKeyBranchesPayLoad } from './attributeKeyBranches.model';
+import {
+  AttributeKeyBranchesPayLoad,
+  AttributeKeyBranchesUpdatePayLoad,
+} from './attributeKeyBranches.model';
 
 const attributeKeyBranchesController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
@@ -25,7 +28,7 @@ const attributeKeyBranchesController = {
     }
   },
   update: async (req: Request, res: Response, next: NextFunction) => {
-    const data: AttributeKeyBranchesPayLoad = req.body;
+    const data: AttributeKeyBranchesUpdatePayLoad = req.body;
     try {
       const attributeType = await attributeKeyBranchesService.update(
         Number(req.params.id),

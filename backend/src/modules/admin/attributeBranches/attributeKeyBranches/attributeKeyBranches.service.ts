@@ -1,4 +1,7 @@
-import { AttributeKeyBranchesPayLoad } from './attributeKeyBranches.model';
+import {
+  AttributeKeyBranchesPayLoad,
+  AttributeKeyBranchesUpdatePayLoad,
+} from './attributeKeyBranches.model';
 import database from '../../../../lib/db.server';
 
 const attributeKeyBranchesService = {
@@ -11,7 +14,7 @@ const attributeKeyBranchesService = {
   },
   update: async (
     id: number,
-    payload: AttributeKeyBranchesPayLoad
+    payload: AttributeKeyBranchesUpdatePayLoad
   ): Promise<object> => {
     return await database.attributeKeyBranches.update({
       where: {

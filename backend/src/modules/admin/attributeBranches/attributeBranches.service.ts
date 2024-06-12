@@ -17,10 +17,7 @@ const attributeBranchesService = {
       data: removeIdInObject(payload),
     });
   },
-  update: async (
-    id: number,
-    payload: AttributeBranches
-  ): Promise<object> => {
+  update: async (payload: AttributeBranches): Promise<object> => {
     return await database.attributeBranches.update({
       where: {
         id: payload.id,
