@@ -32,7 +32,7 @@ const UpdateAttributeBranchCp = ({ id, closeModal }) => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await CallApi(
+      await CallApi(
         `/api/admin/attribute-branches/key/${id}`,
         "put",
         {

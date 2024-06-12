@@ -7,6 +7,7 @@ import DetailAttributeBranch from "./pages/admin/AttributeBranch/DetailAttribute
 import ListAttributeCourt from "./pages/admin/AttributeCourt/ListAttributeCourt.js";
 import DetailAttributeCourt from "./pages/admin/AttributeCourt/DetailAttributeCourt.js";
 import LandingPage from './pages/common/LandingPage.js'
+import Profile from './pages/common/profile/Profile.js'
 import Test from "./pages/test/Test.js";
 
 const routes = [
@@ -14,6 +15,13 @@ const routes = [
     path: "/",
     name: "Landing Page",
     component: <LandingPage />,
+    role: "",
+    layout: "",
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: <Profile />,
     role: "",
     layout: "",
   },

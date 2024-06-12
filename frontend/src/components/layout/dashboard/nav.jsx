@@ -136,15 +136,17 @@ export default function Nav({ openNav, onCloseNav }) {
     >
       {upLg ? (
         <Box
-          sx={{
-            height: 1,
-            position: "fixed",
-            width: NAV.WIDTH,
-            borderRight: (theme) => `dashed 1px ${theme.palette.divider}`,
-          }}
-        >
-          {renderContent}
-        </Box>
+        sx={{
+          height: 1,
+          position: "fixed",
+          width: NAV.WIDTH,
+          borderRight: (theme) => `dashed 1px ${theme.palette.divider}`,
+          backgroundImage: 'linear-gradient(to bottom, #b6ddff, #e8f4ff)'
+        }}
+      >
+        {renderContent}
+      </Box>
+      
       ) : (
         <Drawer
           open={openNav}
@@ -182,7 +184,7 @@ function NavItem({ item }) {
         minHeight: 44,
         borderRadius: 0.75,
         typography: "body2",
-        color: "text.secondary",
+        color: "#ffe996",
         textTransform: "capitalize",
         fontWeight: "fontWeightMedium",
         ...(active && {
@@ -193,6 +195,7 @@ function NavItem({ item }) {
             bgcolor: (theme) => alpha(theme.palette.primary.main, 0.16),
           },
         }),
+        backgroundImage: 'linear-gradient(to right, #4aa9ff, #77beff)'
       }}
     >
       <Box component="span" sx={{ width: 24, mr: 2 }}>
