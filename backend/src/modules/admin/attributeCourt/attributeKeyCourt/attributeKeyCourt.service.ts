@@ -17,7 +17,7 @@ const attributeKeyCourtService = {
       where: {
         id: id,
       },
-      data: { name: payload.name },
+      data: payload,
     });
   },
   remove: async (id: number) => {

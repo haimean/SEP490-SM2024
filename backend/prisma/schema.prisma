@@ -26,6 +26,7 @@ model Account {
   user              User?
   isVerified        Boolean             @default(false)
   emailToken        String?
+  isActive          Boolean             @default(true)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
 }
@@ -48,6 +49,7 @@ model AttributeKeyBranches {
   name              String              @unique
   description       String?
   createdAt         DateTime            @default(now())
+  isActive          Boolean             @default(true)
   updatedAt         DateTime            @updatedAt
   attributeBranches AttributeBranches[]
 }
@@ -58,6 +60,7 @@ model AttributeBranches {
   isPublic               Boolean               @default(false)
   accountId              Int
   attributeKeyBranchesId Int
+  isActive               Boolean               @default(true)
   createdAt              DateTime              @default(now())
   updatedAt              DateTime              @updatedAt
   account                Account               @relation(fields: [accountId], references: [id])
@@ -71,6 +74,7 @@ model AttributeKeyCourt {
   id             Int              @id @default(autoincrement())
   name           String           @unique
   description    String?
+  isActive       Boolean          @default(true)
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
   attributeCourt AttributeCourt[]
@@ -83,6 +87,7 @@ model AttributeCourt {
   accountId           Int
   attributeKeyCourtId Int
   createdAt           DateTime           @default(now())
+  isActive            Boolean            @default(true)
   updatedAt           DateTime           @updatedAt
   account             Account            @relation(fields: [accountId], references: [id])
   attributeKeyCourt   AttributeKeyCourt? @relation(fields: [attributeKeyCourtId], references: [id])
