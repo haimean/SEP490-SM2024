@@ -41,7 +41,6 @@ const attributeCourtController = {
   },
   update: async (req: Request, res: Response, next: NextFunction) => {
     const data: AttributeCourtUpdatePayLoad = req.body;
-    req.body.account.id = 1;
     try {
       const attributeCourt: AttributeCourt = {
         id: Number(req.params.id),
