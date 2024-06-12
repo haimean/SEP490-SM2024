@@ -1,6 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import attributeBranchesService from './attributeBranches.service';
-import { AttributeBranchesPayLoad } from './attributeBranches.model';
+import {
+  AttributeBranchesPayLoad,
+  AttributeBranchesUpdatePayLoad,
+} from './attributeBranches.model';
 import ResponseHandler from '../../../outcomes/responseHandler';
 import CustomError from '../../../outcomes/customError';
 import { AttributeBranches } from '@prisma/client';
@@ -16,6 +19,7 @@ const attributeBranchesController = {
         value: data.value,
         attributeKeyBranchesId: data.attributeKeyBranchesId,
         id: 0,
+        isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -34,7 +38,7 @@ const attributeBranchesController = {
     }
   },
   update: async (req: Request, res: Response, next: NextFunction) => {
-    const data: AttributeBranchesPayLoad = req.body;
+    const data: AttributeBranchesUpdatePayLoad = req.body;
     try {
       const attributeBranches: AttributeBranches = {
         accountId: 1,
@@ -42,12 +46,12 @@ const attributeBranchesController = {
         isPublic: true,
         value: data.value,
         attributeKeyBranchesId: data.attributeKeyBranchesId,
-        id: 0,
+        isActive: data.isActive,
+        id: Number(req.params.id),
         createdAt: new Date(),
         updatedAt: new Date(),
       };
       const attributeType = await attributeBranchesService.update(
-        Number(req.params.id),
         attributeBranches
       );
       ResponseHandler(res, attributeType);

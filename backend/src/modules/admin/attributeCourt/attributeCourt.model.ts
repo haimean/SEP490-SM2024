@@ -1,4 +1,10 @@
 export interface AttributeCourtPayLoad {
-  attributeKeyBranchesId: number;
+  attributeKeyCourtId: number;
   value: string;
+}
+
+export interface AttributeCourtUpdatePayLoad {
+  attributeKeyCourtId: number;
+  value: string;
+  isActive: boolean;
 }

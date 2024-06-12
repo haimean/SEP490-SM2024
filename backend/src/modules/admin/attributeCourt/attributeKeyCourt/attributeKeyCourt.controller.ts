@@ -2,7 +2,10 @@ import { NextFunction, Request, Response, Router } from 'express';
 import ResponseHandler from '../../../../outcomes/responseHandler';
 import CustomError from '../../../../outcomes/customError';
 import attributeKeyCourtService from './attributeKeyCourt.service';
-import { AttributeKeyCourtPayLoad } from './attributeKeyCourt.model';
+import {
+  AttributeKeyCourtPayLoad,
+  AttributeKeyCourtUpdatePayLoad,
+} from './attributeKeyCourt.model';
 
 const attributeKeyCourtController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
@@ -23,7 +26,7 @@ const attributeKeyCourtController = {
     }
   },
   update: async (req: Request, res: Response, next: NextFunction) => {
-    const data: AttributeKeyCourtPayLoad = req.body;
+    const data: AttributeKeyCourtUpdatePayLoad = req.body;
     try {
       const attributeType = await attributeKeyCourtService.update(
         Number(req.params.id),
