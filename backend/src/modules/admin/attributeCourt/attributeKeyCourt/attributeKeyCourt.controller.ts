@@ -9,11 +9,13 @@ import {
 
 const attributeKeyCourtController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
-    const data: AttributeKeyCourtPayLoad = req.body;
+    const { name, description }: AttributeKeyCourtPayLoad = req.body;
+
     try {
-      const attributeType = await attributeKeyCourtService.create(
-        data
-      );
+      const attributeType = await attributeKeyCourtService.create({
+        name,
+        description,
+      });
       ResponseHandler(res, attributeType);
     } catch (error: any) {
       if (

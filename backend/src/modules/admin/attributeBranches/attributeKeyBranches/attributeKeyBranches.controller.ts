@@ -9,13 +9,13 @@ import {
 
 const attributeKeyBranchesController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
-    const data: AttributeKeyBranchesPayLoad = req.body;
-    console.log(req.protocol + '://' + req.get('host'));
-
+    const { name, description }: AttributeKeyBranchesPayLoad =
+      req.body;
     try {
-      const attributeType = await attributeKeyBranchesService.create(
-        data
-      );
+      const attributeType = await attributeKeyBranchesService.create({
+        name,
+        description,
+      });
       ResponseHandler(res, attributeType);
     } catch (error: any) {
       if (
