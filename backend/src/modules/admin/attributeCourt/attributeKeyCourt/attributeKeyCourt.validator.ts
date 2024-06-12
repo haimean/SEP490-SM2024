@@ -8,7 +8,6 @@ const attributeKeyCourtValidator = {
   create: Joi.object({
     name: Joi.string().required(),
     description: Joi.string(),
-    isActive: Joi.boolean().required(),
   }),
 };
 

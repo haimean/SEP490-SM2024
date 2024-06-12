@@ -8,7 +8,6 @@ const attributeBranchesValidator = {
   create: Joi.object({
     attributeKeyBranchesId: Joi.number().required(),
     value: Joi.string().required(),
-    isActive: Joi.boolean().required(),
   }),
 };
 

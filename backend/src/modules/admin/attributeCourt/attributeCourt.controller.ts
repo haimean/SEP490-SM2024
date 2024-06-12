@@ -11,7 +11,7 @@ import { AttributeCourt } from '@prisma/client';
 const attributeCourtController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
     const data: AttributeCourtPayLoad = req.body;
-
+    console.log('aaaaaaa', data);
     try {
       const attributeCourt: AttributeCourt = {
         accountId: 1,

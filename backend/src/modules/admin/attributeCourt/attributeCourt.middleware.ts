@@ -12,10 +12,12 @@ const attributeCourtMiddleware = {
   ) => {
     try {
       const data: AttributeCourtPayLoad = req.body;
-      const attributeKeyBranchesId = data.attributeKeyBranchesId;
+      const attributeKeyCourtId = data.attributeKeyCourtId;
+      console.log('aaaa', data);
+      
       const attributeKeyCourt: AttributeKeyCourt | null =
         await attributeCourtService.findAttributeKeyCourt(
-          attributeKeyBranchesId
+          attributeKeyCourtId
         );
       if (attributeKeyCourt) {
         next();

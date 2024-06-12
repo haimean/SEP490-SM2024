@@ -11,6 +11,7 @@ const attributeKeyBranchesController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
     const data: AttributeKeyBranchesPayLoad = req.body;
     console.log(req.protocol + '://' + req.get('host'));
+    console.log('aaaaa', data);
 
     try {
       const attributeType = await attributeKeyBranchesService.create(
