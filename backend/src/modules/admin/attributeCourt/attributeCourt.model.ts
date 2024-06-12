@@ -1,4 +1,4 @@
 export interface AttributeCourtPayLoad {
-  attributeKeyBranchesId: number;
+  attributeKeyCourtId: number;
   value: string;
 }
