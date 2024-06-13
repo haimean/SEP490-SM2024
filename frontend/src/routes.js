@@ -9,6 +9,7 @@ import DetailAttributeCourt from "./pages/admin/AttributeCourt/DetailAttributeCo
 import LandingPage from './pages/common/LandingPage.js'
 import Profile from './pages/common/profile/Profile.js'
 import Test from "./pages/test/Test.js";
+import ChangePasswordPage from "./pages/common/changePassword/ChangePasswordPage.js";
 
 const routes = [
   {
@@ -85,6 +86,13 @@ const routes = [
     path: "/test",
     name: "Test",
     component: <Test />,
+    role: "",
+    layout: "",
+  },
+  {
+    path: "/change-password",
+    name: "Change Password",
+    component: <ChangePasswordPage />,
     role: "",
     layout: "",
   },
