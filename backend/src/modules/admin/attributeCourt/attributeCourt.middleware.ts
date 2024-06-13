@@ -13,8 +13,6 @@ const attributeCourtMiddleware = {
     try {
       const data: AttributeCourtPayLoad = req.body;
       const attributeKeyCourtId = data.attributeKeyCourtId;
-      console.log('aaaa', data);
-      
       const attributeKeyCourt: AttributeKeyCourt | null =
         await attributeCourtService.findAttributeKeyCourt(
           attributeKeyCourtId

@@ -6,11 +6,13 @@ import playerRouter from './player/index.router';
 import middlewares from './index.middleware';
 import authRouter from './auth/auth.router';
 import adminRouter from './admin/admin.router';
+import userRouter from './user/user.router';
 
 const routes: Router = Router();
 routes.use('/', guestRouter);
 routes.use('/auth', authRouter);
-routes.use('/admin', adminRouter);
+routes.use('/user', middlewares.auth, userRouter);
+routes.use('/admin', middlewares.admin, adminRouter);
 routes.use('/host', middlewares.host, hostRouter);
 routes.use('/player', middlewares.player, playerRouter);
 
