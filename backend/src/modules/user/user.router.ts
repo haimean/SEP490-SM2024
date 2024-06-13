@@ -9,4 +9,5 @@ userRouter.put(
   validate(userValidator.changePassword),
   userController.changePassword
 );
+userRouter.get('/profile', userController.profile);
 export default userRouter;

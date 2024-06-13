@@ -51,5 +51,25 @@ const userController = {
       next(new CustomError(error?.message, 500));
     }
   },
+
+  profile: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      // get information account
+      const token = req.headers?.authorization?.split(' ')[1] ?? '';
+      const jwtObj: { data: Account } = jwt.verify(token, secret) as {
+        data: Account;
+      };
+      const account: Account = (await accountServiceBase.findById(
+        jwtObj.data.id
+      )) as Account;
+      ResponseHandler(res, account);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
 };
 export default userController;
