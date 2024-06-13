@@ -30,7 +30,7 @@ const SignUpForm = ({role}) => {
         },
         {}
       );
-      toast.success(`Register successful!`);
+      toast.success(`Đăng kí thành công! Đã gửi mail xác nhận đến email của bạn. Vui lòng xác minh trước khi đăng nhập!`);
       navigate('/login');
     } catch (error) {
       toast.error(error.response?.data?.error);
