@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
 
 const SignUpForm = ({role}) => {
-  console.log(role);
   const { register, handleSubmit, formState: { errors} } = useForm();
   const navigate = useNavigate();
 
@@ -19,7 +18,7 @@ const SignUpForm = ({role}) => {
       return;
     }
     try {
-      const response = await CallApi(
+      await CallApi(
         '/api/auth/register',
         'post',
         {
@@ -40,11 +39,9 @@ const SignUpForm = ({role}) => {
   const handleGoogleLogin = async (credentialResponse) => {
     if (credentialResponse.credential) {
       const decodedToken = jwtDecode(credentialResponse.credential);
-      console.log('Google Login:', decodedToken);
+
       const { email, name, picture } = decodedToken;
-      console.log('Email:', email);
-      console.log('Name:', name);
-      console.log('Avatar:', picture);
+
       try {
         const response = await CallApi(
           '/api/auth/login-google',
@@ -60,7 +57,7 @@ const SignUpForm = ({role}) => {
         localStorage.setItem('accessToken', token);
         toast.success(`Login successful!`);
         navigate('/');
-        console.log(response.data.token);
+
       } catch (error) {
         toast.error(error.response?.data?.error);
       }
@@ -130,7 +127,7 @@ const SignUpForm = ({role}) => {
             text='signup_with'
           />
         </div>
-        <style jsx>{`
+        <style>{`
         ::-ms-reveal {
           display: none;
         }
