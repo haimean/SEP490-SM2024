@@ -38,6 +38,7 @@ const authService = {
           password,
           existingUser.password
         );
+        console.log('isPasswordValid: ', isPasswordValid);
 
         if (!isPasswordValid) {
           throw new Error('Password not correct');
@@ -74,7 +75,7 @@ const authService = {
       } else {
         const hashPassword = await bcrypt.hash(
           password,
-          Number(process.env.SECRET_KEY as string)
+          Number(process.env.SECRET_JWT_KEY as string)
         );
 
         account = await database.account.create({

@@ -6,21 +6,28 @@ import {
 import attributeCourtService from './attributeCourt.service';
 import ResponseHandler from '../../../outcomes/responseHandler';
 import CustomError from '../../../outcomes/customError';
-import { AttributeCourt } from '@prisma/client';
+import { Account, AttributeCourt } from '@prisma/client';
+import jwt, { Secret } from 'jsonwebtoken';
 
 const attributeCourtController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
     const data: AttributeCourtPayLoad = req.body;
 
+    const secret: Secret = process.env.SECRET_JWT_KEY ?? '';
+
+    const token = req.headers?.authorization?.split(' ')[1] ?? '';
+
+    const jwtObj: { data: Account } = jwt.verify(token, secret) as {
+      data: Account;
+    };
     try {
       const attributeCourt: AttributeCourt = {
-        accountId: 1,
-        // accountId: req.body.account.id,
-        isPublic: true,
+        accountId: jwtObj.data.id,
         value: data.value,
         attributeKeyCourtId: data.attributeKeyCourtId,
-        id: 0,
+        isPublic: true,
         isActive: true,
+        id: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -41,11 +48,11 @@ const attributeCourtController = {
   },
   update: async (req: Request, res: Response, next: NextFunction) => {
     const data: AttributeCourtUpdatePayLoad = req.body;
+
     try {
       const attributeCourt: AttributeCourt = {
         id: Number(req.params.id),
-        accountId: 1,
-        // accountId: req.body.account.id,
+        accountId: req.body.account.id,
         isPublic: true,
         value: data.value,
         attributeKeyCourtId: data.attributeKeyCourtId,
