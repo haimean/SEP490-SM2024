@@ -10,6 +10,7 @@ import DetailAttributeCourt from "./pages/admin/AttributeCourt/DetailAttributeCo
 import UpdateAttributeCourt from "./pages/admin/AttributeCourt/UpdateAttributeCourt.js";
 import Test from "./pages/test/Test.js";
 import ChangePasswordPage from "./pages/common/changePassword/ChangePasswordPage.js";
+import ListAccount from "./pages/admin/listAccount/ListAccount.js";
 
 const routes = [
   {
@@ -93,6 +94,13 @@ const routes = [
     path: "/change-password",
     name: "Change Password",
     component: <ChangePasswordPage />,
+    role: "",
+    layout: "",
+  },
+  {
+    path: "/admin/list-account",
+    name: "List Account",
+    component: <ListAccount />,
     role: "",
     layout: "",
   },
