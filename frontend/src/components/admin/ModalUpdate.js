@@ -1,7 +1,8 @@
 import React from 'react';
-import InputLabel from '../../components/common/InputLabel.js'
+import InputLabel from '../common/InputLabel';
+import InputSelect from '../common/InputSelect';
 
-const ModalCreate = ({ closeModal, handleSubmit, onSubmit, handleClear, register, errors, fields }) => {
+const ModalUpdate = ({ closeModal, handleSubmit, onSubmit, handleClear, register, errors, fields }) => {
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-gray-600 bg-opacity-50 z-[9999]">
       <div className="w-full max-w-md bg-white rounded-lg overflow-hidden">
@@ -19,17 +20,32 @@ const ModalCreate = ({ closeModal, handleSubmit, onSubmit, handleClear, register
         <div className="p-4">
           <form onSubmit={handleSubmit(onSubmit)}>
             {fields.inputs.map(input => (
-              <InputLabel
-                key={input.id}
-                label={input.label}
-                id={input.id}
-                defaultValue={input.defaultValue}
-                placeholder={input.placeholder}
-                register={register}
-                pattern={input.pattern}
-                errors={errors}
-                required={input.required}
-              />
+              input.type === 'select' ? (
+                <InputSelect
+                  key={input.id}
+                  label={input.label}
+                  id={input.id}
+                  defaultValue={input.defaultValue}
+                  register={register}
+                  errors={errors}
+                  required={input.required}
+                  options={input.options}
+                />
+              ) : (
+                <InputLabel
+                  key={input.id}
+                  label={input.label}
+                  id={input.id}
+                  defaultValue={input.defaultValue}
+                  placeholder={input.placeholder}
+                  register={register}
+                  pattern={input.pattern}
+                  errors={errors}
+                  required={input.required}
+                  type={input.type}
+                  minLength={input.minLength}
+                />
+              )
             ))}
             <div className="flex justify-end p-2">
               <button
@@ -53,4 +69,4 @@ const ModalCreate = ({ closeModal, handleSubmit, onSubmit, handleClear, register
   );
 };
 
-export default ModalCreate;
+export default ModalUpdate;

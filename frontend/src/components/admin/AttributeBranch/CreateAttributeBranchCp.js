@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import CallApi from "../../../services/CallApi.js";
-import ModalCreate from "../../common/ModalCreate.js";
+import ModalCreate from "../ModalCreate.js";
 
 const CreateAttributeBranchCp = ({ closeModal }) => {
   const {

@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import ModalCreate from "../../common/ModalCreate.js";
+import ModalCreate from "../ModalCreate.js";
 import CallApi from "../../../services/CallApi";
 
 const CreateAtbCourtValueCp = ({ attributeKeyCourtId, closeModal }) => {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaPlus } from "react-icons/fa";
+import ic_tick from '../../assets/svg/ic_tick.svg';
 
 const DetailAttributeKey = ({
   titleCreateButton,
@@ -36,6 +37,7 @@ const DetailAttributeKey = ({
                 <th className="px-4 py-2 border">ID</th>
                 <th className="px-4 py-2 border">Value</th>
                 <th className="px-4 py-2 border">isPublic</th>
+                <th className="px-4 py-2 border">isActive</th>
                 <th className="px-4 py-2 border">Action</th>
               </tr>
             </thead>
@@ -44,7 +46,12 @@ const DetailAttributeKey = ({
                 <tr key={items.id} className="border-b last:border-0">
                   <td className="px-4 py-2 border text-center">{items.id}</td>
                   <td className="px-4 py-2 border">{items.value}</td>
-                  <td className="px-4 py-2 border">{items.isPublic}</td>
+                  <td className="px-4 py-2 border text-center w-5">
+                    {items.isPublic ? <img src={ic_tick} alt="Public" className="h-4 w-4 inline-block" /> : null}
+                  </td>
+                  <td className="px-4 py-2 border text-center w-5">
+                    {items.isActive ? <img src={ic_tick} alt="Active" className="h-4 w-4 inline-block" /> : null}
+                  </td>
                   <td className="px-4 py-2 border text-center w-1/3">
                     <button
                       onClick={() => openUpdateModal(items.id)}

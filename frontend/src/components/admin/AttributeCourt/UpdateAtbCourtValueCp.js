@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import ModalCreate from '../../common/ModalCreate';
 import CallApi from '../../../services/CallApi';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import ModalUpdate from '../ModalUpdate.js';
 
 const UpdateAtbCourtValueCp = ({ id, closeModal, attributeKeyCourtId }) => {
   const [courtAtb, setCourtAtb] = useState({});
@@ -17,7 +17,7 @@ const UpdateAtbCourtValueCp = ({ id, closeModal, attributeKeyCourtId }) => {
   useEffect(() => {
     fetchCourtAtb();
   }, [id])
-
+console.log(id);
   const fetchCourtAtb = async () => {
     try {
       const response = await CallApi(
@@ -33,10 +33,18 @@ const UpdateAtbCourtValueCp = ({ id, closeModal, attributeKeyCourtId }) => {
 
   const onSubmit = async (data) => {
     try {
+      //destructuring data
+      const dataValue = {
+        ...data
+      }
+      //lấy data cần thiết vào body
       const requestData = {
         attributeKeyCourtId: attributeKeyCourtId,
-        value: data.value,
+        value: dataValue.value,
+        isActive: dataValue.isActive
       };
+      console.log(requestData);
+
       await CallApi(
         `/api/admin/attribute-court/${id}`,
         "put",
@@ -55,7 +63,7 @@ const UpdateAtbCourtValueCp = ({ id, closeModal, attributeKeyCourtId }) => {
   };
 
   return (
-    <ModalCreate
+    <ModalUpdate
       closeModal={closeModal}
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
@@ -77,6 +85,17 @@ const UpdateAtbCourtValueCp = ({ id, closeModal, attributeKeyCourtId }) => {
             },
             errors: { errors },
             required: true,
+          },
+          {
+            id: "isActive",
+            label: "Active",
+            defaultValue: courtAtb.isActive ? 'true' : 'false',
+            type: "select",
+            required: true,
+            options: [
+              { value: 'true', label: 'Active' },
+              { value: 'false', label: 'Unactive' },
+            ],
           },
         ],
         submitText: "Update Value",

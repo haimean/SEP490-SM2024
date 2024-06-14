@@ -53,7 +53,7 @@ const attributeCourtController = {
     try {
       const attributeCourt: AttributeCourt = {
         id: Number(req.params.id),
-        accountId: req.body.account.id,
+        accountId: 1,
         isPublic: true,
         value: data.value,
         attributeKeyCourtId: data.attributeKeyCourtId,

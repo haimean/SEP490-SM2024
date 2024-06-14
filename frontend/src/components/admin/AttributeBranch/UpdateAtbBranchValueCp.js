@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ModalCreate from '../../common/ModalCreate';
+import ModalUpdate from '../ModalUpdate.js';
 import CallApi from '../../../services/CallApi';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -40,8 +40,8 @@ const UpdateAtbBranchValueCp = ({ id, closeModal, attributeKeyBranchesId }) => {
       const requestData = {
         attributeKeyBranchesId: attributeKeyBranchesId,
         value: dataValue.value,
+        isActive: dataValue.isActive
       };
-      console.log(requestData);
       await CallApi(
         `/api/admin/attribute-branches/${id}`,
         "put",
@@ -60,7 +60,7 @@ const UpdateAtbBranchValueCp = ({ id, closeModal, attributeKeyBranchesId }) => {
   };
 
   return (
-    <ModalCreate
+    <ModalUpdate
       closeModal={closeModal}
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
@@ -82,6 +82,17 @@ const UpdateAtbBranchValueCp = ({ id, closeModal, attributeKeyBranchesId }) => {
             },
             errors: { errors },
             required: true,
+          },
+          {
+            id: "isActive",
+            label: "Active",
+            defaultValue: branchAtb.isActive ? 'true' : 'false',
+            type: "select",
+            required: true,
+            options: [
+              { value: 'true', label: 'Active' },
+              { value: 'false', label: 'Unactive' },
+            ],
           },
         ],
         submitText: "Update Value",

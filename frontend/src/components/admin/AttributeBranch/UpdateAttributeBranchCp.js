@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ModalCreate from '../../common/ModalCreate';
+import ModalUpdate from '../ModalUpdate'; // Updated import
 import CallApi from '../../../services/CallApi';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -15,14 +15,14 @@ const UpdateAttributeBranchCp = ({ id, closeModal }) => {
 
   useEffect(() => {
     fetchBranchAtbKey();
-  },[id])
+  }, [id]);
 
   const fetchBranchAtbKey = async () => {
     try {
       const response = await CallApi(
         `/api/admin/attribute-branches/key/${id}`,
-        'get',
-      )
+        'get'
+      );
       setBranchAtbKey(response?.data);
       reset(response?.data);
     } catch (error) {
@@ -38,6 +38,7 @@ const UpdateAttributeBranchCp = ({ id, closeModal }) => {
         {
           name: data.name,
           description: data.description,
+          isActive: data.isActive
         },
         {}
       );
@@ -51,8 +52,9 @@ const UpdateAttributeBranchCp = ({ id, closeModal }) => {
   const handleClear = () => {
     reset();
   };
+
   return (
-    <ModalCreate
+    <ModalUpdate
       closeModal={closeModal}
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
@@ -66,25 +68,36 @@ const UpdateAttributeBranchCp = ({ id, closeModal }) => {
             id: "name",
             label: "Name",
             defaultValue: branchAtbKey.name,
-            register: { register },
+            placeholder: "Enter name",
+            type: "text",
             pattern: {
               value: /^\s*\S.*$/,
               message: "Please enter valid character"
             },
-            errors: { errors },
             required: true
           },
           {
             id: "description",
             label: "Description",
             defaultValue: branchAtbKey.description,
-            register: { register },
+            placeholder: "Enter description",
+            type: "text",
             pattern: {
               value: /^\s*\S.*$/,
               message: "Please enter valid character"
             },
-            errors: { errors },
             required: true,
+          },
+          {
+            id: "isActive",
+            label: "Active",
+            defaultValue: branchAtbKey.isActive ? 'true' : 'false',
+            type: "select",
+            required: true,
+            options: [
+              { value: 'true', label: 'Active' },
+              { value: 'false', label: 'Unactive' },
+            ],
           },
         ],
         submitText: "Update",

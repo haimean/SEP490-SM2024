@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ModalCreate from '../../common/ModalCreate';
+import ModalUpdate from '../ModalUpdate.js';
 import CallApi from '../../../services/CallApi';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -38,6 +38,7 @@ const UpdateAttributeCourtCp = ({ id, closeModal }) => {
         {
           name: data.name,
           description: data.description,
+          isActive: data.isActive
         },
         {}
       );
@@ -53,7 +54,7 @@ const UpdateAttributeCourtCp = ({ id, closeModal }) => {
   };
 
   return (
-    <ModalCreate
+    <ModalUpdate
       closeModal={closeModal}
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
@@ -86,6 +87,17 @@ const UpdateAttributeCourtCp = ({ id, closeModal }) => {
             },
             errors: { errors },
             required: true,
+          },
+          {
+            id: "isActive",
+            label: "Active",
+            defaultValue: courtAtbKey.isActive ? 'true' : 'false',
+            type: "select",
+            required: true,
+            options: [
+              { value: 'true', label: 'Active' },
+              { value: 'false', label: 'Unactive' },
+            ],
           },
         ],
         submitText: "Update",
