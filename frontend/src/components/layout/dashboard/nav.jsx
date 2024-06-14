@@ -115,15 +115,16 @@ export default function Nav({ openNav, onCloseNav }) {
         },
       }}
     >
-      <Logo sx={{ mt: 3, ml: 4 }} />
-
-      {renderAccount}
-
-      {renderMenu}
-
-      <Box sx={{ flexGrow: 1 }} />
-
-      {renderUpgrade}
+      <div
+        className="bg-gradient-to-b from-[#daeeff] to-cyan-500"
+        style={{ height: "100%", width: "100%" }}
+      >
+        <Logo sx={{ mt: 3, ml: 4 }} />
+        {renderAccount}
+        {renderMenu}
+        <Box sx={{ flexGrow: 1 }} />
+        {renderUpgrade}
+      </div>
     </Scrollbar>
   );
 
