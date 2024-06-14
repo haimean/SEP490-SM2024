@@ -117,7 +117,7 @@ const ForgotPasswordForm = () => {
   const handleSubmit = async (data) => {
     const { email } = data;
     try {
-      const response = await CallApi(
+       await CallApi(
         '/api/auth/forgot-password',
         'post',
         { email },
@@ -136,7 +136,7 @@ const ForgotPasswordForm = () => {
     const { otp } = data;
 
     try {
-      const response = await CallApi(
+       await CallApi(
         '/api/auth/forgot-password/verify-otp',
         'post',
         {
@@ -146,7 +146,6 @@ const ForgotPasswordForm = () => {
         {}
       );
       toast.success(`OTP verified!`);
-      console.log('OTP:', otp);
       setShowOTPSection(false);
       setShowResetPasswordSection(true);
       clearInterval(timerRef.current);
@@ -157,14 +156,13 @@ const ForgotPasswordForm = () => {
 
   const handleResendOTP = async () => {
     try {
-      const response = await CallApi(
+       await CallApi(
         '/api/auth/forgot-password',
         'post',
         { email },
         {}
       );
       toast.success(`OTP send successful!`);
-      console.log('Resending OTP...');
       setOtpExpired(false);
       setOTPTimer(120);
       clearInterval(timerRef.current);
@@ -196,9 +194,8 @@ const ForgotPasswordForm = () => {
       toast.error('Passwords do not match.');
       return;
     }
-    console.log(email, newPassword);
     try {
-      const response = await CallApi(
+       await CallApi(
         '/api/auth/forgot-password/new-pass',
         'post',
         {
@@ -207,7 +204,6 @@ const ForgotPasswordForm = () => {
         },
         {}
       );
-      console.log('New Password:', newPassword);
       setShowOTPSection(false);
       setShowResetPasswordSection(false);
       setOTPTimer(120);
@@ -242,7 +238,7 @@ const ForgotPasswordForm = () => {
         {showResetPasswordSection && (
           <ResetPasswordForm onSubmit={handleResetPasswordSubmit} />
         )}
-        <style jsx>{`
+        <style>{`
         ::-ms-reveal {
           display: none;
         }

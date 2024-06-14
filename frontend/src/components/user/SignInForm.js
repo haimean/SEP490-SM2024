@@ -1,4 +1,4 @@
-import React, { } from 'react';
+import React, {useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { useForm } from 'react-hook-form';
 import { jwtDecode } from 'jwt-decode';
@@ -6,11 +6,13 @@ import InputLabel from "../common/InputLabel";
 import { toast } from "react-toastify";
 import CallApi from '../../services/CallApi';
 import { useNavigate } from 'react-router-dom';
+import VerifyAccountModal from '../common/VerifyAccountModal';
 
 const SignInForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
-
+  const [showVerifyModal, setShowVerifyModal] = useState(false);
+  const [modalContent, setModalContent] = useState('');
   const onSubmit = async (data) => {
     const { email, password } = data;
     try {
@@ -23,11 +25,16 @@ const SignInForm = () => {
         },
         {}
       );
+      if (!response.data.isVerified) {
+        setModalContent('Tài khoản của bạn chưa được xác minh. Vui lòng kiểm tra email để xác minh tài khoản.');
+        setShowVerifyModal(true);
+        return;
+      }
       const token = response.data.token;
       localStorage.setItem('accessToken', token);
       toast.success(`Login successful!`);
       navigate('/');
-      console.log(response.data.token);
+      console.log(response.data);
     } catch (error) {
       toast.error(error.response?.data?.error);
     }
@@ -69,6 +76,12 @@ const SignInForm = () => {
     console.log('Google Login Failed:', error);
     toast.error('Google login failed. Please try again.');
   };
+
+  const handleCloseModal = () => {
+    setShowVerifyModal(false);
+    setModalContent('');
+  };
+
 
   return (
     <div className="bg-gray-200 flex justify-center items-center h-screen w-screen">
@@ -116,6 +129,14 @@ const SignInForm = () => {
           </a>
         </div>
       </div>
+      <VerifyAccountModal show={showVerifyModal} onClose={handleCloseModal}>
+        {modalContent}
+      </VerifyAccountModal>
+      <style>{`
+        ::-ms-reveal {
+          display: none;
+        }
+      `}</style>
     </div>
   );
 };
