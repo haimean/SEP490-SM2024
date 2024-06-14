@@ -25,18 +25,6 @@ const ListAttributeCourtCp = () => {
       console.log("=============== fetch list court attribute ERROR: " + error.response?.data?.error);
     }
   };
-  
-  // const deleteItem = async (id) => {
-  //   try {
-  //     await CallApi(`/api/admin/attribute-branches/${id}`, "delete");
-  //     fetchBranchAtbKeyList();
-  //   } catch (error) {
-  //     console.log(
-  //       "=============== delete branch attribute ERROR: " +
-  //       error.response?.data?.error
-  //     );
-  //   }
-  // };
 
   const openCreateModal = () => {
     setIsModalCreateOpen(true);
@@ -65,7 +53,6 @@ const ListAttributeCourtCp = () => {
         attributeList={courtAtbKeyList}
         openCreateModal={openCreateModal}
         openUpdateModal={openUpdateModal}
-      // deleteItem={deleteItem}
       />
       {isModalCreateOpen && <CreateAttributeCourtCp closeModal={closeCreateModal} />}
       {isModalUpdateOpen && <UpdateAttributeCourtCp closeModal={closeUpdateModal} id={id} />}

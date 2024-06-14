@@ -88,7 +88,6 @@ const UpdateAtbBranchValueCp = ({ id, closeModal, attributeKeyBranchesId }) => {
             label: "Active",
             defaultValue: branchAtb.isActive ? 'true' : 'false',
             type: "select",
-            required: true,
             options: [
               { value: 'true', label: 'Active' },
               { value: 'false', label: 'Unactive' },

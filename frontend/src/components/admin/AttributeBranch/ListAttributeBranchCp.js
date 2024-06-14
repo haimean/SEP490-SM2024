@@ -29,18 +29,6 @@ const ListAttributeBranchCp = () => {
     }
   };
 
-  // const deleteItem = async (id) => {
-  //   try {
-  //     await CallApi(`/api/admin/attribute-branches/${id}`, "delete");
-  //     fetchBranchAtbKeyList();
-  //   } catch (error) {
-  //     console.log(
-  //       "=============== delete branch attribute ERROR: " +
-  //       error.response?.data?.error
-  //     );
-  //   }
-  // };
-
   const openCreateModal = () => {
     setIsModalCreateOpen(true);
   };
@@ -68,7 +56,6 @@ const ListAttributeBranchCp = () => {
         attributeList={branchAtbKeyList}
         openCreateModal={openCreateModal}
         openUpdateModal={openUpdateModal}
-        // deleteItem={deleteItem}
       />
       {isModalCreateOpen && <CreateAttributeBranchCp closeModal={closeCreateModal} />}
       {isModalUpdateOpen && <UpdateAttributeBranchCp closeModal={closeUpdateModal} id={id} />}

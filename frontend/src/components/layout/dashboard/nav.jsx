@@ -137,16 +137,16 @@ export default function Nav({ openNav, onCloseNav }) {
     >
       {upLg ? (
         <Box
-        sx={{
-          height: 1,
-          position: "fixed",
-          width: NAV.WIDTH,
-          borderRight: (theme) => `dashed 1px ${theme.palette.divider}`,
+          sx={{
+            height: 1,
+            position: "fixed",
+            width: NAV.WIDTH,
+            borderRight: (theme) => `dashed 1px ${theme.palette.divider}`,
           backgroundImage: 'linear-gradient(to bottom, #b6ddff, #e8f4ff)'
-        }}
-      >
-        {renderContent}
-      </Box>
+          }}
+        >
+          {renderContent}
+        </Box>
       
       ) : (
         <Drawer
@@ -185,18 +185,23 @@ function NavItem({ item }) {
         minHeight: 44,
         borderRadius: 0.75,
         typography: "body2",
-        color: "#ffe996",
+        color: "#ffffff", // Màu chữ mặc định
         textTransform: "capitalize",
         fontWeight: "fontWeightMedium",
+        backgroundImage: "linear-gradient(to right, #4aa9ff, #77beff)", // Màu nền mặc định
+        "&:hover": {
+          backgroundImage: "linear-gradient(to right, #3e8cce, #5fa0d3)", // Màu nền khi hover
+          color: "#ffff11", // Màu chữ khi hover
+        },
         ...(active && {
           color: "primary.main",
           fontWeight: "fontWeightSemiBold",
-          bgcolor: (theme) => alpha(theme.palette.primary.main, 0.08),
+          backgroundImage: "linear-gradient(to right, #3e8cce, #5fa0d3)", // Màu nền khi hover
+          color: "#ffff11", // Màu chữ khi hover
           "&:hover": {
             bgcolor: (theme) => alpha(theme.palette.primary.main, 0.16),
           },
         }),
-        backgroundImage: 'linear-gradient(to right, #4aa9ff, #77beff)'
       }}
     >
       <Box component="span" sx={{ width: 24, mr: 2 }}>
