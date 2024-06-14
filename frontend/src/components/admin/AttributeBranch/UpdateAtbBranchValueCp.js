@@ -4,8 +4,8 @@ import CallApi from '../../../services/CallApi';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-const UpdateAttributeCourtCp = ({ id, closeModal }) => {
-  const [courtAtbKey, setCourtAtbKey] = useState({});
+const UpdateAtbBranchValueCp = ({ id, closeModal, attributeKeyBranchesId }) => {
+  const [branchAtb, setBranchAtb] = useState({});
   const {
     register,
     handleSubmit,
@@ -14,35 +14,41 @@ const UpdateAttributeCourtCp = ({ id, closeModal }) => {
   } = useForm();
 
   useEffect(() => {
-    fetchCourtAtbKey();
-  },[id])
+    fetchBranchAtb();
+  }, [id])
 
-  const fetchCourtAtbKey = async () => {
+  const fetchBranchAtb = async () => {
     try {
       const response = await CallApi(
-        `/api/admin/attribute-court/key/${id}`,
+        `/api/admin/attribute-branches/${id}`,
         'get',
       )
-      setCourtAtbKey(response?.data);
+      setBranchAtb(response?.data);
       reset(response?.data);
     } catch (error) {
-      console.log("=============== fetch court attribute ERROR: " + error.response?.data?.error);
+      console.log("=============== fetch branch attribute ERROR: " + error.response?.data?.error);
     }
   };
 
   const onSubmit = async (data) => {
     try {
+      //destructuring data
+      const dataValue = {
+        ...data
+      }
+      //lấy data cần thiết vào body
+      const requestData = {
+        attributeKeyBranchesId: attributeKeyBranchesId,
+        value: dataValue.value,
+        isActive: dataValue.isActive
+      };
       await CallApi(
-        `/api/admin/attribute-court/key/${id}`,
+        `/api/admin/attribute-branches/${id}`,
         "put",
-        {
-          name: data.name,
-          description: data.description,
-          isActive: data.isActive
-        },
+        requestData,
         {}
       );
-      toast.success(`Update court attribute successful!`);
+      toast.success(`Update branch value successful!`);
       closeModal();
     } catch (error) {
       toast.error(error.response?.data?.error);
@@ -62,24 +68,13 @@ const UpdateAttributeCourtCp = ({ id, closeModal }) => {
       register={register}
       errors={errors}
       fields={{
-        title: "Update Court Attribute",
+        title: "Update Branch Value",
         inputs: [
           {
-            id: "name",
-            label: "Name",
-            defaultValue: courtAtbKey.name,
-            register: { register },
-            pattern: {
-              value: /^\s*\S.*$/,
-              message: "Please enter valid character"
-            },
-            errors: { errors },
-            required: true
-          },
-          {
-            id: "description",
-            label: "Description",
-            defaultValue: courtAtbKey.description,
+            id: "value",
+            label: "Value",
+            placeholder: "Value",
+            defaultValue: branchAtb.value,
             register: { register },
             pattern: {
               value: /^\s*\S.*$/,
@@ -91,7 +86,7 @@ const UpdateAttributeCourtCp = ({ id, closeModal }) => {
           {
             id: "isActive",
             label: "Active",
-            defaultValue: courtAtbKey.isActive ? 'true' : 'false',
+            defaultValue: branchAtb.isActive ? 'true' : 'false',
             type: "select",
             required: true,
             options: [
@@ -100,10 +95,10 @@ const UpdateAttributeCourtCp = ({ id, closeModal }) => {
             ],
           },
         ],
-        submitText: "Update",
+        submitText: "Update Value",
       }}
     />
   );
 };
 
-export default UpdateAttributeCourtCp;
+export default UpdateAtbBranchValueCp;

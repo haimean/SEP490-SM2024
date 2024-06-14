@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import ModalUpdate from '../ModalUpdate.js';
 import CallApi from '../../../services/CallApi';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import ModalUpdate from '../ModalUpdate.js';
 
-const UpdateAttributeCourtCp = ({ id, closeModal }) => {
-  const [courtAtbKey, setCourtAtbKey] = useState({});
+const UpdateAtbCourtValueCp = ({ id, closeModal, attributeKeyCourtId }) => {
+  const [courtAtb, setCourtAtb] = useState({});
+
   const {
     register,
     handleSubmit,
@@ -14,16 +15,16 @@ const UpdateAttributeCourtCp = ({ id, closeModal }) => {
   } = useForm();
 
   useEffect(() => {
-    fetchCourtAtbKey();
-  },[id])
-
-  const fetchCourtAtbKey = async () => {
+    fetchCourtAtb();
+  }, [id])
+console.log(id);
+  const fetchCourtAtb = async () => {
     try {
       const response = await CallApi(
-        `/api/admin/attribute-court/key/${id}`,
+        `/api/admin/attribute-court/${id}`,
         'get',
       )
-      setCourtAtbKey(response?.data);
+      setCourtAtb(response?.data);
       reset(response?.data);
     } catch (error) {
       console.log("=============== fetch court attribute ERROR: " + error.response?.data?.error);
@@ -32,17 +33,25 @@ const UpdateAttributeCourtCp = ({ id, closeModal }) => {
 
   const onSubmit = async (data) => {
     try {
+      //destructuring data
+      const dataValue = {
+        ...data
+      }
+      //lấy data cần thiết vào body
+      const requestData = {
+        attributeKeyCourtId: attributeKeyCourtId,
+        value: dataValue.value,
+        isActive: dataValue.isActive
+      };
+      console.log(requestData);
+
       await CallApi(
-        `/api/admin/attribute-court/key/${id}`,
+        `/api/admin/attribute-court/${id}`,
         "put",
-        {
-          name: data.name,
-          description: data.description,
-          isActive: data.isActive
-        },
+        requestData,
         {}
       );
-      toast.success(`Update court attribute successful!`);
+      toast.success(`Update court value successful!`);
       closeModal();
     } catch (error) {
       toast.error(error.response?.data?.error);
@@ -62,24 +71,13 @@ const UpdateAttributeCourtCp = ({ id, closeModal }) => {
       register={register}
       errors={errors}
       fields={{
-        title: "Update Court Attribute",
+        title: "Update Court Value",
         inputs: [
           {
-            id: "name",
-            label: "Name",
-            defaultValue: courtAtbKey.name,
-            register: { register },
-            pattern: {
-              value: /^\s*\S.*$/,
-              message: "Please enter valid character"
-            },
-            errors: { errors },
-            required: true
-          },
-          {
-            id: "description",
-            label: "Description",
-            defaultValue: courtAtbKey.description,
+            id: "value",
+            label: "Value",
+            placeholder: "Value",
+            defaultValue: courtAtb.value,
             register: { register },
             pattern: {
               value: /^\s*\S.*$/,
@@ -91,7 +89,7 @@ const UpdateAttributeCourtCp = ({ id, closeModal }) => {
           {
             id: "isActive",
             label: "Active",
-            defaultValue: courtAtbKey.isActive ? 'true' : 'false',
+            defaultValue: courtAtb.isActive ? 'true' : 'false',
             type: "select",
             required: true,
             options: [
@@ -100,10 +98,10 @@ const UpdateAttributeCourtCp = ({ id, closeModal }) => {
             ],
           },
         ],
-        submitText: "Update",
+        submitText: "Update Value",
       }}
     />
   );
 };
 
-export default UpdateAttributeCourtCp;
+export default UpdateAtbCourtValueCp;

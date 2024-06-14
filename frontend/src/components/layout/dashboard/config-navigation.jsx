@@ -1,4 +1,5 @@
 import SvgColor from "../../svg-color";
+import { FaTags, FaChartBar, FaCodeBranch } from "react-icons/fa";
 // ----------------------------------------------------------------------
 
 const icon = (name) => (
@@ -9,6 +10,21 @@ const icon = (name) => (
 );
 
 const navConfig = [
+  {
+    title: "Dashboard",
+    path: "/dashboard",
+    icon: <FaChartBar />,
+  },
+  {
+    title: "Manage Branch Attribute",
+    path: "/admin/branch-attribute",
+    icon: <FaCodeBranch />,
+  },
+  {
+    title: "Manage Court Attribute",
+    path: "/admin/court-attribute",
+    icon: <FaTags />,
+  },
   {
     title: "dashboard",
     path: "/admin/list-account",

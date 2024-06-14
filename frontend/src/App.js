@@ -33,7 +33,7 @@ function App() {
       />
 
       <div className="App">
-        <Navbar />
+        {/* <Navbar /> */}
         <Routes>
           {getRoutes()}
         </Routes>
