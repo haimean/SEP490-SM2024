@@ -12,6 +12,7 @@ import jwt, { Secret } from 'jsonwebtoken';
 const attributeCourtController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
     const data: AttributeCourtPayLoad = req.body;
+    console.log('aaaaaaa', data);
 
     const secret: Secret = process.env.SECRET_JWT_KEY ?? '';
 
@@ -52,7 +53,7 @@ const attributeCourtController = {
     try {
       const attributeCourt: AttributeCourt = {
         id: Number(req.params.id),
-        accountId: req.body.account.id,
+        accountId: 1,
         isPublic: true,
         value: data.value,
         attributeKeyCourtId: data.attributeKeyCourtId,

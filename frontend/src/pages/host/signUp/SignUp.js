@@ -1,5 +1,5 @@
 import React from 'react';
-import SignUpForm from '../../../components/common/SignUpForm.js';
+import SignUpForm from '../../../components/user/SignUpForm.js';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 const SignUpFormHost = () => {
   return (

@@ -34,7 +34,7 @@ export default function Header({ onOpenNav }) {
         </IconButton>
       )}
 
-      <Searchbar />
+      {/* <Searchbar /> */}
 
       <Box sx={{ flexGrow: 1 }} />
 
@@ -62,6 +62,7 @@ export default function Header({ onOpenNav }) {
           width: `calc(100% - ${NAV.WIDTH + 1}px)`,
           height: HEADER.H_DESKTOP,
         }),
+        backgroundColor:"#f9fafb"
       }}
     >
       <Toolbar

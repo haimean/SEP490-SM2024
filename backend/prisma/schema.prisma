@@ -36,7 +36,7 @@ model Account {
 model User {
   id          Int       @id @default(autoincrement())
   account     Account   @relation(fields: [accountId], references: [id])
-  accountId   Int       @unique // relation scalar field (used in the `@relation` attribute above
+  accountId   Int       @unique // relation scalar field (used in the `@relation` attribute above)
   name        String?
   dob         DateTime?
   numberPhone String

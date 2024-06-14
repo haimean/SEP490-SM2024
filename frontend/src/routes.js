@@ -4,14 +4,29 @@ import SignUpFormPlayer from "./pages/player/signUp/SignUp.js";
 import SignUpFormHost from "./pages/host/signUp/SignUp.js";
 import ListAttributeBranch from "./pages/admin/AttributeBranch/ListAttributeBranch.js";
 import DetailAttributeBranch from "./pages/admin/AttributeBranch/DetailAttributeBranch.js";
-import UpdateAttributeBranch from "./pages/admin/AttributeBranch/UpdateAttributeBranch.js";
 import ListAttributeCourt from "./pages/admin/AttributeCourt/ListAttributeCourt.js";
 import DetailAttributeCourt from "./pages/admin/AttributeCourt/DetailAttributeCourt.js";
-import UpdateAttributeCourt from "./pages/admin/AttributeCourt/UpdateAttributeCourt.js";
+import LandingPage from './pages/common/LandingPage.js'
+import Profile from './pages/common/profile/Profile.js'
 import Test from "./pages/test/Test.js";
 import ChangePasswordPage from "./pages/common/changePassword/ChangePasswordPage.js";
+import ListAccount from "./pages/admin/listAccount/ListAccount.js";
 
 const routes = [
+  {
+    path: "/",
+    name: "Landing Page",
+    component: <LandingPage />,
+    role: "",
+    layout: "",
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: <Profile />,
+    role: "",
+    layout: "",
+  },
   {
     path: "/login",
     name: "Login",
@@ -55,13 +70,6 @@ const routes = [
     layout: "",
   },
   {
-    path: "/update-branch-attribute",
-    name: "Update Branch Attribute",
-    component: <UpdateAttributeBranch />,
-    role: "admin",
-    layout: "",
-  },
-  {
     path: "/admin/court-attribute",
     name: "Court Attribute",
     component: <ListAttributeCourt />,
@@ -76,13 +84,6 @@ const routes = [
     layout: "",
   },
   {
-    path: "/update-court-attribute",
-    name: "Update Court Attribute",
-    component: <UpdateAttributeCourt />,
-    role: "admin",
-    layout: "",
-  },
-  {
     path: "/test",
     name: "Test",
     component: <Test />,
@@ -93,6 +94,13 @@ const routes = [
     path: "/change-password",
     name: "Change Password",
     component: <ChangePasswordPage />,
+    role: "",
+    layout: "",
+  },
+  {
+    path: "/admin/list-account",
+    name: "List Account",
+    component: <ListAccount />,
     role: "",
     layout: "",
   },
