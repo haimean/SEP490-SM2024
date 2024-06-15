@@ -10,14 +10,12 @@ const accountController = {
     next: NextFunction
   ) => {
     try {
-      const { name, isVerify, email, currentPage, pageSize } =
-        req.body;
+      const { name, isVerify, email, pagination } = req.body;
       const result = await accountService.listAccount(
         name,
         isVerify,
         email,
-        Number(currentPage),
-        Number(pageSize)
+        pagination
       );
       ResponseHandler(res, result);
     } catch (error: any) {

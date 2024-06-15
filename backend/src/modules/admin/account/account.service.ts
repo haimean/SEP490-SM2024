@@ -1,31 +1,30 @@
 import database from '../../../lib/db.server';
+import { Pagination } from '../../index.model';
+import { getQueryPagination } from '../../index.service';
 
 const accountService = {
   listAccount: async (
     nameSort: string,
     isVerify: string,
     email: string,
-    currentPage: number,
-    pageSize: number
+    pagination: Pagination
   ) => {
-    const skip = (currentPage - 1) * pageSize;
     const queryOption = {
       include: {
         account: true,
       },
-      skip: skip,
-      take: pageSize,
+      ...getQueryPagination(pagination),
       orderBy: {},
     };
     if (nameSort) {
       queryOption.orderBy = {
-        name: nameSort === 'asc' ? 'asc' : 'desc',
+        name: nameSort,
       };
     }
     if (isVerify) {
       queryOption.orderBy = {
         account: {
-          isVerified: isVerify === 'asc' ? 'asc' : 'desc',
+          isVerified: isVerify,
         },
       };
     }
