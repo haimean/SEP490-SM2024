@@ -20,13 +20,15 @@ model Account {
   role              Role                @default(USER)
   otp               String?
   otpExpired        DateTime?
-  isBan             Boolean             @default(false)
   attributeCourt    AttributeCourt[]
   attributeBranches AttributeBranches[]
   user              User?
+  // check mail hợp hệ 
   isVerified        Boolean             @default(false)
   emailToken        String?
+  // hoạt động của account
   isActive          Boolean             @default(true)
+  isAccept          Boolean             @default(false)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
 }
@@ -37,7 +39,7 @@ model User {
   accountId   Int       @unique // relation scalar field (used in the `@relation` attribute above)
   name        String?
   dob         DateTime?
-  NumberPhone String
+  numberPhone String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }

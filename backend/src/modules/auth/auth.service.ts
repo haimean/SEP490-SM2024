@@ -86,12 +86,12 @@ const authService = {
             role,
           },
         });
-        const user = await database.user.create({
+        await database.user.create({
           data: {
             accountId: account.id,
             name,
             dob: null,
-            NumberPhone: '',
+            numberPhone: '',
             createdAt: new Date(),
             updatedAt: new Date(),
           },
@@ -152,12 +152,12 @@ const authService = {
             role,
           },
         });
-        const user = await database.user.create({
+        await database.user.create({
           data: {
             accountId: account.id,
             name,
             dob: null,
-            NumberPhone: '',
+            numberPhone: '',
             createdAt: new Date(),
             updatedAt: new Date(),
           },
