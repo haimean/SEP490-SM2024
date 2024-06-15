@@ -91,7 +91,6 @@ console.log(id);
             label: "Active",
             defaultValue: courtAtb.isActive ? 'true' : 'false',
             type: "select",
-            required: true,
             options: [
               { value: 'true', label: 'Active' },
               { value: 'false', label: 'Unactive' },

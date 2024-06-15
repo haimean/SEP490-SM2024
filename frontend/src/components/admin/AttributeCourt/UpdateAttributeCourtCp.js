@@ -93,7 +93,6 @@ const UpdateAttributeCourtCp = ({ id, closeModal }) => {
             label: "Active",
             defaultValue: courtAtbKey.isActive ? 'true' : 'false',
             type: "select",
-            required: true,
             options: [
               { value: 'true', label: 'Active' },
               { value: 'false', label: 'Unactive' },
