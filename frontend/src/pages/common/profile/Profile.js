@@ -1,12 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import InputLabel from "../../../components/common/InputLabel";
+import CallApi from "../../../services/CallApi.js";
+import { Link } from "react-router-dom"
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const Profile = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const [profile, setProfile] = useState({});
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        formState: { errors },
+    } = useForm();
 
-    const onSubmit = (data) => {
-        console.log(data);
+    useEffect(() => {
+        fetchProfile();
+    }, []);
+
+    useEffect(() => {
+        if (profile?.user) {
+            setValue("name", profile.user.name);
+            setValue("dob", formatDate(profile.user.dob));
+            setValue("numberPhone", profile.user.numberPhone);
+        }
+    }, [profile, setValue]);
+
+    const fetchProfile = async () => {
+        try {
+            const response = await CallApi(`/api/user/profile`, "get");
+            setProfile(response?.data);
+        } catch (error) {
+            console.log(
+                "=============== fetch court attribute ERROR: " +
+                error.response?.data?.error
+            );
+        }
+    };
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toISOString().split("T")[0];
+    };
+
+    const onSubmit = async (data) => {
+        const requestData = {
+            name: data.name || profile?.user?.name,
+            dob: data.dob || formatDate(profile?.user?.dob),
+            numberPhone: data.numberPhone || profile?.user?.numberPhone
+        };
+        console.log(requestData);
+        try {
+            await CallApi(
+                `/api/user/profile`,
+                "put",
+                requestData,
+                {}
+            );
+            fetchProfile();
+            toast.success(`Cập nhật thông tin cá nhân thành công`);
+        } catch (error) {
+            toast.error(error.response?.data?.error);
+        }
     };
 
     return (
@@ -18,7 +73,7 @@ const Profile = () => {
                         <img
                             src="path/to/avatar.jpg"
                             alt="Avatar"
-                            className="w-32 h-32 rounded-full object-cover"
+                            className="w-32 h-32 rounded-full object-cover bg-blue-500"
                         />
                         {/* <button className="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full p-1">
               <svg
@@ -31,101 +86,80 @@ const Profile = () => {
               </svg>
             </button> */}
                     </div>
-                    <h3 className="mt-4 text-xl font-semibold">Tim Cook</h3>
-                    <p className="text-gray-500">CEO of Apple</p>
+                    <h3 className="mt-4 text-xl font-semibold">{profile?.user?.name}</h3>
+                    <p className="text-gray-500">{profile.role}</p>
                 </div>
-                {/* <div className="mt-6">
-          <ul className="text-center">
-            <li className="py-2 border-b">
-              Opportunities applied:{" "}
-              <span className="font-semibold text-blue-500">32</span>
-            </li>
-            <li className="py-2 border-b">
-              Opportunities won:{" "}
-              <span className="font-semibold text-green-500">26</span>
-            </li>
-            <li className="py-2">
-              Current opportunities:{" "}
-              <span className="font-semibold text-gray-500">6</span>
-            </li>
-          </ul>
-        </div> */}
                 <div className="mt-4 flex justify-center">
                     <button className="px-4 py-2 bg-gray-300 text-gray-700 font-semibold rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
-                        Change Password
+                        <Link to="/change-password">Change Password</Link>
                     </button>
                 </div>
             </div>
 
             {/* Right Section */}
             <div className="w-full lg:w-2/3 p-4">
-                <h2 className="text-2xl font-bold mb-4">Account Settings</h2>
+                <h2 className="text-2xl font-bold mb-4">Thông tin cá nhân</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <InputLabel
-                            label="First Name"
-                            id="firstName"
-                            placeholder="Tim"
+                            label="Họ tên"
+                            id="name"
+                            placeholder="Họ và tên"
                             register={register}
+                            defaultValue={profile?.user?.name}
                             pattern={{
                                 value: /^\s*\S.*$/,
-                                message: "Please enter a valid character"
+                                message: "Vui lòng nhập tên hợp lệ",
                             }}
                             errors={errors}
-                            required={{ value: true, message: "First Name is required" }}
+                            required={true}
                             type="text"
                         />
                         <InputLabel
-                            label="Last Name"
-                            id="lastName"
-                            placeholder="Cook"
+                            label="Số điện thoại"
+                            id="numberPhone"
+                            placeholder="+84 888 888 888"
                             register={register}
+                            defaultValue={profile?.user?.numberPhone}
                             pattern={{
-                                value: /^\s*\S.*$/,
-                                message: "Please enter a valid character"
+                                value: /(84|0[3|5|7|8|9])+([0-9]{8})\b/g,
+                                message: "Vui lòng nhập số điện thoại hợp lệ",
                             }}
                             errors={errors}
-                            required={{ value: true, message: "Last Name is required" }}
-                            type="text"
-                        />
-                        <InputLabel
-                            label="Phone Number"
-                            id="phoneNumber"
-                            placeholder="(408) 996-1010"
-                            register={register}
-                            pattern={{
-                                value: /^\s*\S.*$/,
-                                message: "Please enter a valid character"
-                            }}
-                            errors={errors}
-                            required={{ value: true, message: "Phone Number is required" }}
+                            required={true}
                             type="tel"
                         />
-                        <div>
-                            <label className="block text-gray-700">Email Address</label>
-                            <input
-                                type="email"
-                                placeholder="tcook@apple.com"
-                                className="mt-1 block w-full rounded-md border-gray-500 border p-2 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-gray-700">City</label>
-                            <input
-                                type="text"
-                                placeholder="New York"
-                                className="mt-1 block w-full rounded-md border-gray-500 border p-2 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-gray-700">Country</label>
-                            <select className="mt-1 block w-full rounded-md border-gray-500 border p-2 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                <option>America</option>
-                                <option>Other Country</option>
-                            </select>
-                        </div>
+                        <InputLabel
+                            label="Ngày sinh"
+                            id="dob"
+                            placeholder="01-01-2000"
+                            register={register}
+                            defaultValue={
+                                profile?.user?.dob && formatDate(profile?.user?.dob)
+                            }
+                            pattern={{
+                                value: /^\s*\S.*$/,
+                                message: "Vui lòng chọn ngày tháng năm hợp lệ",
+                            }}
+                            errors={errors}
+                            required={true}
+                            type="date"
+                        />
+                        <InputLabel
+                            label="Email"
+                            id="email"
+                            placeholder="email@example.com"
+                            register={register}
+                            defaultValue={profile?.email}
+                            disabled={true}
+                            pattern={{
+                                value:
+                                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                message: "Vui lòng nhập email hợp lệ",
+                            }}
+                            errors={errors}
+                        />
                     </div>
-
                     <button
                         type="submit"
                         className="mt-6 w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
