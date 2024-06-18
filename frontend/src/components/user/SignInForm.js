@@ -18,6 +18,23 @@ const SignInForm = () => {
   const [modalContent, setModalContent] = useState('');
   const dispatch = useDispatch();
 
+  const manageResponse = (response, email) => {
+    const { token, role } = response.data;
+    localStorage.setItem('accessToken', token);
+    localStorage.setItem('userRole', role); // Lưu vai trò người dùng
+    dispatch(setUser({ user: email, role })); // Cập nhật thông tin người dùng vào Redux
+    toast.success(`Đăng nhập thành công!`);
+    if(role === 'ADMIN'){
+      navigate('/admin/list-account');
+    }
+    else if(role === 'HOST'){
+      navigate('/');
+    }
+    else if(role === 'USER'){
+      navigate('/');
+    }
+  };
+
   const onSubmit = async (data) => {
     const { email, password } = data;
     try {
@@ -35,20 +52,7 @@ const SignInForm = () => {
         setShowVerifyModal(true);
         return;
       }
-      const { token, role } = response.data;
-      localStorage.setItem('accessToken', token);
-      localStorage.setItem('userRole', role); // Lưu vai trò người dùng
-      dispatch(setUser({ user: email, role })); // Cập nhật thông tin người dùng vào Redux
-      toast.success(`Đăng nhập thành công!`);
-      if(role === 'ADMIN'){
-        navigate('/admin/list-account');
-      }
-      else if(role === 'HOST'){
-        navigate('/');
-      }
-      else if(role === 'USER'){
-        navigate('/');
-      }
+      manageResponse(response, email);
     } catch (error) {
       toast.error(error.response?.data?.error);
     }
@@ -73,20 +77,7 @@ const SignInForm = () => {
           },
           {}
         );
-        const { token, role } = response.data;
-        localStorage.setItem('accessToken', token);
-        localStorage.setItem('userRole', role); // Lưu vai trò người dùng
-        dispatch(setUser({ user: email, role })); // Cập nhật thông tin người dùng vào Redux
-        toast.success(`Đăng nhập thành công!`);
-        if(role === 'ADMIN'){
-          navigate('/admin/list-account');
-        }
-        else if(role === 'HOST'){
-          navigate('/');
-        }
-        else if(role === 'USER'){
-          navigate('/');
-        }
+        manageResponse(response, email);
       } catch (error) {
         toast.error(error.response?.data?.error);
       }

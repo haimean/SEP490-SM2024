@@ -43,7 +43,7 @@ const InputLabel = ({ label, id, defaultValue, placeholder, register, errors, re
             ? pattern.message
             : errors[id].type === "minLength"
             ? `${label} must be at least ${minLength} characters.`
-            : errors[id].message != null ? errors[id].message : `${label} is required.`}
+            : `${label} không được để trống`}
         </p>
       )}
     </div>
