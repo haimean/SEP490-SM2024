@@ -11,97 +11,105 @@ import Profile from './pages/common/profile/Profile.js'
 import Test from "./pages/test/Test.js";
 import ChangePasswordPage from "./pages/common/changePassword/ChangePasswordPage.js";
 import ListAccount from "./pages/admin/listAccount/ListAccount.js";
+import NotFound from './pages/common/NotFound/NotFound.js';
 
 const routes = [
   {
     path: "/",
     name: "Landing Page",
     component: <LandingPage />,
-    role: "",
+    role: [], // Không yêu cầu đăng nhập
     layout: "",
   },
   {
     path: "/profile",
     name: "Profile",
     component: <Profile />,
-    role: "",
+    role: ["USER", "HOST", "ADMIN"], // Cho phép cả USER, HOST và ADMIN truy cập
     layout: "",
   },
   {
     path: "/login",
     name: "Login",
     component: <Login />,
-    role: "",
+    role: [], // Không yêu cầu đăng nhập
     layout: "",
   },
   {
     path: "/sign-up-player",
     name: "Sign Up Player",
     component: <SignUpFormPlayer />,
-    role: "player",
+    role: [], // Không yêu cầu đăng nhập
     layout: "",
   },
   {
     path: "/sign-up-host",
     name: "Sign Up Host",
     component: <SignUpFormHost />,
-    role: "host",
+    role: [], // Không yêu cầu đăng nhập
     layout: "",
   },
   {
     path: "/forgot-password",
     name: "Forgot Password",
     component: <ForgotPassword />,
-    role: "",
+    role: [], // Không yêu cầu đăng nhập
     layout: "",
   },
   {
     path: "/admin/branch-attribute",
     name: "Branch Attribute",
     component: <ListAttributeBranch />,
-    role: "admin",
+    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
     layout: "",
   },
   {
     path: "/admin/detail-branch-attribute/:id",
     name: "Detail Branch Attribute",
     component: <DetailAttributeBranch />,
-    role: "admin",
+    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
     layout: "",
   },
   {
     path: "/admin/court-attribute",
     name: "Court Attribute",
     component: <ListAttributeCourt />,
-    role: "admin",
+    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
     layout: "",
   },
   {
     path: "/admin/detail-court-attribute/:id",
     name: "Detail Court Attribute",
     component: <DetailAttributeCourt />,
-    role: "admin",
+    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
     layout: "",
   },
   {
     path: "/test",
     name: "Test",
     component: <Test />,
-    role: "",
+    role: [], // Không yêu cầu đăng nhập
     layout: "",
   },
   {
     path: "/change-password",
     name: "Change Password",
     component: <ChangePasswordPage />,
-    role: "",
+    role: ["USER", "HOST", "ADMIN"], // Cho phép cả USER, HOST và ADMIN truy cập
     layout: "",
   },
   {
     path: "/admin/list-account",
     name: "List Account",
     component: <ListAccount />,
-    role: "",
+    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
+    layout: "",
+  },
+  {
+    path: "/404",
+    name: "Not Found",
+    component: <NotFound />,
+    role: [], // Không yêu cầu đăng nhập
     layout: "",
   },
 ];

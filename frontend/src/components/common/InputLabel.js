@@ -38,12 +38,12 @@ const InputLabel = ({ label, id, defaultValue, placeholder, register, errors, re
         )}
       </div>
       {errors[id] && (
-        <p className="text-red-500 text-xs italic">
+        <p className="text-red-500 text-xs italic mt-1">
           {errors[id].type === "pattern"
             ? pattern.message
             : errors[id].type === "minLength"
             ? `${label} must be at least ${minLength} characters.`
-            : `${label} is required.`}
+            : errors[id].message != null ? errors[id].message : `${label} is required.`}
         </p>
       )}
     </div>
