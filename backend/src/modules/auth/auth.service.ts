@@ -7,7 +7,6 @@ import database from '../../lib/db.server';
 
 dotenv.config();
 interface LoginParams {
-  loginType: string;
   email: string;
   password: string;
 }
@@ -23,7 +22,7 @@ interface LoginGoogle {
   name: string;
 }
 const authService = {
-  login: async ({ loginType, email, password }: LoginParams) => {
+  login: async ({ email, password }: LoginParams) => {
     try {
       const existingUser = await database.account.findUnique({
         where: {
@@ -41,16 +40,14 @@ const authService = {
       if (!isBan) {
         throw new Error('Ban account');
       }
-      if (loginType === 'Normal') {
-        const isPasswordValid = await bcrypt.compare(
-          password,
-          existingUser.password
-        );
-        console.log('isPasswordValid: ', isPasswordValid);
+      const isPasswordValid = await bcrypt.compare(
+        password,
+        existingUser.password
+      );
+      console.log('isPasswordValid: ', isPasswordValid);
 
-        if (!isPasswordValid) {
-          throw new Error('Password not correct');
-        }
+      if (!isPasswordValid) {
+        throw new Error('Password not correct');
       }
 
       const token = jwt.sign(

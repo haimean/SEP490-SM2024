@@ -19,10 +19,9 @@ const getEmailContent = (link: string) => {
 
 const authController = {
   login: async (req: Request, res: Response, next: NextFunction) => {
-    const { loginType, email, password } = req.body;
+    const { email, password } = req.body;
     try {
       const newAccount = await authService.login({
-        loginType: loginType ? loginType : 'Normal',
         email,
         password,
       });
