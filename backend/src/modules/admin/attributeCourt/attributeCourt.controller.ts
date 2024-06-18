@@ -12,7 +12,6 @@ import jwt, { Secret } from 'jsonwebtoken';
 const attributeCourtController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
     const data: AttributeCourtPayLoad = req.body;
-    console.log('aaaaaaa', data);
 
     const secret: Secret = process.env.SECRET_JWT_KEY ?? '';
 

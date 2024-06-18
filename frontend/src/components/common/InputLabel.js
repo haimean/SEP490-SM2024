@@ -1,8 +1,21 @@
-import React, { useState } from 'react';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import React, { useState } from "react";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
-const InputLabel = ({ label, id, defaultValue, placeholder, register, errors, required, pattern, type = "text", minLength }) => {
+const InputLabel = ({
+  label,
+  id,
+  defaultValue,
+  disabled,
+  readOnly,
+  placeholder,
+  register,
+  errors,
+  required,
+  pattern,
+  type = "text",
+  minLength,
+}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -26,14 +39,16 @@ const InputLabel = ({ label, id, defaultValue, placeholder, register, errors, re
           defaultValue={defaultValue}
           placeholder={placeholder}
           type={inputType}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          disabled={disabled}
+          readOnly={readOnly}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-normal focus:outline-none focus:shadow-outline"
         />
         {type === "password" && (
           <span
             onClick={togglePasswordVisibility}
             className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 cursor-pointer"
           >
-            {showPassword ? <RemoveRedEyeIcon/> : <VisibilityOffIcon/>}
+            {showPassword ? <RemoveRedEyeIcon /> : <VisibilityOffIcon />}
           </span>
         )}
       </div>
@@ -43,7 +58,8 @@ const InputLabel = ({ label, id, defaultValue, placeholder, register, errors, re
             ? pattern.message
             : errors[id].type === "minLength"
             ? `${label} must be at least ${minLength} characters.`
-            : errors[id].message != null ? errors[id].message : `${label} is required.`}
+            : errors[id].message != null ? errors[id].message
+            : `${label} không được để trống`}
         </p>
       )}
     </div>
