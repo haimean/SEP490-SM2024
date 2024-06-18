@@ -1,5 +1,6 @@
 import React from 'react';
 import ForgotPasswordForm from '../../../components/user/ForgotPasswordForm.js';
+import withAuthRedirect from '../../../utils/withAuthRedirect.js';
 const ForgotPassword = () => {
   return (
     <div>
@@ -8,4 +9,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default withAuthRedirect(ForgotPassword, '/');

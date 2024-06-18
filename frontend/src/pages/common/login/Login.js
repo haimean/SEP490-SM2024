@@ -1,6 +1,7 @@
 import React from 'react';
 import SignInForm from '../../../components/user/SignInForm.js';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import withAuthRedirect from '../../../utils/withAuthRedirect.js';
 const Login = () => {
   return (
     <div>
@@ -13,4 +14,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default withAuthRedirect(Login, '/');

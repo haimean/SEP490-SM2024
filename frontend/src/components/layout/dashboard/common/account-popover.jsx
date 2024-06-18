@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch, useSelector } from 'react-redux';
+import { clearUser } from '../../../../redux/userSlice';
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
@@ -36,8 +37,19 @@ export default function AccountPopover() {
   const [open, setOpen] = useState(null);
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
+
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
+  };
+
+  const handleLogout = () => {
+    setOpen(null);
+      dispatch(clearUser());
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('userRole');
+      navigate('/login');
   };
 
   const handleClose = () => {
@@ -45,7 +57,7 @@ export default function AccountPopover() {
   };
 
   const handleMenuItemClick = (link) => {
-    handleClose();
+    setOpen(null);
     if (link) {
       navigate(link);
     }
@@ -67,7 +79,7 @@ export default function AccountPopover() {
       >
         <Avatar
           src={account.photoURL}
-          alt={account.displayName}
+          alt={user.email}
           sx={{
             width: 36,
             height: 36,
@@ -98,7 +110,7 @@ export default function AccountPopover() {
             {account.displayName}
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
-            {account.email}
+            {user}
           </Typography>
         </Box>
 
@@ -115,10 +127,10 @@ export default function AccountPopover() {
         <MenuItem
           disableRipple
           disableTouchRipple
-          onClick={handleClose}
+          onClick={handleLogout}
           sx={{ typography: "body2", color: "error.main", py: 1.5 }}
         >
-          Logout
+          Log out
         </MenuItem>
       </Popover>
     </>

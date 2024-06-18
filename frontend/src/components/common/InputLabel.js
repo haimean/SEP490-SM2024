@@ -53,11 +53,11 @@ const InputLabel = ({
         )}
       </div>
       {errors[id] && (
-        <p className="text-red-500 text-xs italic">
+        <p className="text-red-500 text-xs italic mt-1">
           {errors[id].type === "pattern"
             ? pattern.message
             : errors[id].type === "minLength"
-            ? `${label} must be at least ${minLength} characters.`
+            ? `${label} phải có nhiều hơn ${minLength} kí tự.`
             : `${label} không được để trống`}
         </p>
       )}

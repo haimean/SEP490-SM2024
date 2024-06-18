@@ -7,12 +7,34 @@ import { toast } from "react-toastify";
 import CallApi from '../../services/CallApi';
 import { useNavigate } from 'react-router-dom';
 import VerifyAccountModal from '../common/VerifyAccountModal';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../redux/userSlice.js';
+
 
 const SignInForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
   const [showVerifyModal, setShowVerifyModal] = useState(false);
   const [modalContent, setModalContent] = useState('');
+  const dispatch = useDispatch();
+
+  const manageResponse = (response, email) => {
+    const { token, role } = response.data;
+    localStorage.setItem('accessToken', token);
+    localStorage.setItem('userRole', role); // Lưu vai trò người dùng
+    dispatch(setUser({ user: email, role })); // Cập nhật thông tin người dùng vào Redux
+    toast.success(`Đăng nhập thành công!`);
+    if(role === 'ADMIN'){
+      navigate('/admin/list-account');
+    }
+    else if(role === 'HOST'){
+      navigate('/');
+    }
+    else if(role === 'USER'){
+      navigate('/');
+    }
+  };
+
   const onSubmit = async (data) => {
     const { email, password } = data;
     try {
@@ -30,11 +52,7 @@ const SignInForm = () => {
         setShowVerifyModal(true);
         return;
       }
-      const token = response.data.token;
-      localStorage.setItem('accessToken', token);
-      toast.success(`Login successful!`);
-      navigate('/');
-      console.log(response.data);
+      manageResponse(response, email);
     } catch (error) {
       toast.error(error.response?.data?.error);
     }
@@ -59,11 +77,7 @@ const SignInForm = () => {
           },
           {}
         );
-        const token = response.data.token;
-        localStorage.setItem('accessToken', token);
-        toast.success(`Login successful!`);
-        navigate('/');
-        console.log(response.data.token);
+        manageResponse(response, email);
       } catch (error) {
         toast.error(error.response?.data?.error);
       }
@@ -73,8 +87,8 @@ const SignInForm = () => {
   };
 
   const handleGoogleLoginFailure = (error) => {
-    console.log('Google Login Failed:', error);
-    toast.error('Google login failed. Please try again.');
+    console.log('Đăng nhập bằng Google thất bại:', error);
+    toast.error('Đăng nhập bằng Google thất bại. Vui lòng thử lại.');
   };
 
   const handleCloseModal = () => {
@@ -86,34 +100,34 @@ const SignInForm = () => {
   return (
     <div className="bg-gray-200 flex justify-center items-center h-screen w-screen">
       <div className="border-t-8 rounded-sm border-indigo-600 bg-white p-12 shadow-2xl w-96">
-        <h1 className="font-bold text-center block text-2xl">Log In</h1>
+        <h1 className="font-bold text-center block text-2xl">Đăng nhập</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <InputLabel
-            label="Email Address"
+            label="Email"
             id="email"
             register={register}
             pattern={{
               value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-              message: "Please enter a valid email"
+              message: "Vui lòng nhập email hợp lệ."
             }}
             errors={errors}
-            required="Email is required"
+            required="Không được bỏ trống trường này."
           />
           <InputLabel
-            label="Password"
+            label="Mật khẩu"
             id="password"
             register={register}
             errors={errors}
-            required={true}
+            required="Không được bỏ trống trường này."
             type="password"
           />
           <button type="submit" className="mt-6 transition block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg">
-            Submit
+            Đăng nhập
           </button>
         </form>
         <div className="mt-4 text-center">
           <a href="/forgot-password" className="text-indigo-600 hover:text-indigo-800">
-            Forgot password?
+            Quên mật khẩu?
           </a>
         </div>
         <div className="mt-4 text-center flex justify-center w-full">
@@ -125,7 +139,7 @@ const SignInForm = () => {
         </div>
         <div className="mt-4 text-center">
           <a href="/sign-up-player" className="text-indigo-600 hover:text-indigo-800">
-            Don't have an account? Sign Up
+            Chưa có tài khoản? Đăng kí
           </a>
         </div>
       </div>
