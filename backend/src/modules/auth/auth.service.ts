@@ -33,6 +33,14 @@ const authService = {
       if (!existingUser) {
         throw new Error('Account does not exist');
       }
+      const isVerify = existingUser.isVerified;
+      const isBan = existingUser.isActive;
+      if (!isVerify) {
+        throw new Error('Not verify');
+      }
+      if (!isBan) {
+        throw new Error('Ban account');
+      }
       if (loginType === 'Normal') {
         const isPasswordValid = await bcrypt.compare(
           password,
