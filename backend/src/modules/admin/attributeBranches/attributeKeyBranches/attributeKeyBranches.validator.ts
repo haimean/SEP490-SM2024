@@ -2,13 +2,13 @@ import Joi from 'joi';
 
 const attributeKeyBranchesValidator = {
   update: Joi.object({
-    name: Joi.string().required(),
-    description: Joi.string(),
-    isActive: Joi.boolean().required(),
+    name: Joi.string().required().label('Tên thuộc tính của cơ sở'),
+    description: Joi.string().label('Miêu tả thuộc tính của cơ sở'),
+    isActive: Joi.boolean().required().label('Tình trạng Kích hoạt'),
   }),
   create: Joi.object({
-    name: Joi.string().required(),
-    description: Joi.string(),
+    name: Joi.string().required().label('Tên thuộc tính của cơ sở'),
+    description: Joi.string().label('Miêu tả thuộc tính của cơ sở'),
   }),
 };
 

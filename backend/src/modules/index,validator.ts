@@ -1,8 +1,8 @@
 import Joi from 'joi';
 const validator = {
   pagination: Joi.object({
-    page: Joi.boolean(),
-    perPage: Joi.boolean(),
+    page: Joi.number().required().label('Trang'),
+    perPage: Joi.number().required().label('Số bản ghi'),
   }),
   sort: (keys: string[]) => {
     type SortSchemaType = {
@@ -10,7 +10,9 @@ const validator = {
     };
     return Joi.object(
       keys.reduce((schema, key) => {
-        schema[key] = Joi.string().valid('asc', 'desc');
+        schema[key] = Joi.string()
+          .valid('asc', 'desc')
+          .label('Trường');
         return schema;
       }, {} as SortSchemaType)
     );
