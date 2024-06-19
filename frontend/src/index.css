@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2family=__CHOSEN_FONT__");
+/* @import url("https://fonts.googleapis.com/css2family=__CHOSEN_FONT__"); */
 :root {
   /* font-family: "BR omega", sans-serif; */
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
