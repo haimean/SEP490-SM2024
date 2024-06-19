@@ -4,7 +4,7 @@ import validate from '../../../utils/validate';
 import adminAccountValidator from './account.validator';
 
 const accountRouter = Router();
-accountRouter.get(
+accountRouter.post(
   '/',
   validate(adminAccountValidator.update),
   accountController.listAccount

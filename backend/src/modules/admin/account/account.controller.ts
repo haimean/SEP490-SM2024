@@ -10,10 +10,10 @@ const accountController = {
     next: NextFunction
   ) => {
     try {
-      const { name, isVerify, email, pagination } = req.body;
+      const { name, isVerified, email, pagination } = req.body;
       const result = await accountService.listAccount(
         name,
-        isVerify,
+        isVerified,
         email,
         pagination
       );
