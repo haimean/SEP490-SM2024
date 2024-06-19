@@ -3,7 +3,9 @@ import validator from '../../index.validator';
 
 const adminAccountValidator = {
   update: Joi.object({
-    sort: validator.sort(['isActive', 'role', 'isAccept']),
+    isActive: Joi.boolean(),
+    role: Joi.boolean(),
+    isAccept: Joi.boolean(),
     pagination: validator.pagination,
   }),
 };
