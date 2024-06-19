@@ -1,8 +1,9 @@
 import axios from "axios";
 
 const getToken = () => {
-  return localStorage.getItem("accessToken");
+  return localStorage.getItem('accessToken');
 };
+
 
 const CallApi = async (endpoint, method, body, headers = {}) => {
   const token = getToken(); // Lấy token từ hàm getToken
