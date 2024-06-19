@@ -5,7 +5,7 @@ import { getQueryPagination } from '../../index.service';
 const accountService = {
   listAccount: async (
     nameSort: string,
-    isVerify: string,
+    isVerified: string,
     email: string,
     pagination: Pagination
   ) => {
@@ -21,10 +21,10 @@ const accountService = {
         name: nameSort,
       };
     }
-    if (isVerify) {
+    if (isVerified) {
       queryOption.orderBy = {
         account: {
-          isVerified: isVerify,
+          isVerified: isVerified,
         },
       };
     }

@@ -6,12 +6,12 @@ import ListAttributeBranch from "./pages/admin/AttributeBranch/ListAttributeBran
 import DetailAttributeBranch from "./pages/admin/AttributeBranch/DetailAttributeBranch.js";
 import ListAttributeCourt from "./pages/admin/AttributeCourt/ListAttributeCourt.js";
 import DetailAttributeCourt from "./pages/admin/AttributeCourt/DetailAttributeCourt.js";
-import LandingPage from './pages/common/LandingPage.js'
-import Profile from './pages/common/profile/Profile.js'
-import Test from "./pages/test/Test.js";
+import LandingPage from "./pages/common/LandingPage.js";
+import Profile from "./pages/common/profile/Profile.js";
 import ChangePasswordPage from "./pages/common/changePassword/ChangePasswordPage.js";
 import ListAccount from "./pages/admin/listAccount/ListAccount.js";
 import NotFound from './pages/common/NotFound/NotFound.js';
+import UserProfile from "./pages/admin/changeProfile/ChangeProfile.js";
 
 const routes = [
   {
@@ -85,13 +85,6 @@ const routes = [
     layout: "",
   },
   {
-    path: "/test",
-    name: "Test",
-    component: <Test />,
-    role: [], // Không yêu cầu đăng nhập
-    layout: "",
-  },
-  {
     path: "/change-password",
     name: "Change Password",
     component: <ChangePasswordPage />,
@@ -110,6 +103,13 @@ const routes = [
     name: "Not Found",
     component: <NotFound />,
     role: [], // Không yêu cầu đăng nhập
+    layout: "",
+  },
+  {
+    path: "/admin/change-profile/:id",
+    name: "Change Profile",
+    component: <UserProfile />,
+    role: "",
     layout: "",
   },
 ];
