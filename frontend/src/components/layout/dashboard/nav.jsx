@@ -142,11 +142,12 @@ export default function Nav({ openNav, onCloseNav }) {
             position: "fixed",
             width: NAV.WIDTH,
             borderRight: (theme) => `dashed 1px ${theme.palette.divider}`,
-            backgroundImage: "linear-gradient(to bottom, #b6ddff, #e8f4ff)",
+          backgroundImage: 'linear-gradient(to bottom, #b6ddff, #e8f4ff)'
           }}
         >
           {renderContent}
         </Box>
+      
       ) : (
         <Drawer
           open={openNav}
