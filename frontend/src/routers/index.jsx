@@ -1,7 +1,7 @@
-import ForgotPassword from "../pages/common/forgotPassword/ForgotPassword.js";
+import ForgotPassword from "../pages/auth/ForgotPassword/ForgotPassword.jsx";
 import Login from "../pages/auth/Login/Login.jsx";
-import SignUpFormPlayer from "../pages/player/signUp/SignUp.js";
-import SignUpFormHost from "../pages/host/signUp/SignUp.js";
+import SignUpFormPlayer from "../pages/auth/RegisterUser/SignUp.jsx";
+import SignUpFormHost from "../pages/auth/RegisterHost/SignUp.jsx";
 import ListAttributeBranch from "../pages/admin/AttributeBranch/ListAttributeBranch.js";
 import DetailAttributeBranch from "../pages/admin/AttributeBranch/DetailAttributeBranch.js";
 import ListAttributeCourt from "./pages/admin/AttributeCourt/ListAttributeCourt.js";
@@ -9,9 +9,9 @@ import DetailAttributeCourt from "../pages/admin/AttributeCourt/DetailAttributeC
 import LandingPage from "../pages/common/LandingPage.jsx";
 import Profile from "../pages/common/profile/Profile.js";
 import Test from "../pages/test/Test.js";
-import ChangePasswordPage from "../pages/common/changePassword/ChangePasswordPage.js";
+import ChangePasswordPage from "../pages/auth/ChangePassword/ChangePasswordPage.jsx";
 import ListAccount from "../pages/admin/listAccount/ListAccount.js";
-import NotFound from "../pages/common/NotFound/NotFound.js";
+import NotFound from "../pages/common/NotFound/NotFound.jsx";
 
 const routes = [
   {

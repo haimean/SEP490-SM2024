@@ -4,11 +4,11 @@ import { useForm } from 'react-hook-form';
 import { jwtDecode } from 'jwt-decode';
 import InputLabel from "../common/InputLabel.jsx";
 import { toast } from "react-toastify";
-import CallApi from '../../services/CallApi';
+import CallApi from '../../service/CallAPI.jsx';
 import { useNavigate } from 'react-router-dom';
-import VerifyAccountModal from '../common/VerifyAccountModal';
+import VerifyAccountModal from '../auth/VerifyAccountModal.jsx';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../../redux/userSlice.js';
+import { setUser } from '../../middleware/redux/userSlice.jsx';
 
 
 const SignInForm = () => {

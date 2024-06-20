@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import InputLabel from '../common/InputLabel';
-import CallApi from '../../services/CallApi';
+import InputLabel from '../common/InputLabel.jsx';
+import CallApi from '../../service/CallAPI.jsx';
 import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
 

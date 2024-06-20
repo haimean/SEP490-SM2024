@@ -1,7 +1,7 @@
 import React from 'react';
-import SignUpForm from '../../../components/user/SignUpForm.js';
+import SignUpForm from '../../../components/auth/SignUpForm.jsx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import withAuthRedirect from '../../../utils/withAuthRedirect.js';
+import withAuthRedirect from '../../../utils/withAuthRedirect.jsx';
 const SignUpFormHost = () => {
   return (
     <div>
