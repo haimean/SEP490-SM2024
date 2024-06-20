@@ -4,7 +4,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
-import SignInForm from '../../../components/user/SignInForm';
+import SignInForm from './SignInForm.jsx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const LoginModal = ({ open, onClose }) => {

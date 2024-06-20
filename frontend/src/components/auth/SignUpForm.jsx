@@ -2,12 +2,12 @@ import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 import { useForm } from 'react-hook-form';
-import InputLabel from '../common/InputLabel.jsx';
-import CallApi from '../../services/CallApi';
+import InputLabel from "../common/InputLabel.jsx";
+import CallApi from '../../service/CallAPI.jsx';
 import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../../redux/userSlice.js';
+import { setUser } from '../../middleware/redux/userSlice.jsx';
 
 const SignUpForm = ({ role }) => {
   const { register, handleSubmit, formState: { errors } } = useForm();
