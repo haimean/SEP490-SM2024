@@ -8,10 +8,11 @@ import {
 import { Provider, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import store from "./redux/store.js";
-import routes from "./routes.js";
-import NotFound from "./pages/common/NotFound/NotFound.js";
-
+// import store from "./redux/store.js";
+// import routes from "./routes.js";
+// import NotFound from "./pages/common/NotFound/NotFound.js";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ListAccount from "./pages/admin/ListAccount/ListAccount";
 const ProtectedRoute = ({ component, roles = [] }) => {
   const { user, role } = useSelector((state) => state.user);
 
@@ -27,7 +28,12 @@ const ProtectedRoute = ({ component, roles = [] }) => {
 
   return component;
 };
-
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <ListAccount />,
+  },
+]);
 function App() {
   const getRoutes = () => {
     return routes.map((route) => (
@@ -41,31 +47,31 @@ function App() {
     ));
   };
 
-  return (
-    <Provider store={store}>
-      <Router>
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-        />
-        <div className="App">
-          {/* <Navbar /> */}
-          <Routes>
-            {getRoutes()}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </div>
-      </Router>
-    </Provider>
-  );
+  // return (
+  //   <Provider store={store}>
+  //     <Router>
+  //       <ToastContainer
+  //         position="top-right"
+  //         autoClose={5000}
+  //         hideProgressBar={false}
+  //         newestOnTop={false}
+  //         closeOnClick
+  //         rtl={false}
+  //         pauseOnFocusLoss
+  //         draggable
+  //         pauseOnHover
+  //         theme="light"
+  //       />
+  //       <div className="App">
+  //         {/* <Navbar /> */}
+  //         <Routes>
+  //           <Route path="*" element={<NotFound />} />
+  //         </Routes>
+  //       </div>
+  //     </Router>
+  //   </Provider>
+  // );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
