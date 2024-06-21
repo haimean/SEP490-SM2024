@@ -1,39 +1,45 @@
-import React from 'react';
-import { GoogleLogin } from '@react-oauth/google';
-import { jwtDecode } from 'jwt-decode';
-import { useForm } from 'react-hook-form';
+import React from "react";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
+import { useForm } from "react-hook-form";
 import InputLabel from "../common/InputLabel.jsx";
-import CallApi from '../../service/CallAPI.jsx';
+import CallApi from "../../service/CallAPI.jsx";
 import { toast } from "react-toastify";
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setUser } from '../../middleware/redux/userSlice.jsx';
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../middleware/redux/userSlice.js";
 
 const SignUpForm = ({ role }) => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
     const { name, email, password, confirmPassword } = data;
     if (password !== confirmPassword) {
-      toast.error('Mật khẩu nhập lại không trùng khớp.');
+      toast.error("Mật khẩu nhập lại không trùng khớp.");
       return;
     }
     try {
       await CallApi(
-        '/api/auth/register',
-        'post',
+        "/api/auth/register",
+        "post",
         {
           email,
           name,
           password,
-          role
+          role,
         },
         {}
       );
-      toast.success(`Đăng kí thành công! Đã gửi mail xác nhận đến email của bạn. Vui lòng xác minh trước khi đăng nhập!`);
-      navigate('/login');
+      toast.success(
+        `Đăng kí thành công! Đã gửi mail xác nhận đến email của bạn. Vui lòng xác minh trước khi đăng nhập!`
+      );
+      navigate("/login");
     } catch (error) {
       toast.error(error.response?.data?.error);
     }
@@ -47,8 +53,8 @@ const SignUpForm = ({ role }) => {
       const { email, name } = decodedToken;
       try {
         const response = await CallApi(
-          '/api/auth/login-google',
-          'post',
+          "/api/auth/login-google",
+          "post",
           {
             email,
             name,
@@ -57,27 +63,26 @@ const SignUpForm = ({ role }) => {
           {}
         );
         const { token } = response.data;
-        localStorage.setItem('accessToken', token);
-        localStorage.setItem('userRole', role); // Lưu vai trò người dùng
+        localStorage.setItem("accessToken", token);
+        localStorage.setItem("userRole", role); // Lưu vai trò người dùng
         dispatch(setUser({ user: email, role })); // Cập nhật thông tin người dùng vào Redux
         toast.success(`Login successful!`);
-        if (role === 'HOST') {
-          navigate('/');
-        }
-        else if (role === 'USER') {
-          navigate('/');
+        if (role === "HOST") {
+          navigate("/");
+        } else if (role === "USER") {
+          navigate("/");
         }
       } catch (error) {
         toast.error(error.response?.data?.error);
       }
     } else {
-      console.log('No credential response');
+      console.log("No credential response");
     }
   };
 
   const handleGoogleLoginFailure = (error) => {
-    console.log('Google Login Failed:', error);
-    toast.error('Google login failed. Please try again.');
+    console.log("Google Login Failed:", error);
+    toast.error("Google login failed. Please try again.");
   };
 
   return (
@@ -97,8 +102,9 @@ const SignUpForm = ({ role }) => {
             id="email"
             register={register}
             pattern={{
-              value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-              message: "Vui lòng nhập email hợp lệ."
+              value:
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              message: "Vui lòng nhập email hợp lệ.",
             }}
             errors={errors}
             required="Không được bỏ trống trường này."
@@ -108,14 +114,16 @@ const SignUpForm = ({ role }) => {
             id="password"
             register={register}
             pattern={{
-              value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/,
-              message: "Mật khẩu phải chứa ít nhất " +
-                "một chữ viết hoa, một chữ viết thương, một số, một kí tự đặc biêt và không được chứa khoảng trống."
+              value:
+                /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/,
+              message:
+                "Mật khẩu phải chứa ít nhất " +
+                "một chữ viết hoa, một chữ viết thương, một số, một kí tự đặc biêt và không được chứa khoảng trống.",
             }}
             minLength={8}
             errors={errors}
             required="Không được bỏ trống trường này."
-            type='password'
+            type="password"
           />
           <InputLabel
             label="Nhập lại mật khẩu"
@@ -123,9 +131,12 @@ const SignUpForm = ({ role }) => {
             register={register}
             errors={errors}
             required="Không được bỏ trống trường này."
-            type='password'
+            type="password"
           />
-          <button type="submit" className="mt-6 transition block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg">
+          <button
+            type="submit"
+            className="mt-6 transition block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg"
+          >
             Đăng kí
           </button>
         </form>
@@ -133,7 +144,7 @@ const SignUpForm = ({ role }) => {
           <GoogleLogin
             onSuccess={handleGoogleLogin}
             onError={handleGoogleLoginFailure}
-            text='signup_with'
+            text="signup_with"
           />
         </div>
         <style>{`

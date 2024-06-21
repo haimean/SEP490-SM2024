@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import CallApi from "../../../services/CallApi.js";
+import CallApi from "../../../service/CallAPI.jsx";
 import { useParams } from "react-router-dom";
-import CreateAtbBranchValueCp from "./CreateAtbBranchValueCp.js";
-import UpdateAtbBranchValueCp from "./UpdateAtbBranchValueCp.js";
-import DetailAttributeKey from "../DetailAttributeKey.js";
+import CreateAttributeBranchValueCp from "./CreateAttributeBranchValueCp.jsx";
+import UpdateAttributeBranchValueCp from "./UpdateAttributeBranchValueCp.jsx";
+import DetailAttributeKey from "../DetailAttributeKey.jsx";
 
 const DetailAttributeBranchCp = () => {
   const [branchAtbKey, setBranchAtbKey] = useState({});
@@ -91,13 +91,13 @@ const DetailAttributeBranchCp = () => {
         // deleteItem={deleteItem}
       />
       {isModalCreateOpen && (
-        <CreateAtbBranchValueCp
+        <CreateAttributeBranchValueCp
           closeModal={closeCreateModal}
           attributeKeyBranchesId={id}
         />
       )}
       {isModalUpdateOpen && (
-        <UpdateAtbBranchValueCp
+        <UpdateAttributeBranchValueCp
           closeModal={closeUpdateModal}
           attributeKeyBranchesId={id}
           id={idSelected}

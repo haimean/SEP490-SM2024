@@ -1,8 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import ModalCreate from "../ModalCreate.js";
-import CallApi from "../../../services/CallApi";
+import ModalCreate from "../ModalCreate.jsx";
+import CallApi from "../../../service/CallAPI.jsx";
 
 const CreateAttributeCourtCp = ({ closeModal }) => {
   const {

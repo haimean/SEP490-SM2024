@@ -1,5 +1,5 @@
 import React from "react";
-import InputLabel from "../common/InputLabel.js";
+import InputLabel from "../common/InputLabel.jsx";
 
 const ModalCreate = ({
   closeModal,

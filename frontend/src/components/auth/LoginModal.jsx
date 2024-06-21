@@ -12,7 +12,7 @@ const LoginModal = ({ open, onClose }) => {
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Đăng nhập</DialogTitle>
       <DialogContent>
-        <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+        <GoogleOAuthProvider clientId="886827014286-uueubia01arg46h6h6ua0ve061g3dl7e.apps.googleusercontent.com">
           <SignInForm />
         </GoogleOAuthProvider>
       </DialogContent>

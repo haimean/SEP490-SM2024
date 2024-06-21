@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import CallApi from "../../../services/CallApi.js";
-import CreateAttributeBranchCp from "./CreateAttributeBranchCp.js";
-import UpdateAttributeBranchCp from "./UpdateAttributeBranchCp.js";
-import ListAttributeKey from "../ListAttributeKey.js";
+import CallApi from "../../../service/CallAPI.jsx";
+import CreateAttributeBranchCp from "./CreateAttributeBranchCp.jsx";
+import UpdateAttributeBranchCp from "./UpdateAttributeBranchCp.jsx";
+import ListAttributeKey from "../ListAttributeKey.jsx";
 
 const ListAttributeBranchCp = () => {
   const [branchAtbKeyList, setBranchAtbKeyList] = useState([]);

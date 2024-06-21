@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import CallApi from '../../../services/CallApi';
+import CallApi from '../../../service/CallAPI.jsx';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import ModalUpdate from '../ModalUpdate.js';
+import ModalUpdate from '../ModalUpdate.jsx';
 
 const UpdateAtbCourtValueCp = ({ id, closeModal, attributeKeyCourtId }) => {
   const [courtAtb, setCourtAtb] = useState({});
