@@ -1,6 +1,6 @@
 import React from "react";
 import DetailAttributeCourtCp from "../../../components/admin/AttributeCourt/DetailAttributeCourtCp";
-import DashboardLayout from "../../../components/layout/dashboard";
+import DashboardLayout from "../../../layouts/admin/dashboard";
 
 const DetailAttributeCourt = () => {
   return (

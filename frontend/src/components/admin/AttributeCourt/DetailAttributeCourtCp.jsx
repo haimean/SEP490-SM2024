@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import CallApi from "../../../services/CallApi.js";
+import CallApi from "../../../service/CallAPI.jsx";
 import { useParams } from "react-router-dom";
-import CreateAtbCourtValueCp from "./CreateAtbCourtValueCp.js";
-import UpdateAtbCourtValueCp from "./UpdateAtbCourtValueCp.js";
-import DetailAttributeKey from "../DetailAttributeKey.js";
+import CreateAttirbuteCourtValueCp from "./CreateAttributeCourtValueCp.jsx";
+import UpdateAttributeCourtValueCp from "./UpdateAttributeCourtValueCp.jsx";
+import DetailAttributeKey from "../DetailAttributeKey.jsx";
 
 const DetailAttributeCourtCp = () => {
   const [courtAtbKey, setCourtAtbKey] = useState({});
@@ -91,13 +91,13 @@ const DetailAttributeCourtCp = () => {
         // deleteItem={deleteItem}
       />
       {isModalCreateOpen && (
-        <CreateAtbCourtValueCp
+        <CreateAttirbuteCourtValueCp
           closeModal={closeCreateModal}
           attributeKeyCourtId={id}
         />
       )}
       {isModalUpdateOpen && (
-        <UpdateAtbCourtValueCp
+        <UpdateAttributeCourtValueCp
           closeModal={closeUpdateModal}
           attributeKeyCourtId={id}
           id={idSelected}

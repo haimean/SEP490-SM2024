@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../../layouts/player/Navbar.jsx";
-import Footer from "../../components/layout/Footer.js";
+import Footer from "../../layouts/player/Footer.jsx";
 // import styleLandingPage from '../../style/landing-page.css';
 // import '../../style/landing-page.css';
 

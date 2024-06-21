@@ -6,7 +6,7 @@ const SignUpFormPlayer = () => {
   return (
     <div>
       <GoogleOAuthProvider
-         clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+         clientId="886827014286-uueubia01arg46h6h6ua0ve061g3dl7e.apps.googleusercontent.com">
         <SignUpForm role="USER"/>
       </GoogleOAuthProvider>
 

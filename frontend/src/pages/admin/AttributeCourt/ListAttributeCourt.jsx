@@ -1,6 +1,6 @@
 import React from "react";
 import ListAttributeCourtCp from "../../../components/admin/AttributeCourt/ListAttributeCourtCp";
-import DashboardLayout from "../../../components/layout/dashboard";
+import DashboardLayout from "../../../layouts/admin/dashboard";
 
 const ListAttributeCourt = () => {
   return (

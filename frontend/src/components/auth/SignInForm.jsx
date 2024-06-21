@@ -1,37 +1,38 @@
-import React, {useState } from 'react';
-import { GoogleLogin } from '@react-oauth/google';
-import { useForm } from 'react-hook-form';
-import { jwtDecode } from 'jwt-decode';
+import React, { useState } from "react";
+import { GoogleLogin } from "@react-oauth/google";
+import { useForm } from "react-hook-form";
+import { jwtDecode } from "jwt-decode";
 import InputLabel from "../common/InputLabel.jsx";
 import { toast } from "react-toastify";
-import CallApi from '../../service/CallAPI.jsx';
-import { useNavigate } from 'react-router-dom';
-import VerifyAccountModal from '../auth/VerifyAccountModal.jsx';
-import { useDispatch } from 'react-redux';
-import { setUser } from '../../middleware/redux/userSlice.jsx';
-
+import CallApi from "../../service/CallAPI.jsx";
+import { useNavigate } from "react-router-dom";
+import VerifyAccountModal from "../auth/VerifyAccountModal.jsx";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../middleware/redux/userSlice.js";
 
 const SignInForm = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const navigate = useNavigate();
   const [showVerifyModal, setShowVerifyModal] = useState(false);
-  const [modalContent, setModalContent] = useState('');
+  const [modalContent, setModalContent] = useState("");
   const dispatch = useDispatch();
 
   const manageResponse = (response, email) => {
     const { token, role } = response.data;
-    localStorage.setItem('accessToken', token);
-    localStorage.setItem('userRole', role); // Lưu vai trò người dùng
+    localStorage.setItem("accessToken", token);
+    localStorage.setItem("userRole", role); // Lưu vai trò người dùng
     dispatch(setUser({ user: email, role })); // Cập nhật thông tin người dùng vào Redux
     toast.success(`Đăng nhập thành công!`);
-    if(role === 'ADMIN'){
-      navigate('/admin/list-account');
-    }
-    else if(role === 'HOST'){
-      navigate('/');
-    }
-    else if(role === 'USER'){
-      navigate('/');
+    if (role === "ADMIN") {
+      navigate("/admin/list-account");
+    } else if (role === "HOST") {
+      navigate("/");
+    } else if (role === "USER") {
+      navigate("/");
     }
   };
 
@@ -39,16 +40,18 @@ const SignInForm = () => {
     const { email, password } = data;
     try {
       const response = await CallApi(
-        '/api/auth/login',
-        'post',
+        "/api/auth/login",
+        "post",
         {
           email,
-          password
+          password,
         },
         {}
       );
       if (!response.data.isVerified) {
-        setModalContent('Tài khoản của bạn chưa được xác minh. Vui lòng kiểm tra email để xác minh tài khoản.');
+        setModalContent(
+          "Tài khoản của bạn chưa được xác minh. Vui lòng kiểm tra email để xác minh tài khoản."
+        );
         setShowVerifyModal(true);
         return;
       }
@@ -61,15 +64,15 @@ const SignInForm = () => {
   const handleGoogleLogin = async (credentialResponse) => {
     if (credentialResponse.credential) {
       const decodedToken = jwtDecode(credentialResponse.credential);
-      console.log('Google Login:', decodedToken);
+      console.log("Google Login:", decodedToken);
       const { email, name, picture } = decodedToken;
-      console.log('Email:', email);
-      console.log('Name:', name);
-      console.log('Avatar:', picture);
+      console.log("Email:", email);
+      console.log("Name:", name);
+      console.log("Avatar:", picture);
       try {
         const response = await CallApi(
-          '/api/auth/login-google',
-          'post',
+          "/api/auth/login-google",
+          "post",
           {
             email,
             name,
@@ -82,20 +85,19 @@ const SignInForm = () => {
         toast.error(error.response?.data?.error);
       }
     } else {
-      console.log('No credential response');
+      console.log("No credential response");
     }
   };
 
   const handleGoogleLoginFailure = (error) => {
-    console.log('Đăng nhập bằng Google thất bại:', error);
-    toast.error('Đăng nhập bằng Google thất bại. Vui lòng thử lại.');
+    console.log("Đăng nhập bằng Google thất bại:", error);
+    toast.error("Đăng nhập bằng Google thất bại. Vui lòng thử lại.");
   };
 
   const handleCloseModal = () => {
     setShowVerifyModal(false);
-    setModalContent('');
+    setModalContent("");
   };
-
 
   return (
     <div className="bg-gray-200 flex justify-center items-center h-screen w-screen">
@@ -107,8 +109,9 @@ const SignInForm = () => {
             id="email"
             register={register}
             pattern={{
-              value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-              message: "Vui lòng nhập email hợp lệ."
+              value:
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              message: "Vui lòng nhập email hợp lệ.",
             }}
             errors={errors}
             required="Không được bỏ trống trường này."
@@ -121,24 +124,33 @@ const SignInForm = () => {
             required="Không được bỏ trống trường này."
             type="password"
           />
-          <button type="submit" className="mt-6 transition block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg">
+          <button
+            type="submit"
+            className="mt-6 transition block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg"
+          >
             Đăng nhập
           </button>
         </form>
         <div className="mt-4 text-center">
-          <a href="/forgot-password" className="text-indigo-600 hover:text-indigo-800">
+          <a
+            href="/forgot-password"
+            className="text-indigo-600 hover:text-indigo-800"
+          >
             Quên mật khẩu?
           </a>
         </div>
         <div className="mt-4 text-center flex justify-center w-full">
           <GoogleLogin
-            size='large'
+            size="large"
             onSuccess={handleGoogleLogin}
             onError={handleGoogleLoginFailure}
           />
         </div>
         <div className="mt-4 text-center">
-          <a href="/sign-up-player" className="text-indigo-600 hover:text-indigo-800">
+          <a
+            href="/sign-up-player"
+            className="text-indigo-600 hover:text-indigo-800"
+          >
             Chưa có tài khoản? Đăng kí
           </a>
         </div>

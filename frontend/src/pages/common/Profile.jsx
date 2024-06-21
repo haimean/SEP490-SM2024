@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import InputLabel from "../../components/common/InputLabel.jsx";
-import CallApi from "../../../services/CallApi.js";
+import CallApi from "../../service/CallAPI.jsx";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";

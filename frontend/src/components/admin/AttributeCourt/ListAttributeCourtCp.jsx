@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import CallApi from "../../../services/CallApi";
-import CreateAttributeCourtCp from "./CreateAttributeCourtCp.js";
-import UpdateAttributeCourtCp from "./UpdateAttributeCourtCp.js";
-import ListAttributeKey from "../ListAttributeKey.js";
+import CallApi from "../../../service/CallAPI.jsx";
+import CreateAttributeCourtCp from "./CreateAttributeCourtCp.jsx";
+import UpdateAttributeCourtCp from "./UpdateAttributeCourtCp.jsx";
+import ListAttributeKey from "../ListAttributeKey.jsx";
 
 const ListAttributeCourtCp = () => {
   const [courtAtbKeyList, setCourtAtbKeyList] = useState([]);

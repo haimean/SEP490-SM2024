@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import ModalUpdate from "../ModalUpdate.js";
-import CallApi from "../../../services/CallApi";
+import ModalUpdate from "../ModalUpdate.jsx";
+import CallApi from "../../../service/CallAPI.jsx";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 

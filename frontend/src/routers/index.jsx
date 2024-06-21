@@ -2,15 +2,14 @@ import ForgotPassword from "../pages/auth/ForgotPassword/ForgotPassword.jsx";
 import Login from "../pages/auth/Login/Login.jsx";
 import SignUpFormPlayer from "../pages/auth/RegisterUser/SignUp.jsx";
 import SignUpFormHost from "../pages/auth/RegisterHost/SignUp.jsx";
-import ListAttributeBranch from "../pages/admin/AttributeBranch/ListAttributeBranch.js";
-import DetailAttributeBranch from "../pages/admin/AttributeBranch/DetailAttributeBranch.js";
-import ListAttributeCourt from "./pages/admin/AttributeCourt/ListAttributeCourt.js";
-import DetailAttributeCourt from "../pages/admin/AttributeCourt/DetailAttributeCourt.js";
+import ListAttributeBranch from "../pages/admin/AttributeBranch/ListAttributeBranch.jsx";
+import DetailAttributeBranch from "../pages/admin/AttributeBranch/DetailAttributeBranch.jsx";
+import ListAttributeCourt from "../pages/admin/AttributeCourt/ListAttributeCourt.jsx";
+import DetailAttributeCourt from "../pages/admin/AttributeCourt/DetailAttributeCourt.jsx";
 import LandingPage from "../pages/common/LandingPage.jsx";
-import Profile from "../pages/common/profile/Profile.js";
-import Test from "../pages/test/Test.js";
-import ChangePasswordPage from "../pages/auth/ChangePassword/ChangePasswordPage.jsx";
-import ListAccount from "../pages/admin/listAccount/ListAccount.js";
+import Profile from "../pages/common/Profile.jsx";
+import ChangePasswordPage from "../pages/auth/changePassword/ChangePasswordPage.jsx";
+import ListAccount from "../pages/admin/ListAccount/ListAccount.jsx";
 import NotFound from "../pages/common/NotFound/NotFound.jsx";
 
 const routes = [
@@ -82,13 +81,6 @@ const routes = [
     name: "Detail Court Attribute",
     component: <DetailAttributeCourt />,
     role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
-    layout: "",
-  },
-  {
-    path: "/test",
-    name: "Test",
-    component: <Test />,
-    role: [], // Không yêu cầu đăng nhập
     layout: "",
   },
   {
