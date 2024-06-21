@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
@@ -25,6 +25,7 @@ import UserTableHead from "../user-table-head";
 import TableEmptyRows from "../table-empty-rows";
 import UserTableToolbar from "../user-table-toolbar";
 import { emptyRows, applyFilter, getComparator } from "../utils";
+import CallApi from "../../../../service/CallAPI";
 
 // ----------------------------------------------------------------------
 
@@ -97,7 +98,21 @@ export default function UserPage() {
   });
 
   const notFound = !dataFiltered.length && !!filterName;
-
+  useEffect(() => {
+    const getListAccount = async () => {
+      const result = await CallApi("/api/admin/account/", "post", {
+        sort: {
+          isVerified: "asc",
+        },
+        pagination: {
+          page: 1,
+          perPage: 5,
+        },
+      });
+      console.log("🚀 ========= result:", result);
+    };
+    getListAccount();
+  }, []);
   return (
     <Container>
       <Stack
