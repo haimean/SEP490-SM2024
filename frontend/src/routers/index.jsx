@@ -94,7 +94,7 @@ const routes = [
     path: "/admin/list-account",
     name: "List Account",
     component: <ListAccount />,
-    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
+    // role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
     layout: "",
   },
   {

@@ -6,9 +6,8 @@ const getToken = () => {
 
 const CallApi = async (endpoint, method, body, headers = {}) => {
   const token = getToken(); // Lấy token từ hàm getToken
-
   const config = {
-    url: `${process.env.REACT_APP_BASE_URL_API}${endpoint}`,
+    url: `${import.meta.env.VITE_API_URL}${endpoint}`,
     method,
     headers: {
       ...headers,
@@ -16,7 +15,6 @@ const CallApi = async (endpoint, method, body, headers = {}) => {
     },
     data: body,
   };
-
   try {
     const response = await axios(config);
     return response.data;
