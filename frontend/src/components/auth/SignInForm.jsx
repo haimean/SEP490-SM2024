@@ -100,8 +100,8 @@ const SignInForm = () => {
   };
 
   return (
-    <div className="bg-gray-200 flex justify-center items-center h-screen w-screen">
-      <div className="border-t-8 rounded-sm border-indigo-600 bg-white p-12 shadow-2xl w-96">
+    <div >
+      <div className="border-t-8 rounded-md border-indigo-600 bg-white p-12 shadow-2xl w-96">
         <h1 className="font-bold text-center block text-2xl">Đăng nhập</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <InputLabel
