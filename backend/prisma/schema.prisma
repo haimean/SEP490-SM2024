@@ -42,6 +42,7 @@ model User {
   numberPhone String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+  court       Court[]
 }
 
 // trình độ
@@ -93,6 +94,18 @@ model AttributeCourt {
   updatedAt           DateTime           @updatedAt
   account             Account            @relation(fields: [accountId], references: [id])
   attributeKeyCourt   AttributeKeyCourt? @relation(fields: [attributeKeyCourtId], references: [id])
+  Court               Court[]
 
   @@unique([value, attributeKeyCourtId])
+  @@map("category")
+}
+
+model Court {
+  id             Int              @id @default(autoincrement())
+  name           String
+  attributeCourt AttributeCourt[]
+  User           User?            @relation(fields: [userId], references: [id])
+  userId         Int?
+
+  @@unique([name, userId])
 }

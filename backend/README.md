@@ -8,3 +8,9 @@ npx prisma migrate dev
 npx prisma generate
 
 Logger: sử dụng logger
+
+
+**gen code module**
+B1: npm run gen:module  
+B2: chọn role
+B3: nhập tên 
