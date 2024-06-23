@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import CallApi from '../../../service/CallAPI.jsx';
-import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
-import ModalUpdate from '../ModalUpdate.jsx';
+import React, { useEffect, useState } from "react";
+import CallApi from "../../../service/CallAPI.jsx";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import ModalUpdate from "../ModalUpdate.jsx";
 
 const UpdateAtbCourtValueCp = ({ id, closeModal, attributeKeyCourtId }) => {
   const [courtAtb, setCourtAtb] = useState({});
@@ -16,18 +16,18 @@ const UpdateAtbCourtValueCp = ({ id, closeModal, attributeKeyCourtId }) => {
 
   useEffect(() => {
     fetchCourtAtb();
-  }, [id])
-console.log(id);
+  }, [id]);
+
   const fetchCourtAtb = async () => {
     try {
-      const response = await CallApi(
-        `/api/admin/attribute-court/${id}`,
-        'get',
-      )
+      const response = await CallApi(`/api/admin/attribute-court/${id}`, "get");
       setCourtAtb(response?.data);
       reset(response?.data);
     } catch (error) {
-      console.log("=============== fetch court attribute ERROR: " + error.response?.data?.error);
+      console.log(
+        "=============== fetch court attribute ERROR: " +
+          error.response?.data?.error
+      );
     }
   };
 
@@ -35,22 +35,16 @@ console.log(id);
     try {
       //destructuring data
       const dataValue = {
-        ...data
-      }
+        ...data,
+      };
       //lấy data cần thiết vào body
       const requestData = {
         attributeKeyCourtId: attributeKeyCourtId,
         value: dataValue.value,
-        isActive: dataValue.isActive
+        isActive: dataValue.isActive,
       };
-      console.log(requestData);
 
-      await CallApi(
-        `/api/admin/attribute-court/${id}`,
-        "put",
-        requestData,
-        {}
-      );
+      await CallApi(`/api/admin/attribute-court/${id}`, "put", requestData, {});
       toast.success(`Update court value successful!`);
       closeModal();
     } catch (error) {
@@ -81,7 +75,7 @@ console.log(id);
             register: { register },
             pattern: {
               value: /^\s*\S.*$/,
-              message: "Please enter valid character"
+              message: "Please enter valid character",
             },
             errors: { errors },
             required: true,
@@ -89,11 +83,11 @@ console.log(id);
           {
             id: "isActive",
             label: "Active",
-            defaultValue: courtAtb.isActive ? 'true' : 'false',
+            defaultValue: courtAtb.isActive ? "true" : "false",
             type: "select",
             options: [
-              { value: 'true', label: 'Active' },
-              { value: 'false', label: 'Unactive' },
+              { value: "true", label: "Active" },
+              { value: "false", label: "Unactive" },
             ],
           },
         ],
