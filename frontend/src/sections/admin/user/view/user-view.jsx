@@ -1,201 +1,125 @@
-import { useEffect, useState } from "react";
-
-import Card from "@mui/material/Card";
-import Stack from "@mui/material/Stack";
-import Table from "@mui/material/Table";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import TableBody from "@mui/material/TableBody";
-import Typography from "@mui/material/Typography";
-import TableContainer from "@mui/material/TableContainer";
-import TablePagination from "@mui/material/TablePagination";
-
-// import { users } from "src/_mock/user";
-import { users } from "../../../../_mock/admin/user";
-
-// import Iconify from "src/components/iconify";
-import Iconify from "../../../../components/admin/common/iconify";
-
-// import Scrollbar from "src/components/scrollbar";
-import Scrollbar from "../../../../components/admin/common/scrollbar";
-
-import TableNoData from "../table-no-data";
-import UserTableRow from "../user-table-row";
-import UserTableHead from "../user-table-head";
-import TableEmptyRows from "../table-empty-rows";
-import UserTableToolbar from "../user-table-toolbar";
-import { emptyRows, applyFilter, getComparator } from "../utils";
+import * as React from "react";
+import { DataGrid } from "@mui/x-data-grid";
 import CallApi from "../../../../service/CallAPI";
+import { toast } from "react-toastify";
+import { TablePagination } from "@mui/material";
 
-// ----------------------------------------------------------------------
+const columns = [
+  { field: "id", headerName: "ID", width: 70 },
+  { field: "email", headerName: "Email", width: 400 },
+  {
+    field: "name",
+    headerName: "Full name",
+    description: "This column has a value getter và is not sortable.",
+    sortable: false,
+    width: 160,
+  },
+  {
+    field: "isVerify",
+    headerName: "Trạng thái kích hoạt",
+    description: "This column has a value getter và is not sortable.",
+    sortable: false,
+    width: 160,
+    valueGetter: (params) => (params ? "Active" : "Chưa active"),
+  },
+  {
+    field: "isActive",
+    headerName: "Status",
+    description: "This column has a value getter và is not sortable.",
+    sortable: false,
+    width: 160,
+    valueGetter: (params) => (params ? "Active" : "Ban"),
+  },
+  {
+    field: "phoneNumber",
+    headerName: "Phone Number",
+    width: 120,
+  },
+  {
+    field: "role",
+    headerName: "Role",
+    width: 90,
+  },
+];
 
-export default function UserPage() {
-  const [page, setPage] = useState(0);
+export default function DataTable() {
+  // const [data, setData] = React.useState([]);
+  const [page, setPage] = React.useState(0);
+  const [pageSize, setPageSize] = React.useState(5);
+  const [rows, setRows] = React.useState([]);
+  // const [totalRows, setTotalRows] = React.useState(0); // New state for total rows
+  console.log("🚀 ========= rows:", rows);
 
-  const [order, setOrder] = useState("asc");
-
-  const [selected, setSelected] = useState([]);
-
-  const [orderBy, setOrderBy] = useState("name");
-
-  const [filterName, setFilterName] = useState("");
-
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-
-  const handleSort = (event, id) => {
-    const isAsc = orderBy === id && order === "asc";
-    if (id !== "") {
-      setOrder(isAsc ? "desc" : "asc");
-      setOrderBy(id);
-    }
-  };
-
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = users.map((n) => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
-
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-    setSelected(newSelected);
-  };
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setPage(0);
-    setRowsPerPage(parseInt(event.target.value, 10));
-  };
-
-  const handleFilterByName = (event) => {
-    setPage(0);
-    setFilterName(event.target.value);
-  };
-
-  const dataFiltered = applyFilter({
-    inputData: users,
-    comparator: getComparator(order, orderBy),
-    filterName,
-  });
-
-  const notFound = !dataFiltered.length && !!filterName;
-  useEffect(() => {
-    const getListAccount = async () => {
+  const getData = async (page, pageSize) => {
+    try {
       const result = await CallApi("/api/admin/account/", "post", {
         sort: {
           isVerified: "asc",
         },
         pagination: {
-          page: 1,
-          perPage: 5,
+          page: page + 1, // Ensure the page number is correct
+          perPage: pageSize,
         },
       });
       console.log("🚀 ========= result:", result);
-    };
-    getListAccount();
-  }, []);
+      // setData(result.data); // Adjust this according to your API response structure
+      // setTotalRows(result.totalRecords); // Assuming your API returns the total record count
+      setRows(
+        result.data.map((item) => ({
+          id: item.id,
+          email: item.account.email,
+          name: item.name,
+          isVerify: item.account.isVerified,
+          isActive: item.account.isActive,
+          phoneNumber: item.numberPhone,
+          role: item.account.role,
+        }))
+      );
+    } catch (error) {
+      toast.error(error.response?.data?.error);
+    }
+  };
+
+  React.useEffect(() => {
+    getData(page, pageSize);
+  }, [page, pageSize]);
+
+  const handlePageChange = (event, newPage) => {
+    console.log("🚀 ========= newPage:", newPage);
+    setPage(newPage);
+  };
+
+  const handlePageSizeChange = (event) => {
+    setPageSize(event);
+    setPage(0); // Reset to first page when page size changes
+  };
+
   return (
-    <Container>
-      <Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        mb={5}
-      >
-        <Typography variant="h4">Users</Typography>
+    <div style={{ height: 500, width: "100%" }}>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        initialState={{
+          pagination: {
+            paginationModel: { page: page, pageSize: pageSize },
+          },
+        }}
+        // pageSizeOptions={[5, 10]}
 
-        <Button
-          variant="contained"
-          color="inherit"
-          startIcon={<Iconify icon="eva:plus-fill" />}
-        >
-          New User
-        </Button>
-      </Stack>
-
-      <Card>
-        <UserTableToolbar
-          numSelected={selected.length}
-          filterName={filterName}
-          onFilterName={handleFilterByName}
-        />
-
-        <Scrollbar>
-          <TableContainer sx={{ overflow: "unset" }}>
-            <Table sx={{ minWidth: 800 }}>
-              <UserTableHead
-                order={order}
-                orderBy={orderBy}
-                rowCount={users.length}
-                numSelected={selected.length}
-                onRequestSort={handleSort}
-                onSelectAllClick={handleSelectAllClick}
-                headLabel={[
-                  { id: "name", label: "Name" },
-                  { id: "company", label: "Company" },
-                  { id: "role", label: "Role" },
-                  { id: "isVerified", label: "Verified", align: "center" },
-                  { id: "status", label: "Status" },
-                  { id: "" },
-                ]}
-              />
-              <TableBody>
-                {dataFiltered
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => (
-                    <UserTableRow
-                      key={row.id}
-                      name={row.name}
-                      role={row.role}
-                      status={row.status}
-                      company={row.company}
-                      avatarUrl={row.avatarUrl}
-                      isVerified={row.isVerified}
-                      selected={selected.indexOf(row.name) !== -1}
-                      handleClick={(event) => handleClick(event, row.name)}
-                    />
-                  ))}
-
-                <TableEmptyRows
-                  height={77}
-                  emptyRows={emptyRows(page, rowsPerPage, users.length)}
-                />
-
-                {notFound && <TableNoData query={filterName} />}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Scrollbar>
-
-        <TablePagination
-          page={page}
-          component="div"
-          count={users.length}
-          rowsPerPage={rowsPerPage}
-          onPageChange={handleChangePage}
-          rowsPerPageOptions={[5, 10, 25]}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Card>
-    </Container>
+        pageSizeOptions={[5, 10]}
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handlePageSizeChange}
+        checkboxSelection
+      />
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={12} // Use the total rows state
+        rowsPerPage={pageSize}
+        page={page}
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handlePageSizeChange}
+      />
+    </div>
   );
 }
