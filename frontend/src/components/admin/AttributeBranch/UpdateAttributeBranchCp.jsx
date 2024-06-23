@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ModalUpdate from "../ModalUpdate";
-import CallApi from "../../../service/CallAPI";
+import CallAPI from "../../../service/CallAPI";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-const UpdateAtbBranchValueCp = ({ id, closeModal, attributeKeyBranchesId }) => {
-  const [branchAtb, setBranchAtb] = useState({});
+const UpdateAttributeBranchCp = ({ id, closeModal }) => {
+  const [branchAtbKey, setBranchAtbKey] = useState({});
   const {
     register,
     handleSubmit,
@@ -14,16 +14,16 @@ const UpdateAtbBranchValueCp = ({ id, closeModal, attributeKeyBranchesId }) => {
   } = useForm();
 
   useEffect(() => {
-    fetchBranchAtb();
+    fetchBranchAtbKey();
   }, [id]);
 
-  const fetchBranchAtb = async () => {
+  const fetchBranchAtbKey = async () => {
     try {
-      const response = await CallApi(
-        `/api/admin/attribute-branches/${id}`,
+      const response = await CallAPI(
+        `/api/admin/attribute-branches/key/${id}`,
         "get"
       );
-      setBranchAtb(response?.data);
+      setBranchAtbKey(response?.data);
       reset(response?.data);
     } catch (error) {
       console.log(
@@ -35,23 +35,17 @@ const UpdateAtbBranchValueCp = ({ id, closeModal, attributeKeyBranchesId }) => {
 
   const onSubmit = async (data) => {
     try {
-      //destructuring data
-      const dataValue = {
-        ...data,
-      };
-      //lấy data cần thiết vào body
-      const requestData = {
-        attributeKeyBranchesId: attributeKeyBranchesId,
-        value: dataValue.value,
-        isActive: dataValue.isActive,
-      };
-      await CallApi(
-        `/api/admin/attribute-branches/${id}`,
+      await CallAPI(
+        `/api/admin/attribute-branches/key/${id}`,
         "put",
-        requestData,
+        {
+          name: data.name,
+          description: data.description,
+          isActive: data.isActive,
+        },
         {}
       );
-      toast.success(`Update branch value successful!`);
+      toast.success(`Update branch attribute successful!`);
       closeModal();
     } catch (error) {
       toast.error(error.response?.data?.error);
@@ -71,25 +65,36 @@ const UpdateAtbBranchValueCp = ({ id, closeModal, attributeKeyBranchesId }) => {
       register={register}
       errors={errors}
       fields={{
-        title: "Update Branch Value",
+        title: "Update Branch Attribute",
         inputs: [
           {
-            id: "value",
-            label: "Value",
-            placeholder: "Value",
-            defaultValue: branchAtb.value,
-            register: { register },
+            id: "name",
+            label: "Name",
+            defaultValue: branchAtbKey.name,
+            placeholder: "Enter name",
+            type: "text",
             pattern: {
               value: /^\s*\S.*$/,
               message: "Please enter valid character",
             },
-            errors: { errors },
+            required: true,
+          },
+          {
+            id: "description",
+            label: "Description",
+            defaultValue: branchAtbKey.description,
+            placeholder: "Enter description",
+            type: "text",
+            pattern: {
+              value: /^\s*\S.*$/,
+              message: "Please enter valid character",
+            },
             required: true,
           },
           {
             id: "isActive",
             label: "Active",
-            defaultValue: branchAtb.isActive ? "true" : "false",
+            defaultValue: branchAtbKey.isActive ? "true" : "false",
             type: "select",
             options: [
               { value: "true", label: "Active" },
@@ -97,10 +102,10 @@ const UpdateAtbBranchValueCp = ({ id, closeModal, attributeKeyBranchesId }) => {
             ],
           },
         ],
-        submitText: "Update Value",
+        submitText: "Update",
       }}
     />
   );
 };
 
-export default UpdateAtbBranchValueCp;
+export default UpdateAttributeBranchCp;
