@@ -8,7 +8,7 @@ import {
 import { Provider, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import store from "./middleware/redux/store.js";
+import store from "./middleware/redux/store.jsx";
 import routes from "./routers/index.jsx";
 import NotFound from "./pages/common/NotFound/NotFound.jsx";
 

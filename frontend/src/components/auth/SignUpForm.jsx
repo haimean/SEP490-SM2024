@@ -7,7 +7,7 @@ import CallApi from "../../service/CallAPI.jsx";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../middleware/redux/userSlice.js";
+import { setUser } from "../../middleware/redux/userSlice.jsx";
 
 const SignUpForm = ({ role }) => {
   const {

@@ -8,7 +8,7 @@ const withAuthRedirect = (WrappedComponent, defaultRedirectTo) => {
 
     if (user) {
       if (role === 'ADMIN') {
-        return <Navigate to="/admin" />;
+        return <Navigate to="/admin/list-account" />;
       } else {
         return <Navigate to={defaultRedirectTo} />;
       }
