@@ -1,0 +1,21 @@
+<svg width="480" height="360" viewBox="0 0 480 360"
+  xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter x="-500%" y="-500%" width="1000%" height="1000%" filterUnits="objectBoundingBox" id="dropshadow-3">
+      <feOffset dy="16" in="SourceAlpha" result="shadowOffsetOuter" />
+      <feGaussianBlur stdDeviation="24" in="shadowOffsetOuter" result="shadowBlurOuter" />
+      <feColorMatrix values="0 0 0 0 0.12 0 0 0 0 0.17 0 0 0 0 0.21 0 0 0 0.2 0" in="shadowBlurOuter" />
+    </filter>
+  </defs>
+  <path fill="#F6F8FA" d="M480 140v220H280zM0 220V0h200z" />
+  <path fill="#FFF" d="M40 50h400v260H40z" style="mixBlendMode: multiply;filter: url(#dropshadow-3);" />
+  <path fill="#FFF" d="M40 50h400v260H40z" />
+  <path fill="#FFF" d="M72 248h88v88H72zM180 24h80v160h-80z" style="mixBlendMode: multiply;filter: url(#dropshadow-3);" />
+  <path fill="#FFF" d="M72 248h88v88H72zM180 24h80v160h-80z" />
+  <path fill="#FFF" d="M277.664 261.919l-18.113 15.745-15.746-18.113 18.113-15.745z" style="mixBlendMode: multiply;filter: url(#dropshadow-3);" />
+  <path fill="#02C6A4" d="M277.664 261.919l-18.113 15.745-15.746-18.113 18.113-15.745z" />
+  <path fill="#FFF" d="M315 129H215v100z" style="mixBlendMode: multiply;filter: url(#dropshadow-3);" />
+  <path fill="#84E482" d="M315 129H215v100z" />
+  <circle fill="#FFF" cx="318" cy="219" r="32" style="mixBlendMode: multiply;filter: url(#dropshadow-3);" />
+  <circle fill="#0EB3CE" cx="318" cy="219" r="32" style=" mixBlendMode: multiply; " />
+</svg>

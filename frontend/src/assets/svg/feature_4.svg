@@ -1,0 +1,8 @@
+<svg width="48" height="48"
+  xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" fillRule="evenodd">
+    <path d="M32 40H0c0-8.837 7.163-16 16-16s16 7.163 16 16z" fill="#84E482" style=" mixBlendMode: multiply" />
+    <path fill="#03C5A4" d="M12 8h8v8h-8z" />
+    <path fill="#0EB3CE" d="M32 0h16v48H32z" />
+  </g>
+</svg>
