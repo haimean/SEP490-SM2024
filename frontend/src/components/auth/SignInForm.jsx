@@ -8,9 +8,9 @@ import CallApi from "../../service/CallAPI.jsx";
 import { useNavigate } from "react-router-dom";
 import VerifyAccountModal from "../auth/VerifyAccountModal.jsx";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../middleware/redux/userSlice.js";
+import { setUser } from "../../middleware/redux/userSlice.jsx";
 
-const SignInForm = () => {
+const SignInForm = ({ isModal, onSuccess }) => {
   const {
     register,
     handleSubmit,
@@ -27,12 +27,18 @@ const SignInForm = () => {
     localStorage.setItem("userRole", role); // Lưu vai trò người dùng
     dispatch(setUser({ user: email, role })); // Cập nhật thông tin người dùng vào Redux
     toast.success(`Đăng nhập thành công!`);
-    if (role === "ADMIN") {
-      navigate("/admin/list-account");
-    } else if (role === "HOST") {
-      navigate("/");
-    } else if (role === "USER") {
-      navigate("/");
+    if (!isModal) {  // Kiểm tra nếu không phải modal thì mới chuyển hướng
+      if (role === "HOST") {
+        navigate("/");
+      } else if (role === "USER") {
+        navigate("/");
+      }
+    }
+    if (isModal && onSuccess) {
+      if (role === "ADMIN") {
+        navigate("/admin/list-account");
+      }
+      onSuccess();
     }
   };
 

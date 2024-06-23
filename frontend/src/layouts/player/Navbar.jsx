@@ -27,7 +27,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import { useDispatch, useSelector } from "react-redux";
-import { clearUser } from "../../middleware/redux/userSlice";
+import { clearUser } from "../../middleware/redux/userSlice.jsx";
 import AccountPopover from "../admin/dashboard/common/account-popover"; // chỗ này về sau sửa vì đây là navbar cho player
 import LoginModal from "../../components/auth/LoginModal"; // Import LoginModal
 
