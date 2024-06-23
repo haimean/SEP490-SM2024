@@ -6,7 +6,7 @@ const SignUpFormHost = () => {
   return (
     <div>
       <GoogleOAuthProvider
-         clientId="886827014286-uueubia01arg46h6h6ua0ve061g3dl7e.apps.googleusercontent.com">
+         clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
         <SignUpForm role="HOST"/>
       </GoogleOAuthProvider>
 
