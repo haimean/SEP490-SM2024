@@ -1,8 +1,14 @@
 import React from "react";
 import Navbar from "../../layouts/player/Navbar.jsx";
 import Footer from "../../layouts/player/Footer.jsx";
-// import styleLandingPage from '../../style/landing-page.css';
-// import '../../style/landing-page.css';
+import feature_1 from "../../assets/svg/feature_1.svg";
+import feature_2 from "../../assets/svg/feature_2.svg";
+import feature_3 from "../../assets/svg/feature_3.svg";
+import feature_4 from "../../assets/svg/feature_4.svg";
+import discover_1 from "../../assets/svg/discover_1.svg";
+import discover_2 from "../../assets/svg/discover_2.svg";
+import discover_3 from "../../assets/svg/discover_3.svg";
+import tick from "../../assets/svg/tick.svg";
 
 const LandingPage = () => {
   return (
@@ -42,16 +48,7 @@ const LandingPage = () => {
                 <div className="p-3 w-[276px] max-w-[276px] flex-grow">
                   <div className="relative h-full bg-white p-3 py-6 shadow-2xl">
                     <div className="flex justify-center">
-                      <svg
-                        width={48}
-                        height={48}
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g fill="none" fillRule="evenodd">
-                          <path fill="#84E482" d="M48 16v32H16z" />
-                          <path fill="#0EB3CE" d="M0 0h32v32H0z" />
-                        </g>
-                      </svg>
+                      <img src={feature_1} alt="feature_1" />
                     </div>
                     <h4 className="mt-6 mb-1 font-bold text-lg leading-7 tracking-[-0.1px] md:text-xl md:leading-8 md:tracking-[-0.1px]">
                       Lorem Ipsum
@@ -65,17 +62,7 @@ const LandingPage = () => {
                 <div className="p-3 w-[276px] max-w-[276px] flex-grow">
                   <div className="relative h-full bg-white p-3 py-6 shadow-2xl">
                     <div className="flex justify-center">
-                      <svg
-                        width={48}
-                        height={48}
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g fill="none" fillRule="evenodd">
-                          <path fill="#84E482" d="M48 16v32H16z" />
-                          <path fill="#0EB3CE" d="M0 0v32h32z" />
-                          <circle fill="#02C6A4" cx={29} cy={9} r={4} />
-                        </g>
-                      </svg>
+                      <img src={feature_2} alt="feature_2" />
                     </div>
                     <h4 className="mt-6 mb-1 font-bold text-lg leading-7 tracking-[-0.1px] md:text-xl md:leading-8 md:tracking-[-0.1px]">
                       Lorem Ipsum
@@ -89,16 +76,7 @@ const LandingPage = () => {
                 <div className="p-3 w-[276px] max-w-[276px] flex-grow">
                   <div className="relative h-full bg-white p-3 py-6 shadow-2xl">
                     <div className="flex justify-center">
-                      <svg
-                        width={48}
-                        height={48}
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g fill="none" fillRule="evenodd">
-                          <path fill="#0EB3CE" d="M0 0h32v32H0z" />
-                          <path fill="#84E482" d="M16 16h32L16 48z" />
-                        </g>
-                      </svg>
+                      <img src={feature_3} alt="feature_3" />
                     </div>
                     <h4 className="mt-6 mb-1 font-bold text-lg leading-7 tracking-[-0.1px] md:text-xl md:leading-8 md:tracking-[-0.1px]">
                       Lorem Ipsum
@@ -112,21 +90,7 @@ const LandingPage = () => {
                 <div className="p-3 w-[276px] max-w-[276px] flex-grow">
                   <div className="relative h-full bg-white p-3 py-6 shadow-2xl">
                     <div className="flex justify-center">
-                      <svg
-                        width={48}
-                        height={48}
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g fill="none" fillRule="evenodd">
-                          <path
-                            d="M32 40H0c0-8.837 7.163-16 16-16s16 7.163 16 16z"
-                            fill="#84E482"
-                            style={{ mixBlendMode: "multiply" }}
-                          />
-                          <path fill="#03C5A4" d="M12 8h8v8h-8z" />
-                          <path fill="#0EB3CE" d="M32 0h16v48H32z" />
-                        </g>
-                      </svg>
+                      <img src={feature_4} alt="feature_4" />
                     </div>
                     <h4 className="mt-6 mb-1 font-bold text-lg leading-7 tracking-[-0.1px] md:text-xl md:leading-8 md:tracking-[-0.1px]">
                       Lorem Ipsum
@@ -157,98 +121,7 @@ const LandingPage = () => {
               </div>
               <div className="pt-3 md:pt-4 md:flex md:items-center md:py-3 lg:px-4">
                 <div className="md:order-1 md:w-auto md:p-6">
-                  <svg
-                    width={480}
-                    height={360}
-                    viewBox="0 0 480 360"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <defs>
-                      <filter
-                        x="-500%"
-                        y="-500%"
-                        width="1000%"
-                        height="1000%"
-                        filterUnits="objectBoundingBox"
-                        id="dropshadow-1"
-                      >
-                        <feOffset
-                          dy={16}
-                          in="SourceAlpha"
-                          result="shadowOffsetOuter"
-                        />
-                        <feGaussianBlur
-                          stdDeviation={24}
-                          in="shadowOffsetOuter"
-                          result="shadowBlurOuter"
-                        />
-                        <feColorMatrix
-                          values="0 0 0 0 0.12 0 0 0 0 0.17 0 0 0 0 0.21 0 0 0 0.2 0"
-                          in="shadowBlurOuter"
-                        />
-                      </filter>
-                    </defs>
-                    <path fill="#F6F8FA" d="M0 220V0h200zM480 140v220H280z" />
-                    <path
-                      fill="#FFF"
-                      d="M40 50h400v260H40z"
-                      style={{
-                        mixBlendMode: "multiply",
-                        filter: "url(#dropshadow-1)",
-                      }}
-                    />
-                    <path fill="#FFF" d="M40 50h400v260H40z" />
-                    <path
-                      fill="#FFF"
-                      d="M103 176h80v160h-80zM320 24h88v88h-88z"
-                      style={{
-                        mixBlendMode: "multiply",
-                        filter: "url(#dropshadow-1)",
-                      }}
-                    />
-                    <path
-                      fill="#FFF"
-                      d="M103 176h80v160h-80zM320 24h88v88h-88z"
-                    />
-                    <path
-                      fill="#FFF"
-                      d="M230.97 198l16.971 16.971-16.97 16.97L214 214.972z"
-                      style={{
-                        mixBlendMode: "multiply",
-                        filter: "url(#dropshadow-1)",
-                      }}
-                    />
-                    <path
-                      fill="#02C6A4"
-                      d="M230.97 198l16.971 16.971-16.97 16.97L214 214.972z"
-                    />
-                    <path
-                      fill="#FFF"
-                      d="M203 121H103v100z"
-                      style={{
-                        mixBlendMode: "multiply",
-                        filter: "url(#dropshadow-1)",
-                      }}
-                    />
-                    <path fill="#84E482" d="M203 121H103v100z" />
-                    <circle
-                      fill="#FFF"
-                      cx={288}
-                      cy={166}
-                      r={32}
-                      style={{
-                        mixBlendMode: "multiply",
-                        filter: "url(#dropshadow-1)",
-                      }}
-                    />
-                    <circle
-                      fill="#0EB3CE"
-                      cx={288}
-                      cy={166}
-                      r={32}
-                      style={{ mixBlendMode: "multiply" }}
-                    />
-                  </svg>
+                  <img src={discover_1} alt="discover_1" />
                 </div>
                 <div className="lg:text-left text-center lg:px-40 md:px-24 px-4">
                   <h3 className="mt-0 mb-5 font-bold text-2xl sm:text-3xl leading-10 sm:leading-14 tracking-tighter sm:tracking-normal">
@@ -262,98 +135,7 @@ const LandingPage = () => {
               </div>
               <div className="pt-3 md:pt-4 md:flex md:items-center md:py-3 lg:px-4">
                 <div className="md:mb-0 md:w-auto md:p-6 lg:p-3">
-                  <svg
-                    width={480}
-                    height={360}
-                    viewBox="0 0 480 360"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <defs>
-                      <filter
-                        x="-500%"
-                        y="-500%"
-                        width="1000%"
-                        height="1000%"
-                        filterUnits="objectBoundingBox"
-                        id="dropshadow-2"
-                      >
-                        <feOffset
-                          dy={16}
-                          in="SourceAlpha"
-                          result="shadowOffsetOuter"
-                        />
-                        <feGaussianBlur
-                          stdDeviation={24}
-                          in="shadowOffsetOuter"
-                          result="shadowBlurOuter"
-                        />
-                        <feColorMatrix
-                          values="0 0 0 0 0.12 0 0 0 0 0.17 0 0 0 0 0.21 0 0 0 0.2 0"
-                          in="shadowBlurOuter"
-                        />
-                      </filter>
-                    </defs>
-                    <path fill="#F6F8FA" d="M480 140v220H280zM0 220V0h200z" />
-                    <path
-                      fill="#FFF"
-                      d="M40 50h400v260H40z"
-                      style={{
-                        mixBlendMode: "multiply",
-                        filter: "url(#dropshadow-2)",
-                      }}
-                    />
-                    <path fill="#FFF" d="M40 50h400v260H40z" />
-                    <path
-                      fill="#FFF"
-                      d="M86.225 161l62.226 62.225-62.226 62.225L24 223.225zM296 176h80v160h-80z"
-                      style={{
-                        mixBlendMode: "multiply",
-                        filter: "url(#dropshadow-2)",
-                      }}
-                    />
-                    <path
-                      fill="#FFF"
-                      d="M86.225 161l62.226 62.225-62.226 62.225L24 223.225zM296 176h80v160h-80z"
-                    />
-                    <path
-                      fill="#FFF"
-                      d="M245.092 218l9.378 22.092-22.093 9.378L223 227.378z"
-                      style={{
-                        mixBlendMode: "multiply",
-                        filter: "url(#dropshadow-2)",
-                      }}
-                    />
-                    <path
-                      fill="#02C6A4"
-                      d="M245.092 218l9.378 22.092-22.093 9.378L223 227.378z"
-                    />
-                    <path
-                      fill="#FFF"
-                      d="M270 96H170v100z"
-                      style={{
-                        mixBlendMode: "multiply",
-                        filter: "url(#dropshadow-2)",
-                      }}
-                    />
-                    <path fill="#84E482" d="M270 96H170v100z" />
-                    <circle
-                      fill="#FFF"
-                      cx={296}
-                      cy={177}
-                      r={32}
-                      style={{
-                        mixBlendMode: "multiply",
-                        filter: "url(#dropshadow-2)",
-                      }}
-                    />
-                    <circle
-                      fill="#0EB3CE"
-                      cx={296}
-                      cy={177}
-                      r={32}
-                      style={{ mixBlendMode: "multiply" }}
-                    />
-                  </svg>
+                  <img src={discover_2} alt="discover_2" />
                 </div>
                 <div className="lg:text-left text-center lg:px-40 md:px-24 px-4">
                   <h3 className="mt-0 mb-5 font-bold text-2xl sm:text-3xl leading-10 sm:leading-14 tracking-tighter sm:tracking-normal">
@@ -367,98 +149,7 @@ const LandingPage = () => {
               </div>
               <div className="pt-3 md:pt-4 md:flex md:items-center md:py-3 lg:px-4">
                 <div className="md:order-1 md:w-auto md:p-6">
-                  <svg
-                    width={480}
-                    height={360}
-                    viewBox="0 0 480 360"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <defs>
-                      <filter
-                        x="-500%"
-                        y="-500%"
-                        width="1000%"
-                        height="1000%"
-                        filterUnits="objectBoundingBox"
-                        id="dropshadow-3"
-                      >
-                        <feOffset
-                          dy={16}
-                          in="SourceAlpha"
-                          result="shadowOffsetOuter"
-                        />
-                        <feGaussianBlur
-                          stdDeviation={24}
-                          in="shadowOffsetOuter"
-                          result="shadowBlurOuter"
-                        />
-                        <feColorMatrix
-                          values="0 0 0 0 0.12 0 0 0 0 0.17 0 0 0 0 0.21 0 0 0 0.2 0"
-                          in="shadowBlurOuter"
-                        />
-                      </filter>
-                    </defs>
-                    <path fill="#F6F8FA" d="M480 140v220H280zM0 220V0h200z" />
-                    <path
-                      fill="#FFF"
-                      d="M40 50h400v260H40z"
-                      style={{
-                        mixBlendMode: "multiply",
-                        filter: "url(#dropshadow-3)",
-                      }}
-                    />
-                    <path fill="#FFF" d="M40 50h400v260H40z" />
-                    <path
-                      fill="#FFF"
-                      d="M72 248h88v88H72zM180 24h80v160h-80z"
-                      style={{
-                        mixBlendMode: "multiply",
-                        filter: "url(#dropshadow-3)",
-                      }}
-                    />
-                    <path
-                      fill="#FFF"
-                      d="M72 248h88v88H72zM180 24h80v160h-80z"
-                    />
-                    <path
-                      fill="#FFF"
-                      d="M277.664 261.919l-18.113 15.745-15.746-18.113 18.113-15.745z"
-                      style={{
-                        mixBlendMode: "multiply",
-                        filter: "url(#dropshadow-3)",
-                      }}
-                    />
-                    <path
-                      fill="#02C6A4"
-                      d="M277.664 261.919l-18.113 15.745-15.746-18.113 18.113-15.745z"
-                    />
-                    <path
-                      fill="#FFF"
-                      d="M315 129H215v100z"
-                      style={{
-                        mixBlendMode: "multiply",
-                        filter: "url(#dropshadow-3)",
-                      }}
-                    />
-                    <path fill="#84E482" d="M315 129H215v100z" />
-                    <circle
-                      fill="#FFF"
-                      cx={318}
-                      cy={219}
-                      r={32}
-                      style={{
-                        mixBlendMode: "multiply",
-                        filter: "url(#dropshadow-3)",
-                      }}
-                    />
-                    <circle
-                      fill="#0EB3CE"
-                      cx={318}
-                      cy={219}
-                      r={32}
-                      style={{ mixBlendMode: "multiply" }}
-                    />
-                  </svg>
+                  <img src={discover_3} alt="discover_3" />
                 </div>
                 <div className="lg:text-left text-center lg:px-40 md:px-24 px-4">
                   <h3 className="mt-0 mb-5 font-bold text-2xl sm:text-3xl leading-10 sm:leading-14 tracking-tighter sm:tracking-normal">
@@ -497,49 +188,19 @@ const LandingPage = () => {
                       <ul className="list-none p-0 text-xs mb-4">
                         <li className="flex items-center mb-4">
                           <span className="inline-flex w-4 h-3 mr-3">
-                            <svg
-                              width={16}
-                              height={12}
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M14.3.3L5 9.6 1.7 6.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l4 4c.2.2.4.3.7.3.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0z"
-                                fill="#00C6A7"
-                                fillRule="nonzero"
-                              />
-                            </svg>
+                            <img src={tick} alt="tick" />
                           </span>
                           <span>Sed do eiusmod tempor cesa.</span>
                         </li>
                         <li className="flex items-center mb-4">
                           <span className="inline-flex w-4 h-3 mr-3">
-                            <svg
-                              width={16}
-                              height={12}
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M14.3.3L5 9.6 1.7 6.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l4 4c.2.2.4.3.7.3.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0z"
-                                fill="#00C6A7"
-                                fillRule="nonzero"
-                              />
-                            </svg>
+                            <img src={tick} alt="tick" />
                           </span>
                           <span>Sed do eiusmod tempor cesa.</span>
                         </li>
                         <li className="flex items-center mb-4">
                           <span className="inline-flex w-4 h-3 mr-3">
-                            <svg
-                              width={16}
-                              height={12}
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M14.3.3L5 9.6 1.7 6.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l4 4c.2.2.4.3.7.3.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0z"
-                                fill="#00C6A7"
-                                fillRule="nonzero"
-                              />
-                            </svg>
+                            <img src={tick} alt="tick" />
                           </span>
                           <span>Sed do eiusmod tempor cesa.</span>
                         </li>
@@ -572,65 +233,25 @@ const LandingPage = () => {
                       <ul className="list-none p-0 text-xs mb-4">
                         <li className="flex items-center mb-4">
                           <span className="inline-flex w-4 h-3 mr-3">
-                            <svg
-                              width={16}
-                              height={12}
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M14.3.3L5 9.6 1.7 6.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l4 4c.2.2.4.3.7.3.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0z"
-                                fill="#00A2B8"
-                                fillRule="nonzero"
-                              />
-                            </svg>
+                            <img src={tick} alt="tick" />
                           </span>
                           <span>Sed do eiusmod tempor cesa.</span>
                         </li>
                         <li className="flex items-center mb-4">
                           <span className="inline-flex w-4 h-3 mr-3">
-                            <svg
-                              width={16}
-                              height={12}
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M14.3.3L5 9.6 1.7 6.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l4 4c.2.2.4.3.7.3.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0z"
-                                fill="#00A2B8"
-                                fillRule="nonzero"
-                              />
-                            </svg>
+                            <img src={tick} alt="tick" />
                           </span>
                           <span>Sed do eiusmod tempor cesa.</span>
                         </li>
                         <li className="flex items-center mb-4">
                           <span className="inline-flex w-4 h-3 mr-3">
-                            <svg
-                              width={16}
-                              height={12}
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M14.3.3L5 9.6 1.7 6.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l4 4c.2.2.4.3.7.3.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0z"
-                                fill="#00A2B8"
-                                fillRule="nonzero"
-                              />
-                            </svg>
+                            <img src={tick} alt="tick" />
                           </span>
                           <span>Sed do eiusmod tempor cesa.</span>
                         </li>
                         <li className="flex items-center mb-4">
                           <span className="inline-flex w-4 h-3 mr-3">
-                            <svg
-                              width={16}
-                              height={12}
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M14.3.3L5 9.6 1.7 6.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l4 4c.2.2.4.3.7.3.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0z"
-                                fill="#00A2B8"
-                                fillRule="nonzero"
-                              />
-                            </svg>
+                            <img src={tick} alt="tick" />
                           </span>
                           <span>Sed do eiusmod tempor cesa.</span>
                         </li>
