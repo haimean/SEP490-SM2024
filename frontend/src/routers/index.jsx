@@ -12,6 +12,7 @@ import ChangePasswordPage from "../pages/auth/changePassword/ChangePasswordPage.
 import ListAccount from "../pages/admin/ListAccount/ListAccount.jsx";
 import NotFound from "../pages/common/NotFound/NotFound.jsx";
 import BranchList from "../pages/player/Branch/BranchList.jsx";
+import BranchDetail from "../pages/player/Branch/BranchDetail.jsx";
 
 const routes = [
   {
@@ -102,6 +103,13 @@ const routes = [
     path: "/player/branch-list",
     name: "Branch List",
     component: <BranchList />,
+    // role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
+    layout: "",
+  },
+  {
+    path: "/player/branch-detail",
+    name: "Branch Detail",
+    component: <BranchDetail />,
     // role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
     layout: "",
   },
