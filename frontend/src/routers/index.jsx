@@ -11,6 +11,7 @@ import Profile from "../pages/common/Profile.jsx";
 import ChangePasswordPage from "../pages/auth/changePassword/ChangePasswordPage.jsx";
 import ListAccount from "../pages/admin/ListAccount/ListAccount.jsx";
 import NotFound from "../pages/common/NotFound/NotFound.jsx";
+import BranchList from "../pages/player/Branch/BranchList.jsx";
 
 const routes = [
   {
@@ -94,6 +95,13 @@ const routes = [
     path: "/admin/list-account",
     name: "List Account",
     component: <ListAccount />,
+    // role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
+    layout: "",
+  },
+  {
+    path: "/player/branch-list",
+    name: "Branch List",
+    component: <BranchList />,
     // role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
     layout: "",
   },
