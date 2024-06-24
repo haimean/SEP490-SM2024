@@ -8,8 +8,11 @@
     "build": "tsc",
     "start": "tsc && node dist/src/app.js",
     "dev": "nodemon - exec 'ts-node' ./app.ts",
+    "seed": "nodemon - exec 'ts-node' ./seed.ts",
     "doc": "node swagger.js",
     "gen:module": "hygen module new",
+    "gen:seed": "hygen seed new",
+    "gen": "ts-node ./seed.ts",
     "lint": "eslint . -c .ts,.js --fix"
   },
   "prisma": {
@@ -24,6 +27,7 @@
   "license": "ISC",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.598.0",
+    "@faker-js/faker": "^8.4.1",
     "@jest/types": "^29.6.3",
     "@prisma/client": "^5.15.0",
     "@types/nodemailer": "^6.4.15",

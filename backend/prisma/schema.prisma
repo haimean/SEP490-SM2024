@@ -34,15 +34,15 @@ model Account {
 }
 
 model User {
-  id          Int       @id @default(autoincrement())
-  account     Account   @relation(fields: [accountId], references: [id])
-  accountId   Int       @unique // relation scalar field (used in the `@relation` attribute above)
-  name        String?
+  id          Int         @id @default(autoincrement())
+  account     Account     @relation(fields: [accountId], references: [id])
+  accountId   Int         @unique // relation scalar field (used in the `@relation` attribute above)
+  name        String
   dob         DateTime?
   numberPhone String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  court       Court[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  court       TypeCourt[]
 }
 
 // trình độ
@@ -94,18 +94,20 @@ model AttributeCourt {
   updatedAt           DateTime           @updatedAt
   account             Account            @relation(fields: [accountId], references: [id])
   attributeKeyCourt   AttributeKeyCourt? @relation(fields: [attributeKeyCourtId], references: [id])
-  Court               Court[]
+  court               TypeCourt[]
 
   @@unique([value, attributeKeyCourtId])
   @@map("category")
 }
 
-model Court {
+model TypeCourt {
   id             Int              @id @default(autoincrement())
   name           String
   attributeCourt AttributeCourt[]
-  User           User?            @relation(fields: [userId], references: [id])
-  userId         Int?
+  User           User             @relation(fields: [userId], references: [id])
+  userId         Int
+  image          String?
+  description    String?
 
   @@unique([name, userId])
 }
