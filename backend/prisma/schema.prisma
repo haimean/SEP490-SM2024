@@ -31,18 +31,18 @@ model Account {
   isAccept          Boolean             @default(false)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
+  TypeCourt         TypeCourt[]
 }
 
 model User {
-  id          Int         @id @default(autoincrement())
-  account     Account     @relation(fields: [accountId], references: [id])
-  accountId   Int         @unique // relation scalar field (used in the `@relation` attribute above)
+  id          Int       @id @default(autoincrement())
+  account     Account   @relation(fields: [accountId], references: [id])
+  accountId   Int       @unique // relation scalar field (used in the `@relation` attribute above)
   name        String
   dob         DateTime?
   numberPhone String
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  court       TypeCourt[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 // trình độ
@@ -104,10 +104,10 @@ model TypeCourt {
   id             Int              @id @default(autoincrement())
   name           String
   attributeCourt AttributeCourt[]
-  User           User             @relation(fields: [userId], references: [id])
-  userId         Int
+  account        Account          @relation(fields: [accountId], references: [id])
+  accountId      Int
   image          String?
   description    String?
 
-  @@unique([name, userId])
+  @@unique([name, accountId])
 }

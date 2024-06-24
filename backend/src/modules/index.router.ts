@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import errorHandler from '../utils/errorHandler';
 import guestRouter from './guest/index.router';
-import hostRouter from './host/index.router';
+import hostRouter from './host/host.router';
 import playerRouter from './player/index.router';
 import middleware from './index.middleware';
 import authRouter from './auth/auth.router';
