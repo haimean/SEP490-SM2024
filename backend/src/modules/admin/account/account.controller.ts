@@ -22,6 +22,23 @@ const accountController = {
       next(new CustomError(error?.message, 500));
     }
   },
+
+  banAccount: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const { id } = req.params;
+    try {
+      const existAccount = await accountService.banAccount(
+        parseInt(id)
+      );
+      console.log('🚀 ========= existAccount:', existAccount);
+      ResponseHandler(res, existAccount);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
 };
 
 export default accountController;

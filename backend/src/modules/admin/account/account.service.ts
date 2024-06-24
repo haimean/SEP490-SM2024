@@ -37,6 +37,20 @@ const accountService = {
     }
     return await database.user.findMany(queryOption);
   },
+
+  banAccount: async (id: number) => {
+    const existAccount = await database.account.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (existAccount) {
+      existAccount.isActive = false;
+      return existAccount;
+    } else {
+      throw new Error('Account not exist');
+    }
+  },
 };
 
 export default accountService;
