@@ -45,18 +45,6 @@ const DetailAttributeCourtCp = () => {
     }
   };
 
-  // const deleteItem = async (id) => {
-  //   try {
-  //     await CallApi(
-  //       `/api/admin/attribute-court/values/${id}`,
-  //       "delete"
-  //     );
-  //     fetchCourtAtbList();
-  //   } catch (error) {
-  //     console.log("delete court attribute value ERROR: ", error.response?.data?.error);
-  //   }
-  // };
-
   const filteredCourtAtbList = courtAtbList.filter((item) => {
     return item.attributeKeyCourtId == id;
   });
@@ -83,12 +71,10 @@ const DetailAttributeCourtCp = () => {
   return (
     <>
       <DetailAttributeKey
-        titleCreateButton="Court Value"
         detailItem={courtAtbKey}
         valueList={filteredCourtAtbList}
         openCreateModal={openCreateModal}
         openUpdateModal={openUpdateModal}
-        // deleteItem={deleteItem}
       />
       {isModalCreateOpen && (
         <CreateAttirbuteCourtValueCp
