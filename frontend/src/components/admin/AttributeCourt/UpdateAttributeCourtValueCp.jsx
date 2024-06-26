@@ -3,6 +3,7 @@ import CallApi from "../../../service/CallAPI.jsx";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import ModalUpdate from "../ModalUpdate.jsx";
+import { WHITE_SPACE_REGEX } from "../../../utils/regex/index.js";
 
 const UpdateAtbCourtValueCp = ({ id, closeModal, attributeKeyCourtId }) => {
   const [courtAtb, setCourtAtb] = useState({});
@@ -45,7 +46,7 @@ const UpdateAtbCourtValueCp = ({ id, closeModal, attributeKeyCourtId }) => {
       };
 
       await CallApi(`/api/admin/attribute-court/${id}`, "put", requestData, {});
-      toast.success(`Update court value successful!`);
+      toast.success(`Cập nhật đặc điểm sân đấu thành công`);
       closeModal();
     } catch (error) {
       toast.error(error.response?.data?.error);
@@ -65,33 +66,33 @@ const UpdateAtbCourtValueCp = ({ id, closeModal, attributeKeyCourtId }) => {
       register={register}
       errors={errors}
       fields={{
-        title: "Update Court Value",
+        title: "Sửa đặc điểm sân đấu",
         inputs: [
           {
             id: "value",
-            label: "Value",
+            label: "Đặc điểm",
             placeholder: "Value",
             defaultValue: courtAtb.value,
             register: { register },
             pattern: {
-              value: /^\s*\S.*$/,
-              message: "Please enter valid character",
+              value: WHITE_SPACE_REGEX,
+              message: "Vui lòng nhập ký tự hợp lệ",
             },
             errors: { errors },
             required: true,
           },
           {
             id: "isActive",
-            label: "Active",
+            label: "Kích hoạt",
             defaultValue: courtAtb.isActive ? "true" : "false",
             type: "select",
             options: [
-              { value: "true", label: "Active" },
-              { value: "false", label: "Unactive" },
+              { value: "true", label: "Kích hoạt" },
+              { value: "false", label: "Bỏ kích hoạt" },
             ],
           },
         ],
-        submitText: "Update Value",
+        submitText: "Sửa",
       }}
     />
   );

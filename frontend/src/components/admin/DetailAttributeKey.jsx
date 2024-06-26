@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import CardMembershipIcon from "@mui/icons-material/CardMembership";
@@ -18,7 +18,13 @@ const DetailAttributeKey = ({
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 70 },
+    {
+      field: "id",
+      headerName: "ID",
+      width: 70,
+      headerAlign: "center",
+      align: "center",
+    },
     {
       field: "value",
       headerName: "Giá trị",
@@ -31,6 +37,8 @@ const DetailAttributeKey = ({
       description: "Cột chứa dữ liệu không thể sắp xếp",
       sortable: false,
       width: 200,
+      headerAlign: "center",
+      align: "center",
       renderCell: (params) =>
         params.value ? (
           <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -48,6 +56,8 @@ const DetailAttributeKey = ({
       description: "Cột chứa dữ liệu không thể sắp xếp",
       sortable: false,
       width: 200,
+      headerAlign: "center",
+      align: "center",
       renderCell: (params) =>
         params.value ? (
           <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -65,6 +75,8 @@ const DetailAttributeKey = ({
       description: "Cột chứa dữ liệu không thể sắp xếp",
       sortable: false,
       width: 100,
+      headerAlign: "center",
+      align: "center",
       renderCell: (params) => (
         <Button
           onClick={() => openUpdateModal(params.row.id)}
@@ -82,15 +94,18 @@ const DetailAttributeKey = ({
 
   return (
     <Box
-      sx={{ width: "100%", display: "flex", justifyContent: "center", my: 4 }}
+      sx={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        my: 4,
+        boxShadow: 2,
+      }}
     >
       <Paper sx={{ maxWidth: "6xl", width: "100%", p: 5 }}>
         <div className="">
           <Typography variant="h5" align="center" gutterBottom>
-            Thông tin chi tiết{" "}
-            <Box component="span" sx={{ color: "primary.main" }}>
-              {detailItem.name}
-            </Box>
+            Thông tin chi tiết
           </Typography>
           <Paper sx={{ p: 2, mt: 2 }}>
             <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>

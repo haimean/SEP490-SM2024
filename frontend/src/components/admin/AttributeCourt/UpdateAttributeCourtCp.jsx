@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import ModalUpdate from '../ModalUpdate.jsx';
-import CallApi from '../../../service/CallAPI.jsx';
-import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from "react";
+import ModalUpdate from "../ModalUpdate.jsx";
+import CallApi from "../../../service/CallAPI.jsx";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { WHITE_SPACE_REGEX } from "../../../utils/regex/index.js";
 
 const UpdateAttributeCourtCp = ({ id, closeModal }) => {
   const [courtAtbKey, setCourtAtbKey] = useState({});
@@ -15,18 +16,21 @@ const UpdateAttributeCourtCp = ({ id, closeModal }) => {
 
   useEffect(() => {
     fetchCourtAtbKey();
-  },[id])
+  }, [id]);
 
   const fetchCourtAtbKey = async () => {
     try {
       const response = await CallApi(
         `/api/admin/attribute-court/key/${id}`,
-        'get',
-      )
+        "get"
+      );
       setCourtAtbKey(response?.data);
       reset(response?.data);
     } catch (error) {
-      console.log("=============== fetch court attribute ERROR: " + error.response?.data?.error);
+      console.log(
+        "=============== fetch court attribute ERROR: " +
+          error.response?.data?.error
+      );
     }
   };
 
@@ -38,11 +42,11 @@ const UpdateAttributeCourtCp = ({ id, closeModal }) => {
         {
           name: data.name,
           description: data.description,
-          isActive: data.isActive
+          isActive: data.isActive,
         },
         {}
       );
-      toast.success(`Update court attribute successful!`);
+      toast.success(`Cập nhật thuộc tính sân đấu thành công`);
       closeModal();
     } catch (error) {
       toast.error(error.response?.data?.error);
@@ -62,44 +66,44 @@ const UpdateAttributeCourtCp = ({ id, closeModal }) => {
       register={register}
       errors={errors}
       fields={{
-        title: "Update Court Attribute",
+        title: "Sửa thuộc tính sân đấu",
         inputs: [
           {
             id: "name",
-            label: "Name",
+            label: "Tên",
             defaultValue: courtAtbKey.name,
             register: { register },
             pattern: {
-              value: /^\s*\S.*$/,
-              message: "Please enter valid character"
+              value: WHITE_SPACE_REGEX,
+              message: "Vui lòng nhập ký tự hợp lệ",
             },
             errors: { errors },
-            required: true
+            required: true,
           },
           {
             id: "description",
-            label: "Description",
+            label: "Mô tả",
             defaultValue: courtAtbKey.description,
             register: { register },
             pattern: {
-              value: /^\s*\S.*$/,
-              message: "Please enter valid character"
+              value: WHITE_SPACE_REGEX,
+              message: "Vui lòng nhập ký tự hợp lệ",
             },
             errors: { errors },
             required: true,
           },
           {
             id: "isActive",
-            label: "Active",
-            defaultValue: courtAtbKey.isActive ? 'true' : 'false',
+            label: "Kích hoạt",
+            defaultValue: courtAtbKey.isActive ? "true" : "false",
             type: "select",
             options: [
-              { value: 'true', label: 'Active' },
-              { value: 'false', label: 'Unactive' },
+              { value: "true", label: "Kích hoạt" },
+              { value: "false", label: "Bỏ kích hoạt" },
             ],
           },
         ],
-        submitText: "Update",
+        submitText: "Sửa",
       }}
     />
   );

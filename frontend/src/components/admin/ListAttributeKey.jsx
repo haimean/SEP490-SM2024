@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button, TextField } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -17,21 +17,23 @@ const AttributeTable = ({
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 70 },
+    {
+      field: "id",
+      headerName: "ID",
+      width: 70,
+      headerAlign: "center",
+      align: "center",
+    },
     {
       field: "name",
       headerName: "Tên thuộc tính",
       width: 250,
-      renderCell: (params) => (
-        <Link to={`${urlDetail}/${params.row.id}`} className="text-blue-600">
-          {params.value}
-        </Link>
-      ),
+      renderCell: (params) => params.value,
     },
     {
       field: "description",
       headerName: "Mô tả",
-      width: 500,
+      width: 400,
       renderCell: (params) => params.value,
     },
     {
@@ -40,6 +42,8 @@ const AttributeTable = ({
       description: "Cột chứa dữ liệu không thể sắp xếp",
       sortable: false,
       width: 120,
+      headerAlign: "center",
+      align: "center",
       renderCell: (params) =>
         params.value ? (
           <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -56,14 +60,26 @@ const AttributeTable = ({
       headerName: "Hành động",
       description: "Cột chứa dữ liệu không thể sắp xếp",
       sortable: false,
-      width: 120,
+      width: 200,
+      headerAlign: "center",
+      align: "center",
       renderCell: (params) => (
-        <Button
-          onClick={() => openUpdateModal(params.row.id)}
-          className={"text-blue-600"}
-        >
-          {"SỬA"}
-        </Button>
+        <div>
+          <Button
+            onClick={() => openUpdateModal(params.row.id)}
+            className={"text-blue-600"}
+          >
+            {"Sửa"}
+          </Button>
+          <Button className={"text-blue-600"}>
+            <Link
+              to={`${urlDetail}/${params.row.id}`}
+              className="text-blue-600"
+            >
+              {"Chi tiết"}
+            </Link>
+          </Button>
+        </div>
       ),
     },
   ];
@@ -77,6 +93,9 @@ const AttributeTable = ({
   return (
     <div className="flex justify-center py-2">
       <div className="max-w-6xl w-full p-10 border rounded-lg shadow bg-white">
+        <h1 className="text-center mb-4 text-2xl font-bold">
+          {title.toUpperCase()}
+        </h1>
         <div className="flex justify-between mb-4">
           <TextField
             value={filterName}
@@ -90,9 +109,7 @@ const AttributeTable = ({
             thêm mới
           </Button>
         </div>
-        <h1 className="text-center mb-4 text-2xl font-bold">
-          {title.toUpperCase()}
-        </h1>
+
         <div style={{ height: "auto", width: "100%" }}>
           <DataGrid
             rows={filteredRows}
