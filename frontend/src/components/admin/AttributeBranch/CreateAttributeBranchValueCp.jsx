@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import ModalCreate from "../ModalCreate.jsx";
 import CallApi from "../../../service/CallAPI.jsx";
+import { WHITE_SPACE_REGEX } from "../../../utils/regex/index.js";
 
 const CreateAtbBranchValueCp = ({ attributeKeyBranchesId, closeModal }) => {
   const {
@@ -24,7 +25,7 @@ const CreateAtbBranchValueCp = ({ attributeKeyBranchesId, closeModal }) => {
         requestData,
         {}
       );
-      toast.success(`Create ${response?.data?.value} successful!`);
+      toast.success(`Tạo ${response?.data?.value} thành công!`);
       closeModal();
     } catch (error) {
       toast.error(error.response?.data?.error);
@@ -44,22 +45,22 @@ const CreateAtbBranchValueCp = ({ attributeKeyBranchesId, closeModal }) => {
       register={register}
       errors={errors}
       fields={{
-        title: "Create Branch Value",
+        title: "Tạo mới đặc điểm chi nhánh",
         inputs: [
           {
             id: "value",
-            label: "Value",
-            placeholder: "Value",
+            label: "Đặc điểm",
+            placeholder: "Đặc điểm",
             register: { register },
             pattern: {
-              value: /^\s*\S.*$/,
-              message: "Please enter valid character",
+              value: WHITE_SPACE_REGEX,
+              message: "Vui lòng nhập ký tự hợp lệ",
             },
             errors: { errors },
             required: true,
           },
         ],
-        submitText: "Create Value",
+        submitText: "Thêm",
       }}
     />
   );

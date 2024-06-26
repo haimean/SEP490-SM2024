@@ -3,6 +3,7 @@ import ModalUpdate from "../ModalUpdate";
 import CallAPI from "../../../service/CallAPI";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { WHITE_SPACE_REGEX } from "../../../utils/regex/index.js";
 
 const UpdateAttributeBranchCp = ({ id, closeModal }) => {
   const [branchAtbKey, setBranchAtbKey] = useState({});
@@ -45,7 +46,7 @@ const UpdateAttributeBranchCp = ({ id, closeModal }) => {
         },
         {}
       );
-      toast.success(`Update branch attribute successful!`);
+      toast.success(`Sửa thuộc tính chi nhánh thành công`);
       closeModal();
     } catch (error) {
       toast.error(error.response?.data?.error);
@@ -65,44 +66,44 @@ const UpdateAttributeBranchCp = ({ id, closeModal }) => {
       register={register}
       errors={errors}
       fields={{
-        title: "Update Branch Attribute",
+        title: "Sửa thuộc tính chi nhánh",
         inputs: [
           {
             id: "name",
-            label: "Name",
+            label: "Tên",
             defaultValue: branchAtbKey.name,
-            placeholder: "Enter name",
+            placeholder: "Tên thuộc tính",
             type: "text",
             pattern: {
-              value: /^\s*\S.*$/,
-              message: "Please enter valid character",
+              value: WHITE_SPACE_REGEX,
+              message: "Vui lòng nhập ký tự hợp lệ",
             },
             required: true,
           },
           {
             id: "description",
-            label: "Description",
+            label: "Mô tả",
             defaultValue: branchAtbKey.description,
-            placeholder: "Enter description",
+            placeholder: "Mô tả chi tiết",
             type: "text",
             pattern: {
-              value: /^\s*\S.*$/,
-              message: "Please enter valid character",
+              value: WHITE_SPACE_REGEX,
+              message: "Vui lòng nhập ký tự hợp lệ",
             },
             required: true,
           },
           {
             id: "isActive",
-            label: "Active",
+            label: "Kích hoạt",
             defaultValue: branchAtbKey.isActive ? "true" : "false",
             type: "select",
             options: [
-              { value: "true", label: "Active" },
-              { value: "false", label: "Unactive" },
+              { value: "true", label: "Kích hoạt" },
+              { value: "false", label: "Bỏ kích hoạt" },
             ],
           },
         ],
-        submitText: "Update",
+        submitText: "Sửa",
       }}
     />
   );
