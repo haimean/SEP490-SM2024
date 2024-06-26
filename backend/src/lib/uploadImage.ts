@@ -3,19 +3,20 @@ import multer from 'multer';
 import multerS3 from 'multer-s3';
 import { S3Client } from '@aws-sdk/client-s3';
 import path from 'path';
-
+import dotenv from 'dotenv';
+dotenv.config();
 // create s3 instance using S3Client
 // (this is how we create s3 instance in v3)
 const s3 = new S3Client({
   credentials: {
-    accessKeyId: 'YOUR_ACCESS_KEY_ID_HERE', // store it in .env file to keep it safe
-    secretAccessKey: 'YOUR_SECRET_KEY_HERE',
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID_HERE as string, // store it in .env file to keep it safe
+    secretAccessKey: process.env.AWS_SECRET_KEY_HERE as string,
   },
-  region: 'ap-south-1', // this is the region that you select in AWS account
+  region: process.env.AWS_DEFAULT_REGION as string, // this is the region that you select in AWS account
 });
 const s3Storage = multerS3({
   s3: s3, // s3 instance
-  bucket: 'my-images', // change it as per your project requirement
+  bucket: process.env.AWS_BUCKET as string, // change it as per your project requirement
   acl: 'public-read', // storage access type
   metadata: (
     req: Request,
