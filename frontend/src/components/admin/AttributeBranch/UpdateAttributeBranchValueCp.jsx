@@ -3,6 +3,7 @@ import ModalUpdate from "../ModalUpdate.jsx";
 import CallApi from "../../../service/CallAPI.jsx";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { WHITE_SPACE_REGEX } from "../../../utils/regex/index.js";
 
 const UpdateAtbBranchValueCp = ({ id, closeModal, attributeKeyBranchesId }) => {
   const [branchAtb, setBranchAtb] = useState({});
@@ -51,7 +52,7 @@ const UpdateAtbBranchValueCp = ({ id, closeModal, attributeKeyBranchesId }) => {
         requestData,
         {}
       );
-      toast.success(`Update branch value successful!`);
+      toast.success(`Sửa đặc điểm chi nhánh thành công`);
       closeModal();
     } catch (error) {
       toast.error(error.response?.data?.error);
@@ -71,33 +72,33 @@ const UpdateAtbBranchValueCp = ({ id, closeModal, attributeKeyBranchesId }) => {
       register={register}
       errors={errors}
       fields={{
-        title: "Update Branch Value",
+        title: "Sửa đặc điểm",
         inputs: [
           {
             id: "value",
-            label: "Value",
-            placeholder: "Value",
+            label: "Đặc điểm",
+            placeholder: "Đặc điểm",
             defaultValue: branchAtb.value,
             register: { register },
             pattern: {
-              value: /^\s*\S.*$/,
-              message: "Please enter valid character",
+              value: WHITE_SPACE_REGEX,
+              message: "Vui lòng nhập ký tự hợp lệ",
             },
             errors: { errors },
             required: true,
           },
           {
             id: "isActive",
-            label: "Active",
+            label: "Kích hoạt",
             defaultValue: branchAtb.isActive ? "true" : "false",
             type: "select",
             options: [
-              { value: "true", label: "Active" },
-              { value: "false", label: "Unactive" },
+              { value: "true", label: "Kích hoạt" },
+              { value: "false", label: "Bỏ kích hoạt" },
             ],
           },
         ],
-        submitText: "Update Value",
+        submitText: "Sửa",
       }}
     />
   );

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import CallApi from "../../../service/CallAPI.jsx";
 import ModalCreate from "../ModalCreate.jsx";
+import { WHITE_SPACE_REGEX } from "../../../utils/regex/index.js";
 
 const CreateAttributeBranchCp = ({ closeModal }) => {
   const {
@@ -23,7 +24,7 @@ const CreateAttributeBranchCp = ({ closeModal }) => {
         },
         {}
       );
-      toast.success(`Create ${response?.data?.name} successful!`);
+      toast.success(`Tạo ${response?.data?.name} thành công!`);
       closeModal();
     } catch (error) {
       toast.error(error.response?.data?.error);
@@ -43,34 +44,34 @@ const CreateAttributeBranchCp = ({ closeModal }) => {
       register={register}
       errors={errors}
       fields={{
-        title: "Create Branch Attribute",
+        title: "Thêm thuộc tính chi nhánh",
         inputs: [
           {
             id: "name",
-            label: "Name",
-            placeholder: "Name",
+            label: "Tên",
+            placeholder: "Tên thuộc tính",
             register: { register },
             pattern: {
-              value: /^\s*\S.*$/,
-              message: "Please enter valid character",
+              value: WHITE_SPACE_REGEX,
+              message: "Vui lòng điền ký tự hợp lệ",
             },
             errors: { errors },
             required: true,
           },
           {
             id: "description",
-            label: "Description",
-            placeholder: "Description",
+            label: "Mô tả",
+            placeholder: "Mô tả chi tiết",
             register: { register },
             pattern: {
-              value: /^\s*\S.*$/,
-              message: "Please enter valid character",
+              value: WHITE_SPACE_REGEX,
+              message: "Vui lòng điền ký tự hợp lệ",
             },
             errors: { errors },
             required: true,
           },
         ],
-        submitText: "Create Attribute",
+        submitText: "Thêm",
       }}
     />
   );
