@@ -35,7 +35,9 @@ const accountService = {
         },
       };
     }
-    return await database.user.findMany(queryOption);
+    const result = await database.user.findMany(queryOption);
+    const totalCount = (await database.user.findMany()).length;
+    return { result, totalCount };
   },
 
   banAccount: async (id: number) => {
