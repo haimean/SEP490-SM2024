@@ -11,6 +11,7 @@ import Profile from "../pages/common/Profile.jsx";
 import ChangePasswordPage from "../pages/auth/changePassword/ChangePasswordPage.jsx";
 import ListAccount from "../pages/admin/ListAccount/ListAccount.jsx";
 import NotFound from "../pages/common/NotFound/NotFound.jsx";
+import Dashboard from "../pages/admin/Dashboard/Dashboard.jsx";
 
 const routes = [
   {
@@ -94,7 +95,14 @@ const routes = [
     path: "/admin/list-account",
     name: "List Account",
     component: <ListAccount />,
-    // role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
+    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
+    layout: "",
+  },
+  {
+    path: "/admin/dashboard",
+    name: "Dashboard",
+    component: <Dashboard />,
+    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
     layout: "",
   },
   {
