@@ -18,7 +18,7 @@ import {
   SportsBasketball,
   AttachMoney as MoneyIcon,
 } from "@mui/icons-material";
-import PreCheckoutCp from "./PreCheckoutCp";
+import RightSectionDetailPage from "./RightSectionDetailPage";
 
 const fakeData = {
   title: "TUYỂN CỐ ĐỊNH - GIAO LƯU",
@@ -142,7 +142,7 @@ const DetailPageCp = () => {
       </Grid>
 
       {/* đoạn grid này có thể để thông tin thanh toán nếu là court */}
-      <PreCheckoutCp />
+      <RightSectionDetailPage />
     </Grid>
   );
 };

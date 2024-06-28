@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Typography, Grid, Paper, Avatar, Button } from "@mui/material";
 import { Facebook, Share, AttachMoney as MoneyIcon } from "@mui/icons-material";
 
-const PreCheckoutCp = () => {
+const RightSectionDetailPage = () => {
   return (
     <Grid item xs={12} md={4}>
       <Paper sx={{ position: "sticky", top: 100, p: 2 }}>
@@ -36,4 +36,4 @@ const PreCheckoutCp = () => {
   );
 };
 
-export default PreCheckoutCp;
+export default RightSectionDetailPage;
