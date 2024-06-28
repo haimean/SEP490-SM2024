@@ -4,11 +4,9 @@ import DashboardCp from "../../../components/admin/Dashboard/DashboardCp";
 
 const Dashboard = () => {
   return (
-    <>
-      <DashboardLayout>
-        <DashboardCp/>
-      </DashboardLayout>
-    </>
+    <DashboardLayout>
+      <DashboardCp />
+    </DashboardLayout>
   );
 };
 
