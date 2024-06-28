@@ -12,6 +12,8 @@ import ChangePasswordPage from "../pages/auth/changePassword/ChangePasswordPage.
 import ListAccount from "../pages/admin/ListAccount/ListAccount.jsx";
 import NotFound from "../pages/common/NotFound/NotFound.jsx";
 import Dashboard from "../pages/admin/Dashboard/Dashboard.jsx";
+import ListBranch from "../pages/host/Branch/ListBranch.jsx";
+import BranchDetail from "../pages/host/Branch/BranchDetail.jsx";
 
 const routes = [
   {
@@ -103,6 +105,20 @@ const routes = [
     name: "Dashboard",
     component: <Dashboard />,
     role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
+    layout: "",
+  },
+  {
+    path: "/host/list-branch",
+    name: "List Branch",
+    component: <ListBranch />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/host/branch",
+    name: "Branch Detail",
+    component: <BranchDetail />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "",
   },
   {
