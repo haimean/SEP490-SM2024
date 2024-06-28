@@ -9,13 +9,35 @@ import discover_1 from "../../assets/svg/discover_1.svg";
 import discover_2 from "../../assets/svg/discover_2.svg";
 import discover_3 from "../../assets/svg/discover_3.svg";
 import tick from "../../assets/svg/tick.svg";
+import Blog from "../../components/player/Blog/Blog.jsx";
 
 const LandingPage = () => {
+  const blogData = [
+    {
+      court: "Sân vận động Mỹ Đình",
+      address: "Đường Lê Đức Thọ, Mỹ Đình, Nam Từ Liêm, Hà Nội",
+      time: "19:00, 15/07/2024",
+      image: "/path/to/my-dinh-image.jpg",
+    },
+    {
+      court: "Sân vận động Thống Nhất",
+      address: "138 Đặng Văn Ngữ, Phường 14, Phú Nhuận, TP.HCM",
+      time: "18:30, 20/07/2024",
+      image: "/path/to/thong-nhat-image.jpg",
+    },
+    {
+      court: "Sân vận động Cẩm Phả",
+      address: "138 Đặng Văn Ngữ, Phường Cẩm Phả, Cẩm Phả, Quảng Ninh",
+      time: "19:30, 25/07/2024",
+      image: "/path/to/cam-pha-image.jpg",
+    }
+  ];
+
   return (
     <>
       <Navbar />
       <main>
-        <section className="relative pt-10 overflow-hidden text-center text-white text-opacity-80 md:pt-20 bg-blue-400">
+        <section className="relative py-10 overflow-hidden text-center text-white text-opacity-80 md:py-20 bg-blue-400 mt-16">
           <div className="max-w-screen-sm mx-auto">
             <div>
               <h1 className="text-4xl font-bold mt-0">
@@ -38,73 +60,9 @@ const LandingPage = () => {
           </div>
         </section>
 
-        <section className="isolate block text-center">
-          <div className="container">
-            <div className="relative pt-3 pb-12 md:pt-20 md:pb-20">
-              <h2 className="mb-12 md:mb-4 mt-0 font-bold text-2xl leading-10 tracking-[-0.1px] md:text-3xl md:leading-[46px] md:tracking-[-0.2px]">
-                Product features
-              </h2>
-              <div className="flex flex-wrap justify-center mx-[-3px] last:mb-[-3px]">
-                <div className="p-3 w-[276px] max-w-[276px] flex-grow">
-                  <div className="relative h-full bg-white p-3 py-6 shadow-2xl">
-                    <div className="flex justify-center">
-                      <img src={feature_1} alt="feature_1" />
-                    </div>
-                    <h4 className="mt-6 mb-1 font-bold text-lg leading-7 tracking-[-0.1px] md:text-xl md:leading-8 md:tracking-[-0.1px]">
-                      Lorem Ipsum
-                    </h4>
-                    <p className="text-lg leading-7 tracking-[-0.1px] mt-0 mb-6">
-                      often arouses curiosity due to its resemblance to
-                      classical latin
-                    </p>
-                  </div>
-                </div>
-                <div className="p-3 w-[276px] max-w-[276px] flex-grow">
-                  <div className="relative h-full bg-white p-3 py-6 shadow-2xl">
-                    <div className="flex justify-center">
-                      <img src={feature_2} alt="feature_2" />
-                    </div>
-                    <h4 className="mt-6 mb-1 font-bold text-lg leading-7 tracking-[-0.1px] md:text-xl md:leading-8 md:tracking-[-0.1px]">
-                      Lorem Ipsum
-                    </h4>
-                    <p className="text-lg leading-7 tracking-[-0.1px] mt-0 mb-6">
-                      often arouses curiosity due to its resemblance to
-                      classical latin
-                    </p>
-                  </div>
-                </div>
-                <div className="p-3 w-[276px] max-w-[276px] flex-grow">
-                  <div className="relative h-full bg-white p-3 py-6 shadow-2xl">
-                    <div className="flex justify-center">
-                      <img src={feature_3} alt="feature_3" />
-                    </div>
-                    <h4 className="mt-6 mb-1 font-bold text-lg leading-7 tracking-[-0.1px] md:text-xl md:leading-8 md:tracking-[-0.1px]">
-                      Lorem Ipsum
-                    </h4>
-                    <p className="text-lg leading-7 tracking-[-0.1px] mt-0 mb-6">
-                      often arouses curiosity due to its resemblance to
-                      classical latin
-                    </p>
-                  </div>
-                </div>
-                <div className="p-3 w-[276px] max-w-[276px] flex-grow">
-                  <div className="relative h-full bg-white p-3 py-6 shadow-2xl">
-                    <div className="flex justify-center">
-                      <img src={feature_4} alt="feature_4" />
-                    </div>
-                    <h4 className="mt-6 mb-1 font-bold text-lg leading-7 tracking-[-0.1px] md:text-xl md:leading-8 md:tracking-[-0.1px]">
-                      Lorem Ipsum
-                    </h4>
-                    <p className="text-lg leading-7 tracking-[-0.1px] mt-0 mb-6">
-                      often arouses curiosity due to its resemblance to
-                      classical latin
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* CallAPI mảng obj 3 bài báo, đây chỉ là fix cứng */}
+        <Blog blog={blogData} /> 
+
         <section className="block">
           <div className="container">
             <div className="py-3 md:py-4 relative mx-40">
