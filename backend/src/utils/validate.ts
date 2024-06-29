@@ -31,7 +31,6 @@ const validate = (schema: ObjectSchema) => {
       //* Pass err to next
       // If validation error occurs call next with HTTP 422. Otherwise HTTP 500
       if (typeof err === 'object' && err?.isJoi) {
-        console.log('err: ', err);
         next(new CustomError(err.message, 422));
       }
       next(new CustomError(err.message, 400));

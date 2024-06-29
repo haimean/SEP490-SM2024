@@ -6,12 +6,12 @@ import { AttributeBranches } from '@prisma/client';
 
 export const typeCourtSeed = async (count: number) => {
   let attributeBranches = await database.attributeBranches.findMany();
-  let user = await database.user.findMany();
+  let account = await database.account.findMany();
   for (let index = 0; index < count; index++) {
     const data = await database.typeCourt.create({
       data: {
         name: faker.lorem.words(3),
-        userId: user[await getRandomInt(user.length)]?.id,
+        accountId: account[await getRandomInt(account.length)]?.id,
         description: faker.lorem.words(20),
         image: faker.lorem.words(10),
         attributeCourt: {

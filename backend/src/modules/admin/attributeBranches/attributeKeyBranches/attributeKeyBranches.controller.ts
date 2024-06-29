@@ -40,7 +40,7 @@ const attributeKeyBranchesController = {
         error.code === 'P2002' &&
         error.meta?.target.includes('name')
       ) {
-        next(new CustomError('Name already exists.', 409));
+        next(new CustomError('Tên đã tồn tại.', 409));
       }
       next(new CustomError(error?.message, 500));
     }

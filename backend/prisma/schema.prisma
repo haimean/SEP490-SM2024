@@ -108,6 +108,10 @@ model TypeCourt {
   accountId      Int
   image          String?
   description    String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  @@unique([name, accountId])
 }
 
 // cơ sở 

@@ -24,6 +24,7 @@ const verifyToken = async (
       );
       if (account) {
         if (account.role === role) {
+          req.headers.authorization = account.id.toString();
           return next();
         } else {
           return next(new CustomError('Authorization', 401));

@@ -2,24 +2,22 @@
 PORT=4200
 FONT_END_URL=http://localhost:3000
 
-SECRET_JWT_KEY = 'Hello every one'
+SECRET_JWT_KEY =
 
 # test trên mail google
-SMTP_HOST=smtp.gmail.com
-SMTP_MAIL=inuyashapc162@gmail.com
-SMTP_PASS=juki sumt jtwf wbtm
-SMTP_PORT=587
-MAIL_FROM_ADDRESS=inuyashapc162@gmail.com
+SMTP_HOST=
+SMTP_MAIL=
+SMTP_PASS=
+SMTP_PORT=
+MAIL_FROM_ADDRESS=
 
 # test trên mail trap
-SMTP_HOST=sandbox.smtp.mailtrap.io
-SMTP_MAIL=385c7531498ac0
-SMTP_PASS=5236e289b95e1e
-SMTP_PORT=2525 
-MAIL_FROM_ADDRESS=inuyashapc162@gmail.com
+SMTP_HOST=
+SMTP_MAIL=
+SMTP_PASS=
+SMTP_PORT= 
+MAIL_FROM_ADDRESS=i
 
-DATABASE_URL="mysql://haimean:haimean@localhost:3306/test_prisma"
+DATABASE_URL=
 
-CLOUDINARY_CLOUD_NAME='dqsjc7ny3'
-CLOUDINARY_API_KEY='144563951274394'
-CLOUDINARY_API_SECRET='3uIHQnchphL9ZkwAWdX0fCt6JT8'
+s

@@ -97,8 +97,6 @@ const authService = {
             name,
             dob: null,
             numberPhone: '',
-            createdAt: new Date(),
-            updatedAt: new Date(),
           },
         });
         return account;
@@ -163,8 +161,6 @@ const authService = {
             name,
             dob: null,
             numberPhone: '',
-            createdAt: new Date(),
-            updatedAt: new Date(),
           },
         });
         const token = jwt.sign(
