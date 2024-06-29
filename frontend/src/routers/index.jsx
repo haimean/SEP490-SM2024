@@ -121,20 +121,6 @@ const routes = [
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "",
   },
-  // {
-  //   path: "/host/branch-list",
-  //   name: "Branch List",
-  //   component: <BranchList />,
-  //   // role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
-  //   layout: "",
-  // },
-  {
-    path: "/host/branch-detail",
-    name: "Branch Detail",
-    component: <BranchDetail />,
-    // role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
-    layout: "",
-  },
   {
     path: "/404",
     name: "Not Found",
