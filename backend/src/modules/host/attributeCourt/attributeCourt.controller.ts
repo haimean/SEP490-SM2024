@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import CustomError from '../../../outcomes/customError';
-import ResponseHandler from '../../../outcomes/responseHandler';
 import { AttributeCourtPayLoad } from './attributeCourt.model';
 import jwt, { Secret } from 'jsonwebtoken';
 import { Account, AttributeCourt } from '@prisma/client';
 import attributeCourtService from '../../admin/attributeCourt/attributeCourt.service';
 import attributeCourtHostService from './attributeCourt.service';
+import { ResponseHandler } from '../../../outcomes/responseHandler';
 
 const attributeCourtHostController = {
   create: async (req: Request, res: Response, next: NextFunction) => {

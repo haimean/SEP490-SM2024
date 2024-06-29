@@ -8,10 +8,10 @@ import forgotPasswordService from './forgotPassword.service';
 import CustomError from '../../../outcomes/customError';
 import sendEmail from '../../../lib/sendEmail';
 import regex from '../../../utils/regex';
-import ResponseHandler from '../../../outcomes/responseHandler';
 import { join } from 'path';
 import { readFileSync } from 'fs';
 import NotFoundError from '../../../outcomes/notFoundError';
+import { ResponseHandler } from '../../../outcomes/responseHandler';
 
 dotenv.config();
 const getEmailContent = (otp: string) => {

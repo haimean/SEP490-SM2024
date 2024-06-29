@@ -1,7 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
-import ResponseHandler from '../../../outcomes/responseHandler';
 import accountService from './account.service';
 import CustomError from '../../../outcomes/customError';
+import {
+  ResponseHandler,
+  ResponsePaginationHandler,
+} from '../../../outcomes/responseHandler';
 
 const accountController = {
   listAccount: async (
@@ -17,12 +20,11 @@ const accountController = {
         email,
         pagination
       );
-      res.status(200).json({
-        status: 'success',
-        data: result.result,
-        totalCount: result.totalCount,
-      });
-      // ResponseHandler(res, result);
+      ResponsePaginationHandler(
+        res,
+        result.result,
+        result.totalCount
+      );
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
     }

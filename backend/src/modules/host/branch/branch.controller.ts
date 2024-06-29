@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import branchService from './branch.service';
-import ResponseHandler from '../../../outcomes/responseHandler';
 import CustomError from '../../../outcomes/customError';
+import { ResponseHandler } from '../../../outcomes/responseHandler';
 
 const branchController = {
   listBranch: async (
