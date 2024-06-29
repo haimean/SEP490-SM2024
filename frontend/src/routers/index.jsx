@@ -11,6 +11,8 @@ import Profile from "../pages/common/Profile.jsx";
 import ChangePasswordPage from "../pages/auth/ChangePassword/ChangePasswordPage.jsx";
 import ListAccount from "../pages/admin/ListAccount/ListAccount.jsx";
 import NotFound from "../pages/common/NotFound/NotFound.jsx";
+import WaitingList from "../pages/user/WaitingList/WaitingList.jsx";
+import BookingTablePage from "../pages/user/BookingTable/BookingTable.jsx";
 
 const routes = [
   {
@@ -102,6 +104,20 @@ const routes = [
     name: "Not Found",
     component: <NotFound />,
     role: [], // Không yêu cầu đăng nhập
+    layout: "",
+  },
+  {
+    path: "/waiting-list",
+    name: "Waiting List",
+    component: <WaitingList />,
+    role: ["USER"],
+    layout: "",
+  },
+  {
+    path: "/booking-table",
+    name: "Booking Table",
+    component: <BookingTablePage />,
+    role: ["USER"],
     layout: "",
   },
 ];
