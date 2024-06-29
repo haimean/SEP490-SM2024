@@ -11,8 +11,9 @@ import Profile from "../pages/common/Profile.jsx";
 import ChangePasswordPage from "../pages/auth/changePassword/ChangePasswordPage.jsx";
 import ListAccount from "../pages/admin/ListAccount/ListAccount.jsx";
 import NotFound from "../pages/common/NotFound/NotFound.jsx";
-import BranchList from "../layouts/host/Branch/BranchList.jsx";
-import BranchDetail from "../layouts/host/Branch/BranchDetail.jsx";
+import Dashboard from "../pages/admin/Dashboard/Dashboard.jsx";
+import ListBranch from "../pages/host/Branch/ListBranch.jsx";
+import BranchDetail from "../pages/host/Branch/BranchDetail.jsx";
 
 const routes = [
   {
@@ -96,16 +97,37 @@ const routes = [
     path: "/admin/list-account",
     name: "List Account",
     component: <ListAccount />,
-    // role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
+    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
     layout: "",
   },
   {
-    path: "/host/branch-list",
-    name: "Branch List",
-    component: <BranchList />,
-    // role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
+    path: "/admin/dashboard",
+    name: "Dashboard",
+    component: <Dashboard />,
+    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
     layout: "",
   },
+  {
+    path: "/host/list-branch",
+    name: "List Branch",
+    component: <ListBranch />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/host/branch/:id",
+    name: "Branch Detail",
+    component: <BranchDetail />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  // {
+  //   path: "/host/branch-list",
+  //   name: "Branch List",
+  //   component: <BranchList />,
+  //   // role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
+  //   layout: "",
+  // },
   {
     path: "/host/branch-detail",
     name: "Branch Detail",

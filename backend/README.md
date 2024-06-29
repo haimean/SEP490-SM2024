@@ -2,7 +2,7 @@
 
 **Chạy để run tạo các bảng trong db**
 
-npx prisma migrate dev 
+npx prisma migrate dev --create-only
 
 **Chạy để gen kiểu dữ liệu**
 npx prisma generate

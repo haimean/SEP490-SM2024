@@ -48,6 +48,7 @@ export default function DataTable() {
   const [pageSize, setPageSize] = React.useState(5);
   const [rows, setRows] = React.useState([]);
   // const [totalRows, setTotalRows] = React.useState(0); // New state for total rows
+  const [totalRecords, setTotalRecords] = React.useState(0);
   console.log("🚀 ========= rows:", rows);
 
   const getData = async (page, pageSize) => {
@@ -62,6 +63,7 @@ export default function DataTable() {
         },
       });
       console.log("🚀 ========= result:", result);
+      setTotalRecords(result.totalCount);
       // setData(result.data); // Adjust this according to your API response structure
       // setTotalRows(result.totalRecords); // Assuming your API returns the total record count
       setRows(
@@ -112,9 +114,9 @@ export default function DataTable() {
         checkboxSelection
       />
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[5, 10]}
         component="div"
-        count={12} // Use the total rows state
+        count={totalRecords} // Use the total rows state
         rowsPerPage={pageSize}
         page={page}
         onPageChange={handlePageChange}

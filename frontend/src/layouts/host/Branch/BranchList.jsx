@@ -5,7 +5,9 @@ export default function BranchList() {
   return (
     <>
       <Navbar />
-      <BranchListComponent />
+      <div>
+        <BranchListComponent />
+      </div>
       <Footer />
     </>
   );

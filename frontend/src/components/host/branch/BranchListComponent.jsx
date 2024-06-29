@@ -1,152 +1,196 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Typography from "@mui/material/Typography";
+import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
+import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
 import Paper from "@mui/material/Paper";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { Link } from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import ArrowRight from "@mui/icons-material/ArrowRight";
+import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
+import Home from "@mui/icons-material/Home";
+import Settings from "@mui/icons-material/Settings";
+import People from "@mui/icons-material/People";
+import PermMedia from "@mui/icons-material/PermMedia";
+import Dns from "@mui/icons-material/Dns";
+import Public from "@mui/icons-material/Public";
 
-function createData(name, calories, fat, carbs, protein, price) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
-    history: [
-      {
-        date: "2020-01-05",
-        customerId: "11091700",
-        amount: 3,
-      },
-      {
-        date: "2020-01-02",
-        customerId: "Anonymous",
-        amount: 1,
-      },
-    ],
-  };
-}
-
-function Row(props) {
-  const { row } = props;
-  const [open, setOpen] = React.useState(false);
-
-  return (
-    <React.Fragment>
-      <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-        <TableCell>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell>
-        <TableCell component="th" scope="row">
-          {row.name}
-        </TableCell>
-        <TableCell align="right">{row.calories}</TableCell>
-        <TableCell align="right">{row.fat}</TableCell>
-        <TableCell align="right">{row.carbs}</TableCell>
-        <TableCell align="right">{row.protein}</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                History
-              </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row">
-                        <Link to="/host/branch-detail">{historyRow.date}</Link>
-                      </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Box>
-          </Collapse>
-        </TableCell>
-      </TableRow>
-    </React.Fragment>
-  );
-}
-
-Row.propTypes = {
-  row: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbs: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      })
-    ).isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    protein: PropTypes.number.isRequired,
-  }).isRequired,
-};
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0, 3.99),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3, 4.99),
-  createData("Eclair", 262, 16.0, 24, 6.0, 3.79),
-  createData("Cupcake", 305, 3.7, 67, 4.3, 2.5),
-  createData("Gingerbread", 356, 16.0, 49, 3.9, 1.5),
+const data = [
+  { icon: <People />, label: "Authentication" },
+  { icon: <Dns />, label: "Database" },
+  { icon: <PermMedia />, label: "Storage" },
+  { icon: <Public />, label: "Hosting" },
 ];
 
-export default function BranchListComponent() {
+const FireNav = styled(List)({
+  "& .MuiListItemButton-root": {
+    paddingLeft: 24,
+    paddingRight: 24,
+  },
+  "& .MuiListItemIcon-root": {
+    minWidth: 0,
+    marginRight: 16,
+  },
+  "& .MuiSvgIcon-root": {
+    fontSize: 20,
+  },
+});
+
+export default function CustomizedList() {
+  const [open, setOpen] = React.useState(true);
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Box sx={{ display: "flex" }}>
+      <ThemeProvider
+        theme={createTheme({
+          components: {
+            MuiListItemButton: {
+              defaultProps: {
+                disableTouchRipple: true,
+              },
+            },
+          },
+          palette: {
+            mode: "dark",
+            primary: { main: "rgb(102, 157, 246)" },
+            background: { paper: "rgb(5, 30, 52)" },
+          },
+        })}
+      >
+        <Paper elevation={0} sx={{ maxWidth: 256 }}>
+          <FireNav component="nav" disablePadding>
+            <ListItemButton component="a" href="#customized-list">
+              <ListItemIcon sx={{ fontSize: 20 }}>🔥</ListItemIcon>
+              <ListItemText
+                sx={{ my: 0 }}
+                primary="Firebash"
+                primaryTypographyProps={{
+                  fontSize: 20,
+                  fontWeight: "medium",
+                  letterSpacing: 0,
+                }}
+              />
+            </ListItemButton>
+            <Divider />
+            <ListItem component="div" disablePadding>
+              <ListItemButton sx={{ height: 56 }}>
+                <ListItemIcon>
+                  <Home color="primary" />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Project Overview"
+                  primaryTypographyProps={{
+                    color: "primary",
+                    fontWeight: "medium",
+                    variant: "body2",
+                  }}
+                />
+              </ListItemButton>
+              <Tooltip title="Project Settings">
+                <IconButton
+                  size="large"
+                  sx={{
+                    "& svg": {
+                      color: "rgba(255,255,255,0.8)",
+                      transition: "0.2s",
+                      transform: "translateX(0) rotate(0)",
+                    },
+                    "&:hover, &:focus": {
+                      bgcolor: "unset",
+                      "& svg:first-of-type": {
+                        transform: "translateX(-4px) rotate(-20deg)",
+                      },
+                      "& svg:last-of-type": {
+                        right: 0,
+                        opacity: 1,
+                      },
+                    },
+                    "&::after": {
+                      content: '""',
+                      position: "absolute",
+                      height: "80%",
+                      display: "block",
+                      left: 0,
+                      width: "1px",
+                      bgcolor: "divider",
+                    },
+                  }}
+                >
+                  <Settings />
+                  <ArrowRight
+                    sx={{ position: "absolute", right: 4, opacity: 0 }}
+                  />
+                </IconButton>
+              </Tooltip>
+            </ListItem>
+            <Divider />
+            <Box
+              sx={{
+                bgcolor: open ? "rgba(71, 98, 130, 0.2)" : null,
+                pb: open ? 2 : 0,
+              }}
+            >
+              <ListItemButton
+                alignItems="flex-start"
+                onClick={() => setOpen(!open)}
+                sx={{
+                  px: 3,
+                  pt: 2.5,
+                  pb: open ? 0 : 2.5,
+                  "&:hover, &:focus": { "& svg": { opacity: open ? 1 : 0 } },
+                }}
+              >
+                <ListItemText
+                  primary="Build"
+                  primaryTypographyProps={{
+                    fontSize: 15,
+                    fontWeight: "medium",
+                    lineHeight: "20px",
+                    mb: "2px",
+                  }}
+                  secondary="Authentication, Firestore Database, Realtime Database, Storage, Hosting, Functions, and Machine Learning"
+                  secondaryTypographyProps={{
+                    noWrap: true,
+                    fontSize: 12,
+                    lineHeight: "16px",
+                    color: open ? "rgba(0,0,0,0)" : "rgba(255,255,255,0.5)",
+                  }}
+                  sx={{ my: 0 }}
+                />
+                <KeyboardArrowDown
+                  sx={{
+                    mr: -1,
+                    opacity: 0,
+                    transform: open ? "rotate(-180deg)" : "rotate(0)",
+                    transition: "0.2s",
+                  }}
+                />
+              </ListItemButton>
+              {open &&
+                data.map((item) => (
+                  <ListItemButton
+                    key={item.label}
+                    sx={{ py: 0, minHeight: 32, color: "rgba(255,255,255,.8)" }}
+                  >
+                    <ListItemIcon sx={{ color: "inherit" }}>
+                      {item.icon}
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={item.label}
+                      primaryTypographyProps={{
+                        fontSize: 14,
+                        fontWeight: "medium",
+                      }}
+                    />
+                  </ListItemButton>
+                ))}
+            </Box>
+          </FireNav>
+        </Paper>
+      </ThemeProvider>
+    </Box>
   );
 }

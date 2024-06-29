@@ -108,6 +108,8 @@ model TypeCourt {
   accountId      Int
   image          String?
   description    String?
-
-  @@unique([name, accountId])
 }
+
+// cơ sở 
+
+// Danh sách sân của cơ sở gồm tên và kiểu sân (tên có thể xếp theo số hoặc tên bình thường)
