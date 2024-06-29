@@ -1,13 +1,10 @@
 import React from "react";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
-import { Link, useParams } from "react-router-dom";
 
-const ListPageCp = ({ name, location, time, image }) => {
+const CardComponent = ({ name, location, time, image }) => {
   //image là link ảnh
-  const id = useParams();
 
   return (
-    <Link to={`/host/branch/${id}`}>
       <Card
         sx={{
           boxShadow: "0 3px 3px rgba(0, 0, 0, 0.2)",
@@ -34,8 +31,7 @@ const ListPageCp = ({ name, location, time, image }) => {
           </Typography>
         </CardContent>
       </Card>
-    </Link>
   );
 };
 
-export default ListPageCp;
+export default CardComponent;
