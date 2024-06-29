@@ -115,7 +115,7 @@ const routes = [
     layout: "",
   },
   {
-    path: "/host/branch",
+    path: "/host/branch/:id",
     name: "Branch Detail",
     component: <BranchDetail />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
