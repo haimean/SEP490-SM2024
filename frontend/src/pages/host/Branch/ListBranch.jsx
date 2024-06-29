@@ -88,6 +88,11 @@ const ListBranch = () => {
     },
   ];
 
+  const handleFilterChange = (filterName, value) => {
+    console.log(`${filterName} changed to ${value}`);
+    // Xử lý logic lọc ở đây
+  };
+
   return (
     <Box
       sx={{
