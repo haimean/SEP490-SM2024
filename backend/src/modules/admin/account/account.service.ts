@@ -35,7 +35,23 @@ const accountService = {
         },
       };
     }
-    return await database.user.findMany(queryOption);
+    const result = await database.user.findMany(queryOption);
+    const totalCount = (await database.user.findMany()).length;
+    return { result, totalCount };
+  },
+
+  banAccount: async (id: number) => {
+    const existAccount = await database.account.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (existAccount) {
+      existAccount.isActive = false;
+      return existAccount;
+    } else {
+      throw new Error('Account not exist');
+    }
   },
 };
 

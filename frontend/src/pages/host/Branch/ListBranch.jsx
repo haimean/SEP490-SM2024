@@ -113,7 +113,7 @@ const ListBranch = () => {
         <Typography variant="h4" component="h2" mb={6} fontWeight={600}>
           Danh sách chi nhánh
         </Typography>
-        <FilterCp filters={filters}/>
+        <FilterCp filters={filters} />
         <Grid container spacing={3}>
           {branchData.map((item) => (
             <Grid item xs={12} sm={4} md={3} key={item.id}>
