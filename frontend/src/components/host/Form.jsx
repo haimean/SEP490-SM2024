@@ -13,7 +13,7 @@ import {
   Typography,
   IconButton,
 } from "@mui/material";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import DatePicker from "react-datepicker";
 import { Controller } from "react-hook-form";
 
@@ -111,8 +111,8 @@ const Form = ({ formConfig, control, handleCancel, onFormSubmit, errors }) => {
             render={({ field: { onChange, value } }) => (
               <Box>
                 <Grid container spacing={2}>
-                  {value.map((file, index) => (
-                    <Grid item xs={3} key={index}>
+                  {value.map((file) => (
+                    <Grid item xs={3} key={file.name}>
                       <Box
                         sx={{
                           border: "2px solid #ccc",
@@ -123,7 +123,7 @@ const Form = ({ formConfig, control, handleCancel, onFormSubmit, errors }) => {
                       >
                         <img
                           src={URL.createObjectURL(file)}
-                          alt={`Preview ${index}`}
+                          alt={`Preview ${file.name}`}
                           style={{ width: "100%", height: "auto" }}
                         />
                         <IconButton
@@ -135,7 +135,7 @@ const Form = ({ formConfig, control, handleCancel, onFormSubmit, errors }) => {
                           }}
                           onClick={() => {
                             const newValue = value.filter(
-                              (_, i) => i !== index
+                              (_, i) => i !== file.name
                             );
                             onChange(newValue);
                           }}
@@ -163,7 +163,7 @@ const Form = ({ formConfig, control, handleCancel, onFormSubmit, errors }) => {
                       }}
                     >
                       <input
-                        accept="image/*"
+                        accept={field.type === "image" ? "image/*" : undefined}
                         style={{ display: "none" }}
                         id={`upload-${field.name}`}
                         type="file"
