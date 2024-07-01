@@ -25,7 +25,6 @@ attributeBranchesRouter.put(
   attributeBranchesController.update
 );
 
-// TODO:
 // remove attribute  court
 attributeBranchesRouter.delete(
   '/:id',

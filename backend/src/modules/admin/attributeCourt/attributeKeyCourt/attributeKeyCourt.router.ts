@@ -19,7 +19,6 @@ attributeKeyCourtRouter.put(
   attributeKeyCourtController.update
 );
 
-// TODO:
 // remove attribute key court
 attributeKeyCourtRouter.delete(
   '/:id',
