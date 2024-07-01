@@ -19,7 +19,6 @@ attributeKeyBranchesRouter.put(
   attributeKeyBranchesController.update
 );
 
-// TODO:
 // remove attribute key Branches
 attributeKeyBranchesRouter.delete(
   '/:id',
