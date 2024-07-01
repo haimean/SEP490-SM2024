@@ -32,6 +32,7 @@ model Account {
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
   TypeCourt         TypeCourt[]
+  Branches          Branches[]
 }
 
 model User {
@@ -68,6 +69,8 @@ model AttributeBranches {
   updatedAt              DateTime              @updatedAt
   account                Account               @relation(fields: [accountId], references: [id])
   attributeKeyBranches   AttributeKeyBranches? @relation(fields: [attributeKeyBranchesId], references: [id])
+  Branches               Branches?             @relation(fields: [branchesId], references: [id])
+  branchesId             Int?
 
   @@unique([value, attributeKeyBranchesId])
 }
@@ -100,6 +103,7 @@ model AttributeCourt {
   @@map("category")
 }
 
+//   Cở sở có sẽ có nhiều kiểu sân 
 model TypeCourt {
   id             Int              @id @default(autoincrement())
   name           String
@@ -110,10 +114,40 @@ model TypeCourt {
   description    String?
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
+  court          Court[]
 
   @@unique([name, accountId])
 }
 
-// cơ sở 
+// Bảng nối cơ sở với sân name của bảng này giống kiểu sân 1 của cơ sở a có kiểu sân b  
+model Court {
+  id          Int        @id @default(autoincrement())
+  name        String
+  Branches    Branches?  @relation(fields: [branchesId], references: [id])
+  branchesId  Int?
+  TypeCourt   TypeCourt? @relation(fields: [typeCourtId], references: [id])
+  typeCourtId Int?
 
-// Danh sách sân của cơ sở gồm tên và kiểu sân (tên có thể xếp theo số hoặc tên bình thường)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Bảng cơ sở, có thông tin cơ bản của cơ sở và danh sách sân
+model Branches {
+  id                Int                 @id @default(autoincrement())
+  name              String
+  accountId         Int
+  attributeBranches AttributeBranches[]
+  court             Court[]
+  account           Account             @relation(fields: [accountId], references: [id])
+  addressLongitude  String
+  addressLatitude   String
+  image             String?
+  description       String?
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  @@unique([name, accountId])
+}
+
+// TODO: Giá tiền cho sân, trả phí sân, Khung giờ chơi cao điểm và thấp điểm 
