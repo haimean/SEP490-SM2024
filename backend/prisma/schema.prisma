@@ -28,7 +28,6 @@ model Account {
   emailToken        String?
   // hoạt động của account
   isActive          Boolean             @default(true)
-  isAccept          Boolean             @default(false)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
   TypeCourt         TypeCourt[]
@@ -69,8 +68,7 @@ model AttributeBranches {
   updatedAt              DateTime              @updatedAt
   account                Account               @relation(fields: [accountId], references: [id])
   attributeKeyBranches   AttributeKeyBranches? @relation(fields: [attributeKeyBranchesId], references: [id])
-  Branches               Branches?             @relation(fields: [branchesId], references: [id])
-  branchesId             Int?
+  Branches               Branches[]
 
   @@unique([value, attributeKeyBranchesId])
 }
