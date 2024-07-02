@@ -23,7 +23,7 @@ const CreateBranch = () => {
   const addNewServiceValue = async (data) => {
     const requestData = {
       value: data.value,
-      attributeKeyBranchesId: data.id, //cái này kbt lấy dynamic kiểu gì vì có rất nhiều atb key trong này
+      attributeKeyBranchesId: data.id,
     };
     console.log(requestData);
     try {
@@ -64,7 +64,7 @@ const CreateBranch = () => {
         label: itemChildren.value,
       })),
       gridWidth: 12,
-      onCustomInput: addNewServiceValue,
+      onCustomInput: (data) => addNewServiceValue({ ...data, id: item.id }),
     };
   });
 
