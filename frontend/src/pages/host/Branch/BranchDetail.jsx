@@ -1,12 +1,13 @@
 import { Box } from "@mui/material";
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
 import Navbar from "../../../layouts/player/Navbar";
 import Footer from "../../../layouts/player/Footer";
 import DetailPageCp from "../../../components/host/DetailPageCp";
-import RightSectionDetailPage from "../../../components/host/RightSectionDetailPage";
-import RightSectionHost from "../../../components/host/RightSectionHost";
+import { useParams } from "react-router-dom";
 
 const BranchDetail = () => {
+  const { id } = useParams();
   const fakeData = {
     title: "TUYỂN CỐ ĐỊNH - GIAO LƯU",
     image: "https://example.com/badminton-image.jpg",
@@ -68,10 +69,10 @@ const BranchDetail = () => {
           participants={fakeData.participants}
           level={fakeData.level}
           price={fakeData.price}
-          RightSectionComponent={
-            userRole !== "ADMIN" ? RightSectionDetailPage : RightSectionHost
-          }
+          id={id}
+          role={userRole}
           map={map}
+          type={"Branch"}
         />
       </Box>
       <Footer sx={{ flexShrink: 0 }} />
