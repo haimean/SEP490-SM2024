@@ -28,7 +28,6 @@ model Account {
   emailToken        String?
   // hoạt động của account
   isActive          Boolean             @default(true)
-  isAccept          Boolean             @default(false)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
   TypeCourt         TypeCourt[]
@@ -69,8 +68,7 @@ model AttributeBranches {
   updatedAt              DateTime              @updatedAt
   account                Account               @relation(fields: [accountId], references: [id])
   attributeKeyBranches   AttributeKeyBranches? @relation(fields: [attributeKeyBranchesId], references: [id])
-  Branches               Branches?             @relation(fields: [branchesId], references: [id])
-  branchesId             Int?
+  branches               Branches[]
 
   @@unique([value, attributeKeyBranchesId])
 }
@@ -127,9 +125,8 @@ model Court {
   branchesId  Int?
   TypeCourt   TypeCourt? @relation(fields: [typeCourtId], references: [id])
   typeCourtId Int?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }
 
 // Bảng cơ sở, có thông tin cơ bản của cơ sở và danh sách sân

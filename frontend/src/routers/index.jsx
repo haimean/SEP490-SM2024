@@ -15,6 +15,9 @@ import Dashboard from "../pages/admin/Dashboard/Dashboard.jsx";
 import ListBranch from "../pages/host/Branch/ListBranch.jsx";
 import BranchDetail from "../pages/host/Branch/BranchDetail.jsx";
 import CreateBranch from "../pages/host/Branch/CreateBranch.jsx";
+import ListCourt from "../pages/host/Court/ListCourt.jsx";
+import CourtDetail from "../pages/host/Court/CourtDetail.jsx";
+import Checkout from "../pages/player/Court/Checkout.jsx";
 
 const routes = [
   {
@@ -126,6 +129,27 @@ const routes = [
     path: "/host/create-branch",
     name: "Create Branch",
     component: <CreateBranch />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/host/court/:id",
+    name: "Court List",
+    component: <ListCourt />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/player/court/1",
+    name: "Court Detail",
+    component: <CourtDetail />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/player/checkout",
+    name: "Checkout",
+    component: <Checkout />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "",
   },

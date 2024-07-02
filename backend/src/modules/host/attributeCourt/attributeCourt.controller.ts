@@ -3,7 +3,6 @@ import CustomError from '../../../outcomes/customError';
 import { AttributeCourtPayLoad } from './attributeCourt.model';
 import jwt, { Secret } from 'jsonwebtoken';
 import { Account, AttributeCourt } from '@prisma/client';
-import attributeCourtService from '../../admin/attributeCourt/attributeCourt.service';
 import attributeCourtHostService from './attributeCourt.service';
 import { ResponseHandler } from '../../../outcomes/responseHandler';
 
