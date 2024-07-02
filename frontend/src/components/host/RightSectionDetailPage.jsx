@@ -101,7 +101,7 @@ const RightSectionDetailPage = () => {
           <div className="mt-4">
             <Link to={"/player/checkout"}>
               <Button variant="contained" color="primary" className="w-full">
-                Reserve
+                Book sân
               </Button>
             </Link>
           </div>

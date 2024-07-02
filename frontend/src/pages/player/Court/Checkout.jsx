@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   TextField,
@@ -20,7 +20,7 @@ const Checkout = () => {
 
   return (
     <LayoutPlayer>
-      <Grid container spacing={3} mt={8}>
+      <Grid container spacing={3} mt={8}> 
         <Grid item xs={12} sm={8}>
           <form onSubmit={handleSubmit(onSubmit)} className="m-4">
             <Grid container spacing={2}>
