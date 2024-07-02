@@ -1,9 +1,11 @@
-import React from "react";
+import React, { Children, useEffect, useState } from "react";
 import Form from "../../../components/host/Form";
 import Navbar from "../../../layouts/player/Navbar";
 import Footer from "../../../layouts/player/Footer";
 import { Box } from "@mui/material";
 import { useForm } from "react-hook-form";
+import CallApi from "../../../service/CallAPI";
+import { toast } from "react-toastify";
 
 const CreateBranch = () => {
   const {
@@ -12,6 +14,60 @@ const CreateBranch = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [branchAtbList, setBranchAtbList] = useState([]);
+
+  useEffect(() => {
+    fetchBranchAtbList();
+  }, []);
+
+  const addNewServiceValue = async (data) => {
+    const requestData = {
+      value: data.value,
+      attributeKeyBranchesId: data.id, //cái này kbt lấy dynamic kiểu gì vì có rất nhiều atb key trong này
+    };
+    console.log(requestData);
+    try {
+      const response = await CallApi(
+        "/api/host/attribute-branches",
+        "post",
+        requestData
+      );
+      toast.success(`Tạo ${response?.data?.value} thành công!`);
+      fetchBranchAtbList();
+    } catch (error) {
+      toast.error(error.response?.data?.error);
+    }
+  };
+
+  const fetchBranchAtbList = async () => {
+    try {
+      const response = await CallApi(`/api/host/attribute-branches`, "get");
+      setBranchAtbList(response?.data);
+    } catch (error) {
+      console.log(
+        "=============== fetch branch attribute ERROR: " +
+          error.response?.data?.error
+      );
+    }
+  };
+
+  //hàm này để lọc theo atbName và render ra option value theo atb key
+  const serviceOptions = branchAtbList.map((item) => {
+    return {
+      name: item.name,
+      key: item.id,
+      label: item.name,
+      type: "select-custom",
+      required: true,
+      options: item.attributeBranches.map((itemChildren) => ({
+        key: itemChildren.id,
+        label: itemChildren.value,
+      })),
+      gridWidth: 12,
+      onCustomInput: addNewServiceValue,
+    };
+  });
+
   const formConfig = [
     {
       name: "branchInfo",
@@ -99,13 +155,7 @@ const CreateBranch = () => {
       required: true,
       gridWidth: 6,
     },
-    {
-      name: "service",
-      label: "Dịch vụ cung cấp",
-      type: "text",
-      required: true,
-      gridWidth: 12,
-    },
+    ...serviceOptions,
     {
       name: "legalInfo",
       label: "Thông tin pháp lý",
