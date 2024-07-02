@@ -8,6 +8,8 @@ import { attributeKeyCourtSeed } from './seed/attributeKeyCourtSeed';
 import { attributeBranchesSeed } from './seed/attributeBranchesSeed';
 import { attributeCourtSeed } from './seed/attributeCourtSeed';
 import { typeCourtSeed } from './seed/typeCourtSeed';
+import { branchSeed } from './seed/branchSeed';
+import { courtSeed } from './seed/courtSeed';
 
 const seedData = async () => {
   await accountSeed(10);
@@ -16,6 +18,8 @@ const seedData = async () => {
   await attributeKeyCourtSeed(10);
   await attributeCourtSeed(10);
   await typeCourtSeed(10);
+  await branchSeed(10);
+  await courtSeed(10);
   //info: update seed
 };
 

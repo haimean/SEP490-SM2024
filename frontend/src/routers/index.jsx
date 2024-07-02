@@ -140,7 +140,7 @@ const routes = [
     layout: "",
   },
   {
-    path: "/player/court/1",
+    path: "/player/court/:idCourt",
     name: "Court Detail",
     component: <CourtDetail />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập

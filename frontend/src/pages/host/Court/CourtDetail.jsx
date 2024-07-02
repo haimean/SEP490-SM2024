@@ -7,6 +7,9 @@ import Navbar from "../../../layouts/player/Navbar";
 import Footer from "../../../layouts/player/Footer";
 import DetailPageCp from "../../../components/host/DetailPageCp";
 import RightSectionDetailPage from "../../../components/host/RightSectionDetailPage";
+import { useParams } from "react-router-dom";
+import CallApi from "../../../service/CallAPI";
+import CourtDetailComponent from "../../../components/host/court/CourtDetailComponent";
 
 const fakeData = {
   title: "Sân 1",
@@ -67,11 +70,21 @@ function a11yProps(index) {
 
 export default function CourtDetail() {
   const [value, setValue] = React.useState(0);
-
+  const { idCourt } = useParams();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
+  const getCourtDetail = async () => {
+    try {
+      const result = await CallApi(`/api/host/court/${idCourt}`, "get");
+      console.log("🚀 ========= result:", result);
+    } catch (error) {
+      console.log("🚀 ========= error:", error);
+    }
+  };
+  React.useEffect(() => {
+    getCourtDetail();
+  }, [idCourt]);
   return (
     <>
       <Navbar sx={{ flexShrink: 0 }} />
@@ -95,7 +108,7 @@ export default function CourtDetail() {
                   flexGrow: 1,
                 }}
               >
-                <DetailPageCp
+                <CourtDetailComponent
                   title={fakeData.title}
                   image={fakeData.image}
                   location={fakeData.location}
@@ -105,12 +118,11 @@ export default function CourtDetail() {
                   participants={fakeData.participants}
                   level={fakeData.level}
                   price={fakeData.price}
-                  RightSectionComponent={RightSectionDetailPage}
                 />
               </Box>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
-              <DetailPageCp
+              <CourtDetailComponent
                 title={fakeData2.title}
                 image={fakeData2.image}
                 location={fakeData2.location}
