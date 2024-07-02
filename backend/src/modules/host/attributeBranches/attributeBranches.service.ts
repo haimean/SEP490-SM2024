@@ -29,17 +29,20 @@ const attributeBranchesHostService = {
   },
 
   getAll: async (accId: number): Promise<any> => {
-    return await database.attributeBranches.findMany({
+    return await database.attributeKeyBranches.findMany({
       where: {
         isActive: true,
-        OR: [
-          { isPublic: true },
-          { isPublic: false, accountId: accId },
-        ],
       },
       include: {
-        account: true,
-        attributeKeyBranches: true,
+        attributeBranches: {
+          where: {
+            isActive: true,
+            OR: [
+              { isPublic: true },
+              { isPublic: false, accountId: accId },
+            ],
+          },
+        },
       },
     });
   },

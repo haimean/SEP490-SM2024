@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   TextField,
@@ -64,6 +64,79 @@ const Form = ({ formConfig, control, handleCancel, onFormSubmit, errors }) => {
               )}
             />
           </FormControl>
+        );
+      case "select-custom":
+        return (
+          <Controller
+            name={field.name}
+            control={control}
+            defaultValue=""
+            rules={{ required: field.required }}
+            render={({ field: { onChange, value } }) => {
+              const [isCustom, setIsCustom] = useState(false);
+              const [customValue, setCustomValue] = useState("");
+              useEffect(()=>{
+                setCustomValue('')
+              },[isCustom])
+
+              const handleSelectChange = (event) => {
+                const selectedValue = event.target.value;
+                if (selectedValue === "custom") {
+                  setIsCustom(true);
+                  onChange("");
+                } else {
+                  setIsCustom(false);
+                  onChange(selectedValue);
+                }
+              };
+
+              const handleCustomInputChange = (event) => {
+                setCustomValue(event.target.value);
+              };
+
+              const handleCustomInputBlur = async () => {
+                if (customValue && field.onCustomInput) {
+                  console.log(field);
+                  await field.onCustomInput({ value: customValue, id:field.key  });
+                  // Sau khi thêm thành công, cập nhật options và chọn giá trị mới
+                  field.options.push({
+                    value: customValue,
+                    label: customValue,
+                  });
+                  onChange(customValue);
+                  setIsCustom(false);
+                }
+              };
+
+              return (
+                <FormControl fullWidth>
+                  <InputLabel>{field.label}</InputLabel>
+                  <Select
+                    value={isCustom ? "custom" : value}
+                    onChange={handleSelectChange}
+                    label={field.label}
+                  >
+                    {field.options.map((option) => (
+                      <MenuItem key={option.key} value={option.key}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                    <MenuItem value="custom">Khác</MenuItem>
+                  </Select>
+                  {isCustom && (
+                    <TextField
+                      fullWidth
+                      label="Nhập giá trị tùy chỉnh"
+                      value={customValue}
+                      onChange={handleCustomInputChange}
+                      onBlur={handleCustomInputBlur}
+                      style={{ marginTop: 16 }}
+                    />
+                  )}
+                </FormControl>
+              );
+            }}
+          />
         );
       case "datetime":
         return (
@@ -135,7 +208,7 @@ const Form = ({ formConfig, control, handleCancel, onFormSubmit, errors }) => {
                           }}
                           onClick={() => {
                             const newValue = value.filter(
-                              (_, i) => i !== file.name
+                              (item) => item !== file
                             );
                             onChange(newValue);
                           }}
