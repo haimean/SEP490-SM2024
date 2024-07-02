@@ -125,9 +125,8 @@ model Court {
   branchesId  Int?
   TypeCourt   TypeCourt? @relation(fields: [typeCourtId], references: [id])
   typeCourtId Int?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }
 
 // Bảng cơ sở, có thông tin cơ bản của cơ sở và danh sách sân

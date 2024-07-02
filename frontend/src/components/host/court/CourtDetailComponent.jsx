@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 import {
@@ -17,11 +18,10 @@ import {
   School,
   AttachMoney,
   SportsBasketball,
-  AttachMoney as MoneyIcon,
 } from "@mui/icons-material";
-import RightSectionDetailPage from "./RightSectionDetailPage";
-import RightSectionHost from "./RightSectionHost";
-const DetailPageCp = ({
+import RightSectionDetailPage from "../RightSectionDetailPage";
+import RightSectionHost from "../RightSectionHost";
+const CourtDetailComponent = ({
   title,
   image,
   location,
@@ -116,4 +116,4 @@ const DetailPageCp = ({
   );
 };
 
-export default DetailPageCp;
+export default CourtDetailComponent;
