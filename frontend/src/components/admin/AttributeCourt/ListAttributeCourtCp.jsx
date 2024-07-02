@@ -48,7 +48,7 @@ const ListAttributeCourtCp = () => {
   return (
     <>
       <ListAttributeKey
-        title="Court Attribute"
+        title="Thuộc tính sân đấu"
         urlDetail="/admin/detail-court-attribute"
         attributeList={courtAtbKeyList}
         openCreateModal={openCreateModal}

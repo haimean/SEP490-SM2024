@@ -4,10 +4,10 @@ import {
   AttributeCourtUpdatePayLoad,
 } from './attributeCourt.model';
 import attributeCourtService from './attributeCourt.service';
-import ResponseHandler from '../../../outcomes/responseHandler';
 import CustomError from '../../../outcomes/customError';
 import { Account, AttributeCourt } from '@prisma/client';
 import jwt, { Secret } from 'jsonwebtoken';
+import { ResponseHandler } from '../../../outcomes/responseHandler';
 
 const attributeCourtController = {
   create: async (req: Request, res: Response, next: NextFunction) => {

@@ -13,6 +13,11 @@ import ListAccount from "../pages/admin/ListAccount/ListAccount.jsx";
 import NotFound from "../pages/common/NotFound/NotFound.jsx";
 import WaitingList from "../pages/user/WaitingList/WaitingList.jsx";
 import BookingTablePage from "../pages/user/BookingTable/BookingTable.jsx";
+import Dashboard from "../pages/admin/Dashboard/Dashboard.jsx";
+import ListBranch from "../pages/host/Branch/ListBranch.jsx";
+import BranchDetail from "../pages/host/Branch/BranchDetail.jsx";
+import AvailableCourtPage from "../pages/user/AvailableCourt/AvailableCourt.jsx";
+import PostDetail from "../components/user/AvailableCourt/PostDetail.jsx";
 
 const routes = [
   {
@@ -96,7 +101,28 @@ const routes = [
     path: "/admin/list-account",
     name: "List Account",
     component: <ListAccount />,
-    // role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
+    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
+    layout: "",
+  },
+  {
+    path: "/admin/dashboard",
+    name: "Dashboard",
+    component: <Dashboard />,
+    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
+    layout: "",
+  },
+  {
+    path: "/host/list-branch",
+    name: "List Branch",
+    component: <ListBranch />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/host/branch/:id",
+    name: "Branch Detail",
+    component: <BranchDetail />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "",
   },
   {
@@ -117,6 +143,20 @@ const routes = [
     path: "/booking-table",
     name: "Booking Table",
     component: <BookingTablePage />,
+    role: ["USER"],
+    layout: "",
+  },
+  {
+    path: "/available-court",
+    name: "Available Court",
+    component: <AvailableCourtPage />,
+    role: ["USER"],
+    layout: "",
+  },
+  {
+    path: "/post/:id",
+    name: "Post Detail",
+    component: <PostDetail />,
     role: ["USER"],
     layout: "",
   },

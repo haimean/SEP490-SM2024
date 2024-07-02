@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response, Router } from 'express';
-import ResponseHandler from '../../../../outcomes/responseHandler';
 import CustomError from '../../../../outcomes/customError';
 import attributeKeyCourtService from './attributeKeyCourt.service';
 import {
   AttributeKeyCourtPayLoad,
   AttributeKeyCourtUpdatePayLoad,
 } from './attributeKeyCourt.model';
+import { ResponseHandler } from '../../../../outcomes/responseHandler';
 
 const attributeKeyCourtController = {
   create: async (req: Request, res: Response, next: NextFunction) => {

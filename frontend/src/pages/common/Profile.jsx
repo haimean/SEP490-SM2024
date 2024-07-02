@@ -4,6 +4,7 @@ import CallApi from "../../service/CallAPI.jsx";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { EMAIL_REGEX, PHONE_REGEX, WHITE_SPACE_REGEX } from "../../utils/regex/index.js";
 
 const Profile = () => {
   const [profile, setProfile] = useState({});
@@ -103,7 +104,7 @@ const Profile = () => {
               register={register}
               defaultValue={profile?.user?.name}
               pattern={{
-                value: /^\s*\S.*$/,
+                value: WHITE_SPACE_REGEX,
                 message: "Vui lòng nhập tên hợp lệ",
               }}
               errors={errors}
@@ -117,7 +118,7 @@ const Profile = () => {
               register={register}
               defaultValue={profile?.user?.numberPhone}
               pattern={{
-                value: /(84|0[3|5|7|8|9])+([0-9]{8})\b/g,
+                value: PHONE_REGEX,
                 message: "Vui lòng nhập số điện thoại hợp lệ",
               }}
               errors={errors}
@@ -133,7 +134,7 @@ const Profile = () => {
                 profile?.user?.dob && formatDate(profile?.user?.dob)
               }
               pattern={{
-                value: /^\s*\S.*$/,
+                value: WHITE_SPACE_REGEX,
                 message: "Vui lòng chọn ngày tháng năm hợp lệ",
               }}
               errors={errors}
@@ -148,8 +149,7 @@ const Profile = () => {
               defaultValue={profile?.email}
               disabled={true}
               pattern={{
-                value:
-                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                value: EMAIL_REGEX,
                 message: "Vui lòng nhập email hợp lệ",
               }}
               errors={errors}
@@ -159,7 +159,7 @@ const Profile = () => {
             type="submit"
             className="mt-6 w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
           >
-            Update
+            Sửa
           </button>
         </form>
       </div>

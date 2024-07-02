@@ -61,7 +61,7 @@ const ModalUpdate = ({
                 className="p-2 border hover:bg-red-600 hover:text-white rounded-md"
                 onClick={handleClear}
               >
-                Clear
+                Xóa
               </button>
               <button
                 type="submit"

@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
 import authService from './auth.service';
-import ResponseHandler from '../../outcomes/responseHandler';
 import CustomError from '../../outcomes/customError';
 import sendEmail from '../../lib/sendEmail';
 import NotFoundError from '../../outcomes/notFoundError';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import ejs from 'ejs';
+import { ResponseHandler } from '../../outcomes/responseHandler';
 
 const getEmailContent = (link: string) => {
   const templatePath = join(

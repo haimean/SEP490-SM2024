@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
-import ResponseHandler from '../../../../outcomes/responseHandler';
 import CustomError from '../../../../outcomes/customError';
 import attributeKeyBranchesService from './attributeKeyBranches.service';
 import {
   AttributeKeyBranchesPayLoad,
   AttributeKeyBranchesUpdatePayLoad,
 } from './attributeKeyBranches.model';
+import { ResponseHandler } from '../../../../outcomes/responseHandler';
 
 const attributeKeyBranchesController = {
   create: async (req: Request, res: Response, next: NextFunction) => {

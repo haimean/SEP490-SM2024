@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import ModalUpdate from "../ModalUpdate";
-import CallApi from "../../../service/CallAPI";
+import CallAPI from "../../../service/CallAPI";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { WHITE_SPACE_REGEX } from "../../../utils/regex/index.js";
 
-const UpdateAtbBranchValueCp = ({ id, closeModal, attributeKeyBranchesId }) => {
-  const [branchAtb, setBranchAtb] = useState({});
+const UpdateAttributeBranchCp = ({ id, closeModal }) => {
+  const [branchAtbKey, setBranchAtbKey] = useState({});
   const {
     register,
     handleSubmit,
@@ -14,16 +15,16 @@ const UpdateAtbBranchValueCp = ({ id, closeModal, attributeKeyBranchesId }) => {
   } = useForm();
 
   useEffect(() => {
-    fetchBranchAtb();
+    fetchBranchAtbKey();
   }, [id]);
 
-  const fetchBranchAtb = async () => {
+  const fetchBranchAtbKey = async () => {
     try {
-      const response = await CallApi(
-        `/api/admin/attribute-branches/${id}`,
+      const response = await CallAPI(
+        `/api/admin/attribute-branches/key/${id}`,
         "get"
       );
-      setBranchAtb(response?.data);
+      setBranchAtbKey(response?.data);
       reset(response?.data);
     } catch (error) {
       console.log(
@@ -35,23 +36,17 @@ const UpdateAtbBranchValueCp = ({ id, closeModal, attributeKeyBranchesId }) => {
 
   const onSubmit = async (data) => {
     try {
-      //destructuring data
-      const dataValue = {
-        ...data,
-      };
-      //lấy data cần thiết vào body
-      const requestData = {
-        attributeKeyBranchesId: attributeKeyBranchesId,
-        value: dataValue.value,
-        isActive: dataValue.isActive,
-      };
-      await CallApi(
-        `/api/admin/attribute-branches/${id}`,
+      await CallAPI(
+        `/api/admin/attribute-branches/key/${id}`,
         "put",
-        requestData,
+        {
+          name: data.name,
+          description: data.description,
+          isActive: data.isActive,
+        },
         {}
       );
-      toast.success(`Update branch value successful!`);
+      toast.success(`Sửa thuộc tính chi nhánh thành công`);
       closeModal();
     } catch (error) {
       toast.error(error.response?.data?.error);
@@ -71,36 +66,47 @@ const UpdateAtbBranchValueCp = ({ id, closeModal, attributeKeyBranchesId }) => {
       register={register}
       errors={errors}
       fields={{
-        title: "Update Branch Value",
+        title: "Sửa thuộc tính chi nhánh",
         inputs: [
           {
-            id: "value",
-            label: "Value",
-            placeholder: "Value",
-            defaultValue: branchAtb.value,
-            register: { register },
+            id: "name",
+            label: "Tên",
+            defaultValue: branchAtbKey.name,
+            placeholder: "Tên thuộc tính",
+            type: "text",
             pattern: {
-              value: /^\s*\S.*$/,
-              message: "Please enter valid character",
+              value: WHITE_SPACE_REGEX,
+              message: "Vui lòng nhập ký tự hợp lệ",
             },
-            errors: { errors },
+            required: true,
+          },
+          {
+            id: "description",
+            label: "Mô tả",
+            defaultValue: branchAtbKey.description,
+            placeholder: "Mô tả chi tiết",
+            type: "text",
+            pattern: {
+              value: WHITE_SPACE_REGEX,
+              message: "Vui lòng nhập ký tự hợp lệ",
+            },
             required: true,
           },
           {
             id: "isActive",
-            label: "Active",
-            defaultValue: branchAtb.isActive ? "true" : "false",
+            label: "Kích hoạt",
+            defaultValue: branchAtbKey.isActive ? "true" : "false",
             type: "select",
             options: [
-              { value: "true", label: "Active" },
-              { value: "false", label: "Unactive" },
+              { value: "true", label: "Kích hoạt" },
+              { value: "false", label: "Bỏ kích hoạt" },
             ],
           },
         ],
-        submitText: "Update Value",
+        submitText: "Sửa",
       }}
     />
   );
 };
 
-export default UpdateAtbBranchValueCp;
+export default UpdateAttributeBranchCp;

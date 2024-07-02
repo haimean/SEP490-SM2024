@@ -1,7 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
-import ResponseHandler from '../../../outcomes/responseHandler';
 import accountService from './account.service';
 import CustomError from '../../../outcomes/customError';
+import {
+  ResponseHandler,
+  ResponsePaginationHandler,
+} from '../../../outcomes/responseHandler';
 
 const accountController = {
   listAccount: async (
@@ -17,7 +20,28 @@ const accountController = {
         email,
         pagination
       );
-      ResponseHandler(res, result);
+      ResponsePaginationHandler(
+        res,
+        result.result,
+        result.totalCount
+      );
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
+
+  banAccount: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const { id } = req.params;
+    try {
+      const existAccount = await accountService.banAccount(
+        parseInt(id)
+      );
+      console.log('🚀 ========= existAccount:', existAccount);
+      ResponseHandler(res, existAccount);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
     }

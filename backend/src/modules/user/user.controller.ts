@@ -4,9 +4,9 @@ import accountServiceBase from '../../baseService/accountServiceBase';
 import { Account, User } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import ResponseHandler from '../../outcomes/responseHandler';
 import userService from './user.service';
 import { ProfileUpdatePayload } from './user.model';
+import { ResponseHandler } from '../../outcomes/responseHandler';
 
 const secret: string = process.env.SECRET_JWT_KEY ?? '';
 

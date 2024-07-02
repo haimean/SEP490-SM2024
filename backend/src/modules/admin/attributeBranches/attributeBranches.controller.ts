@@ -4,9 +4,9 @@ import {
   AttributeBranchesPayLoad,
   AttributeBranchesUpdatePayLoad,
 } from './attributeBranches.model';
-import ResponseHandler from '../../../outcomes/responseHandler';
 import CustomError from '../../../outcomes/customError';
 import { AttributeBranches } from '@prisma/client';
+import { ResponseHandler } from '../../../outcomes/responseHandler';
 
 const attributeBranchesController = {
   create: async (req: Request, res: Response, next: NextFunction) => {

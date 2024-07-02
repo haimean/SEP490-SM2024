@@ -12,7 +12,7 @@ const WaitingList = () => {
   return (
     <div>
       <Navbar />
-      <Container>
+      <Container className="mt-24">
       <Button onClick={handleOpen}>Open modal</Button>
         <WaitingListTable open={open} onClose={handleClose}/>
       </Container>

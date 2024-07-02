@@ -45,18 +45,6 @@ const DetailAttributeBranchCp = () => {
     }
   };
 
-  // const deleteItem = async (id) => {
-  //   try {
-  //     await CallApi(
-  //       `/api/admin/attribute-branches/values/${id}`,
-  //       "delete"
-  //     );
-  //     fetchBranchAtbList();
-  //   } catch (error) {
-  //     console.log("delete branch attribute value ERROR: ", error.response?.data?.error);
-  //   }
-  // };
-
   const filteredBranchAtbList = branchAtbList.filter((item) => {
     return item.attributeKeyBranchesId == id;
   });
@@ -83,12 +71,10 @@ const DetailAttributeBranchCp = () => {
   return (
     <>
       <DetailAttributeKey
-        titleCreateButton="Branch Value"
         detailItem={branchAtbKey}
         valueList={filteredBranchAtbList}
         openCreateModal={openCreateModal}
         openUpdateModal={openUpdateModal}
-        // deleteItem={deleteItem}
       />
       {isModalCreateOpen && (
         <CreateAttributeBranchValueCp

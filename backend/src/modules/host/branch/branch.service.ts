@@ -36,6 +36,7 @@ const branchService = {
         },
       };
     }
+    fakeAttributeKeyBranches;
     return await database.attributeKeyBranches.findMany();
   },
 };
