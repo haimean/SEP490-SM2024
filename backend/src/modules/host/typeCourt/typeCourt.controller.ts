@@ -1,10 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
-import { deleteFile, uploadFile } from '../../../lib/s3';
+import {
+  deleteFile,
+  getObjectSignedUrl,
+  uploadFile,
+} from '../../../lib/s3';
 import CustomError from '../../../outcomes/customError';
 import typeCourtHostService from './typeCourt.service';
-import { TypeCourt } from '@prisma/client';
 import { ResponseHandler } from '../../../outcomes/responseHandler';
 import NotFoundError from '../../../outcomes/notFoundError';
+import { TypeCourt } from '@prisma/client';
 
 const typeCourtHostController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
@@ -81,7 +85,12 @@ const typeCourtHostController = {
       const typeCourt: TypeCourt | null =
         await typeCourtHostService.get(Number(id), accountId);
       if (typeCourt) {
-        ResponseHandler(res, typeCourt);
+        if (typeCourt.image) {
+          const image = getObjectSignedUrl(typeCourt.image);
+          ResponseHandler(res, { ...typeCourt, image });
+        } else {
+          ResponseHandler(res, { ...typeCourt });
+        }
       } else {
         next(new NotFoundError('Không tìm được kiểu sân.'));
       }
@@ -92,9 +101,15 @@ const typeCourtHostController = {
   getAll: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const accountId = Number(req.headers.authorization);
-      const typeCourt: TypeCourt[] =
+      const typeCourts: TypeCourt[] =
         await typeCourtHostService.getAll(accountId);
-      ResponseHandler(res, typeCourt);
+      typeCourts.forEach(async (element, index) => {
+        if (element.image) {
+          typeCourts[index].image = await getObjectSignedUrl(
+            element.image
+          );
+        }
+      });
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
     }
