@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import {
   Box,
@@ -18,7 +19,6 @@ import {
   SportsBasketball,
   AttachMoney as MoneyIcon,
 } from "@mui/icons-material";
-
 const DetailPageCp = ({
   title,
   image,
@@ -30,6 +30,7 @@ const DetailPageCp = ({
   level,
   price,
   RightSectionComponent,
+  map,
 }) => {
   const renderInfoItem = (Icon, text) => (
     <Box display="flex" alignItems="center" mb={1}>
@@ -72,39 +73,35 @@ const DetailPageCp = ({
             <Typography variant="body2">{description}</Typography>
           </CardContent>
         </Card>
-
-        <Card>
-          <CardContent>
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              mb={2}
-            >
-              <Typography variant="h6">Bản đồ</Typography>
-              <Button variant="outlined" startIcon={<LocationOn />}>
-                Xem vị trí
-              </Button>
-            </Box>
-            <Typography variant="body2" color="text.secondary">
-              {location}
-            </Typography>
-            <Box
-              sx={{
-                height: "400px",
-                width: "100%",
-                backgroundColor: "#f0f0f0",
-              }}
-            >
-              <Typography
-                variant="body2"
-                sx={{ textAlign: "center", paddingTop: "180px" }}
+        {map && (
+          <Card>
+            <CardContent>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                mb={2}
               >
-                Google Maps ở đây
+                <Typography variant="h6">Bản đồ</Typography>
+                <Button variant="outlined" startIcon={<LocationOn />}>
+                  Xem vị trí
+                </Button>
+              </Box>
+              <Typography variant="body2" color="text.secondary">
+                {location}
               </Typography>
-            </Box>
-          </CardContent>
-        </Card>
+              <Box
+                sx={{
+                  height: "400px",
+                  width: "100%",
+                  backgroundColor: "#f0f0f0",
+                }}
+              >
+                {map}
+              </Box>
+            </CardContent>
+          </Card>
+        )}
       </Grid>
 
       <RightSectionComponent />
