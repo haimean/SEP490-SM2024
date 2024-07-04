@@ -1,53 +1,22 @@
 import * as React from "react";
-import { DataGrid } from "@mui/x-data-grid";
 import CallApi from "../../../../service/CallAPI";
 import { toast } from "react-toastify";
-import { TablePagination } from "@mui/material";
-
-const columns = [
-  { field: "id", headerName: "ID", width: 70 },
-  { field: "email", headerName: "Email", width: 400 },
-  {
-    field: "name",
-    headerName: "Full name",
-    description: "This column has a value getter và is not sortable.",
-    sortable: false,
-    width: 160,
-  },
-  {
-    field: "isVerify",
-    headerName: "Trạng thái kích hoạt",
-    description: "This column has a value getter và is not sortable.",
-    sortable: false,
-    width: 160,
-    valueGetter: (params) => (params ? "Active" : "Chưa active"),
-  },
-  {
-    field: "isActive",
-    headerName: "Status",
-    description: "This column has a value getter và is not sortable.",
-    sortable: false,
-    width: 160,
-    valueGetter: (params) => (params ? "Active" : "Ban"),
-  },
-  {
-    field: "phoneNumber",
-    headerName: "Phone Number",
-    width: 120,
-  },
-  {
-    field: "role",
-    headerName: "Role",
-    width: 90,
-  },
-];
-
+import {
+  IconButton,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+} from "@mui/material";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 export default function DataTable() {
-  // const [data, setData] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [pageSize, setPageSize] = React.useState(5);
   const [rows, setRows] = React.useState([]);
-  // const [totalRows, setTotalRows] = React.useState(0); // New state for total rows
   const [totalRecords, setTotalRecords] = React.useState(0);
   console.log("🚀 ========= rows:", rows);
 
@@ -62,10 +31,8 @@ export default function DataTable() {
           perPage: pageSize,
         },
       });
-      console.log("🚀 ========= result:", result);
-      setTotalRecords(result.totalCount);
-      // setData(result.data); // Adjust this according to your API response structure
-      // setTotalRows(result.totalRecords); // Assuming your API returns the total record count
+      console.log("🚀 ========= result1:", result.total);
+      setTotalRecords(result.total);
       setRows(
         result.data.map((item) => ({
           id: item.id,
@@ -81,46 +48,87 @@ export default function DataTable() {
       toast.error(error.response?.data?.error);
     }
   };
+  const banAccount = async (id) => {
+    try {
+      const confirmBan = window.confirm("Bạn muốn ban tài khoản không?");
+      if (!confirmBan) return;
 
+      const result = await CallApi(`/api/admin/account/ban/${id}`, "put");
+      console.log("🚀 ========= result1:", result);
+      getData(page, pageSize);
+      toast.success("Ban thành công");
+    } catch (error) {
+      toast.error(error.response?.data?.error);
+    }
+  };
   React.useEffect(() => {
     getData(page, pageSize);
   }, [page, pageSize]);
 
-  const handlePageChange = (event, newPage) => {
-    console.log("🚀 ========= newPage:", newPage);
+  const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
-  const handlePageSizeChange = (event) => {
-    setPageSize(event);
-    setPage(0); // Reset to first page when page size changes
+  const handleChangeRowsPerPage = (event) => {
+    setPageSize(parseInt(event.target.value, 10));
+    setPage(0);
   };
-
   return (
     <div style={{ height: 500, width: "100%" }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { page: page, pageSize: pageSize },
-          },
-        }}
-        // pageSizeOptions={[5, 10]}
-
-        pageSizeOptions={[5, 10]}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handlePageSizeChange}
-        checkboxSelection
-      />
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>ID</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Họ và tên</TableCell>
+              <TableCell>Trạng thái hoạt động</TableCell>
+              <TableCell>Trang thái kích hoạt</TableCell>
+              <TableCell>Số điện thoại</TableCell>
+              <TableCell>Role</TableCell>
+              <TableCell>Action</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow
+                key={row.id}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {row.id}
+                </TableCell>
+                <TableCell>{row.email}</TableCell>
+                <TableCell>{row.name}</TableCell>
+                <TableCell>
+                  {row.isVerify ? "Kích hoạt" : "Chưa kích hoạt"}
+                </TableCell>
+                <TableCell>
+                  {row.isActive ? "Kích hoạt" : "Chưa kích hoạt"}
+                </TableCell>
+                <TableCell>{row.phoneNumber}</TableCell>
+                <TableCell>{row.role}</TableCell>
+                <TableCell>
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() => banAccount(row.id)}
+                  >
+                    <RemoveCircleIcon className="text-red-500" />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[5, 10]}
+        rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        count={totalRecords} // Use the total rows state
-        rowsPerPage={pageSize}
+        count={totalRecords}
         page={page}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handlePageSizeChange}
+        onPageChange={handleChangePage}
+        rowsPerPage={pageSize}
+        onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </div>
   );
