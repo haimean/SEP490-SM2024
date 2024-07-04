@@ -10,7 +10,7 @@ const secret: Secret = process.env.SECRET_JWT_KEY ?? '';
 const verifyToken = async (
   req: Request,
   next: NextFunction,
-  role: string
+  role: string[]
 ) => {
   try {
     const token = req.headers?.authorization?.split(' ')[1] ?? '';
@@ -23,7 +23,7 @@ const verifyToken = async (
         jwtObj.data.id
       );
       if (account) {
-        if (account.role === role) {
+        if (role.includes(account.role)) {
           req.headers.authorization = account.id.toString();
           return next();
         } else {
@@ -42,36 +42,12 @@ const verifyToken = async (
 };
 
 const middleware = {
-  auth: async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const token = req.headers?.authorization?.split(' ')[1] ?? '';
-      const jwtObj: { data: Account } = jwt.verify(token, secret) as {
-        data: Account;
-      };
-
-      if (jwtObj.data.id) {
-        const account = await accountServiceBase.findById(
-          jwtObj.data.id
-        );
-        if (account) {
-          return next();
-        }
-      }
-      return next(new CustomError('Authentication', 401));
-    } catch (e: unknown) {
-      if (typeof e === 'string') {
-        return next(new CustomError(e.toUpperCase(), 500));
-      } else if (e instanceof Error) {
-        return next(new CustomError(e.message, 500));
-      }
-    }
-  },
   admin: (req: Request, res: Response, next: NextFunction) =>
-    verifyToken(req, next, Role.ADMIN),
+    verifyToken(req, next, [Role.ADMIN]),
   host: (req: Request, res: Response, next: NextFunction) =>
-    verifyToken(req, next, Role.HOST),
+    verifyToken(req, next, [Role.HOST]),
   player: (req: Request, res: Response, next: NextFunction) =>
-    verifyToken(req, next, Role.USER),
+    verifyToken(req, next, [Role.USER, Role.ADMIN, Role.HOST]),
 };
 
 export default middleware;

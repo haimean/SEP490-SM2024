@@ -32,17 +32,28 @@ model Account {
   updatedAt         DateTime            @updatedAt
   TypeCourt         TypeCourt[]
   Branches          Branches[]
+  Blog              Blog[]
+  Comment           Comment[]
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
 }
 
 model User {
-  id          Int       @id @default(autoincrement())
-  account     Account   @relation(fields: [accountId], references: [id])
-  accountId   Int       @unique // relation scalar field (used in the `@relation` attribute above)
-  name        String
-  dob         DateTime?
-  numberPhone String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id             Int       @id @default(autoincrement())
+  account        Account   @relation(fields: [accountId], references: [id])
+  accountId      Int       @unique // relation scalar field (used in the `@relation` attribute above)
+  fullName       String
+  identifierCode String // cccd
+  dob            DateTime?
+  numberPhone    String
+  gender         Gender
+  address        String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 }
 
 // trình độ
@@ -130,6 +141,18 @@ model Court {
 }
 
 // Bảng cơ sở, có thông tin cơ bản của cơ sở và danh sách sân
+model AddressBranch {
+  id               Int      @id @default(autoincrement())
+  branchesId       Int      @unique
+  branches         Branches @relation(fields: [branchesId], references: [id])
+  addressLongitude String
+  addressLatitude  String
+  provinces        String
+  districts        String
+  wards            String
+  detail           String
+}
+
 model Branches {
   id                Int                 @id @default(autoincrement())
   name              String
@@ -137,14 +160,178 @@ model Branches {
   attributeBranches AttributeBranches[]
   court             Court[]
   account           Account             @relation(fields: [accountId], references: [id])
-  addressLongitude  String
-  addressLatitude   String
   image             String?
   description       String?
+  phone             String
+  email             String?
+  address           AddressBranch?
+  businessLicense   String
+  openingHours      DateTime
+  closingHours      DateTime
+  isAccept          Boolean             @default(false)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
 
   @@unique([name, accountId])
 }
 
-// TODO: Giá tiền cho sân, trả phí sân, Khung giờ chơi cao điểm và thấp điểm 
+enum STATUS_BLOG {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model Blog {
+  id        Int         @id @default(autoincrement())
+  accountId Int
+  account   Account     @relation(fields: [accountId], references: [id])
+  title     String
+  content   String
+  image     String
+  status    STATUS_BLOG
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  Comment   Comment[]
+}
+
+model Comment {
+  id              Int         @id @default(autoincrement())
+  blogId          Int
+  blog            Blog        @relation(fields: [blogId], references: [id])
+  accountId       Int
+  account         Account     @relation(fields: [accountId], references: [id])
+  content         String
+  parentCommentId Int? // Sử dụng Int? để cho phép giá trị null
+  parentComment   Comment?    @relation("CommentToParentComment", fields: [parentCommentId], references: [id]) // Đặt tên mối quan hệ
+  childComments   Comment[]   @relation("CommentToParentComment") // Đặt tên mối quan hệ để khớp với phần trên
+  image           String
+  status          STATUS_BLOG
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+// //Ca đặt
+// TABLE calendar as calendar {
+//   calendar_id int [pk, increment]
+//   court_id int [ref: > court.court_id]
+//   start_time timestamp
+//   end_time timestamp
+//   created_at timestamp
+//   updated_at timestamp
+// }
+
+// //Giá từng ca
+// TABLE price as price {
+//   price_id int [pk, increment]
+//   calendar_id int [ref: > calendar.calendar_id]
+//   price varchar(100)
+//   created_at timestamp
+//   updated_at timestamp
+// }
+
+// TABLE booking as booking {
+//   booking_id int [pk, increment]
+//   user_id int [ref: > user.user_id]
+//   calendar_id int [ref: > calendar.calendar_id]
+//   status ENUM('PENDING', 'CONFIRMED', 'CANCELLED')
+//   created_at timestamp
+//   updated_at timestamp
+//   created_by varchar(100)
+//   updated_by varchar(100)
+// }
+
+// Table bill as bill{ //Hóa đơn
+//   bill_id int [pk, increment] 
+//   booking_id int [ref: > booking.booking_id]
+//   debt varchar(255) // price before 
+//   description json
+//   total_detail json // price after fax+ship+discount,...
+//   payment_method varchar(255)
+//   receiving_method varchar(255)
+//   status varchar(255)
+//   created_at timestamp
+//   updated_at timestamp
+//   created_by varchar(100)
+//   updated_by varchar(100)
+// }
+
+// //Những người đang free
+// TABLE user_availability as user_availability {
+//   user_availability_id int [pk, increment]
+//   user_id int [ref: > user.user_id]
+//   start_time timestamp
+//   end_time timestamp
+//   status ENUM('AVAILABLE', 'UNAVAILABLE')
+//   created_at timestamp
+//   updated_at timestamp
+// }
+
+// //Quản lý lời mời
+// TABLE invitation as invitation {
+//   invitation_id int [pk, increment]
+//   sender_id int [ref: > user.user_id]
+//   recipient_id int [ref: > user.user_id]
+//   calendar_id int [ref: > calendar.calendar_id]
+//   status ENUM('PENDING', 'ACCEPTED', 'DECLINED')
+//   created_at timestamp
+//   updated_at timestamp
+// }
+
+// //Đánh giá
+// TABLE review as review {
+//   review_id int [pk, increment]
+//   user_id int [ref: > user.user_id]
+//   court_id int [ref: > court.court_id]
+//   rating int
+//   comment text
+//   created_at timestamp
+//   updated_at timestamp
+// }
+
+// TABLE post as post {
+//   port_id int [pk, increment]
+//   user_id int [ref: > user.user_id]
+//   address json
+//   title varchar(255)
+//   desciption json
+//   image_url varchar(255)
+//   membership_requirements json
+//   time json
+//   price json
+//   created_at timestamp
+//   updated_at timestamp
+// }
+
+// TABLE notification {
+//   notification_id int [pk, increment]
+//   user_id int [ref: > user.user_id]
+//   message text
+//   type ENUM('BLOG', 'COMMENT', 'INVITATION', 'BOOKING')
+//   status ENUM('UNREAD', 'READ')
+//   blog_id int [ref: > blog.blog_id]
+//   comment_id int [ref: > comment.comment_id]
+//   invitation_id int [ref: > invitation.invitation_id]
+//   created_at timestamp
+//   updated_at timestamp
+// }
+
+// //Tố cáo
+// TABLE report as report {
+//   report_id int [pk, increment]
+//   reported_by int [ref: > user.user_id]
+//   reported_user_id int [ref: > user.user_id]
+//   description json
+//   status ENUM('PENDING', 'REVIEWED', 'RESOLVED')
+//   created_at timestamp
+//   updated_at timestamp
+// }
+
+// //Thống kê
+// TABLE statistics as statistics {
+//   statistics_id int [pk, increment]
+//   branch_id int [ref: > branch.branch_id]
+//   metric_name varchar(100)
+//   metric_value varchar(100)
+//   created_at timestamp
+//   updated_at timestamp
+// }

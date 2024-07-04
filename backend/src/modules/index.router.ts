@@ -14,7 +14,7 @@ const routes: Router = Router();
 
 routes.use('/', guestRouter);
 routes.use('/auth', authRouter);
-routes.use('/user', middleware.auth, userRouter);
+routes.use('/user', middleware.player, userRouter);
 routes.use('/admin', middleware.admin, adminRouter);
 routes.use('/host', middleware.host, hostRouter);
 routes.use('/player', middleware.player, playerRouter);

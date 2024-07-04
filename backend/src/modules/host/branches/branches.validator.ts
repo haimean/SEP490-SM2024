@@ -14,6 +14,7 @@ const branchesHostValidator = {
     addressLongitude: Joi.string().required(),
     addressLatitude: Joi.string().required(),
     description: Joi.string(),
+    image: Joi.any(),
   }),
 };
 
