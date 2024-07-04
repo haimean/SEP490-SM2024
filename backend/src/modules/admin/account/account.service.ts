@@ -47,7 +47,14 @@ const accountService = {
       },
     });
     if (existAccount) {
-      existAccount.isActive = false;
+      await database.account.update({
+        where: {
+          id,
+        },
+        data: {
+          isActive: false,
+        },
+      });
       return existAccount;
     } else {
       throw new Error('Account not exist');
