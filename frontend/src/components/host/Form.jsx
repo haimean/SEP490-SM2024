@@ -8,7 +8,15 @@ import CheckboxCp from "./FormInput/CheckboxCp";
 import FileUploadCp from "./FormInput/FileUploadCp";
 import SectionCp from "./FormInput/SectionCp";
 
-const Form = ({ formConfig, control, handleCancel, onFormSubmit, errors }) => {
+const Form = ({
+  formConfig,
+  handleSubmit,
+  control,
+  handleCancel,
+  onSubmit,
+  errors,
+  setValue,
+}) => {
   const renderField = (field) => {
     switch (field.type) {
       case "text":
@@ -20,13 +28,10 @@ const Form = ({ formConfig, control, handleCancel, onFormSubmit, errors }) => {
       case "select-custom":
         return (
           <CustomSelectCp
-            field={{
-              ...field,
-              key: field.id,
-              options: field.options,
-            }}
+            field={field}
             control={control}
             errors={errors}
+            setValue={setValue}
           />
         );
       case "datetime":
@@ -46,7 +51,7 @@ const Form = ({ formConfig, control, handleCancel, onFormSubmit, errors }) => {
   return (
     <Box
       component="form"
-      onSubmit={onFormSubmit(onFormSubmit)}
+      onSubmit={handleSubmit(onSubmit)}
       sx={{ mt: 3, border: 3, p: 3, borderRadius: 3, borderColor: "#f0f0f0" }}
     >
       <Grid container spacing={2}>
@@ -55,7 +60,7 @@ const Form = ({ formConfig, control, handleCancel, onFormSubmit, errors }) => {
             item
             sm={12}
             md={field.type === "section" ? 12 : field.gridWidth || 6}
-            key={field.name}
+            key={`${field.name}-${JSON.stringify(field.options)}`}
           >
             {renderField(field)}
           </Grid>
