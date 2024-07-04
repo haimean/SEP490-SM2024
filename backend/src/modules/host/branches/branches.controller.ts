@@ -35,9 +35,7 @@ const branchesHostController = {
     if (file) {
       imageName = await uploadFile(file);
     }
-
     try {
-    } catch (error: any) {
       const accountId = Number(req.headers.authorization);
       const {
         name,
@@ -47,6 +45,7 @@ const branchesHostController = {
         attributeBranches,
         court,
       } = req.body;
+      
       const payload: BranchesHostServiceCreate = {
         accountId,
         name,
@@ -62,6 +61,7 @@ const branchesHostController = {
         payload
       );
       ResponseHandler(res, branches);
+    } catch (error: any) {
       if (
         error.code === 'P2002' &&
         error.meta?.target.includes('name')

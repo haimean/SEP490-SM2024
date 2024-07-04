@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
 import {
   FormControl,
@@ -10,9 +10,14 @@ import {
   Box,
 } from "@mui/material";
 
-const CustomSelectCp = ({ field, control, errors }) => {
+const CustomSelectCp = ({ field, control, errors, setValue }) => {
   const [isCustom, setIsCustom] = useState(false);
   const [customValue, setCustomValue] = useState("");
+  const [options, setOptions] = useState(field.options);
+
+  useEffect(() => {
+    setOptions(field.options);
+  }, [field.options]);
 
   const handleSelectChange = (onChange) => (event) => {
     const selectedValue = event.target.value;
@@ -31,15 +36,24 @@ const CustomSelectCp = ({ field, control, errors }) => {
 
   const handleAddCustomValue = (onChange) => async () => {
     if (customValue && field.onCustomInput) {
-      await field.onCustomInput({ value: customValue, id: field.key });
-      const newOption = {
-        key: customValue,
-        label: customValue,
-      };
-      field.options.push(newOption);
-      onChange(newOption.key); // Cập nhật giá trị của Select
-      setIsCustom(false);
-      setCustomValue("");
+      try {
+        const newValue = await field.onCustomInput({
+          value: customValue,
+          id: field.key,
+        });
+        if (newValue) {
+          setOptions((prevOptions) => [
+            ...prevOptions,
+            { key: newValue.id, label: newValue.value },
+          ]);
+          onChange(newValue.id);
+          setValue(field.name, newValue.id);
+          setIsCustom(false);
+          setCustomValue("");
+        }
+      } catch (error) {
+        console.error("Error adding custom value:", error);
+      }
     }
   };
 
@@ -48,6 +62,7 @@ const CustomSelectCp = ({ field, control, errors }) => {
       name={field.name}
       control={control}
       defaultValue=""
+      errors={errors}
       rules={{ required: field.required }}
       render={({ field: { onChange, value } }) => (
         <FormControl fullWidth>
@@ -57,7 +72,7 @@ const CustomSelectCp = ({ field, control, errors }) => {
             onChange={handleSelectChange(onChange)}
             label={field.label}
           >
-            {field.options.map((option) => (
+            {options.map((option) => (
               <MenuItem key={option.key} value={option.key}>
                 {option.label}
               </MenuItem>

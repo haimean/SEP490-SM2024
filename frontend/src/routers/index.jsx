@@ -18,6 +18,7 @@ import CreateBranch from "../pages/host/Branch/CreateBranch.jsx";
 import ListCourt from "../pages/host/Court/ListCourt.jsx";
 import CourtDetail from "../pages/host/Court/CourtDetail.jsx";
 import Checkout from "../pages/player/Court/Checkout.jsx";
+import CreateBlog from "../pages/player/Blog/CreateBlog.jsx";
 
 const routes = [
   {
@@ -143,14 +144,21 @@ const routes = [
     path: "/player/court/:idCourt",
     name: "Court Detail",
     component: <CourtDetail />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    // role: ["USER"], // Chỉ cho phép HOST truy cập
     layout: "",
   },
   {
     path: "/player/checkout",
     name: "Checkout",
     component: <Checkout />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    // role: ["USER"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/player/create-blog",
+    name: "Create Blog",
+    component: <CreateBlog />,
+    // role: ["USER"], // Chỉ cho phép HOST truy cập
     layout: "",
   },
   {
