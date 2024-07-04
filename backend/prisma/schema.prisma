@@ -34,6 +34,14 @@ model Account {
   Branches          Branches[]
   Blog              Blog[]
   Comment           Comment[]
+  Booking           Booking[]
+  userAvailability  userAvailability[]
+
+  invitationsSend     Invitation[] @relation("seed")
+  invitationsReceived Invitation[] @relation("recipient")
+  Post                Post[]
+  ReviewSend          Review[]     @relation("seed")
+  ReviewReceived      Review[]     @relation("recipient")
 }
 
 enum Gender {
@@ -47,11 +55,12 @@ model User {
   account        Account   @relation(fields: [accountId], references: [id])
   accountId      Int       @unique // relation scalar field (used in the `@relation` attribute above)
   fullName       String
-  identifierCode String // cccd
+  identifierCode String? // cccd
   dob            DateTime?
   numberPhone    String
   gender         Gender
   address        String?
+  avatar         String?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 }
@@ -124,6 +133,7 @@ model TypeCourt {
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
   court          Court[]
+  priceTypeCourt PriceTypeCourt[]
 
   @@unique([name, accountId])
 }
@@ -138,6 +148,7 @@ model Court {
   typeCourtId Int?
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
+  Booking     Booking[]
 }
 
 // Bảng cơ sở, có thông tin cơ bản của cơ sở và danh sách sân
@@ -179,6 +190,7 @@ enum STATUS_BLOG {
   DRAFT
   PUBLISHED
   ARCHIVED
+  BAN
 }
 
 model Blog {
@@ -210,97 +222,135 @@ model Comment {
   updatedAt       DateTime    @updatedAt
 }
 
-// //Ca đặt
-// TABLE calendar as calendar {
-//   calendar_id int [pk, increment]
-//   court_id int [ref: > court.court_id]
-//   start_time timestamp
-//   end_time timestamp
-//   created_at timestamp
-//   updated_at timestamp
-// }
+// Ca đặt
+model PriceTypeCourt {
+  id          Int        @id @default(autoincrement())
+  startTime   DateTime
+  endTime     DateTime
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  price       Int
+  TypeCourt   TypeCourt? @relation(fields: [typeCourtId], references: [id])
+  typeCourtId Int?
+}
 
-// //Giá từng ca
-// TABLE price as price {
-//   price_id int [pk, increment]
-//   calendar_id int [ref: > calendar.calendar_id]
-//   price varchar(100)
-//   created_at timestamp
-//   updated_at timestamp
-// }
+model Booking {
+  id          Int          @id @default(autoincrement())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  accountId   Int
+  account     Account      @relation(fields: [accountId], references: [id])
+  Court       Court?       @relation(fields: [courtId], references: [id])
+  courtId     Int?
+  dateTime    DateTime
+  startTime   DateTime
+  endTime     DateTime
+  price       Int
+  bookingInfo BookingInfo?
+  Post        Post?
+}
 
-// TABLE booking as booking {
-//   booking_id int [pk, increment]
-//   user_id int [ref: > user.user_id]
-//   calendar_id int [ref: > calendar.calendar_id]
-//   status ENUM('PENDING', 'CONFIRMED', 'CANCELLED')
-//   created_at timestamp
-//   updated_at timestamp
-//   created_by varchar(100)
-//   updated_by varchar(100)
-// }
+model BookingInfo {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String
+  numberPhone String
+  Booking     Booking? @relation(fields: [bookingId], references: [id])
+  bookingId   Int?     @unique
+}
 
-// Table bill as bill{ //Hóa đơn
-//   bill_id int [pk, increment] 
-//   booking_id int [ref: > booking.booking_id]
-//   debt varchar(255) // price before 
-//   description json
-//   total_detail json // price after fax+ship+discount,...
-//   payment_method varchar(255)
-//   receiving_method varchar(255)
-//   status varchar(255)
-//   created_at timestamp
-//   updated_at timestamp
-//   created_by varchar(100)
-//   updated_by varchar(100)
-// }
+enum StatusUserAvailability {
+  AVAILABLE
+  UNAVAILABLE
+}
 
-// //Những người đang free
-// TABLE user_availability as user_availability {
-//   user_availability_id int [pk, increment]
-//   user_id int [ref: > user.user_id]
-//   start_time timestamp
-//   end_time timestamp
-//   status ENUM('AVAILABLE', 'UNAVAILABLE')
-//   created_at timestamp
-//   updated_at timestamp
-// }
+// người rảnh
+model userAvailability {
+  id        Int                    @id @default(autoincrement())
+  createdAt DateTime               @default(now())
+  updatedAt DateTime               @updatedAt
+  accountId Int
+  account   Account                @relation(fields: [accountId], references: [id])
+  dateTime  DateTime
+  startTime DateTime
+  endTime   DateTime
+  status    StatusUserAvailability
+  provinces String
+  districts String
+}
 
-// //Quản lý lời mời
-// TABLE invitation as invitation {
-//   invitation_id int [pk, increment]
-//   sender_id int [ref: > user.user_id]
-//   recipient_id int [ref: > user.user_id]
-//   calendar_id int [ref: > calendar.calendar_id]
-//   status ENUM('PENDING', 'ACCEPTED', 'DECLINED')
-//   created_at timestamp
-//   updated_at timestamp
-// }
+enum StatusInvitation {
+  AVAILABLE
+  UNAVAILABLE
+}
 
-// //Đánh giá
-// TABLE review as review {
-//   review_id int [pk, increment]
-//   user_id int [ref: > user.user_id]
-//   court_id int [ref: > court.court_id]
-//   rating int
-//   comment text
-//   created_at timestamp
-//   updated_at timestamp
-// }
+// lời mời
+model Invitation {
+  id                 Int              @id @default(autoincrement())
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  accountSendId      Int
+  accountSend        Account          @relation("seed", fields: [accountSendId], references: [id])
+  accountRecipientId Int
+  accountRecipient   Account          @relation("recipient", fields: [accountRecipientId], references: [id])
+  postId             Int
+  Post               Post             @relation(fields: [postId], references: [id])
+  status             StatusInvitation
+}
 
-// TABLE post as post {
-//   port_id int [pk, increment]
-//   user_id int [ref: > user.user_id]
-//   address json
-//   title varchar(255)
-//   desciption json
-//   image_url varchar(255)
-//   membership_requirements json
-//   time json
-//   price json
-//   created_at timestamp
-//   updated_at timestamp
-// }
+enum Level {
+  Y
+  TB
+  K
+  T
+  CN
+}
+
+enum GenderPost {
+  MALE
+  FEMALE
+  ORTHER
+}
+
+// người đặt sân đi tim người
+model Post {
+  id           Int          @id @default(autoincrement())
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  bookingId    Int          @unique
+  Booking      Booking      @relation(fields: [bookingId], references: [id])
+  desciption   String
+  numberMember Int
+  MemberPost   MemberPost[]
+  Account      Account?     @relation(fields: [accountId], references: [id])
+  accountId    Int?
+  Invitation   Invitation[]
+}
+
+model MemberPost {
+  id         Int        @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  postId     Int
+  Post       Post       @relation(fields: [postId], references: [id])
+  level      Level
+  genderPost GenderPost
+  price      String     @default("Chia đều")
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  accountSendId      Int
+  accountSend        Account @relation("seed", fields: [accountSendId], references: [id])
+  accountRecipientId Int
+  accountRecipient   Account @relation("recipient", fields: [accountRecipientId], references: [id])
+  rating             Int
+  comment            String
+}
 
 // TABLE notification {
 //   notification_id int [pk, increment]
