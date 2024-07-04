@@ -110,6 +110,7 @@ const typeCourtHostController = {
           );
         }
       });
+      ResponseHandler(res, typeCourts);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
     }

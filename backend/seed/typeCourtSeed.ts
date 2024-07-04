@@ -13,7 +13,7 @@ export const typeCourtSeed = async (count: number) => {
         name: faker.lorem.words(3),
         accountId: account[await getRandomInt(account.length)]?.id,
         description: faker.lorem.words(20),
-        image: faker.lorem.words(10),
+        image: faker.image.abstract(1234, 2345),
         attributeCourt: {
           connect: [
             {

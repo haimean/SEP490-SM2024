@@ -5,18 +5,32 @@ import courtHostValidator from './court.validator';
 
 const courtHostRouter = Router();
 
-// create attribute  court
+// create court
 courtHostRouter.post(
   '/create-court',
-  // validate(courtHostValidator.create),
+  validate(courtHostValidator.create),
   courtHostController.create
 );
 
-// get all attribute  court
+// get all court
 courtHostRouter.get('/', courtHostController.getAll);
 
-// get attribute  court
+// get court
 courtHostRouter.get('/branch/:id', courtHostController.get);
+
+// get detail court
 courtHostRouter.get('/:id', courtHostController.getDetail);
 
+// update court
+courtHostRouter.post(
+  '/update-court/',
+  validate(courtHostValidator.update),
+  courtHostController.update
+);
+
+// delete court
+courtHostRouter.delete(
+  '/delete-court/:id',
+  courtHostController.delete
+);
 export default courtHostRouter;
