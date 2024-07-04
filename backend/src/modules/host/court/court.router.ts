@@ -22,7 +22,7 @@ courtHostRouter.get('/branch/:id', courtHostController.get);
 courtHostRouter.get('/:id', courtHostController.getDetail);
 
 // update court
-courtHostRouter.post(
+courtHostRouter.put(
   '/update-court/',
   validate(courtHostValidator.update),
   courtHostController.update
