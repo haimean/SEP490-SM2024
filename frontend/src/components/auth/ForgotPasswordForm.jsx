@@ -1,27 +1,36 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useState, useEffect, useRef } from "react";
+import { useForm } from "react-hook-form";
 import InputLabel from "../common/InputLabel.jsx";
-import CallApi from '../../service/CallAPI.jsx';
+import CallApi from "../../service/CallAPI.jsx";
 import { toast } from "react-toastify";
 
 // EmailForm Component
 const EmailForm = ({ onSubmit }) => {
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm();
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='mt-3'>
+    <form onSubmit={handleSubmit(onSubmit)} className="mt-3">
       <InputLabel
         label="Email"
         id="email"
         register={register}
         pattern={{
-          value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-          message: "Vui lòng nhập email hợp lệ."
+          value:
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+          message: "Vui lòng nhập email hợp lệ.",
         }}
         errors={errors}
         required="Không được bỏ trống trường này."
       />
-      <button disabled={isSubmitting} type="submit" className="mt-6 transition block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg">
+      <button
+        disabled={isSubmitting}
+        type="submit"
+        className="mt-6 transition block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg"
+      >
         Kiểm tra email
       </button>
     </form>
@@ -30,10 +39,14 @@ const EmailForm = ({ onSubmit }) => {
 
 // OTPForm Component
 const OTPForm = ({ onSubmit, otpTimer, otpExpired, handleResendOTP }) => {
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm();
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='mt-3'>
+    <form onSubmit={handleSubmit(onSubmit)} className="mt-3">
       <InputLabel
         label="OTP"
         id="otp"
@@ -44,7 +57,9 @@ const OTPForm = ({ onSubmit, otpTimer, otpExpired, handleResendOTP }) => {
       />
       <div className="mt-3 flex flex-col text-center">
         {otpExpired ? (
-          <span>OTP <span className="text-red-600">expired</span></span>
+          <span>
+            OTP <span className="text-red-600">expired</span>
+          </span>
         ) : (
           <span>
             OTP hết hạn sau
@@ -61,8 +76,11 @@ const OTPForm = ({ onSubmit, otpTimer, otpExpired, handleResendOTP }) => {
           Gửi lại OTP
         </button>
       </div>
-      <button disabled={isSubmitting} type="submit"
-        className="mt-6 transition block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg">
+      <button
+        disabled={isSubmitting}
+        type="submit"
+        className="mt-6 transition block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg"
+      >
         Xác nhận OTP
       </button>
     </form>
@@ -71,23 +89,29 @@ const OTPForm = ({ onSubmit, otpTimer, otpExpired, handleResendOTP }) => {
 
 // ResetPasswordForm Component
 const ResetPasswordForm = ({ onSubmit }) => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='mt-3'>
+    <form onSubmit={handleSubmit(onSubmit)} className="mt-3">
       <InputLabel
         label="Nhập mật khẩu mới"
         id="newPassword"
         register={register}
         pattern={{
-          value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/,
-          message: "Mật khẩu phải chứa ít nhất " +
-                "một chữ viết hoa, một chữ viết thương, một số, một kí tự đặc biêt và không được chứa khoảng trống."
+          value:
+            /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/,
+          message:
+            "Mật khẩu phải chứa ít nhất " +
+            "một chữ viết hoa, một chữ viết thương, một số, một kí tự đặc biêt và không được chứa khoảng trống.",
         }}
         minLength={8}
         errors={errors}
         required="Không được bỏ trống trường này."
-        type='password'
+        type="password"
       />
       <InputLabel
         label="Nhập lại mật khẩu"
@@ -95,9 +119,12 @@ const ResetPasswordForm = ({ onSubmit }) => {
         register={register}
         errors={errors}
         required="Không được bỏ trống trường này."
-        type='password'
+        type="password"
       />
-      <button type="submit" className="mt-6 transition block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg">
+      <button
+        type="submit"
+        className="mt-6 transition block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg"
+      >
         Đặt lại mật khẩu
       </button>
     </form>
@@ -107,21 +134,17 @@ const ResetPasswordForm = ({ onSubmit }) => {
 // ForgotPasswordForm Component
 const ForgotPasswordForm = () => {
   const [showOTPSection, setShowOTPSection] = useState(false);
-  const [showResetPasswordSection, setShowResetPasswordSection] = useState(false);
+  const [showResetPasswordSection, setShowResetPasswordSection] =
+    useState(false);
   const [otpTimer, setOTPTimer] = useState(120);
   const [otpExpired, setOtpExpired] = useState(false);
   const timerRef = useRef(null);
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
   const handleSubmit = async (data) => {
     const { email } = data;
     try {
-       await CallApi(
-        '/api/auth/forgot-password',
-        'post',
-        { email },
-        {}
-      );
+      await CallApi("/api/auth/forgot-password", "post", { email }, {});
       toast.success(`OTP đã được gửi!`);
       setEmail(email);
       setShowOTPSection(true);
@@ -135,12 +158,12 @@ const ForgotPasswordForm = () => {
     const { otp } = data;
 
     try {
-       await CallApi(
-        '/api/auth/forgot-password/verify-otp',
-        'post',
+      await CallApi(
+        "/api/auth/forgot-password/verify-otp",
+        "post",
         {
           email,
-          otp
+          otp,
         },
         {}
       );
@@ -155,12 +178,7 @@ const ForgotPasswordForm = () => {
 
   const handleResendOTP = async () => {
     try {
-       await CallApi(
-        '/api/auth/forgot-password',
-        'post',
-        { email },
-        {}
-      );
+      await CallApi("/api/auth/forgot-password", "post", { email }, {});
       toast.success(`OTP đã được gửi lại!`);
       setOtpExpired(false);
       setOTPTimer(120);
@@ -186,16 +204,16 @@ const ForgotPasswordForm = () => {
   const handleResetPasswordSubmit = async (data) => {
     const { newPassword, confirmPassword } = data;
     if (newPassword !== confirmPassword) {
-      toast.error('Mật khẩu nhập lại không trùng khớp.');
+      toast.error("Mật khẩu nhập lại không trùng khớp.");
       return;
     }
     try {
-       await CallApi(
-        '/api/auth/forgot-password/new-pass',
-        'post',
+      await CallApi(
+        "/api/auth/forgot-password/new-pass",
+        "post",
         {
           email,
-          password: newPassword
+          password: newPassword,
         },
         {}
       );
