@@ -18,6 +18,8 @@ import CreateBranch from "../pages/host/Branch/CreateBranch.jsx";
 import ListCourt from "../pages/host/Court/ListCourt.jsx";
 import CourtDetail from "../pages/host/Court/CourtDetail.jsx";
 import Checkout from "../pages/player/Court/Checkout.jsx";
+import RegisterCourt from "../pages/host/Court/RegisterCourt.jsx";
+import UpdateCourt from "../pages/host/Court/UpdateCourt.jsx";
 import CreateBlog from "../pages/player/Blog/CreateBlog.jsx";
 
 const routes = [
@@ -141,7 +143,7 @@ const routes = [
     layout: "",
   },
   {
-    path: "/player/court/:idCourt",
+    path: "/player/branch/:idBranch/court/:idCourt",
     name: "Court Detail",
     component: <CourtDetail />,
     // role: ["USER"], // Chỉ cho phép HOST truy cập
@@ -159,6 +161,20 @@ const routes = [
     name: "Create Blog",
     component: <CreateBlog />,
     // role: ["USER"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/host/register-court",
+    name: "Register Court",
+    component: <RegisterCourt />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/host/update-court/:id",
+    name: "Update Court",
+    component: <UpdateCourt />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "",
   },
   {

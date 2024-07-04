@@ -8,7 +8,6 @@ import {
   CardMedia,
   CardContent,
   Grid,
-  Button,
 } from "@mui/material";
 import {
   LocationOn,
@@ -31,7 +30,6 @@ const CourtDetailComponent = ({
   participants,
   level,
   price,
-  map,
   id,
   role,
   type,
@@ -59,12 +57,12 @@ const CourtDetailComponent = ({
             <Typography variant="h4" gutterBottom>
               {title}
             </Typography>
-            {renderInfoItem(LocationOn, location)}
-            {renderInfoItem(CalendarToday, date)}
-            {renderInfoItem(Repeat, frequency)}
-            {renderInfoItem(Group, participants)}
-            {renderInfoItem(School, level)}
-            {renderInfoItem(AttachMoney, price)}
+            {location && renderInfoItem(LocationOn, location)}
+            {date && renderInfoItem(CalendarToday, date)}
+            {frequency && renderInfoItem(Repeat, frequency)}
+            {participants && renderInfoItem(Group, participants)}
+            {level && renderInfoItem(School, level)}
+            {price && renderInfoItem(AttachMoney, price)}
           </CardContent>
         </Card>
 
@@ -73,39 +71,10 @@ const CourtDetailComponent = ({
             <Typography variant="h6" gutterBottom>
               Mô tả thêm
             </Typography>
-            {renderInfoItem(SportsBasketball, description)}
+            {description && renderInfoItem(SportsBasketball, description)}
             <Typography variant="body2">{description}</Typography>
           </CardContent>
         </Card>
-        {map && (
-          <Card>
-            <CardContent>
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                mb={2}
-              >
-                <Typography variant="h6">Bản đồ</Typography>
-                <Button variant="outlined" startIcon={<LocationOn />}>
-                  Xem vị trí
-                </Button>
-              </Box>
-              <Typography variant="body2" color="text.secondary">
-                {location}
-              </Typography>
-              <Box
-                sx={{
-                  height: "400px",
-                  width: "100%",
-                  backgroundColor: "#f0f0f0",
-                }}
-              >
-                {map}
-              </Box>
-            </CardContent>
-          </Card>
-        )}
       </Grid>
       {role == "ADMIN" ? (
         <RightSectionDetailPage />

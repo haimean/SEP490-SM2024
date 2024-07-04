@@ -141,6 +141,18 @@ model Court {
 }
 
 // Bảng cơ sở, có thông tin cơ bản của cơ sở và danh sách sân
+model AddressBranch {
+  id               Int      @id @default(autoincrement())
+  branchesId       Int      @unique
+  branches         Branches @relation(fields: [branchesId], references: [id])
+  addressLongitude String
+  addressLatitude  String
+  provinces        String
+  districts        String
+  wards            String
+  detail           String
+}
+
 model Branches {
   id                Int                 @id @default(autoincrement())
   name              String
@@ -148,10 +160,15 @@ model Branches {
   attributeBranches AttributeBranches[]
   court             Court[]
   account           Account             @relation(fields: [accountId], references: [id])
-  addressLongitude  String
-  addressLatitude   String
   image             String?
   description       String?
+  phone             String
+  email             String?
+  address           AddressBranch?
+  businessLicense   String
+  openingHours      DateTime
+  closingHours      DateTime
+  isAccept          Boolean             @default(false)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
 
@@ -192,38 +209,6 @@ model Comment {
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
 }
-
-// TABLE branch as branch {
-//   branch_id int [pk, increment]
-//   user_id int [ref: > user.user_id]
-//   branch_name varchar(100)
-//   branch_phone varchar(20)
-//   branch_email varchar(255)
-//   address json
-//   opening_hours varchar(50)
-//   closing_hours varchar(50)
-//   business_license varchar(50)
-//   description json
-//   latitude varchar(50)
-//   longitude varchar(50)
-//   created_at timestamp
-//   updated_at timestamp
-//   created_by varchar(100)
-//   updated_by varchar(100)
-// }
-
-// TABLE court as court {
-//   court_id int [pk, increment]
-//   branch_id int [ref: > branch.branch_id]
-//   type_court_id int [ref: > type_court.type_court_id]
-//   court_name varchar(100)
-//   service_offered varchar(255)
-//   description json
-//   created_at timestamp
-//   updated_at timestamp
-//   created_by varchar(100)
-//   updated_by varchar(100)
-// }
 
 // //Ca đặt
 // TABLE calendar as calendar {
