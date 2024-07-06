@@ -10,10 +10,14 @@ export const branchSeed = async (count: number) => {
       data: {
         name: faker.lorem.word(20),
         accountId: accounts[getRandomInt(accounts.length)]?.id,
-        addressLongitude: faker.location.longitude().toString(),
-        addressLatitude: faker.location.latitude().toString(),
+        // addressLongitude: faker.location.longitude().toString(),
+        // addressLatitude: faker.location.latitude().toString(),
         image: faker.image.abstract(1234, 2345),
         description: faker.lorem.words(20),
+        businessLicense: faker.lorem.words(20),
+        closingHours: faker.date.anytime(),
+        openingHours: faker.date.anytime(),
+        phone: faker.phone.number(),
       },
     });
     logger.info('Seeding data court', data);

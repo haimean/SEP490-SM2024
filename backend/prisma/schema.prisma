@@ -30,18 +30,18 @@ model Account {
   isActive          Boolean             @default(true)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
-  TypeCourt         TypeCourt[]
-  Branches          Branches[]
-  Blog              Blog[]
-  Comment           Comment[]
-  Booking           Booking[]
+  typeCourt         TypeCourt[]
+  branches          Branches[]
+  blog              Blog[]
+  comment           Comment[]
+  booking           Booking[]
   userAvailability  userAvailability[]
 
   invitationsSend     Invitation[] @relation("seed")
   invitationsReceived Invitation[] @relation("recipient")
-  Post                Post[]
-  ReviewSend          Review[]     @relation("seed")
-  ReviewReceived      Review[]     @relation("recipient")
+  post                Post[]
+  reviewSend          Review[]     @relation("seed")
+  reviewReceived      Review[]     @relation("recipient")
 }
 
 enum Gender {
@@ -88,7 +88,7 @@ model AttributeBranches {
   updatedAt              DateTime              @updatedAt
   account                Account               @relation(fields: [accountId], references: [id])
   attributeKeyBranches   AttributeKeyBranches? @relation(fields: [attributeKeyBranchesId], references: [id])
-  Branches               Branches[]
+  branches               Branches[]
 
   @@unique([value, attributeKeyBranchesId])
 }
@@ -148,20 +148,20 @@ model Court {
   typeCourtId Int?
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
-  Booking     Booking[]
+  booking     Booking[]
 }
 
 // Bảng cơ sở, có thông tin cơ bản của cơ sở và danh sách sân
 model AddressBranch {
-  id               Int      @id @default(autoincrement())
-  branchesId       Int      @unique
-  branches         Branches @relation(fields: [branchesId], references: [id])
-  addressLongitude String
-  addressLatitude  String
-  provinces        String
-  districts        String
-  wards            String
-  detail           String
+  id         Int      @id @default(autoincrement())
+  branchesId Int      @unique
+  branches   Branches @relation(fields: [branchesId], references: [id])
+  longitude  String
+  latitude   String
+  provinces  String
+  districts  String
+  wards      String
+  detail     String
 }
 
 model Branches {
@@ -177,8 +177,8 @@ model Branches {
   email             String?
   address           AddressBranch?
   businessLicense   String
-  openingHours      DateTime
-  closingHours      DateTime
+  openingHours      String
+  closingHours      String
   isAccept          Boolean             @default(false)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
@@ -203,7 +203,7 @@ model Blog {
   status    STATUS_BLOG
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
-  Comment   Comment[]
+  comment   Comment[]
 }
 
 model Comment {
@@ -230,7 +230,7 @@ model PriceTypeCourt {
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
   price       Int
-  TypeCourt   TypeCourt? @relation(fields: [typeCourtId], references: [id])
+  typeCourt   TypeCourt? @relation(fields: [typeCourtId], references: [id])
   typeCourtId Int?
 }
 
@@ -247,7 +247,7 @@ model Booking {
   endTime     DateTime
   price       Int
   bookingInfo BookingInfo?
-  Post        Post?
+  post        Post?
 }
 
 model BookingInfo {
@@ -256,7 +256,7 @@ model BookingInfo {
   updatedAt   DateTime @updatedAt
   name        String
   numberPhone String
-  Booking     Booking? @relation(fields: [bookingId], references: [id])
+  booking     Booking? @relation(fields: [bookingId], references: [id])
   bookingId   Int?     @unique
 }
 
@@ -319,13 +319,13 @@ model Post {
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
   bookingId    Int          @unique
-  Booking      Booking      @relation(fields: [bookingId], references: [id])
+  booking      Booking      @relation(fields: [bookingId], references: [id])
   desciption   String
   numberMember Int
-  MemberPost   MemberPost[]
-  Account      Account?     @relation(fields: [accountId], references: [id])
+  memberPost   MemberPost[]
+  account      Account?     @relation(fields: [accountId], references: [id])
   accountId    Int?
-  Invitation   Invitation[]
+  invitation   Invitation[]
 }
 
 model MemberPost {
@@ -333,7 +333,7 @@ model MemberPost {
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
   postId     Int
-  Post       Post       @relation(fields: [postId], references: [id])
+  post       Post       @relation(fields: [postId], references: [id])
   level      Level
   genderPost GenderPost
   price      String     @default("Chia đều")

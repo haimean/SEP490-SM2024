@@ -9,7 +9,9 @@ const userService = {
           accountId: id,
         },
         data: {
-          name: data.name,
+          fullName: data.name,
+          gender: 'FEMALE',
+          identifierCode: '',
           dob: data.dob,
           numberPhone: data.numberPhone,
         },
