@@ -79,14 +79,30 @@ export default function DataTable() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Họ và tên</TableCell>
-              <TableCell>Trạng thái hoạt động</TableCell>
-              <TableCell>Trang thái kích hoạt</TableCell>
-              <TableCell>Số điện thoại</TableCell>
-              <TableCell>Role</TableCell>
-              <TableCell>Action</TableCell>
+              <TableCell>
+                <h1 className="font-bold">ID</h1>
+              </TableCell>
+              <TableCell>
+                <h1 className="font-bold">Email</h1>
+              </TableCell>
+              <TableCell>
+                <h1 className="font-bold">Họ và tên</h1>
+              </TableCell>
+              <TableCell>
+                <h1 className="font-bold">Trạng thái hoạt động</h1>
+              </TableCell>
+              <TableCell>
+                <h1 className="font-bold">Trang thái kích hoạt</h1>
+              </TableCell>
+              <TableCell>
+                <h1 className="font-bold">Số điện thoại</h1>
+              </TableCell>
+              <TableCell>
+                <h1 className="font-bold">Role</h1>
+              </TableCell>
+              <TableCell>
+                <h1 className="font-bold">Action</h1>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

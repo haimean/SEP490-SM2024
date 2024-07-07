@@ -21,6 +21,8 @@ import Checkout from "../pages/player/Court/Checkout.jsx";
 import RegisterCourt from "../pages/host/Court/RegisterCourt.jsx";
 import UpdateCourt from "../pages/host/Court/UpdateCourt.jsx";
 import CreateBlog from "../pages/player/Blog/CreateBlog.jsx";
+import ResponsiveDrawer from "../layouts/host/LayoutHost.jsx";
+import ComparePage from "../components/host/court/ComparePage.jsx";
 
 const routes = [
   {
@@ -143,7 +145,7 @@ const routes = [
     layout: "",
   },
   {
-    path: "/player/branch/:idBranch/court/:idCourt",
+    path: "/branch/:idBranch/court/:idCourt",
     name: "Court Detail",
     component: <CourtDetail />,
     // role: ["USER"], // Chỉ cho phép HOST truy cập
@@ -174,6 +176,20 @@ const routes = [
     path: "/host/update-court/:id",
     name: "Update Court",
     component: <UpdateCourt />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/host/compare/:court1/:court2",
+    name: "Update Court",
+    component: <ComparePage />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/host/test",
+    name: "Update Court",
+    component: <ResponsiveDrawer />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "",
   },

@@ -63,10 +63,7 @@ const RightSectionHost = ({ id, type }) => {
         >
           {type === "Branch"
             ? court.map((item) => (
-                <Link
-                  key={item.id}
-                  to={`/player/branch/${id}/court/${item.id}`}
-                >
+                <Link key={item.id} to={`/branch/${id}/court/${item.id}`}>
                   <CustomTooltip title={longText}>
                     <ListItemButton>
                       <img

@@ -95,6 +95,8 @@ export default function CourtDetail() {
               value={value}
               onChange={handleChange}
               aria-label="basic tabs example"
+              variant="scrollable"
+              scrollButtons="auto"
             >
               {court &&
                 court?.map((item, index) => (
@@ -121,11 +123,8 @@ export default function CourtDetail() {
                     image={data?.Branches?.image}
                     location={data?.Branches?.addressLatitude}
                     date={data?.createdAt}
-                    description={data?.Branches?.description}
-                    // frequency={item.frequency}
-                    // participants={item.participants}
-                    // level={item.level}
-                    // price={item.price}
+                    description={data?.TypeCourt?.description}
+                    participants={data?.Branches?.name}
                   />
                 )}
               </Box>
