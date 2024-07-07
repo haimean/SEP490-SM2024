@@ -34,6 +34,10 @@ const courtHostService = {
       where: {
         branchesId: id,
       },
+      include: {
+        Branches: true,
+        TypeCourt: true,
+      },
     });
   },
 
