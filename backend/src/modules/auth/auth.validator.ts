@@ -11,7 +11,8 @@ const authValidator = {
   }),
   register: Joi.object({
     email: Joi.string().email().required().label('Email'),
-    password: Joi.string().label('Mật khẩu'),
+    password: Joi.string().required().label('Mật khẩu'),
+    name: Joi.string().required().label('Tên'),
   }),
 };
 

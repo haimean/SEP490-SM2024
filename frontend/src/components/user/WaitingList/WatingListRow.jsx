@@ -8,10 +8,9 @@ import TableCell from "@mui/material/TableCell";
 import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip"; // Thêm Tooltip từ Material-UI
 
-// ----------------------------------------------------------------------
-
-export default function WatingListRow({ row, handleInvite }) {
+export default function WaitingListRow({ row, handleInvite }) {
   const { name, avatarUrl, title, level, friendliness } = row;
   const [isInvited, setIsInvited] = useState(false);
   const [isFading, setIsFading] = useState(false);
@@ -29,18 +28,27 @@ export default function WatingListRow({ row, handleInvite }) {
       <TableRow
         hover
         tabIndex={-1}
-        className={`transition-opacity duration-1000 ${isFading ? "opacity-0" : "opacity-100"}`}
+        className={`transition-opacity duration-1000 ${isFading ? "opacity-0" : "opacity-100"
+          }`}
       >
-        <TableCell component="th" scope="row" padding="none" sx={{ paddingLeft: '1.5rem' }}>
+        <TableCell component="th" scope="row" padding="none" sx={{ paddingLeft: '1.5rem', width: "20%", maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis" }}>
           <Stack direction="row" alignItems="center" spacing={2}>
             <Avatar alt={name} src={avatarUrl} />
-            <Typography variant="subtitle2" noWrap>
-              {name}
-            </Typography>
+            <Tooltip title={name}>
+              <Typography variant="subtitle2" noWrap>
+                {name}
+              </Typography>
+            </Tooltip>
           </Stack>
         </TableCell>
 
-        <TableCell align="center">{title}</TableCell>
+        <TableCell align="center" sx={{ width: "20%", maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis" }}>
+          <Tooltip title={title}>
+            <Typography variant="subtitle2" noWrap>
+              {title}
+            </Typography>
+          </Tooltip>
+        </TableCell>
         <TableCell align="center">
           <Typography variant="subtitle2" className="font-bold" noWrap>
             {level}
@@ -65,7 +73,7 @@ export default function WatingListRow({ row, handleInvite }) {
   );
 }
 
-WatingListRow.propTypes = {
+WaitingListRow.propTypes = {
   row: PropTypes.shape({
     avatarUrl: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,

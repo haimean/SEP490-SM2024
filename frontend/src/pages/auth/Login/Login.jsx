@@ -1,7 +1,7 @@
 import React from "react";
 import SignInForm from "../../../components/auth/SignInForm.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import withAuthRedirect from "../../../utils/withAuthRedirect.jsx";
+import WithAuthRedirect from "../../../utils/WithAuthRedirect.jsx";
 const Login = () => {
   return (
     <div className="bg-gray-200 flex justify-center items-center h-screen w-screen">
@@ -12,4 +12,4 @@ const Login = () => {
   );
 };
 
-export default withAuthRedirect(Login, "/");
+export default WithAuthRedirect(Login, "/");

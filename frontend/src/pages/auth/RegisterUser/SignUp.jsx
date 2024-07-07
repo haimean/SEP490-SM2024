@@ -1,7 +1,7 @@
 import React from 'react';
 import SignUpForm from '../../../components/auth/SignUpForm.jsx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import withAuthRedirect from '../../../utils/withAuthRedirect.jsx';
+import WithAuthRedirect from '../../../utils/WithAuthRedirect.jsx';
 const SignUpFormPlayer = () => {
   return (
     <div>
@@ -14,4 +14,4 @@ const SignUpFormPlayer = () => {
   );
 };
 
-export default withAuthRedirect(SignUpFormPlayer, '/');
+export default WithAuthRedirect(SignUpFormPlayer, '/');

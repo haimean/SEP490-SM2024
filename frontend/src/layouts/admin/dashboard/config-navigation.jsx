@@ -17,7 +17,7 @@ const navConfig = [
   },
   {
     title: "user",
-    path: "/user",
+    path: "/admin/list-account",
     icon: icon("ic_user"),
   },
   {
@@ -32,12 +32,12 @@ const navConfig = [
   },
   {
     title: "login",
-    path: "/login",
+    path: "/admin/login",
     icon: icon("ic_lock"),
   },
   {
     title: "Not found",
-    path: "/404",
+    path: "/admin/404",
     icon: icon("ic_disabled"),
   },
 ];

@@ -5,7 +5,6 @@ const adminAccountValidator = {
   update: Joi.object({
     isActive: Joi.boolean(),
     role: Joi.boolean(),
-    isAccept: Joi.boolean(),
     pagination: validator.pagination,
   }),
 };

@@ -8,7 +8,7 @@ export const users = [...Array(24)].map((_, index) => ({
   avatarUrl: `/assets/images/avatars/avatar_${index + 1}.jpg`,
   name: faker.person.fullName(),
   title: sample([
-    "Software Engineer",
+    "Software Engineerkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
     "Product Manager",
     "Marketing Specialist",
     "Sales Executive",

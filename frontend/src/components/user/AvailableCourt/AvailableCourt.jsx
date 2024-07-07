@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Grid, Typography } from '@mui/material';
-import PostCard from './PostCard';
+import PostCard from '../Post/PostCard';
 import LocationFilter from './LocationFilter';
 
 const activities = [

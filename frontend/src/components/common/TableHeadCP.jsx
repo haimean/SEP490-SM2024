@@ -6,11 +6,10 @@ import TableHead from '@mui/material/TableHead';
 import TableCell from '@mui/material/TableCell';
 import TableSortLabel from '@mui/material/TableSortLabel';
 
-import { visuallyHidden } from '../../../sections/admin/user/utils';
 
 // ----------------------------------------------------------------------
 
-export default function WaitingListHead({
+export default function TableHeadCP({
   order,
   orderBy,
   headLabel,
@@ -20,6 +19,17 @@ export default function WaitingListHead({
     onRequestSort(event, property);
   };
 
+  const visuallyHidden = {
+    border: 0,
+    margin: -1,
+    padding: 0,
+    width: '1px',
+    height: '1px',
+    overflow: 'hidden',
+    position: 'absolute',
+    whiteSpace: 'nowrap',
+    clip: 'rect(0 0 0 0)',
+  };
   return (
     <TableHead>
       <TableRow>
@@ -31,7 +41,7 @@ export default function WaitingListHead({
             sx={{
               width: headCell.width,
               minWidth: headCell.minWidth,
-              ...(index === 0 && { paddingLeft: '0.25rem' }), // Add left padding for the first column
+              // ...(index === 0 && { paddingLeft: '0.25rem' }), // Add left padding for the first column
             }}
           >
             <TableSortLabel
@@ -54,7 +64,7 @@ export default function WaitingListHead({
   );
 }
 
-WaitingListHead.propTypes = {
+TableHeadCP.propTypes = {
   order: PropTypes.oneOf(['asc', 'desc']),
   orderBy: PropTypes.string,
   headLabel: PropTypes.array.isRequired,

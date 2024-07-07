@@ -10,6 +10,7 @@ unless_exists: true
   const capitalizedModuleName = capitalizeFirstLetter(moduleName);
 %>
 
+import { NextFunction, Request, Response } from 'express';
 
 const <%=name%><%=capitalizedModuleName%>Controller = {
 };
