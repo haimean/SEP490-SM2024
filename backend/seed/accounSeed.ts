@@ -20,11 +20,14 @@ export const accountSeed = async (count: number) => {
 const userSeed = async (id: number) => {
   const data = await database.user.create({
     data: {
-      name: faker.person.fullName(),
+      fullName: faker.person.fullName(),
       dob: new Date(), // '+15551234567'
       numberPhone: faker.phone.number(),
       accountId: id,
+      gender: 'FEMALE',
+      identifierCode: faker.phone.number(),
     },
   });
+
   logger.info('Seeding data user', data);
 };

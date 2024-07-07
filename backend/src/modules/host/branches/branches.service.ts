@@ -1,74 +1,84 @@
 import { Branches, Prisma } from '@prisma/client';
 import database from '../../../lib/db.server';
-import { BranchesHostServiceCreate } from './branches.model';
+import {
+  AddressBranchHostServiceCreate,
+  BranchesHostServiceCreate,
+} from './branches.model';
 import { DefaultArgs } from '@prisma/client/runtime/library';
 
 const branchesHostService = {
-  listBranch: async (
-    nameSort: string,
-    isVerify: string,
-    email: string,
-    currentPage: number,
-    pageSize: number
-  ) => {
-    const skip = (currentPage - 1) * pageSize;
-    const queryOption = {
-      include: {
-        account: true,
+  listBranch: async (accountId: number) => {
+    return await database.branches.findMany({
+      where: {
+        accountId,
+        isAccept: true,
       },
-      skip: skip,
-      take: pageSize,
-      orderBy: {},
-    };
-    if (nameSort) {
-      queryOption.orderBy = {
-        name: nameSort === 'desc' ? 'asc' : 'desc',
-      };
-    }
-    if (isVerify) {
-      queryOption.orderBy = {
-        account: {
-          isVerified: isVerify === 'asc' ? 'asc' : 'desc',
+      include: {
+        address: true,
+        court: true,
+        attributeBranches: true,
+      },
+    });
+  },
+  get: async (accountId: number, id: number): Promise<any> => {
+    return await database.branches.findUnique({
+      where: {
+        id,
+        accountId,
+        isAccept: true,
+      },
+      include: {
+        address: true,
+        court: { include: { TypeCourt: true } },
+        attributeBranches: {
+          include: {
+            attributeKeyBranches: true,
+          },
         },
-      };
-    }
-    if (email) {
-      queryOption.orderBy = {
-        account: {
-          email: email === 'asc' ? 'asc' : 'desc',
-        },
-      };
-    }
-    return await database.attributeKeyBranches.findMany();
+      },
+    });
   },
 
   create: async (
-    data: BranchesHostServiceCreate
+    branchesPayload: BranchesHostServiceCreate,
+    addressPayload: AddressBranchHostServiceCreate,
+    attributeBranches: number[],
+    court: number[]
   ): Promise<Branches> => {
     const {
       accountId,
       name,
       description,
-      addressLatitude,
-      addressLongitude,
-      attributeBranches,
-      court,
+      businessLicense,
+      closingHours,
+      openingHours,
+      phone,
       image,
-    } = data;
+      email,
+    } = branchesPayload;
     const query: Prisma.BranchesCreateArgs<DefaultArgs> = {
       data: {
         accountId,
         name,
-        addressLatitude,
-        addressLongitude,
+        businessLicense,
+        closingHours,
+        openingHours,
+        phone,
       },
     };
-    if (description) {
-      query.data.description = description;
-    }
     if (image) {
       query.data.image = image;
     }
+    if (description) {
+      query.data.image = description;
+    }
+    if (email) {
+      query.data.image = email;
+    }
+    if (addressPayload) {
+      query.data.address = { create: { ...addressPayload } };
+    }
+
     if (attributeBranches) {
       const attributeBranchesIds = attributeBranches.map((item) => {
         return {
@@ -89,6 +99,7 @@ const branchesHostService = {
         connect: courtIds,
       };
     }
+
     return await database.branches.create(query);
   },
 };

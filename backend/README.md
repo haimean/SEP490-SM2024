@@ -5,6 +5,7 @@
 npx prisma migrate dev --create-only
 
 **Chạy để gen kiểu dữ liệu**
+
 npx prisma generate
 
 Logger: sử dụng logger

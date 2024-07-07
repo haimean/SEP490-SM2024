@@ -1,10 +1,11 @@
-export interface BranchesHostServiceCreate {
-  name: string;
-  accountId: number;
-  addressLongitude: string;
-  addressLatitude: string;
-  description?: string;
-  image?: string;
-  attributeBranches: number[];
-  court: number[];
-}
+import { AddressBranch, Branches } from '@prisma/client';
+
+export type BranchesHostServiceCreate = Omit<
+  Branches,
+  'id' | 'createdAt' | 'updatedAt'
+>;
+
+export type AddressBranchHostServiceCreate = Omit<
+  AddressBranch,
+  'id' | 'createdAt' | 'updatedAt' | 'branchesId'
+>;

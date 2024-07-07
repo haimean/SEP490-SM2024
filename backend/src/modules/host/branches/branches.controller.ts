@@ -4,7 +4,10 @@ import { ResponseHandler } from '../../../outcomes/responseHandler';
 import CustomError from '../../../outcomes/customError';
 import { uploadFile } from '../../../lib/s3';
 import { Branches } from '@prisma/client';
-import { BranchesHostServiceCreate } from './branches.model';
+import {
+  AddressBranchHostServiceCreate,
+  BranchesHostServiceCreate,
+} from './branches.model';
 
 const branchesHostController = {
   listBranch: async (
@@ -13,15 +16,20 @@ const branchesHostController = {
     next: NextFunction
   ) => {
     try {
-      const { name, isVerify, email, currentPage, pageSize } =
-        req.body;
-      const result = await branchesHostService.listBranch(
-        name,
-        isVerify,
-        email,
-        Number(currentPage),
-        Number(pageSize)
-      );
+      const accountId = Number(req.headers.authorization);
+      const result = await branchesHostService.listBranch(accountId);
+      ResponseHandler(res, result);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
+
+  get: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const accountId = Number(req.headers.authorization);
+      const id = Number(req.params.id);
+
+      const result = await branchesHostService.get(accountId, id);
       ResponseHandler(res, result);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
@@ -29,36 +37,53 @@ const branchesHostController = {
   },
   // FIXED:
   create: async (req: Request, res: Response, next: NextFunction) => {
-    let imageName: string = '';
-    const file = req.file;
-    //check file
-    if (file) {
-      imageName = await uploadFile(file);
-    }
     try {
       const accountId = Number(req.headers.authorization);
       const {
         name,
         description,
-        addressLatitude,
-        addressLongitude,
+        businessLicense,
+        closingHours,
+        openingHours,
+        email,
+        image,
+        phone,
+        detail,
+        districts,
+        latitude,
+        longitude,
+        provinces,
+        wards,
         attributeBranches,
         court,
       } = req.body;
-      
-      const payload: BranchesHostServiceCreate = {
+
+      const branchesPayload: BranchesHostServiceCreate = {
         accountId,
         name,
         description,
-        addressLatitude,
-        addressLongitude,
-        attributeBranches,
-        court,
-        image: imageName,
+        businessLicense,
+        closingHours,
+        openingHours,
+        email,
+        image,
+        isAccept: false,
+        phone,
+      };
+      const addressPayload: AddressBranchHostServiceCreate = {
+        detail,
+        districts,
+        latitude,
+        longitude,
+        provinces,
+        wards,
       };
 
       const branches: Branches = await branchesHostService.create(
-        payload
+        branchesPayload,
+        addressPayload,
+        attributeBranches,
+        court
       );
       ResponseHandler(res, branches);
     } catch (error: any) {

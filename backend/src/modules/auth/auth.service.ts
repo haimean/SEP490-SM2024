@@ -94,7 +94,9 @@ const authService = {
         await database.user.create({
           data: {
             accountId: account.id,
-            name,
+            fullName: name,
+            gender: 'FEMALE',
+            identifierCode: '',
             dob: null,
             numberPhone: '',
           },
@@ -158,9 +160,11 @@ const authService = {
         await database.user.create({
           data: {
             accountId: account.id,
-            name,
             dob: null,
             numberPhone: '',
+            fullName: name,
+            gender: 'FEMALE',
+            identifierCode: '',
           },
         });
         const token = jwt.sign(
