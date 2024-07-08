@@ -10,9 +10,9 @@
     "dev": "nodemon - exec 'ts-node' ./app.ts",
     "seed": "nodemon - exec 'ts-node' ./seed.ts",
     "doc": "node swagger.js",
-    "gen:module": "hygen module new",
-    "gen:seed": "hygen seed new",
-    "gen": "ts-node ./seed.ts",
+    "gen:module": "npx hygen module new",
+    "gen:seed": "npx hygen seed new",
+    "gen": "npx tsx ./seed.ts",
     "lint": "eslint . -c .ts,.js --fix"
   },
   "prisma": {
@@ -58,6 +58,8 @@
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
+    "@snaplet/copycat": "^5.0.0",
+    "@snaplet/seed": "^0.97.20",
     "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
     "@types/dotenv": "^8.2.0",

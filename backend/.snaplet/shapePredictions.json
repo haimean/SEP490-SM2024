@@ -1,0 +1,464 @@
+[
+  {
+    "schemaName": "sep490",
+    "tableName": "account",
+    "predictions": [
+      {
+        "input": "sep_490 account email",
+        "column": "email",
+        "shape": "EMAIL",
+        "confidence": 0.9919812679290771,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 account email_token",
+        "column": "emailToken",
+        "shape": "TOKEN",
+        "confidence": 0.9067814350128174,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 account otp",
+        "column": "otp",
+        "shape": "FINANCE_ACCOUNT_NAME",
+        "confidence": 0.2292232513427734,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 account password",
+        "column": "password",
+        "shape": "PASSWORD",
+        "confidence": 0.9943842887878418,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "sep490",
+    "tableName": "addressbranch",
+    "predictions": [
+      {
+        "input": "sep_490 addressbranch detail",
+        "column": "detail",
+        "shape": "STREET_ADDRESS",
+        "confidence": 0.3809823393821716,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 addressbranch districts",
+        "column": "districts",
+        "shape": "INTERNET_DOMAIN_NAME",
+        "confidence": 0.1579028964042664,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 addressbranch latitude",
+        "column": "latitude",
+        "shape": "LOCATION_LATITUDE",
+        "confidence": 0.9702855944633484,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 addressbranch longitude",
+        "column": "longitude",
+        "shape": "LOCATION_LONGITUDE",
+        "confidence": 0.9488624334335327,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 addressbranch provinces",
+        "column": "provinces",
+        "shape": "STREET_ADDRESS",
+        "confidence": 0.4046130776405334,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 addressbranch wards",
+        "column": "wards",
+        "shape": "STREET_ADDRESS",
+        "confidence": 0.530810534954071,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "sep490",
+    "tableName": "attributebranches",
+    "predictions": [
+      {
+        "input": "sep_490 attributebranches value",
+        "column": "value",
+        "shape": "META_DATA",
+        "confidence": 0.1642218083143234,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "sep490",
+    "tableName": "attributekeybranches",
+    "predictions": [
+      {
+        "input": "sep_490 attributekeybranches description",
+        "column": "description",
+        "shape": "SYSTEM_FILE_TYPE",
+        "confidence": 0.1330703645944595,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 attributekeybranches name",
+        "column": "name",
+        "shape": "SYSTEM_FILE_NAME",
+        "confidence": 0.2423724085092545,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "sep490",
+    "tableName": "attributekeycourt",
+    "predictions": [
+      {
+        "input": "sep_490 attributekeycourt description",
+        "column": "description",
+        "shape": "SYSTEM_FILE_TYPE",
+        "confidence": 0.159478023648262,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 attributekeycourt name",
+        "column": "name",
+        "shape": "SYSTEM_FILE_NAME",
+        "confidence": 0.2521588504314423,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "sep490",
+    "tableName": "blog",
+    "predictions": [
+      {
+        "input": "sep_490 blog content",
+        "column": "content",
+        "shape": "POST_BODY",
+        "confidence": 0.5628042221069336,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 blog image",
+        "column": "image",
+        "shape": "INTERNET_AVATAR",
+        "confidence": 0.5267336964607239,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 blog title",
+        "column": "title",
+        "shape": "MOVIE_TITLE",
+        "confidence": 0.7984901666641235,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "sep490",
+    "tableName": "bookinginfo",
+    "predictions": [
+      {
+        "input": "sep_490 bookinginfo name",
+        "column": "name",
+        "shape": "PERSON_FULL_NAME",
+        "confidence": 0.6010281443595886,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 bookinginfo number_phone",
+        "column": "numberPhone",
+        "shape": "PHONE_NUMBER",
+        "confidence": 0.9875604510307312,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "sep490",
+    "tableName": "branches",
+    "predictions": [
+      {
+        "input": "sep_490 branches business_license",
+        "column": "businessLicense",
+        "shape": "VEHICLE_VRM",
+        "confidence": 0.8500894904136658,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 branches closing_hours",
+        "column": "closingHours",
+        "shape": "GIT_BRANCH",
+        "confidence": 0.9616100192070007,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 branches description",
+        "column": "description",
+        "shape": "GIT_BRANCH",
+        "confidence": 0.9601215720176697,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 branches email",
+        "column": "email",
+        "shape": "GIT_BRANCH",
+        "confidence": 0.3272792994976044,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 branches image",
+        "column": "image",
+        "shape": "GIT_BRANCH",
+        "confidence": 0.8908788561820984,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 branches name",
+        "column": "name",
+        "shape": "GIT_BRANCH",
+        "confidence": 0.9872463941574097,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 branches opening_hours",
+        "column": "openingHours",
+        "shape": "GIT_BRANCH",
+        "confidence": 0.9461163282394409,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 branches phone",
+        "column": "phone",
+        "shape": "GIT_BRANCH",
+        "confidence": 0.9577454328536987,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "sep490",
+    "tableName": "category",
+    "predictions": [
+      {
+        "input": "sep_490 category value",
+        "column": "value",
+        "shape": "BOOK_CATEGORY",
+        "confidence": 0.7965717315673828,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "sep490",
+    "tableName": "comment",
+    "predictions": [
+      {
+        "input": "sep_490 comment content",
+        "column": "content",
+        "shape": "POST_COMMENT",
+        "confidence": 0.9878904819488525,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 comment image",
+        "column": "image",
+        "shape": "POST_COMMENT",
+        "confidence": 0.5189217329025269,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "sep490",
+    "tableName": "court",
+    "predictions": [
+      {
+        "input": "sep_490 court name",
+        "column": "name",
+        "shape": "PERSON_SUFFIX",
+        "confidence": 0.1286870390176773,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "sep490",
+    "tableName": "notification",
+    "predictions": [
+      {
+        "input": "sep_490 notification message",
+        "column": "message",
+        "shape": "GIT_COMMIT_MESSAGE",
+        "confidence": 0.4162376821041107,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "sep490",
+    "tableName": "post",
+    "predictions": [
+      {
+        "input": "sep_490 post desciption",
+        "column": "desciption",
+        "shape": "DATABASE_COLUMN",
+        "confidence": 0.269433856010437,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "sep490",
+    "tableName": "review",
+    "predictions": [
+      {
+        "input": "sep_490 review comment",
+        "column": "comment",
+        "shape": "POST_COMMENT",
+        "confidence": 0.9809495806694031,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "sep490",
+    "tableName": "typecourt",
+    "predictions": [
+      {
+        "input": "sep_490 typecourt description",
+        "column": "description",
+        "shape": "FINANCE_TRANSACTION_DESCRIPTION",
+        "confidence": 0.2392540276050568,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 typecourt image",
+        "column": "image",
+        "shape": "IMAGE_URL",
+        "confidence": 0.3997367024421692,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 typecourt name",
+        "column": "name",
+        "shape": "IMAGE_URL",
+        "confidence": 0.1286968886852264,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "sep490",
+    "tableName": "user",
+    "predictions": [
+      {
+        "input": "sep_490 user address",
+        "column": "address",
+        "shape": "FULL_ADDRESS",
+        "confidence": 0.8935832381248474,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 user avatar",
+        "column": "avatar",
+        "shape": "INTERNET_AVATAR",
+        "confidence": 0.9967744946479797,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 user full_name",
+        "column": "fullName",
+        "shape": "PERSON_FULL_NAME",
+        "confidence": 0.8327159285545349,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 user identifier_code",
+        "column": "identifierCode",
+        "shape": "UUID",
+        "confidence": 0.1380919963121414,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 user number_phone",
+        "column": "numberPhone",
+        "shape": "PHONE_NUMBER",
+        "confidence": 0.9945611357688904,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "sep490",
+    "tableName": "useravailability",
+    "predictions": [
+      {
+        "input": "sep_490 useravailability districts",
+        "column": "districts",
+        "shape": "ANIMAL_TYPE",
+        "confidence": 0.110449992120266,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 useravailability provinces",
+        "column": "provinces",
+        "shape": "VEHICLE_MODEL",
+        "confidence": 0.1003818064928055,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  }
+]

@@ -8,6 +8,11 @@ npx prisma migrate dev --create-only
 
 npx prisma generate
 
+**Chạy để gen dữ liệu giar**
+npx @snaplet/seed init : dùng để setup
+npm run gen : fake dữ liệu
+npx prisma generate
+
 Logger: sử dụng logger
 
 

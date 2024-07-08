@@ -1,0 +1,4110 @@
+{
+  "models": {
+    "_attributebranchestobranches": {
+      "id": "sep490._attributebranchestobranches",
+      "schemaName": "sep490",
+      "tableName": "_attributebranchestobranches",
+      "fields": [
+        {
+          "id": "sep490._attributebranchestobranches.A",
+          "name": "A",
+          "columnName": "A",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490._attributebranchestobranches.B",
+          "name": "B",
+          "columnName": "B",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "name": "attributebranches",
+          "type": "attributebranches",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "_attributebranchestobranchesToattributebranches",
+          "relationFromFields": [
+            "A"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "branches",
+          "type": "branches",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "_attributebranchestobranchesTobranches",
+          "relationFromFields": [
+            "B"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490._attributebranchestobranches.A_B",
+          "fields": [
+            "A",
+            "B"
+          ]
+        }
+      ]
+    },
+    "_attributecourttotypecourt": {
+      "id": "sep490._attributecourttotypecourt",
+      "schemaName": "sep490",
+      "tableName": "_attributecourttotypecourt",
+      "fields": [
+        {
+          "id": "sep490._attributecourttotypecourt.A",
+          "name": "A",
+          "columnName": "A",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490._attributecourttotypecourt.B",
+          "name": "B",
+          "columnName": "B",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "name": "category",
+          "type": "category",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "_attributecourttotypecourtTocategory",
+          "relationFromFields": [
+            "A"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "typecourt",
+          "type": "typecourt",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "_attributecourttotypecourtTotypecourt",
+          "relationFromFields": [
+            "B"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490._attributecourttotypecourt.A_B",
+          "fields": [
+            "A",
+            "B"
+          ]
+        }
+      ]
+    },
+    "_prisma_migrations": {
+      "id": "sep490._prisma_migrations",
+      "schemaName": "sep490",
+      "tableName": "_prisma_migrations",
+      "fields": [
+        {
+          "id": "sep490._prisma_migrations.applied_steps_count",
+          "name": "applied_steps_count",
+          "columnName": "applied_steps_count",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490._prisma_migrations.checksum",
+          "name": "checksum",
+          "columnName": "checksum",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 64
+        },
+        {
+          "id": "sep490._prisma_migrations.finished_at",
+          "name": "finished_at",
+          "columnName": "finished_at",
+          "type": "datetime",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490._prisma_migrations.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": 36
+        },
+        {
+          "id": "sep490._prisma_migrations.logs",
+          "name": "logs",
+          "columnName": "logs",
+          "type": "text",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 65535
+        },
+        {
+          "id": "sep490._prisma_migrations.migration_name",
+          "name": "migration_name",
+          "columnName": "migration_name",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 255
+        },
+        {
+          "id": "sep490._prisma_migrations.rolled_back_at",
+          "name": "rolled_back_at",
+          "columnName": "rolled_back_at",
+          "type": "datetime",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490._prisma_migrations.started_at",
+          "name": "started_at",
+          "columnName": "started_at",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490._prisma_migrations.id",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "account": {
+      "id": "sep490.account",
+      "schemaName": "sep490",
+      "tableName": "account",
+      "fields": [
+        {
+          "id": "sep490.account.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.account.email",
+          "name": "email",
+          "columnName": "email",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.account.emailToken",
+          "name": "emailToken",
+          "columnName": "emailToken",
+          "type": "varchar",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.account.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": {
+            "identifier": "sep490.account.id",
+            "increment": 1,
+            "start": 1
+          },
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.account.isActive",
+          "name": "isActive",
+          "columnName": "isActive",
+          "type": "tinyint",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.account.isVerified",
+          "name": "isVerified",
+          "columnName": "isVerified",
+          "type": "tinyint",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.account.otp",
+          "name": "otp",
+          "columnName": "otp",
+          "type": "varchar",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.account.otpExpired",
+          "name": "otpExpired",
+          "columnName": "otpExpired",
+          "type": "datetime",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.account.password",
+          "name": "password",
+          "columnName": "password",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.account.role",
+          "name": "role",
+          "columnName": "role",
+          "type": "enum_sep490_account_role",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": 5
+        },
+        {
+          "id": "sep490.account.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "name": "attributebranches",
+          "type": "attributebranches",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "attributebranchesToaccount",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "blog",
+          "type": "blog",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "blogToaccount",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "booking",
+          "type": "booking",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "bookingToaccount",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "branches",
+          "type": "branches",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "branchesToaccount",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "category",
+          "type": "category",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "categoryToaccount",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "comment",
+          "type": "comment",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "commentToaccount",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "invitation_invitation_accountRecipientIdToaccount",
+          "type": "invitation",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "invitation_accountRecipientIdToaccount",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "invitation_invitation_accountSendIdToaccount",
+          "type": "invitation",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "invitation_accountSendIdToaccount",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "post",
+          "type": "post",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "postToaccount",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "review_review_accountRecipientIdToaccount",
+          "type": "review",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "review_accountRecipientIdToaccount",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "review_review_accountSendIdToaccount",
+          "type": "review",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "review_accountSendIdToaccount",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "typecourt",
+          "type": "typecourt",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "typecourtToaccount",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "user",
+          "type": "user",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "userToaccount",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "useravailability",
+          "type": "useravailability",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "useravailabilityToaccount",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490.account.email",
+          "fields": [
+            "email"
+          ]
+        },
+        {
+          "name": "sep490.account.id",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "addressbranch": {
+      "id": "sep490.addressbranch",
+      "schemaName": "sep490",
+      "tableName": "addressbranch",
+      "fields": [
+        {
+          "id": "sep490.addressbranch.branchesId",
+          "name": "branchesId",
+          "columnName": "branchesId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.addressbranch.detail",
+          "name": "detail",
+          "columnName": "detail",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.addressbranch.districts",
+          "name": "districts",
+          "columnName": "districts",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.addressbranch.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": {
+            "identifier": "sep490.addressbranch.id",
+            "increment": 1,
+            "start": 1
+          },
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.addressbranch.latitude",
+          "name": "latitude",
+          "columnName": "latitude",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.addressbranch.longitude",
+          "name": "longitude",
+          "columnName": "longitude",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.addressbranch.provinces",
+          "name": "provinces",
+          "columnName": "provinces",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.addressbranch.wards",
+          "name": "wards",
+          "columnName": "wards",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "name": "branches",
+          "type": "branches",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "addressbranchTobranches",
+          "relationFromFields": [
+            "branchesId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490.addressbranch.branchesId",
+          "fields": [
+            "branchesId"
+          ]
+        },
+        {
+          "name": "sep490.addressbranch.id",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "attributebranches": {
+      "id": "sep490.attributebranches",
+      "schemaName": "sep490",
+      "tableName": "attributebranches",
+      "fields": [
+        {
+          "id": "sep490.attributebranches.accountId",
+          "name": "accountId",
+          "columnName": "accountId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.attributebranches.attributeKeyBranchesId",
+          "name": "attributeKeyBranchesId",
+          "columnName": "attributeKeyBranchesId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.attributebranches.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.attributebranches.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": {
+            "identifier": "sep490.attributebranches.id",
+            "increment": 1,
+            "start": 1
+          },
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.attributebranches.isActive",
+          "name": "isActive",
+          "columnName": "isActive",
+          "type": "tinyint",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.attributebranches.isPublic",
+          "name": "isPublic",
+          "columnName": "isPublic",
+          "type": "tinyint",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.attributebranches.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.attributebranches.value",
+          "name": "value",
+          "columnName": "value",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "name": "account",
+          "type": "account",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "attributebranchesToaccount",
+          "relationFromFields": [
+            "accountId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "attributekeybranches",
+          "type": "attributekeybranches",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "attributebranchesToattributekeybranches",
+          "relationFromFields": [
+            "attributeKeyBranchesId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "_attributebranchestobranches",
+          "type": "_attributebranchestobranches",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "_attributebranchestobranchesToattributebranches",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490.attributebranches.value_attributeKeyBranchesId",
+          "fields": [
+            "value",
+            "attributeKeyBranchesId"
+          ]
+        },
+        {
+          "name": "sep490.attributebranches.id",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "attributekeybranches": {
+      "id": "sep490.attributekeybranches",
+      "schemaName": "sep490",
+      "tableName": "attributekeybranches",
+      "fields": [
+        {
+          "id": "sep490.attributekeybranches.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.attributekeybranches.description",
+          "name": "description",
+          "columnName": "description",
+          "type": "varchar",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.attributekeybranches.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": {
+            "identifier": "sep490.attributekeybranches.id",
+            "increment": 1,
+            "start": 1
+          },
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.attributekeybranches.isActive",
+          "name": "isActive",
+          "columnName": "isActive",
+          "type": "tinyint",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.attributekeybranches.name",
+          "name": "name",
+          "columnName": "name",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.attributekeybranches.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "name": "attributebranches",
+          "type": "attributebranches",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "attributebranchesToattributekeybranches",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490.attributekeybranches.name",
+          "fields": [
+            "name"
+          ]
+        },
+        {
+          "name": "sep490.attributekeybranches.id",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "attributekeycourt": {
+      "id": "sep490.attributekeycourt",
+      "schemaName": "sep490",
+      "tableName": "attributekeycourt",
+      "fields": [
+        {
+          "id": "sep490.attributekeycourt.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.attributekeycourt.description",
+          "name": "description",
+          "columnName": "description",
+          "type": "varchar",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.attributekeycourt.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": {
+            "identifier": "sep490.attributekeycourt.id",
+            "increment": 1,
+            "start": 1
+          },
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.attributekeycourt.isActive",
+          "name": "isActive",
+          "columnName": "isActive",
+          "type": "tinyint",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.attributekeycourt.name",
+          "name": "name",
+          "columnName": "name",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.attributekeycourt.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "name": "category",
+          "type": "category",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "categoryToattributekeycourt",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490.attributekeycourt.name",
+          "fields": [
+            "name"
+          ]
+        },
+        {
+          "name": "sep490.attributekeycourt.id",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "blog": {
+      "id": "sep490.blog",
+      "schemaName": "sep490",
+      "tableName": "blog",
+      "fields": [
+        {
+          "id": "sep490.blog.accountId",
+          "name": "accountId",
+          "columnName": "accountId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.blog.content",
+          "name": "content",
+          "columnName": "content",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.blog.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.blog.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": {
+            "identifier": "sep490.blog.id",
+            "increment": 1,
+            "start": 1
+          },
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.blog.image",
+          "name": "image",
+          "columnName": "image",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.blog.status",
+          "name": "status",
+          "columnName": "status",
+          "type": "enum_sep490_blog_status",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 9
+        },
+        {
+          "id": "sep490.blog.title",
+          "name": "title",
+          "columnName": "title",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.blog.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "name": "account",
+          "type": "account",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "blogToaccount",
+          "relationFromFields": [
+            "accountId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "comment",
+          "type": "comment",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "commentToblog",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490.blog.id",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "booking": {
+      "id": "sep490.booking",
+      "schemaName": "sep490",
+      "tableName": "booking",
+      "fields": [
+        {
+          "id": "sep490.booking.accountId",
+          "name": "accountId",
+          "columnName": "accountId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.booking.courtId",
+          "name": "courtId",
+          "columnName": "courtId",
+          "type": "int",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.booking.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.booking.dateTime",
+          "name": "dateTime",
+          "columnName": "dateTime",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.booking.endTime",
+          "name": "endTime",
+          "columnName": "endTime",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.booking.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": {
+            "identifier": "sep490.booking.id",
+            "increment": 1,
+            "start": 1
+          },
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.booking.price",
+          "name": "price",
+          "columnName": "price",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.booking.startTime",
+          "name": "startTime",
+          "columnName": "startTime",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.booking.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "name": "account",
+          "type": "account",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "bookingToaccount",
+          "relationFromFields": [
+            "accountId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "court",
+          "type": "court",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "bookingTocourt",
+          "relationFromFields": [
+            "courtId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "bookinginfo",
+          "type": "bookinginfo",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "bookinginfoTobooking",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "post",
+          "type": "post",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "postTobooking",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490.booking.id",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "bookinginfo": {
+      "id": "sep490.bookinginfo",
+      "schemaName": "sep490",
+      "tableName": "bookinginfo",
+      "fields": [
+        {
+          "id": "sep490.bookinginfo.bookingId",
+          "name": "bookingId",
+          "columnName": "bookingId",
+          "type": "int",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.bookinginfo.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.bookinginfo.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": {
+            "identifier": "sep490.bookinginfo.id",
+            "increment": 1,
+            "start": 1
+          },
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.bookinginfo.name",
+          "name": "name",
+          "columnName": "name",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.bookinginfo.numberPhone",
+          "name": "numberPhone",
+          "columnName": "numberPhone",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.bookinginfo.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "name": "booking",
+          "type": "booking",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "bookinginfoTobooking",
+          "relationFromFields": [
+            "bookingId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490.bookinginfo.bookingId",
+          "fields": [
+            "bookingId"
+          ]
+        },
+        {
+          "name": "sep490.bookinginfo.id",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "branches": {
+      "id": "sep490.branches",
+      "schemaName": "sep490",
+      "tableName": "branches",
+      "fields": [
+        {
+          "id": "sep490.branches.accountId",
+          "name": "accountId",
+          "columnName": "accountId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.branches.businessLicense",
+          "name": "businessLicense",
+          "columnName": "businessLicense",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.branches.closingHours",
+          "name": "closingHours",
+          "columnName": "closingHours",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.branches.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.branches.description",
+          "name": "description",
+          "columnName": "description",
+          "type": "varchar",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.branches.email",
+          "name": "email",
+          "columnName": "email",
+          "type": "varchar",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.branches.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": {
+            "identifier": "sep490.branches.id",
+            "increment": 1,
+            "start": 1
+          },
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.branches.image",
+          "name": "image",
+          "columnName": "image",
+          "type": "varchar",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.branches.isAccept",
+          "name": "isAccept",
+          "columnName": "isAccept",
+          "type": "tinyint",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.branches.name",
+          "name": "name",
+          "columnName": "name",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.branches.openingHours",
+          "name": "openingHours",
+          "columnName": "openingHours",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.branches.phone",
+          "name": "phone",
+          "columnName": "phone",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.branches.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "name": "account",
+          "type": "account",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "branchesToaccount",
+          "relationFromFields": [
+            "accountId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "_attributebranchestobranches",
+          "type": "_attributebranchestobranches",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "_attributebranchestobranchesTobranches",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "addressbranch",
+          "type": "addressbranch",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "addressbranchTobranches",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "court",
+          "type": "court",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "courtTobranches",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490.branches.name_accountId",
+          "fields": [
+            "name",
+            "accountId"
+          ]
+        },
+        {
+          "name": "sep490.branches.id",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "category": {
+      "id": "sep490.category",
+      "schemaName": "sep490",
+      "tableName": "category",
+      "fields": [
+        {
+          "id": "sep490.category.accountId",
+          "name": "accountId",
+          "columnName": "accountId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.category.attributeKeyCourtId",
+          "name": "attributeKeyCourtId",
+          "columnName": "attributeKeyCourtId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.category.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.category.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": {
+            "identifier": "sep490.category.id",
+            "increment": 1,
+            "start": 1
+          },
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.category.isActive",
+          "name": "isActive",
+          "columnName": "isActive",
+          "type": "tinyint",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.category.isPublic",
+          "name": "isPublic",
+          "columnName": "isPublic",
+          "type": "tinyint",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.category.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.category.value",
+          "name": "value",
+          "columnName": "value",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "name": "account",
+          "type": "account",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "categoryToaccount",
+          "relationFromFields": [
+            "accountId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "attributekeycourt",
+          "type": "attributekeycourt",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "categoryToattributekeycourt",
+          "relationFromFields": [
+            "attributeKeyCourtId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "_attributecourttotypecourt",
+          "type": "_attributecourttotypecourt",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "_attributecourttotypecourtTocategory",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490.category.value_attributeKeyCourtId",
+          "fields": [
+            "value",
+            "attributeKeyCourtId"
+          ]
+        },
+        {
+          "name": "sep490.category.id",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "comment": {
+      "id": "sep490.comment",
+      "schemaName": "sep490",
+      "tableName": "comment",
+      "fields": [
+        {
+          "id": "sep490.comment.accountId",
+          "name": "accountId",
+          "columnName": "accountId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.comment.blogId",
+          "name": "blogId",
+          "columnName": "blogId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.comment.content",
+          "name": "content",
+          "columnName": "content",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.comment.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.comment.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": {
+            "identifier": "sep490.comment.id",
+            "increment": 1,
+            "start": 1
+          },
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.comment.image",
+          "name": "image",
+          "columnName": "image",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.comment.parentCommentId",
+          "name": "parentCommentId",
+          "columnName": "parentCommentId",
+          "type": "int",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.comment.status",
+          "name": "status",
+          "columnName": "status",
+          "type": "enum_sep490_comment_status",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 9
+        },
+        {
+          "id": "sep490.comment.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "name": "account",
+          "type": "account",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "commentToaccount",
+          "relationFromFields": [
+            "accountId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "blog",
+          "type": "blog",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "commentToblog",
+          "relationFromFields": [
+            "blogId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "comment",
+          "type": "comment",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "commentTocomment",
+          "relationFromFields": [
+            "parentCommentId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "comment",
+          "type": "comment",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "commentTocomment",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490.comment.id",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "court": {
+      "id": "sep490.court",
+      "schemaName": "sep490",
+      "tableName": "court",
+      "fields": [
+        {
+          "id": "sep490.court.branchesId",
+          "name": "branchesId",
+          "columnName": "branchesId",
+          "type": "int",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.court.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.court.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": {
+            "identifier": "sep490.court.id",
+            "increment": 1,
+            "start": 1
+          },
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.court.name",
+          "name": "name",
+          "columnName": "name",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.court.typeCourtId",
+          "name": "typeCourtId",
+          "columnName": "typeCourtId",
+          "type": "int",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.court.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "name": "branches",
+          "type": "branches",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "courtTobranches",
+          "relationFromFields": [
+            "branchesId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "typecourt",
+          "type": "typecourt",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "courtTotypecourt",
+          "relationFromFields": [
+            "typeCourtId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "booking",
+          "type": "booking",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "bookingTocourt",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490.court.id",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "invitation": {
+      "id": "sep490.invitation",
+      "schemaName": "sep490",
+      "tableName": "invitation",
+      "fields": [
+        {
+          "id": "sep490.invitation.accountRecipientId",
+          "name": "accountRecipientId",
+          "columnName": "accountRecipientId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.invitation.accountSendId",
+          "name": "accountSendId",
+          "columnName": "accountSendId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.invitation.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.invitation.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": {
+            "identifier": "sep490.invitation.id",
+            "increment": 1,
+            "start": 1
+          },
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.invitation.postId",
+          "name": "postId",
+          "columnName": "postId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.invitation.status",
+          "name": "status",
+          "columnName": "status",
+          "type": "enum_sep490_invitation_status",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 11
+        },
+        {
+          "id": "sep490.invitation.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "name": "account_invitation_accountRecipientIdToaccount",
+          "type": "account",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "invitation_accountRecipientIdToaccount",
+          "relationFromFields": [
+            "accountRecipientId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "account_invitation_accountSendIdToaccount",
+          "type": "account",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "invitation_accountSendIdToaccount",
+          "relationFromFields": [
+            "accountSendId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "post",
+          "type": "post",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "invitationTopost",
+          "relationFromFields": [
+            "postId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490.invitation.id",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "memberpost": {
+      "id": "sep490.memberpost",
+      "schemaName": "sep490",
+      "tableName": "memberpost",
+      "fields": [
+        {
+          "id": "sep490.memberpost.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.memberpost.genderPost",
+          "name": "genderPost",
+          "columnName": "genderPost",
+          "type": "enum_sep490_memberpost_gender_post",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 6
+        },
+        {
+          "id": "sep490.memberpost.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": {
+            "identifier": "sep490.memberpost.id",
+            "increment": 1,
+            "start": 1
+          },
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.memberpost.level",
+          "name": "level",
+          "columnName": "level",
+          "type": "enum_sep490_memberpost_level",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 2
+        },
+        {
+          "id": "sep490.memberpost.postId",
+          "name": "postId",
+          "columnName": "postId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.memberpost.price",
+          "name": "price",
+          "columnName": "price",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.memberpost.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "name": "post",
+          "type": "post",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "memberpostTopost",
+          "relationFromFields": [
+            "postId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490.memberpost.id",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "notification": {
+      "id": "sep490.notification",
+      "schemaName": "sep490",
+      "tableName": "notification",
+      "fields": [
+        {
+          "id": "sep490.notification.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.notification.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": {
+            "identifier": "sep490.notification.id",
+            "increment": 1,
+            "start": 1
+          },
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.notification.message",
+          "name": "message",
+          "columnName": "message",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.notification.userId",
+          "name": "userId",
+          "columnName": "userId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490.notification.id",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "post": {
+      "id": "sep490.post",
+      "schemaName": "sep490",
+      "tableName": "post",
+      "fields": [
+        {
+          "id": "sep490.post.accountId",
+          "name": "accountId",
+          "columnName": "accountId",
+          "type": "int",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.post.bookingId",
+          "name": "bookingId",
+          "columnName": "bookingId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.post.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.post.desciption",
+          "name": "desciption",
+          "columnName": "desciption",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.post.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": {
+            "identifier": "sep490.post.id",
+            "increment": 1,
+            "start": 1
+          },
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.post.numberMember",
+          "name": "numberMember",
+          "columnName": "numberMember",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.post.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "name": "account",
+          "type": "account",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "postToaccount",
+          "relationFromFields": [
+            "accountId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "booking",
+          "type": "booking",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "postTobooking",
+          "relationFromFields": [
+            "bookingId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "invitation",
+          "type": "invitation",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "invitationTopost",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "memberpost",
+          "type": "memberpost",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "memberpostTopost",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490.post.bookingId",
+          "fields": [
+            "bookingId"
+          ]
+        },
+        {
+          "name": "sep490.post.id",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "pricetypecourt": {
+      "id": "sep490.pricetypecourt",
+      "schemaName": "sep490",
+      "tableName": "pricetypecourt",
+      "fields": [
+        {
+          "id": "sep490.pricetypecourt.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.pricetypecourt.endTime",
+          "name": "endTime",
+          "columnName": "endTime",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.pricetypecourt.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": {
+            "identifier": "sep490.pricetypecourt.id",
+            "increment": 1,
+            "start": 1
+          },
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.pricetypecourt.price",
+          "name": "price",
+          "columnName": "price",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.pricetypecourt.startTime",
+          "name": "startTime",
+          "columnName": "startTime",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.pricetypecourt.typeCourtId",
+          "name": "typeCourtId",
+          "columnName": "typeCourtId",
+          "type": "int",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.pricetypecourt.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "name": "typecourt",
+          "type": "typecourt",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "pricetypecourtTotypecourt",
+          "relationFromFields": [
+            "typeCourtId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490.pricetypecourt.id",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "review": {
+      "id": "sep490.review",
+      "schemaName": "sep490",
+      "tableName": "review",
+      "fields": [
+        {
+          "id": "sep490.review.accountRecipientId",
+          "name": "accountRecipientId",
+          "columnName": "accountRecipientId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.review.accountSendId",
+          "name": "accountSendId",
+          "columnName": "accountSendId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.review.comment",
+          "name": "comment",
+          "columnName": "comment",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.review.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.review.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": {
+            "identifier": "sep490.review.id",
+            "increment": 1,
+            "start": 1
+          },
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.review.rating",
+          "name": "rating",
+          "columnName": "rating",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.review.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "name": "account_review_accountRecipientIdToaccount",
+          "type": "account",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "review_accountRecipientIdToaccount",
+          "relationFromFields": [
+            "accountRecipientId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "account_review_accountSendIdToaccount",
+          "type": "account",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "review_accountSendIdToaccount",
+          "relationFromFields": [
+            "accountSendId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490.review.id",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "typecourt": {
+      "id": "sep490.typecourt",
+      "schemaName": "sep490",
+      "tableName": "typecourt",
+      "fields": [
+        {
+          "id": "sep490.typecourt.accountId",
+          "name": "accountId",
+          "columnName": "accountId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.typecourt.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.typecourt.description",
+          "name": "description",
+          "columnName": "description",
+          "type": "varchar",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.typecourt.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": {
+            "identifier": "sep490.typecourt.id",
+            "increment": 1,
+            "start": 1
+          },
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.typecourt.image",
+          "name": "image",
+          "columnName": "image",
+          "type": "varchar",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.typecourt.name",
+          "name": "name",
+          "columnName": "name",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.typecourt.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "name": "account",
+          "type": "account",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "typecourtToaccount",
+          "relationFromFields": [
+            "accountId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "_attributecourttotypecourt",
+          "type": "_attributecourttotypecourt",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "_attributecourttotypecourtTotypecourt",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "court",
+          "type": "court",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "courtTotypecourt",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "pricetypecourt",
+          "type": "pricetypecourt",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "pricetypecourtTotypecourt",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490.typecourt.id",
+          "fields": [
+            "id"
+          ]
+        },
+        {
+          "name": "sep490.typecourt.name_accountId",
+          "fields": [
+            "name",
+            "accountId"
+          ]
+        }
+      ]
+    },
+    "user": {
+      "id": "sep490.user",
+      "schemaName": "sep490",
+      "tableName": "user",
+      "fields": [
+        {
+          "id": "sep490.user.accountId",
+          "name": "accountId",
+          "columnName": "accountId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.user.address",
+          "name": "address",
+          "columnName": "address",
+          "type": "varchar",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.user.avatar",
+          "name": "avatar",
+          "columnName": "avatar",
+          "type": "varchar",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.user.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.user.dob",
+          "name": "dob",
+          "columnName": "dob",
+          "type": "datetime",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.user.fullName",
+          "name": "fullName",
+          "columnName": "fullName",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.user.gender",
+          "name": "gender",
+          "columnName": "gender",
+          "type": "enum_sep490_user_gender",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 6
+        },
+        {
+          "id": "sep490.user.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": {
+            "identifier": "sep490.user.id",
+            "increment": 1,
+            "start": 1
+          },
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.user.identifierCode",
+          "name": "identifierCode",
+          "columnName": "identifierCode",
+          "type": "varchar",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.user.numberPhone",
+          "name": "numberPhone",
+          "columnName": "numberPhone",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.user.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "name": "account",
+          "type": "account",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "userToaccount",
+          "relationFromFields": [
+            "accountId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490.user.id",
+          "fields": [
+            "id"
+          ]
+        },
+        {
+          "name": "sep490.user.accountId",
+          "fields": [
+            "accountId"
+          ]
+        }
+      ]
+    },
+    "useravailability": {
+      "id": "sep490.useravailability",
+      "schemaName": "sep490",
+      "tableName": "useravailability",
+      "fields": [
+        {
+          "id": "sep490.useravailability.accountId",
+          "name": "accountId",
+          "columnName": "accountId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.useravailability.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.useravailability.dateTime",
+          "name": "dateTime",
+          "columnName": "dateTime",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.useravailability.districts",
+          "name": "districts",
+          "columnName": "districts",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.useravailability.endTime",
+          "name": "endTime",
+          "columnName": "endTime",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.useravailability.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": {
+            "identifier": "sep490.useravailability.id",
+            "increment": 1,
+            "start": 1
+          },
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.useravailability.provinces",
+          "name": "provinces",
+          "columnName": "provinces",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.useravailability.startTime",
+          "name": "startTime",
+          "columnName": "startTime",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.useravailability.status",
+          "name": "status",
+          "columnName": "status",
+          "type": "enum_sep490_useravailability_status",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 11
+        },
+        {
+          "id": "sep490.useravailability.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "name": "account",
+          "type": "account",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "useravailabilityToaccount",
+          "relationFromFields": [
+            "accountId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490.useravailability.id",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    }
+  },
+  "enums": {
+    "enum_sep490_user_gender": {
+      "schemaName": "sep490",
+      "values": [
+        {
+          "name": "MALE"
+        },
+        {
+          "name": "FEMALE"
+        },
+        {
+          "name": "OTHER"
+        }
+      ]
+    },
+    "enum_sep490_memberpost_gender_post": {
+      "schemaName": "sep490",
+      "values": [
+        {
+          "name": "MALE"
+        },
+        {
+          "name": "FEMALE"
+        },
+        {
+          "name": "ORTHER"
+        }
+      ]
+    },
+    "enum_sep490_memberpost_level": {
+      "schemaName": "sep490",
+      "values": [
+        {
+          "name": "Y"
+        },
+        {
+          "name": "TB"
+        },
+        {
+          "name": "K"
+        },
+        {
+          "name": "T"
+        },
+        {
+          "name": "CN"
+        }
+      ]
+    },
+    "enum_sep490_account_role": {
+      "schemaName": "sep490",
+      "values": [
+        {
+          "name": "USER"
+        },
+        {
+          "name": "HOST"
+        },
+        {
+          "name": "ADMIN"
+        }
+      ]
+    },
+    "enum_sep490_blog_status": {
+      "schemaName": "sep490",
+      "values": [
+        {
+          "name": "DRAFT"
+        },
+        {
+          "name": "PUBLISHED"
+        },
+        {
+          "name": "ARCHIVED"
+        },
+        {
+          "name": "BAN"
+        }
+      ]
+    },
+    "enum_sep490_comment_status": {
+      "schemaName": "sep490",
+      "values": [
+        {
+          "name": "DRAFT"
+        },
+        {
+          "name": "PUBLISHED"
+        },
+        {
+          "name": "ARCHIVED"
+        },
+        {
+          "name": "BAN"
+        }
+      ]
+    },
+    "enum_sep490_invitation_status": {
+      "schemaName": "sep490",
+      "values": [
+        {
+          "name": "AVAILABLE"
+        },
+        {
+          "name": "UNAVAILABLE"
+        }
+      ]
+    },
+    "enum_sep490_useravailability_status": {
+      "schemaName": "sep490",
+      "values": [
+        {
+          "name": "AVAILABLE"
+        },
+        {
+          "name": "UNAVAILABLE"
+        }
+      ]
+    }
+  }
+}
