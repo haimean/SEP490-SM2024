@@ -49,6 +49,8 @@
     "save": "^2.9.0",
     "save-dev": "^0.0.1-security",
     "sharp": "^0.33.4",
+    "socket.io": "^4.7.5",
+    "socketio": "^1.0.0",
     "swagger-autogen": "^2.23.7",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",

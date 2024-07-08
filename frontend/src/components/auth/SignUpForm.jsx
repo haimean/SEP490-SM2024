@@ -86,77 +86,75 @@ const SignUpForm = ({ role }) => {
   };
 
   return (
-    <div className="bg-gray-200 flex justify-center items-center h-screen w-screen">
-      <div className="border-t-8 rounded-sm border-indigo-600 bg-white p-12 shadow-2xl w-96">
-        <h1 className="font-bold text-center block text-2xl mb-2">Đăng Kí</h1>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <InputLabel
-            label="Tên"
-            id="name"
-            register={register}
-            errors={errors}
-            required="Không được bỏ trống trường này."
-          />
-          <InputLabel
-            label="Email"
-            id="email"
-            register={register}
-            pattern={{
-              value:
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-              message: "Vui lòng nhập email hợp lệ.",
-            }}
-            errors={errors}
-            required="Không được bỏ trống trường này."
-          />
-          <InputLabel
-            label="Mật Khẩu"
-            id="password"
-            register={register}
-            pattern={{
-              value:
-                /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/,
-              message:
-                "Mật khẩu phải chứa ít nhất " +
-                "một chữ viết hoa, một chữ viết thương, một số, một kí tự đặc biêt và không được chứa khoảng trống.",
-            }}
-            minLength={8}
-            errors={errors}
-            required="Không được bỏ trống trường này."
-            type="password"
-          />
-          <InputLabel
-            label="Nhập lại mật khẩu"
-            id="confirmPassword"
-            register={register}
-            errors={errors}
-            required="Không được bỏ trống trường này."
-            type="password"
-          />
-          <button
-            type="submit"
-            className="mt-6 transition block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg"
-          >
-            Đăng kí
-          </button>
-        </form>
-        <div className="mt-4 text-center flex justify-center w-full">
-          <GoogleLogin
-            onSuccess={handleGoogleLogin}
-            onError={handleGoogleLoginFailure}
-            text="signup_with"
-          />
-        </div>
-        <style>{`
+    <div className="border-t-8 rounded-sm border-indigo-600 bg-white p-12 shadow-2xl w-96">
+      <h1 className="font-bold text-center block text-2xl mb-2">Đăng Kí</h1>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <InputLabel
+          label="Tên"
+          id="name"
+          register={register}
+          errors={errors}
+          required="Không được bỏ trống trường này."
+        />
+        <InputLabel
+          label="Email"
+          id="email"
+          register={register}
+          pattern={{
+            value:
+              /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+            message: "Vui lòng nhập email hợp lệ.",
+          }}
+          errors={errors}
+          required="Không được bỏ trống trường này."
+        />
+        <InputLabel
+          label="Mật Khẩu"
+          id="password"
+          register={register}
+          pattern={{
+            value:
+              /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/,
+            message:
+              "Mật khẩu phải chứa ít nhất " +
+              "một chữ viết hoa, một chữ viết thương, một số, một kí tự đặc biêt và không được chứa khoảng trống.",
+          }}
+          minLength={8}
+          errors={errors}
+          required="Không được bỏ trống trường này."
+          type="password"
+        />
+        <InputLabel
+          label="Nhập lại mật khẩu"
+          id="confirmPassword"
+          register={register}
+          errors={errors}
+          required="Không được bỏ trống trường này."
+          type="password"
+        />
+        <button
+          type="submit"
+          className="mt-6 transition block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg"
+        >
+          Đăng kí
+        </button>
+      </form>
+      <div className="mt-4 text-center flex justify-center w-full">
+        <GoogleLogin
+          onSuccess={handleGoogleLogin}
+          onError={handleGoogleLoginFailure}
+          text="signup_with"
+        />
+      </div>
+      <style>{`
         ::-ms-reveal {
           display: none;
         }
       `}</style>
-        <div className="mt-4 text-center">
-          <a href="/login" className="text-indigo-600 hover:text-indigo-800">
-            Đã có tài khoản? Đăng nhập
-          </a>
-        </div>
+      <div className="mt-4 text-center">
+        <a href="/login" className="text-indigo-600 hover:text-indigo-800">
+          Đã có tài khoản? Đăng nhập
+        </a>
       </div>
     </div>
   );

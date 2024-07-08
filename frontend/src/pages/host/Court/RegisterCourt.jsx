@@ -49,13 +49,11 @@ const RegisterCourt = () => {
     getListBranch();
   }, []);
   return (
-    <LayoutPlayer>
-      <FormDetailCourt
-        onSubmit={onSubmit}
-        branchList={branchList}
-        typeCourtList={typeCourtList}
-      />
-    </LayoutPlayer>
+    <FormDetailCourt
+      onSubmit={onSubmit}
+      branchList={branchList}
+      typeCourtList={typeCourtList}
+    />
   );
 };
 

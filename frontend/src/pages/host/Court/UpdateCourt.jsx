@@ -62,13 +62,11 @@ export default function UpdateCourt() {
     getDetailCourt();
   }, []);
   return (
-    <LayoutPlayer>
-      <FormDetailCourt
-        onSubmit={onSubmit}
-        branchList={branchList}
-        typeCourtList={typeCourtList}
-        court={court}
-      />
-    </LayoutPlayer>
+    <FormDetailCourt
+      onSubmit={onSubmit}
+      branchList={branchList}
+      typeCourtList={typeCourtList}
+      court={court}
+    />
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { useForm } from "react-hook-form";
 import { jwtDecode } from "jwt-decode";
@@ -29,10 +29,16 @@ const SignInForm = ({ isModal, onSuccess }) => {
     toast.success(`Đăng nhập thành công!`);
     if (!isModal) {
       // Kiểm tra nếu không phải modal thì mới chuyển hướng
-      if (role === "HOST") {
-        navigate("/");
-      } else if (role === "USER") {
-        navigate("/");
+      switch (role) {
+        case "HOST":
+          navigate("/host");
+          return;
+        case "ADMIN":
+          navigate("/admin/dashboard");
+          return;
+        case "USER":
+          navigate("/");
+          return;
       }
     }
     if (isModal && onSuccess) {

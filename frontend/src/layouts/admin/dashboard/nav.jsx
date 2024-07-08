@@ -10,10 +10,9 @@ import { alpha } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import ListItemButton from "@mui/material/ListItemButton";
 
-// import { usePathname } from "src/routes/hooks";
 import { usePathname } from "../../../routers/admin/hooks";
 
-import { RouterLink } from "../../../routers/admin/components";
+import { RouterLink } from "../components";
 
 import { useResponsive } from "../../../hooks/admin/use-responsive";
 

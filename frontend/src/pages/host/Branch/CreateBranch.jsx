@@ -299,7 +299,6 @@ const CreateBranch = () => {
           setValue={setValue}
         />
       </Box>
-      <Footer sx={{ flexShrink: 0 }} />
     </Box>
   );
 };
