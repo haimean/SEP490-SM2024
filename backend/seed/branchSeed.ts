@@ -15,8 +15,8 @@ export const branchSeed = async (count: number) => {
         image: faker.image.abstract(1234, 2345),
         description: faker.lorem.words(20),
         businessLicense: faker.lorem.words(20),
-        closingHours: faker.date.anytime(),
-        openingHours: faker.date.anytime(),
+        closingHours: faker.lorem.words(20),
+        openingHours: faker.lorem.words(20),
         phone: faker.phone.number(),
       },
     });
