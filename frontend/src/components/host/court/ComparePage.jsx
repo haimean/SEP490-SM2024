@@ -22,8 +22,8 @@ export default function ComparePage() {
 
   const getDetailCourt = async () => {
     try {
-      const result1 = await CallApi(`/api/host/court/${court1}`);
-      const result2 = await CallApi(`/api/host/court/${court2}`);
+      const result1 = await CallApi(`/api/court/${court1}`);
+      const result2 = await CallApi(`/api/court/${court2}`);
 
       if (result1 && result1.data) {
         setFirstCourt(result1.data);
