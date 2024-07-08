@@ -15,14 +15,14 @@ import Dashboard from "../pages/admin/Dashboard/Dashboard.jsx";
 import ListBranch from "../pages/guest/Branch/ListBranch.jsx";
 import BranchDetail from "../pages/guest/Branch/BranchDetail.jsx";
 import CreateBranch from "../pages/host/Branch/CreateBranch.jsx";
-import ListCourt from "../pages/host/Court/ListCourt.jsx";
-import CourtDetail from "../pages/host/Court/CourtDetail.jsx";
 import Checkout from "../pages/player/Court/Checkout.jsx";
 import RegisterCourt from "../pages/host/Court/RegisterCourt.jsx";
 import UpdateCourt from "../pages/host/Court/UpdateCourt.jsx";
 import CreateBlog from "../pages/player/Blog/CreateBlog.jsx";
 import ResponsiveDrawer from "../layouts/host/LayoutHost.jsx";
 import ComparePage from "../components/host/court/ComparePage.jsx";
+import ListCourt from "../pages/guest/Court/ListCourt.jsx";
+import CourtDetail from "../pages/guest/Court/CourtDetail.jsx";
 
 const routes = [
   {
@@ -138,7 +138,7 @@ const routes = [
     layout: "",
   },
   {
-    path: "/host/court/:id",
+    path: "/court/:id",
     name: "Court List",
     component: <ListCourt />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
