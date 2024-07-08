@@ -12,8 +12,8 @@ import ChangePasswordPage from "../pages/auth/changePassword/ChangePasswordPage.
 import ListAccount from "../pages/admin/ListAccount/ListAccount.jsx";
 import NotFound from "../pages/common/NotFound/NotFound.jsx";
 import Dashboard from "../pages/admin/Dashboard/Dashboard.jsx";
-import ListBranch from "../pages/host/Branch/ListBranch.jsx";
-import BranchDetail from "../pages/host/Branch/BranchDetail.jsx";
+import ListBranch from "../pages/guest/Branch/ListBranch.jsx";
+import BranchDetail from "../pages/guest/Branch/BranchDetail.jsx";
 import CreateBranch from "../pages/host/Branch/CreateBranch.jsx";
 import ListCourt from "../pages/host/Court/ListCourt.jsx";
 import CourtDetail from "../pages/host/Court/CourtDetail.jsx";
@@ -117,14 +117,14 @@ const routes = [
     layout: "",
   },
   {
-    path: "/host/list-branch",
+    path: "/list-branch",
     name: "List Branch",
     component: <ListBranch />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "",
   },
   {
-    path: "/host/branch/:id",
+    path: "/branch/:id",
     name: "Branch Detail",
     component: <BranchDetail />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
