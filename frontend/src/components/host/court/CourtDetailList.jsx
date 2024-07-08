@@ -1,5 +1,3 @@
-// src/components/CourtDetailList.js
-// eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import EventIcon from "@mui/icons-material/Event";
@@ -16,7 +14,6 @@ const CourtDetailList = ({
   setIsCompare,
   handleRemoveCompare,
 }) => {
-  const [message, setMessage] = useState();
   return (
     <div className="flex border rounded-lg shadow-md overflow-hidden mb-4 items-center">
       <img

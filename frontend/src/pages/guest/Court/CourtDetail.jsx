@@ -67,10 +67,7 @@ export default function CourtDetail() {
   };
   const getCourtDetail = async () => {
     try {
-      const result = await CallApi(
-        `/api/host/court/${id ? id : idCourt}`,
-        "get"
-      );
+      const result = await CallApi(`/api/court/${id ? id : idCourt}`, "get");
       // console.log("🚀 ========= result:", result.data);
       setData(result.data);
     } catch (error) {
