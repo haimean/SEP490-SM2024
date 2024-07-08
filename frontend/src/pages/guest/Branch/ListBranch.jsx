@@ -1,4 +1,3 @@
-import React from "react";
 import Navbar from "../../../layouts/player/Navbar";
 import Footer from "../../../layouts/player/Footer";
 import CardComponent from "../../../components/host/CardComponent";
@@ -117,7 +116,7 @@ const ListBranch = () => {
         <Grid container spacing={3}>
           {branchData.map((item) => (
             <Grid item xs={12} sm={4} md={3} key={item.id}>
-              <Link to={`/host/branch/${item.id}`}>
+              <Link to={`/branch/${item.id}`}>
                 <CardComponent {...item} />
               </Link>
             </Grid>
