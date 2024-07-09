@@ -10,7 +10,7 @@ const main = async () => {
   const seed = await createSeedClient();
 
   // Truncate all tables in the database
-  // await seed.$resetDatabase();
+  await seed.$resetDatabase();
 
   await seed.account((x) =>
     x(10, () => ({

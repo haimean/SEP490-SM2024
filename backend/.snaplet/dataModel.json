@@ -1886,6 +1886,20 @@
           "maxLength": null
         },
         {
+          "id": "sep490.branches.isDelete",
+          "name": "isDelete",
+          "columnName": "isDelete",
+          "type": "tinyint",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
           "id": "sep490.branches.name",
           "name": "name",
           "columnName": "name",

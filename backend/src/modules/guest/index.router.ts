@@ -4,6 +4,6 @@ import branchesGuestRouter from './branches/branches.router';
 
 const guestRouter = Router();
 guestRouter.use('/court', courtRouter);
-guestRouter.use('/court', branchesGuestRouter);
+guestRouter.use('/branches', branchesGuestRouter);
 
 export default guestRouter;
