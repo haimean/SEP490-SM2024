@@ -8,6 +8,9 @@ const bookingGuestService = {
           gte: new Date(),
           lte: new Date(new Date().setDate(new Date().getDate() + 7)),
         },
+        courtId: {
+          not: null,
+        },
       },
       include: {
         bookingInfo: true,
