@@ -77,10 +77,10 @@ const branchesHostService = {
         query.data.image = image;
       }
       if (description) {
-        query.data.image = description;
+        query.data.description = description;
       }
       if (email) {
-        query.data.image = email;
+        query.data.email = email;
       }
       if (addressPayload) {
         query.data.address = { create: { ...addressPayload } };
@@ -102,12 +102,79 @@ const branchesHostService = {
             id: item,
           };
         });
-        query.data.attributeBranches = {
+        query.data.court = {
           connect: courtIds,
         };
       }
 
       return await database.branches.create(query);
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  },
+  update: async (
+    id: number,
+    accountId: number,
+    branchesPayload: Prisma.BranchesUpdateInput,
+    attributeBranches: number[],
+    court: number[]
+  ): Promise<Branches> => {
+    try {
+      const {
+        name,
+        description,
+        businessLicense,
+        closingHours,
+        openingHours,
+        phone,
+        image,
+        email,
+      } = branchesPayload;
+      const query: Prisma.BranchesUpdateInput = {
+        name,
+        businessLicense,
+        closingHours,
+        openingHours,
+        phone,
+      };
+      if (image) {
+        query.image = image;
+      }
+      if (description) {
+        query.description = description;
+      }
+      if (email) {
+        query.email = email;
+      }
+
+      if (attributeBranches) {
+        const attributeBranchesIds = attributeBranches.map((item) => {
+          return {
+            id: item,
+          };
+        });
+        query.attributeBranches = {
+          connect: attributeBranchesIds,
+        };
+      }
+      if (court) {
+        const courtIds = court.map((item) => {
+          return {
+            id: item,
+          };
+        });
+        query.attributeBranches = {
+          connect: courtIds,
+        };
+      }
+
+      return await database.branches.update({
+        where: {
+          id,
+          accountId,
+        },
+        data: query,
+      });
     } catch (error: any) {
       throw new Error(error);
     }

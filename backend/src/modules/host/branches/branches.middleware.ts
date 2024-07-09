@@ -12,6 +12,11 @@ interface BranchesHostMiddleware {
     res: Response,
     next: NextFunction
   ) => Promise<void>;
+  update: (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => Promise<void>;
 }
 
 const branchesHostMiddleware: BranchesHostMiddleware = {
@@ -48,6 +53,41 @@ const branchesHostMiddleware: BranchesHostMiddleware = {
         );
       }
 
+      if (files['image'][0]) {
+        req.body.image = await uploadFile(files['image'][0]);
+      }
+      next();
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
+  update: async (req, res, next) => {
+    try {
+      const files: any = req.files;
+      const accountId: number = Number(req.headers.authorization);
+      const { attributeBranches, court } = req.body;
+
+      attributeBranches?.forEach(async (id: number) => {
+        const dataAttributeBranches =
+          await attributeBranchesServiceBase.findById(id);
+        if (!dataAttributeBranches?.isActive) {
+          next(new NotFoundError('Không tồn tại thuộc tính'));
+        }
+        if (
+          accountId !== dataAttributeBranches?.accountId &&
+          dataAttributeBranches?.isPublic
+        ) {
+          next(new NotFoundError('Không tồn tại thuộc tính'));
+        }
+      });
+      court?.forEach(async (id: number) => {
+        const dataCourt = await courtServiceBase.findById(id);
+        if (!dataCourt) {
+          next(new NotFoundError('Không tồn tại sân'));
+        }
+      });
+
+      //check file
       if (files['image'][0]) {
         req.body.image = await uploadFile(files['image'][0]);
       }

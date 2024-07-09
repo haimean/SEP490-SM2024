@@ -19,4 +19,11 @@ branchesHostRouter.post(
   branchesHostMiddleware.create,
   branchesHostController.create
 );
+branchesHostRouter.put(
+  '/:id',
+  upload.fields([{ name: 'image', maxCount: 1 }]),
+  validate(branchesHostValidator.create),
+  branchesHostMiddleware.update,
+  branchesHostController.updateInformation
+);
 export default branchesHostRouter;
