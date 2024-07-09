@@ -39,8 +39,6 @@ const branchesHostMiddleware: BranchesHostMiddleware = {
         if (!dataCourt) {
           next(new NotFoundError('Không tồn tại sân'));
         }
-
-        next();
       });
 
       //check file

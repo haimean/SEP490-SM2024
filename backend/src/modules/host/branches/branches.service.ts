@@ -45,62 +45,66 @@ const branchesHostService = {
     attributeBranches: number[],
     court: number[]
   ): Promise<Branches> => {
-    const {
-      accountId,
-      name,
-      description,
-      businessLicense,
-      closingHours,
-      openingHours,
-      phone,
-      image,
-      email,
-    } = branchesPayload;
-    const query: Prisma.BranchesCreateArgs<DefaultArgs> = {
-      data: {
+    try {
+      const {
         accountId,
         name,
+        description,
         businessLicense,
         closingHours,
         openingHours,
         phone,
-      },
-    };
-    if (image) {
-      query.data.image = image;
-    }
-    if (description) {
-      query.data.image = description;
-    }
-    if (email) {
-      query.data.image = email;
-    }
-    if (addressPayload) {
-      query.data.address = { create: { ...addressPayload } };
-    }
-
-    if (attributeBranches) {
-      const attributeBranchesIds = attributeBranches.map((item) => {
-        return {
-          id: item,
-        };
-      });
-      query.data.attributeBranches = {
-        connect: attributeBranchesIds,
+        image,
+        email,
+      } = branchesPayload;
+      const query: Prisma.BranchesCreateArgs<DefaultArgs> = {
+        data: {
+          accountId,
+          name,
+          businessLicense,
+          closingHours,
+          openingHours,
+          phone,
+        },
       };
-    }
-    if (court) {
-      const courtIds = court.map((item) => {
-        return {
-          id: item,
-        };
-      });
-      query.data.attributeBranches = {
-        connect: courtIds,
-      };
-    }
+      if (image) {
+        query.data.image = image;
+      }
+      if (description) {
+        query.data.image = description;
+      }
+      if (email) {
+        query.data.image = email;
+      }
+      if (addressPayload) {
+        query.data.address = { create: { ...addressPayload } };
+      }
 
-    return await database.branches.create(query);
+      if (attributeBranches) {
+        const attributeBranchesIds = attributeBranches.map((item) => {
+          return {
+            id: item,
+          };
+        });
+        query.data.attributeBranches = {
+          connect: attributeBranchesIds,
+        };
+      }
+      if (court) {
+        const courtIds = court.map((item) => {
+          return {
+            id: item,
+          };
+        });
+        query.data.attributeBranches = {
+          connect: courtIds,
+        };
+      }
+
+      return await database.branches.create(query);
+    } catch (error: any) {
+      throw new Error(error);
+    }
   },
 };
 
