@@ -1,4 +1,4 @@
-import database from '../../lib/db.server';
+import database from '../../../lib/db.server';
 
 const courtService = {
   getAll: async (): Promise<any> => {

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import courtService from './court.service';
-import { ResponseHandler } from '../../outcomes/responseHandler';
-import CustomError from '../../outcomes/customError';
+import { ResponseHandler } from '../../../outcomes/responseHandler';
+import CustomError from '../../../outcomes/customError';
 
 const courtController = {
   getAll: async (req: Request, res: Response, next: NextFunction) => {

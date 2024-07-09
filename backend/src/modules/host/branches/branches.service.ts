@@ -16,8 +16,12 @@ const branchesHostService = {
       },
       include: {
         address: true,
-        court: true,
-        attributeBranches: true,
+        court: { include: { TypeCourt: true } },
+        attributeBranches: {
+          include: {
+            attributeKeyBranches: true,
+          },
+        },
       },
     });
   },
