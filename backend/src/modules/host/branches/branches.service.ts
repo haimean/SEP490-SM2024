@@ -12,6 +12,7 @@ const branchesHostService = {
       where: {
         accountId,
         isAccept: true,
+        isDelete: false,
       },
       include: {
         address: true,
@@ -26,6 +27,7 @@ const branchesHostService = {
         id,
         accountId,
         isAccept: true,
+        isDelete: false,
       },
       include: {
         address: true,

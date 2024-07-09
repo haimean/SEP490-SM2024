@@ -179,6 +179,7 @@ model Branches {
   businessLicense   String
   openingHours      String
   closingHours      String
+  isDelete          Boolean             @default(false)
   isAccept          Boolean             @default(false)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt

@@ -62,10 +62,6 @@ io.on('connection', (socket: any) => {
   });
 });
 
-server.listen(4200, () => {
-  console.log('Server is running on port 4200');
-});
-
 app.use(express.urlencoded({ extended: true }));
 app.use('/api/', routes);
 // Sử dụng middleware Swagger

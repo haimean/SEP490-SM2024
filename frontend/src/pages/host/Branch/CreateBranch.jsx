@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useMemo, useCallback } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import Form from "../../../components/host/Form";
 import Navbar from "../../../layouts/player/Navbar";
-import Footer from "../../../layouts/player/Footer";
 import { Box } from "@mui/material";
 import { useForm } from "react-hook-form";
 import CallApi from "../../../service/CallAPI";
@@ -91,7 +90,7 @@ const CreateBranch = () => {
 
       console.log(typeof requestData.name);
 
-      const response = await CallApi(
+      await CallApi(
         "/api/host/branches",
         "post",
         { headers: { "Content-Type": "multipart/form-data" } },

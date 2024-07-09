@@ -12,11 +12,11 @@ import ChangePasswordPage from "../pages/auth/changePassword/ChangePasswordPage.
 import ListAccount from "../pages/admin/ListAccount/ListAccount.jsx";
 import NotFound from "../pages/common/NotFound/NotFound.jsx";
 import Dashboard from "../pages/admin/Dashboard/Dashboard.jsx";
-import ListBranch from "../pages/host/Branch/ListBranch.jsx";
-import BranchDetail from "../pages/host/Branch/BranchDetail.jsx";
+// import ListBranch from "../pages/host/Branch/ListBranch.jsx";
+// import BranchDetail from "../pages/host/Branch/BranchDetail.jsx";
 import CreateBranch from "../pages/host/Branch/CreateBranch.jsx";
-import ListCourt from "../pages/host/Court/ListCourt.jsx";
-import CourtDetail from "../pages/host/Court/CourtDetail.jsx";
+// import ListCourt from "../pages/host/Court/ListCourt.jsx";
+// import CourtDetail from "../pages/host/Court/CourtDetail.jsx";
 import Checkout from "../pages/player/Court/Checkout.jsx";
 import RegisterCourt from "../pages/host/Court/RegisterCourt.jsx";
 import UpdateCourt from "../pages/host/Court/UpdateCourt.jsx";
@@ -117,20 +117,20 @@ const router = [
     role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
     layout: "admin",
   },
-  {
-    path: "/host/list-branch",
-    name: "List Branch",
-    component: <ListBranch />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
-    layout: "host",
-  },
-  {
-    path: "/host/branch/:id",
-    name: "Branch Detail",
-    component: <BranchDetail />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
-    layout: "host",
-  },
+  // {
+  //   path: "/host/list-branch",
+  //   name: "List Branch",
+  //   component: <ListBranch />,
+  //   // role: ["HOST"], // Chỉ cho phép HOST truy cập
+  //   layout: "host",
+  // },
+  // {
+  //   path: "/host/branch/:id",
+  //   name: "Branch Detail",
+  //   component: <BranchDetail />,
+  //   // role: ["HOST"], // Chỉ cho phép HOST truy cập
+  //   layout: "host",
+  // },
   {
     path: "/host/create-branch",
     name: "Create Branch",
@@ -138,20 +138,20 @@ const router = [
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "host",
   },
-  {
-    path: "/host/court/:id",
-    name: "Court List",
-    component: <ListCourt />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
-    layout: "",
-  },
-  {
-    path: "/branch/:idBranch/court/:idCourt",
-    name: "Court Detail",
-    component: <CourtDetail />,
-    // role: ["USER"], // Chỉ cho phép HOST truy cập
-    layout: "",
-  },
+  // {
+  //   path: "/host/court/:id",
+  //   name: "Court List",
+  //   component: <ListCourt />,
+  //   // role: ["HOST"], // Chỉ cho phép HOST truy cập
+  //   layout: "",
+  // },
+  // {
+  //   path: "/branch/:idBranch/court/:idCourt",
+  //   name: "Court Detail",
+  //   component: <CourtDetail />,
+  //   // role: ["USER"], // Chỉ cho phép HOST truy cập
+  //   layout: "",
+  // },
   {
     path: "/player/checkout",
     name: "Checkout",
