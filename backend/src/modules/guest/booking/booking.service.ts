@@ -8,8 +8,8 @@ const bookingGuestService = {
           gte: new Date(),
           lte: new Date(new Date().setDate(new Date().getDate() + 7)),
         },
-        courtId: {
-          not: null,
+        post: {
+          isNot: null,
         },
       },
       include: {
