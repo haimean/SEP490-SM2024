@@ -12,11 +12,16 @@ const branchesHostService = {
       where: {
         accountId,
         isAccept: true,
+        isDelete: false,
       },
       include: {
         address: true,
-        court: true,
-        attributeBranches: true,
+        court: { include: { TypeCourt: true } },
+        attributeBranches: {
+          include: {
+            attributeKeyBranches: true,
+          },
+        },
       },
     });
   },
@@ -26,6 +31,7 @@ const branchesHostService = {
         id,
         accountId,
         isAccept: true,
+        isDelete: false,
       },
       include: {
         address: true,
@@ -45,62 +51,133 @@ const branchesHostService = {
     attributeBranches: number[],
     court: number[]
   ): Promise<Branches> => {
-    const {
-      accountId,
-      name,
-      description,
-      businessLicense,
-      closingHours,
-      openingHours,
-      phone,
-      image,
-      email,
-    } = branchesPayload;
-    const query: Prisma.BranchesCreateArgs<DefaultArgs> = {
-      data: {
+    try {
+      const {
         accountId,
+        name,
+        description,
+        businessLicense,
+        closingHours,
+        openingHours,
+        phone,
+        image,
+        email,
+      } = branchesPayload;
+      const query: Prisma.BranchesCreateArgs<DefaultArgs> = {
+        data: {
+          accountId,
+          name,
+          businessLicense,
+          closingHours,
+          openingHours,
+          phone,
+        },
+      };
+      if (image) {
+        query.data.image = image;
+      }
+      if (description) {
+        query.data.description = description;
+      }
+      if (email) {
+        query.data.email = email;
+      }
+      if (addressPayload) {
+        query.data.address = { create: { ...addressPayload } };
+      }
+
+      if (attributeBranches) {
+        const attributeBranchesIds = attributeBranches.map((item) => {
+          return {
+            id: item,
+          };
+        });
+        query.data.attributeBranches = {
+          connect: attributeBranchesIds,
+        };
+      }
+      if (court) {
+        const courtIds = court.map((item) => {
+          return {
+            id: item,
+          };
+        });
+        query.data.court = {
+          connect: courtIds,
+        };
+      }
+
+      return await database.branches.create(query);
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  },
+  update: async (
+    id: number,
+    accountId: number,
+    branchesPayload: Prisma.BranchesUpdateInput,
+    attributeBranches: number[],
+    court: number[]
+  ): Promise<Branches> => {
+    try {
+      const {
+        name,
+        description,
+        businessLicense,
+        closingHours,
+        openingHours,
+        phone,
+        image,
+        email,
+      } = branchesPayload;
+      const query: Prisma.BranchesUpdateInput = {
         name,
         businessLicense,
         closingHours,
         openingHours,
         phone,
-      },
-    };
-    if (image) {
-      query.data.image = image;
-    }
-    if (description) {
-      query.data.image = description;
-    }
-    if (email) {
-      query.data.image = email;
-    }
-    if (addressPayload) {
-      query.data.address = { create: { ...addressPayload } };
-    }
-
-    if (attributeBranches) {
-      const attributeBranchesIds = attributeBranches.map((item) => {
-        return {
-          id: item,
-        };
-      });
-      query.data.attributeBranches = {
-        connect: attributeBranchesIds,
       };
-    }
-    if (court) {
-      const courtIds = court.map((item) => {
-        return {
-          id: item,
-        };
-      });
-      query.data.attributeBranches = {
-        connect: courtIds,
-      };
-    }
+      if (image) {
+        query.image = image;
+      }
+      if (description) {
+        query.description = description;
+      }
+      if (email) {
+        query.email = email;
+      }
 
-    return await database.branches.create(query);
+      if (attributeBranches) {
+        const attributeBranchesIds = attributeBranches.map((item) => {
+          return {
+            id: item,
+          };
+        });
+        query.attributeBranches = {
+          connect: attributeBranchesIds,
+        };
+      }
+      if (court) {
+        const courtIds = court.map((item) => {
+          return {
+            id: item,
+          };
+        });
+        query.attributeBranches = {
+          connect: courtIds,
+        };
+      }
+
+      return await database.branches.update({
+        where: {
+          id,
+          accountId,
+        },
+        data: query,
+      });
+    } catch (error: any) {
+      throw new Error(error);
+    }
   },
 };
 

@@ -234,33 +234,31 @@ const ForgotPasswordForm = () => {
   }, []);
 
   return (
-    <div className="bg-gray-200 flex justify-center items-center h-screen w-screen">
-      <div className="border-t-8 rounded-sm border-indigo-600 bg-white p-12 shadow-2xl w-96">
-        <h1 className="font-bold text-center block text-2xl">Quên mật khẩu</h1>
-        {!showOTPSection && !showResetPasswordSection && (
-          <EmailForm onSubmit={handleSubmit} />
-        )}
-        {showOTPSection && (
-          <OTPForm
-            onSubmit={handleOTPSubmit}
-            otpTimer={otpTimer}
-            otpExpired={otpExpired}
-            handleResendOTP={handleResendOTP}
-          />
-        )}
-        {showResetPasswordSection && (
-          <ResetPasswordForm onSubmit={handleResetPasswordSubmit} />
-        )}
-        <style>{`
+    <div className="border-t-8 rounded-sm border-indigo-600 bg-white p-12 shadow-2xl w-96">
+      <h1 className="font-bold text-center block text-2xl">Quên mật khẩu</h1>
+      {!showOTPSection && !showResetPasswordSection && (
+        <EmailForm onSubmit={handleSubmit} />
+      )}
+      {showOTPSection && (
+        <OTPForm
+          onSubmit={handleOTPSubmit}
+          otpTimer={otpTimer}
+          otpExpired={otpExpired}
+          handleResendOTP={handleResendOTP}
+        />
+      )}
+      {showResetPasswordSection && (
+        <ResetPasswordForm onSubmit={handleResetPasswordSubmit} />
+      )}
+      <style>{`
         ::-ms-reveal {
           display: none;
         }
       `}</style>
-        <div className="mt-4 text-center">
-          <a href="/login" className="text-indigo-600 hover:text-indigo-800">
-            Quay về đăng nhập
-          </a>
-        </div>
+      <div className="mt-4 text-center">
+        <a href="/login" className="text-indigo-600 hover:text-indigo-800">
+          Quay về đăng nhập
+        </a>
       </div>
     </div>
   );

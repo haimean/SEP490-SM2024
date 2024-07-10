@@ -1,261 +1,92 @@
-import ForgotPassword from "../pages/auth/ForgotPassword/ForgotPassword.jsx";
-import Login from "../pages/auth/Login/Login.jsx";
-import SignUpFormPlayer from "../pages/auth/RegisterUser/SignUp.jsx";
-import SignUpFormHost from "../pages/auth/RegisterHost/SignUp.jsx";
-import ListAttributeBranch from "../pages/admin/AttributeBranch/ListAttributeBranch.jsx";
-import DetailAttributeBranch from "../pages/admin/AttributeBranch/DetailAttributeBranch.jsx";
-import ListAttributeCourt from "../pages/admin/AttributeCourt/ListAttributeCourt.jsx";
-import DetailAttributeCourt from "../pages/admin/AttributeCourt/DetailAttributeCourt.jsx";
-import LandingPage from "../pages/common/LandingPage.jsx";
-import Profile from "../pages/common/Profile.jsx";
-import ChangePasswordPage from "../pages/auth/ChangePassword/ChangePasswordPage.jsx";
-import ListAccount from "../pages/admin/ListAccount/ListAccount.jsx";
-import NotFound from "../pages/common/NotFound/NotFound.jsx";
-import Dashboard from "../pages/admin/Dashboard/Dashboard.jsx";
-import ListBranch from "../pages/host/Branch/ListBranch.jsx";
-import BranchDetail from "../pages/host/Branch/BranchDetail.jsx";
-import CreateBranch from "../pages/host/Branch/CreateBranch.jsx";
-import ListCourt from "../pages/host/Court/ListCourt.jsx";
-import CourtDetail from "../pages/host/Court/CourtDetail.jsx";
-import Checkout from "../pages/player/Court/Checkout.jsx";
-import RegisterCourt from "../pages/host/Court/RegisterCourt.jsx";
-import UpdateCourt from "../pages/host/Court/UpdateCourt.jsx";
-import CreateBlog from "../pages/player/Blog/CreateBlog.jsx";
-import ResponsiveDrawer from "../layouts/host/LayoutHost.jsx";
-import ComparePage from "../components/host/court/ComparePage.jsx";
-import WaitingList from "../pages/user/WaitingList/WaitingList.jsx";
-import BookingTablePage from "../pages/user/BookingTable/BookingTable.jsx";
-import AvailableCourtPage from "../pages/user/AvailableCourt/AvailableCourt.jsx";
-import PostDetail from "../pages/user/PostDetail/PostDetail.jsx";
-import BookedCourts from "../pages/user/ViewListBooked/BookedCourtsTable.jsx";
-import BranchListPage from "../pages/user/ViewListBranch/BranchListPage.jsx";
-import BranDetailUser from "../pages/user/BranchDetail/BranDetailUser.jsx";
+import { Navigate, Route } from "react-router-dom";
+import router from "./router";
+import LayoutPlayer from "../layouts/player/LayoutPlayer";
+import LayoutHost from "../layouts/host/LayoutHost";
+import LayoutAdmin from "../layouts/admin/dashboard/LayoutAdmin";
+import LayoutAuth from "../layouts/auth/LayoutAuth";
+import { useSelector } from "react-redux";
 
-const routes = [
-  {
-    path: "/",
-    name: "Landing Page",
-    component: <LandingPage />,
-    role: [], // Không yêu cầu đăng nhập
-    layout: "",
-  },
-  {
-    path: "/profile",
-    name: "Profile",
-    component: <Profile />,
-    role: ["USER", "HOST", "ADMIN"], // Cho phép cả USER, HOST và ADMIN truy cập
-    layout: "",
-  },
-  {
-    path: "/login",
-    name: "Login",
-    component: <Login />,
-    role: [], // Không yêu cầu đăng nhập
-    layout: "",
-  },
-  {
-    path: "/sign-up-player",
-    name: "Sign Up Player",
-    component: <SignUpFormPlayer />,
-    role: [], // Không yêu cầu đăng nhập
-    layout: "",
-  },
-  {
-    path: "/sign-up-host",
-    name: "Sign Up Host",
-    component: <SignUpFormHost />,
-    role: [], // Không yêu cầu đăng nhập
-    layout: "",
-  },
-  {
-    path: "/forgot-password",
-    name: "Forgot Password",
-    component: <ForgotPassword />,
-    role: [], // Không yêu cầu đăng nhập
-    layout: "",
-  },
-  {
-    path: "/admin/branch-attribute",
-    name: "Branch Attribute",
-    component: <ListAttributeBranch />,
-    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
-    layout: "",
-  },
-  {
-    path: "/admin/detail-branch-attribute/:id",
-    name: "Detail Branch Attribute",
-    component: <DetailAttributeBranch />,
-    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
-    layout: "",
-  },
-  {
-    path: "/admin/court-attribute",
-    name: "Court Attribute",
-    component: <ListAttributeCourt />,
-    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
-    layout: "",
-  },
-  {
-    path: "/admin/detail-court-attribute/:id",
-    name: "Detail Court Attribute",
-    component: <DetailAttributeCourt />,
-    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
-    layout: "",
-  },
-  {
-    path: "/change-password",
-    name: "Change Password",
-    component: <ChangePasswordPage />,
-    role: ["USER", "HOST", "ADMIN"], // Cho phép cả USER, HOST và ADMIN truy cập
-    layout: "",
-  },
-  {
-    path: "/admin/list-account",
-    name: "List Account",
-    component: <ListAccount />,
-    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
-    layout: "",
-  },
-  {
-    path: "/admin/dashboard",
-    name: "Dashboard",
-    component: <Dashboard />,
-    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
-    layout: "",
-  },
-  {
-    path: "/host/list-branch",
-    name: "List Branch",
-    component: <ListBranch />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
-    layout: "",
-  },
-  {
-    path: "/host/branch/:id",
-    name: "Branch Detail",
-    component: <BranchDetail />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
-    layout: "",
-  },
-  {
-    path: "/host/create-branch",
-    name: "Create Branch",
-    component: <CreateBranch />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
-    layout: "",
-  },
-  {
-    path: "/host/court/:id",
-    name: "Court List",
-    component: <ListCourt />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
-    layout: "",
-  },
-  {
-    path: "/branch/:idBranch/court/:idCourt",
-    name: "Court Detail",
-    component: <CourtDetail />,
-    // role: ["USER"], // Chỉ cho phép HOST truy cập
-    layout: "",
-  },
-  {
-    path: "/player/checkout",
-    name: "Checkout",
-    component: <Checkout />,
-    // role: ["USER"], // Chỉ cho phép HOST truy cập
-    layout: "",
-  },
-  {
-    path: "/player/create-blog",
-    name: "Create Blog",
-    component: <CreateBlog />,
-    // role: ["USER"], // Chỉ cho phép HOST truy cập
-    layout: "",
-  },
-  {
-    path: "/host/register-court",
-    name: "Register Court",
-    component: <RegisterCourt />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
-    layout: "",
-  },
-  {
-    path: "/host/update-court/:id",
-    name: "Update Court",
-    component: <UpdateCourt />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
-    layout: "",
-  },
-  {
-    path: "/host/compare/:court1/:court2",
-    name: "Update Court",
-    component: <ComparePage />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
-    layout: "",
-  },
-  {
-    path: "/host/test",
-    name: "Update Court",
-    component: <ResponsiveDrawer />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
-    layout: "",
-  },
-  {
-    path: "/404",
-    name: "Not Found",
-    component: <NotFound />,
-    role: [], // Không yêu cầu đăng nhập
-    layout: "",
-  },
-  {
-    path: "/waiting-list",
-    name: "Waiting List",
-    component: <WaitingList />,
-    // role: ["USER"],
-    layout: "",
-  },
-  {
-    path: "/booking-table",
-    name: "Booking Table",
-    component: <BookingTablePage />,
-    // role: ["USER"],
-    layout: "",
-  },
-  {
-    path: "/available-court",
-    name: "Available Court",
-    component: <AvailableCourtPage />,
-    // role: ["USER"],
-    layout: "",
-  },
-  {
-    path: "/post/:id",
-    name: "Post Detail",
-    component: <PostDetail />,
-    // role: ["USER"],
-    layout: "",
-  },
-  {
-    path: "/booked-courts",
-    name: "Booked Courts",
-    component: <BookedCourts />,
-    // role: ["USER"],
-    layout: "",
-  },
-  {
-    path: "/search-courts",
-    name: "Search Courts",
-    component: <BranchListPage />,
-    // role: ["USER"],
-    layout: "",
-  },
-  {
-    path: "/user/branch/:id",
-    name: "Branch Detail User",
-    component: <BranDetailUser />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
-    layout: "",
-  },
-];
+// eslint-disable-next-line react-refresh/only-export-components
+const ProtectedRoute = ({ component, roles = [] }) => {
+  const { user, role } = useSelector((state) => state.user);
+  if (!user && roles.length > 0) {
+    // Người dùng chưa đăng nhập và route yêu cầu đăng nhập
+    return <Navigate to="/login" replace />;
+  }
+  if (roles.length > 0 && !roles.includes(role)) {
+    // Người dùng đã đăng nhập nhưng vai trò không phù hợp
+    return <Navigate to="/401" replace />;
+  }
+  return component;
+};
 
-export default routes;
+export const getRoutes = () => {
+  return router.map((route) => {
+    switch (route.layout) {
+      case "":
+        return (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <LayoutPlayer>
+                <ProtectedRoute
+                  component={route.component}
+                  roles={route.role}
+                />
+              </LayoutPlayer>
+            }
+          />
+        );
+      case "host":
+        return (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <LayoutHost>
+                <ProtectedRoute
+                  component={route.component}
+                  roles={route.role}
+                />
+              </LayoutHost>
+            }
+          />
+        );
+
+      case "admin":
+        return (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <LayoutAdmin>
+                <ProtectedRoute
+                  component={route.component}
+                  roles={route.role}
+                />
+              </LayoutAdmin>
+            }
+          />
+        );
+      case "auth":
+        return (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <LayoutAuth>
+                {/* <ProtectedRoute
+                  component={route.component}
+                  roles={route.role}
+                /> */}
+                {route.component}
+              </LayoutAuth>
+            }
+          />
+        );
+      default:
+        return route.component;
+    }
+  });
+};

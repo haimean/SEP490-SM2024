@@ -1,22 +1,25 @@
-import { accountSeed } from './seed/accounSeed';
-import { attributeKeyBranchesSeed } from './seed/attributeKeyBranchesSeed';
-import { attributeKeyCourtSeed } from './seed/attributeKeyCourtSeed';
-import { attributeBranchesSeed } from './seed/attributeBranchesSeed';
-import { attributeCourtSeed } from './seed/attributeCourtSeed';
-import { typeCourtSeed } from './seed/typeCourtSeed';
-import { courtSeed } from './seed/courtSeed';
-import { branchSeed } from './seed/branchSeed';
+/**
+ * ! Executing this script will delete all data in your database and seed it with 10 account.
+ * ! Make sure to adjust the script to your needs.
+ * Use any TypeScript runner to run this script, for example: `npx tsx seed.ts`
+ * Learn more about the Seed Client by following our guide: https://docs.snaplet.dev/seed/getting-started
+ */
+import { createSeedClient } from "@snaplet/seed";
 
-const seedData = async () => {
-  await accountSeed(10);
-  await attributeKeyBranchesSeed(10);
-  await attributeBranchesSeed(10);
-  await attributeKeyCourtSeed(10);
-  await attributeCourtSeed(10);
-  await typeCourtSeed(10);
-  await courtSeed(10);
-  await branchSeed(10);
-  //info: update seed
+const main = async () => {
+  const seed = await createSeedClient();
+
+  // Truncate all tables in the database
+  await seed.$resetDatabase();
+
+  // Seed the database with 10 account
+  await seed.account((x) => x(10));
+
+  // Type completion not working? You might want to reload your TypeScript Server to pick up the changes
+
+  console.log("Database seeded successfully!");
+
+  process.exit();
 };
 
-seedData();
+main();

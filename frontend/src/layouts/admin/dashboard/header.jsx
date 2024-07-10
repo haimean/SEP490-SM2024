@@ -6,18 +6,9 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { useTheme } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
-
-// import { useResponsive } from "src/hooks/use-responsive";
 import { useResponsive } from "../../../hooks/admin/use-responsive";
-
-// import { bgBlur } from "src/theme/css";
 import { bgBlur } from "../../../theme/admin/css";
-
-// import Iconify from "src/components/iconify";
-0
 import Iconify from "../../../components/admin/common/iconify";
-
-// import Searchbar from "./common/searchbar";
 import { NAV, HEADER } from "./config-layout";
 import AccountPopover from "./common/account-popover";
 import LanguagePopover from "./common/language-popover";

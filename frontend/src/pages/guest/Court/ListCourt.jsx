@@ -1,79 +1,9 @@
-// src/components/ListCourt.js
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
 import CourtDetailList from "../../../components/host/court/CourtDetailList";
 import ResponsiveDrawer from "../../../layouts/host/LayoutHost";
 import CallApi from "../../../service/CallAPI";
 import { useParams } from "react-router-dom";
-
-const activities = [
-  {
-    id: 1,
-    image: "path/to/image1.jpg",
-    price: "60,000 - 70,000",
-    title: "Sân Hoàng Mai",
-    description: "Đang xác định vị trí của bạn",
-    location: "Sân Đức Thảo, P. Mai Động, Q. Hoàng Mai, Hà Nội",
-    date: "Thứ 7, 29/06/2024, 18:00 - 20:00",
-    schedule: "T2, T3, T4, T5, T6, T7, CN",
-    level: "Trình độ: TBY đến TB",
-  },
-  {
-    id: 2,
-    image: "path/to/image2.jpg",
-    price: "50,000 - 70,000",
-    title: "Sân Hồ Tây",
-    description: "Đang xác định vị trí của bạn",
-    location: "Sân THPT Phạm Hồng Thái, P. Cống Vị, Q. Ba Đình, Hà Nội",
-    date: "Thứ 7, 29/06/2024, 17:45 - 19:45",
-    schedule: "T3, T5, T7",
-    level: "Trình độ: TB đến TB+",
-  },
-  {
-    id: 3,
-    image: "path/to/image1.jpg",
-    price: "60,000 - 70,000",
-    title: "Sân Hoàng Mai",
-    description: "Đang xác định vị trí của bạn",
-    location: "Sân Đức Thảo, P. Mai Động, Q. Hoàng Mai, Hà Nội",
-    date: "Thứ 7, 29/06/2024, 18:00 - 20:00",
-    schedule: "T2, T3, T4, T5, T6, T7, CN",
-    level: "Trình độ: TBY đến TB",
-  },
-  {
-    id: 4,
-    image: "path/to/image2.jpg",
-    price: "50,000 - 70,000",
-    title: "Sân Hồ Tây",
-    description: "Đang xác định vị trí của bạn",
-    location: "Sân THPT Phạm Hồng Thái, P. Cống Vị, Q. Ba Đình, Hà Nội",
-    date: "Thứ 7, 29/06/2024, 17:45 - 19:45",
-    schedule: "T3, T5, T7",
-    level: "Trình độ: TB đến TB+",
-  },
-  {
-    id: 5,
-    image: "path/to/image1.jpg",
-    price: "60,000 - 70,000",
-    title: "Sân Hoàng Mai",
-    description: "Đang xác định vị trí của bạn",
-    location: "Sân Đức Thảo, P. Mai Động, Q. Hoàng Mai, Hà Nội",
-    date: "Thứ 7, 29/06/2024, 18:00 - 20:00",
-    schedule: "T2, T3, T4, T5, T6, T7, CN",
-    level: "Trình độ: TBY đến TB",
-  },
-  {
-    id: 6,
-    image: "path/to/image2.jpg",
-    price: "50,000 - 70,000",
-    title: "Sân Hồ Tây",
-    description: "Đang xác định vị trí của bạn",
-    location: "Sân THPT Phạm Hồng Thái, P. Cống Vị, Q. Ba Đình, Hà Nội",
-    date: "Thứ 7, 29/06/2024, 17:45 - 19:45",
-    schedule: "T3, T5, T7",
-    level: "Trình độ: TB đến TB+",
-  },
-  // Add more activities as needed
-];
 
 const ListCourt = () => {
   const { id } = useParams();
@@ -119,7 +49,7 @@ const ListCourt = () => {
   useEffect(() => {
     const getAllCourt = async () => {
       try {
-        const result = await CallApi(`/api/host/court/branch/${id}`, "get");
+        const result = await CallApi(`/api/court/branch/${id}`, "get");
         setData(result.data);
         console.log("🚀 ========= result:", result.data);
       } catch (error) {
@@ -142,7 +72,7 @@ const ListCourt = () => {
         <div className="bg-gray-100 min-h-screen p-4">
           <div className="container mx-auto p-4">
             <h1 className="text-2xl font-bold mb-4">
-              Tìm thấy {activities.length} hoạt động
+              Tìm thấy {data.length} hoạt động
             </h1>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {data.map((activity, index) => (

@@ -53,9 +53,9 @@ export default function CourtDetail() {
   };
   const getAllCourtByBranch = async () => {
     try {
-      const result = await CallApi(`/api/host/court/branch/${idBranch}`, "get");
+      const result = await CallApi(`/api/court/branch/${idBranch}`, "get");
       const resultCourt = await CallApi(
-        `/api/host/court/${id ? id : idCourt}`,
+        `/api/court/${id ? id : idCourt}`,
         "get"
       );
       // console.log("🚀 ========= result:", result.data);
@@ -67,10 +67,7 @@ export default function CourtDetail() {
   };
   const getCourtDetail = async () => {
     try {
-      const result = await CallApi(
-        `/api/host/court/${id ? id : idCourt}`,
-        "get"
-      );
+      const result = await CallApi(`/api/court/${id ? id : idCourt}`, "get");
       // console.log("🚀 ========= result:", result.data);
       setData(result.data);
     } catch (error) {

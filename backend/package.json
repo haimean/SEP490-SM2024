@@ -7,12 +7,12 @@
     "test": "jest --watchAll  --detectOpenHandles",
     "build": "tsc",
     "start": "tsc && node dist/src/app.js",
-    "dev": "nodemon - exec 'ts-node' ./app.ts",
+    "dev": "nodemon ",
     "seed": "nodemon - exec 'ts-node' ./seed.ts",
     "doc": "node swagger.js",
-    "gen:module": "hygen module new",
-    "gen:seed": "hygen seed new",
-    "gen": "ts-node ./seed.ts",
+    "gen:module": "npx hygen module new",
+    "gen:seed": "npx hygen seed new",
+    "gen": "npx tsx ./prisma/seed.ts",
     "lint": "eslint . -c .ts,.js --fix"
   },
   "prisma": {
@@ -30,7 +30,7 @@
     "@aws-sdk/s3-request-presigner": "^3.609.0",
     "@faker-js/faker": "^8.4.1",
     "@jest/types": "^29.6.3",
-    "@prisma/client": "^5.16.1",
+    "@prisma/client": "^5.16.2",
     "@types/nodemailer": "^6.4.15",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
@@ -49,6 +49,8 @@
     "save": "^2.9.0",
     "save-dev": "^0.0.1-security",
     "sharp": "^0.33.4",
+    "socket.io": "^4.7.5",
+    "socketio": "^1.0.0",
     "swagger-autogen": "^2.23.7",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
@@ -56,6 +58,8 @@
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
+    "@snaplet/copycat": "^5.0.0",
+    "@snaplet/seed": "^0.97.20",
     "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
     "@types/dotenv": "^8.2.0",
@@ -75,7 +79,7 @@
     "esbuild-register": "^3.5.0",
     "jest": "^29.7.0",
     "nodemon": "^3.1.4",
-    "prisma": "^5.16.1",
+    "prisma": "^5.16.2",
     "superagent": "^9.0.2",
     "supertest": "^7.0.0",
     "typescript": "^4.9.5"

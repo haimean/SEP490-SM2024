@@ -3,7 +3,7 @@ import branchesHostService from './branches.service';
 import { ResponseHandler } from '../../../outcomes/responseHandler';
 import CustomError from '../../../outcomes/customError';
 import { uploadFile } from '../../../lib/s3';
-import { Branches } from '@prisma/client';
+import { Branches, Prisma } from '@prisma/client';
 import {
   AddressBranchHostServiceCreate,
   BranchesHostServiceCreate,
@@ -35,7 +35,6 @@ const branchesHostController = {
       next(new CustomError(error?.message, 500));
     }
   },
-  // FIXED:
   create: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const accountId = Number(req.headers.authorization);
@@ -70,6 +69,7 @@ const branchesHostController = {
         isAccept: false,
         phone,
       };
+
       const addressPayload: AddressBranchHostServiceCreate = {
         detail,
         districts,
@@ -82,6 +82,54 @@ const branchesHostController = {
       const branches: Branches = await branchesHostService.create(
         branchesPayload,
         addressPayload,
+        attributeBranches,
+        court
+      );
+      ResponseHandler(res, branches);
+    } catch (error: any) {
+      if (
+        error.code === 'P2002' &&
+        error.meta?.target.includes('name')
+      ) {
+        next(new CustomError('Tên cơ sở đã tồn tại.', 409));
+      }
+      next(new CustomError(error?.message, 500));
+    }
+  },
+  updateInformation: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const accountId = Number(req.headers.authorization);
+      const id = Number(req.params.id);
+      const {
+        name,
+        description,
+        closingHours,
+        openingHours,
+        email,
+        image,
+        phone,
+        attributeBranches,
+        court,
+      } = req.body;
+
+      const branchesPayload: Prisma.BranchesUpdateInput = {
+        name,
+        description,
+        closingHours,
+        openingHours,
+        email,
+        image,
+        phone,
+      };
+
+      const branches: Branches = await branchesHostService.update(
+        id,
+        accountId,
+        branchesPayload,
         attributeBranches,
         court
       );

@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite ",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
@@ -40,6 +40,7 @@
     "react-router-dom": "^6.24.0",
     "react-toastify": "^10.0.5",
     "simplebar-react": "^3.2.6",
+    "socket.io-client": "^4.7.5",
     "styled-components": "^6.1.11"
   },
   "devDependencies": {
