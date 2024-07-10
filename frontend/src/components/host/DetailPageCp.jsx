@@ -19,6 +19,8 @@ import {
   SportsBasketball,
   AttachMoney as MoneyIcon,
 } from "@mui/icons-material";
+import RightSectionDetailPage from "./RightSectionDetailPage";
+import RightSectionHost from "./RightSectionHost";
 const DetailPageCp = ({
   title,
   image,
@@ -29,8 +31,10 @@ const DetailPageCp = ({
   participants,
   level,
   price,
-  RightSectionComponent,
   map,
+  id,
+  role,
+  type,
 }) => {
   const renderInfoItem = (Icon, text) => (
     <Box display="flex" alignItems="center" mb={1}>
@@ -103,8 +107,11 @@ const DetailPageCp = ({
           </Card>
         )}
       </Grid>
-
-      <RightSectionComponent />
+      {role == "USER" ? (
+        <RightSectionDetailPage />
+      ) : (
+        <RightSectionHost id={id} type={type} />
+      )}
     </Grid>
   );
 };

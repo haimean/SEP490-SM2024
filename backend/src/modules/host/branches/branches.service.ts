@@ -1,0 +1,107 @@
+import { Branches, Prisma } from '@prisma/client';
+import database from '../../../lib/db.server';
+import {
+  AddressBranchHostServiceCreate,
+  BranchesHostServiceCreate,
+} from './branches.model';
+import { DefaultArgs } from '@prisma/client/runtime/library';
+
+const branchesHostService = {
+  listBranch: async (accountId: number) => {
+    return await database.branches.findMany({
+      where: {
+        accountId,
+        isAccept: true,
+      },
+      include: {
+        address: true,
+        court: true,
+        attributeBranches: true,
+      },
+    });
+  },
+  get: async (accountId: number, id: number): Promise<any> => {
+    return await database.branches.findUnique({
+      where: {
+        id,
+        accountId,
+        isAccept: true,
+      },
+      include: {
+        address: true,
+        court: { include: { TypeCourt: true } },
+        attributeBranches: {
+          include: {
+            attributeKeyBranches: true,
+          },
+        },
+      },
+    });
+  },
+
+  create: async (
+    branchesPayload: BranchesHostServiceCreate,
+    addressPayload: AddressBranchHostServiceCreate,
+    attributeBranches: number[],
+    court: number[]
+  ): Promise<Branches> => {
+    const {
+      accountId,
+      name,
+      description,
+      businessLicense,
+      closingHours,
+      openingHours,
+      phone,
+      image,
+      email,
+    } = branchesPayload;
+    const query: Prisma.BranchesCreateArgs<DefaultArgs> = {
+      data: {
+        accountId,
+        name,
+        businessLicense,
+        closingHours,
+        openingHours,
+        phone,
+      },
+    };
+    if (image) {
+      query.data.image = image;
+    }
+    if (description) {
+      query.data.image = description;
+    }
+    if (email) {
+      query.data.image = email;
+    }
+    if (addressPayload) {
+      query.data.address = { create: { ...addressPayload } };
+    }
+
+    if (attributeBranches) {
+      const attributeBranchesIds = attributeBranches.map((item) => {
+        return {
+          id: item,
+        };
+      });
+      query.data.attributeBranches = {
+        connect: attributeBranchesIds,
+      };
+    }
+    if (court) {
+      const courtIds = court.map((item) => {
+        return {
+          id: item,
+        };
+      });
+      query.data.attributeBranches = {
+        connect: courtIds,
+      };
+    }
+
+    return await database.branches.create(query);
+  },
+};
+
+export default branchesHostService;

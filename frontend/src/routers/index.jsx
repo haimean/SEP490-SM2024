@@ -11,8 +11,6 @@ import Profile from "../pages/common/Profile.jsx";
 import ChangePasswordPage from "../pages/auth/ChangePassword/ChangePasswordPage.jsx";
 import ListAccount from "../pages/admin/ListAccount/ListAccount.jsx";
 import NotFound from "../pages/common/NotFound/NotFound.jsx";
-import WaitingList from "../pages/user/WaitingList/WaitingList.jsx";
-import BookingTablePage from "../pages/user/BookingTable/BookingTable.jsx";
 import Dashboard from "../pages/admin/Dashboard/Dashboard.jsx";
 import ListBranch from "../pages/host/Branch/ListBranch.jsx";
 import BranchDetail from "../pages/host/Branch/BranchDetail.jsx";
@@ -20,9 +18,18 @@ import CreateBranch from "../pages/host/Branch/CreateBranch.jsx";
 import ListCourt from "../pages/host/Court/ListCourt.jsx";
 import CourtDetail from "../pages/host/Court/CourtDetail.jsx";
 import Checkout from "../pages/player/Court/Checkout.jsx";
+import RegisterCourt from "../pages/host/Court/RegisterCourt.jsx";
+import UpdateCourt from "../pages/host/Court/UpdateCourt.jsx";
+import CreateBlog from "../pages/player/Blog/CreateBlog.jsx";
+import ResponsiveDrawer from "../layouts/host/LayoutHost.jsx";
+import ComparePage from "../components/host/court/ComparePage.jsx";
+import WaitingList from "../pages/user/WaitingList/WaitingList.jsx";
+import BookingTablePage from "../pages/user/BookingTable/BookingTable.jsx";
 import AvailableCourtPage from "../pages/user/AvailableCourt/AvailableCourt.jsx";
 import PostDetail from "../pages/user/PostDetail/PostDetail.jsx";
 import BookedCourts from "../pages/user/ViewListBooked/BookedCourtsTable.jsx";
+import BranchListPage from "../pages/user/ViewListBranch/BranchListPage.jsx";
+import BranDetailUser from "../pages/user/BranchDetail/BranDetailUser.jsx";
 
 const routes = [
   {
@@ -145,16 +152,51 @@ const routes = [
     layout: "",
   },
   {
-    path: "/player/court/1",
+    path: "/branch/:idBranch/court/:idCourt",
     name: "Court Detail",
     component: <CourtDetail />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    // role: ["USER"], // Chỉ cho phép HOST truy cập
     layout: "",
   },
   {
     path: "/player/checkout",
     name: "Checkout",
     component: <Checkout />,
+    // role: ["USER"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/player/create-blog",
+    name: "Create Blog",
+    component: <CreateBlog />,
+    // role: ["USER"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/host/register-court",
+    name: "Register Court",
+    component: <RegisterCourt />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/host/update-court/:id",
+    name: "Update Court",
+    component: <UpdateCourt />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/host/compare/:court1/:court2",
+    name: "Update Court",
+    component: <ComparePage />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/host/test",
+    name: "Update Court",
+    component: <ResponsiveDrawer />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "",
   },
@@ -198,6 +240,20 @@ const routes = [
     name: "Booked Courts",
     component: <BookedCourts />,
     // role: ["USER"],
+    layout: "",
+  },
+  {
+    path: "/search-courts",
+    name: "Search Courts",
+    component: <BranchListPage />,
+    // role: ["USER"],
+    layout: "",
+  },
+  {
+    path: "/user/branch/:id",
+    name: "Branch Detail User",
+    component: <BranDetailUser />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "",
   },
 ];

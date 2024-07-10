@@ -1,4 +1,5 @@
-import React from "react";
+// eslint-disable-next-line no-unused-vars
+import React, { useEffect, useState } from "react";
 import {
   Grid,
   Paper,
@@ -9,9 +10,29 @@ import {
   Tooltip,
   Zoom,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import CallApi from "../../service/CallAPI";
 
-const RightSectionHost = () => {
+const RightSectionHost = ({ id, type }) => {
+  const { idCourt } = useParams();
+  const [court, setCourt] = useState([]);
+
+  useEffect(() => {
+    const getAllCourt = async () => {
+      try {
+        const result = await CallApi(
+          type === "Branch"
+            ? `/api/host/court/branch/${id}`
+            : `/api/host/court/${idCourt}`,
+          "get"
+        );
+        setCourt(result.data);
+      } catch (error) {
+        console.log("🚀 ========= error:", error);
+      }
+    };
+    getAllCourt();
+  }, [id, idCourt, type]);
   const longText = "Sàn: Gỗ<br/>Chất lượng: Tốt<br/>Số lượng: 4 người";
 
   const CustomTooltip = ({ title, children }) => {
@@ -40,30 +61,23 @@ const RightSectionHost = () => {
             </ListSubheader>
           }
         >
-          <CustomTooltip title={longText}>
-            <ListItemButton>
-              <img
-                src="https://bizweb.dktcdn.net/100/352/498/products/sancaulong105langha1.jpg?v=1716193376243"
-                width={50}
-                height={50}
-                alt="Sân 1"
-              />
-              <ListItemText primary="Sân 1" />
-            </ListItemButton>
-          </CustomTooltip>
-          <Link to={"/player/court/1"}>
-            <CustomTooltip title={longText}>
-              <ListItemButton>
-                <img
-                  src="https://bizweb.dktcdn.net/100/352/498/products/sancaulong105langha1.jpg?v=1716193376243"
-                  width={50}
-                  height={50}
-                  alt="Sân 2"
-                />
-                <ListItemText primary="Sân 2" />
-              </ListItemButton>
-            </CustomTooltip>
-          </Link>
+          {type === "Branch"
+            ? court.map((item) => (
+                <Link key={item.id} to={`/branch/${id}/court/${item.id}`}>
+                  <CustomTooltip title={longText}>
+                    <ListItemButton>
+                      <img
+                        src="https://bizweb.dktcdn.net/100/352/498/products/sancaulong105langha1.jpg?v=1716193376243"
+                        width={50}
+                        height={50}
+                        alt={item.name}
+                      />
+                      <ListItemText primary={item.name} />
+                    </ListItemButton>
+                  </CustomTooltip>
+                </Link>
+              ))
+            : ""}
         </List>
       </Paper>
     </Grid>

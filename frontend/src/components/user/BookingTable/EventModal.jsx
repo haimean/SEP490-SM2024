@@ -4,11 +4,15 @@ import { Modal, TextField, Button, Select, MenuItem, FormControl, InputLabel } f
 const EventModal = ({ isOpen, onRequestClose, onAddEvent }) => {
   const [title, setTitle] = useState('');
   const [day, setDay] = useState(0);
-  const [start, setStart] = useState(0);
-  const [end, setEnd] = useState(1);
+  const [start, setStart] = useState('0:00');
+  const [end, setEnd] = useState('1:00');
 
   const handleSubmit = () => {
-    onAddEvent(title, day, start, end);
+    const [startHour, startMinute] = start.split(':').map(Number);
+    const [endHour, endMinute] = end.split(':').map(Number);
+    const startDecimal = startHour + startMinute / 60;
+    const endDecimal = endHour + endMinute / 60;
+    onAddEvent(title, day, startDecimal, endDecimal);
     onRequestClose();
   };
 
@@ -44,20 +48,20 @@ const EventModal = ({ isOpen, onRequestClose, onAddEvent }) => {
           </Select>
         </FormControl>
         <TextField
-          type="number"
-          label="Start Hour"
+          type="text"
+          label="Start Time (HH:MM)"
           variant="outlined"
           value={start}
-          onChange={(e) => setStart(parseInt(e.target.value))}
+          onChange={(e) => setStart(e.target.value)}
           fullWidth
           margin="normal"
         />
         <TextField
-          type="number"
-          label="End Hour"
+          type="text"
+          label="End Time (HH:MM)"
           variant="outlined"
           value={end}
-          onChange={(e) => setEnd(parseInt(e.target.value))}
+          onChange={(e) => setEnd(e.target.value)}
           fullWidth
           margin="normal"
         />

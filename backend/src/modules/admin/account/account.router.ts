@@ -9,5 +9,5 @@ accountRouter.post(
   validate(adminAccountValidator.update),
   accountController.listAccount
 );
-accountRouter.post('/ban/:id', accountController.banAccount);
+accountRouter.put('/ban/:id', accountController.banAccount);
 export default accountRouter;

@@ -27,7 +27,8 @@ const SignInForm = ({ isModal, onSuccess }) => {
     localStorage.setItem("userRole", role); // Lưu vai trò người dùng
     dispatch(setUser({ user: email, role })); // Cập nhật thông tin người dùng vào Redux
     toast.success(`Đăng nhập thành công!`);
-    if (!isModal) {  // Kiểm tra nếu không phải modal thì mới chuyển hướng
+    if (!isModal) {
+      // Kiểm tra nếu không phải modal thì mới chuyển hướng
       if (role === "HOST") {
         navigate("/");
       } else if (role === "USER") {
@@ -106,7 +107,7 @@ const SignInForm = ({ isModal, onSuccess }) => {
   };
 
   return (
-    <div >
+    <div>
       <div className="border-t-8 rounded-md border-indigo-600 bg-white p-12 shadow-2xl w-96">
         <h1 className="font-bold text-center block text-2xl">Đăng nhập</h1>
         <form onSubmit={handleSubmit(onSubmit)}>

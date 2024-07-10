@@ -4,6 +4,7 @@ import Navbar from "../../../layouts/player/Navbar";
 import Footer from "../../../layouts/player/Footer";
 import DetailPageCp from "../../../components/host/DetailPageCp";
 import PostRightCP from "../../../components/user/Post/PostRightCP.jsx";
+import PostDetailCP from "../../../components/user/Post/PostDetailCP.jsx";
 const PostDetail = () => {
   const fakeData = {
     title: "TUYỂN CỐ ĐỊNH - GIAO LƯU",
@@ -24,7 +25,7 @@ const PostDetail = () => {
       friendliness: 4.5,
       contact: "0987001976",
     },
-    email: "dangthe@example.com",
+    email: "manhpro9900@gmail.com",
   };
 
   const [userRole, setUserRole] = useState("");
@@ -32,7 +33,7 @@ const PostDetail = () => {
 
   useEffect(() => {
     const storedUserRole = localStorage.getItem("userRole");
-    const storedUserEmail = localStorage.getItem("userEmail");
+    const storedUserEmail =  JSON.parse(localStorage.getItem("user"));
     if (storedUserRole) setUserRole(storedUserRole);
     if (storedUserEmail) setUserEmail(storedUserEmail);
   }, []);
@@ -67,7 +68,7 @@ const PostDetail = () => {
           flexGrow: 1,
         }}
       >
-        <DetailPageCp
+        <PostDetailCP
           title={fakeData.title}
           image={fakeData.image}
           location={fakeData.location}

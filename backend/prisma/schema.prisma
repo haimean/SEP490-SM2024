@@ -30,19 +30,39 @@ model Account {
   isActive          Boolean             @default(true)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
-  TypeCourt         TypeCourt[]
-  Branches          Branches[]
+  typeCourt         TypeCourt[]
+  branches          Branches[]
+  blog              Blog[]
+  comment           Comment[]
+  booking           Booking[]
+  userAvailability  userAvailability[]
+
+  invitationsSend     Invitation[] @relation("seed")
+  invitationsReceived Invitation[] @relation("recipient")
+  post                Post[]
+  reviewSend          Review[]     @relation("seed")
+  reviewReceived      Review[]     @relation("recipient")
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
 }
 
 model User {
-  id          Int       @id @default(autoincrement())
-  account     Account   @relation(fields: [accountId], references: [id])
-  accountId   Int       @unique // relation scalar field (used in the `@relation` attribute above)
-  name        String
-  dob         DateTime?
-  numberPhone String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id             Int       @id @default(autoincrement())
+  account        Account   @relation(fields: [accountId], references: [id])
+  accountId      Int       @unique // relation scalar field (used in the `@relation` attribute above)
+  fullName       String
+  identifierCode String? // cccd
+  dob            DateTime?
+  numberPhone    String
+  gender         Gender
+  address        String?
+  avatar         String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 }
 
 // trình độ
@@ -113,6 +133,7 @@ model TypeCourt {
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
   court          Court[]
+  priceTypeCourt PriceTypeCourt[]
 
   @@unique([name, accountId])
 }
@@ -127,9 +148,22 @@ model Court {
   typeCourtId Int?
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
+  booking     Booking[]
 }
 
 // Bảng cơ sở, có thông tin cơ bản của cơ sở và danh sách sân
+model AddressBranch {
+  id         Int      @id @default(autoincrement())
+  branchesId Int      @unique
+  branches   Branches @relation(fields: [branchesId], references: [id])
+  longitude  String
+  latitude   String
+  provinces  String
+  districts  String
+  wards      String
+  detail     String
+}
+
 model Branches {
   id                Int                 @id @default(autoincrement())
   name              String
@@ -137,14 +171,217 @@ model Branches {
   attributeBranches AttributeBranches[]
   court             Court[]
   account           Account             @relation(fields: [accountId], references: [id])
-  addressLongitude  String
-  addressLatitude   String
   image             String?
   description       String?
+  phone             String
+  email             String?
+  address           AddressBranch?
+  businessLicense   String
+  openingHours      String
+  closingHours      String
+  isAccept          Boolean             @default(false)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
 
   @@unique([name, accountId])
 }
 
-// TODO: Giá tiền cho sân, trả phí sân, Khung giờ chơi cao điểm và thấp điểm 
+enum STATUS_BLOG {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+  BAN
+}
+
+model Blog {
+  id        Int         @id @default(autoincrement())
+  accountId Int
+  account   Account     @relation(fields: [accountId], references: [id])
+  title     String
+  content   String
+  image     String
+  status    STATUS_BLOG
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  comment   Comment[]
+}
+
+model Comment {
+  id              Int         @id @default(autoincrement())
+  blogId          Int
+  blog            Blog        @relation(fields: [blogId], references: [id])
+  accountId       Int
+  account         Account     @relation(fields: [accountId], references: [id])
+  content         String
+  parentCommentId Int? // Sử dụng Int? để cho phép giá trị null
+  parentComment   Comment?    @relation("CommentToParentComment", fields: [parentCommentId], references: [id]) // Đặt tên mối quan hệ
+  childComments   Comment[]   @relation("CommentToParentComment") // Đặt tên mối quan hệ để khớp với phần trên
+  image           String
+  status          STATUS_BLOG
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+// Ca đặt
+model PriceTypeCourt {
+  id          Int        @id @default(autoincrement())
+  startTime   DateTime
+  endTime     DateTime
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  price       Int
+  typeCourt   TypeCourt? @relation(fields: [typeCourtId], references: [id])
+  typeCourtId Int?
+}
+
+model Booking {
+  id          Int          @id @default(autoincrement())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  accountId   Int
+  account     Account      @relation(fields: [accountId], references: [id])
+  Court       Court?       @relation(fields: [courtId], references: [id])
+  courtId     Int?
+  dateTime    DateTime
+  startTime   DateTime
+  endTime     DateTime
+  price       Int
+  bookingInfo BookingInfo?
+  post        Post?
+}
+
+model BookingInfo {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String
+  numberPhone String
+  booking     Booking? @relation(fields: [bookingId], references: [id])
+  bookingId   Int?     @unique
+}
+
+enum StatusUserAvailability {
+  AVAILABLE
+  UNAVAILABLE
+}
+
+// người rảnh
+model userAvailability {
+  id        Int                    @id @default(autoincrement())
+  createdAt DateTime               @default(now())
+  updatedAt DateTime               @updatedAt
+  accountId Int
+  account   Account                @relation(fields: [accountId], references: [id])
+  dateTime  DateTime
+  startTime DateTime
+  endTime   DateTime
+  status    StatusUserAvailability
+  provinces String
+  districts String
+}
+
+enum StatusInvitation {
+  AVAILABLE
+  UNAVAILABLE
+}
+
+// lời mời
+model Invitation {
+  id                 Int              @id @default(autoincrement())
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  accountSendId      Int
+  accountSend        Account          @relation("seed", fields: [accountSendId], references: [id])
+  accountRecipientId Int
+  accountRecipient   Account          @relation("recipient", fields: [accountRecipientId], references: [id])
+  postId             Int
+  Post               Post             @relation(fields: [postId], references: [id])
+  status             StatusInvitation
+}
+
+enum Level {
+  Y
+  TB
+  K
+  T
+  CN
+}
+
+enum GenderPost {
+  MALE
+  FEMALE
+  ORTHER
+}
+
+// người đặt sân đi tim người
+model Post {
+  id           Int          @id @default(autoincrement())
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  bookingId    Int          @unique
+  booking      Booking      @relation(fields: [bookingId], references: [id])
+  desciption   String
+  numberMember Int
+  memberPost   MemberPost[]
+  account      Account?     @relation(fields: [accountId], references: [id])
+  accountId    Int?
+  invitation   Invitation[]
+}
+
+model MemberPost {
+  id         Int        @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  postId     Int
+  post       Post       @relation(fields: [postId], references: [id])
+  level      Level
+  genderPost GenderPost
+  price      String     @default("Chia đều")
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  accountSendId      Int
+  accountSend        Account @relation("seed", fields: [accountSendId], references: [id])
+  accountRecipientId Int
+  accountRecipient   Account @relation("recipient", fields: [accountRecipientId], references: [id])
+  rating             Int
+  comment            String
+}
+
+// TABLE notification {
+//   notification_id int [pk, increment]
+//   user_id int [ref: > user.user_id]
+//   message text
+//   type ENUM('BLOG', 'COMMENT', 'INVITATION', 'BOOKING')
+//   status ENUM('UNREAD', 'READ')
+//   blog_id int [ref: > blog.blog_id]
+//   comment_id int [ref: > comment.comment_id]
+//   invitation_id int [ref: > invitation.invitation_id]
+//   created_at timestamp
+//   updated_at timestamp
+// }
+
+// //Tố cáo
+// TABLE report as report {
+//   report_id int [pk, increment]
+//   reported_by int [ref: > user.user_id]
+//   reported_user_id int [ref: > user.user_id]
+//   description json
+//   status ENUM('PENDING', 'REVIEWED', 'RESOLVED')
+//   created_at timestamp
+//   updated_at timestamp
+// }
+
+// //Thống kê
+// TABLE statistics as statistics {
+//   statistics_id int [pk, increment]
+//   branch_id int [ref: > branch.branch_id]
+//   metric_name varchar(100)
+//   metric_value varchar(100)
+//   created_at timestamp
+//   updated_at timestamp
+// }
