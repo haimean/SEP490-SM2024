@@ -1,461 +1,461 @@
 [
   {
-    "schemaName": "sep490",
+    "schemaName": "test_prisma",
     "tableName": "account",
     "predictions": [
       {
-        "input": "sep_490 account email",
+        "input": "test_prisma account email",
         "column": "email",
         "shape": "EMAIL",
-        "confidence": 0.9919812679290771,
+        "confidence": 0.6372042298316956,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 account email_token",
+        "input": "test_prisma account email_token",
         "column": "emailToken",
         "shape": "TOKEN",
-        "confidence": 0.9067814350128174,
+        "confidence": 0.4339771270751953,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 account otp",
+        "input": "test_prisma account otp",
         "column": "otp",
         "shape": "FINANCE_ACCOUNT_NAME",
-        "confidence": 0.2292232513427734,
+        "confidence": 0.8048245906829834,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 account password",
+        "input": "test_prisma account password",
         "column": "password",
         "shape": "PASSWORD",
-        "confidence": 0.9943842887878418,
+        "confidence": 0.7417662739753723,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "sep490",
+    "schemaName": "test_prisma",
     "tableName": "addressbranch",
     "predictions": [
       {
-        "input": "sep_490 addressbranch detail",
+        "input": "test_prisma addressbranch detail",
         "column": "detail",
         "shape": "STREET_ADDRESS",
-        "confidence": 0.3809823393821716,
+        "confidence": 0.1833029985427856,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 addressbranch districts",
+        "input": "test_prisma addressbranch districts",
         "column": "districts",
-        "shape": "INTERNET_DOMAIN_NAME",
-        "confidence": 0.1579028964042664,
+        "shape": "DATABASE_COLUMN",
+        "confidence": 0.3085647523403168,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 addressbranch latitude",
+        "input": "test_prisma addressbranch latitude",
         "column": "latitude",
         "shape": "LOCATION_LATITUDE",
-        "confidence": 0.9702855944633484,
+        "confidence": 0.9669203162193298,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 addressbranch longitude",
+        "input": "test_prisma addressbranch longitude",
         "column": "longitude",
         "shape": "LOCATION_LONGITUDE",
-        "confidence": 0.9488624334335327,
+        "confidence": 0.9592750668525696,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 addressbranch provinces",
+        "input": "test_prisma addressbranch provinces",
         "column": "provinces",
         "shape": "STREET_ADDRESS",
-        "confidence": 0.4046130776405334,
+        "confidence": 0.2050764113664627,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 addressbranch wards",
+        "input": "test_prisma addressbranch wards",
         "column": "wards",
         "shape": "STREET_ADDRESS",
-        "confidence": 0.530810534954071,
+        "confidence": 0.3765650987625122,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "sep490",
+    "schemaName": "test_prisma",
     "tableName": "attributebranches",
     "predictions": [
       {
-        "input": "sep_490 attributebranches value",
+        "input": "test_prisma attributebranches value",
         "column": "value",
-        "shape": "META_DATA",
-        "confidence": 0.1642218083143234,
+        "shape": "SYSTEM_FILE_NAME",
+        "confidence": 0.1292269974946976,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "sep490",
+    "schemaName": "test_prisma",
     "tableName": "attributekeybranches",
     "predictions": [
       {
-        "input": "sep_490 attributekeybranches description",
+        "input": "test_prisma attributekeybranches description",
         "column": "description",
-        "shape": "SYSTEM_FILE_TYPE",
-        "confidence": 0.1330703645944595,
+        "shape": "FINANCE_TRANSACTION_DESCRIPTION",
+        "confidence": 0.3192706406116486,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 attributekeybranches name",
+        "input": "test_prisma attributekeybranches name",
         "column": "name",
-        "shape": "SYSTEM_FILE_NAME",
-        "confidence": 0.2423724085092545,
+        "shape": "PERSON_FULL_NAME",
+        "confidence": 0.4126030206680298,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "sep490",
+    "schemaName": "test_prisma",
     "tableName": "attributekeycourt",
     "predictions": [
       {
-        "input": "sep_490 attributekeycourt description",
+        "input": "test_prisma attributekeycourt description",
         "column": "description",
-        "shape": "SYSTEM_FILE_TYPE",
-        "confidence": 0.159478023648262,
+        "shape": "DATABASE_COLUMN",
+        "confidence": 0.570607602596283,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 attributekeycourt name",
+        "input": "test_prisma attributekeycourt name",
         "column": "name",
-        "shape": "SYSTEM_FILE_NAME",
-        "confidence": 0.2521588504314423,
+        "shape": "PERSON_FULL_NAME",
+        "confidence": 0.384342223405838,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "sep490",
+    "schemaName": "test_prisma",
     "tableName": "blog",
     "predictions": [
       {
-        "input": "sep_490 blog content",
+        "input": "test_prisma blog content",
         "column": "content",
         "shape": "POST_BODY",
-        "confidence": 0.5628042221069336,
+        "confidence": 0.6396416425704956,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 blog image",
+        "input": "test_prisma blog image",
         "column": "image",
-        "shape": "INTERNET_AVATAR",
-        "confidence": 0.5267336964607239,
+        "shape": "IMAGE_RAW",
+        "confidence": 0.2893649935722351,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 blog title",
+        "input": "test_prisma blog title",
         "column": "title",
-        "shape": "MOVIE_TITLE",
-        "confidence": 0.7984901666641235,
+        "shape": "POST_TITLE",
+        "confidence": 0.4772905111312866,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "sep490",
+    "schemaName": "test_prisma",
     "tableName": "bookinginfo",
     "predictions": [
       {
-        "input": "sep_490 bookinginfo name",
+        "input": "test_prisma bookinginfo name",
         "column": "name",
         "shape": "PERSON_FULL_NAME",
-        "confidence": 0.6010281443595886,
+        "confidence": 0.8785563707351685,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 bookinginfo number_phone",
+        "input": "test_prisma bookinginfo number_phone",
         "column": "numberPhone",
         "shape": "PHONE_NUMBER",
-        "confidence": 0.9875604510307312,
+        "confidence": 0.9843182563781738,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "sep490",
+    "schemaName": "test_prisma",
     "tableName": "branches",
     "predictions": [
       {
-        "input": "sep_490 branches business_license",
+        "input": "test_prisma branches business_license",
         "column": "businessLicense",
         "shape": "VEHICLE_VRM",
-        "confidence": 0.8500894904136658,
+        "confidence": 0.5615710020065308,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 branches closing_hours",
+        "input": "test_prisma branches closing_hours",
         "column": "closingHours",
         "shape": "GIT_BRANCH",
-        "confidence": 0.9616100192070007,
+        "confidence": 0.9683523774147034,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 branches description",
+        "input": "test_prisma branches description",
         "column": "description",
         "shape": "GIT_BRANCH",
-        "confidence": 0.9601215720176697,
+        "confidence": 0.8300759196281433,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 branches email",
+        "input": "test_prisma branches email",
         "column": "email",
         "shape": "GIT_BRANCH",
-        "confidence": 0.3272792994976044,
+        "confidence": 0.3373684883117676,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 branches image",
+        "input": "test_prisma branches image",
         "column": "image",
         "shape": "GIT_BRANCH",
-        "confidence": 0.8908788561820984,
+        "confidence": 0.9630449414253235,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 branches name",
+        "input": "test_prisma branches name",
         "column": "name",
         "shape": "GIT_BRANCH",
-        "confidence": 0.9872463941574097,
+        "confidence": 0.941719651222229,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 branches opening_hours",
+        "input": "test_prisma branches opening_hours",
         "column": "openingHours",
         "shape": "GIT_BRANCH",
-        "confidence": 0.9461163282394409,
+        "confidence": 0.9453760385513306,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 branches phone",
+        "input": "test_prisma branches phone",
         "column": "phone",
         "shape": "GIT_BRANCH",
-        "confidence": 0.9577454328536987,
+        "confidence": 0.9340114593505859,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "sep490",
+    "schemaName": "test_prisma",
     "tableName": "category",
     "predictions": [
       {
-        "input": "sep_490 category value",
+        "input": "test_prisma category value",
         "column": "value",
         "shape": "BOOK_CATEGORY",
-        "confidence": 0.7965717315673828,
+        "confidence": 0.6712484955787659,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "sep490",
+    "schemaName": "test_prisma",
     "tableName": "comment",
     "predictions": [
       {
-        "input": "sep_490 comment content",
+        "input": "test_prisma comment content",
         "column": "content",
         "shape": "POST_COMMENT",
-        "confidence": 0.9878904819488525,
+        "confidence": 0.9939764738082886,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 comment image",
+        "input": "test_prisma comment image",
         "column": "image",
         "shape": "POST_COMMENT",
-        "confidence": 0.5189217329025269,
+        "confidence": 0.9862396121025085,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "sep490",
+    "schemaName": "test_prisma",
     "tableName": "court",
     "predictions": [
       {
-        "input": "sep_490 court name",
+        "input": "test_prisma court name",
         "column": "name",
-        "shape": "PERSON_SUFFIX",
-        "confidence": 0.1286870390176773,
+        "shape": "PERSON_FULL_NAME",
+        "confidence": 0.2350673228502274,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "sep490",
+    "schemaName": "test_prisma",
     "tableName": "notification",
     "predictions": [
       {
-        "input": "sep_490 notification message",
+        "input": "test_prisma notification message",
         "column": "message",
-        "shape": "GIT_COMMIT_MESSAGE",
-        "confidence": 0.4162376821041107,
+        "shape": "NOTIFICATIONS",
+        "confidence": 0.6837877035140991,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "sep490",
+    "schemaName": "test_prisma",
     "tableName": "post",
     "predictions": [
       {
-        "input": "sep_490 post desciption",
+        "input": "test_prisma post desciption",
         "column": "desciption",
         "shape": "DATABASE_COLUMN",
-        "confidence": 0.269433856010437,
+        "confidence": 0.3324019908905029,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "sep490",
+    "schemaName": "test_prisma",
     "tableName": "review",
     "predictions": [
       {
-        "input": "sep_490 review comment",
+        "input": "test_prisma review comment",
         "column": "comment",
-        "shape": "POST_COMMENT",
-        "confidence": 0.9809495806694031,
+        "shape": "REVIEW",
+        "confidence": 0.5792071223258972,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "sep490",
+    "schemaName": "test_prisma",
     "tableName": "typecourt",
     "predictions": [
       {
-        "input": "sep_490 typecourt description",
+        "input": "test_prisma typecourt description",
         "column": "description",
         "shape": "FINANCE_TRANSACTION_DESCRIPTION",
-        "confidence": 0.2392540276050568,
+        "confidence": 0.3532554805278778,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 typecourt image",
+        "input": "test_prisma typecourt image",
         "column": "image",
-        "shape": "IMAGE_URL",
-        "confidence": 0.3997367024421692,
+        "shape": "INTERNET_AVATAR",
+        "confidence": 0.5702296495437622,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 typecourt name",
+        "input": "test_prisma typecourt name",
         "column": "name",
-        "shape": "IMAGE_URL",
-        "confidence": 0.1286968886852264,
+        "shape": "ANIMAL_TYPE",
+        "confidence": 0.1715626567602158,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "sep490",
+    "schemaName": "test_prisma",
     "tableName": "user",
     "predictions": [
       {
-        "input": "sep_490 user address",
+        "input": "test_prisma user address",
         "column": "address",
         "shape": "FULL_ADDRESS",
-        "confidence": 0.8935832381248474,
+        "confidence": 0.8589609861373901,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 user avatar",
+        "input": "test_prisma user avatar",
         "column": "avatar",
         "shape": "INTERNET_AVATAR",
-        "confidence": 0.9967744946479797,
+        "confidence": 0.9908678531646729,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 user full_name",
+        "input": "test_prisma user full_name",
         "column": "fullName",
         "shape": "PERSON_FULL_NAME",
-        "confidence": 0.8327159285545349,
+        "confidence": 0.85428386926651,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 user identifier_code",
+        "input": "test_prisma user identifier_code",
         "column": "identifierCode",
-        "shape": "UUID",
-        "confidence": 0.1380919963121414,
+        "shape": "TOKEN",
+        "confidence": 0.273174911737442,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 user number_phone",
+        "input": "test_prisma user number_phone",
         "column": "numberPhone",
         "shape": "PHONE_NUMBER",
-        "confidence": 0.9945611357688904,
+        "confidence": 0.9941813349723816,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "sep490",
+    "schemaName": "test_prisma",
     "tableName": "useravailability",
     "predictions": [
       {
-        "input": "sep_490 useravailability districts",
+        "input": "test_prisma useravailability districts",
         "column": "districts",
-        "shape": "ANIMAL_TYPE",
-        "confidence": 0.110449992120266,
+        "shape": "LOCATION_BUILDING_NUMBER",
+        "confidence": 0.2290940284729004,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "sep_490 useravailability provinces",
+        "input": "test_prisma useravailability provinces",
         "column": "provinces",
-        "shape": "VEHICLE_MODEL",
-        "confidence": 0.1003818064928055,
+        "shape": "SYSTEM_FILE_NAME",
+        "confidence": 0.1382328271865845,
         "context": "GENERAL",
         "confidenceContext": 0
       }

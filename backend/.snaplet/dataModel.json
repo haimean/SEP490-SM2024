@@ -1,12 +1,12 @@
 {
   "models": {
     "_attributebranchestobranches": {
-      "id": "sep490._attributebranchestobranches",
-      "schemaName": "sep490",
+      "id": "test_prisma._attributebranchestobranches",
+      "schemaName": "test_prisma",
       "tableName": "_attributebranchestobranches",
       "fields": [
         {
-          "id": "sep490._attributebranchestobranches.A",
+          "id": "test_prisma._attributebranchestobranches.A",
           "name": "A",
           "columnName": "A",
           "type": "int",
@@ -20,7 +20,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490._attributebranchestobranches.B",
+          "id": "test_prisma._attributebranchestobranches.B",
           "name": "B",
           "columnName": "B",
           "type": "int",
@@ -72,7 +72,7 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490._attributebranchestobranches.A_B",
+          "name": "test_prisma._attributebranchestobranches.A_B",
           "fields": [
             "A",
             "B"
@@ -81,12 +81,12 @@
       ]
     },
     "_attributecourttotypecourt": {
-      "id": "sep490._attributecourttotypecourt",
-      "schemaName": "sep490",
+      "id": "test_prisma._attributecourttotypecourt",
+      "schemaName": "test_prisma",
       "tableName": "_attributecourttotypecourt",
       "fields": [
         {
-          "id": "sep490._attributecourttotypecourt.A",
+          "id": "test_prisma._attributecourttotypecourt.A",
           "name": "A",
           "columnName": "A",
           "type": "int",
@@ -100,7 +100,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490._attributecourttotypecourt.B",
+          "id": "test_prisma._attributecourttotypecourt.B",
           "name": "B",
           "columnName": "B",
           "type": "int",
@@ -152,7 +152,7 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490._attributecourttotypecourt.A_B",
+          "name": "test_prisma._attributecourttotypecourt.A_B",
           "fields": [
             "A",
             "B"
@@ -161,12 +161,12 @@
       ]
     },
     "_prisma_migrations": {
-      "id": "sep490._prisma_migrations",
-      "schemaName": "sep490",
+      "id": "test_prisma._prisma_migrations",
+      "schemaName": "test_prisma",
       "tableName": "_prisma_migrations",
       "fields": [
         {
-          "id": "sep490._prisma_migrations.applied_steps_count",
+          "id": "test_prisma._prisma_migrations.applied_steps_count",
           "name": "applied_steps_count",
           "columnName": "applied_steps_count",
           "type": "int",
@@ -180,7 +180,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490._prisma_migrations.checksum",
+          "id": "test_prisma._prisma_migrations.checksum",
           "name": "checksum",
           "columnName": "checksum",
           "type": "varchar",
@@ -194,7 +194,7 @@
           "maxLength": 64
         },
         {
-          "id": "sep490._prisma_migrations.finished_at",
+          "id": "test_prisma._prisma_migrations.finished_at",
           "name": "finished_at",
           "columnName": "finished_at",
           "type": "datetime",
@@ -208,7 +208,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490._prisma_migrations.id",
+          "id": "test_prisma._prisma_migrations.id",
           "name": "id",
           "columnName": "id",
           "type": "varchar",
@@ -222,7 +222,7 @@
           "maxLength": 36
         },
         {
-          "id": "sep490._prisma_migrations.logs",
+          "id": "test_prisma._prisma_migrations.logs",
           "name": "logs",
           "columnName": "logs",
           "type": "text",
@@ -236,7 +236,7 @@
           "maxLength": 65535
         },
         {
-          "id": "sep490._prisma_migrations.migration_name",
+          "id": "test_prisma._prisma_migrations.migration_name",
           "name": "migration_name",
           "columnName": "migration_name",
           "type": "varchar",
@@ -250,7 +250,7 @@
           "maxLength": 255
         },
         {
-          "id": "sep490._prisma_migrations.rolled_back_at",
+          "id": "test_prisma._prisma_migrations.rolled_back_at",
           "name": "rolled_back_at",
           "columnName": "rolled_back_at",
           "type": "datetime",
@@ -264,7 +264,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490._prisma_migrations.started_at",
+          "id": "test_prisma._prisma_migrations.started_at",
           "name": "started_at",
           "columnName": "started_at",
           "type": "datetime",
@@ -280,7 +280,7 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490._prisma_migrations.id",
+          "name": "test_prisma._prisma_migrations.id",
           "fields": [
             "id"
           ]
@@ -288,12 +288,12 @@
       ]
     },
     "account": {
-      "id": "sep490.account",
-      "schemaName": "sep490",
+      "id": "test_prisma.account",
+      "schemaName": "test_prisma",
       "tableName": "account",
       "fields": [
         {
-          "id": "sep490.account.createdAt",
+          "id": "test_prisma.account.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -307,7 +307,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.account.email",
+          "id": "test_prisma.account.email",
           "name": "email",
           "columnName": "email",
           "type": "varchar",
@@ -321,7 +321,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.account.emailToken",
+          "id": "test_prisma.account.emailToken",
           "name": "emailToken",
           "columnName": "emailToken",
           "type": "varchar",
@@ -335,7 +335,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.account.id",
+          "id": "test_prisma.account.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -344,7 +344,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "sep490.account.id",
+            "identifier": "test_prisma.account.id",
             "increment": 1,
             "start": 1
           },
@@ -353,7 +353,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.account.isActive",
+          "id": "test_prisma.account.isActive",
           "name": "isActive",
           "columnName": "isActive",
           "type": "tinyint",
@@ -367,7 +367,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.account.isVerified",
+          "id": "test_prisma.account.isVerified",
           "name": "isVerified",
           "columnName": "isVerified",
           "type": "tinyint",
@@ -381,7 +381,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.account.otp",
+          "id": "test_prisma.account.otp",
           "name": "otp",
           "columnName": "otp",
           "type": "varchar",
@@ -395,7 +395,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.account.otpExpired",
+          "id": "test_prisma.account.otpExpired",
           "name": "otpExpired",
           "columnName": "otpExpired",
           "type": "datetime",
@@ -409,7 +409,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.account.password",
+          "id": "test_prisma.account.password",
           "name": "password",
           "columnName": "password",
           "type": "varchar",
@@ -423,10 +423,10 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.account.role",
+          "id": "test_prisma.account.role",
           "name": "role",
           "columnName": "role",
-          "type": "enum_sep490_account_role",
+          "type": "enum_test_prisma_account_role",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -437,7 +437,7 @@
           "maxLength": 5
         },
         {
-          "id": "sep490.account.updatedAt",
+          "id": "test_prisma.account.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -649,13 +649,13 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490.account.email",
+          "name": "test_prisma.account.email",
           "fields": [
             "email"
           ]
         },
         {
-          "name": "sep490.account.id",
+          "name": "test_prisma.account.id",
           "fields": [
             "id"
           ]
@@ -663,12 +663,12 @@
       ]
     },
     "addressbranch": {
-      "id": "sep490.addressbranch",
-      "schemaName": "sep490",
+      "id": "test_prisma.addressbranch",
+      "schemaName": "test_prisma",
       "tableName": "addressbranch",
       "fields": [
         {
-          "id": "sep490.addressbranch.branchesId",
+          "id": "test_prisma.addressbranch.branchesId",
           "name": "branchesId",
           "columnName": "branchesId",
           "type": "int",
@@ -682,7 +682,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.addressbranch.detail",
+          "id": "test_prisma.addressbranch.detail",
           "name": "detail",
           "columnName": "detail",
           "type": "varchar",
@@ -696,7 +696,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.addressbranch.districts",
+          "id": "test_prisma.addressbranch.districts",
           "name": "districts",
           "columnName": "districts",
           "type": "varchar",
@@ -710,7 +710,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.addressbranch.id",
+          "id": "test_prisma.addressbranch.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -719,7 +719,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "sep490.addressbranch.id",
+            "identifier": "test_prisma.addressbranch.id",
             "increment": 1,
             "start": 1
           },
@@ -728,7 +728,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.addressbranch.latitude",
+          "id": "test_prisma.addressbranch.latitude",
           "name": "latitude",
           "columnName": "latitude",
           "type": "varchar",
@@ -742,7 +742,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.addressbranch.longitude",
+          "id": "test_prisma.addressbranch.longitude",
           "name": "longitude",
           "columnName": "longitude",
           "type": "varchar",
@@ -756,7 +756,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.addressbranch.provinces",
+          "id": "test_prisma.addressbranch.provinces",
           "name": "provinces",
           "columnName": "provinces",
           "type": "varchar",
@@ -770,7 +770,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.addressbranch.wards",
+          "id": "test_prisma.addressbranch.wards",
           "name": "wards",
           "columnName": "wards",
           "type": "varchar",
@@ -804,13 +804,13 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490.addressbranch.branchesId",
+          "name": "test_prisma.addressbranch.branchesId",
           "fields": [
             "branchesId"
           ]
         },
         {
-          "name": "sep490.addressbranch.id",
+          "name": "test_prisma.addressbranch.id",
           "fields": [
             "id"
           ]
@@ -818,12 +818,12 @@
       ]
     },
     "attributebranches": {
-      "id": "sep490.attributebranches",
-      "schemaName": "sep490",
+      "id": "test_prisma.attributebranches",
+      "schemaName": "test_prisma",
       "tableName": "attributebranches",
       "fields": [
         {
-          "id": "sep490.attributebranches.accountId",
+          "id": "test_prisma.attributebranches.accountId",
           "name": "accountId",
           "columnName": "accountId",
           "type": "int",
@@ -837,7 +837,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.attributebranches.attributeKeyBranchesId",
+          "id": "test_prisma.attributebranches.attributeKeyBranchesId",
           "name": "attributeKeyBranchesId",
           "columnName": "attributeKeyBranchesId",
           "type": "int",
@@ -851,7 +851,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.attributebranches.createdAt",
+          "id": "test_prisma.attributebranches.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -865,7 +865,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.attributebranches.id",
+          "id": "test_prisma.attributebranches.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -874,7 +874,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "sep490.attributebranches.id",
+            "identifier": "test_prisma.attributebranches.id",
             "increment": 1,
             "start": 1
           },
@@ -883,7 +883,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.attributebranches.isActive",
+          "id": "test_prisma.attributebranches.isActive",
           "name": "isActive",
           "columnName": "isActive",
           "type": "tinyint",
@@ -897,7 +897,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.attributebranches.isPublic",
+          "id": "test_prisma.attributebranches.isPublic",
           "name": "isPublic",
           "columnName": "isPublic",
           "type": "tinyint",
@@ -911,7 +911,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.attributebranches.updatedAt",
+          "id": "test_prisma.attributebranches.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -925,7 +925,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.attributebranches.value",
+          "id": "test_prisma.attributebranches.value",
           "name": "value",
           "columnName": "value",
           "type": "varchar",
@@ -991,14 +991,14 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490.attributebranches.value_attributeKeyBranchesId",
+          "name": "test_prisma.attributebranches.value_attributeKeyBranchesId",
           "fields": [
             "value",
             "attributeKeyBranchesId"
           ]
         },
         {
-          "name": "sep490.attributebranches.id",
+          "name": "test_prisma.attributebranches.id",
           "fields": [
             "id"
           ]
@@ -1006,12 +1006,12 @@
       ]
     },
     "attributekeybranches": {
-      "id": "sep490.attributekeybranches",
-      "schemaName": "sep490",
+      "id": "test_prisma.attributekeybranches",
+      "schemaName": "test_prisma",
       "tableName": "attributekeybranches",
       "fields": [
         {
-          "id": "sep490.attributekeybranches.createdAt",
+          "id": "test_prisma.attributekeybranches.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -1025,7 +1025,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.attributekeybranches.description",
+          "id": "test_prisma.attributekeybranches.description",
           "name": "description",
           "columnName": "description",
           "type": "varchar",
@@ -1039,7 +1039,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.attributekeybranches.id",
+          "id": "test_prisma.attributekeybranches.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -1048,7 +1048,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "sep490.attributekeybranches.id",
+            "identifier": "test_prisma.attributekeybranches.id",
             "increment": 1,
             "start": 1
           },
@@ -1057,7 +1057,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.attributekeybranches.isActive",
+          "id": "test_prisma.attributekeybranches.isActive",
           "name": "isActive",
           "columnName": "isActive",
           "type": "tinyint",
@@ -1071,7 +1071,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.attributekeybranches.name",
+          "id": "test_prisma.attributekeybranches.name",
           "name": "name",
           "columnName": "name",
           "type": "varchar",
@@ -1085,7 +1085,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.attributekeybranches.updatedAt",
+          "id": "test_prisma.attributekeybranches.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -1115,13 +1115,13 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490.attributekeybranches.name",
+          "name": "test_prisma.attributekeybranches.name",
           "fields": [
             "name"
           ]
         },
         {
-          "name": "sep490.attributekeybranches.id",
+          "name": "test_prisma.attributekeybranches.id",
           "fields": [
             "id"
           ]
@@ -1129,12 +1129,12 @@
       ]
     },
     "attributekeycourt": {
-      "id": "sep490.attributekeycourt",
-      "schemaName": "sep490",
+      "id": "test_prisma.attributekeycourt",
+      "schemaName": "test_prisma",
       "tableName": "attributekeycourt",
       "fields": [
         {
-          "id": "sep490.attributekeycourt.createdAt",
+          "id": "test_prisma.attributekeycourt.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -1148,7 +1148,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.attributekeycourt.description",
+          "id": "test_prisma.attributekeycourt.description",
           "name": "description",
           "columnName": "description",
           "type": "varchar",
@@ -1162,7 +1162,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.attributekeycourt.id",
+          "id": "test_prisma.attributekeycourt.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -1171,7 +1171,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "sep490.attributekeycourt.id",
+            "identifier": "test_prisma.attributekeycourt.id",
             "increment": 1,
             "start": 1
           },
@@ -1180,7 +1180,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.attributekeycourt.isActive",
+          "id": "test_prisma.attributekeycourt.isActive",
           "name": "isActive",
           "columnName": "isActive",
           "type": "tinyint",
@@ -1194,7 +1194,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.attributekeycourt.name",
+          "id": "test_prisma.attributekeycourt.name",
           "name": "name",
           "columnName": "name",
           "type": "varchar",
@@ -1208,7 +1208,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.attributekeycourt.updatedAt",
+          "id": "test_prisma.attributekeycourt.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -1238,13 +1238,13 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490.attributekeycourt.name",
+          "name": "test_prisma.attributekeycourt.name",
           "fields": [
             "name"
           ]
         },
         {
-          "name": "sep490.attributekeycourt.id",
+          "name": "test_prisma.attributekeycourt.id",
           "fields": [
             "id"
           ]
@@ -1252,12 +1252,12 @@
       ]
     },
     "blog": {
-      "id": "sep490.blog",
-      "schemaName": "sep490",
+      "id": "test_prisma.blog",
+      "schemaName": "test_prisma",
       "tableName": "blog",
       "fields": [
         {
-          "id": "sep490.blog.accountId",
+          "id": "test_prisma.blog.accountId",
           "name": "accountId",
           "columnName": "accountId",
           "type": "int",
@@ -1271,7 +1271,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.blog.content",
+          "id": "test_prisma.blog.content",
           "name": "content",
           "columnName": "content",
           "type": "varchar",
@@ -1285,7 +1285,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.blog.createdAt",
+          "id": "test_prisma.blog.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -1299,7 +1299,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.blog.id",
+          "id": "test_prisma.blog.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -1308,7 +1308,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "sep490.blog.id",
+            "identifier": "test_prisma.blog.id",
             "increment": 1,
             "start": 1
           },
@@ -1317,7 +1317,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.blog.image",
+          "id": "test_prisma.blog.image",
           "name": "image",
           "columnName": "image",
           "type": "varchar",
@@ -1331,10 +1331,10 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.blog.status",
+          "id": "test_prisma.blog.status",
           "name": "status",
           "columnName": "status",
-          "type": "enum_sep490_blog_status",
+          "type": "enum_test_prisma_blog_status",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -1345,7 +1345,7 @@
           "maxLength": 9
         },
         {
-          "id": "sep490.blog.title",
+          "id": "test_prisma.blog.title",
           "name": "title",
           "columnName": "title",
           "type": "varchar",
@@ -1359,7 +1359,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.blog.updatedAt",
+          "id": "test_prisma.blog.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -1407,7 +1407,7 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490.blog.id",
+          "name": "test_prisma.blog.id",
           "fields": [
             "id"
           ]
@@ -1415,12 +1415,12 @@
       ]
     },
     "booking": {
-      "id": "sep490.booking",
-      "schemaName": "sep490",
+      "id": "test_prisma.booking",
+      "schemaName": "test_prisma",
       "tableName": "booking",
       "fields": [
         {
-          "id": "sep490.booking.accountId",
+          "id": "test_prisma.booking.accountId",
           "name": "accountId",
           "columnName": "accountId",
           "type": "int",
@@ -1434,7 +1434,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.booking.courtId",
+          "id": "test_prisma.booking.courtId",
           "name": "courtId",
           "columnName": "courtId",
           "type": "int",
@@ -1448,7 +1448,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.booking.createdAt",
+          "id": "test_prisma.booking.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -1462,7 +1462,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.booking.dateTime",
+          "id": "test_prisma.booking.dateTime",
           "name": "dateTime",
           "columnName": "dateTime",
           "type": "datetime",
@@ -1476,7 +1476,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.booking.endTime",
+          "id": "test_prisma.booking.endTime",
           "name": "endTime",
           "columnName": "endTime",
           "type": "datetime",
@@ -1490,7 +1490,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.booking.id",
+          "id": "test_prisma.booking.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -1499,7 +1499,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "sep490.booking.id",
+            "identifier": "test_prisma.booking.id",
             "increment": 1,
             "start": 1
           },
@@ -1508,7 +1508,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.booking.price",
+          "id": "test_prisma.booking.price",
           "name": "price",
           "columnName": "price",
           "type": "int",
@@ -1522,7 +1522,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.booking.startTime",
+          "id": "test_prisma.booking.startTime",
           "name": "startTime",
           "columnName": "startTime",
           "type": "datetime",
@@ -1536,7 +1536,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.booking.updatedAt",
+          "id": "test_prisma.booking.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -1616,7 +1616,7 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490.booking.id",
+          "name": "test_prisma.booking.id",
           "fields": [
             "id"
           ]
@@ -1624,12 +1624,12 @@
       ]
     },
     "bookinginfo": {
-      "id": "sep490.bookinginfo",
-      "schemaName": "sep490",
+      "id": "test_prisma.bookinginfo",
+      "schemaName": "test_prisma",
       "tableName": "bookinginfo",
       "fields": [
         {
-          "id": "sep490.bookinginfo.bookingId",
+          "id": "test_prisma.bookinginfo.bookingId",
           "name": "bookingId",
           "columnName": "bookingId",
           "type": "int",
@@ -1643,7 +1643,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.bookinginfo.createdAt",
+          "id": "test_prisma.bookinginfo.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -1657,7 +1657,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.bookinginfo.id",
+          "id": "test_prisma.bookinginfo.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -1666,7 +1666,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "sep490.bookinginfo.id",
+            "identifier": "test_prisma.bookinginfo.id",
             "increment": 1,
             "start": 1
           },
@@ -1675,7 +1675,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.bookinginfo.name",
+          "id": "test_prisma.bookinginfo.name",
           "name": "name",
           "columnName": "name",
           "type": "varchar",
@@ -1689,7 +1689,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.bookinginfo.numberPhone",
+          "id": "test_prisma.bookinginfo.numberPhone",
           "name": "numberPhone",
           "columnName": "numberPhone",
           "type": "varchar",
@@ -1703,7 +1703,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.bookinginfo.updatedAt",
+          "id": "test_prisma.bookinginfo.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -1737,13 +1737,13 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490.bookinginfo.bookingId",
+          "name": "test_prisma.bookinginfo.bookingId",
           "fields": [
             "bookingId"
           ]
         },
         {
-          "name": "sep490.bookinginfo.id",
+          "name": "test_prisma.bookinginfo.id",
           "fields": [
             "id"
           ]
@@ -1751,12 +1751,12 @@
       ]
     },
     "branches": {
-      "id": "sep490.branches",
-      "schemaName": "sep490",
+      "id": "test_prisma.branches",
+      "schemaName": "test_prisma",
       "tableName": "branches",
       "fields": [
         {
-          "id": "sep490.branches.accountId",
+          "id": "test_prisma.branches.accountId",
           "name": "accountId",
           "columnName": "accountId",
           "type": "int",
@@ -1770,7 +1770,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.branches.businessLicense",
+          "id": "test_prisma.branches.businessLicense",
           "name": "businessLicense",
           "columnName": "businessLicense",
           "type": "varchar",
@@ -1784,7 +1784,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.branches.closingHours",
+          "id": "test_prisma.branches.closingHours",
           "name": "closingHours",
           "columnName": "closingHours",
           "type": "varchar",
@@ -1798,7 +1798,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.branches.createdAt",
+          "id": "test_prisma.branches.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -1812,7 +1812,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.branches.description",
+          "id": "test_prisma.branches.description",
           "name": "description",
           "columnName": "description",
           "type": "varchar",
@@ -1826,7 +1826,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.branches.email",
+          "id": "test_prisma.branches.email",
           "name": "email",
           "columnName": "email",
           "type": "varchar",
@@ -1840,7 +1840,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.branches.id",
+          "id": "test_prisma.branches.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -1849,7 +1849,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "sep490.branches.id",
+            "identifier": "test_prisma.branches.id",
             "increment": 1,
             "start": 1
           },
@@ -1858,7 +1858,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.branches.image",
+          "id": "test_prisma.branches.image",
           "name": "image",
           "columnName": "image",
           "type": "varchar",
@@ -1872,7 +1872,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.branches.isAccept",
+          "id": "test_prisma.branches.isAccept",
           "name": "isAccept",
           "columnName": "isAccept",
           "type": "tinyint",
@@ -1886,7 +1886,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.branches.isDelete",
+          "id": "test_prisma.branches.isDelete",
           "name": "isDelete",
           "columnName": "isDelete",
           "type": "tinyint",
@@ -1900,7 +1900,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.branches.name",
+          "id": "test_prisma.branches.name",
           "name": "name",
           "columnName": "name",
           "type": "varchar",
@@ -1914,7 +1914,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.branches.openingHours",
+          "id": "test_prisma.branches.openingHours",
           "name": "openingHours",
           "columnName": "openingHours",
           "type": "varchar",
@@ -1928,7 +1928,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.branches.phone",
+          "id": "test_prisma.branches.phone",
           "name": "phone",
           "columnName": "phone",
           "type": "varchar",
@@ -1942,7 +1942,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.branches.updatedAt",
+          "id": "test_prisma.branches.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -2018,14 +2018,14 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490.branches.name_accountId",
+          "name": "test_prisma.branches.name_accountId",
           "fields": [
             "name",
             "accountId"
           ]
         },
         {
-          "name": "sep490.branches.id",
+          "name": "test_prisma.branches.id",
           "fields": [
             "id"
           ]
@@ -2033,12 +2033,12 @@
       ]
     },
     "category": {
-      "id": "sep490.category",
-      "schemaName": "sep490",
+      "id": "test_prisma.category",
+      "schemaName": "test_prisma",
       "tableName": "category",
       "fields": [
         {
-          "id": "sep490.category.accountId",
+          "id": "test_prisma.category.accountId",
           "name": "accountId",
           "columnName": "accountId",
           "type": "int",
@@ -2052,7 +2052,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.category.attributeKeyCourtId",
+          "id": "test_prisma.category.attributeKeyCourtId",
           "name": "attributeKeyCourtId",
           "columnName": "attributeKeyCourtId",
           "type": "int",
@@ -2066,7 +2066,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.category.createdAt",
+          "id": "test_prisma.category.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -2080,7 +2080,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.category.id",
+          "id": "test_prisma.category.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -2089,7 +2089,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "sep490.category.id",
+            "identifier": "test_prisma.category.id",
             "increment": 1,
             "start": 1
           },
@@ -2098,7 +2098,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.category.isActive",
+          "id": "test_prisma.category.isActive",
           "name": "isActive",
           "columnName": "isActive",
           "type": "tinyint",
@@ -2112,7 +2112,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.category.isPublic",
+          "id": "test_prisma.category.isPublic",
           "name": "isPublic",
           "columnName": "isPublic",
           "type": "tinyint",
@@ -2126,7 +2126,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.category.updatedAt",
+          "id": "test_prisma.category.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -2140,7 +2140,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.category.value",
+          "id": "test_prisma.category.value",
           "name": "value",
           "columnName": "value",
           "type": "varchar",
@@ -2206,14 +2206,14 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490.category.value_attributeKeyCourtId",
+          "name": "test_prisma.category.value_attributeKeyCourtId",
           "fields": [
             "value",
             "attributeKeyCourtId"
           ]
         },
         {
-          "name": "sep490.category.id",
+          "name": "test_prisma.category.id",
           "fields": [
             "id"
           ]
@@ -2221,12 +2221,12 @@
       ]
     },
     "comment": {
-      "id": "sep490.comment",
-      "schemaName": "sep490",
+      "id": "test_prisma.comment",
+      "schemaName": "test_prisma",
       "tableName": "comment",
       "fields": [
         {
-          "id": "sep490.comment.accountId",
+          "id": "test_prisma.comment.accountId",
           "name": "accountId",
           "columnName": "accountId",
           "type": "int",
@@ -2240,7 +2240,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.comment.blogId",
+          "id": "test_prisma.comment.blogId",
           "name": "blogId",
           "columnName": "blogId",
           "type": "int",
@@ -2254,7 +2254,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.comment.content",
+          "id": "test_prisma.comment.content",
           "name": "content",
           "columnName": "content",
           "type": "varchar",
@@ -2268,7 +2268,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.comment.createdAt",
+          "id": "test_prisma.comment.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -2282,7 +2282,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.comment.id",
+          "id": "test_prisma.comment.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -2291,7 +2291,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "sep490.comment.id",
+            "identifier": "test_prisma.comment.id",
             "increment": 1,
             "start": 1
           },
@@ -2300,7 +2300,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.comment.image",
+          "id": "test_prisma.comment.image",
           "name": "image",
           "columnName": "image",
           "type": "varchar",
@@ -2314,7 +2314,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.comment.parentCommentId",
+          "id": "test_prisma.comment.parentCommentId",
           "name": "parentCommentId",
           "columnName": "parentCommentId",
           "type": "int",
@@ -2328,10 +2328,10 @@
           "maxLength": null
         },
         {
-          "id": "sep490.comment.status",
+          "id": "test_prisma.comment.status",
           "name": "status",
           "columnName": "status",
-          "type": "enum_sep490_comment_status",
+          "type": "enum_test_prisma_comment_status",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -2342,7 +2342,7 @@
           "maxLength": 9
         },
         {
-          "id": "sep490.comment.updatedAt",
+          "id": "test_prisma.comment.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -2426,7 +2426,7 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490.comment.id",
+          "name": "test_prisma.comment.id",
           "fields": [
             "id"
           ]
@@ -2434,12 +2434,12 @@
       ]
     },
     "court": {
-      "id": "sep490.court",
-      "schemaName": "sep490",
+      "id": "test_prisma.court",
+      "schemaName": "test_prisma",
       "tableName": "court",
       "fields": [
         {
-          "id": "sep490.court.branchesId",
+          "id": "test_prisma.court.branchesId",
           "name": "branchesId",
           "columnName": "branchesId",
           "type": "int",
@@ -2453,7 +2453,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.court.createdAt",
+          "id": "test_prisma.court.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -2467,7 +2467,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.court.id",
+          "id": "test_prisma.court.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -2476,7 +2476,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "sep490.court.id",
+            "identifier": "test_prisma.court.id",
             "increment": 1,
             "start": 1
           },
@@ -2485,7 +2485,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.court.name",
+          "id": "test_prisma.court.name",
           "name": "name",
           "columnName": "name",
           "type": "varchar",
@@ -2499,7 +2499,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.court.typeCourtId",
+          "id": "test_prisma.court.typeCourtId",
           "name": "typeCourtId",
           "columnName": "typeCourtId",
           "type": "int",
@@ -2513,7 +2513,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.court.updatedAt",
+          "id": "test_prisma.court.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -2579,7 +2579,7 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490.court.id",
+          "name": "test_prisma.court.id",
           "fields": [
             "id"
           ]
@@ -2587,12 +2587,12 @@
       ]
     },
     "invitation": {
-      "id": "sep490.invitation",
-      "schemaName": "sep490",
+      "id": "test_prisma.invitation",
+      "schemaName": "test_prisma",
       "tableName": "invitation",
       "fields": [
         {
-          "id": "sep490.invitation.accountRecipientId",
+          "id": "test_prisma.invitation.accountRecipientId",
           "name": "accountRecipientId",
           "columnName": "accountRecipientId",
           "type": "int",
@@ -2606,7 +2606,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.invitation.accountSendId",
+          "id": "test_prisma.invitation.accountSendId",
           "name": "accountSendId",
           "columnName": "accountSendId",
           "type": "int",
@@ -2620,7 +2620,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.invitation.createdAt",
+          "id": "test_prisma.invitation.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -2634,7 +2634,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.invitation.id",
+          "id": "test_prisma.invitation.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -2643,7 +2643,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "sep490.invitation.id",
+            "identifier": "test_prisma.invitation.id",
             "increment": 1,
             "start": 1
           },
@@ -2652,7 +2652,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.invitation.postId",
+          "id": "test_prisma.invitation.postId",
           "name": "postId",
           "columnName": "postId",
           "type": "int",
@@ -2666,10 +2666,10 @@
           "maxLength": null
         },
         {
-          "id": "sep490.invitation.status",
+          "id": "test_prisma.invitation.status",
           "name": "status",
           "columnName": "status",
-          "type": "enum_sep490_invitation_status",
+          "type": "enum_test_prisma_invitation_status",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -2680,7 +2680,7 @@
           "maxLength": 11
         },
         {
-          "id": "sep490.invitation.updatedAt",
+          "id": "test_prisma.invitation.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -2750,7 +2750,7 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490.invitation.id",
+          "name": "test_prisma.invitation.id",
           "fields": [
             "id"
           ]
@@ -2758,12 +2758,12 @@
       ]
     },
     "memberpost": {
-      "id": "sep490.memberpost",
-      "schemaName": "sep490",
+      "id": "test_prisma.memberpost",
+      "schemaName": "test_prisma",
       "tableName": "memberpost",
       "fields": [
         {
-          "id": "sep490.memberpost.createdAt",
+          "id": "test_prisma.memberpost.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -2777,10 +2777,10 @@
           "maxLength": null
         },
         {
-          "id": "sep490.memberpost.genderPost",
+          "id": "test_prisma.memberpost.genderPost",
           "name": "genderPost",
           "columnName": "genderPost",
-          "type": "enum_sep490_memberpost_gender_post",
+          "type": "enum_test_prisma_memberpost_gender_post",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -2791,7 +2791,7 @@
           "maxLength": 6
         },
         {
-          "id": "sep490.memberpost.id",
+          "id": "test_prisma.memberpost.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -2800,7 +2800,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "sep490.memberpost.id",
+            "identifier": "test_prisma.memberpost.id",
             "increment": 1,
             "start": 1
           },
@@ -2809,10 +2809,10 @@
           "maxLength": null
         },
         {
-          "id": "sep490.memberpost.level",
+          "id": "test_prisma.memberpost.level",
           "name": "level",
           "columnName": "level",
-          "type": "enum_sep490_memberpost_level",
+          "type": "enum_test_prisma_memberpost_level",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -2823,7 +2823,7 @@
           "maxLength": 2
         },
         {
-          "id": "sep490.memberpost.postId",
+          "id": "test_prisma.memberpost.postId",
           "name": "postId",
           "columnName": "postId",
           "type": "int",
@@ -2837,7 +2837,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.memberpost.price",
+          "id": "test_prisma.memberpost.price",
           "name": "price",
           "columnName": "price",
           "type": "varchar",
@@ -2851,7 +2851,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.memberpost.updatedAt",
+          "id": "test_prisma.memberpost.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -2885,7 +2885,7 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490.memberpost.id",
+          "name": "test_prisma.memberpost.id",
           "fields": [
             "id"
           ]
@@ -2893,12 +2893,12 @@
       ]
     },
     "notification": {
-      "id": "sep490.notification",
-      "schemaName": "sep490",
+      "id": "test_prisma.notification",
+      "schemaName": "test_prisma",
       "tableName": "notification",
       "fields": [
         {
-          "id": "sep490.notification.createdAt",
+          "id": "test_prisma.notification.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -2912,7 +2912,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.notification.id",
+          "id": "test_prisma.notification.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -2921,7 +2921,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "sep490.notification.id",
+            "identifier": "test_prisma.notification.id",
             "increment": 1,
             "start": 1
           },
@@ -2930,7 +2930,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.notification.message",
+          "id": "test_prisma.notification.message",
           "name": "message",
           "columnName": "message",
           "type": "varchar",
@@ -2944,7 +2944,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.notification.userId",
+          "id": "test_prisma.notification.userId",
           "name": "userId",
           "columnName": "userId",
           "type": "int",
@@ -2960,7 +2960,7 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490.notification.id",
+          "name": "test_prisma.notification.id",
           "fields": [
             "id"
           ]
@@ -2968,12 +2968,12 @@
       ]
     },
     "post": {
-      "id": "sep490.post",
-      "schemaName": "sep490",
+      "id": "test_prisma.post",
+      "schemaName": "test_prisma",
       "tableName": "post",
       "fields": [
         {
-          "id": "sep490.post.accountId",
+          "id": "test_prisma.post.accountId",
           "name": "accountId",
           "columnName": "accountId",
           "type": "int",
@@ -2987,7 +2987,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.post.bookingId",
+          "id": "test_prisma.post.bookingId",
           "name": "bookingId",
           "columnName": "bookingId",
           "type": "int",
@@ -3001,7 +3001,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.post.createdAt",
+          "id": "test_prisma.post.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -3015,7 +3015,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.post.desciption",
+          "id": "test_prisma.post.desciption",
           "name": "desciption",
           "columnName": "desciption",
           "type": "varchar",
@@ -3029,7 +3029,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.post.id",
+          "id": "test_prisma.post.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -3038,7 +3038,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "sep490.post.id",
+            "identifier": "test_prisma.post.id",
             "increment": 1,
             "start": 1
           },
@@ -3047,7 +3047,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.post.numberMember",
+          "id": "test_prisma.post.numberMember",
           "name": "numberMember",
           "columnName": "numberMember",
           "type": "int",
@@ -3061,7 +3061,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.post.updatedAt",
+          "id": "test_prisma.post.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -3141,13 +3141,13 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490.post.bookingId",
+          "name": "test_prisma.post.bookingId",
           "fields": [
             "bookingId"
           ]
         },
         {
-          "name": "sep490.post.id",
+          "name": "test_prisma.post.id",
           "fields": [
             "id"
           ]
@@ -3155,12 +3155,12 @@
       ]
     },
     "pricetypecourt": {
-      "id": "sep490.pricetypecourt",
-      "schemaName": "sep490",
+      "id": "test_prisma.pricetypecourt",
+      "schemaName": "test_prisma",
       "tableName": "pricetypecourt",
       "fields": [
         {
-          "id": "sep490.pricetypecourt.createdAt",
+          "id": "test_prisma.pricetypecourt.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -3174,7 +3174,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.pricetypecourt.endTime",
+          "id": "test_prisma.pricetypecourt.endTime",
           "name": "endTime",
           "columnName": "endTime",
           "type": "datetime",
@@ -3188,7 +3188,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.pricetypecourt.id",
+          "id": "test_prisma.pricetypecourt.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -3197,7 +3197,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "sep490.pricetypecourt.id",
+            "identifier": "test_prisma.pricetypecourt.id",
             "increment": 1,
             "start": 1
           },
@@ -3206,7 +3206,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.pricetypecourt.price",
+          "id": "test_prisma.pricetypecourt.price",
           "name": "price",
           "columnName": "price",
           "type": "int",
@@ -3220,7 +3220,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.pricetypecourt.startTime",
+          "id": "test_prisma.pricetypecourt.startTime",
           "name": "startTime",
           "columnName": "startTime",
           "type": "datetime",
@@ -3234,7 +3234,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.pricetypecourt.typeCourtId",
+          "id": "test_prisma.pricetypecourt.typeCourtId",
           "name": "typeCourtId",
           "columnName": "typeCourtId",
           "type": "int",
@@ -3248,7 +3248,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.pricetypecourt.updatedAt",
+          "id": "test_prisma.pricetypecourt.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -3282,7 +3282,7 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490.pricetypecourt.id",
+          "name": "test_prisma.pricetypecourt.id",
           "fields": [
             "id"
           ]
@@ -3290,12 +3290,12 @@
       ]
     },
     "review": {
-      "id": "sep490.review",
-      "schemaName": "sep490",
+      "id": "test_prisma.review",
+      "schemaName": "test_prisma",
       "tableName": "review",
       "fields": [
         {
-          "id": "sep490.review.accountRecipientId",
+          "id": "test_prisma.review.accountRecipientId",
           "name": "accountRecipientId",
           "columnName": "accountRecipientId",
           "type": "int",
@@ -3309,7 +3309,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.review.accountSendId",
+          "id": "test_prisma.review.accountSendId",
           "name": "accountSendId",
           "columnName": "accountSendId",
           "type": "int",
@@ -3323,7 +3323,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.review.comment",
+          "id": "test_prisma.review.comment",
           "name": "comment",
           "columnName": "comment",
           "type": "varchar",
@@ -3337,7 +3337,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.review.createdAt",
+          "id": "test_prisma.review.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -3351,7 +3351,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.review.id",
+          "id": "test_prisma.review.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -3360,7 +3360,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "sep490.review.id",
+            "identifier": "test_prisma.review.id",
             "increment": 1,
             "start": 1
           },
@@ -3369,7 +3369,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.review.rating",
+          "id": "test_prisma.review.rating",
           "name": "rating",
           "columnName": "rating",
           "type": "int",
@@ -3383,7 +3383,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.review.updatedAt",
+          "id": "test_prisma.review.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -3435,7 +3435,7 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490.review.id",
+          "name": "test_prisma.review.id",
           "fields": [
             "id"
           ]
@@ -3443,12 +3443,12 @@
       ]
     },
     "typecourt": {
-      "id": "sep490.typecourt",
-      "schemaName": "sep490",
+      "id": "test_prisma.typecourt",
+      "schemaName": "test_prisma",
       "tableName": "typecourt",
       "fields": [
         {
-          "id": "sep490.typecourt.accountId",
+          "id": "test_prisma.typecourt.accountId",
           "name": "accountId",
           "columnName": "accountId",
           "type": "int",
@@ -3462,7 +3462,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.typecourt.createdAt",
+          "id": "test_prisma.typecourt.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -3476,7 +3476,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.typecourt.description",
+          "id": "test_prisma.typecourt.description",
           "name": "description",
           "columnName": "description",
           "type": "varchar",
@@ -3490,7 +3490,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.typecourt.id",
+          "id": "test_prisma.typecourt.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -3499,7 +3499,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "sep490.typecourt.id",
+            "identifier": "test_prisma.typecourt.id",
             "increment": 1,
             "start": 1
           },
@@ -3508,7 +3508,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.typecourt.image",
+          "id": "test_prisma.typecourt.image",
           "name": "image",
           "columnName": "image",
           "type": "varchar",
@@ -3522,7 +3522,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.typecourt.name",
+          "id": "test_prisma.typecourt.name",
           "name": "name",
           "columnName": "name",
           "type": "varchar",
@@ -3536,7 +3536,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.typecourt.updatedAt",
+          "id": "test_prisma.typecourt.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -3612,13 +3612,13 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490.typecourt.id",
+          "name": "test_prisma.typecourt.id",
           "fields": [
             "id"
           ]
         },
         {
-          "name": "sep490.typecourt.name_accountId",
+          "name": "test_prisma.typecourt.name_accountId",
           "fields": [
             "name",
             "accountId"
@@ -3627,12 +3627,12 @@
       ]
     },
     "user": {
-      "id": "sep490.user",
-      "schemaName": "sep490",
+      "id": "test_prisma.user",
+      "schemaName": "test_prisma",
       "tableName": "user",
       "fields": [
         {
-          "id": "sep490.user.accountId",
+          "id": "test_prisma.user.accountId",
           "name": "accountId",
           "columnName": "accountId",
           "type": "int",
@@ -3646,7 +3646,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.user.address",
+          "id": "test_prisma.user.address",
           "name": "address",
           "columnName": "address",
           "type": "varchar",
@@ -3660,7 +3660,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.user.avatar",
+          "id": "test_prisma.user.avatar",
           "name": "avatar",
           "columnName": "avatar",
           "type": "varchar",
@@ -3674,7 +3674,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.user.createdAt",
+          "id": "test_prisma.user.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -3688,7 +3688,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.user.dob",
+          "id": "test_prisma.user.dob",
           "name": "dob",
           "columnName": "dob",
           "type": "datetime",
@@ -3702,7 +3702,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.user.fullName",
+          "id": "test_prisma.user.fullName",
           "name": "fullName",
           "columnName": "fullName",
           "type": "varchar",
@@ -3716,10 +3716,10 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.user.gender",
+          "id": "test_prisma.user.gender",
           "name": "gender",
           "columnName": "gender",
-          "type": "enum_sep490_user_gender",
+          "type": "enum_test_prisma_user_gender",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -3730,7 +3730,7 @@
           "maxLength": 6
         },
         {
-          "id": "sep490.user.id",
+          "id": "test_prisma.user.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -3739,7 +3739,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "sep490.user.id",
+            "identifier": "test_prisma.user.id",
             "increment": 1,
             "start": 1
           },
@@ -3748,7 +3748,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.user.identifierCode",
+          "id": "test_prisma.user.identifierCode",
           "name": "identifierCode",
           "columnName": "identifierCode",
           "type": "varchar",
@@ -3762,7 +3762,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.user.numberPhone",
+          "id": "test_prisma.user.numberPhone",
           "name": "numberPhone",
           "columnName": "numberPhone",
           "type": "varchar",
@@ -3776,7 +3776,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.user.updatedAt",
+          "id": "test_prisma.user.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -3810,13 +3810,13 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490.user.id",
+          "name": "test_prisma.user.id",
           "fields": [
             "id"
           ]
         },
         {
-          "name": "sep490.user.accountId",
+          "name": "test_prisma.user.accountId",
           "fields": [
             "accountId"
           ]
@@ -3824,12 +3824,12 @@
       ]
     },
     "useravailability": {
-      "id": "sep490.useravailability",
-      "schemaName": "sep490",
+      "id": "test_prisma.useravailability",
+      "schemaName": "test_prisma",
       "tableName": "useravailability",
       "fields": [
         {
-          "id": "sep490.useravailability.accountId",
+          "id": "test_prisma.useravailability.accountId",
           "name": "accountId",
           "columnName": "accountId",
           "type": "int",
@@ -3843,7 +3843,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.useravailability.createdAt",
+          "id": "test_prisma.useravailability.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -3857,7 +3857,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.useravailability.dateTime",
+          "id": "test_prisma.useravailability.dateTime",
           "name": "dateTime",
           "columnName": "dateTime",
           "type": "datetime",
@@ -3871,7 +3871,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.useravailability.districts",
+          "id": "test_prisma.useravailability.districts",
           "name": "districts",
           "columnName": "districts",
           "type": "varchar",
@@ -3885,7 +3885,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.useravailability.endTime",
+          "id": "test_prisma.useravailability.endTime",
           "name": "endTime",
           "columnName": "endTime",
           "type": "datetime",
@@ -3899,7 +3899,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.useravailability.id",
+          "id": "test_prisma.useravailability.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -3908,7 +3908,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "sep490.useravailability.id",
+            "identifier": "test_prisma.useravailability.id",
             "increment": 1,
             "start": 1
           },
@@ -3917,7 +3917,7 @@
           "maxLength": null
         },
         {
-          "id": "sep490.useravailability.provinces",
+          "id": "test_prisma.useravailability.provinces",
           "name": "provinces",
           "columnName": "provinces",
           "type": "varchar",
@@ -3931,7 +3931,7 @@
           "maxLength": 191
         },
         {
-          "id": "sep490.useravailability.startTime",
+          "id": "test_prisma.useravailability.startTime",
           "name": "startTime",
           "columnName": "startTime",
           "type": "datetime",
@@ -3945,10 +3945,10 @@
           "maxLength": null
         },
         {
-          "id": "sep490.useravailability.status",
+          "id": "test_prisma.useravailability.status",
           "name": "status",
           "columnName": "status",
-          "type": "enum_sep490_useravailability_status",
+          "type": "enum_test_prisma_useravailability_status",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -3959,7 +3959,7 @@
           "maxLength": 11
         },
         {
-          "id": "sep490.useravailability.updatedAt",
+          "id": "test_prisma.useravailability.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -3993,7 +3993,7 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "sep490.useravailability.id",
+          "name": "test_prisma.useravailability.id",
           "fields": [
             "id"
           ]
@@ -4002,8 +4002,8 @@
     }
   },
   "enums": {
-    "enum_sep490_user_gender": {
-      "schemaName": "sep490",
+    "enum_test_prisma_user_gender": {
+      "schemaName": "test_prisma",
       "values": [
         {
           "name": "MALE"
@@ -4016,8 +4016,8 @@
         }
       ]
     },
-    "enum_sep490_memberpost_gender_post": {
-      "schemaName": "sep490",
+    "enum_test_prisma_memberpost_gender_post": {
+      "schemaName": "test_prisma",
       "values": [
         {
           "name": "MALE"
@@ -4030,8 +4030,8 @@
         }
       ]
     },
-    "enum_sep490_memberpost_level": {
-      "schemaName": "sep490",
+    "enum_test_prisma_memberpost_level": {
+      "schemaName": "test_prisma",
       "values": [
         {
           "name": "Y"
@@ -4050,8 +4050,8 @@
         }
       ]
     },
-    "enum_sep490_account_role": {
-      "schemaName": "sep490",
+    "enum_test_prisma_account_role": {
+      "schemaName": "test_prisma",
       "values": [
         {
           "name": "USER"
@@ -4064,8 +4064,8 @@
         }
       ]
     },
-    "enum_sep490_blog_status": {
-      "schemaName": "sep490",
+    "enum_test_prisma_blog_status": {
+      "schemaName": "test_prisma",
       "values": [
         {
           "name": "DRAFT"
@@ -4081,8 +4081,8 @@
         }
       ]
     },
-    "enum_sep490_comment_status": {
-      "schemaName": "sep490",
+    "enum_test_prisma_comment_status": {
+      "schemaName": "test_prisma",
       "values": [
         {
           "name": "DRAFT"
@@ -4098,8 +4098,8 @@
         }
       ]
     },
-    "enum_sep490_invitation_status": {
-      "schemaName": "sep490",
+    "enum_test_prisma_invitation_status": {
+      "schemaName": "test_prisma",
       "values": [
         {
           "name": "AVAILABLE"
@@ -4109,8 +4109,8 @@
         }
       ]
     },
-    "enum_sep490_useravailability_status": {
-      "schemaName": "sep490",
+    "enum_test_prisma_useravailability_status": {
+      "schemaName": "test_prisma",
       "values": [
         {
           "name": "AVAILABLE"

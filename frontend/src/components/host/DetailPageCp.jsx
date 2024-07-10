@@ -10,27 +10,20 @@ import {
   Button,
 } from "@mui/material";
 import {
+  AccessTime,
+  AccessTimeFilled,
   LocationOn,
-  CalendarToday,
-  Repeat,
-  Group,
-  School,
-  AttachMoney,
-  SportsBasketball,
-  AttachMoney as MoneyIcon,
+  Subject,
 } from "@mui/icons-material";
 import RightSectionDetailPage from "./RightSectionDetailPage";
 import RightSectionHost from "./RightSectionHost";
 const DetailPageCp = ({
-  title,
+  name,
   image,
   location,
-  date,
+  openingHours,
+  closingHours,
   description,
-  frequency,
-  participants,
-  level,
-  price,
   map,
   id,
   role,
@@ -57,14 +50,11 @@ const DetailPageCp = ({
           />
           <CardContent>
             <Typography variant="h4" gutterBottom>
-              {title}
+              {name}
             </Typography>
             {renderInfoItem(LocationOn, location)}
-            {renderInfoItem(CalendarToday, date)}
-            {renderInfoItem(Repeat, frequency)}
-            {renderInfoItem(Group, participants)}
-            {renderInfoItem(School, level)}
-            {renderInfoItem(AttachMoney, price)}
+            {renderInfoItem(AccessTime, openingHours)}
+            {renderInfoItem(AccessTimeFilled, closingHours)}
           </CardContent>
         </Card>
 
@@ -73,8 +63,12 @@ const DetailPageCp = ({
             <Typography variant="h6" gutterBottom>
               Mô tả thêm
             </Typography>
-            {renderInfoItem(SportsBasketball, description)}
-            <Typography variant="body2">{description}</Typography>
+            <Box display="flex" alignItems="start" mb={1}>
+              <Subject color="action" />
+              <Typography variant="body2" ml={1}>
+                {description}
+              </Typography>
+            </Box>
           </CardContent>
         </Card>
         {map && (
