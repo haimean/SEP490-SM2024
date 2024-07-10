@@ -9,20 +9,20 @@ import InboxIcon from "@mui/icons-material/Inbox";
 const sidebar = [
   {
     id: 1,
-    name: "Dashboard",
+    name: "Thống kê",
   },
   {
     id: 2,
-    name: "Danh sách sân",
+    name: "Danh sách cơ sở",
   },
   {
     id: 3,
-    name: "Danh sách sân",
+    name: "Lịch sử đăng ký",
   },
 ];
 export default function Sidebar() {
   return (
-    <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
+    <Box sx={{ width: "100%", bgcolor: "background.paper", mt: "9vh" }}>
       <nav aria-label="main mailbox folders">
         <List>
           {sidebar.map((item) => (
@@ -38,20 +38,6 @@ export default function Sidebar() {
         </List>
       </nav>
       <Divider />
-      <nav aria-label="secondary mailbox folders">
-        <List>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemText primary="Trash" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component="a" href="#simple-list">
-              <ListItemText primary="Spam" />
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </nav>
     </Box>
   );
 }
