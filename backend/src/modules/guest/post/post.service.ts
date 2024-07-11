@@ -25,7 +25,16 @@ const postGuestService = {
           },
         },
         memberPost: true,
-        invitation: true,
+        invitation: {
+          include: {
+            accountSend: {
+              include: {
+                user: true,
+                userAvailability: true,
+              },
+            },
+          },
+        },
       },
     });
   },
