@@ -12,20 +12,20 @@ import ChangePasswordPage from "../pages/auth/changePassword/ChangePasswordPage.
 import ListAccount from "../pages/admin/ListAccount/ListAccount.jsx";
 import NotFound from "../pages/common/NotFound/NotFound.jsx";
 import Dashboard from "../pages/admin/Dashboard/Dashboard.jsx";
-import ListBranch from "../pages/guest/Branch/ListBranch.jsx";
-import BranchDetail from "../pages/guest/Branch/BranchDetail.jsx";
 import CreateBranch from "../pages/host/Branch/CreateBranch.jsx";
-import ListCourt from "../pages/guest/Court/ListCourt.jsx";
-import CourtDetail from "../pages/guest/Court/CourtDetail.jsx";
 import Checkout from "../pages/player/Court/Checkout.jsx";
 import RegisterCourt from "../pages/host/Court/RegisterCourt.jsx";
 import UpdateCourt from "../pages/host/Court/UpdateCourt.jsx";
 import CreateBlog from "../pages/player/Blog/CreateBlog.jsx";
-import ResponsiveDrawer from "../layouts/host/LayoutHost.jsx";
 import ComparePage from "../components/host/court/ComparePage.jsx";
 import Notification from "../pages/notification.jsx";
 import BookingHistory from "../pages/player/BookHistory/BookingHistory.jsx";
 import BookingDetail from "../components/player/BookHistory/BookingDetail.jsx";
+import ListBranch from "../pages/guest/Branch/ListBranch.jsx";
+import BranchDetail from "../pages/guest/Branch/BranchDetail.jsx";
+import ListCourt from "../pages/guest/Court/ListCourt.jsx";
+import CourtDetail from "../pages/guest/Court/CourtDetail.jsx";
+import CreateBranchNew from "../pages/host/Branch/CreateBranchNew.jsx";
 
 const router = [
   {
@@ -120,14 +120,14 @@ const router = [
     layout: "admin",
   },
   {
-    path: "/host/list-branch",
+    path: "/list-branch",
     name: "List Branch",
     component: <ListBranch />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "host",
   },
   {
-    path: "/host/branch/:id",
+    path: "/branch/:id",
     name: "Branch Detail",
     component: <BranchDetail />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
@@ -155,7 +155,7 @@ const router = [
     layout: "host",
   },
   {
-    path: "/host/court/:id",
+    path: "/court/:id",
     name: "Court List",
     component: <ListCourt />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
@@ -197,7 +197,7 @@ const router = [
     layout: "host",
   },
   {
-    path: "/host/compare/:court1/:court2",
+    path: "/compare/:court1/:court2",
     name: "Update Court",
     component: <ComparePage />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
@@ -206,8 +206,8 @@ const router = [
   {
     path: "/host/test",
     name: "Update Court",
-    component: <ResponsiveDrawer />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    component: <CreateBranchNew />,
+    // role: ["H"], // Chỉ cho phép HOST truy cập
     layout: "",
   },
   {

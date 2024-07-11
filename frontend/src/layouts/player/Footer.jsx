@@ -1,5 +1,3 @@
-import React from "react";
-
 const Footer = () => {
   return (
     <footer className="bg-white py-8">
@@ -23,7 +21,7 @@ const Footer = () => {
             </li>
             <li className="mr-4">
               <a href="#" className="text-gray-600 hover:text-gray-800">
-                FAQ's
+                {"FAQ's"}
               </a>
             </li>
             <li>
