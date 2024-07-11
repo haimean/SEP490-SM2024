@@ -30,6 +30,34 @@ const branchesAdminService = {
       },
     });
   },
+  getDefault: async (id: number): Promise<any> => {
+    return await database.branches.findUnique({
+      where: {
+        id,
+        isDelete: false,
+      },
+    });
+  },
+
+  setAccept: async (id: number, isAccept: boolean): Promise<any> => {
+    return await database.branches.update({
+      where: {
+        id,
+      },
+      data: {
+        isAccept,
+      },
+      include: {
+        address: true,
+        court: { include: { TypeCourt: true } },
+        attributeBranches: {
+          include: {
+            attributeKeyBranches: true,
+          },
+        },
+      },
+    });
+  },
 };
 
 export default branchesAdminService;
