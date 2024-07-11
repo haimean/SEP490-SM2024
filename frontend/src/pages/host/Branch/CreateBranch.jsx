@@ -56,46 +56,35 @@ const CreateBranch = () => {
   }, []);
 
   const onSubmit = async (data) => {
+    const formData = new FormData();
     try {
-      // Tạo chuỗi mô tả chứa tất cả thông tin phụ
-      const additionalInfo = `
-        Mã chi nhánh: ${data.branchCode}
-        Địa chỉ: ${data.location}
-        SĐT: ${data.phoneNumber}
-        Email: ${data.email}
-        Fax: ${data.fax || "Không có"}
-        Quản lý: ${data.managerName}
-        SĐT quản lý: ${data.managerPhone}
-        Giờ mở cửa: ${data.openingHours}
-        Giấy phép kinh doanh: ${data.businessLicense}
-        Mã số thuế: ${data.taxId}
-        ${
-          data.branchDescription
-            ? "Mô tả bổ sung: " + data.branchDescription
-            : ""
+      formData.append("name", data.branchName);
+      formData.append("description", data.description);
+      formData.append("phone", data.phone);
+      formData.append("openingHours", "10:10");
+      formData.append("closingHours", "20:10");
+      formData.append("longitude", "107.09848786676099");
+      formData.append("latitude", "20.962297338909874");
+      formData.append("provinces", data.provinces);
+      formData.append("districts", data.districts);
+      formData.append("wards", data.wards);
+      formData.append("detail", data.detail);
+      formData.append("email", data.email);
+      data.attributeBranches.map((item) => {
+        if (item != "") {
+          formData.append("attributeBranches", item);
         }
-      `.trim();
-
-      const requestData = {
-        name: data.branchName,
-        attributeBranches: serviceOptions.map((option) => ({
-          id: option.key,
-        })),
-        court: [0], // Mặc định là 0 theo yêu cầu
-        addressLongitude: "107.09848786676099",
-        addressLatitude: "20.962297338909874",
-        description: additionalInfo,
-        image: data.businessLicensePicture,
-      };
-
-      console.log(typeof requestData.name);
-
-      await CallApi(
-        "/api/host/branches",
-        "post",
-        { headers: { "Content-Type": "multipart/form-data" } },
-        requestData
-      );
+      });
+      if (data.businessLicensePicture) {
+        formData.append("businessLicense", data.businessLicensePicture);
+      }
+      if (data.image) {
+        formData.append("image", data.image);
+      }
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+      }
+      await CallApi("/api/host/branches", "post", formData);
       toast.success(`Tạo chi nhánh ${data.branchName} thành công!`);
     } catch (error) {
       toast.error(
@@ -119,12 +108,12 @@ const CreateBranch = () => {
   //hàm này để lọc theo atbName và render ra option value theo atb key
   const serviceOptions = useMemo(
     () =>
-      branchAtbList.map((item) => ({
-        name: item.name,
+      branchAtbList.map((item, index) => ({
+        name: `attributeBranches[${index}]`,
         key: item.id,
         label: item.name,
         type: "select-custom",
-        required: false,
+        required: true,
         options: item.attributeBranches.map((itemChildren) => ({
           key: itemChildren.id,
           label: itemChildren.value,
@@ -144,19 +133,27 @@ const CreateBranch = () => {
         required: true,
       },
       {
+        name: "image",
+        type: "image",
+        label: "Ảnh cơ sở",
+        required: true,
+        gridWidth: 12,
+      },
+      {
         name: "branchName",
         label: "Tên chi nhánh",
         type: "text",
         required: true,
-        gridWidth: 6,
+        gridWidth: 12,
       },
       {
-        name: "branchCode",
-        label: "Mã nhận diện chi nhánh",
+        name: "description",
+        label: "Mô tả",
         type: "text",
         required: true,
-        gridWidth: 6,
+        gridWidth: 12,
       },
+
       {
         name: "branchLocation",
         label: "Địa chỉ chi nhánh",
@@ -171,13 +168,31 @@ const CreateBranch = () => {
         gridWidth: 12,
       },
       {
+        name: "provinces",
+        label: "Tỉnh",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "districts",
+        label: "Huyện",
+        type: "text",
+        required: true,
+      },
+      {
+        name: "wards",
+        label: "Xã",
+        type: "text",
+        required: true,
+      },
+      {
         name: "branchContact",
         label: "Thông tin liên hệ chi nhánh",
         type: "section",
         required: true,
       },
       {
-        name: "phoneNumber",
+        name: "phone",
         label: "Số điện thoại liên hệ",
         type: "tel",
         required: true,
@@ -185,16 +200,10 @@ const CreateBranch = () => {
       },
       {
         name: "email",
-        label: "Địa chỉ email",
+        label: "Địa chỉ email liên hệ",
         type: "text",
         required: true,
         gridWidth: 6,
-      },
-      {
-        name: "fax",
-        label: "Fax",
-        type: "tel",
-        required: false,
       },
       {
         name: "branchWork",
@@ -210,15 +219,15 @@ const CreateBranch = () => {
         gridWidth: 12,
       },
       {
-        name: "managerPhone",
-        label: "Số điện thoại quản lý chi nhánh",
-        type: "tel",
+        name: "openingHours",
+        label: "Giờ mở cửa",
+        type: "text",
         required: true,
         gridWidth: 6,
       },
       {
-        name: "openingHours",
-        label: "Giờ mở cửa",
+        name: "closingHours",
+        label: "Giờ đóng cửa",
         type: "text",
         required: true,
         gridWidth: 6,
@@ -234,14 +243,14 @@ const CreateBranch = () => {
         name: "businessLicense",
         label: "Giấy phép kinh doanh",
         type: "text",
-        required: true,
+        required: false,
         gridWidth: 6,
       },
       {
         name: "taxId",
         label: "Mã số thuế",
         type: "text",
-        required: true,
+        required: false,
         gridWidth: 6,
       },
       {

@@ -1,11 +1,12 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CourtDetailList from "../../../components/host/court/CourtDetailList";
-import ResponsiveDrawer from "../../../layouts/host/LayoutHost";
 import CallApi from "../../../service/CallAPI";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const ListCourt = () => {
+  const storedUserRole = localStorage.getItem("userRole");
+  console.log("🚀 ========= storedUserRole:", storedUserRole);
   const { id } = useParams();
   const [courtList, setCourtList] = useState([
     {
@@ -46,16 +47,16 @@ const ListCourt = () => {
       return prev;
     });
   };
+  const getAllCourt = async () => {
+    try {
+      const result = await CallApi(`/api/court/branch/${id}`, "get");
+      setData(result.data);
+      console.log("🚀 ========= result:", result.data);
+    } catch (error) {
+      console.log("🚀 ========= error:", error);
+    }
+  };
   useEffect(() => {
-    const getAllCourt = async () => {
-      try {
-        const result = await CallApi(`/api/court/branch/${id}`, "get");
-        setData(result.data);
-        console.log("🚀 ========= result:", result.data);
-      } catch (error) {
-        console.log("🚀 ========= error:", error);
-      }
-    };
     getAllCourt();
   }, []);
   const handleRemoveCompare = (court) => {
@@ -66,31 +67,45 @@ const ListCourt = () => {
       )
     );
   };
+  const handleDeleteCourt = async (id) => {
+    try {
+      const confirmBan = window.confirm(`Bạn có muốn xóa sân ${id} không ?`);
+      if (!confirmBan) return;
+      const result = await CallApi(
+        `/api/host/court/delete-court/${id}`,
+        "delete"
+      );
+      if (result) {
+        getAllCourt();
+        toast.success(`Xóa sân ${id} thành công`);
+      }
+    } catch (error) {
+      console.log("🚀 ========= error:", error);
+    }
+  };
   return (
-    <>
-      <ResponsiveDrawer>
-        <div className="bg-gray-100 min-h-screen p-4">
-          <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">
-              Tìm thấy {data.length} hoạt động
-            </h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {data.map((activity, index) => (
-                <CourtDetailList
-                  key={index}
-                  activity={activity}
-                  courtList={courtList}
-                  handleCompare={handleCompare}
-                  isCompare={isCompare}
-                  setIsCompare={setIsCompare}
-                  handleRemoveCompare={handleRemoveCompare}
-                />
-              ))}
-            </div>
-          </div>
+    <div className="bg-gray-100 min-h-screen p-4">
+      <div className="container mx-auto p-4">
+        <h1 className="text-2xl font-bold mb-4">
+          Tìm thấy {data.length} hoạt động
+        </h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {data.map((activity, index) => (
+            <CourtDetailList
+              key={index}
+              activity={activity}
+              courtList={courtList}
+              handleCompare={handleCompare}
+              isCompare={isCompare}
+              setIsCompare={setIsCompare}
+              handleRemoveCompare={handleRemoveCompare}
+              onDeleteCourt={handleDeleteCourt}
+              role={storedUserRole}
+            />
+          ))}
         </div>
-      </ResponsiveDrawer>
-    </>
+      </div>
+    </div>
   );
 };
 

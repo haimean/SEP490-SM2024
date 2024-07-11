@@ -26,4 +26,8 @@ branchesHostRouter.put(
   branchesHostMiddleware.update,
   branchesHostController.updateInformation
 );
+branchesHostRouter.put(
+  '/branch-delete/:id',
+  branchesHostController.delete
+);
 export default branchesHostRouter;

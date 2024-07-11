@@ -144,6 +144,16 @@ const branchesHostController = {
       next(new CustomError(error?.message, 500));
     }
   },
+  delete: async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    try {
+      const result = await branchesHostService.delete(Number(id));
+      console.log('🚀 ========= result:', result);
+      ResponseHandler(res, result);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
 };
 
 export default branchesHostController;

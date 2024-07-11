@@ -1,8 +1,6 @@
 import { Box } from "@mui/material";
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
-import Navbar from "../../../layouts/player/Navbar";
-import Footer from "../../../layouts/player/Footer";
 import DetailPageCp from "../../../components/host/DetailPageCp";
 import { useParams } from "react-router-dom";
 import CallApi from "../../../service/CallAPI";

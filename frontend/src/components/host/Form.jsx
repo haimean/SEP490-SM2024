@@ -49,11 +49,7 @@ const Form = ({
   };
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit(onSubmit)}
-      sx={{ mt: 3, border: 3, p: 3, borderRadius: 3, borderColor: "#f0f0f0" }}
-    >
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={2}>
         {formConfig.map((field) => (
           <Grid
@@ -79,7 +75,7 @@ const Form = ({
           Đăng tin
         </Button>
       </Box>
-    </Box>
+    </form>
   );
 };
 

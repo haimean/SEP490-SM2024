@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CardComponent from "../../../components/host/CardComponent";
 import { Link } from "react-router-dom";
 import { Box, Grid, Typography } from "@mui/material";
