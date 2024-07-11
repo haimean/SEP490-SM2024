@@ -25,7 +25,6 @@ import ListBranch from "../pages/guest/Branch/ListBranch.jsx";
 import BranchDetail from "../pages/guest/Branch/BranchDetail.jsx";
 import ListCourt from "../pages/guest/Court/ListCourt.jsx";
 import CourtDetail from "../pages/guest/Court/CourtDetail.jsx";
-import CreateBranchNew from "../pages/host/Branch/CreateBranchNew.jsx";
 
 const router = [
   {
@@ -201,13 +200,6 @@ const router = [
     name: "Update Court",
     component: <ComparePage />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
-    layout: "",
-  },
-  {
-    path: "/host/test",
-    name: "Update Court",
-    component: <CreateBranchNew />,
-    // role: ["H"], // Chỉ cho phép HOST truy cập
     layout: "",
   },
   {
