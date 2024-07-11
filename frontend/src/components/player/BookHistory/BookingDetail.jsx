@@ -60,7 +60,6 @@ const BookingDetail = () => {
             display: "flex",
             alignItems: "center",
             textDecoration: "none",
-            color: "inherit",
             cursor: "pointer",
             color: "gray"
           }}
