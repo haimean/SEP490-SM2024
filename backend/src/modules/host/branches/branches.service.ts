@@ -34,7 +34,11 @@ const branchesHostService = {
         isDelete: false,
       },
       include: {
-        account: true,
+        account: {
+          include: {
+            user: true,
+          },
+        },
         address: true,
         court: { include: { TypeCourt: true } },
         attributeBranches: {
