@@ -11,22 +11,23 @@ const BranchDetail = () => {
   const [userRole, setUserRole] = useState("");
   const [branchDetail, setBranchDetail] = useState({});
   const { id } = useParams();
+  const role = localStorage.getItem("userRole");
 
   useEffect(() => {
+    const fetchBranchDetail = async () => {
+      try {
+        const apiUrl = role === "host" ? "/api/host/branches" : "/api/branches";
+        const response = await CallApi(`${apiUrl}/${id}`, "get");
+        setBranchDetail(response?.data);
+      } catch (error) {
+        console.log(
+          "=============== fetch list branch ERROR: " +
+            error.response?.data?.error
+        );
+      }
+    };
     fetchBranchDetail();
   }, [id]);
-
-  const fetchBranchDetail = async () => {
-    try {
-      const response = await CallApi(`/api/host/branches/${id}`, "get");
-      setBranchDetail(response?.data);
-    } catch (error) {
-      console.log(
-        "=============== fetch list branch ERROR: " +
-          error.response?.data?.error
-      );
-    }
-  };
 
   useEffect(() => {
     const storedUserRole = localStorage.getItem("userRole");
@@ -47,25 +48,25 @@ const BranchDetail = () => {
     />
   );
   return (
-      <Box
-        sx={{
-          my: 12,
-          mx: 10,
-        }}
-      >
-        <DetailPageCp
-          name={branchDetail?.name}
-          image={branchDetail?.image}
-          location={branchDetail?.address?.districts}
-          openingHours={branchDetail?.openingHours}
-          description={branchDetail?.description}
-          closingHours={branchDetail?.closingHours}
-          id={id}
-          role={userRole}
-          map={map}
-          type={"Branch"}
-        />
-      </Box>
+    <Box
+      sx={{
+        my: 12,
+        mx: 10,
+      }}
+    >
+      <DetailPageCp
+        name={branchDetail?.name}
+        image={branchDetail?.image}
+        location={branchDetail?.address?.districts}
+        openingHours={branchDetail?.openingHours}
+        description={branchDetail?.description}
+        closingHours={branchDetail?.closingHours}
+        id={id}
+        role={userRole}
+        map={map}
+        type={"Branch"}
+      />
+    </Box>
   );
 };
 
