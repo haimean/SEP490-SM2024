@@ -101,7 +101,7 @@ const DetailPageCp = ({
           </Card>
         )}
       </Grid>
-      {role == "ADMIN" ? (
+      {role == "USER" ? (
         <RightSectionDetailPage />
       ) : (
         <RightSectionHost id={id} type={type} />

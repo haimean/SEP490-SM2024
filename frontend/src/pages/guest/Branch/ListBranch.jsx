@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../../../layouts/player/Navbar";
-import Footer from "../../../layouts/player/Footer";
 import CardComponent from "../../../components/host/CardComponent";
 import { Link } from "react-router-dom";
 import { Box, Grid, Typography } from "@mui/material";
@@ -13,23 +11,23 @@ const ListBranch = () => {
     area: "",
     time: "",
   });
+  const role = localStorage.getItem("userRole");
 
   useEffect(() => {
+    const fetchBranchList = async () => {
+      try {
+        const apiUrl = role === "host" ? "/api/host/branches" : "/api/branches";
+        const response = await CallApi(apiUrl, "get");
+        setListBranch(response?.data);
+      } catch (error) {
+        console.log(
+          "=============== fetch list branch ERROR: " +
+            error.response?.data?.error
+        );
+      }
+    };
     fetchBranchList();
-  }, []);
-
-  console.log(listBranch);
-  const fetchBranchList = async () => {
-    try {
-      const response = await CallApi("/api/host/branches", "get");
-      setListBranch(response?.data);
-    } catch (error) {
-      console.log(
-        "=============== fetch list branch ERROR: " +
-          error.response?.data?.error
-      );
-    }
-  };
+  }, [role]);
 
   const getFilteredAndSortedBranches = () => {
     let filteredBranches = [...listBranch];
@@ -112,7 +110,9 @@ const ListBranch = () => {
       <Grid container spacing={3}>
         {branchesDisplay.map((item) => (
           <Grid item xs={12} sm={4} md={3} key={item.id}>
-            <Link to={`/host/branch/${item.id}`}>
+            <Link
+              to={`/${role === "host" ? "host" : "player"}/branch/${item.id}`}
+            >
               <CardComponent
                 name={item?.name}
                 location={item?.address?.districts}

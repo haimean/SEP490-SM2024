@@ -132,6 +132,20 @@ const router = [
     layout: "host",
   },
   {
+    path: "/player/list-branch",
+    name: "List Branch",
+    component: <ListBranch />,
+    // role: ["USER"], // Chỉ cho phép USER truy cập
+    layout: "",
+  },
+  {
+    path: "/player/branch/:id",
+    name: "Branch Detail",
+    component: <BranchDetail />,
+    // role: ["USER"], // Chỉ cho phép USER truy cập
+    layout: "",
+  },
+  {
     path: "/host/create-branch",
     name: "Create Branch",
     component: <CreateBranch />,
@@ -143,7 +157,7 @@ const router = [
     name: "Court List",
     component: <ListCourt />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
-    layout: "",
+    layout: "host",
   },
   {
     path: "/branch/:idBranch/court/:idCourt",
@@ -171,14 +185,14 @@ const router = [
     name: "Register Court",
     component: <RegisterCourt />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
-    layout: "",
+    layout: "host",
   },
   {
     path: "/host/update-court/:id",
     name: "Update Court",
     component: <UpdateCourt />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
-    layout: "",
+    layout: "host",
   },
   {
     path: "/host/compare/:court1/:court2",

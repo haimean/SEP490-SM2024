@@ -42,8 +42,8 @@ const NavbarItemUser = () => {
           <MenuItem value="" disabled>
             Cơ sở
           </MenuItem>
-          <MenuItem value="/user/list-branch">Danh sách cơ sở</MenuItem>
-          <MenuItem value="/user/....">Link đến trang nào đó của user</MenuItem>
+          <MenuItem value="/player/list-branch">Danh sách cơ sở</MenuItem>
+          <MenuItem value="/player/....">Link đến trang nào đó của user</MenuItem>
         </Select>
       </FormControl>
 
