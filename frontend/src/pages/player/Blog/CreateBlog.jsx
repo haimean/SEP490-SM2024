@@ -1,4 +1,3 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import Form from "../../../components/host/Form";
 import Navbar from "../../../layouts/player/Navbar";

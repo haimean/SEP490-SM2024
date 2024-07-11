@@ -119,14 +119,14 @@ const router = [
     layout: "admin",
   },
   {
-    path: "/list-branch",
+    path: "/host/list-branch",
     name: "List Branch",
     component: <ListBranch />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "host",
   },
   {
-    path: "/branch/:id",
+    path: "/host/branch/:id",
     name: "Branch Detail",
     component: <BranchDetail />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập

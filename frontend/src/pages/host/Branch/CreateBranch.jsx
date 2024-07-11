@@ -15,7 +15,6 @@ const CreateBranch = () => {
     formState: { errors },
   } = useForm();
   const [branchAtbList, setBranchAtbList] = useState([]);
-  console.log("🚀 ========= branchAtbList:", branchAtbList);
 
   useEffect(() => {
     fetchBranchAtbList();
@@ -26,7 +25,6 @@ const CreateBranch = () => {
       value: data.value,
       attributeKeyBranchesId: data.id,
     };
-    console.log("🚀 ========= requestData:", requestData);
     try {
       const response = await CallApi(
         "/api/host/attribute-branches",
@@ -59,43 +57,7 @@ const CreateBranch = () => {
 
   const onSubmit = async (data) => {
     const formData = new FormData();
-
-    // console.log("🚀 ========= e:", e);
-    console.log("🚀 ========= data:", data);
     try {
-      // Tạo chuỗi mô tả chứa tất cả thông tin phụ
-      // const additionalInfo = `
-      //   Mã chi nhánh: ${data.branchCode}
-      //   Địa chỉ: ${data.location}
-      //   SĐT: ${data.phoneNumber}
-      //   Email: ${data.email}
-      //   Fax: ${data.fax || "Không có"}
-      //   Quản lý: ${data.managerName}
-      //   SĐT quản lý: ${data.managerPhone}
-      //   Giờ mở cửa: ${data.openingHours}
-      //   Giấy phép kinh doanh: ${data.businessLicense}
-      //   Mã số thuế: ${data.taxId}
-      //   ${
-      //     data.branchDescription
-      //       ? "Mô tả bổ sung: " + data.branchDescription
-      //       : ""
-      //   }
-      // `.trim();
-
-      // const requestData = {
-      //   name: data.branchName,
-      //   attributeBranches: serviceOptions.map((option) => ({
-      //     id: option.key,
-      //   })),
-      //   court: 1, // Mặc định là 0 theo yêu cầu
-      //   addressLongitude: "107.09848786676099",
-      //   addressLatitude: "20.962297338909874",
-      //   // description: additionalInfo,
-      //   description: "",
-      //   additionalInfo,
-      //   image: data.businessLicensePicture,
-      // };
-      // console.log("🚀 ========= requestData:", requestData);
       formData.append("name", data.branchName);
       formData.append("description", data.description);
       formData.append("phone", data.phone);
@@ -108,16 +70,7 @@ const CreateBranch = () => {
       formData.append("wards", data.wards);
       formData.append("detail", data.detail);
       formData.append("email", data.email);
-      // formData.append("attributeBranches", 1);
-      // formData.append("court", 1);
-      // formData.append("attributeBranches", 2);
-      // formData.append("court", 2);
-      console.log(
-        "🚀 ========= data.attributeBranches:",
-        data.attributeBranches
-      );
       data.attributeBranches.map((item) => {
-        console.log("🚀 ========= item:", item);
         if (item != "") {
           formData.append("attributeBranches", item);
         }
@@ -131,13 +84,7 @@ const CreateBranch = () => {
       for (let [key, value] of formData.entries()) {
         console.log(`${key}: ${value}`);
       }
-      console.log(
-        "🚀 ========= businessLicensePicture:",
-        data.businessLicensePicture
-      );
-      console.log("🚀 ========= formData:", formData);
-      const result = await CallApi("/api/host/branches", "post", formData);
-      console.log("🚀 ========= result:", result);
+      await CallApi("/api/host/branches", "post", formData);
       toast.success(`Tạo chi nhánh ${data.branchName} thành công!`);
     } catch (error) {
       toast.error(
