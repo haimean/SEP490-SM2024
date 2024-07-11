@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Grid, Typography } from '@mui/material';
 import PostCard from '../Post/PostCard';
 import LocationFilter from './LocationFilter';
+import CallApi from '../../../service/CallAPI';
 
 const activities = [
   {
@@ -68,6 +69,24 @@ const AvailableCourt = () => {
     level: '',
     price: '',
   });
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await CallApi(
+        "/api/booking/get-booking-post",
+        "get",
+        {},
+        {}
+      );
+      console.log(response);
+    } catch (error) {
+      toast.error(error.response?.data?.error);
+    }
+  };
 
   const handleFilterChange = (province, district, ward, date, time, level, price) => {
     setFilters({ province, district, ward, date, time, level, price });
