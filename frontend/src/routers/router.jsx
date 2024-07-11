@@ -24,6 +24,8 @@ import CreateBlog from "../pages/player/Blog/CreateBlog.jsx";
 import ResponsiveDrawer from "../layouts/host/LayoutHost.jsx";
 import ComparePage from "../components/host/court/ComparePage.jsx";
 import Notification from "../pages/notification.jsx";
+import BookingHistory from "../pages/player/BookHistory/BookingHistory.jsx";
+import BookingDetail from "../components/player/BookHistory/BookingDetail.jsx";
 
 const router = [
   {
@@ -206,6 +208,20 @@ const router = [
     name: "Update Court",
     component: <ResponsiveDrawer />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/player/booking-history",
+    name: "Booking History",
+    component: <BookingHistory />,
+    // role: ["USER"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/player/booking-history/:id",
+    name: "Booking History Detail",
+    component: <BookingDetail />,
+    // role: ["USER"], // Chỉ cho phép HOST truy cập
     layout: "",
   },
   {

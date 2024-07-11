@@ -42,12 +42,17 @@ const NavbarItemUser = () => {
           <MenuItem value="" disabled>
             Cơ sở
           </MenuItem>
-          <MenuItem value="/player/list-branch">Danh sách cơ sở</MenuItem>
-          <MenuItem value="/player/....">Link đến trang nào đó của user</MenuItem>
+          <MenuItem value="/player/list-branch">Cơ sở</MenuItem>
         </Select>
       </FormControl>
-
-      {/* dẫn đến trang dashboard của host */}
+      <Button
+        color="inherit"
+        component={Link}
+        to="/player/booking-history"
+        sx={{ textTransform: "none" }}
+      >
+        Lịch sử đặt sân
+      </Button>
     </Box>
   );
 };
