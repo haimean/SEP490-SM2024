@@ -6,10 +6,11 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import EventIcon from '@mui/icons-material/Event';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
-import testImg from "D:/1_2024-05-SEM9/DOAN/scl.jpg";
+// import testImg from "D:/1_2024-05-SEM9/DOAN/scl.jpg";
 import { format, parseISO } from 'date-fns';
 
 const PostCard = ({ activity }) => {
+    const testImg = "https://via.placeholder.com/200"
     const navigate = useNavigate();
 
     const handleClick = () => {

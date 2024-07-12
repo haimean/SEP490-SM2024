@@ -17,8 +17,9 @@ import {
     AccountBox
 } from "@mui/icons-material";
 import CourtCard from "../Court/CourtCard";
-import testImg from "D:/1_2024-05-SEM9/DOAN/scl.jpg"
+// import testImg from "D:/1_2024-05-SEM9/DOAN/scl.jpg"
 
+const testImg = "https://via.placeholder.com/200"
 const courts = [
     {
       id: 1,

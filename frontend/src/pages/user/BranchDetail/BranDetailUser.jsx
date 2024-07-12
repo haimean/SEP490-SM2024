@@ -3,10 +3,10 @@ import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Navbar from "../../../layouts/player/Navbar";
 import Footer from "../../../layouts/player/Footer";
-import testImg from "D:/1_2024-05-SEM9/DOAN/scl.jpg"
+// import testImg from "D:/1_2024-05-SEM9/DOAN/scl.jpg"
 import UserBranchDetail from "../../../components/user/Branch/UserBranchDetail";
 import { useParams } from "react-router-dom";
-
+const testImg = "https://via.placeholder.com/200"
 const BranDetailUser = () => {
   const { id } = useParams();
   const fakeData = {
