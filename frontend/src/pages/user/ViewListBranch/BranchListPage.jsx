@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Container, Grid, Typography } from '@mui/material';
 import BranchFilter from '../../../components/user/Branch/BranchFilter';
 import BranchCard from '../../../components/user/Branch/BranchCard';
-import testImg from "D:/1_2024-05-SEM9/DOAN/scl.jpg"
+// import testImg from "D:/1_2024-05-SEM9/DOAN/scl.jpg"
 
+const testImg = "https://via.placeholder.com/200"
 const branches = [
   {
     id: 1,
