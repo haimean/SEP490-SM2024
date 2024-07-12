@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 // eslint-disable-next-line react-refresh/only-export-components
 const ProtectedRoute = ({ component, roles = [] }) => {
   const { user, role } = useSelector((state) => state.user);
-  if (!user && roles.length > 0) {
+  if (!user) {
     // Người dùng chưa đăng nhập và route yêu cầu đăng nhập
     return <Navigate to="/login" replace />;
   }

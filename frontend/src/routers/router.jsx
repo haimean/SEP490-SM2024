@@ -12,18 +12,20 @@ import ChangePasswordPage from "../pages/auth/ChangePassword/ChangePasswordPage.
 import ListAccount from "../pages/admin/ListAccount/ListAccount.jsx";
 import NotFound from "../pages/common/NotFound/NotFound.jsx";
 import Dashboard from "../pages/admin/Dashboard/Dashboard.jsx";
-import ListBranch from "../pages/guest/Branch/ListBranch.jsx";
-import BranchDetail from "../pages/guest/Branch/BranchDetail.jsx";
 import CreateBranch from "../pages/host/Branch/CreateBranch.jsx";
-import ListCourt from "../pages/guest/Court/ListCourt.jsx";
-import CourtDetail from "../pages/guest/Court/CourtDetail.jsx";
 import Checkout from "../pages/player/Court/Checkout.jsx";
 import RegisterCourt from "../pages/host/Court/RegisterCourt.jsx";
 import UpdateCourt from "../pages/host/Court/UpdateCourt.jsx";
 import CreateBlog from "../pages/player/Blog/CreateBlog.jsx";
-import ResponsiveDrawer from "../layouts/host/LayoutHost.jsx";
 import ComparePage from "../components/host/court/ComparePage.jsx";
 import Notification from "../pages/notification.jsx";
+import BookingHistory from "../pages/player/BookHistory/BookingHistory.jsx";
+import BookingDetail from "../components/player/BookHistory/BookingDetail.jsx";
+import ListBranch from "../pages/guest/Branch/ListBranch.jsx";
+import BranchDetail from "../pages/guest/Branch/BranchDetail.jsx";
+import ListCourt from "../pages/guest/Court/ListCourt.jsx";
+import CourtDetail from "../pages/guest/Court/CourtDetail.jsx";
+
 import WaitingList from "../pages/user/WaitingList/WaitingList.jsx";
 import BookingTablePage from "../pages/user/BookingTable/BookingTable.jsx";
 import AvailableCourtPage from "../pages/user/AvailableCourt/AvailableCourt.jsx";
@@ -160,7 +162,7 @@ const router = [
     layout: "host",
   },
   {
-    path: "/host/court/:id",
+    path: "/court/:id",
     name: "Court List",
     component: <ListCourt />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
@@ -202,17 +204,24 @@ const router = [
     layout: "host",
   },
   {
-    path: "/host/compare/:court1/:court2",
+    path: "/compare/:court1/:court2",
     name: "Update Court",
     component: <ComparePage />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "",
   },
   {
-    path: "/host/test",
-    name: "Update Court",
-    component: <ResponsiveDrawer />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    path: "/player/booking-history",
+    name: "Booking History",
+    component: <BookingHistory />,
+    // role: ["USER"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/player/booking-history/:id",
+    name: "Booking History Detail",
+    component: <BookingDetail />,
+    // role: ["USER"], // Chỉ cho phép HOST truy cập
     layout: "",
   },
   {

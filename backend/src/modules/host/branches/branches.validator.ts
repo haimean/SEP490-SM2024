@@ -13,7 +13,7 @@ const branchesHostValidator = {
       .regex(regex.phoneNumber)
       .required()
       .label('Số điện thoại'),
-    email: Joi.string().email().label('Số điện thoại'),
+    email: Joi.string().email().label('email'),
     openingHours: Joi.string()
       .regex(regex.time)
       .required()

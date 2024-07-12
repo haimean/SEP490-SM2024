@@ -34,6 +34,11 @@ const branchesHostService = {
         isDelete: false,
       },
       include: {
+        account: {
+          include: {
+            user: true,
+          },
+        },
         address: true,
         court: { include: { TypeCourt: true } },
         attributeBranches: {
@@ -175,6 +180,22 @@ const branchesHostService = {
         },
         data: query,
       });
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  },
+
+  delete: async (id: number) => {
+    try {
+      const result = await database.branches.update({
+        where: {
+          id,
+        },
+        data: {
+          isDelete: true,
+        },
+      });
+      return result;
     } catch (error: any) {
       throw new Error(error);
     }

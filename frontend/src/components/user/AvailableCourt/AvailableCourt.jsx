@@ -3,6 +3,8 @@ import { Container, Grid, Typography } from '@mui/material';
 import PostCard from '../Post/PostCard';
 import LocationFilter from './LocationFilter';
 import CallApi from '../../../service/CallAPI';
+import { toast } from "react-toastify";
+import { format, parseISO } from 'date-fns';
 
 const activities = [
   {
@@ -60,6 +62,8 @@ const activities = [
 ];
 
 const AvailableCourt = () => {
+  const [activities, setActivities] = useState([]);
+
   const [filters, setFilters] = useState({
     province: '',
     district: '',
@@ -82,7 +86,11 @@ const AvailableCourt = () => {
         {},
         {}
       );
+      setActivities(response.data);
       console.log(response);
+      response.data.map(booking => {
+        console.log(booking.bookingInfo.name);
+      })
     } catch (error) {
       toast.error(error.response?.data?.error);
     }
@@ -90,20 +98,23 @@ const AvailableCourt = () => {
 
   const handleFilterChange = (province, district, ward, date, time, level, price) => {
     setFilters({ province, district, ward, date, time, level, price });
+    console.log(date);
   };
 
-  const isTimeInRange = (timeRange, selectedTime) => {
-    if (!timeRange || !selectedTime) return true;
-    const [start, end] = timeRange.split(' - ');
+  const isTimeInRange = (start, end, selectedTime) => {
+    if (!start || !end || !selectedTime) return true;
     return selectedTime >= start && selectedTime <= end;
   };
 
   const filteredActivities = activities.filter((activity) => {
-    if (filters.province && activity.province !== filters.province) return false;
-    if (filters.district && activity.district !== filters.district) return false;
-    if (filters.ward && activity.ward !== filters.ward) return false;
-    if (filters.date && activity.date !== filters.date) return false;
-    if (filters.time && !isTimeInRange(activity.time, filters.time)) return false;
+    const formattedDate = format(parseISO(activity.dateTime), 'yyyy-MM-dd');
+    const formattedStartTime = format(parseISO(activity.startTime), 'HH:mm');
+    const formattedEndTime = format(parseISO(activity.endTime), 'HH:mm');
+    if (filters.province && activity.Court.Branches.address.provinces !== filters.province) return false;
+    if (filters.district && activity.Court.Branches.address.districts !== filters.district) return false;
+    if (filters.ward && activity.Court.Branches.address.wards !== filters.ward) return false;
+    if (filters.date && formattedDate !== filters.date) return false;
+    if (filters.time && !isTimeInRange(formattedStartTime, formattedEndTime, filters.time)) return false;
     if (filters.level && activity.level !== filters.level) return false;
     if (filters.price && filters.price !== 'deal' && parseInt(activity.price) > parseInt(filters.price)) return false;
     if (filters.price === 'deal' && activity.price !== 'Thỏa thuận') return false;
