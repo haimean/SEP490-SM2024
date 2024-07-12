@@ -1,10 +1,3 @@
-import React from "react";
-import Navbar from "../../layouts/player/Navbar.jsx";
-import Footer from "../../layouts/player/Footer.jsx";
-import feature_1 from "../../assets/svg/feature_1.svg";
-import feature_2 from "../../assets/svg/feature_2.svg";
-import feature_3 from "../../assets/svg/feature_3.svg";
-import feature_4 from "../../assets/svg/feature_4.svg";
 import discover_1 from "../../assets/svg/discover_1.svg";
 import discover_2 from "../../assets/svg/discover_2.svg";
 import discover_3 from "../../assets/svg/discover_3.svg";
@@ -35,7 +28,6 @@ const LandingPage = () => {
 
   return (
     <>
-      <Navbar />
       <main>
         <section className="relative py-10 overflow-hidden text-center text-white text-opacity-80 md:py-20 bg-blue-400 mt-16">
           <div className="max-w-screen-sm mx-auto">
@@ -230,7 +222,6 @@ const LandingPage = () => {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 };

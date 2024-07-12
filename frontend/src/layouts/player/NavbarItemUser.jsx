@@ -21,30 +21,14 @@ const NavbarItemUser = () => {
       >
         Trang chủ
       </Button>
-      <FormControl sx={{ m: 1, minWidth: 120 }}>
-        <Select
-          value={selectedOption}
-          onChange={handleSelectChange}
-          displayEmpty
-          inputProps={{ "aria-label": "Without label" }}
-          sx={{
-            color: "white",
-            "& .MuiSelect-icon": { color: "white" },
-            "& .MuiOutlinedInput-notchedOutline": { border: "none" },
-            "&:hover .MuiOutlinedInput-notchedOutline": {
-              border: "none",
-            },
-            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-              border: "none",
-            },
-          }}
-        >
-          <MenuItem value="" disabled>
-            Cơ sở
-          </MenuItem>
-          <MenuItem value="/player/list-branch">Cơ sở</MenuItem>
-        </Select>
-      </FormControl>
+      <Button
+        color="inherit"
+        component={Link}
+        to="/player/list-branch"
+        sx={{ textTransform: "none" }}
+      >
+        Sân đấu
+      </Button>
       <Button
         color="inherit"
         component={Link}

@@ -16,7 +16,7 @@ const ListBranch = () => {
   useEffect(() => {
     const fetchBranchList = async () => {
       try {
-        const apiUrl = role === "host" ? "/api/host/branches" : "/api/branches";
+        const apiUrl = role === "HOST" ? "/api/host/branches" : "/api/branches";
         const response = await CallApi(apiUrl, "get");
         setListBranch(response?.data);
       } catch (error) {
@@ -111,7 +111,7 @@ const ListBranch = () => {
         {branchesDisplay.map((item) => (
           <Grid item xs={12} sm={4} md={3} key={item.id}>
             <Link
-              to={`/${role === "host" ? "host" : "player"}/branch/${item.id}`}
+              to={`/${role === "HOST" ? "host" : "player"}/branch/${item.id}`}
             >
               <CardComponent
                 name={item?.name}
