@@ -14,6 +14,7 @@ const bookingGuestService = {
       },
       include: {
         bookingInfo: true,
+        post: true,
         Court: {
           include: {
             Branches: {
