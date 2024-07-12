@@ -8,7 +8,7 @@ import ListAttributeCourt from "../pages/admin/AttributeCourt/ListAttributeCourt
 import DetailAttributeCourt from "../pages/admin/AttributeCourt/DetailAttributeCourt.jsx";
 import LandingPage from "../pages/common/LandingPage.jsx";
 import Profile from "../pages/common/Profile.jsx";
-import ChangePasswordPage from "../pages/auth/changePassword/ChangePasswordPage.jsx";
+import ChangePasswordPage from "../pages/auth/ChangePassword/ChangePasswordPage.jsx";
 import ListAccount from "../pages/admin/ListAccount/ListAccount.jsx";
 import NotFound from "../pages/common/NotFound/NotFound.jsx";
 import Dashboard from "../pages/admin/Dashboard/Dashboard.jsx";
@@ -25,6 +25,14 @@ import ListBranch from "../pages/guest/Branch/ListBranch.jsx";
 import BranchDetail from "../pages/guest/Branch/BranchDetail.jsx";
 import ListCourt from "../pages/guest/Court/ListCourt.jsx";
 import CourtDetail from "../pages/guest/Court/CourtDetail.jsx";
+
+import WaitingList from "../pages/user/WaitingList/WaitingList.jsx";
+import BookingTablePage from "../pages/user/BookingTable/BookingTable.jsx";
+import AvailableCourtPage from "../pages/user/AvailableCourt/AvailableCourt.jsx";
+import PostDetail from "../pages/user/PostDetail/PostDetail.jsx";
+import BookedCourts from "../pages/user/ViewListBooked/BookedCourtsTable.jsx";
+import BranchListPage from "../pages/user/ViewListBranch/BranchListPage.jsx";
+import BranDetailUser from "../pages/user/BranchDetail/BranDetailUser.jsx";
 
 const router = [
   {
@@ -227,6 +235,55 @@ const router = [
     path: "/notification",
     name: "Notification",
     component: <Notification />,
+    layout: "",
+  },
+  {
+    path: "/waiting-list",
+    name: "Waiting List",
+    component: <WaitingList />,
+    // role: ["USER"],
+    layout: "",
+  },
+  {
+    path: "/booking-table",
+    name: "Booking Table",
+    component: <BookingTablePage />,
+    // role: ["USER"],
+    layout: "",
+  },
+  {
+    path: "/available-court",
+    name: "Available Court",
+    component: <AvailableCourtPage />,
+    // role: ["USER"],
+    layout: "",
+  },
+  {
+    path: "/post/:id",
+    name: "Post Detail",
+    component: <PostDetail />,
+    // role: ["USER"],
+    layout: "",
+  },
+  {
+    path: "/booked-courts",
+    name: "Booked Courts",
+    component: <BookedCourts />,
+    // role: ["USER"],
+    layout: "",
+  },
+  {
+    path: "/search-courts",
+    name: "Search Courts",
+    component: <BranchListPage />,
+    // role: ["USER"],
+    layout: "",
+  },
+  {
+    path: "/user/branch/:id",
+    name: "Branch Detail User",
+    component: <BranDetailUser />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "",
   },
 ];

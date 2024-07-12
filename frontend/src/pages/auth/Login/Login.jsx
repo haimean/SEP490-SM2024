@@ -1,7 +1,7 @@
 import React from "react";
 import SignInForm from "../../../components/auth/SignInForm.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import withAuthRedirect from "../../../utils/withAuthRedirect.jsx";
+import WithAuthRedirect from "../../../utils/WithAuthRedirect.jsx";
 const Login = () => {
   return (
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
@@ -10,4 +10,4 @@ const Login = () => {
   );
 };
 
-export default withAuthRedirect(Login, "/");
+export default WithAuthRedirect(Login, "/");
