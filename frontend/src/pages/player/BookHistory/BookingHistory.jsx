@@ -98,7 +98,7 @@ const BookingHistory = () => {
           <ListItem key={booking.id} disablePadding>
             <BookingHistoryItem
               booking={booking}
-              onCancelSuccess={handleCancelSuccess}
+              // onCancelSuccess={handleCancelSuccess}
             />
           </ListItem>
         ))}

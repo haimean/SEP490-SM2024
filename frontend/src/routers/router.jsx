@@ -8,7 +8,7 @@ import ListAttributeCourt from "../pages/admin/AttributeCourt/ListAttributeCourt
 import DetailAttributeCourt from "../pages/admin/AttributeCourt/DetailAttributeCourt.jsx";
 import LandingPage from "../pages/common/LandingPage.jsx";
 import Profile from "../pages/common/Profile.jsx";
-import ChangePasswordPage from "../pages/auth/ChangePassword/ChangePasswordPage.jsx";
+import ChangePasswordPage from "../pages/auth/changePassword/ChangePasswordPage.jsx";
 import ListAccount from "../pages/admin/ListAccount/ListAccount.jsx";
 import NotFound from "../pages/common/NotFound/NotFound.jsx";
 import Dashboard from "../pages/admin/Dashboard/Dashboard.jsx";
@@ -205,7 +205,7 @@ const router = [
   },
   {
     path: "/compare/:court1/:court2",
-    name: "Update Court",
+    name: "Compare Court",
     component: <ComparePage />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "",
