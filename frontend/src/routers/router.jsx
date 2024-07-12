@@ -24,7 +24,7 @@ import BookingDetail from "../components/player/BookHistory/BookingDetail.jsx";
 import ListBranch from "../pages/guest/Branch/ListBranch.jsx";
 import BranchDetail from "../pages/guest/Branch/BranchDetail.jsx";
 import ListCourt from "../pages/guest/Court/ListCourt.jsx";
-import CourtDetail from "../pages/guest/Court/CourtDetail.jsx";
+import CourtDetail   from "../pages/guest/Court/CourtDetail.jsx";
 
 import WaitingList from "../pages/user/WaitingList/WaitingList.jsx";
 import BookingTablePage from "../pages/user/BookingTable/BookingTable.jsx";

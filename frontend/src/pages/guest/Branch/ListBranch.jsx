@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import CardComponent from "../../../components/host/CardComponent";
-import { Link } from "react-router-dom";
 import { Box, Grid, Typography } from "@mui/material";
 import FilterCp from "../../../components/host/FilterCp";
 import CallApi from "../../../service/CallAPI";
@@ -12,20 +11,20 @@ const ListBranch = () => {
     time: "",
   });
   const role = localStorage.getItem("userRole");
-
+  const fetchBranchList = async () => {
+    try {
+      const apiUrl = role === "HOST" ? "/api/host/branches" : "/api/branches";
+      const response = await CallApi(apiUrl, "get");
+      console.log("🚀 ========= response:", response);
+      setListBranch(response?.data);
+    } catch (error) {
+      console.log(
+        "=============== fetch list branch ERROR: " +
+          error.response?.data?.error
+      );
+    }
+  };
   useEffect(() => {
-    const fetchBranchList = async () => {
-      try {
-        const apiUrl = role === "HOST" ? "/api/host/branches" : "/api/branches";
-        const response = await CallApi(apiUrl, "get");
-        setListBranch(response?.data);
-      } catch (error) {
-        console.log(
-          "=============== fetch list branch ERROR: " +
-            error.response?.data?.error
-        );
-      }
-    };
     fetchBranchList();
   }, [role]);
 
@@ -89,7 +88,17 @@ const ListBranch = () => {
   const isFilterApplied = () => {
     return filters.area !== "" || filters.time !== "";
   };
-
+  const handleDeleteBranch = async (id) => {
+    try {
+      const apiUrl = `/api/host/branches/branch-delete/${id}`;
+      const response = await CallApi(apiUrl, "put");
+      fetchBranchList();
+    } catch (error) {
+      console.log(
+        "=============== delete branch ERROR: " + error.response?.data?.error
+      );
+    }
+  };
   const branchesDisplay = isFilterApplied()
     ? getFilteredAndSortedBranches()
     : listBranch;
@@ -110,16 +119,15 @@ const ListBranch = () => {
       <Grid container spacing={3}>
         {branchesDisplay.map((item) => (
           <Grid item xs={12} sm={4} md={3} key={item.id}>
-            <Link
-              to={`/${role === "HOST" ? "host" : "player"}/branch/${item.id}`}
-            >
-              <CardComponent
-                name={item?.name}
-                location={item?.address?.districts}
-                time={item?.openingHours}
-                image={item?.image}
-              />
-            </Link>
+            <CardComponent
+              name={item?.name}
+              location={item?.address?.districts}
+              time={item?.openingHours}
+              image={item?.image}
+              role={role}
+              id={item?.id}
+              onDeleteBranch={handleDeleteBranch}
+            />
           </Grid>
         ))}
       </Grid>
