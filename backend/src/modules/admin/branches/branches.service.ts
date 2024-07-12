@@ -4,7 +4,7 @@ const branchesAdminService = {
   getAll: async () => {
     return await database.branches.findMany({
       where: {
-        isAccept: true,
+        isAccept: false,
         isDelete: false,
       },
       include: {

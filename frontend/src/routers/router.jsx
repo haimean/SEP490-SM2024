@@ -29,6 +29,7 @@ import CourtDetail from "../pages/guest/Court/CourtDetail.jsx";
 import WaitingList from "../pages/user/WaitingList/WaitingList.jsx";
 import BookingTablePage from "../pages/user/BookingTable/BookingTable.jsx";
 import AvailableCourtPage from "../pages/user/AvailableCourt/AvailableCourt.jsx";
+import AcceptBranch from "../components/admin/AcceptBranch/AcceptBranch.jsx";
 import PostDetail from "../pages/user/PostDetail/PostDetail.jsx";
 import BookedCourts from "../pages/user/ViewListBooked/BookedCourtsTable.jsx";
 import BranchListPage from "../pages/user/ViewListBranch/BranchListPage.jsx";
@@ -116,6 +117,13 @@ const router = [
     path: "/admin/list-account",
     name: "List Account",
     component: <ListAccount />,
+    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
+    layout: "admin",
+  },
+  {
+    path: "/admin/accept-branch",
+    name: "Accept Branch",
+    component: <AcceptBranch />,
     role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
     layout: "admin",
   },

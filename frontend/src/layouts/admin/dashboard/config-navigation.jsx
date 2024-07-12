@@ -31,9 +31,9 @@ const navConfig = [
     icon: icon("ic_blog"),
   },
   {
-    title: "login",
-    path: "/admin/login",
-    icon: icon("ic_lock"),
+    title: "accept branch",
+    path: "/admin/accept-branch",
+    icon: icon("ic_court"),
   },
   {
     title: "Not found",
