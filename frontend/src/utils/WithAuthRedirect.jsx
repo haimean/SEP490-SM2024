@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
-const withAuthRedirect = (WrappedComponent, defaultRedirectTo) => {
+const WithAuthRedirect = (WrappedComponent, defaultRedirectTo) => {
   const AuthRedirect = (props) => {
     const { user, role } = useSelector((state) => state.user);
 
@@ -19,4 +19,4 @@ const withAuthRedirect = (WrappedComponent, defaultRedirectTo) => {
   return AuthRedirect;
 };
 
-export default withAuthRedirect;
+export default WithAuthRedirect;

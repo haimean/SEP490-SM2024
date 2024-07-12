@@ -26,6 +26,14 @@ import BranchDetail from "../pages/guest/Branch/BranchDetail.jsx";
 import ListCourt from "../pages/guest/Court/ListCourt.jsx";
 import CourtDetail from "../pages/guest/Court/CourtDetail.jsx";
 
+import WaitingList from "../pages/user/WaitingList/WaitingList.jsx";
+import BookingTablePage from "../pages/user/BookingTable/BookingTable.jsx";
+import AvailableCourtPage from "../pages/user/AvailableCourt/AvailableCourt.jsx";
+import PostDetail from "../pages/user/PostDetail/PostDetail.jsx";
+import BookedCourts from "../pages/user/ViewListBooked/BookedCourtsTable.jsx";
+import BranchListPage from "../pages/user/ViewListBranch/BranchListPage.jsx";
+import BranDetailUser from "../pages/user/BranchDetail/BranDetailUser.jsx";
+
 const router = [
   {
     path: "/",
@@ -197,7 +205,7 @@ const router = [
   },
   {
     path: "/compare/:court1/:court2",
-    name: "Update Court",
+    name: "Compare Court",
     component: <ComparePage />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "",
@@ -227,6 +235,55 @@ const router = [
     path: "/notification",
     name: "Notification",
     component: <Notification />,
+    layout: "",
+  },
+  {
+    path: "/waiting-list",
+    name: "Waiting List",
+    component: <WaitingList />,
+    // role: ["USER"],
+    layout: "",
+  },
+  {
+    path: "/booking-table",
+    name: "Booking Table",
+    component: <BookingTablePage />,
+    // role: ["USER"],
+    layout: "",
+  },
+  {
+    path: "/available-court",
+    name: "Available Court",
+    component: <AvailableCourtPage />,
+    // role: ["USER"],
+    layout: "",
+  },
+  {
+    path: "/post/:id",
+    name: "Post Detail",
+    component: <PostDetail />,
+    // role: ["USER"],
+    layout: "",
+  },
+  {
+    path: "/booked-courts",
+    name: "Booked Courts",
+    component: <BookedCourts />,
+    // role: ["USER"],
+    layout: "",
+  },
+  {
+    path: "/search-courts",
+    name: "Search Courts",
+    component: <BranchListPage />,
+    // role: ["USER"],
+    layout: "",
+  },
+  {
+    path: "/user/branch/:id",
+    name: "Branch Detail User",
+    component: <BranDetailUser />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "",
   },
 ];
