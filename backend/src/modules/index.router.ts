@@ -16,21 +16,6 @@ routes.use('/auth', authRouter);
 routes.use('/user', middleware.player, userRouter);
 routes.use('/admin', middleware.admin, adminRouter);
 routes.use('/host', middleware.host, hostRouter);
-routes.put(
-  '/upload',
-  upload.single('image'), // our uploadImage middleware
-  async (req, res, next) => {
-    const file = req.file;
-    const imageName = await uploadFile(file);
-    deleteFile(imageName);
-    // if (req.file) {
-    //   const imageUrl = await getObjectSignedUrl(imageName);
-    // }
-    res
-      .status(200)
-      .json({ status: 'success', data: req.body.number });
-  }
-);
 
 routes.use(errorHandler);
 export default routes;

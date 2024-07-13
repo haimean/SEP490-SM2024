@@ -31,7 +31,6 @@ const blogAdminController = {
   },
   update: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const accountId = Number(req.headers.authorization);
       const { status } = req.body;
       const { id } = req.params;
       const blog: Blog = await blogAdminService.update(
