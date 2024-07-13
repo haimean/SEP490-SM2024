@@ -22,7 +22,7 @@ branchesHostRouter.post(
 branchesHostRouter.put(
   '/:id',
   upload.fields([{ name: 'image', maxCount: 1 }]),
-  validate(branchesHostValidator.create),
+  validate(branchesHostValidator.update),
   branchesHostMiddleware.update,
   branchesHostController.updateInformation
 );

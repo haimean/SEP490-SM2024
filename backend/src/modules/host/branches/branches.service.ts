@@ -176,7 +176,6 @@ const branchesHostService = {
       return await database.branches.update({
         where: {
           id,
-          accountId,
         },
         data: query,
       });
