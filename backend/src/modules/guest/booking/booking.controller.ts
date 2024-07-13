@@ -16,6 +16,24 @@ const bookingGuestController = {
       next(new CustomError(error?.message, 500));
     }
   },
+
+  // Lấy tất cả các trận đã đặt sân của user
+  getAllForUser: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { accountId, pagination } = req.body;
+      const result = await bookingGuestService.getAllForUser(
+        accountId,
+        pagination
+      );
+      ResponseHandler(res, result);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
 };
 
 export default bookingGuestController;
