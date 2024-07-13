@@ -102,7 +102,6 @@ const branchesHostController = {
     next: NextFunction
   ) => {
     try {
-      const accountId = Number(req.headers.authorization);
       const id = Number(req.params.id);
       const {
         name,
@@ -128,7 +127,6 @@ const branchesHostController = {
 
       const branches: Branches = await branchesHostService.update(
         id,
-        accountId,
         branchesPayload,
         attributeBranches,
         court

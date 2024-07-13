@@ -119,7 +119,6 @@ const branchesHostService = {
   },
   update: async (
     id: number,
-    accountId: number,
     branchesPayload: Prisma.BranchesUpdateInput,
     attributeBranches: number[],
     court: number[]
