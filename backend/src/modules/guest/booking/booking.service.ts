@@ -10,6 +10,7 @@ const bookingGuestService = {
           gte: new Date(),
           lte: new Date(new Date().setDate(new Date().getDate() + 7)),
         },
+        isDelete: false,
         post: {
           isNot: null,
         },
@@ -45,6 +46,7 @@ const bookingGuestService = {
         post: {
           isNot: null,
         },
+        isDelete: false,
       },
       include: {
         bookingInfo: true,
