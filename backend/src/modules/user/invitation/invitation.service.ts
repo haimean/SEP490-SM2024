@@ -16,6 +16,19 @@ const invitationUserService = {
       },
     });
   },
+  getRequestsToTheMatch: async (
+    accountSendId: number,
+    postId: number
+  ): Promise<Invitation | null> => {
+    return await database.invitation.findFirst({
+      where: {
+        postId,
+        status: 'UNAVAILABLE',
+        accountSendId,
+      },
+    });
+  },
+
   getPost: async (postId: number): Promise<Post | null> => {
     return await database.post.findUnique({
       where: { id: postId },
