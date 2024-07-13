@@ -2,7 +2,6 @@ import { Router } from 'express';
 import errorHandler from '../utils/errorHandler';
 import guestRouter from './guest/index.router';
 import hostRouter from './host/host.router';
-import playerRouter from './player/index.router';
 import middleware from './index.middleware';
 import authRouter from './auth/auth.router';
 import adminRouter from './admin/admin.router';
@@ -17,7 +16,6 @@ routes.use('/auth', authRouter);
 routes.use('/user', middleware.player, userRouter);
 routes.use('/admin', middleware.admin, adminRouter);
 routes.use('/host', middleware.host, hostRouter);
-routes.use('/player', middleware.player, playerRouter);
 routes.put(
   '/upload',
   upload.single('image'), // our uploadImage middleware
