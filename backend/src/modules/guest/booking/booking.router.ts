@@ -6,12 +6,5 @@ bookingGuestRouter.get(
   '/get-booking-post',
   bookingGuestController.getBookingPost
 );
-bookingGuestRouter.get(
-  '/get-all-for-user/',
-  bookingGuestController.getAllForUser
-);
-bookingGuestRouter.delete(
-  '/get-all-for-user/',
-  bookingGuestController.getAllForUser
-);
+
 export default bookingGuestRouter;
