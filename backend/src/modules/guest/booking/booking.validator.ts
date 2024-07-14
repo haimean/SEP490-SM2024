@@ -1,6 +1,6 @@
 import Joi from 'joi';
+import validator from '../../index.validator';
 
-const bookingGuestValidator = {
-};
+const bookingGuestValidator = {};
 
 export default bookingGuestValidator;

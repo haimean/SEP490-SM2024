@@ -119,7 +119,6 @@ const branchesHostService = {
   },
   update: async (
     id: number,
-    accountId: number,
     branchesPayload: Prisma.BranchesUpdateInput,
     attributeBranches: number[],
     court: number[]
@@ -176,7 +175,6 @@ const branchesHostService = {
       return await database.branches.update({
         where: {
           id,
-          accountId,
         },
         data: query,
       });

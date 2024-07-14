@@ -37,7 +37,7 @@ const branchesHostValidator = {
   }),
 
   update: Joi.object({
-    name: Joi.string().required().label('Tên'),
+    name: Joi.string().label('Tên'),
     attributeBranches: Joi.array()
       .items(Joi.number())
       .label('Thuộc tính'),
@@ -45,16 +45,11 @@ const branchesHostValidator = {
     description: Joi.string().label('Mô tả'),
     phone: Joi.string()
       .regex(regex.phoneNumber)
-      .required()
       .label('Số điện thoại'),
     email: Joi.string().email().label('Số điện thoại'),
-    openingHours: Joi.string()
-      .regex(regex.time)
-      .required()
-      .label('Giờ mở cửa'),
+    openingHours: Joi.string().regex(regex.time).label('Giờ mở cửa'),
     closingHours: Joi.string()
       .regex(regex.time)
-      .required()
       .label('Giờ đóng cửa'),
   }),
 };

@@ -3,6 +3,7 @@ import userController from './user.controller';
 import userValidator from './user.validator';
 import validate from '../../utils/validate';
 import invitationUserRouter from './invitation/invitation.router';
+import bookingUserRouter from './booking/booking.router';
 
 const userRouter = Router();
 userRouter.put(
@@ -17,4 +18,6 @@ userRouter.put(
   userController.updateProfile
 );
 userRouter.use('/invitation', invitationUserRouter);
+userRouter.use('/booking', bookingUserRouter);
+
 export default userRouter;

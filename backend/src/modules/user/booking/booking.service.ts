@@ -2,18 +2,29 @@ import database from '../../../lib/db.server';
 import { Pagination } from '../../index.model';
 import { getQueryPagination } from '../../index.service';
 
-const bookingGuestService = {
-  getBookingPost: async () => {
+const bookingUserService = {
+  remove: async (id: number, accountId: number) => {
+    return await database.booking.update({
+      where: {
+        id,
+        accountId,
+      },
+      data: {
+        isDelete: true,
+      },
+    });
+  },
+  getAllForUser: async (
+    accountId: number,
+    pagination: Pagination
+  ) => {
     return await database.booking.findMany({
       where: {
-        startTime: {
-          gte: new Date(),
-          lte: new Date(new Date().setDate(new Date().getDate() + 7)),
-        },
-        isDelete: false,
+        accountId,
         post: {
           isNot: null,
         },
+        isDelete: false,
       },
       include: {
         bookingInfo: true,
@@ -34,8 +45,9 @@ const bookingGuestService = {
           },
         },
       },
+      ...getQueryPagination(pagination),
     });
   },
 };
 
-export default bookingGuestService;
+export default bookingUserService;

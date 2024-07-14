@@ -249,6 +249,7 @@ model Booking {
   price       Int
   bookingInfo BookingInfo?
   post        Post?
+  isDelete    Boolean      @default(false)
 }
 
 model BookingInfo {

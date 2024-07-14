@@ -18,13 +18,22 @@ const invitationUserController = {
         postId
       );
       if (post?.accountId) {
-        const invitation: Invitation =
-          await invitationUserService.createRequestsToTheMatch(
+        if (
+          await invitationUserService.getRequestsToTheMatch(
             accountId,
-            post?.accountId,
             postId
-          );
-        ResponseHandler(res, invitation);
+          )
+        ) {
+          const invitation: Invitation =
+            await invitationUserService.createRequestsToTheMatch(
+              accountId,
+              post?.accountId,
+              postId
+            );
+          ResponseHandler(res, invitation);
+        } else {
+          next(new NotFoundError('Bạn đã đăng ký giao lưu'));
+        }
       } else {
         next(new NotFoundError('Không tìm thấy bài giao lưu'));
       }
