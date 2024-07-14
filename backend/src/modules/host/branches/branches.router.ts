@@ -21,7 +21,7 @@ branchesHostRouter.post(
 );
 branchesHostRouter.put(
   '/:id',
-  upload.fields([{ name: 'image', maxCount: 1 }]),
+  upload.single('image'),
   validate(branchesHostValidator.update),
   branchesHostMiddleware.update,
   branchesHostController.updateInformation
