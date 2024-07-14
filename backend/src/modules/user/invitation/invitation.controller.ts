@@ -47,6 +47,24 @@ const invitationUserController = {
       next(new CustomError(error?.message, 500));
     }
   },
+  createInvitePlayer: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const { idCreate, idInvite, postId } = req.body;
+    try {
+      const result = await invitationUserService.createInvitePlayer(
+        idCreate,
+        idInvite,
+        postId
+      );
+      console.log('🚀 ========= result:', result);
+      ResponseHandler(res, result);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
 };
 
 export default invitationUserController;

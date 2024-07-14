@@ -10,4 +10,9 @@ invitationUserRouter.post(
   validate(invitationUserValidator.requestsToTheMatch),
   invitationUserController.requestsToTheMatch
 );
+invitationUserRouter.post(
+  '/invite',
+  validate(invitationUserValidator.createInvitePlayer),
+  invitationUserController.createInvitePlayer
+);
 export default invitationUserRouter;
