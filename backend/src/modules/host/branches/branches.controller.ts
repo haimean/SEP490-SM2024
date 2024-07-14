@@ -114,6 +114,7 @@ const branchesHostController = {
         attributeBranches,
         court,
       } = req.body;
+console.log(req.body);
 
       const branchesPayload: Prisma.BranchesUpdateInput = {
         name,
