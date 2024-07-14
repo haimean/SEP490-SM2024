@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Dialog } from '@mui/material';
+import { Button, Dialog, Box, Grid } from '@mui/material';
 import { addDays, startOfWeek, format, isBefore, isSameDay, setHours } from 'date-fns';
+import BookingLeftCP from './BookingLeftCP';
+import BookingRightCP from './BookingRightCP';
 
-// Tạo mảng giờ chỉ với các mốc giờ chẵn
 const hours = Array.from({ length: 24 }, (_, i) => {
   const hour = i;
   return `${hour}:00 ${hour < 12 ? 'AM' : 'PM'}`;
 });
 
-// Mock data for rental prices
 const mockRentalPrices = [
   { startHour: 0, endHour: 5, price: '100,000đ' },
   { startHour: 5, endHour: 22, price: '120,000đ' },
@@ -23,12 +23,10 @@ const BookingTable = ({ open, onClose }) => {
   const [currentWeek, setCurrentWeek] = useState(new Date());
   const [currentTime, setCurrentTime] = useState(new Date());
 
-  const daysOfWeek = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
-
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
-    }, 60000); // Cập nhật thời gian hiện tại mỗi phút
+    }, 60000);
 
     return () => clearInterval(timer);
   }, []);
@@ -58,11 +56,19 @@ const BookingTable = ({ open, onClose }) => {
   };
 
   const getRentalPriceForHour = (hour) => {
-    const priceEntry = mockRentalPrices.find((entry) => hour >= entry.startHour && hour < entry.endHour);
-    return priceEntry ? priceEntry.price : 'Không có giá';
+    if (hour >= 8 && hour < 22) {
+      const priceEntry = mockRentalPrices.find((entry) => hour >= entry.startHour && hour < entry.endHour);
+      return priceEntry ? priceEntry.price : 'Không có giá';
+    } else {
+      return 'Không có giá';
+    }
   };
 
   const renderCell = (date, hour) => {
+    if (hour < 8 || hour >= 22) {
+      return null;
+    }
+
     const event = events.find(
       (event) =>
         isSameDay(event.date, date) &&
@@ -72,10 +78,10 @@ const BookingTable = ({ open, onClose }) => {
     const isPast = isPastCell(date, hour);
 
     let cellClass = '';
-    if (isPast) {
-      cellClass = 'bg-gray-300';
-    } else if (event) {
+    if (event) {
       cellClass = 'bg-red-500 text-white';
+    } else if (isPast) {
+      cellClass = 'bg-gray-300';
     } else {
       cellClass = 'bg-white';
     }
@@ -85,43 +91,22 @@ const BookingTable = ({ open, onClose }) => {
         key={hour}
         className={`border border-gray-200 px-4 py-2 ${cellClass}`}
       >
-        {isPast ? <></> : event ? renderEventText(event) : getRentalPriceForHour(hour)}
+        {event ? renderEventText(event) : isPast ? <></> : getRentalPriceForHour(hour)}
       </td>
     );
   };
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="md" scroll="paper">
-      <div className="mb-4 flex justify-between items-center">
-        <Button onClick={prevWeek} variant="contained" color="primary">
-          Tuần Trước
-        </Button>
-        <Button onClick={nextWeek} variant="contained" color="primary">
-          Tuần Sau
-        </Button>
-      </div>
-      <table className="min-w-full bg-white border border-gray-200">
-        <thead>
-          <tr>
-            <th className="border border-gray-200 px-4 py-2">Giờ</th>
-            {daysOfWeek.map((day, index) => (
-              <th key={index} className="border border-gray-200 px-4 py-2">
-                {day}
-                <br />
-                {format(weekDates[index], 'dd/MM')}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {hours.map((hour, rowIndex) => (
-            <tr key={rowIndex}>
-              <td className="border border-gray-200 px-4 py-2">{hour}</td>
-              {weekDates.map((date, colIndex) => renderCell(date, rowIndex))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Grid container>
+        <Grid item xs={6}>
+          <BookingLeftCP />
+        </Grid>
+        <Grid item xs={6}>
+          <BookingRightCP
+          />
+        </Grid>
+      </Grid>
     </Dialog>
   );
 };

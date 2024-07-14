@@ -27,6 +27,7 @@ const SignInForm = ({ isModal, onSuccess }) => {
     localStorage.setItem("userRole", role); // Lưu vai trò người dùng
     dispatch(setUser({ user: email, role })); // Cập nhật thông tin người dùng vào Redux
     toast.success(`Đăng nhập thành công!`);
+    console.log(response);
     if (!isModal) {
       // Kiểm tra nếu không phải modal thì mới chuyển hướng
       switch (role) {

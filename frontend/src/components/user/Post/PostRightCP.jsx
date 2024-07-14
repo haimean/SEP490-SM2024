@@ -36,7 +36,7 @@ const PostRightCP = ({ user, isOwner }) => {
             <span className="ml-1 text-gray-600">{user.friendliness}</span>
           </div>
           <Typography variant="body1" align="center" className="text-gray-600 mt-2">
-            Liên hệ: {user.contact}
+            Liên hệ: {user.numberPhone}
           </Typography>
           <div className="mt-4 flex justify-center space-x-2">
             {isOwner ? (
@@ -58,17 +58,6 @@ const PostRightCP = ({ user, isOwner }) => {
       </Paper>
     </Grid>
   );
-};
-
-PostRightCP.propTypes = {
-  user: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    avatarUrl: PropTypes.string.isRequired,
-    level: PropTypes.string.isRequired,
-    friendliness: PropTypes.number.isRequired,
-    contact: PropTypes.string.isRequired,
-  }).isRequired,
-  isOwner: PropTypes.bool.isRequired,
 };
 
 export default PostRightCP;

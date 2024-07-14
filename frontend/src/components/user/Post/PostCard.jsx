@@ -8,14 +8,36 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 // import testImg from "D:/1_2024-05-SEM9/DOAN/scl.jpg";
 import { format, parseISO } from 'date-fns';
+import CallApi from "../../../service/CallAPI";
+import { toast } from "react-toastify";
 
 const PostCard = ({ activity }) => {
     const testImg = "https://via.placeholder.com/200"
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(`/post/${activity.id}`);
+        navigate(`/post/${activity.post.id}`);
     };
+
+    const handleJoin = () => {
+        join(activity)
+    }
+    const join = async (activity) => {
+        try {
+            const response = await CallApi(
+                "/api/user/invitation/requests-to-match",
+                "post",
+                {
+                    postId: activity.post.id
+                },
+                {}
+            );
+            toast.success('Gửi lời mời thành công!')
+        } catch (error) {
+            console.log(error);
+            toast.error(error.response?.data?.error);
+        }
+    }
 
     const formattedDate = format(parseISO(activity.dateTime), 'yyyy-MM-dd');
     const formattedStartTime = format(parseISO(activity.startTime), 'HH:mm');
@@ -37,8 +59,8 @@ const PostCard = ({ activity }) => {
                 <Stack direction="row" alignItems="center" spacing={1}>
                     <LocationOnOutlinedIcon className="text-red-600" />
                     <Typography>{activity.Court.Branches.address.wards},&nbsp;
-                    {activity.Court.Branches.address.districts},&nbsp;
-                    {activity.Court.Branches.address.provinces}, 
+                        {activity.Court.Branches.address.districts},&nbsp;
+                        {activity.Court.Branches.address.provinces}
                     </Typography>
                 </Stack>
                 <Stack direction="row" alignItems="center" spacing={1}>
@@ -53,13 +75,14 @@ const PostCard = ({ activity }) => {
                     <PaidOutlinedIcon className="text-red-600" />
                     <Typography>{formattedPrice}</Typography>
                 </Stack>
-                                {/* <Typography >
+                {/* <Typography >
                     Trình độ: {activity.level}
                 </Typography> */}
                 <div className="space-x-4 flex justify-center">
                     <Button
                         variant="contained"
                         className="bg-blue-500 hover:bg-blue-700 text-white rounded"
+                        onClick={handleJoin}
                     >
                         Gửi lời mời tham gia
                     </Button>

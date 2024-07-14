@@ -33,6 +33,9 @@ import PostDetail from "../pages/user/PostDetail/PostDetail.jsx";
 import BookedCourts from "../pages/user/ViewListBooked/BookedCourtsTable.jsx";
 import BranchListPage from "../pages/user/ViewListBranch/BranchListPage.jsx";
 import BranDetailUser from "../pages/user/BranchDetail/BranDetailUser.jsx";
+import BookingPage from "../pages/user/Booking/BookingPage.jsx";
+
+import TestBookingPage from "../pages/user/Booking/TestBookingPage.jsx";
 
 const router = [
   {
@@ -283,6 +286,20 @@ const router = [
     path: "/user/branch/:id",
     name: "Branch Detail User",
     component: <BranDetailUser />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/booking-page",
+    name: "Booking Page",
+    component: <BookingPage />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/booking-test",
+    name: "Booking Page",
+    component: <TestBookingPage />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "",
   },

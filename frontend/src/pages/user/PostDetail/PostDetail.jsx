@@ -1,19 +1,20 @@
 import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Navbar from "../../../layouts/player/Navbar";
 import Footer from "../../../layouts/player/Footer";
-import DetailPageCp from "../../../components/host/DetailPageCp";
 import PostRightCP from "../../../components/user/Post/PostRightCP.jsx";
 import PostDetailCP from "../../../components/user/Post/PostDetailCP.jsx";
+import CallApi from "../../../service/CallAPI.jsx";
+import { toast } from "react-toastify";
+
 const PostDetail = () => {
   const fakeData = {
     title: "TUYỂN CỐ ĐỊNH - GIAO LƯU",
     image: "https://example.com/badminton-image.jpg",
-    location:
-      "US Badminton Phan Bá Vành - Số 99, ngõ 2 Phan Bá Vành, P. Cầu Diễn, Q. Nam Từ Liêm, Hà Nội",
+    location: "US Badminton Phan Bá Vành - Số 99, ngõ 2 Phan Bá Vành, P. Cầu Diễn, Q. Nam Từ Liêm, Hà Nội",
     date: "17/05/2024, 05:30 - 05:30",
-    description:
-      "Team gồm đầy đủ Top thế giới \n(Axelsen Mỹ Đình, Axelsen gốc 11, Momota Hà Lội, Chiến thần Park Tu Liem, Bác sĩ tâm lý, Kẻ săn đầu GL, Vua người lùn, Nàng công chúa ngủ trên sân cầu...) \nHân hạnh đón chào ace",
+    description: "Team gồm đầy đủ Top thế giới \n(Axelsen Mỹ Đình, Axelsen gốc 11, Momota Hà Lội, Chiến thần Park Tu Liem, Bác sĩ tâm lý, Kẻ săn đầu GL, Vua người lùn, Nàng công chúa ngủ trên sân cầu...) \nHân hạnh đón chào ace",
     frequency: "Lặp lại hàng tuần (T3, T5, T7)",
     participants: "Cần tuyển: 2 người (Nam/Nữ)",
     level: "Trình độ: TB- đến TB+",
@@ -30,13 +31,27 @@ const PostDetail = () => {
 
   const [userRole, setUserRole] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const { id } = useParams();
+  const [post, setPost] = useState({});
 
   useEffect(() => {
     const storedUserRole = localStorage.getItem("userRole");
-    const storedUserEmail =  JSON.parse(localStorage.getItem("user"));
+    const storedUserEmail = JSON.parse(localStorage.getItem("user"));
     if (storedUserRole) setUserRole(storedUserRole);
     if (storedUserEmail) setUserEmail(storedUserEmail);
-  }, []);
+    console.log(id);
+    fetchData(id);
+  }, [id]);
+
+  const fetchData = async (id) => {
+    try {
+      const response = await CallApi(`/api/post/${id}`, "get", {}, {});
+      console.log(response.data);
+      setPost(response.data);
+    } catch (error) {
+      toast.error(error.response?.data?.error);
+    }
+  };
 
   const map = (
     <iframe
@@ -69,16 +84,8 @@ const PostDetail = () => {
         }}
       >
         <PostDetailCP
-          title={fakeData.title}
-          image={fakeData.image}
-          location={fakeData.location}
-          date={fakeData.date}
-          description={fakeData.description}
-          frequency={fakeData.frequency}
-          participants={fakeData.participants}
-          level={fakeData.level}
-          price={fakeData.price}
-          RightSectionComponent={() => <PostRightCP user={fakeData.user} isOwner={isOwner} />}
+          post={post}
+          RightSectionComponent={() => <PostRightCP user={post.booking.bookingInfo} isOwner={isOwner} />}
           map={map}
         />
       </Box>

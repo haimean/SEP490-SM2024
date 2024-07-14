@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import React from "react";
 import {
   Box,
@@ -9,6 +8,7 @@ import {
   Grid,
   Button,
 } from "@mui/material";
+import { format, parseISO } from 'date-fns';
 import {
   LocationOn,
   CalendarToday,
@@ -17,21 +17,26 @@ import {
   School,
   AttachMoney,
   SportsBasketball,
-  AttachMoney as MoneyIcon,
 } from "@mui/icons-material";
-const PostDetailCP = ({
-  title,
-  image,
-  location,
-  date,
-  description,
-  frequency,
-  participants,
-  level,
-  price,
-  RightSectionComponent,
-  map,
-}) => {
+
+const PostDetailCP = ({ post, RightSectionComponent, map }) => {
+  console.log(post);
+
+  if (!post.booking || !post.booking.Court) {
+    return <Typography variant="h6">Loading...</Typography>;
+  }
+
+  const { Court } = post.booking;
+  const { address } = Court.Branches;
+
+  // const location = `${address.wards}, ${address.districts}, ${address.provinces}`;\
+  const location = address.detail
+
+  const formattedDate = format(parseISO(post.booking.dateTime), 'yyyy-MM-dd');
+  const formattedStartTime = format(parseISO(post.booking.startTime), 'HH:mm');
+  const formattedEndTime = format(parseISO(post.booking.endTime), 'HH:mm');
+  const date = `${formattedDate}, ${formattedStartTime} - ${formattedEndTime}`;
+
   const renderInfoItem = (Icon, text) => (
     <Box display="flex" alignItems="center" mb={1}>
       <Icon color="action" />
@@ -48,19 +53,18 @@ const PostDetailCP = ({
           <CardMedia
             component="img"
             className={"object-cover bg-blue-200 h-96"}
-            image={image}
+            image={Court.image || "https://via.placeholder.com/600x400"}
             alt="Activity image"
           />
           <CardContent>
             <Typography variant="h4" gutterBottom>
-              {title}
+              {Court.name}
             </Typography>
             {renderInfoItem(LocationOn, location)}
             {renderInfoItem(CalendarToday, date)}
-            {renderInfoItem(Repeat, frequency)}
-            {renderInfoItem(Group, participants)}
-            {renderInfoItem(School, level)}
-            {renderInfoItem(AttachMoney, price)}
+            {renderInfoItem(Group, `Cần tuyển ${post.numberMember} ${post.memberPost[0].genderPost}` || "Không có thông tin")}
+            {renderInfoItem(School, `Trình độ: ${post.memberPost[0].level}` || "Không có thông tin")}
+            {renderInfoItem(AttachMoney, post.memberPost[0].price || "Không có thông tin")}
           </CardContent>
         </Card>
 
@@ -69,8 +73,7 @@ const PostDetailCP = ({
             <Typography variant="h6" gutterBottom>
               Mô tả thêm
             </Typography>
-            {renderInfoItem(SportsBasketball, description)}
-            <Typography variant="body2">{description}</Typography>
+            {renderInfoItem(SportsBasketball, post.desciption || "Không có thông tin")}
           </CardContent>
         </Card>
         {map && (
@@ -103,7 +106,6 @@ const PostDetailCP = ({
           </Card>
         )}
       </Grid>
-
       <RightSectionComponent />
     </Grid>
   );
