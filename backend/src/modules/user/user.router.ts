@@ -4,6 +4,7 @@ import userValidator from './user.validator';
 import validate from '../../utils/validate';
 import invitationUserRouter from './invitation/invitation.router';
 import bookingUserRouter from './booking/booking.router';
+import userAvailableRouter from './UserAvailability/userAvailable.router';
 
 const userRouter = Router();
 userRouter.put(
@@ -19,5 +20,6 @@ userRouter.put(
 );
 userRouter.use('/invitation', invitationUserRouter);
 userRouter.use('/booking', bookingUserRouter);
+userRouter.use('/user-available', userAvailableRouter);
 
 export default userRouter;
