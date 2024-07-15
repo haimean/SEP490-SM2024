@@ -18,7 +18,7 @@ const bookCourtHostService = {
             user: true,
           },
         },
-      }),
+      });
     const result = await database.booking.findMany();
     const response = await database.booking.findMany(query);
     return {
