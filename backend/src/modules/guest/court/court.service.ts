@@ -24,7 +24,11 @@ const courtService = {
       },
       include: {
         Branches: true,
-        TypeCourt: true,
+        TypeCourt: {
+          include: {
+            priceTypeCourt: true,
+          },
+        },
       },
     });
   },

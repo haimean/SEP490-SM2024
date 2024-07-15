@@ -8,6 +8,11 @@ const branchesAdminService = {
         isDelete: false,
       },
       include: {
+        account: {
+          include: {
+            user: true,
+          },
+        },
         address: true,
       },
     });
