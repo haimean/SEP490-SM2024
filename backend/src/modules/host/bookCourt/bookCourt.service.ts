@@ -5,14 +5,26 @@ import { getQueryPagination } from '../../index.service';
 const bookCourtHostService = {
   getBookCourtList: async (pagination: Pagination) => {
     const query = {
+      include: {},
       ...getQueryPagination(pagination),
       orderBy: {},
     };
     (query.orderBy = {
       startTime: 'desc',
     }),
-      console.log('🚀 ========= query:', query);
-    return await database.booking.findMany(query);
+      (query.include = {
+        account: {
+          include: {
+            user: true,
+          },
+        },
+      }),
+    const result = await database.booking.findMany();
+    const response = await database.booking.findMany(query);
+    return {
+      response,
+      total: result.length,
+    };
   },
 };
 

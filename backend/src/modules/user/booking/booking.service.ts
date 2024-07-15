@@ -18,7 +18,17 @@ const bookingUserService = {
     accountId: number,
     pagination: Pagination
   ) => {
-    return await database.booking.findMany({
+    const result = await database.booking.findMany({
+      where: {
+        accountId,
+        post: {
+          isNot: null,
+        },
+        isDelete: false,
+      },
+    });
+    console.log('🚀 ========= result:', result.length);
+    const response = await database.booking.findMany({
       where: {
         accountId,
         post: {
@@ -47,6 +57,7 @@ const bookingUserService = {
       },
       ...getQueryPagination(pagination),
     });
+    return { response, total: result.length };
   },
 };
 
