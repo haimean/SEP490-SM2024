@@ -9,6 +9,7 @@ import {
   ListItemText,
   Tooltip,
   Zoom,
+  Button,
 } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import CallApi from "../../service/CallAPI";
@@ -33,6 +34,7 @@ const RightSectionHost = ({ id, type }) => {
     };
     getAllCourt();
   }, [id, idCourt, type]);
+
   const longText = "Sàn: Gỗ<br/>Chất lượng: Tốt<br/>Số lượng: 4 người";
 
   const CustomTooltip = ({ title, children }) => {
@@ -51,6 +53,45 @@ const RightSectionHost = ({ id, type }) => {
   return (
     <Grid item xs={12} md={4}>
       <Paper sx={{ position: "sticky", top: 100, px: 2, py: 1 }}>
+        {type === "Branch" && (
+          <>
+            <Link
+              to={`/host/update-branch/${id}`}
+              style={{ textDecoration: "none" }}
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                sx={{ mb: 2 }}
+              >
+                Sửa Chi Nhánh
+              </Button>
+            </Link>
+            <Link to={`/court/${id}`} style={{ textDecoration: "none" }}>
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                sx={{ mb: 2 }}
+              >
+                Danh sách sân đấu
+              </Button>
+            </Link>
+          </>
+        )}
+        {type === "courtDetail" && (
+          <Link to={`/host/update-court/${idCourt}`} style={{ textDecoration: "none" }}>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              sx={{ mb: 2 }}
+            >
+              Cập nhật chi tiết sân đấu
+            </Button>
+          </Link>
+        )}
         <List
           sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
           component="nav"

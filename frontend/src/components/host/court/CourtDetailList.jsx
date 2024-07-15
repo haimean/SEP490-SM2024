@@ -16,20 +16,26 @@ const CourtDetailList = ({
   handleRemoveCompare,
   onDeleteCourt,
   role,
+  branchId,
 }) => {
   return (
     <div className="flex border rounded-lg shadow-md overflow-hidden mb-4 items-center">
-      <img
-        src={activity?.Branches?.image}
-        alt={activity?.name}
-        className="w-[300px] h-[300px] object-cover"
-      />
+      <Link to={`/branch/${branchId}/court/${activity?.id}`}>
+        <img
+          src={activity?.Branches?.image}
+          alt={activity?.name}
+          className="w-[300px] h-[300px] object-cover"
+        />
+      </Link>
+
       <div className="p-4 flex flex-col justify-between w-2/3">
         <div>
           <div className="bg-red-500 text-white px-2 py-1 rounded-full inline-block mb-2">
             {activity?.price}
           </div>
-          <h2 className="text-lg font-bold mb-2">{activity?.name}</h2>
+          <Link to={`/branch/${branchId}/court/${activity?.id}`}>
+            <h2 className="text-lg font-bold mb-2">{activity?.name}</h2>
+          </Link>
           <p className="text-sm text-gray-600 mb-2">{activity?.description}</p>
           <div className="flex items-center text-sm text-gray-600 mb-2">
             <LocationOnIcon className="mr-1" />

@@ -34,7 +34,7 @@ const CardComponent = ({
         height: "100%",
       }}
     >
-      <Link to={`/${role === "host" ? "host" : "player"}/branch/${id}`}>
+      <Link to={`/${role === "HOST" ? "host" : "player"}/branch/${id}`}>
         <CardMedia
           component="img"
           image={image}
