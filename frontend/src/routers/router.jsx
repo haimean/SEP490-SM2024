@@ -25,7 +25,7 @@ import ListBranch from "../pages/guest/Branch/ListBranch.jsx";
 import BranchDetail from "../pages/guest/Branch/BranchDetail.jsx";
 import ListCourt from "../pages/guest/Court/ListCourt.jsx";
 import CourtDetail   from "../pages/guest/Court/CourtDetail.jsx";
-
+import UpdateBranch from "../pages/host/Branch/UpdateBranch.jsx"
 import WaitingList from "../pages/user/WaitingList/WaitingList.jsx";
 import BookingTablePage from "../pages/user/BookingTable/BookingTable.jsx";
 import AvailableCourtPage from "../pages/user/AvailableCourt/AvailableCourt.jsx";
@@ -145,6 +145,13 @@ const router = [
     path: "/host/branch/:id",
     name: "Branch Detail",
     component: <BranchDetail />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    layout: "host",
+  },
+  {
+    path: "/host/update-branch/:id",
+    name: "Update Branch",
+    component: <UpdateBranch />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "host",
   },

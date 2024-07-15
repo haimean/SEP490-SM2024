@@ -22,7 +22,14 @@ const Form = ({
       case "text":
       case "tel":
       case "number":
-        return <TextFieldCp field={field} control={control} errors={errors} />;
+        return (
+          <TextFieldCp
+            field={field}
+            control={control}
+            errors={errors}
+            readOnly={field.readOnly}
+          />
+        );
       case "select":
         return <SelectCp field={field} control={control} errors={errors} />;
       case "select-custom":
@@ -72,7 +79,7 @@ const Form = ({
           Hủy
         </Button>
         <Button type="submit" variant="contained" color="primary">
-          Đăng tin
+          Xác nhận
         </Button>
       </Box>
     </form>

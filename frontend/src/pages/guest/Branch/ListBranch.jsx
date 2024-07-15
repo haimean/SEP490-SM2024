@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import CardComponent from "../../../components/host/CardComponent";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import FilterCp from "../../../components/host/FilterCp";
 import CallApi from "../../../service/CallAPI";
+import { Link } from "react-router-dom";
 
 const ListBranch = () => {
   const [listBranch, setListBranch] = useState([]);
@@ -112,9 +113,25 @@ const ListBranch = () => {
         height: "full",
       }}
     >
-      <Typography variant="h4" component="h2" mb={6} fontWeight={600}>
-        Danh sách chi nhánh
-      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          mb: 6,
+        }}
+      >
+        <Typography variant="h4" component="h2" fontWeight={600}>
+          Danh sách chi nhánh
+        </Typography>
+        {role == "HOST" && (
+          <Link to="/host/create-branch" style={{ textDecoration: "none" }}>
+            <Button variant="contained" color="primary">
+              Tạo Chi Nhánh
+            </Button>
+          </Link>
+        )}
+      </Box>
       <FilterCp filters={filterOptions} />
       <Grid container spacing={3}>
         {branchesDisplay.map((item) => (

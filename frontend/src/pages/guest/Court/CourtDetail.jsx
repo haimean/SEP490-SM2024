@@ -84,9 +84,8 @@ export default function CourtDetail() {
   }, [reload]);
   return (
     <>
-      <Navbar sx={{ flexShrink: 0 }} />
       <div className="bg-gray-100 min-h-screen p-4">
-        <div className="container mx-auto p-4 mt-8">
+        <div className="container mx-auto p-4 mt-16">
           <Box sx={{ width: "100%" }}>
             <Tabs
               value={value}
@@ -122,13 +121,13 @@ export default function CourtDetail() {
                     date={data?.createdAt}
                     description={data?.TypeCourt?.description}
                     participants={data?.Branches?.name}
+                    type={"courtDetail"}
                   />
                 )}
               </Box>
             </CustomTabPanel>
           </Box>
         </div>
-        <Footer sx={{ flexShrink: 0 }} />
       </div>
     </>
   );

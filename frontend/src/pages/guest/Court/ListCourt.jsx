@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import CourtDetailList from "../../../components/host/court/CourtDetailList";
 import CallApi from "../../../service/CallAPI";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Button } from "@mui/material";
 
 const ListCourt = () => {
   const storedUserRole = localStorage.getItem("userRole");
@@ -85,10 +86,23 @@ const ListCourt = () => {
   };
   return (
     <div className="bg-gray-100 min-h-screen p-4">
-      <div className="container mx-auto p-4">
-        <h1 className="text-2xl font-bold mb-4">
-          Tìm thấy {data.length} hoạt động
-        </h1>
+      <div className="container mx-auto p-4 mt-16">
+        <div className="flex justify-between">
+          <h1 className="text-2xl font-bold mb-4">
+            Tìm thấy {data.length} sân đấu
+          </h1>
+          <Link to={`/host/register-court`} style={{ textDecoration: "none" }}>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              sx={{ mb: 2 }}
+            >
+              Thêm sân đấu
+            </Button>
+          </Link>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {data.map((activity, index) => (
             <CourtDetailList
@@ -101,6 +115,7 @@ const ListCourt = () => {
               handleRemoveCompare={handleRemoveCompare}
               onDeleteCourt={handleDeleteCourt}
               role={storedUserRole}
+              branchId={id}
             />
           ))}
         </div>
