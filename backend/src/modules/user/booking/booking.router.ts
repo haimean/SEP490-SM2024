@@ -11,4 +11,5 @@ bookingUserRouter.post(
   validate(bookingUserValidator.getAllForUser),
   bookingUserController.getAllForUser
 );
+// bookingUserRouter.get('/detail/:id', bookingUserController.getDetail);
 export default bookingUserRouter;

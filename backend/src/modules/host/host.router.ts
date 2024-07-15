@@ -6,6 +6,7 @@ import attributeBranchesHostRouter from './attributeBranches/attributeBranches.r
 import typeCourtHostRouter from './typeCourt/typeCourt.router';
 import blogHostRouter from './blog/blog.router';
 import bookCourtHostRouter from './bookCourt/bookCourt.router';
+import bookingHostRouter from './booking/booking.router';
 
 const hostRouter = Router();
 hostRouter.use('/attribute-court', attributeCourtHostRouter);
@@ -15,5 +16,6 @@ hostRouter.use('/branches', branchesHostRouter);
 hostRouter.use('/court', courtHostRouter);
 hostRouter.use('/blog', blogHostRouter);
 hostRouter.use('/booking', bookCourtHostRouter);
+hostRouter.use('/history-booking', bookingHostRouter);
 
 export default hostRouter;
