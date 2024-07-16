@@ -230,6 +230,7 @@ model PriceTypeCourt {
   endTime     DateTime
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
+  times       Int
   price       Int
   typeCourt   TypeCourt? @relation(fields: [typeCourtId], references: [id])
   typeCourtId Int?

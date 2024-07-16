@@ -1,6 +1,7 @@
 import database from '../../../lib/db.server';
 import { Pagination } from '../../index.model';
 import { getQueryPagination } from '../../index.service';
+import { BookingCreateInput } from './booking.model';
 
 const bookingUserService = {
   remove: async (id: number, accountId: number) => {
@@ -46,6 +47,36 @@ const bookingUserService = {
         },
       },
       ...getQueryPagination(pagination),
+    });
+  },
+  create: async (data: BookingCreateInput) => {
+    const {
+      accountId,
+      courtId,
+      endTime,
+      name,
+      numberPhone,
+      price,
+      startTime,
+    } = data;
+    return await database.booking.create({
+      data: {
+        dateTime: new Date(),
+        endTime,
+        price,
+        startTime,
+        accountId,
+        courtId,
+        bookingInfo: {
+          create: {
+            name,
+            numberPhone,
+          },
+        },
+      },
+      include: {
+        bookingInfo: true,
+      },
     });
   },
 };

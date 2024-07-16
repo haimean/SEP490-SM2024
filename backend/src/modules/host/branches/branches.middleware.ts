@@ -87,9 +87,10 @@ const branchesHostMiddleware: BranchesHostMiddleware = {
         }
       });
 
+      const file = req.file;
       //check file
-      if (files['image'][0]) {
-        req.body.image = await uploadFile(files['image'][0]);
+      if (file) {
+        req.body.image = await uploadFile(file);
       }
       next();
     } catch (error: any) {
