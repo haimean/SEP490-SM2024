@@ -1,30 +1,18 @@
-import { Invitation, Post } from '@prisma/client';
+import { Invitation, Post, TypeInvitation } from '@prisma/client';
 import database from '../../../lib/db.server';
 
 const invitationUserService = {
-  createRequestsToTheMatch: async (
-    accountSendId: number,
-    accountRecipientId: number,
+  create: async (
+    type: TypeInvitation,
+    userAvailabilityId: number,
     postId: number
   ): Promise<Invitation> => {
     return await database.invitation.create({
       data: {
-        accountSendId,
-        accountRecipientId,
-        status: 'UNAVAILABLE',
+        userAvailabilityId,
         postId,
-      },
-    });
-  },
-  getRequestsToTheMatch: async (
-    accountSendId: number,
-    postId: number
-  ): Promise<Invitation | null> => {
-    return await database.invitation.findFirst({
-      where: {
-        postId,
-        status: 'UNAVAILABLE',
-        accountSendId,
+        type,
+        status: 'NEW',
       },
     });
   },
@@ -32,21 +20,6 @@ const invitationUserService = {
   getPost: async (postId: number): Promise<Post | null> => {
     return await database.post.findUnique({
       where: { id: postId },
-    });
-  },
-
-  createInvitePlayer: async (
-    idCreate: number,
-    idInvite: number,
-    postId: number
-  ) => {
-    return await database.invitation.create({
-      data: {
-        accountSendId: idCreate,
-        accountRecipientId: idInvite,
-        postId: postId,
-        status: 'AVAILABLE',
-      },
     });
   },
 };

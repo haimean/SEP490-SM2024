@@ -2,7 +2,7 @@ import { Router } from 'express';
 import userController from './user.controller';
 import userValidator from './user.validator';
 import validate from '../../utils/validate';
-import invitationUserRouter from './invitation/invitation.router';
+// import invitationUserRouter from './invitation/invitation.router';
 import bookingUserRouter from './booking/booking.router';
 import userAvailableRouter from './UserAvailability/userAvailable.router';
 
@@ -18,7 +18,7 @@ userRouter.put(
   validate(userValidator.updateProfile),
   userController.updateProfile
 );
-userRouter.use('/invitation', invitationUserRouter);
+// userRouter.use('/invitation', invitationUserRouter);
 userRouter.use('/booking', bookingUserRouter);
 userRouter.use('/user-available', userAvailableRouter);
 

@@ -35,13 +35,9 @@ model Account {
   blog              Blog[]
   comment           Comment[]
   booking           Booking[]
-  userAvailability  userAvailability[]
-
-  invitationsSend     Invitation[] @relation("seed")
-  invitationsReceived Invitation[] @relation("recipient")
-  post                Post[]
-  reviewSend          Review[]     @relation("seed")
-  reviewReceived      Review[]     @relation("recipient")
+  userAvailability  UserAvailability[]
+  reviewSend        Review[]            @relation("seed")
+  reviewReceived    Review[]            @relation("recipient")
 }
 
 enum Gender {
@@ -244,7 +240,6 @@ model Booking {
   account     Account      @relation(fields: [accountId], references: [id])
   Court       Court?       @relation(fields: [courtId], references: [id])
   courtId     Int?
-  dateTime    DateTime
   startTime   DateTime
   endTime     DateTime
   price       Int
@@ -263,43 +258,46 @@ model BookingInfo {
   bookingId   Int?     @unique
 }
 
-enum StatusUserAvailability {
-  AVAILABLE
-  UNAVAILABLE
-}
-
 // người rảnh
-model userAvailability {
-  id        Int                    @id @default(autoincrement())
-  createdAt DateTime               @default(now())
-  updatedAt DateTime               @updatedAt
-  accountId Int
-  account   Account                @relation(fields: [accountId], references: [id])
-  dateTime  DateTime
-  startTime DateTime
-  endTime   DateTime
-  status    StatusUserAvailability
-  provinces String
-  districts String
+model UserAvailability {
+  id         Int          @id @default(autoincrement())
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  accountId  Int
+  account    Account      @relation(fields: [accountId], references: [id])
+  startTime  DateTime
+  endTime    DateTime
+  provinces  String
+  districts  String
+  Invitation Invitation[]
 }
 
 enum StatusInvitation {
+  NEW
+  ACCEPT
+  NOACCEPT
+}
+
+enum TypeInvitation {
+  // sân tìm người chơi
   AVAILABLE
+  // người chơi tìm sân
   UNAVAILABLE
 }
 
 // lời mời
 model Invitation {
   id                 Int              @id @default(autoincrement())
+  userAvailabilityId Int
+  postId             Int
+  type               TypeInvitation
+  status             StatusInvitation
   createdAt          DateTime         @default(now())
   updatedAt          DateTime         @updatedAt
-  accountSendId      Int
-  accountSend        Account          @relation("seed", fields: [accountSendId], references: [id])
-  accountRecipientId Int
-  accountRecipient   Account          @relation("recipient", fields: [accountRecipientId], references: [id])
-  postId             Int
+  userAvailability   UserAvailability @relation(fields: [userAvailabilityId], references: [id])
   Post               Post             @relation(fields: [postId], references: [id])
-  status             StatusInvitation
+
+  @@unique([userAvailabilityId, postId, type])
 }
 
 enum Level {
@@ -313,7 +311,7 @@ enum Level {
 enum GenderPost {
   MALE
   FEMALE
-  ORTHER
+  OTHER
 }
 
 // người đặt sân đi tim người
@@ -323,11 +321,9 @@ model Post {
   updatedAt    DateTime     @updatedAt
   bookingId    Int          @unique
   booking      Booking      @relation(fields: [bookingId], references: [id])
-  desciption   String
+  description  String
   numberMember Int
   memberPost   MemberPost[]
-  account      Account?     @relation(fields: [accountId], references: [id])
-  accountId    Int?
   invitation   Invitation[]
 }
 

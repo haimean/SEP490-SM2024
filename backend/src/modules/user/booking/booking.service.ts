@@ -98,7 +98,6 @@ const bookingUserService = {
     } = data;
     return await database.booking.create({
       data: {
-        dateTime: new Date(),
         endTime,
         price,
         startTime,

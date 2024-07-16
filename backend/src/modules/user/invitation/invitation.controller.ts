@@ -12,31 +12,14 @@ const invitationUserController = {
     next: NextFunction
   ) => {
     try {
-      const accountId = Number(req.headers.authorization);
-      const { postId } = req.body;
-      const post: Post | null = await invitationUserService.getPost(
-        postId
-      );
-      if (post?.accountId) {
-        if (
-          await invitationUserService.getRequestsToTheMatch(
-            accountId,
-            postId
-          )
-        ) {
-          const invitation: Invitation =
-            await invitationUserService.createRequestsToTheMatch(
-              accountId,
-              post?.accountId,
-              postId
-            );
-          ResponseHandler(res, invitation);
-        } else {
-          next(new NotFoundError('Bạn đã đăng ký giao lưu'));
-        }
-      } else {
-        next(new NotFoundError('Không tìm thấy bài giao lưu'));
-      }
+      const { postId, userAvailabilityId } = req.body;
+      const invitation: Invitation =
+        await invitationUserService.create(
+          'UNAVAILABLE',
+          userAvailabilityId,
+          postId
+        );
+      ResponseHandler(res, invitation);
     } catch (error: any) {
       if (
         error.code === 'P2002' &&
@@ -52,15 +35,15 @@ const invitationUserController = {
     res: Response,
     next: NextFunction
   ) => {
-    const { idCreate, idInvite, postId } = req.body;
     try {
-      const result = await invitationUserService.createInvitePlayer(
-        idCreate,
-        idInvite,
-        postId
-      );
-      console.log('🚀 ========= result:', result);
-      ResponseHandler(res, result);
+      const { postId, userAvailabilityId } = req.body;
+      const invitation: Invitation =
+        await invitationUserService.create(
+          'AVAILABLE',
+          userAvailabilityId,
+          postId
+        );
+      ResponseHandler(res, invitation);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
     }

@@ -27,10 +27,9 @@ const postGuestService = {
         memberPost: true,
         invitation: {
           include: {
-            accountSend: {
+            userAvailability: {
               include: {
-                user: true,
-                userAvailability: true,
+                account: true,
               },
             },
           },

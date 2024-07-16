@@ -7,12 +7,13 @@ const invitationUserRouter = Router();
 
 invitationUserRouter.post(
   '/requests-to-match',
-  validate(invitationUserValidator.requestsToTheMatch),
+  validate(invitationUserValidator.create),
   invitationUserController.requestsToTheMatch
 );
+
 invitationUserRouter.post(
   '/invite',
-  validate(invitationUserValidator.createInvitePlayer),
+  validate(invitationUserValidator.create),
   invitationUserController.createInvitePlayer
 );
 export default invitationUserRouter;

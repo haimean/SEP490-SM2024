@@ -8,11 +8,8 @@ const userAvailableService = {
     provinces: string,
     districts: string
   ) => {
-    console.log('🚀 ========= districts:', districts);
     try {
-      const filters: Prisma.userAvailabilityWhereInput = {
-        status: 'AVAILABLE',
-      };
+      const filters: Prisma.UserAvailabilityWhereInput = {};
 
       if (startTime) {
         filters.startTime = { gte: new Date(startTime) };
@@ -24,13 +21,11 @@ const userAvailableService = {
       if (districts) {
         filters.districts = {
           contains: districts,
-          // mode: 'insensitive', // optional: makes the search case-insensitive
         };
       }
       if (provinces) {
         filters.provinces = {
           contains: provinces,
-          // mode: 'insensitive', // optional: makes the search case-insensitive
         };
       }
       return await database.userAvailability.findMany({

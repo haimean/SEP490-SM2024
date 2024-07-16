@@ -6,8 +6,6 @@ import middleware from './index.middleware';
 import authRouter from './auth/auth.router';
 import adminRouter from './admin/admin.router';
 import userRouter from './user/user.router';
-import upload from '../lib/uploadImage';
-import { deleteFile, uploadFile } from '../lib/s3';
 
 const routes: Router = Router();
 
