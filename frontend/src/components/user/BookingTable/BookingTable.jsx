@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Dialog } from '@mui/material';
-import { addDays, startOfWeek, format, isBefore, isSameDay, setHours } from 'date-fns';
+import { Button, Dialog, IconButton } from '@mui/material';
+import { addDays, format, isBefore, isSameDay, setHours, getDay, isSameWeek } from 'date-fns';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 // Tạo mảng giờ chỉ với các mốc giờ chẵn
 const hours = Array.from({ length: 24 }, (_, i) => {
@@ -17,8 +19,16 @@ const mockRentalPrices = [
 
 const BookingTable = ({ open, onClose }) => {
   const [events, setEvents] = useState([
-    { title: 'Đã đặt', date: new Date(), start: 9, end: 11 },
-    { title: 'Đã đặt', date: addDays(new Date(), 1), start: 9, end: 10 },
+    { title: 'Đã đặt', date: new Date(), start: 18, end: 20 },
+    { title: 'Đã đặt', date: addDays(new Date(), 1), start: 7, end: 8 },
+    { title: 'Đã đặt', date: addDays(new Date(), 2), start: 9, end: 15 },
+    { title: 'Đã đặt', date: addDays(new Date(), 3), start: 12, end: 14 },
+    { title: 'Đã đặt', date: addDays(new Date(), 4), start: 16, end: 18 },
+    { title: 'Đã đặt', date: addDays(new Date(), 5), start: 12, end: 14 },
+    { title: 'Đã đặt', date: addDays(new Date(), 6), start: 12, end: 14 },
+    { title: 'Đã đặt', date: addDays(new Date(), 7), start: 12, end: 14 },
+    { title: 'Đã đặt', date: addDays(new Date(), 8), start: 12, end: 14 },
+    { title: 'Đã đặt', date: addDays(new Date(), 9), start: 12, end: 14 },
   ]);
   const [currentWeek, setCurrentWeek] = useState(new Date());
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -34,18 +44,35 @@ const BookingTable = ({ open, onClose }) => {
   }, []);
 
   const getWeekDates = (date) => {
-    const start = startOfWeek(date, { weekStartsOn: 0 });
-    return Array.from({ length: 7 }, (_, i) => addDays(start, i));
+    return Array.from({ length: 7 }, (_, i) => addDays(date, i));
   };
 
   const weekDates = getWeekDates(currentWeek);
 
+  const isDateInCurrentWeek = (dateToCheck, referenceDate) => {
+    return isSameWeek(dateToCheck, referenceDate, { weekStartsOn: 0 });
+  };  
+
   const prevWeek = () => {
-    setCurrentWeek(addDays(currentWeek, -7));
+    const currentWeek1 = getDay(currentWeek);
+    const plus = 7 + currentWeek1;
+    if (isDateInCurrentWeek(addDays(currentWeek, -plus), new Date())) {
+      setCurrentWeek(new Date());
+    }else{
+      setCurrentWeek(addDays(currentWeek, -plus));
+    }
+
   };
 
   const nextWeek = () => {
-    setCurrentWeek(addDays(currentWeek, 7));
+    const currentWeek1 = getDay(currentWeek);
+    const plus = 7 - currentWeek1;
+    if (isDateInCurrentWeek(addDays(currentWeek, plus), new Date())) {
+      setCurrentWeek(new Date());
+    }else{
+      setCurrentWeek(addDays(currentWeek, plus));
+    }
+
   };
 
   const isPastCell = (date, hour) => {
@@ -54,7 +81,12 @@ const BookingTable = ({ open, onClose }) => {
   };
 
   const renderEventText = (event) => {
-    return 'Đã đặt';
+    return (
+      <>
+        Đã đặt <br />
+        9:15-10:15
+      </>
+    );
   };
 
   const getRentalPriceForHour = (hour) => {
@@ -62,7 +94,7 @@ const BookingTable = ({ open, onClose }) => {
     return priceEntry ? priceEntry.price : 'Không có giá';
   };
 
-  const renderCell = (date, hour) => {
+  const renderCell = (date, hour, colIndex) => {
     const event = events.find(
       (event) =>
         isSameDay(event.date, date) &&
@@ -82,8 +114,8 @@ const BookingTable = ({ open, onClose }) => {
 
     return (
       <td
-        key={hour}
-        className={`border border-gray-200 px-4 py-2 ${cellClass}`}
+        key={`${date}-${hour}-${colIndex}`} // Sử dụng ngày, giờ và chỉ số cột để tạo khóa duy nhất
+        className={`border border-gray-200 px-4 py-2 ${cellClass} w-32 text-center`}
       >
         {isPast ? <></> : event ? renderEventText(event) : getRentalPriceForHour(hour)}
       </td>
@@ -91,33 +123,37 @@ const BookingTable = ({ open, onClose }) => {
   };
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="md" scroll="paper">
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth="lg" scroll="paper">
       <div className="mb-4 flex justify-between items-center">
-        <Button onClick={prevWeek} variant="contained" color="primary">
-          Tuần Trước
-        </Button>
-        <Button onClick={nextWeek} variant="contained" color="primary">
-          Tuần Sau
-        </Button>
+        <IconButton onClick={prevWeek} variant="contained" color="primary">
+          <ArrowBackIcon />
+        </IconButton>
+        <IconButton onClick={nextWeek} variant="contained" color="primary">
+          <ArrowForwardIcon />
+        </IconButton>
       </div>
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
           <tr>
             <th className="border border-gray-200 px-4 py-2">Giờ</th>
-            {daysOfWeek.map((day, index) => (
-              <th key={index} className="border border-gray-200 px-4 py-2">
-                {day}
-                <br />
-                {format(weekDates[index], 'dd/MM')}
-              </th>
-            ))}
+            {weekDates.map((day, index) => {
+              const isToday = isSameDay(day, currentTime);
+              const headerClass = isToday ? 'bg-blue-300' : '';
+              return (
+                <th key={index} className={`border border-gray-200 px-4 py-2 ${headerClass}`}>
+                  {daysOfWeek[getDay(day)]}
+                  <br />
+                  {format(weekDates[index], 'dd/MM')}
+                </th>
+              );
+            })}
           </tr>
         </thead>
         <tbody>
           {hours.map((hour, rowIndex) => (
             <tr key={rowIndex}>
-              <td className="border border-gray-200 px-4 py-2">{hour}</td>
-              {weekDates.map((date, colIndex) => renderCell(date, rowIndex))}
+              <td className="border border-gray-200 px-4 py-2 w-24">{hour}</td>
+              {weekDates.map((date, colIndex) => renderCell(date, rowIndex, colIndex))}
             </tr>
           ))}
         </tbody>
