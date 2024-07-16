@@ -25,7 +25,7 @@ import ListBranch from "../pages/guest/Branch/ListBranch.jsx";
 import BranchDetail from "../pages/guest/Branch/BranchDetail.jsx";
 import ListCourt from "../pages/guest/Court/ListCourt.jsx";
 import CourtDetail   from "../pages/guest/Court/CourtDetail.jsx";
-
+import UpdateBranch from "../pages/host/Branch/UpdateBranch.jsx"
 import WaitingList from "../pages/user/WaitingList/WaitingList.jsx";
 import BookingTablePage from "../pages/user/BookingTable/BookingTable.jsx";
 import AvailableCourtPage from "../pages/user/AvailableCourt/AvailableCourt.jsx";
@@ -34,6 +34,9 @@ import PostDetail from "../pages/user/PostDetail/PostDetail.jsx";
 import BookedCourts from "../pages/user/ViewListBooked/BookedCourtsTable.jsx";
 import BranchListPage from "../pages/user/ViewListBranch/BranchListPage.jsx";
 import BranDetailUser from "../pages/user/BranchDetail/BranDetailUser.jsx";
+import BookingPage from "../pages/user/Booking/BookingPage.jsx";
+
+import TestBookingPage from "../pages/user/Booking/TestBookingPage.jsx";
 
 const router = [
   {
@@ -145,6 +148,13 @@ const router = [
     path: "/host/branch/:id",
     name: "Branch Detail",
     component: <BranchDetail />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    layout: "host",
+  },
+  {
+    path: "/host/update-branch/:id",
+    name: "Update Branch",
+    component: <UpdateBranch />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "host",
   },
@@ -291,6 +301,20 @@ const router = [
     path: "/user/branch/:id",
     name: "Branch Detail User",
     component: <BranDetailUser />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/booking-page",
+    name: "Booking Page",
+    component: <BookingPage />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/booking-test",
+    name: "Booking Page",
+    component: <TestBookingPage />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "",
   },

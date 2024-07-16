@@ -88,9 +88,6 @@ const AvailableCourt = () => {
       );
       setActivities(response.data);
       console.log(response);
-      response.data.map(booking => {
-        console.log(booking.bookingInfo.name);
-      })
     } catch (error) {
       toast.error(error.response?.data?.error);
     }

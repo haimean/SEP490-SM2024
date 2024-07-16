@@ -36,7 +36,6 @@ const bookingUserController = {
       next(new CustomError(error?.message, 500));
     }
   },
-
   create: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const {
@@ -59,6 +58,24 @@ const bookingUserController = {
         numberPhone,
       });
       ResponseHandler(res, result);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
+  getDetail: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { id } = req.params;
+      console.log('🚀 ========= id:', id);
+      const accountId = Number(req.headers.authorization);
+      const result = await bookingUserService.getDetailBooking(
+        Number(id),
+        accountId
+      );
+      ResponseHandler(res, { ...result });
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
     }

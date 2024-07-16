@@ -1,22 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import EventModal from './EventModal';
-import { Button, Dialog } from '@mui/material';
-import { addDays, startOfWeek, format, isBefore, isSameDay, setHours, setMinutes } from 'date-fns';
+import { Button, Dialog, IconButton } from '@mui/material';
+import { addDays, format, isBefore, isSameDay, setHours, getDay, isSameWeek } from 'date-fns';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-// Tạo mảng giờ với các mốc nửa giờ
-const hours = Array.from({ length: 48 }, (_, i) => `${Math.floor(i / 2)}:${i % 2 === 0 ? '00' : '30'}`);
+// Tạo mảng giờ chỉ với các mốc giờ chẵn
+const hours = Array.from({ length: 24 }, (_, i) => {
+  const hour = i;
+  return `${hour}:00 ${hour < 12 ? 'AM' : 'PM'}`;
+});
+
+// Mock data for rental prices
+const mockRentalPrices = [
+  { startHour: 0, endHour: 5, price: '100,000đ' },
+  { startHour: 5, endHour: 22, price: '120,000đ' },
+  { startHour: 22, endHour: 24, price: '100,000đ' }
+];
 
 const BookingTable = ({ open, onClose }) => {
   const [events, setEvents] = useState([
-    { title: 'Đã đặt', date: new Date(), start: 9.5, end: 11 },
-    { title: 'Đã đặt', date: addDays(new Date(), 1), start: 9, end: 10.5 },
+    { title: 'Đã đặt', date: new Date(), start: 18, end: 20 },
+    { title: 'Đã đặt', date: addDays(new Date(), 1), start: 7, end: 8 },
+    { title: 'Đã đặt', date: addDays(new Date(), 2), start: 9, end: 15 },
+    { title: 'Đã đặt', date: addDays(new Date(), 3), start: 12, end: 14 },
+    { title: 'Đã đặt', date: addDays(new Date(), 4), start: 16, end: 18 },
+    { title: 'Đã đặt', date: addDays(new Date(), 5), start: 12, end: 14 },
+    { title: 'Đã đặt', date: addDays(new Date(), 6), start: 12, end: 14 },
+    { title: 'Đã đặt', date: addDays(new Date(), 7), start: 12, end: 14 },
+    { title: 'Đã đặt', date: addDays(new Date(), 8), start: 12, end: 14 },
+    { title: 'Đã đặt', date: addDays(new Date(), 9), start: 12, end: 14 },
   ]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCell, setSelectedCell] = useState(null);
-  const [hoveredCell, setHoveredCell] = useState(null);
   const [currentWeek, setCurrentWeek] = useState(new Date());
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [selectedCells, setSelectedCells] = useState([]);
 
   const daysOfWeek = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
 
@@ -28,148 +43,121 @@ const BookingTable = ({ open, onClose }) => {
     return () => clearInterval(timer);
   }, []);
 
-  const handleAddEvent = (title, date, start, end) => {
-    setEvents([...events, { title, date, start, end }]);
-    setSelectedCells([]);
-  };
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCellClick = (day, hour) => {
-    const selectedDate = addDays(startOfWeek(currentWeek), day);
-    const cell = { date: selectedDate, hour };
-
-    if (selectedCells.some(selectedCell => selectedCell.date === cell.date && selectedCell.hour === cell.hour)) {
-      setSelectedCells(selectedCells.filter(selectedCell => selectedCell.date !== cell.date || selectedCell.hour !== cell.hour));
-    } else {
-      setSelectedCells([...selectedCells, cell]);
-    }
-  };
-
-  const handleCellHover = (day, hour) => {
-    setHoveredCell({ day, hour });
-  };
-
-  const handleCellLeave = () => {
-    setHoveredCell(null);
-  };
-
   const getWeekDates = (date) => {
-    const start = startOfWeek(date, { weekStartsOn: 0 });
-    return Array.from({ length: 7 }, (_, i) => addDays(start, i));
+    return Array.from({ length: 7 }, (_, i) => addDays(date, i));
   };
 
   const weekDates = getWeekDates(currentWeek);
 
+  const isDateInCurrentWeek = (dateToCheck, referenceDate) => {
+    return isSameWeek(dateToCheck, referenceDate, { weekStartsOn: 0 });
+  };  
+
   const prevWeek = () => {
-    setCurrentWeek(addDays(currentWeek, -7));
+    const currentWeek1 = getDay(currentWeek);
+    const plus = 7 + currentWeek1;
+    if (isDateInCurrentWeek(addDays(currentWeek, -plus), new Date())) {
+      setCurrentWeek(new Date());
+    }else{
+      setCurrentWeek(addDays(currentWeek, -plus));
+    }
+
   };
 
   const nextWeek = () => {
-    setCurrentWeek(addDays(currentWeek, 7));
+    const currentWeek1 = getDay(currentWeek);
+    const plus = 7 - currentWeek1;
+    if (isDateInCurrentWeek(addDays(currentWeek, plus), new Date())) {
+      setCurrentWeek(new Date());
+    }else{
+      setCurrentWeek(addDays(currentWeek, plus));
+    }
+
   };
 
   const isPastCell = (date, hour) => {
-    const cellHour = Math.floor(hour / 2);
-    const cellMinute = hour % 2 === 0 ? 0 : 30;
-    const cellDateTime = setMinutes(setHours(date, cellHour), cellMinute);
+    const cellDateTime = setHours(date, hour);
     return isBefore(cellDateTime, currentTime);
   };
 
   const renderEventText = (event) => {
-    return 'Đã đặt';
+    return (
+      <>
+        Đã đặt <br />
+        9:15-10:15
+      </>
+    );
   };
 
-  const renderCell = (date, hour) => {
-    const cellStartTime = hour / 2;
-    const cellEndTime = (hour + 1) / 2;
+  const getRentalPriceForHour = (hour) => {
+    const priceEntry = mockRentalPrices.find((entry) => hour >= entry.startHour && hour < entry.endHour);
+    return priceEntry ? priceEntry.price : 'Không có giá';
+  };
 
+  const renderCell = (date, hour, colIndex) => {
     const event = events.find(
       (event) =>
         isSameDay(event.date, date) &&
-        ((event.start >= cellStartTime && event.start < cellEndTime) || (event.end > cellStartTime && event.end <= cellEndTime) || (event.start < cellStartTime && event.end > cellEndTime))
+        ((event.start >= hour && event.start < hour + 1) || (event.end > hour && event.end <= hour + 1) || (event.start < hour && event.end > hour))
     );
 
     const isPast = isPastCell(date, hour);
-    const isSelected = selectedCells.some(selectedCell => isSameDay(selectedCell.date, date) && selectedCell.hour === hour);
 
     let cellClass = '';
-    if (event) {
-      cellClass = 'bg-red-500 text-white';
-    } else if (hoveredCell?.day === date.getDay() && hoveredCell?.hour === hour) {
-      cellClass = 'bg-gray-200';
-    } else if (isPast) {
+    if (isPast) {
       cellClass = 'bg-gray-300';
-    } else if (isSelected) {
-      cellClass = 'bg-green-500 text-white';
+    } else if (event) {
+      cellClass = 'bg-red-500 text-white';
+    } else {
+      cellClass = 'bg-white';
     }
 
     return (
       <td
-        key={hour}
-        className={`border border-gray-200 px-4 py-2 ${cellClass}`}
-        onClick={() => !event && !isPast && handleCellClick(date.getDay(), hour)}
-        onMouseEnter={() => handleCellHover(date.getDay(), hour)}
-        onMouseLeave={handleCellLeave}
+        key={`${date}-${hour}-${colIndex}`} // Sử dụng ngày, giờ và chỉ số cột để tạo khóa duy nhất
+        className={`border border-gray-200 px-4 py-2 ${cellClass} w-32 text-center`}
       >
-        {event ? renderEventText(event) : ''}
+        {isPast ? <></> : event ? renderEventText(event) : getRentalPriceForHour(hour)}
       </td>
     );
   };
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="md" scroll="paper">
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth="lg" scroll="paper">
       <div className="mb-4 flex justify-between items-center">
-        <Button onClick={prevWeek} variant="contained" color="primary">
-          Tuần Trước
-        </Button>
-        <Button
-          onClick={openModal}
-          variant="contained"
-          color="primary"
-          disabled={selectedCells.length === 0}
-        >
-          Thêm Sự Kiện
-        </Button>
-        <Button onClick={nextWeek} variant="contained" color="primary">
-          Tuần Sau
-        </Button>
+        <IconButton onClick={prevWeek} variant="contained" color="primary">
+          <ArrowBackIcon />
+        </IconButton>
+        <IconButton onClick={nextWeek} variant="contained" color="primary">
+          <ArrowForwardIcon />
+        </IconButton>
       </div>
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
           <tr>
             <th className="border border-gray-200 px-4 py-2">Giờ</th>
-            {daysOfWeek.map((day, index) => (
-              <th key={index} className="border border-gray-200 px-4 py-2">
-                {day}
-                <br />
-                {format(weekDates[index], 'dd/MM')}
-              </th>
-            ))}
+            {weekDates.map((day, index) => {
+              const isToday = isSameDay(day, currentTime);
+              const headerClass = isToday ? 'bg-blue-300' : '';
+              return (
+                <th key={index} className={`border border-gray-200 px-4 py-2 ${headerClass}`}>
+                  {daysOfWeek[getDay(day)]}
+                  <br />
+                  {format(weekDates[index], 'dd/MM')}
+                </th>
+              );
+            })}
           </tr>
         </thead>
         <tbody>
           {hours.map((hour, rowIndex) => (
             <tr key={rowIndex}>
-              <td className="border border-gray-200 px-4 py-2">{hour}</td>
-              {weekDates.map((date, colIndex) => renderCell(date, rowIndex))}
+              <td className="border border-gray-200 px-4 py-2 w-24">{hour}</td>
+              {weekDates.map((date, colIndex) => renderCell(date, rowIndex, colIndex))}
             </tr>
           ))}
         </tbody>
       </table>
-      {isModalOpen && (
-        <EventModal
-          isOpen={isModalOpen}
-          onRequestClose={closeModal}
-          onAddEvent={(title, start, end) => handleAddEvent(title, selectedCells[0].date, start, end)}
-        />
-      )}
     </Dialog>
   );
 };

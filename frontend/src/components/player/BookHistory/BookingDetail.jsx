@@ -1,47 +1,48 @@
-import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Box, Typography, Paper, Grid, Button, Chip } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
 import { format } from "date-fns";
+import CallApi from "../../../service/CallAPI";
+import { toast } from "react-toastify";
 
 const BookingDetail = () => {
   const { id } = useParams();
-  // const [booking, setBooking] = useState(null);
+  const navigate = useNavigate();
+  const [booking, setBooking] = useState(null);
+  const now = new Date().getTime();
+  const bookingStartTime = new Date(booking?.startTime).getTime();
+  const canCancel = bookingStartTime > now;
 
-  // useEffect(() => {
-  //   const fetchBookingDetail = async () => {
-  //     try {
-  //       const data = await getBookingDetail(id);
-  //       setBooking(data);
-  //     } catch (error) {
-  //       console.error("Error fetching booking detail:", error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchBookingDetail = async () => {
+      try {
+        const result = await CallApi(`/api/user/booking/detail/${id}`, "get");
+        setBooking(result?.data);
+      } catch (error) {
+        console.error("Error fetching booking detail:", error);
+      }
+    };
+    fetchBookingDetail();
+  }, [id]);
 
-  //   fetchBookingDetail();
-  // }, [id]);
-  const booking = {
-    id: 2,
-    createdAt: "2024-07-11T10:15:00Z",
-    updatedAt: "2024-07-11T10:15:00Z",
-    accountId: 102,
-    Court: {
-      id: 2,
-      name: "Sân Hòa Bình B",
-    },
-    courtId: 2,
-    dateTime: "2024-06-18T18:30:00Z",
-    startTime: "2024-06-18T18:30:00Z",
-    endTime: "2024-06-18T20:30:00Z",
-    price: 600000,
-    bookingInfo: {
-      id: 2,
-      name: "Trần Thị B",
-      numberPhone: "0912345678",
-    },
+  const handleCancel = async () => {
+    const isConfirmed = window.confirm(
+      "Bạn có muốn hủy lịch thi đấu này không?"
+    );
+    if (isConfirmed) {
+      try {
+        await CallApi(`/api/user/booking/${booking?.id}`, "delete");
+        navigate("/player/booking-history");
+        toast.success("Xóa thành công trận đã đặt");
+      } catch (error) {
+        toast.error("Lỗi khi hủy đặt sân:", error);
+      }
+    }
   };
 
-  if (!booking) return <Typography>Loading...</Typography>;
+  if (!booking)
+    return <Typography>Loading...</Typography>;
 
   return (
     <Box
@@ -61,15 +62,13 @@ const BookingDetail = () => {
             alignItems: "center",
             textDecoration: "none",
             cursor: "pointer",
-            color: "gray"
+            color: "gray",
           }}
         >
           <ArrowBack fontSize="small" sx={{ mr: 0.5 }} />
           <Typography variant="h6">QUAY LẠI</Typography>
         </Box>
-        <Typography variant="h6">
-          Chi tiết đặt sân {booking.id}
-        </Typography>
+        <Typography variant="h6">Chi tiết đặt sân {booking.id}</Typography>
       </div>
 
       <Paper elevation={3} sx={{ p: 3 }}>
@@ -117,11 +116,13 @@ const BookingDetail = () => {
         </Grid>
 
         <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end" }}>
-          <Button variant="contained" color="primary">
-            Đặt lại
-          </Button>
-          {new Date(booking.startTime) > new Date() && (
-            <Button variant="contained" color="error" sx={{ ml: 2 }}>
+          {canCancel && (
+            <Button
+              onClick={handleCancel}
+              variant="contained"
+              color="error"
+              size="small"
+            >
               Hủy đặt sân
             </Button>
           )}

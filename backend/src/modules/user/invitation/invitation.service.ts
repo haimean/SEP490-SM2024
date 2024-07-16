@@ -34,6 +34,21 @@ const invitationUserService = {
       where: { id: postId },
     });
   },
+
+  createInvitePlayer: async (
+    idCreate: number,
+    idInvite: number,
+    postId: number
+  ) => {
+    return await database.invitation.create({
+      data: {
+        accountSendId: idCreate,
+        accountRecipientId: idInvite,
+        postId: postId,
+        status: 'AVAILABLE',
+      },
+    });
+  },
 };
 
 export default invitationUserService;

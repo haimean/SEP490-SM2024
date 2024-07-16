@@ -2,12 +2,11 @@ import React from "react";
 import { Controller } from "react-hook-form";
 import { TextField } from "@mui/material";
 
-const TextFieldCp = ({ field, control, errors }) => (
+const TextFieldCp = ({ field, control, errors, readOnly }) => (
   <Controller
     name={field.name}
     control={control}
-    defaultValue=""
-    errors={errors}
+    defaultValue={field.defaultValue || ""}
     rules={{ required: field.required }}
     render={({ field: { onChange, value }, fieldState: { error } }) => (
       <TextField
@@ -17,6 +16,9 @@ const TextFieldCp = ({ field, control, errors }) => (
         value={value}
         onChange={onChange}
         error={!!error}
+        InputProps={{
+          readOnly: field.readOnly || readOnly,
+        }}
         helperText={error ? error.message : null}
       />
     )}

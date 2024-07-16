@@ -7,7 +7,7 @@ const FileUploadCp = ({ field, control, errors }) => (
   <Controller
     name={field.name}
     control={control}
-    defaultValue=""
+    defaultValue={field.defaultValue || ""}
     errors={errors}
     rules={{ required: field.required }}
     render={({ field: { onChange, value } }) => (
@@ -19,12 +19,16 @@ const FileUploadCp = ({ field, control, errors }) => (
               borderRadius: "4px",
               padding: "10px",
               position: "relative",
-              width: "200px", // Điều chỉnh kích thước theo nhu cầu
+              width: "200px",
             }}
           >
             <img
-              src={URL.createObjectURL(value)}
-              alt={`Preview ${value.name}`}
+              src={
+                typeof value === "string" ? value : URL.createObjectURL(value)
+              }
+              alt={`Preview ${
+                typeof value === "string" ? "Current Image" : value.name
+              }`}
               style={{ width: "100%", height: "auto" }}
             />
             <IconButton
