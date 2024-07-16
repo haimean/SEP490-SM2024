@@ -59,36 +59,32 @@ const bookingUserService = {
     });
     return { response, total: result.length };
   },
-  // getDetailBookingHistoryList: async (accountId: number) => {
-  //   return await database.booking.findMany({
-  //     where: {
-  //       accountId,
-  //       post: {
-  //         isNot: null,
-  //       },
-  //       isDelete: false,
-  //     },
-  //     include: {
-  //       bookingInfo: true,
-  //       post: true,
-  //       Court: {
-  //         include: {
-  //           Branches: {
-  //             include: {
-  //               attributeBranches: {
-  //                 include: {
-  //                   attributeKeyBranches: true,
-  //                 },
-  //               },
-  //               address: true,
-  //             },
-  //           },
-  //           TypeCourt: true,
-  //         },
-  //       },
-  //     },
-  //   });
-  // },
+  getDetailBooking: async (id: number, accountId: number) => {
+    return await database.booking.findFirst({
+      where: {
+        id,
+        accountId,
+        post: {
+          isNot: null,
+        },
+        isDelete: false,
+      },
+      include: {
+        bookingInfo: true,
+        post: true,
+        Court: {
+          include: {
+            Branches: {
+              include: {
+                address: true,
+              },
+            },
+            TypeCourt: true,
+          },
+        },
+      },
+    });
+  },
 };
 
 export default bookingUserService;
