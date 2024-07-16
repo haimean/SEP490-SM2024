@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Grid, Typography } from '@mui/material';
 import BranchFilter from '../../../components/user/Branch/BranchFilter';
 import BranchCard from '../../../components/user/Branch/BranchCard';
 // import testImg from "D:/1_2024-05-SEM9/DOAN/scl.jpg"
+import { toast } from 'react-toastify';
 
 const testImg = "https://via.placeholder.com/200"
 const branches = [
@@ -51,6 +52,24 @@ const BranchListPage = () => {
     ward: '',
     search: '',
   });
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await CallApi(
+        "/api/branches/1",
+        "get",
+        {},
+        {}
+      );
+      console.log(response);
+    } catch (error) {
+      toast.error(error.response?.data?.error);
+    }
+  };
 
   const handleFilterChange = (province, district, ward, search) => {
     setFilters({ province, district, ward, search });

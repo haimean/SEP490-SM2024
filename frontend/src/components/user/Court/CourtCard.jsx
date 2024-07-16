@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardMedia, Typography, Stack, Button } from "@mui/material";
@@ -8,13 +8,15 @@ import BookingTable from "../BookingTable/BookingTable";
 
 const CourtCard = ({ activity }) => {
     const navigate = useNavigate();
-    const [bookModal, setBookModal] = useState(false);
+
     const handleClick = () => {
         navigate(`/post/${activity.id}`);
     };
 
-    const handleOpenBook = () => setBookModal(true);
-    const handleCloseBook = () => setBookModal(false);
+    const handleBookClick = () => {
+        navigate('/booking-page', { state: { activity } });
+    };
+
     return (
         <Card >
             <CardMedia
@@ -38,11 +40,10 @@ const CourtCard = ({ activity }) => {
                     <Button
                         variant="contained"
                         className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
-                        onClick={handleOpenBook}
+                        onClick={handleBookClick}
                     >
                         Đặt sân
                     </Button>
-                    <BookingTable open={bookModal} onClose={handleCloseBook}/>
                     <Button
                         variant="contained"
                         className="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded"
