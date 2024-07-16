@@ -7,7 +7,7 @@ const BookingHistory = () => {
   const [bookings, setBookings] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const perPage = 10;
+  const perPage = 5;
 
   useEffect(() => {
     getBookingHistory();
@@ -32,6 +32,7 @@ const BookingHistory = () => {
       console.log("🚀 ========= error:", error);
     }
   };
+
   const handleCancelSuccess = (cancelledBookingId) => {
     setBookings((prevBookings) =>
       prevBookings.filter((booking) => booking.id !== cancelledBookingId)
