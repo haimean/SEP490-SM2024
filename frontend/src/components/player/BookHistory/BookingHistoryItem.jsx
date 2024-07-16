@@ -11,13 +11,17 @@ const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
   const canCancel = bookingStartTime > now;
 
   const handleCancel = async () => {
-    console.log(bookings?.id);
-    try {
-      await CallApi(`/api/user/booking/${bookings?.id}`, "delete");
-      onCancelSuccess(bookings?.id);
-      toast.success("Xóa thành công trận đã đặt");
-    } catch (error) {
-      toast.error("Lỗi khi hủy đặt sân:", error);
+    const isConfirmed = window.confirm(
+      "Bạn có muốn hủy lịch thi đấu này không?"
+    );
+    if (isConfirmed) {
+      try {
+        await CallApi(`/api/user/booking/${bookings?.id}`, "delete");
+        onCancelSuccess(bookings?.id);
+        toast.success("Xóa thành công trận đã đặt");
+      } catch (error) {
+        toast.error("Lỗi khi hủy đặt sân:", error);
+      }
     }
   };
 
@@ -47,7 +51,7 @@ const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
             <Box sx={{ flex: 1 }} /> {/* Spacer */}
             <Button
               component={Link}
-              to={`/player/bookings-history/${bookings?.id}`}
+              to={`/player/booking-history/${bookings?.id}`}
               variant="contained"
               size="small"
               sx={{ mr: canCancel ? 1 : 0 }}
