@@ -20,6 +20,22 @@ const bookingHostController = {
       next(new CustomError(error?.message, 500));
     }
   },
+  getBookingHostList: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { pagination } = req.body;
+      const result = await bookingHostService.getBookingHostList(
+        Number(req.headers.authorization),
+        pagination
+      );
+      ResponseHandler(res, result);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
 };
 
 export default bookingHostController;
