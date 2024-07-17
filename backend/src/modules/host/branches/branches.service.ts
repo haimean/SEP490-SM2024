@@ -5,10 +5,11 @@ import {
   BranchesHostServiceCreate,
 } from './branches.model';
 import { DefaultArgs } from '@prisma/client/runtime/library';
+import { getObjectSignedUrl } from '../../../lib/s3';
 
 const branchesHostService = {
   listBranch: async (accountId: number) => {
-    return await database.branches.findMany({
+    const branches = await database.branches.findMany({
       where: {
         accountId,
         isAccept: true,
@@ -24,9 +25,15 @@ const branchesHostService = {
         },
       },
     });
+    branches.forEach(async (item, index) => {
+      if (item.image) {
+        branches[index].image = await getObjectSignedUrl(item.image);
+      }
+    });
+    return branches;
   },
   get: async (accountId: number, id: number): Promise<any> => {
-    return await database.branches.findUnique({
+    const branches = await database.branches.findUnique({
       where: {
         id,
         accountId,
@@ -48,6 +55,10 @@ const branchesHostService = {
         },
       },
     });
+    if (branches && branches.image) {
+      branches.image = await getObjectSignedUrl(branches.image);
+    }
+    return branches;
   },
 
   create: async (
