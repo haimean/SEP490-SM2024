@@ -24,6 +24,18 @@ const courtService = {
       },
       include: {
         Branches: true,
+        booking: {
+          include: {
+            bookingInfo: true,
+            account: true,
+            post: {
+              include: {
+                memberPost: true,
+                invitation: true,
+              },
+            },
+          },
+        },
         TypeCourt: {
           include: {
             priceTypeCourt: true,
