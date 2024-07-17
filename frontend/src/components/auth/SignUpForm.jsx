@@ -18,6 +18,13 @@ const SignUpForm = ({ role }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+let roleName;
+if (role === "HOST") {
+  roleName = "Chủ Sân";
+}else{
+  roleName = "Người Chơi"
+}
+
   const onSubmit = async (data) => {
     const { name, email, password, confirmPassword } = data;
     if (password !== confirmPassword) {
@@ -87,7 +94,7 @@ const SignUpForm = ({ role }) => {
 
   return (
     <div className="border-t-8 rounded-sm border-indigo-600 bg-white p-12 shadow-2xl w-96">
-      <h1 className="font-bold text-center block text-2xl mb-2">Đăng Kí</h1>
+      <h1 className="font-bold text-center block text-2xl mb-2">Đăng Kí {roleName}</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <InputLabel
           label="Tên"

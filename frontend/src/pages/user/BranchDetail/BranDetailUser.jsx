@@ -51,7 +51,6 @@ const BranDetailUser = () => {
         minHeight: "100vh",
       }}
     >
-      <Navbar sx={{ flexShrink: 0 }} />
       <Box
         sx={{
           my: 12,
@@ -66,7 +65,6 @@ const BranDetailUser = () => {
           map={map}
         />
       </Box>
-      <Footer sx={{ flexShrink: 0 }} />
     </Box>
   );
 };
