@@ -91,16 +91,34 @@ const ListCourt = () => {
           <h1 className="text-2xl font-bold mb-4">
             Tìm thấy {data.length} sân đấu
           </h1>
-          <Link to={`/host/register-court`} style={{ textDecoration: "none" }}>
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              sx={{ mb: 2 }}
+          <div className="flex gap-4">
+            <Link
+              to={`/host/register-court`}
+              style={{ textDecoration: "none" }}
             >
-              Thêm sân đấu
-            </Button>
-          </Link>
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                sx={{ mb: 2 }}
+              >
+                Thêm thuộc tính sân đấu
+              </Button>
+            </Link>
+            <Link
+              to={`/host/register-court`}
+              style={{ textDecoration: "none" }}
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                sx={{ mb: 2 }}
+              >
+                Thêm sân đấu
+              </Button>
+            </Link>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

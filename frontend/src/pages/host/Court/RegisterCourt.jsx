@@ -1,6 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useEffect, useState } from "react";
-import LayoutPlayer from "../../../layouts/player/LayoutPlayer";
+import { useEffect, useState } from "react";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
 import FormDetailCourt from "../../../components/host/court/FormDetailCourt";
