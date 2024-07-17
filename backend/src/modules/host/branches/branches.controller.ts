@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 import branchesHostService from './branches.service';
 import { ResponseHandler } from '../../../outcomes/responseHandler';
 import CustomError from '../../../outcomes/customError';
-import { uploadFile } from '../../../lib/s3';
 import { Branches, Prisma } from '@prisma/client';
 import {
   AddressBranchHostServiceCreate,
@@ -114,7 +113,6 @@ const branchesHostController = {
         attributeBranches,
         court,
       } = req.body;
-console.log(req.body);
 
       const branchesPayload: Prisma.BranchesUpdateInput = {
         name,

@@ -28,6 +28,9 @@ const branchesHostService = {
     branches.forEach(async (item, index) => {
       if (item.image) {
         branches[index].image = await getObjectSignedUrl(item.image);
+        branches[index].businessLicense = await getObjectSignedUrl(
+          item.businessLicense
+        );
       }
     });
     return branches;
@@ -57,6 +60,9 @@ const branchesHostService = {
     });
     if (branches && branches.image) {
       branches.image = await getObjectSignedUrl(branches.image);
+      branches.businessLicense = await getObjectSignedUrl(
+        branches.businessLicense
+      );
     }
     return branches;
   },
