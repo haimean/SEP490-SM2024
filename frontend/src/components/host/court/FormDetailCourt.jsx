@@ -103,6 +103,7 @@ export default function FormDetailCourt({
                 {item.name}
               </option>
             ))}
+            <option value={"other"}>Thêm mới</option>
           </select>
           {errors.typeCourtId && (
             <p className="text-red-500 text-sm mt-1">
