@@ -1,8 +1,9 @@
 import database from '../../../lib/db.server';
+import { getObjectSignedUrl } from '../../../lib/s3';
 
 const branchesGuestService = {
   getAll: async () => {
-    return await database.branches.findMany({
+    const branches = await database.branches.findMany({
       where: {
         isAccept: true,
         isDelete: false,
@@ -17,15 +18,26 @@ const branchesGuestService = {
         },
       },
     });
+    branches.forEach(async (item, index) => {
+      if (item.image) {
+        branches[index].image = await getObjectSignedUrl(item.image);
+      }
+    });
+    return branches;
   },
   get: async (id: number): Promise<any> => {
-    return await database.branches.findUnique({
+    const branches = await database.branches.findUnique({
       where: {
         id,
         isAccept: true,
         isDelete: false,
       },
       include: {
+        account: {
+          include: {
+            user: true,
+          },
+        },
         address: true,
         court: { include: { TypeCourt: true } },
         attributeBranches: {
@@ -35,6 +47,10 @@ const branchesGuestService = {
         },
       },
     });
+    if (branches && branches.image) {
+      branches.image = await getObjectSignedUrl(branches.image);
+    }
+    return branches;
   },
 };
 
