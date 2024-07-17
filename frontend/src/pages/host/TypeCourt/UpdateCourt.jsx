@@ -1,11 +1,16 @@
-import { useEffect, useState } from "react";
+// eslint-disable-next-line no-unused-vars
+import React, { useEffect, useState } from "react";
+import LayoutPlayer from "../../../layouts/player/LayoutPlayer";
+import FormDetailCourt from "../../../components/host/court/FormDetailCourt";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
-import FormDetailCourt from "../../../components/host/court/FormDetailCourt";
+import { useParams } from "react-router-dom";
 
-const RegisterCourt = () => {
+export default function UpdateCourt() {
+  const { id } = useParams();
   const [typeCourtList, setTypeCourtList] = useState([]);
   const [branchList, setBranchList] = useState([]);
+  const [court, setCourt] = useState([]);
   const createCourt = async (data) => {
     try {
       const result = await CallApi(
@@ -13,10 +18,10 @@ const RegisterCourt = () => {
         "post",
         data
       );
-      toast.success("Tạo thành công");
+      toast.success("Cập nhật thành công !");
       console.log("🚀 ========= result:", result);
     } catch (error) {
-      toast.error("Tạo không thành công !");
+      toast.error("Cập nhật không thành công");
       console.log("🚀 ========= error:", error);
     }
   };
@@ -36,23 +41,32 @@ const RegisterCourt = () => {
     };
     const getListBranch = async () => {
       try {
-        const listListBranch = await CallApi("/api/host/branches", "get");
-        console.log("🚀 ========= listListBranch:", listListBranch);
-        setBranchList(listListBranch.data);
+        const listBranch = await CallApi("/api/host/branches", "get");
+        console.log("🚀 ========= listBranch:", listBranch);
+        setBranchList(listBranch.data);
+      } catch (error) {
+        console.log("🚀 ========= error:", error);
+      }
+    };
+    const getDetailCourt = async () => {
+      try {
+        const courtDetail = await CallApi(`/api/host/court/${id}`, "get");
+        console.log("🚀 ========= courtDetail:", courtDetail.data);
+        setCourt(courtDetail.data);
       } catch (error) {
         console.log("🚀 ========= error:", error);
       }
     };
     getListTypeCourt();
     getListBranch();
+    getDetailCourt();
   }, []);
   return (
     <FormDetailCourt
       onSubmit={onSubmit}
       branchList={branchList}
       typeCourtList={typeCourtList}
+      court={court}
     />
   );
-};
-
-export default RegisterCourt;
+}
