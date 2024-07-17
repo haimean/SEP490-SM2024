@@ -7,7 +7,7 @@
     "test": "jest --watchAll  --detectOpenHandles",
     "build": "tsc",
     "start": "tsc && node dist/src/app.js",
-    "dev": "nodemon  --host 3000",
+    "dev": "nodemon",
     "seed": "nodemon - exec 'ts-node' ./seed.ts",
     "doc": "node swagger.js",
     "gen:module": "npx hygen module new",

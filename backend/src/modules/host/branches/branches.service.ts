@@ -25,15 +25,31 @@ const branchesHostService = {
         },
       },
     });
-    branches.forEach(async (item, index) => {
-      if (item.image) {
-        branches[index].image = await getObjectSignedUrl(item.image);
-        branches[index].businessLicense = await getObjectSignedUrl(
-          item.businessLicense
+    const finalBranches = JSON.parse(JSON.stringify(branches));
+    for (let index = 0; index < branches.length; index++) {
+      if (finalBranches[index].image) {
+        finalBranches[index].image = await getObjectSignedUrl(
+          finalBranches[index].image
         );
+        finalBranches[index].businessLicense =
+          await getObjectSignedUrl(
+            finalBranches[index].businessLicense
+          );
       }
-    });
-    return branches;
+    }
+    // branches.forEach(async (item, index) => {
+    //   if (item.image) {
+    //     finalBranches[index].image = await getObjectSignedUrl(
+    //       item.image
+    //     );
+    //     finalBranches[index].businessLicense =
+    //       await getObjectSignedUrl(item.businessLicense);
+    //   }
+    //   console.log(finalBranches[index].businessLicense);
+    // });
+    console.log('finalBranches', finalBranches);
+
+    return finalBranches;
   },
   get: async (accountId: number, id: number): Promise<any> => {
     const branches = await database.branches.findUnique({
