@@ -24,10 +24,10 @@ const NavbarItemUser = () => {
       <Button
         color="inherit"
         component={Link}
-        to="/player/list-branch"
+        to="/search-courts"
         sx={{ textTransform: "none" }}
       >
-        Sân đấu
+        Tìm sân đấu
       </Button>
       <Button
         color="inherit"
