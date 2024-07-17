@@ -37,7 +37,7 @@ import BranDetailUser from "../pages/user/BranchDetail/BranDetailUser.jsx";
 import BookingPage from "../pages/user/Booking/BookingPage.jsx";
 
 import TestBookingPage from "../pages/user/Booking/TestBookingPage.jsx";
-
+import BookingCalendar from "../components/user/BookingTable/BookingCalendar.jsx";
 const router = [
   {
     path: "/",
@@ -315,6 +315,13 @@ const router = [
     path: "/booking-test",
     name: "Booking Page",
     component: <TestBookingPage />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    layout: "",
+  },
+  {
+    path: "/booking-calendar",
+    name: "Booking Page",
+    component: <BookingCalendar />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "",
   },

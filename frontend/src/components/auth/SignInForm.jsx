@@ -168,6 +168,14 @@ const SignInForm = ({ isModal, onSuccess }) => {
             Chưa có tài khoản? Đăng kí
           </a>
         </div>
+        <div className="mt-4 text-center">
+          <a
+            href="/sign-up-host"
+            className="text-indigo-600 hover:text-indigo-800"
+          >
+            Đăng kí cho chủ sân.
+          </a>
+        </div>
       </div>
       <VerifyAccountModal show={showVerifyModal} onClose={handleCloseModal}>
         {modalContent}

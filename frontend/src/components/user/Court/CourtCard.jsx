@@ -14,7 +14,7 @@ const CourtCard = ({ activity }) => {
     };
 
     const handleBookClick = () => {
-        navigate('/booking-page', { state: { activity } });
+        navigate('/booking-test', { state: { activity } });
     };
 
     return (

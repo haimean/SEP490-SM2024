@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardMedia, Typography, Stack, Button } from "@mui/material";
+import { Card, CardContent, CardMedia, Typography, Stack, Button, Tooltip } from "@mui/material";
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import EventIcon from '@mui/icons-material/Event';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -53,16 +53,18 @@ const PostCard = ({ activity }) => {
                 alt={activity.bookingInfo.name}
             />
             <CardContent className="">
-                <Typography component="h2" variant="h5">
-                    {activity.bookingInfo.name}
-                </Typography>
-                <Stack direction="row" alignItems="center" spacing={1}>
-                    <LocationOnOutlinedIcon className="text-red-600" />
-                    <Typography>{activity.Court.Branches.address.wards},&nbsp;
-                        {activity.Court.Branches.address.districts},&nbsp;
-                        {activity.Court.Branches.address.provinces}
+                <Tooltip title={activity.bookingInfo.name}>
+                    <Typography component="h2" variant="h5" className="truncate">
+                        {activity.bookingInfo.name}
                     </Typography>
-                </Stack>
+                </Tooltip>
+                <Tooltip title={activity.Court.Branches.address.detail}>
+                    <Stack direction="row" alignItems="center" spacing={1} className="truncate">
+                        <LocationOnOutlinedIcon className="text-red-600" />
+                        <Typography>{activity.Court.Branches.address.detail}
+                        </Typography>
+                    </Stack>
+                </Tooltip>
                 <Stack direction="row" alignItems="center" spacing={1}>
                     <EventIcon className="text-red-600" />
                     <Typography>{formattedDate}</Typography>
