@@ -4,6 +4,9 @@ const attributeBranchesServiceBase = {
   findById: async (id: number) => {
     return await database.attributeBranches.findFirst({
       where: { id },
+      include: {
+        account: true,
+      },
     });
   },
 };

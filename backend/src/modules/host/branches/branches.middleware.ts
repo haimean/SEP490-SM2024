@@ -29,12 +29,14 @@ const branchesHostMiddleware: BranchesHostMiddleware = {
       attributeBranches?.forEach(async (id: number) => {
         const dataAttributeBranches =
           await attributeBranchesServiceBase.findById(id);
+        // not active
         if (!dataAttributeBranches?.isActive) {
           next(new NotFoundError('Không tồn tại thuộc tính'));
         }
         if (
           accountId !== dataAttributeBranches?.accountId &&
-          dataAttributeBranches?.isPublic
+          dataAttributeBranches?.account.role === 'HOST' &&
+          !dataAttributeBranches?.isPublic
         ) {
           next(new NotFoundError('Không tồn tại thuộc tính'));
         }
@@ -63,7 +65,6 @@ const branchesHostMiddleware: BranchesHostMiddleware = {
   },
   update: async (req, res, next) => {
     try {
-      const files: any = req.files;
       const accountId: number = Number(req.headers.authorization);
       const { attributeBranches, court } = req.body;
       attributeBranches?.forEach(async (id: number) => {
@@ -74,6 +75,7 @@ const branchesHostMiddleware: BranchesHostMiddleware = {
         }
         if (
           accountId !== dataAttributeBranches?.accountId &&
+          dataAttributeBranches?.account.role === 'HOST' &&
           !dataAttributeBranches?.isPublic
         ) {
           next(new NotFoundError('Không tồn tại thuộc tính'));
