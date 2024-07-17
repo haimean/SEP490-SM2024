@@ -41,14 +41,8 @@ const attributeCourtHostController = {
   },
   getAll: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const secret: Secret = process.env.SECRET_JWT_KEY ?? '';
-      const token = req.headers?.authorization?.split(' ')[1] ?? '';
-      const jwtObj: { data: Account } = jwt.verify(token, secret) as {
-        data: Account;
-      };
-      const data = await attributeCourtHostService.getAll(
-        jwtObj.data.id
-      );
+      const accountId = Number(req.headers.authorization);
+      const data = await attributeCourtHostService.getAll(accountId);
       ResponseHandler(res, data);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
