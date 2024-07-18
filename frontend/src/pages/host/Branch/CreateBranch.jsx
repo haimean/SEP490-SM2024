@@ -334,15 +334,16 @@ const CreateBranch = () => {
           control={control}
           errors={errors}
           setValue={setValue}
-        />
-        {/* Todo: html for table and data */}
-        <ListTypeCourtForBranchesCp
-          courts={courts}
-          typeCourts={typeCourts}
-          onCreate={onCreate}
-          onRemove={onRemove}
-          onAddTypeCourt={onAddTypeCourt}
-        />
+        >
+          {/* TODO: html for table and data */}
+          <ListTypeCourtForBranchesCp
+            courts={courts}
+            typeCourts={typeCourts}
+            onCreate={onCreate}
+            onRemove={onRemove}
+            onAddTypeCourt={onAddTypeCourt}
+          />
+        </Form>
       </Box>
     </Box>
   );

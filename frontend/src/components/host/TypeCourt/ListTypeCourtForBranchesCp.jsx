@@ -9,6 +9,9 @@ import {
   TableRow,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Form from "../../../components/host/Form";
+import { useMemo } from "react";
+import { useForm } from "react-hook-form";
 const ListTypeCourtForBranchesCp = ({
   courts,
   typeCourts,
@@ -16,19 +19,38 @@ const ListTypeCourtForBranchesCp = ({
   onRemove,
   onAddTypeCourt,
 }) => {
+  const {
+    control,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { errors },
+  } = useForm();
+  const formConfig = useMemo(() => [
+    {
+      name: "name",
+      label: "Tên sân",
+      type: "text",
+      required: true,
+      gridWidth: 12,
+    },
+    {
+      name: `typeCourtId`,
+      label: "Kiểu sân",
+      type: "select",
+      required: true,
+      options: typeCourts,
+      gridWidth: 12,
+    },
+  ]);
+  const handleCancel = () => {
+    reset();
+  };
   return (
-    <Box>
-      {/* 3 ô input */}
-
-      {/* input name */}
-
-      {/* input typecourtid */}
-
-      {/* button add -> call oncreate */}
-
+    <Box class="mt-3">
       {/* bảng hiện thông tin có icon xóa nhấn icon xóa thì gọi vào onRemove */}
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <TableContainer>
+        <Table aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>Tên sân </TableCell>
@@ -54,6 +76,16 @@ const ListTypeCourtForBranchesCp = ({
           </TableBody>
         </Table>
       </TableContainer>
+
+      <Form
+        formConfig={formConfig}
+        handleSubmit={handleSubmit}
+        onSubmit={onCreate}
+        handleCancel={handleCancel}
+        control={control}
+        errors={errors}
+        setValue={setValue}
+      />
     </Box>
   );
 };

@@ -16,6 +16,7 @@ const Form = ({
   onSubmit,
   errors,
   setValue,
+  children,
 }) => {
   const renderField = (field) => {
     switch (field.type) {
@@ -69,6 +70,7 @@ const Form = ({
           </Grid>
         ))}
       </Grid>
+      {children}
       <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end" }}>
         <Button
           onClick={handleCancel}
