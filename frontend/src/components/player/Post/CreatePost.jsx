@@ -62,7 +62,7 @@ const CreatePostModal = ({ bookings }) => {
           },
         ],
       };
-      const response = await CallApi("/api/user/post", "post", requestData);
+      await CallApi("/api/user/post", "post", requestData);
       handleClose();
       toast.success("Tạo bài đăng mời chơi thành công");
     } catch (error) {
