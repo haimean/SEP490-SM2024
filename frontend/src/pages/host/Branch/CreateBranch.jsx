@@ -60,6 +60,7 @@ const CreateBranch = () => {
   }, []);
 
   const onSubmit = async (data) => {
+    console.log("🚀 ========= data:", data);
     const formData = new FormData();
     try {
       formData.append("name", data.branchName);
