@@ -51,7 +51,7 @@ const bookingHostService = {
         isAccept: true,
       },
       include: {},
-      ...getQueryPagination(pagination),
+      // ...getQueryPagination(pagination),
       orderBy: {},
     };
     query.include = {
@@ -74,6 +74,50 @@ const bookingHostService = {
     return {
       data: response,
       total: result.length,
+    };
+  },
+
+  getBookingHostByBranch: async (
+    branchesId: number,
+    pagination: Pagination
+  ) => {
+    const query = {
+      where: {
+        id: branchesId,
+        isDelete: false,
+        isAccept: true,
+      },
+      include: {},
+      // ...getQueryPagination(pagination),
+      // orderBy: {},
+    };
+    query.include = {
+      court: {
+        include: {
+          booking: true,
+        },
+      },
+    };
+    const getAllBookings = (branchData: any) => {
+      const bookings: any = [];
+      branchData.court.forEach((court: any) => {
+        court.booking.forEach((booking: any) => {
+          bookings.push(booking);
+        });
+      });
+      return bookings;
+    };
+    const response = await database.branches.findUnique(query);
+    console.log('🚀 ========= response:', response);
+    const data = getAllBookings(response);
+    console.log('🚀 ========= data:', data);
+    const skip = (pagination.page - 1) * pagination.perPage;
+    const take = pagination.perPage;
+    const paginatedBookings = data.slice(skip, skip + take);
+    console.log('🚀 ========= paginatedBookings:', paginatedBookings);
+    return {
+      data: paginatedBookings,
+      total: data.length,
     };
   },
 };
