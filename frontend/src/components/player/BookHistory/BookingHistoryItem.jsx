@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import CallApi from "../../../service/CallAPI";
+import CreatePostModal from "../../../components/player/Post/CreatePost";
 
 const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
   const now = new Date().getTime();
@@ -58,6 +59,9 @@ const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
             >
               Chi tiết
             </Button>
+            {canCancel && !bookings.post && (
+              <CreatePostModal bookings={bookings} />
+            )}
             {canCancel && (
               <Button
                 onClick={handleCancel}

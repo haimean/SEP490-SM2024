@@ -22,9 +22,6 @@ const bookingUserService = {
     const result = await database.booking.findMany({
       where: {
         accountId,
-        post: {
-          isNot: null,
-        },
         isDelete: false,
       },
     });
@@ -32,9 +29,6 @@ const bookingUserService = {
     const response = await database.booking.findMany({
       where: {
         accountId,
-        post: {
-          isNot: null,
-        },
         isDelete: false,
       },
       include: {
@@ -65,9 +59,6 @@ const bookingUserService = {
       where: {
         id,
         accountId,
-        post: {
-          isNot: null,
-        },
         isDelete: false,
       },
       include: {
