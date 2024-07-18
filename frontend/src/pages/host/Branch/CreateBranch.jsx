@@ -5,6 +5,7 @@ import { Box } from "@mui/material";
 import { useForm } from "react-hook-form";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
+import ListTypeCourtForBranchesCp from "../../../components/host/TypeCourt/ListTypeCourtForBranchesCp";
 
 const CreateBranch = () => {
   const {
@@ -15,9 +16,12 @@ const CreateBranch = () => {
     formState: { errors },
   } = useForm();
   const [branchAtbList, setBranchAtbList] = useState([]);
+  const [courts, setCourts] = useState([]);
+  const [typeCourts, setTypeCourts] = useState([]);
 
   useEffect(() => {
     fetchBranchAtbList();
+    fetchTypeCourtList();
   }, []);
 
   const addNewAttributeValue = useCallback(async (data) => {
@@ -84,6 +88,8 @@ const CreateBranch = () => {
       for (let [key, value] of formData.entries()) {
         console.log(`${key}: ${value}`);
       }
+
+      //todo thêm mới 1 branches có danh sách sân
       await CallApi("/api/host/branches", "post", formData);
       toast.success(`Tạo chi nhánh ${data.branchName} thành công!`);
     } catch (error) {
@@ -102,6 +108,16 @@ const CreateBranch = () => {
         "=============== fetch branch attribute ERROR: " +
           error.response?.data?.error
       );
+    }
+  };
+
+  // call api lấy danh sách typecourt
+  const fetchTypeCourtList = async () => {
+    try {
+      const response = await CallApi(`/api/host/type-court`, "get");
+      setTypeCourts(response?.data);
+    } catch (error) {
+      setTypeCourts([]);
     }
   };
 
@@ -281,6 +297,18 @@ const CreateBranch = () => {
     reset();
   };
 
+  const onCreate = (data) => {
+    setCourts((preCourt) => [...preCourt, data]);
+  };
+  //Todo: remove 1 court
+  const onRemove = () => {
+    // setCourts((preCourt) => [...preCourt, data]);
+  };
+
+  //Todo: open modal add typeCourt
+  const onAddTypeCourt = () => {
+    // setCourts((preCourt) => [...preCourt, data]);
+  };
   return (
     <Box
       sx={{
@@ -305,6 +333,14 @@ const CreateBranch = () => {
           control={control}
           errors={errors}
           setValue={setValue}
+        />
+        {/* Todo: html for table and data */}
+        <ListTypeCourtForBranchesCp
+          courts={courts}
+          typeCourts={typeCourts}
+          onCreate={onCreate}
+          onRemove={onRemove}
+          onAddTypeCourt={onAddTypeCourt}
         />
       </Box>
     </Box>
