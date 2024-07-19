@@ -23,9 +23,11 @@ const SignInForm = ({ isModal, onSuccess }) => {
 
   const manageResponse = (response, email) => {
     const { token, role } = response.data;
+    const accountId = response.data.id;
     localStorage.setItem("accessToken", token);
     localStorage.setItem("userRole", role); // Lưu vai trò người dùng
-    dispatch(setUser({ user: email, role })); // Cập nhật thông tin người dùng vào Redux
+    localStorage.setItem("accountId", accountId);
+    dispatch(setUser({ user: email, role, accountId })); // Cập nhật thông tin người dùng vào Redux
     toast.success(`Đăng nhập thành công!`);
     console.log(response);
     if (!isModal) {
