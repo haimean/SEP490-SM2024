@@ -36,6 +36,42 @@ const bookingGuestService = {
       },
     });
   },
+  getBookingPostLogin: async (accountId: number) => {
+    return await database.booking.findMany({
+      where: {
+        startTime: {
+          gte: new Date(),
+          lte: new Date(new Date().setDate(new Date().getDate() + 7)),
+        },
+        isDelete: false,
+        post: {
+          isNot: null,
+        },
+        accountId: {
+          not: accountId,
+        },
+      },
+      include: {
+        bookingInfo: true,
+        post: true,
+        Court: {
+          include: {
+            Branches: {
+              include: {
+                attributeBranches: {
+                  include: {
+                    attributeKeyBranches: true,
+                  },
+                },
+                address: true,
+              },
+            },
+            TypeCourt: true,
+          },
+        },
+      },
+    });
+  },
 };
 
 export default bookingGuestService;
