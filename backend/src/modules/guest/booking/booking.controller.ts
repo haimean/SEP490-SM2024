@@ -13,15 +13,20 @@ const bookingGuestController = {
     next: NextFunction
   ) => {
     try {
-      const token = req.headers?.authorization?.split(' ')[1] ?? '';
-      const jwtObj: { data: Account } = jwt.verify(token, secret) as {
-        data: Account;
-      };
       let result: any = [];
-      if (jwtObj.data.id) {
-        result = await bookingGuestService.getBookingPostLogin(
-          jwtObj.data.id
-        );
+      if (req.headers?.authorization) {
+        const token = req.headers?.authorization?.split(' ')[1] ?? '';
+        const jwtObj: { data: Account } = jwt.verify(
+          token,
+          secret
+        ) as {
+          data: Account;
+        };
+        if (jwtObj.data.id) {
+          result = await bookingGuestService.getBookingPostLogin(
+            jwtObj.data.id
+          );
+        }
       } else {
         result = await bookingGuestService.getBookingPost();
       }
