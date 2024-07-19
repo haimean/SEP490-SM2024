@@ -20,38 +20,14 @@ import CourtCard from "../Court/CourtCard";
 // import testImg from "D:/1_2024-05-SEM9/DOAN/scl.jpg"
 
 const testImg = "https://via.placeholder.com/200"
-const courts = [
-    {
-      id: 1,
-      title: "Sân 1",
-      price: "50.000đ/1h",
-      image: testImg,
-    },
-    {
-      id: 2,
-      title: "Sân 2",
-      price: "50.000đ/1h",
-      image: testImg,
-    },
-    {
-      id: 3,
-      title: "Sân 3",
-      price: "50.000đ/1h",
-      image: testImg,
-    },
-    {
-      id: 4,
-      title: "Sân 4",
-      price: "50.000đ/1h",
-      image: testImg,
-    },
-  ];
 
 const UserBranchDetail = ({
     title,
     image,
     description,
     map,
+    courts,
+    branch
 }) => {
     const renderInfoItem = (Icon, text) => (
         <Box display="flex" alignItems="center" mb={1}>
@@ -77,6 +53,12 @@ const UserBranchDetail = ({
                             {title}
                         </Typography>
                         <Typography variant="h6" gutterBottom>
+                            Giờ mở cửa: {branch.openingHours}
+                        </Typography>
+                        <Typography variant="h6" gutterBottom>
+                            Giờ đóng cửa:{branch.closingHours}
+                        </Typography>
+                        <Typography variant="h6" gutterBottom>
                             Mô tả thêm
                         </Typography>
                         {renderInfoItem(SportsBasketball, description)}
@@ -86,7 +68,7 @@ const UserBranchDetail = ({
             <Grid item xs={12} md={4}>
                 <CardContent>
                     <Typography variant="h6" component="div" gutterBottom>
-                    <AccountBox style={{ marginRight: '8px' }} /> Anh Linh
+                        <AccountBox style={{ marginRight: '8px' }} /> Anh Linh
                     </Typography>
                     <Typography variant="body2" color="textSecondary" gutterBottom>
                         <Phone style={{ marginRight: '8px' }} />
@@ -110,7 +92,7 @@ const UserBranchDetail = ({
                 <Grid container spacing={3}>
                     {courts.map((court) => (
                         <Grid item xs={12} md={4} key={court.id}>
-                            <CourtCard activity={court} />
+                            <CourtCard court={court} image={image} />
                         </Grid>
                     ))}
                 </Grid>

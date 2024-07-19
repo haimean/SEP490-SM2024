@@ -1,40 +1,35 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardMedia, Typography, Stack, Button } from "@mui/material";
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import ChecklistIcon from '@mui/icons-material/Checklist';
-import BookingTable from "../BookingTable/BookingTable";
+import BookingModal from "../BookingTable/BookingModal";
 
-const CourtCard = ({ activity }) => {
-    const navigate = useNavigate();
-
-    const handleClick = () => {
-        navigate(`/post/${activity.id}`);
-    };
+const CourtCard = ({ court, image }) => {
+    const [openModal, setOpenModal] = useState(false);
 
     const handleBookClick = () => {
-        navigate('/booking-test', { state: { activity } });
+        setOpenModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setOpenModal(false);
     };
 
     return (
-        <Card >
+        <Card>
             <CardMedia
                 component="img"
-                image={activity.image}
+                image={image}
                 className={"object-cover bg-blue-200 h-40"}
             />
-            <CardContent >
+            <CardContent>
                 <Typography component="h2" variant="h5">
-                    {activity.title}
+                    {court.name}
                 </Typography>
                 <Stack direction="row" alignItems="center" spacing={1}>
                     <ChecklistIcon className="text-red-600" />
-                    <Typography>Thảm acrylic, Lưới dáme crax</Typography>
-                </Stack>
-                <Stack direction="row" alignItems="center" spacing={1}>
-                    <PaidOutlinedIcon className="text-red-600" />
-                    <Typography>Giá: {activity.price}</Typography>
+                    <Typography>{court?.TypeCourt?.description}</Typography>
                 </Stack>
                 <div className="mt-4 space-x-4">
                     <Button
@@ -44,25 +39,11 @@ const CourtCard = ({ activity }) => {
                     >
                         Đặt sân
                     </Button>
-                    <Button
-                        variant="contained"
-                        className="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded"
-                        onClick={handleClick}
-                    >
-                        Xem chi tiết
-                    </Button>
                 </div>
             </CardContent>
+            <BookingModal open={openModal} onClose={handleCloseModal} courtId={court.id} />
         </Card>
     );
-};
-
-CourtCard.propTypes = {
-    activity: PropTypes.shape({
-        image: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        price: PropTypes.string.isRequired,
-    }).isRequired,
 };
 
 export default CourtCard;
