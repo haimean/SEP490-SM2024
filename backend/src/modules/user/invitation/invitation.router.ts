@@ -16,4 +16,11 @@ invitationUserRouter.post(
   validate(invitationUserValidator.create),
   invitationUserController.createInvitePlayer
 );
+
+invitationUserRouter.post(
+  '/unavailable/:postId',
+  validate(invitationUserValidator.getAllUnavailable),
+  invitationUserController.getAllUnavailable
+);
+
 export default invitationUserRouter;
