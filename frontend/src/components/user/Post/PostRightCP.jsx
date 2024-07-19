@@ -39,7 +39,7 @@ const PostRightCP = ({ user, isOwner }) => {
             Liên hệ: {user.numberPhone}
           </Typography>
           <div className="mt-4 flex justify-center space-x-2">
-            {!isOwner ? (
+            {isOwner ? (
               <>
                 <Button variant="contained"
                   onClick={handleOpenWaitingList}>Mời người chơi</Button>
