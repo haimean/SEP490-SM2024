@@ -69,12 +69,7 @@ const bookingHostService = {
         },
       },
     };
-    const result = await database.branches.findMany(query);
-    const response = await database.branches.findMany(query);
-    return {
-      data: response,
-      total: result.length,
-    };
+    return await database.branches.findMany(query);
   },
 
   getBookingHostByBranch: async (
