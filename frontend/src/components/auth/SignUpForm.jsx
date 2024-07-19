@@ -70,14 +70,23 @@ if (role === "HOST") {
           {}
         );
         const { token } = response.data;
+        const accountId = response.data.id;
+        const newRole = response.data.role
         localStorage.setItem("accessToken", token);
-        localStorage.setItem("userRole", role); // Lưu vai trò người dùng
-        dispatch(setUser({ user: email, role })); // Cập nhật thông tin người dùng vào Redux
+        localStorage.setItem("userRole", newRole); // Lưu vai trò người dùng
+        localStorage.setItem("accountId", accountId);
+        dispatch(setUser({ user: email, role, accountId })); // Cập nhật thông tin người dùng vào Redux
         toast.success(`Login successful!`);
-        if (role === "HOST") {
-          navigate("/");
-        } else if (role === "USER") {
-          navigate("/");
+        switch (newRole) {
+          case "HOST":
+            navigate("/host");
+            return;
+          case "ADMIN":
+            navigate("/admin/dashboard");
+            return;
+          case "USER":
+            navigate("/");
+            return;
         }
       } catch (error) {
         toast.error(error.response?.data?.error);
