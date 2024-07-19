@@ -6,6 +6,7 @@ import invitationUserRouter from './invitation/invitation.router';
 import bookingUserRouter from './booking/booking.router';
 import userAvailableRouter from './UserAvailability/userAvailable.router';
 import postUserRouter from './post/post.router';
+import reviewUserRouter from './review/review.router';
 
 const userRouter = Router();
 userRouter.put(
@@ -23,5 +24,6 @@ userRouter.use('/invitation', invitationUserRouter);
 userRouter.use('/booking', bookingUserRouter);
 userRouter.use('/user-available', userAvailableRouter);
 userRouter.use('/post', postUserRouter);
+userRouter.use('/review', reviewUserRouter);
 
 export default userRouter;

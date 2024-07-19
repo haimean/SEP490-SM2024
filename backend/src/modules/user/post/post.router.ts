@@ -10,4 +10,6 @@ postUserRouter.post(
 
   postUserController.create
 );
+postUserRouter.get('/:id', postUserController.get);
+
 export default postUserRouter;
