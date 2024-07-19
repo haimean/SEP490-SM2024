@@ -36,6 +36,22 @@ const bookingHostController = {
       next(new CustomError(error?.message, 500));
     }
   },
+  getBookingHostByBranch: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { branchesId, pagination } = req.body;
+      const result = await bookingHostService.getBookingHostByBranch(
+        branchesId,
+        pagination
+      );
+      ResponseHandler(res, result);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
 };
 
 export default bookingHostController;

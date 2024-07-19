@@ -219,16 +219,21 @@ model Comment {
   updatedAt       DateTime    @updatedAt
 }
 
+enum TYPE_PRICE_COUT {
+  WEEKLY
+  ONETIME
+}
+
 // Ca đặt
 model PriceTypeCourt {
-  id          Int        @id @default(autoincrement())
+  id          Int             @id @default(autoincrement())
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
   startTime   DateTime
   endTime     DateTime
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  times       Int
+  type        TYPE_PRICE_COUT @default(ONETIME)
   price       Int
-  typeCourt   TypeCourt? @relation(fields: [typeCourtId], references: [id])
+  typeCourt   TypeCourt?      @relation(fields: [typeCourtId], references: [id])
   typeCourtId Int?
 }
 

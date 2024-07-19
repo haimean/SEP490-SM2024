@@ -7,4 +7,8 @@ bookingHostRouter.post(
   '/history',
   bookingHostController.getBookingHostList
 );
+bookingHostRouter.post(
+  '/booking-list',
+  bookingHostController.getBookingHostByBranch
+);
 export default bookingHostRouter;

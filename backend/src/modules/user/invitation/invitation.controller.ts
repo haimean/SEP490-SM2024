@@ -48,6 +48,24 @@ const invitationUserController = {
       next(new CustomError(error?.message, 500));
     }
   },
+  getAllUnavailable: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { postId } = req.params;
+      const { pagination } = req.body;
+      const invitation: { data: Invitation[]; total: number } =
+        await invitationUserService.getAllUnavailable(
+          Number(postId),
+          pagination
+        );
+      ResponseHandler(res, invitation);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
 };
 
 export default invitationUserController;
