@@ -10,11 +10,11 @@ import { ResponseHandler } from '../../../outcomes/responseHandler';
 
 const attributeBranchesController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
+    const accountId = Number(req.headers.authorization);
     const data: AttributeBranchesPayLoad = req.body;
     try {
       const attributeBranches: AttributeBranches = {
-        accountId: 1,
-        // accountId: req.body.account.id,
+        accountId,
         isPublic: true,
         value: data.value,
         attributeKeyBranchesId: data.attributeKeyBranchesId,

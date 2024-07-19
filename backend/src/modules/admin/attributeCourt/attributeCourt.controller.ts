@@ -12,17 +12,10 @@ import { ResponseHandler } from '../../../outcomes/responseHandler';
 const attributeCourtController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
     const data: AttributeCourtPayLoad = req.body;
-
-    const secret: Secret = process.env.SECRET_JWT_KEY ?? '';
-
-    const token = req.headers?.authorization?.split(' ')[1] ?? '';
-
-    const jwtObj: { data: Account } = jwt.verify(token, secret) as {
-      data: Account;
-    };
+    const accountId = Number(req.headers.authorization);
     try {
       const attributeCourt: AttributeCourt = {
-        accountId: jwtObj.data.id,
+        accountId,
         value: data.value,
         attributeKeyCourtId: data.attributeKeyCourtId,
         isPublic: true,

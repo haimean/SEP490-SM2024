@@ -9,14 +9,10 @@ import { ResponseHandler } from '../../../outcomes/responseHandler';
 const attributeCourtHostController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
     const data: AttributeCourtPayLoad = req.body;
-    const secret: Secret = process.env.SECRET_JWT_KEY ?? '';
-    const token = req.headers?.authorization?.split(' ')[1] ?? '';
-    const jwtObj: { data: Account } = jwt.verify(token, secret) as {
-      data: Account;
-    };
+    const accountId = Number(req.headers.authorization);
     try {
       const attributeCourt: AttributeCourt = {
-        accountId: jwtObj.data.id,
+        accountId,
         value: data.value,
         attributeKeyCourtId: data.attributeKeyCourtId,
         isPublic: false,
@@ -50,16 +46,9 @@ const attributeCourtHostController = {
   },
   get: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const secret: Secret = process.env.SECRET_JWT_KEY ?? '';
-      const token = req.headers?.authorization?.split(' ')[1] ?? '';
-      const jwtObj: { data: Account } = jwt.verify(token, secret) as {
-        data: Account;
-      };
       const id = Number(req.params.id);
-      const data = await attributeCourtHostService.get(
-        id,
-        jwtObj.data.id
-      );
+      const accountId = Number(req.headers.authorization);
+      const data = await attributeCourtHostService.get(id, accountId);
       ResponseHandler(res, data);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));

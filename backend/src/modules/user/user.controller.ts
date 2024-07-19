@@ -19,12 +19,9 @@ const userController = {
     try {
       const { oldPassword, newPassword } = req.body;
       // get information account
-      const token = req.headers?.authorization?.split(' ')[1] ?? '';
-      const jwtObj: { data: Account } = jwt.verify(token, secret) as {
-        data: Account;
-      };
+      const accountId = Number(req.headers.authorization);
       const account: Account = (await accountServiceBase.findById(
-        jwtObj.data.id
+        accountId
       )) as Account;
 
       // check password
@@ -61,12 +58,9 @@ const userController = {
   ) => {
     try {
       // get information account
-      const token = req.headers?.authorization?.split(' ')[1] ?? '';
-      const jwtObj: { data: Account } = jwt.verify(token, secret) as {
-        data: Account;
-      };
+      const accountId = Number(req.headers.authorization);
       const account: Account = (await accountServiceBase.findById(
-        jwtObj.data.id
+        accountId
       )) as Account;
       ResponseHandler(res, account);
     } catch (error: any) {
@@ -82,12 +76,9 @@ const userController = {
     try {
       const data: ProfileUpdatePayload = req.body;
       // get information account
-      const token = req.headers?.authorization?.split(' ')[1] ?? '';
-      const jwtObj: { data: Account } = jwt.verify(token, secret) as {
-        data: Account;
-      };
+      const accountId = Number(req.headers.authorization);
       const account: User = await userService.updateProfile(
-        jwtObj.data.id,
+        accountId,
         data
       );
 

@@ -37,18 +37,6 @@ const branchesHostService = {
           );
       }
     }
-    // branches.forEach(async (item, index) => {
-    //   if (item.image) {
-    //     finalBranches[index].image = await getObjectSignedUrl(
-    //       item.image
-    //     );
-    //     finalBranches[index].businessLicense =
-    //       await getObjectSignedUrl(item.businessLicense);
-    //   }
-    //   console.log(finalBranches[index].businessLicense);
-    // });
-    console.log('finalBranches', finalBranches);
-
     return finalBranches;
   },
   get: async (accountId: number, id: number): Promise<any> => {
@@ -89,66 +77,62 @@ const branchesHostService = {
     attributeBranches: number[],
     court: number[]
   ): Promise<Branches> => {
-    try {
-      const {
+    const {
+      accountId,
+      name,
+      description,
+      businessLicense,
+      closingHours,
+      openingHours,
+      phone,
+      image,
+      email,
+    } = branchesPayload;
+    const query: Prisma.BranchesCreateArgs<DefaultArgs> = {
+      data: {
         accountId,
         name,
-        description,
         businessLicense,
         closingHours,
         openingHours,
         phone,
-        image,
-        email,
-      } = branchesPayload;
-      const query: Prisma.BranchesCreateArgs<DefaultArgs> = {
-        data: {
-          accountId,
-          name,
-          businessLicense,
-          closingHours,
-          openingHours,
-          phone,
-        },
-      };
-      if (image) {
-        query.data.image = image;
-      }
-      if (description) {
-        query.data.description = description;
-      }
-      if (email) {
-        query.data.email = email;
-      }
-      if (addressPayload) {
-        query.data.address = { create: { ...addressPayload } };
-      }
-
-      if (attributeBranches) {
-        const attributeBranchesIds = attributeBranches.map((item) => {
-          return {
-            id: item,
-          };
-        });
-        query.data.attributeBranches = {
-          connect: attributeBranchesIds,
-        };
-      }
-      if (court) {
-        const courtIds = court.map((item) => {
-          return {
-            id: item,
-          };
-        });
-        query.data.court = {
-          connect: courtIds,
-        };
-      }
-
-      return await database.branches.create(query);
-    } catch (error: any) {
-      throw new Error(error);
+      },
+    };
+    if (image) {
+      query.data.image = image;
     }
+    if (description) {
+      query.data.description = description;
+    }
+    if (email) {
+      query.data.email = email;
+    }
+    if (addressPayload) {
+      query.data.address = { create: { ...addressPayload } };
+    }
+
+    if (attributeBranches) {
+      const attributeBranchesIds = attributeBranches.map((item) => {
+        return {
+          id: item,
+        };
+      });
+      query.data.attributeBranches = {
+        connect: attributeBranchesIds,
+      };
+    }
+    if (court) {
+      const courtIds = court.map((item) => {
+        return {
+          id: item,
+        };
+      });
+      query.data.court = {
+        connect: courtIds,
+      };
+    }
+
+    return await database.branches.create(query);
   },
   update: async (
     id: number,
