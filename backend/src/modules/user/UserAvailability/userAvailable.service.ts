@@ -8,32 +8,28 @@ const userAvailableService = {
     provinces: string,
     districts: string
   ) => {
-    try {
-      const filters: Prisma.UserAvailabilityWhereInput = {};
+    const filters: Prisma.UserAvailabilityWhereInput = {};
 
-      if (startTime) {
-        filters.startTime = { gte: new Date(startTime) };
-      }
-
-      if (endTime) {
-        filters.endTime = { lte: new Date(endTime) };
-      }
-      if (districts) {
-        filters.districts = {
-          contains: districts,
-        };
-      }
-      if (provinces) {
-        filters.provinces = {
-          contains: provinces,
-        };
-      }
-      return await database.userAvailability.findMany({
-        where: filters,
-      });
-    } catch (error: any) {
-      throw new Error(error?.message);
+    if (startTime) {
+      filters.startTime = { gte: new Date(startTime) };
     }
+
+    if (endTime) {
+      filters.endTime = { lte: new Date(endTime) };
+    }
+    if (districts) {
+      filters.districts = {
+        contains: districts,
+      };
+    }
+    if (provinces) {
+      filters.provinces = {
+        contains: provinces,
+      };
+    }
+    return await database.userAvailability.findMany({
+      where: filters,
+    });
   },
 };
 export default userAvailableService;

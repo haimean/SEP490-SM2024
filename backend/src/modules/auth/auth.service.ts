@@ -23,88 +23,80 @@ interface LoginGoogle {
 }
 const authService = {
   login: async ({ email, password }: LoginParams) => {
-    try {
-      const existingUser = await database.account.findUnique({
-        where: {
-          email,
-        },
-      });
-      if (!existingUser) {
-        throw new Error('Account does not exist');
-      }
-      const isVerify = existingUser.isVerified;
-      const isBan = existingUser.isActive;
-      if (!isVerify) {
-        throw new Error('Not verify');
-      }
-      if (!isBan) {
-        throw new Error('Ban account');
-      }
-      const isPasswordValid = await bcrypt.compare(
-        password,
-        existingUser.password
-      );
-      console.log('isPasswordValid: ', isPasswordValid);
-
-      if (!isPasswordValid) {
-        throw new Error('Password not correct');
-      }
-
-      const token = jwt.sign(
-        {
-          data: existingUser,
-        },
-        process.env.SECRET_JWT_KEY as string,
-        {
-          expiresIn: '1d',
-        }
-      );
-
-      return {
-        ...existingUser,
-        password: 'Not show',
-        token: token,
-      };
-    } catch (error: any) {
-      throw new Error(error);
+    const existingUser = await database.account.findUnique({
+      where: {
+        email,
+      },
+    });
+    if (!existingUser) {
+      throw new Error('Account does not exist');
     }
+    const isVerify = existingUser.isVerified;
+    const isBan = existingUser.isActive;
+    if (!isVerify) {
+      throw new Error('Not verify');
+    }
+    if (!isBan) {
+      throw new Error('Ban account');
+    }
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      existingUser.password
+    );
+    console.log('isPasswordValid: ', isPasswordValid);
+
+    if (!isPasswordValid) {
+      throw new Error('Password not correct');
+    }
+
+    const token = jwt.sign(
+      {
+        data: existingUser,
+      },
+      process.env.SECRET_JWT_KEY as string,
+      {
+        expiresIn: '1d',
+      }
+    );
+
+    return {
+      ...existingUser,
+      password: 'Not show',
+      token: token,
+    };
   },
 
   register: async ({ email, password, role, name }: Register) => {
-    try {
-      let account = await database.account.findUnique({
-        where: { email },
-      });
-      if (account) {
-        throw new Error('Account exist');
-      } else {
-        const hashPassword = await bcrypt.hash(
-          password,
-          Number(process.env.SECRET_JWT_KEY as string)
-        );
+    let account = await database.account.findUnique({
+      where: { email },
+    });
+    if (account) {
+      throw new Error('Account exist');
+    } else {
+      const hashPassword = await bcrypt.hash(
+        password,
+        Number(process.env.SECRET_JWT_KEY as string)
+      );
 
-        account = await database.account.create({
-          data: {
-            email,
-            password: hashPassword,
-            emailToken: crypto.randomBytes(64).toString('hex'),
-            role,
-          },
-        });
-        await database.user.create({
-          data: {
-            accountId: account.id,
-            fullName: name,
-            gender: 'FEMALE',
-            identifierCode: '',
-            dob: null,
-            numberPhone: '',
-          },
-        });
-        return account;
-      }
-    } catch (error: any) {
-      throw new Error(error.message);
+      account = await database.account.create({
+        data: {
+          email,
+          password: hashPassword,
+          emailToken: crypto.randomBytes(64).toString('hex'),
+          role,
+        },
+      });
+      await database.user.create({
+        data: {
+          accountId: account.id,
+          fullName: name,
+          gender: 'FEMALE',
+          identifierCode: '',
+          dob: null,
+          numberPhone: '',
+        },
+      });
+      return account;
     }
   },
   findEmail: async (emailToken: string) => {
@@ -129,60 +121,56 @@ const authService = {
     }
   },
   loginGoogle: async ({ email, role, name }: LoginGoogle) => {
-    try {
-      let account = await database.account.findUnique({
-        where: { email },
+    let account = await database.account.findUnique({
+      where: { email },
+    });
+    if (account) {
+      const token = jwt.sign(
+        {
+          data: account,
+        },
+        process.env.SECRET_JWT_KEY as string,
+        {
+          expiresIn: '1d',
+        }
+      );
+      return {
+        ...account,
+        token: token,
+      };
+    } else {
+      account = await database.account.create({
+        data: {
+          email,
+          password: '',
+          emailToken: '',
+          isVerified: true,
+          role,
+        },
       });
-      if (account) {
-        const token = jwt.sign(
-          {
-            data: account,
-          },
-          process.env.SECRET_JWT_KEY as string,
-          {
-            expiresIn: '1d',
-          }
-        );
-        return {
-          ...account,
-          token: token,
-        };
-      } else {
-        account = await database.account.create({
-          data: {
-            email,
-            password: '',
-            emailToken: '',
-            isVerified: true,
-            role,
-          },
-        });
-        await database.user.create({
-          data: {
-            accountId: account.id,
-            dob: null,
-            numberPhone: '',
-            fullName: name,
-            gender: 'FEMALE',
-            identifierCode: '',
-          },
-        });
-        const token = jwt.sign(
-          {
-            data: account,
-          },
-          process.env.SECRET_JWT_KEY as string,
-          {
-            expiresIn: '1d',
-          }
-        );
-        return {
-          ...account,
-          token: token,
-        };
-      }
-    } catch (error: any) {
-      throw new Error(error.message);
+      await database.user.create({
+        data: {
+          accountId: account.id,
+          dob: null,
+          numberPhone: '',
+          fullName: name,
+          gender: 'FEMALE',
+          identifierCode: '',
+        },
+      });
+      const token = jwt.sign(
+        {
+          data: account,
+        },
+        process.env.SECRET_JWT_KEY as string,
+        {
+          expiresIn: '1d',
+        }
+      );
+      return {
+        ...account,
+        token: token,
+      };
     }
   },
 };
