@@ -103,17 +103,26 @@ const bookingHostService = {
       return bookings;
     };
     const response = await database.branches.findUnique(query);
-    console.log('🚀 ========= response:', response);
     const data = getAllBookings(response);
-    console.log('🚀 ========= data:', data);
     const skip = (pagination.page - 1) * pagination.perPage;
     const take = pagination.perPage;
     const paginatedBookings = data.slice(skip, skip + take);
-    console.log('🚀 ========= paginatedBookings:', paginatedBookings);
     return {
       data: paginatedBookings,
       total: data.length,
     };
+  },
+  cancel: async (bookingId: number, reasonCancell: string) => {
+    const response = await database.booking.update({
+      where: {
+        id: bookingId,
+      },
+      data: {
+        isDelete: true,
+        reasonCancell,
+      },
+    });
+    return response;
   },
 };
 

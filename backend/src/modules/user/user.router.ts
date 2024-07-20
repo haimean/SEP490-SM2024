@@ -15,6 +15,7 @@ userRouter.put(
   userController.changePassword
 );
 userRouter.get('/profile', userController.profile);
+userRouter.get('/profile/:accountId', userController.profileUser);
 userRouter.put(
   '/profile',
   validate(userValidator.updateProfile),

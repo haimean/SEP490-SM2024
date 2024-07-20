@@ -52,6 +52,18 @@ const bookingHostController = {
       next(new CustomError(error?.message, 500));
     }
   },
+  cancel: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { bookingId, reasonCancell } = req.body;
+      const result = await bookingHostService.cancel(
+        bookingId,
+        reasonCancell
+      );
+      ResponseHandler(res, result);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
 };
 
 export default bookingHostController;

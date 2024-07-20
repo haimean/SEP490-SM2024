@@ -9,6 +9,11 @@ reviewUserRouter.post(
   validate(reviewUserValidator.create),
   reviewUserController.create
 );
+reviewUserRouter.get(
+  '/get-review-user/:accountId',
+  reviewUserController.getReviewUser
+);
+reviewUserRouter.get('/get-review', reviewUserController.getReview);
 
 reviewUserRouter;
 export default reviewUserRouter;

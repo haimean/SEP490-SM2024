@@ -129,6 +129,7 @@ model TypeCourt {
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
   court          Court[]
+  times          Int              @default(1)
   priceTypeCourt PriceTypeCourt[]
 
   @@unique([name, accountId])
@@ -179,8 +180,6 @@ model Branches {
   isAccept          Boolean             @default(false)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
-
-  @@unique([name, accountId])
 }
 
 enum STATUS_BLOG {
@@ -238,19 +237,22 @@ model PriceTypeCourt {
 }
 
 model Booking {
-  id          Int          @id @default(autoincrement())
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  accountId   Int
-  account     Account      @relation(fields: [accountId], references: [id])
-  Court       Court?       @relation(fields: [courtId], references: [id])
-  courtId     Int?
-  startTime   DateTime
-  endTime     DateTime
-  price       Int
-  bookingInfo BookingInfo?
-  post        Post?
-  isDelete    Boolean      @default(false)
+  id            Int          @id @default(autoincrement())
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  accountId     Int
+  account       Account      @relation(fields: [accountId], references: [id])
+  Court         Court?       @relation(fields: [courtId], references: [id])
+  courtId       Int?
+  startTime     DateTime
+  endTime       DateTime
+  price         Int
+  bookingInfo   BookingInfo?
+  post          Post?
+  // Check hủy sân
+  isDelete      Boolean      @default(false)
+  // Lý do hủy sân
+  reasonCancell String?
 }
 
 model BookingInfo {

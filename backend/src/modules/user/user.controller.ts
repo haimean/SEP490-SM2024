@@ -67,7 +67,22 @@ const userController = {
       next(new CustomError(error?.message, 500));
     }
   },
-
+  profileUser: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      // get information account
+      const { accountId } = req.params;
+      const account: Account = (await accountServiceBase.findById(
+        Number(accountId)
+      )) as Account;
+      ResponseHandler(res, account);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
   updateProfile: async (
     req: Request,
     res: Response,

@@ -8,6 +8,20 @@ const reviewUserService = {
       data,
     });
   },
+  getReviewUser: async (accountId: number): Promise<Review[]> => {
+    return await database.review.findMany({
+      where: {
+        accountRecipientId: accountId,
+      },
+      include: {
+        accountSend: {
+          include: {
+            user: true,
+          },
+        },
+      },
+    });
+  },
 };
 
 export default reviewUserService;
