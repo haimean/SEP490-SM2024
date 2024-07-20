@@ -48,6 +48,7 @@ const bookingHostService = {
   ) => {
     const data = await database.booking.findMany({
       where: {
+        isDelete: false,
         Court: {
           Branches: {
             id: branchesId,
@@ -69,6 +70,7 @@ const bookingHostService = {
     });
     const total = await database.booking.findMany({
       where: {
+        isDelete: false,
         Court: {
           Branches: {
             id: branchesId,
