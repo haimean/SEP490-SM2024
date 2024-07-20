@@ -1,4 +1,6 @@
 import database from '../../../lib/db.server';
+import { Pagination } from '../../index.model';
+import { getQueryPagination } from '../../index.service';
 
 const branchesAdminService = {
   getAll: async () => {
@@ -61,6 +63,26 @@ const branchesAdminService = {
           },
         },
       },
+    });
+  },
+  getAllWithAccount: async (pagination: Pagination) => {
+    return await database.branches.findMany({
+      where: {
+        isAccept: true,
+        isDelete: false,
+      },
+      include: {
+        account: {
+          include: {
+            user: true,
+          },
+        },
+        address: true,
+      },
+      orderBy: {
+        accountId: 'asc',
+      },
+      ...getQueryPagination(pagination),
     });
   },
 };
