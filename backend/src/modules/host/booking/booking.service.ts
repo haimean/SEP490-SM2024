@@ -1,4 +1,4 @@
-import { includes } from '../../../../_templates/module/new/prompt';
+import { Prisma } from '@prisma/client';
 import database from '../../../lib/db.server';
 import { Pagination } from '../../index.model';
 import { getQueryPagination } from '../../index.service';
@@ -41,35 +41,45 @@ const bookingHostService = {
     };
   },
   getBookingHostList: async (
+    branchesId: number,
     accountId: number,
-    pagination: Pagination
+    pagination: Pagination,
+    sort: { startTime: Prisma.SortOrder }
   ) => {
-    const query = {
+    const data = await database.booking.findMany({
       where: {
-        accountId,
-        isDelete: false,
-        isAccept: true,
-      },
-      include: {},
-      // ...getQueryPagination(pagination),
-      orderBy: {},
-    };
-    query.include = {
-      court: {
-        include: {
-          booking: {
-            include: {
-              account: {
-                include: {
-                  user: true,
-                },
-              },
-            },
+        Court: {
+          Branches: {
+            id: branchesId,
+            accountId,
+            isDelete: false,
           },
         },
       },
-    };
-    return await database.branches.findMany(query);
+      include: {
+        bookingInfo: true,
+        Court: true,
+      },
+      orderBy: [
+        {
+          startTime: sort.startTime,
+        },
+      ],
+      ...getQueryPagination(pagination),
+    });
+    const total = await database.booking.findMany({
+      where: {
+        Court: {
+          Branches: {
+            id: branchesId,
+            accountId,
+            isDelete: false,
+          },
+        },
+      },
+    });
+
+    return { bookings: data, total: total.length };
   },
 
   getBookingHostByBranch: async (

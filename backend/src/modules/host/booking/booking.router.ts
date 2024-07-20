@@ -7,10 +7,15 @@ const bookingHostRouter = Router();
 bookingHostRouter.post('/', bookingHostController.getBookingList);
 bookingHostRouter.post(
   '/history',
+  validate(bookingHostValidator.history),
   bookingHostController.getBookingHostList
 );
 bookingHostRouter.post(
   '/booking-list',
+  bookingHostController.getBookingHostByBranch
+);
+bookingHostRouter.post(
+  '/get-booking',
   bookingHostController.getBookingHostByBranch
 );
 bookingHostRouter.put(

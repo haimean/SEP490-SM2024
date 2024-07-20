@@ -26,10 +26,14 @@ const bookingHostController = {
     next: NextFunction
   ) => {
     try {
-      const { pagination } = req.body;
+      const { branchesId, pagination, sort } = req.body;
+      console.log(sort);
+
       const result = await bookingHostService.getBookingHostList(
+        branchesId,
         Number(req.headers.authorization),
-        pagination
+        pagination,
+        sort
       );
       ResponseHandler(res, result);
     } catch (error: any) {
@@ -59,6 +63,8 @@ const bookingHostController = {
         bookingId,
         reasonCancell
       );
+
+      //TODO: gửi mail và thông báo 1
       ResponseHandler(res, result);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
