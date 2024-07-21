@@ -12,10 +12,16 @@ const { Server } = require('socket.io');
 configDotenv();
 const PORT: number = Number(process.env.PORT ?? '8080');
 
+const corsOptions: CorsOptions = {
+  origin: '*',
+};
 const app: Application = express();
 
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  cors: corsOptions,
+});
+app.use(cors(corsOptions));
 app.use(express.json());
 
 interface Notification {
