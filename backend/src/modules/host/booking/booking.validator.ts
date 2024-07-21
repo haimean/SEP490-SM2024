@@ -23,6 +23,9 @@ const bookingHostValidator = {
       .required()
       .label('Số điện thoại'),
   }),
+  getAForWeek: Joi.object({
+    date: Joi.date().required().label('Giờ bắt đầu'),
+  }),
 };
 
 export default bookingHostValidator;

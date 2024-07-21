@@ -3,6 +3,7 @@ import database from '../../../lib/db.server';
 import { Pagination } from '../../index.model';
 import { getQueryPagination } from '../../index.service';
 import { BookingCreateInput } from './booking.model';
+import dateUtils from '../../../utils/date';
 
 const bookingHostService = {
   create: async (data: BookingCreateInput) => {
@@ -34,6 +35,51 @@ const bookingHostService = {
       },
     });
   },
+
+  getAForWeek: async (accountId: number, date: Date) => {
+    console.log(
+      'lastSunday',
+      dateUtils.getLastWeekend(date).lastSunday
+    );
+    console.log(
+      'lastSaturday',
+      dateUtils.getLastWeekend(date).lastSaturday
+    );
+
+    const response = await database.booking.findMany({
+      where: {
+        accountId,
+        isDelete: false,
+        startTime: {
+          // from
+          gte: dateUtils.getLastWeekend(date).lastSunday,
+          // to
+          lte: dateUtils.getLastWeekend(date).lastSaturday,
+        },
+      },
+      include: {
+        bookingInfo: true,
+        post: true,
+        Court: {
+          include: {
+            Branches: {
+              include: {
+                attributeBranches: {
+                  include: {
+                    attributeKeyBranches: true,
+                  },
+                },
+                address: true,
+              },
+            },
+            TypeCourt: true,
+          },
+        },
+      },
+    });
+    return response;
+  },
+
   getBookingList: async (
     accountId: number,
     pagination: Pagination

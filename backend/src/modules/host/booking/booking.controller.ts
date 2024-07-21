@@ -113,6 +113,23 @@ const bookingHostController = {
       next(new CustomError(error?.message, 500));
     }
   },
+  getAForWeek: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { date } = req.body;
+      const accountId = Number(req.headers.authorization);
+      const result = await bookingHostService.getAForWeek(
+        accountId,
+        date
+      );
+      ResponseHandler(res, result);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
 };
 
 export default bookingHostController;

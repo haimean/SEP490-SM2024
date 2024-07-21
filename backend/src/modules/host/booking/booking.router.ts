@@ -30,4 +30,10 @@ bookingHostRouter.put(
   validate(bookingHostValidator.cancel),
   bookingHostController.cancel
 );
+bookingHostRouter.post(
+  '/get-for-week/',
+  validate(bookingHostValidator.getAForWeek),
+  bookingHostController.getAForWeek
+);
+
 export default bookingHostRouter;

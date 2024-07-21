@@ -18,7 +18,45 @@ const invitationUserService = {
       },
     });
   },
-
+  createForPlayer: async (
+    type: TypeInvitation,
+    postId: number,
+    accountId: number
+  ): Promise<Invitation> => {
+    const post = await database.post.findUnique({
+      where: { id: postId },
+      include: {
+        booking: {
+          include: {
+            Court: {
+              include: {
+                Branches: { include: { address: true } },
+              },
+            },
+          },
+        },
+      },
+    });
+    const userAvailability = await database.userAvailability.create({
+      data: {
+        districts:
+          post?.booking.Court?.Branches?.address?.districts ?? '',
+        endTime: post?.booking.startTime as Date,
+        startTime: post?.booking.startTime as Date,
+        provinces:
+          post?.booking.Court?.Branches?.address?.provinces ?? '',
+        accountId,
+      },
+    });
+    return await database.invitation.create({
+      data: {
+        postId,
+        type,
+        status: 'NEW',
+        userAvailabilityId: userAvailability.id,
+      },
+    });
+  },
   getPost: async (postId: number): Promise<Post | null> => {
     return await database.post.findUnique({
       where: { id: postId },

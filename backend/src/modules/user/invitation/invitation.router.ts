@@ -13,7 +13,7 @@ invitationUserRouter.post(
 
 invitationUserRouter.post(
   '/invite',
-  validate(invitationUserValidator.create),
+  validate(invitationUserValidator.createInvitePlayer),
   invitationUserController.createInvitePlayer
 );
 

@@ -36,12 +36,13 @@ const invitationUserController = {
     next: NextFunction
   ) => {
     try {
-      const { postId, userAvailabilityId } = req.body;
+      const { postId } = req.body;
+      const accountId = Number(req.headers.authorization);
       const invitation: Invitation =
-        await invitationUserService.create(
+        await invitationUserService.createForPlayer(
           'AVAILABLE',
-          userAvailabilityId,
-          postId
+          postId,
+          accountId
         );
       ResponseHandler(res, invitation);
     } catch (error: any) {

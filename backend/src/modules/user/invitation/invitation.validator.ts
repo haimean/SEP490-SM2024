@@ -8,6 +8,9 @@ const invitationUserValidator = {
       .label('ID bài viết tìm trận'),
     postId: Joi.number().required().label('ID bài tìm gia lưu'),
   }),
+  createInvitePlayer: Joi.object({
+    postId: Joi.number().required().label('ID bài tìm gia lưu'),
+  }),
   getAllUnavailable: Joi.object({
     pagination: validator.pagination,
   }),
