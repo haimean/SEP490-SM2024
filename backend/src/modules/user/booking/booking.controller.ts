@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 import bookingUserService from './booking.service';
 import { ResponseHandler } from '../../../outcomes/responseHandler';
 import CustomError from '../../../outcomes/customError';
-import { success } from './../../../../../frontend/src/theme/admin/palette';
 
 const bookingUserController = {
   remove: async (req: Request, res: Response, next: NextFunction) => {
@@ -39,7 +38,7 @@ const bookingUserController = {
   },
   create: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const data = req.body;
+      const { data } = req.body;
       const accountId = Number(req.headers.authorization);
 
       for (const element of data) {
@@ -51,6 +50,7 @@ const bookingUserController = {
           name,
           numberPhone,
         } = element;
+
         await bookingUserService.create({
           accountId,
           courtId,
