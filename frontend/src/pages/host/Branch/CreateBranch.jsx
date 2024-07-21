@@ -5,20 +5,27 @@ import { Box } from "@mui/material";
 import { useForm } from "react-hook-form";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
+import PaymentCreateBranch from "../../../components/host/Branch/PaymentCreateBranch";
 
 const CreateBranch = () => {
   const {
     control,
     reset,
     handleSubmit,
+    getValues,
     setValue,
     formState: { errors },
   } = useForm();
   const [branchAtbList, setBranchAtbList] = useState([]);
+  const [isSecondBranch, setIsSecondBranch] = useState(false);
+  const [openPaymentModal, setOpenPaymentModal] = useState(false);
 
   useEffect(() => {
     fetchBranchAtbList();
   }, []);
+
+  const handleOpenPaymentModal = () => setOpenPaymentModal(true);
+  const handleClosePaymentModal = () => setOpenPaymentModal(false);
 
   const addNewAttributeValue = useCallback(async (data) => {
     const requestData = {
@@ -55,8 +62,24 @@ const CreateBranch = () => {
     }
   }, []);
 
+  const checkBranchCount = async () => {
+    try {
+      const response = await CallApi("/api/host/branches/total", "get");
+      return response.data.total;
+    } catch (error) {
+      console.error("Error fetching branch count:", error);
+      return 0;
+    }
+  };
+
   const onSubmit = async (data) => {
-    console.log("🚀 ========= data:", data);
+    const branchCount = await checkBranchCount();
+
+    if (branchCount >= 2) {
+      setIsSecondBranch(true);
+      handleOpenPaymentModal();
+      return;
+    }
     const formData = new FormData();
     try {
       formData.append("name", data.branchName);
@@ -114,7 +137,7 @@ const CreateBranch = () => {
         key: item.id,
         label: item.name,
         type: "select-custom",
-        required: true,
+        required: false,
         options: item.attributeBranches.map((itemChildren) => ({
           key: itemChildren.id,
           label: itemChildren.value,
@@ -162,7 +185,7 @@ const CreateBranch = () => {
         required: true,
       },
       {
-        name: "location",
+        name: "detail",
         label: "Địa chỉ",
         type: "text",
         required: true,
@@ -290,7 +313,6 @@ const CreateBranch = () => {
         minHeight: "100vh",
       }}
     >
-      <Navbar sx={{ flexShrink: 0 }} />
       <Box
         sx={{
           my: 12,
@@ -306,6 +328,11 @@ const CreateBranch = () => {
           control={control}
           errors={errors}
           setValue={setValue}
+        />
+        <PaymentCreateBranch
+          open={openPaymentModal}
+          handleClose={handleClosePaymentModal}
+          branchName={getValues().branchName || "mới"}
         />
       </Box>
     </Box>
