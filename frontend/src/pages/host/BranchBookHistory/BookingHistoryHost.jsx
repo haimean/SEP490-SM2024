@@ -1,0 +1,111 @@
+import { Box, List, ListItem, Typography, Pagination, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import BookingHistoryItemHost from "../../../components/host/BranchBookHistory/BookingHistoryItemHost";
+import { useEffect, useState } from "react";
+import CallApi from "../../../service/CallAPI";
+import { useParams } from "react-router-dom";
+
+const BookingHistoryHost = () => {
+  const { id } = useParams();
+  const [bookings, setBookings] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [sortOrder, setSortOrder] = useState("asc");
+  const perPage = 5;
+
+  useEffect(() => {
+    getBookingHistory();
+  }, [page, sortOrder]);
+
+  const getBookingHistory = async () => {
+    try {
+      const requestData = {
+        pagination: {
+          page: page,
+          perPage: perPage,
+        },
+        sort: {
+          startTime: sortOrder,
+        },
+        branchesId: parseInt(id),
+      };
+      const result = await CallApi(
+        "/api/host/history-booking/history",
+        "post",
+        requestData
+      );
+      setBookings(result?.data?.bookings);
+      setTotalPages(Math.max(1, Math.ceil(result?.data?.total / perPage) || 1));
+    } catch (error) {
+      console.log("🚀 ========= error:", error);
+    }
+  };
+
+  const handleCancelSuccess = (cancelledBookingId) => {
+    setBookings((prevBookings) =>
+      prevBookings.filter((booking) => booking.id !== cancelledBookingId)
+    );
+  };
+
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
+
+  const handleSortChange = (event) => {
+    setSortOrder(event.target.value);
+  };
+
+  return (
+    <Box
+      sx={{
+        margin: "auto",
+        mt: 12,
+        maxWidth: {
+          sm: "540px",
+          md: "720px",
+          xl: "1000px",
+        },
+        minWidth: {
+          sm: "540px",
+          md: "720px",
+          xl: "1000px",
+        },
+      }}
+    >
+      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
+        <Typography variant="h5">Lịch sử đặt sân</Typography>
+        <FormControl sx={{ minWidth: 120 }}>
+          <InputLabel id="sort-order-label">Ngày đặt</InputLabel>
+          <Select
+            labelId="sort-order-label"
+            value={sortOrder}
+            label="Ngày đặt"
+            onChange={handleSortChange}
+          >
+            <MenuItem value="asc">Mới nhất</MenuItem>
+            <MenuItem value="desc">Cũ nhất</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+      <List>
+        {bookings.map((booking) => (
+          <ListItem key={booking?.id} disablePadding>
+            <BookingHistoryItemHost
+              bookings={booking}
+              onCancelSuccess={handleCancelSuccess}
+            />
+          </ListItem>
+        ))}
+      </List>
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+        <Pagination
+          count={totalPages}
+          page={page}
+          onChange={handlePageChange}
+          color="primary"
+        />
+      </Box>
+    </Box>
+  );
+};
+
+export default BookingHistoryHost;

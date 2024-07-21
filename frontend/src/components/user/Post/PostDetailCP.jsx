@@ -8,7 +8,7 @@ import {
   Grid,
   Button,
 } from "@mui/material";
-import { format, parseISO } from 'date-fns';
+import { format, parseISO } from "date-fns";
 import {
   LocationOn,
   CalendarToday,
@@ -30,12 +30,11 @@ const PostDetailCP = ({ post, RightSectionComponent, map }) => {
   const { address } = Court.Branches;
 
   // const location = `${address.wards}, ${address.districts}, ${address.provinces}`;\
-  const location = address.detail
+  const location = address.detail;
 
-  const formattedDate = format(parseISO(post.booking.dateTime), 'yyyy-MM-dd');
-  const formattedStartTime = format(parseISO(post.booking.startTime), 'HH:mm');
-  const formattedEndTime = format(parseISO(post.booking.endTime), 'HH:mm');
-  const date = `${formattedDate}, ${formattedStartTime} - ${formattedEndTime}`;
+  const formattedStartTime = format(parseISO(post.booking.startTime), "HH:mm");
+  const formattedEndTime = format(parseISO(post.booking.endTime), "HH:mm");
+  const date = `${formattedStartTime} - ${formattedEndTime}`;
 
   const renderInfoItem = (Icon, text) => (
     <Box display="flex" alignItems="center" mb={1}>
@@ -62,9 +61,19 @@ const PostDetailCP = ({ post, RightSectionComponent, map }) => {
             </Typography>
             {renderInfoItem(LocationOn, location)}
             {renderInfoItem(CalendarToday, date)}
-            {renderInfoItem(Group, `Cần tuyển ${post.numberMember} ${post.memberPost[0].genderPost}` || "Không có thông tin")}
-            {renderInfoItem(School, `Trình độ: ${post.memberPost[0].level}` || "Không có thông tin")}
-            {renderInfoItem(AttachMoney, post.memberPost[0].price || "Không có thông tin")}
+            {renderInfoItem(
+              Group,
+              `Cần tuyển ${post.numberMember} ${post.memberPost[0].genderPost}` ||
+                "Không có thông tin"
+            )}
+            {renderInfoItem(
+              School,
+              `Trình độ: ${post.memberPost[0].level}` || "Không có thông tin"
+            )}
+            {renderInfoItem(
+              AttachMoney,
+              post.memberPost[0].price || "Không có thông tin"
+            )}
           </CardContent>
         </Card>
 
@@ -73,7 +82,10 @@ const PostDetailCP = ({ post, RightSectionComponent, map }) => {
             <Typography variant="h6" gutterBottom>
               Mô tả thêm
             </Typography>
-            {renderInfoItem(SportsBasketball, post.desciption || "Không có thông tin")}
+            {renderInfoItem(
+              SportsBasketball,
+              post.desciption || "Không có thông tin"
+            )}
           </CardContent>
         </Card>
         {map && (

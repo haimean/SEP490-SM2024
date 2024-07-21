@@ -78,10 +78,26 @@ const RightSectionHost = ({ id, type }) => {
                 Danh sách sân đấu
               </Button>
             </Link>
+            <Link
+              to={`/host/booking-history/${id}`}
+              style={{ textDecoration: "none" }}
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                sx={{ mb: 2 }}
+              >
+                Lịch sử đặt sân
+              </Button>
+            </Link>
           </>
         )}
         {type === "courtDetail" && (
-          <Link to={`/host/update-court/${idCourt}`} style={{ textDecoration: "none" }}>
+          <Link
+            to={`/host/update-court/${idCourt}`}
+            style={{ textDecoration: "none" }}
+          >
             <Button
               variant="contained"
               color="primary"
