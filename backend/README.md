@@ -6,7 +6,7 @@ npx prisma migrate dev
 
 **Chạy để gen kiểu dữ liệu**
 
-npx prisma generate
+**npx prisma generate**
 
 **Chạy để gen dữ liệu giar**
 npx @snaplet/seed init : dùng để setup
