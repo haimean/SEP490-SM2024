@@ -53,10 +53,8 @@ const bookingHostController = {
   ) => {
     try {
       const { id } = req.params;
-      const accountId = Number(req.headers.authorization);
       const result = await bookingHostService.getDetailBooking(
-        Number(id),
-        accountId
+        Number(id)
       );
       ResponseHandler(res, { ...result });
     } catch (error: any) {
@@ -70,7 +68,6 @@ const bookingHostController = {
   ) => {
     try {
       const { branchesId, pagination, sort } = req.body;
-      console.log(sort);
 
       const result = await bookingHostService.getBookingHostList(
         branchesId,

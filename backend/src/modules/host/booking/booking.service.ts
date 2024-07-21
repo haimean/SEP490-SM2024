@@ -116,11 +116,10 @@ const bookingHostService = {
       total: result.length,
     };
   },
-  getDetailBooking: async (id: number, accountId: number) => {
+  getDetailBooking: async (id: number) => {
     return await database.booking.findFirst({
       where: {
         id,
-        accountId,
         isDelete: false,
       },
       include: {
