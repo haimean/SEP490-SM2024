@@ -18,6 +18,7 @@ bookingHostRouter.post(
   '/get-booking',
   bookingHostController.getBookingHostByBranch
 );
+bookingHostRouter.get('/detail/:id', bookingHostController.getDetail);
 bookingHostRouter.put(
   '/cancel',
   validate(bookingHostValidator.cancel),

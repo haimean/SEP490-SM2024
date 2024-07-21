@@ -40,6 +40,29 @@ const bookingHostService = {
       total: result.length,
     };
   },
+  getDetailBooking: async (id: number, accountId: number) => {
+    return await database.booking.findFirst({
+      where: {
+        id,
+        accountId,
+        isDelete: false,
+      },
+      include: {
+        bookingInfo: true,
+        post: true,
+        Court: {
+          include: {
+            Branches: {
+              include: {
+                address: true,
+              },
+            },
+            TypeCourt: true,
+          },
+        },
+      },
+    });
+  },
   getBookingHostList: async (
     branchesId: number,
     accountId: number,
