@@ -2,8 +2,38 @@ import { Prisma } from '@prisma/client';
 import database from '../../../lib/db.server';
 import { Pagination } from '../../index.model';
 import { getQueryPagination } from '../../index.service';
+import { BookingCreateInput } from './booking.model';
 
 const bookingHostService = {
+  create: async (data: BookingCreateInput) => {
+    const {
+      accountId,
+      courtId,
+      endTime,
+      name,
+      numberPhone,
+      price,
+      startTime,
+    } = data;
+    return await database.booking.create({
+      data: {
+        endTime,
+        price,
+        startTime,
+        accountId,
+        courtId,
+        bookingInfo: {
+          create: {
+            name,
+            numberPhone,
+          },
+        },
+      },
+      include: {
+        bookingInfo: true,
+      },
+    });
+  },
   getBookingList: async (
     accountId: number,
     pagination: Pagination

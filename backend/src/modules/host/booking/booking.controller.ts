@@ -20,6 +20,32 @@ const bookingHostController = {
       next(new CustomError(error?.message, 500));
     }
   },
+  create: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const {
+        courtId,
+        startTime,
+        endTime,
+        price,
+        name,
+        numberPhone,
+      } = req.body;
+      const accountId = Number(req.headers.authorization);
+      // check giờ đặt có người đặt chưa
+      const result = await bookingHostService.create({
+        accountId,
+        courtId,
+        startTime,
+        endTime,
+        price,
+        name,
+        numberPhone,
+      });
+      ResponseHandler(res, result);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
   getDetail: async (
     req: Request,
     res: Response,
