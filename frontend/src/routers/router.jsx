@@ -40,6 +40,7 @@ import BookingCalendar from "../components/user/BookingTable/BookingCalendar.jsx
 import RegisterTypeCourt from "../pages/host/TypeCourt/CreateTypeCourt.jsx";
 import BookingHistoryHost from "../pages/host/BranchBookHistory/BookingHistoryHost.jsx";
 import BookingDetailHost from "../components/host/BranchBookHistory/BookingDetailHost.jsx";
+import ListBranchAdmin from "../pages/admin/Branch/ListBranchAdmin.jsx";
 
 const router = [
   {
@@ -348,6 +349,13 @@ const router = [
     component: <BookingCalendar />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "",
+  },
+  {
+    path: "/admin/list-branch",
+    name: "List Branch Admin",
+    component: <ListBranchAdmin />,
+    role: ["ADMIN"], // Chỉ cho phép HOST truy cập
+    layout: "admin",
   },
 ];
 

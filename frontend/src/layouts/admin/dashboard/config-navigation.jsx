@@ -33,6 +33,11 @@ const navConfig = [
   {
     title: "accept branch",
     path: "/admin/accept-branch",
+    icon: icon("ic_approve"),
+  },
+  {
+    title: "list branch",
+    path: "/admin/list-branch",
     icon: icon("ic_court"),
   },
   {
