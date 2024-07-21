@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import bookingUserService from './booking.service';
 import { ResponseHandler } from '../../../outcomes/responseHandler';
 import CustomError from '../../../outcomes/customError';
+import { success } from './../../../../../frontend/src/theme/admin/palette';
 
 const bookingUserController = {
   remove: async (req: Request, res: Response, next: NextFunction) => {
@@ -38,26 +39,30 @@ const bookingUserController = {
   },
   create: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const {
-        courtId,
-        startTime,
-        endTime,
-        price,
-        name,
-        numberPhone,
-      } = req.body;
+      const data = req.body;
       const accountId = Number(req.headers.authorization);
+
+      for (const element of data) {
+        const {
+          courtId,
+          startTime,
+          endTime,
+          price,
+          name,
+          numberPhone,
+        } = element;
+        await bookingUserService.create({
+          accountId,
+          courtId,
+          startTime,
+          endTime,
+          price,
+          name,
+          numberPhone,
+        });
+      }
       // check giờ đặt có người đặt chưa
-      const result = await bookingUserService.create({
-        accountId,
-        courtId,
-        startTime,
-        endTime,
-        price,
-        name,
-        numberPhone,
-      });
-      ResponseHandler(res, result);
+      ResponseHandler(res, 'success');
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
     }
