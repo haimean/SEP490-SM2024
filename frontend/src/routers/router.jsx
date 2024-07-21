@@ -35,10 +35,11 @@ import BookedCourts from "../pages/user/ViewListBooked/BookedCourtsTable.jsx";
 import BranchListPage from "../pages/user/ViewListBranch/BranchListPage.jsx";
 import BranDetailUser from "../pages/user/BranchDetail/BranDetailUser.jsx";
 import BookingPage from "../pages/user/Booking/BookingPage.jsx";
-
 import TestBookingPage from "../pages/user/Booking/TestBookingPage.jsx";
 import BookingCalendar from "../components/user/BookingTable/BookingCalendar.jsx";
 import RegisterTypeCourt from "../pages/host/TypeCourt/CreateTypeCourt.jsx";
+import BookingHistoryHost from "../pages/host/BranchBookHistory/BookingHistoryHost.jsx";
+import BookingDetailHost from "../components/host/BranchBookHistory/BookingDetailHost.jsx";
 
 const router = [
   {
@@ -234,15 +235,29 @@ const router = [
     path: "/player/booking-history",
     name: "Booking History",
     component: <BookingHistory />,
-    // role: ["USER"], // Chỉ cho phép HOST truy cập
+    role: ["USER"],
     layout: "",
   },
   {
     path: "/player/booking-history/:id",
     name: "Booking History Detail",
     component: <BookingDetail />,
-    // role: ["USER"], // Chỉ cho phép HOST truy cập
+    role: ["USER"],
     layout: "",
+  },
+  {
+    path: "/host/booking-history/:id",
+    name: "Booking History for Host",
+    component: <BookingHistoryHost />,
+    role: ["HOST"],
+    layout: "host",
+  },
+  {
+    path: "/host/booking-history/detail/:id",
+    name: "Booking History Detail for Host",
+    component: <BookingDetailHost />,
+    role: ["HOST"],
+    layout: "host",
   },
   {
     path: "/404",
