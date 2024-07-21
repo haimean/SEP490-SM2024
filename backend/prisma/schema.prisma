@@ -129,7 +129,6 @@ model TypeCourt {
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
   court          Court[]
-  times          Int              @default(1)
   priceTypeCourt PriceTypeCourt[]
 
   @@unique([name, accountId])
@@ -232,6 +231,7 @@ model PriceTypeCourt {
   endTime     DateTime
   type        TYPE_PRICE_COUT @default(ONETIME)
   price       Int
+  times       Int             @default(1)
   typeCourt   TypeCourt?      @relation(fields: [typeCourtId], references: [id])
   typeCourtId Int?
 }
