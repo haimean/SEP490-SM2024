@@ -13,7 +13,7 @@ configDotenv();
 const PORT: number = Number(process.env.PORT ?? '8080');
 
 const corsOptions: CorsOptions = {
-  origin: '*',
+  origin: process.env.FONT_END_URL ?? '*',
 };
 const app: Application = express();
 
