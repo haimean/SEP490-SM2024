@@ -1,6 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Box, Typography, Paper, Grid, Button, Chip } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Paper,
+  Grid,
+  Button,
+  Chip,
+  Modal,
+  TextField,
+} from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
 import { format } from "date-fns";
 import CallApi from "../../../service/CallAPI";
@@ -10,39 +19,67 @@ const BookingDetailHost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [booking, setBooking] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
+  const [reasonCancel, setReasonCancel] = useState("");
+
   const now = new Date().getTime();
-  const bookingStartTime = new Date(booking?.startTime).getTime();
+  const bookingStartTime = booking ? new Date(booking?.startTime).getTime() : 0;
   const canCancel = bookingStartTime > now;
 
-  // useEffect(() => {
-  //   const fetchBookingDetail = async () => {
-  //     try {
-  //       const result = await CallApi(`/api/user/booking/detail/${id}`, "get");
-  //       setBooking(result?.data);
-  //     } catch (error) {
-  //       console.error("Error fetching booking detail:", error);
-  //     }
-  //   };
-  //   fetchBookingDetail();
-  // }, [id]);
+  useEffect(() => {
+    const fetchBookingDetail = async () => {
+      try {
+        const result = await CallApi(
+          `/api/host/history-booking/detail/${id}`,
+          "get"
+        );
+        setBooking(result?.data);
+      } catch (error) {
+        console.error("Error fetching booking detail:", error);
+        toast.error("Lỗi khi tải thông tin đặt sân");
+      }
+    };
+    fetchBookingDetail();
+  }, [id]);
 
-  // const handleCancel = async () => {
-  //   const isConfirmed = window.confirm(
-  //     "Bạn có muốn hủy lịch thi đấu này không?"
-  //   );
-  //   if (isConfirmed) {
-  //     try {
-  //       await CallApi(`/api/user/booking/${booking?.id}`, "delete");
-  //       navigate("/player/booking-history");
-  //       toast.success("Xóa thành công trận đã đặt");
-  //     } catch (error) {
-  //       toast.error("Lỗi khi hủy đặt sân:", error);
-  //     }
-  //   }
-  // };
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setReasonCancel("");
+  };
 
-  if (!booking)
-    return <Typography>Loading...</Typography>;
+  const handleCancel = async () => {
+    if (!reasonCancel.trim()) {
+      toast.error("Vui lòng nhập lý do hủy");
+      return;
+    }
+
+    const requestData = {
+      reasonCancell: reasonCancel,
+      bookingId: booking?.id,
+    };
+
+    try {
+      await CallApi(`/api/host/history-booking/cancel`, "put", requestData);
+      navigate(`/host/booking-history/${booking?.Court?.branchesId}`);
+      toast.success("Xóa thành công trận đã đặt");
+    } catch (error) {
+      toast.error("Lỗi khi hủy đặt sân:", error);
+    }
+  };
+
+  const modalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    p: 4,
+  };
+
+  if (!booking) return <Typography>Loading...</Typography>;
 
   return (
     <Box
@@ -53,23 +90,29 @@ const BookingDetailHost = () => {
         maxWidth: { sm: "720px", md: "1170px" },
       }}
     >
-      <div className="flex items-center mb-2 justify-between">
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          mb: 2,
+        }}
+      >
         <Box
           component={Link}
-          to="/player/booking-history"
+          to={`/host/booking-history/${booking?.Court?.branchesId}`}
           sx={{
             display: "flex",
             alignItems: "center",
             textDecoration: "none",
-            cursor: "pointer",
             color: "gray",
           }}
         >
           <ArrowBack fontSize="small" sx={{ mr: 0.5 }} />
           <Typography variant="h6">QUAY LẠI</Typography>
         </Box>
-        <Typography variant="h6">Chi tiết đặt sân {booking.id}</Typography>
-      </div>
+        <Typography variant="h6">Chi tiết đặt sân {booking?.id}</Typography>
+      </Box>
 
       <Paper elevation={3} sx={{ p: 3 }}>
         <Grid container spacing={3}>
@@ -83,16 +126,16 @@ const BookingDetailHost = () => {
               {format(new Date(booking?.endTime), "HH:mm")}
             </Typography>
             <Typography>
-              Giá: {booking.price.toLocaleString("vi-VN")} VNĐ
+              Giá: {booking?.price.toLocaleString("vi-VN")} VNĐ
             </Typography>
             <Chip
               label={
-                new Date(booking.startTime) > new Date()
+                new Date(booking?.startTime) > new Date()
                   ? "Sắp diễn ra"
                   : "Đã diễn ra"
               }
               color={
-                new Date(booking.startTime) > new Date() ? "primary" : "default"
+                new Date(booking?.startTime) > new Date() ? "primary" : "default"
               }
               sx={{ mt: 1 }}
             />
@@ -100,17 +143,16 @@ const BookingDetailHost = () => {
 
           <Grid item xs={12} md={6}>
             <Typography variant="h6">Thông tin người đặt</Typography>
-            <Typography>Tên: {booking.bookingInfo?.name}</Typography>
+            <Typography>Tên: {booking?.bookingInfo?.name}</Typography>
             <Typography>
-              Số điện thoại: {booking.bookingInfo?.numberPhone}
+              Số điện thoại: {booking?.bookingInfo?.numberPhone}
             </Typography>
           </Grid>
 
-          {booking.Court && (
+          {booking?.Court && (
             <Grid item xs={12}>
               <Typography variant="h6">Thông tin sân</Typography>
-              <Typography>Tên sân: {booking.Court.name}</Typography>
-              {/* Thêm các thông tin khác về sân nếu có */}
+              <Typography>Tên sân: {booking?.Court?.name}</Typography>
             </Grid>
           )}
         </Grid>
@@ -118,7 +160,7 @@ const BookingDetailHost = () => {
         <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end" }}>
           {canCancel && (
             <Button
-              onClick={handleCancel}
+              onClick={handleOpenModal}
               variant="contained"
               color="error"
               size="small"
@@ -128,6 +170,36 @@ const BookingDetailHost = () => {
           )}
         </Box>
       </Paper>
+
+      <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={modalStyle}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Lý do hủy đặt sân
+          </Typography>
+          <TextField
+            fullWidth
+            multiline
+            rows={4}
+            value={reasonCancel}
+            onChange={(e) => setReasonCancel(e.target.value)}
+            placeholder="Nhập lý do hủy đặt sân"
+            margin="normal"
+          />
+          <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
+            <Button onClick={handleCloseModal} sx={{ mr: 1 }}>
+              Hủy bỏ
+            </Button>
+            <Button onClick={handleCancel} variant="contained" color="error">
+              Xác nhận hủy
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
     </Box>
   );
 };
