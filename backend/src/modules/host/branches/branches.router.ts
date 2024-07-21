@@ -6,7 +6,7 @@ import branchesHostValidator from './branches.validator';
 import branchesHostMiddleware from './branches.middleware';
 
 const branchesHostRouter = Router();
-branchesHostRouter.get('/:id', branchesHostController.get);
+branchesHostRouter.get('/total', branchesHostController.totalBranch);
 branchesHostRouter.get('/', branchesHostController.listBranch);
 // create branch
 branchesHostRouter.post(
@@ -30,4 +30,5 @@ branchesHostRouter.put(
   '/branch-delete/:id',
   branchesHostController.delete
 );
+branchesHostRouter.get('/:id', branchesHostController.get);
 export default branchesHostRouter;

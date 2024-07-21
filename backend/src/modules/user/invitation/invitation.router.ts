@@ -23,4 +23,10 @@ invitationUserRouter.post(
   invitationUserController.getAllUnavailable
 );
 
+invitationUserRouter.post(
+  '/unavailable-of-user',
+  validate(invitationUserValidator.getUnavailableOfUser),
+  invitationUserController.getUnavailableOfUser
+);
+
 export default invitationUserRouter;

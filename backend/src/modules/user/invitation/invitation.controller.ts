@@ -67,6 +67,24 @@ const invitationUserController = {
       next(new CustomError(error?.message, 500));
     }
   },
+  getUnavailableOfUser: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const accountId = Number(req.headers.authorization);
+      const { pagination } = req.body;
+      const invitation: { data: Invitation[]; total: number } =
+        await invitationUserService.getUnavailableOfUser(
+          accountId,
+          pagination
+        );
+      ResponseHandler(res, invitation);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
 };
 
 export default invitationUserController;

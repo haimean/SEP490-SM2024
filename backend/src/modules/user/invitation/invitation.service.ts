@@ -122,6 +122,77 @@ const invitationUserService = {
     });
     return { data, total: total.length };
   },
+
+  getUnavailableOfUser: async (
+    accountId: number,
+    pagination: Pagination
+  ): Promise<{ data: Invitation[]; total: number }> => {
+    const total = await database.invitation.findMany({
+      where: {
+        userAvailability: {
+          accountId,
+        },
+        type: 'UNAVAILABLE',
+      },
+    });
+    const data = await database.invitation.findMany({
+      where: {
+        userAvailability: {
+          accountId,
+        },
+        type: 'UNAVAILABLE',
+      },
+      include: {
+        Post: {
+          include: {
+            memberPost: true,
+            booking: {
+              include: {
+                bookingInfo: true,
+                Court: {
+                  include: {
+                    TypeCourt: {
+                      include: {
+                        attributeCourt: true,
+                        priceTypeCourt: true,
+                      },
+                    },
+
+                    Branches: {
+                      include: {
+                        account: {
+                          include: {
+                            user: true,
+                          },
+                        },
+                        address: true,
+                        attributeBranches: {
+                          include: {
+                            attributeKeyBranches: true,
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        userAvailability: {
+          include: {
+            account: {
+              include: {
+                user: true,
+              },
+            },
+          },
+        },
+      },
+      ...getQueryPagination(pagination),
+    });
+    return { data, total: total.length };
+  },
 };
 
 export default invitationUserService;

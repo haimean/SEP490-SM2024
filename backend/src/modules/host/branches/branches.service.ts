@@ -39,6 +39,18 @@ const branchesHostService = {
     }
     return finalBranches;
   },
+  totalBranch: async (accountId: number) => {
+    const branches = await database.branches.findMany({
+      where: {
+        accountId,
+        isAccept: true,
+        isDelete: false,
+      },
+    });
+
+    return { total: branches.length };
+  },
+
   get: async (accountId: number, id: number): Promise<any> => {
     const branches = await database.branches.findUnique({
       where: {

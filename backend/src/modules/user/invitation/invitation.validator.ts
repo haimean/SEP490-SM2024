@@ -14,6 +14,9 @@ const invitationUserValidator = {
   getAllUnavailable: Joi.object({
     pagination: validator.pagination,
   }),
+  getUnavailableOfUser: Joi.object({
+    pagination: validator.pagination,
+  }),
 };
 
 export default invitationUserValidator;
