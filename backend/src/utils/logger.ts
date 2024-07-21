@@ -9,7 +9,7 @@ configure({
     file: {
       type: 'file',
 
-      filename: '/logs/application.log',
+      filename: './logs/application.log',
 
       compression: true,
 
