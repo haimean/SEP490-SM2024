@@ -46,6 +46,21 @@ const branchesAdminController = {
       next(new CustomError(error?.message, 500));
     }
   },
+  getAllWithAccount: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { pagination } = req.body;
+      const result = await branchesAdminService.getAllWithAccount(
+        pagination
+      );
+      ResponseHandler(res, result);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
 };
 
 export default branchesAdminController;
