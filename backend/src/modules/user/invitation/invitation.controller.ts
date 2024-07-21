@@ -3,7 +3,6 @@ import CustomError from '../../../outcomes/customError';
 import { ResponseHandler } from '../../../outcomes/responseHandler';
 import { Invitation, Post } from '@prisma/client';
 import invitationUserService from './invitation.service';
-import NotFoundError from '../../../outcomes/notFoundError';
 
 const invitationUserController = {
   requestsToTheMatch: async (

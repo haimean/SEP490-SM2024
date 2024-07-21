@@ -26,7 +26,8 @@ const postUserController = {
   get: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = Number(req.params.id);
-      const result = await postUserService.get(id);
+      const accountId = Number(req.headers.authorization);
+      const result = await postUserService.get(id, accountId);
       ResponseHandler(res, result);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));

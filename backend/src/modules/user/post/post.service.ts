@@ -16,7 +16,7 @@ const postUserService = {
       },
     });
   },
-  get: async (id: number): Promise<any> => {
+  get: async (id: number, accountId: number): Promise<any> => {
     return await database.post.findUnique({
       where: {
         id,
@@ -41,6 +41,14 @@ const postUserService = {
         },
         memberPost: true,
         invitation: {
+          where: {
+            NOT: {
+              userAvailability: {
+                accountId,
+              },
+              type: 'AVAILABLE', // Replace 'a' with the actual type if it's an enum or keep as is if it's a string
+            },
+          },
           include: {
             userAvailability: {
               include: {
