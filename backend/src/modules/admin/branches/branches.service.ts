@@ -66,7 +66,24 @@ const branchesAdminService = {
     });
   },
   getAllWithAccount: async (pagination: Pagination) => {
-    return await database.branches.findMany({
+    const resultCount = await database.branches.findMany({
+      where: {
+        isAccept: true,
+        isDelete: false,
+      },
+      include: {
+        account: {
+          include: {
+            user: true,
+          },
+        },
+        address: true,
+      },
+      orderBy: {
+        accountId: 'asc',
+      },
+    });
+    const result = await database.branches.findMany({
       where: {
         isAccept: true,
         isDelete: false,
@@ -84,6 +101,10 @@ const branchesAdminService = {
       },
       ...getQueryPagination(pagination),
     });
+    return {
+      data: result,
+      total: resultCount.length,
+    };
   },
 };
 
