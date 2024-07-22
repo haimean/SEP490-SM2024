@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import CallApi from "../../../service/CallAPI";
-import CreatePostModal from "../../../components/player/Post/CreatePost";
+import CreatePostModal from "../../../components/player/Post/CreatePostModal";
 
 const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
   const now = new Date().getTime();

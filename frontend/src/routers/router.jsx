@@ -16,7 +16,6 @@ import CreateBranch from "../pages/host/Branch/CreateBranch.jsx";
 import Checkout from "../pages/player/Court/Checkout.jsx";
 import RegisterCourt from "../pages/host/Court/RegisterCourt.jsx";
 import UpdateCourt from "../pages/host/Court/UpdateCourt.jsx";
-import CreateBlog from "../pages/player/Blog/CreateBlog.jsx";
 import ComparePage from "../components/host/court/ComparePage.jsx";
 import Notification from "../pages/notification.jsx";
 import BookingHistory from "../pages/player/BookHistory/BookingHistory.jsx";
@@ -41,6 +40,7 @@ import RegisterTypeCourt from "../pages/host/TypeCourt/CreateTypeCourt.jsx";
 import BookingHistoryHost from "../pages/host/BranchBookHistory/BookingHistoryHost.jsx";
 import BookingDetailHost from "../components/host/BranchBookHistory/BookingDetailHost.jsx";
 import ListBranchAdmin from "../pages/admin/Branch/ListBranchAdmin.jsx";
+import CreatePost from "../pages/player/Post/CreatePost.jsx";
 
 const router = [
   {
@@ -205,13 +205,6 @@ const router = [
     layout: "",
   },
   {
-    path: "/player/create-blog",
-    name: "Create Blog",
-    component: <CreateBlog />,
-    // role: ["USER"], // Chỉ cho phép HOST truy cập
-    layout: "",
-  },
-  {
     path: "/host/register-court",
     name: "Register Court",
     component: <RegisterCourt />,
@@ -356,6 +349,13 @@ const router = [
     component: <ListBranchAdmin />,
     role: ["ADMIN"], // Chỉ cho phép HOST truy cập
     layout: "admin",
+  },
+  {
+    path: "/player/create-post",
+    name: "Create Post",
+    component: <CreatePost />,
+    role: ["USER"],
+    layout: "",
   },
 ];
 
