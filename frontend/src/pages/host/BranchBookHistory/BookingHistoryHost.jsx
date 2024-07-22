@@ -9,7 +9,7 @@ const BookingHistoryHost = () => {
   const [bookings, setBookings] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [sortOrder, setSortOrder] = useState("asc");
+  const [sortOrder, setSortOrder] = useState("desc");
   const perPage = 5;
 
   useEffect(() => {
@@ -81,8 +81,8 @@ const BookingHistoryHost = () => {
             label="Ngày đặt"
             onChange={handleSortChange}
           >
-            <MenuItem value="asc">Mới nhất</MenuItem>
-            <MenuItem value="desc">Cũ nhất</MenuItem>
+            <MenuItem value="desc">Mới nhất</MenuItem>
+            <MenuItem value="asc">Cũ nhất</MenuItem>
           </Select>
         </FormControl>
       </Box>

@@ -72,8 +72,12 @@ const ListBranchAdmin = () => {
       width: 400,
       sortable: false,
       renderCell: (params) => {
-        const { detail, wards, districts, provinces } = params.row.address;
-        return `${detail}, ${wards}, ${districts}, ${provinces}`;
+        const address = params?.row?.address;
+        return `${address?.detail ?? ""}${
+          address?.wards ? ", " + address.wards : ""
+        } ${address?.districts ? ", " + address.districts : ""} ${
+          address?.provinces ? ", " + address.provinces : ""
+        }`;
       },
     },
   ];
@@ -118,7 +122,6 @@ const ListBranchAdmin = () => {
         </div>
       </div>
     </div>
-
   );
 };
 
