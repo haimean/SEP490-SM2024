@@ -29,19 +29,6 @@ const blogAdminController = {
       next(new CustomError(error?.message, 500));
     }
   },
-  update: async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { status } = req.body;
-      const { id } = req.params;
-      const blog: Blog = await blogAdminService.update(
-        Number(id),
-        status
-      );
-      ResponseHandler(res, blog);
-    } catch (error: any) {
-      next(new CustomError(error?.message, 500));
-    }
-  },
 };
 
 export default blogAdminController;

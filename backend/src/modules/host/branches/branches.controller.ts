@@ -80,6 +80,8 @@ const branchesHostController = {
         image,
         isAccept: false,
         phone,
+        orderId: null,
+        isPayment: false,
       };
 
       const addressPayload: AddressBranchHostServiceCreate = {

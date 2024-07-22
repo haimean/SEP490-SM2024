@@ -17,14 +17,11 @@ const blogHostController = {
 
     try {
       const accountId = Number(req.headers.authorization);
-      const { title, content, status } = req.body;
-
+      const { caption } = req.body;
       const blog: Blog = await blogHostService.create({
         accountId,
-        title,
-        content,
+        caption,
         image: imageName,
-        status,
       });
       ResponseHandler(res, blog);
     } catch (error: any) {
@@ -39,10 +36,7 @@ const blogHostController = {
   ) => {
     try {
       const accountId = Number(req.headers.authorization);
-      const blogs: Blog[] = await blogHostService.getAll(
-        accountId,
-        'PUBLISHED'
-      );
+      const blogs: Blog[] = await blogHostService.getAll(accountId);
       ResponseHandler(res, blogs);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
@@ -55,10 +49,7 @@ const blogHostController = {
   ) => {
     try {
       const accountId = Number(req.headers.authorization);
-      const blogs: Blog[] = await blogHostService.getAll(
-        accountId,
-        'ARCHIVED'
-      );
+      const blogs: Blog[] = await blogHostService.getAll(accountId);
       ResponseHandler(res, blogs);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
@@ -87,14 +78,12 @@ const blogHostController = {
 
     try {
       const accountId = Number(req.headers.authorization);
-      const { title, content, status } = req.body;
+      const { caption } = req.body;
       const { id } = req.params;
       const blog: Blog = await blogHostService.update(Number(id), {
         accountId,
-        title,
-        content,
+        caption,
         image: imageName,
-        status,
       });
       ResponseHandler(res, blog);
     } catch (error: any) {
