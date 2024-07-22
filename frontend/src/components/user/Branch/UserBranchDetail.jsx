@@ -53,10 +53,7 @@ const UserBranchDetail = ({
                             {title}
                         </Typography>
                         <Typography variant="h6" gutterBottom>
-                            Giờ mở cửa: {branch.openingHours}
-                        </Typography>
-                        <Typography variant="h6" gutterBottom>
-                            Giờ đóng cửa:{branch.closingHours}
+                            Mở cửa từ: {branch.openingHours} - {branch.closingHours}
                         </Typography>
                         <Typography variant="h6" gutterBottom>
                             Mô tả thêm
@@ -68,19 +65,19 @@ const UserBranchDetail = ({
             <Grid item xs={12} md={4}>
                 <CardContent>
                     <Typography variant="h6" component="div" gutterBottom>
-                        <AccountBox style={{ marginRight: '8px' }} /> Anh Linh
+                        <AccountBox style={{ marginRight: '8px' }} />{branch?.account?.user?.fullName}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" gutterBottom>
                         <Phone style={{ marginRight: '8px' }} />
-                        0123456789
+                        {branch?.account?.user?.numberPhone}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" gutterBottom>
                         <Email style={{ marginRight: '8px' }} />
-                        manhpro9900@gmail.com
+                        {branch?.account?.email}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" gutterBottom>
                         <LocationOn style={{ marginRight: '8px' }} />
-                        "Đường Lê Đức Thọ, Mỹ Đình, Nam Từ Liêm, Hà Nội"
+                        {branch?.address?.detail}
                     </Typography>
                     {map}
                 </CardContent>
