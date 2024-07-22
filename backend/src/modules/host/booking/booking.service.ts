@@ -56,19 +56,19 @@ const bookingHostService = {
     });
   },
 
-  getAForWeek: async (accountId: number, date: Date) => {
-    console.log(
-      'lastSunday',
-      dateUtils.getLastWeekend(date).lastSunday
-    );
-    console.log(
-      'lastSaturday',
-      dateUtils.getLastWeekend(date).lastSaturday
-    );
-
+  getAForWeek: async (
+    accountId: number,
+    date: Date,
+    courtId?: number
+  ) => {
     const response = await database.booking.findMany({
       where: {
-        accountId,
+        courtId: courtId,
+        Court: {
+          Branches: {
+            accountId,
+          },
+        },
         isDelete: false,
         startTime: {
           // from

@@ -31,7 +31,7 @@ bookingHostRouter.put(
   bookingHostController.cancel
 );
 bookingHostRouter.post(
-  '/get-for-week/',
+  '/get-for-week/:courtId',
   validate(bookingHostValidator.getAForWeek),
   bookingHostController.getAForWeek
 );

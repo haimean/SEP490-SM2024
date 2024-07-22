@@ -136,10 +136,12 @@ const bookingHostController = {
   ) => {
     try {
       const { date } = req.body;
+      const { courtId } = req.params;
       const accountId = Number(req.headers.authorization);
       const result = await bookingHostService.getAForWeek(
         accountId,
-        date
+        date,
+        Number(courtId)
       );
       ResponseHandler(res, result);
     } catch (error: any) {
