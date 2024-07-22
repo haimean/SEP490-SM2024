@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardMedia, Typography, Stack, Button } from "@mui/material";
+import { Card, CardContent, CardMedia, Typography, Stack, Button, Tooltip } from "@mui/material";
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import BookingModal from "../BookingTable/BookingModal";
@@ -24,12 +24,16 @@ const CourtCard = ({ court, image }) => {
                 className={"object-cover bg-blue-200 h-40"}
             />
             <CardContent>
-                <Typography component="h2" variant="h5">
+                <Tooltip title={court.name}>
+                <Typography component="h2" variant="h5" className="truncate">
                     {court.name}
                 </Typography>
+                </Tooltip>
                 <Stack direction="row" alignItems="center" spacing={1}>
                     <ChecklistIcon className="text-red-600" />
-                    <Typography>{court?.TypeCourt?.description}</Typography>
+                    <Tooltip title={court?.TypeCourt?.description}>
+                    <Typography className="truncate">{court?.TypeCourt?.description}</Typography>
+                    </Tooltip>
                 </Stack>
                 <div className="mt-4 space-x-4">
                     <Button

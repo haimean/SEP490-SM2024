@@ -7,46 +7,6 @@ import BranchCard from '../../../components/user/Branch/BranchCard';
 import { toast } from 'react-toastify';
 import CallApi from '../../../service/CallAPI';
 
-const testImg = "https://via.placeholder.com/200"
-const branches = [
-  {
-    id: 1,
-    name: "Sân vận động Mỹ Đình",
-    province: "Thành phố Hà Nội",
-    district: "Quận Nam Từ Liêm",
-    ward: "Phường Mỹ Đình 1",
-    location: "Đường Lê Đức Thọ, Mỹ Đình, Nam Từ Liêm, Hà Nội",
-    image: testImg,
-  },
-  {
-    id: 2,
-    name: "Sân vận động Mỹ Đình",
-    province: "Thành phố Hà Nội",
-    district: "Quận Nam Từ Liêm",
-    ward: "Phường Mỹ Đình 1",
-    location: "Đường Lê Đức Thọ, Mỹ Đình, Nam Từ Liêm, Hà Nội",
-    image: testImg,
-  },
-  {
-    id: 3,
-    name: "Sân vận động Mỹ Đình",
-    province: "Thành phố Hà Nội",
-    district: "Quận Nam Từ Liêm",
-    ward: "Phường Mỹ Đình 1",
-    location: "Đường Lê Đức Thọ, Mỹ Đình, Nam Từ Liêm, Hà Nội",
-    image: testImg,
-  },
-  {
-    id: 4,
-    name: "Sân vận động Mỹ Đình",
-    province: "Thành phố Hà Nội",
-    district: "Quận Nam Từ Liêm",
-    ward: "Phường Mỹ Đình 1",
-    location: "Đường Lê Đức Thọ, Mỹ Đình, Nam Từ Liêm, Hà Nội",
-    image: testImg,
-  },
-];
-
 const BranchListPage = () => {
   const navigate = useNavigate();
   const [branches, setBranches] = useState([]);
@@ -70,7 +30,7 @@ const BranchListPage = () => {
         {},
         {}
       );
-      setBranches(response.data);
+      setBranches(response?.data);
       console.log(response);
     } catch (error) {
       toast.error(error.response?.data?.error);
@@ -86,9 +46,9 @@ const BranchListPage = () => {
   }
 
   const filteredBranches = branches.filter(branch => {
-    if (filters.province && branch.address.provinces !== filters.province) return false;
-    if (filters.district && branch.address.districts !== filters.district) return false;
-    if (filters.ward && branch.address.wards !== filters.ward) return false;
+    if (filters.province && branch.address?.provinces !== filters.province) return false;
+    if (filters.district && branch.address?.districts !== filters.district) return false;
+    if (filters.ward && branch.address?.wards !== filters.ward) return false;
     if (filters.search && !branch.name.toLowerCase().includes(filters.search.toLowerCase())) return false;
     return true;
   });
@@ -105,10 +65,10 @@ const BranchListPage = () => {
         {filteredBranches.map((branch) => (
           <Grid item xs={12} md={6} key={branch.id}>
             <BranchCard
-              name={branch.name}
-              location={branch.address.detail}
-              image={branch.image}
-              onClick={() => handleClick(branch.id)}
+              name={branch?.name}
+              location={branch?.address?.detail}
+              image={branch?.image}
+              onClick={() => handleClick(branch?.id)}
             />
           </Grid>
         ))}
