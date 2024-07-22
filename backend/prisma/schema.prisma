@@ -38,6 +38,8 @@ model Account {
   userAvailability  UserAvailability[]
   reviewSend        Review[]            @relation("seed")
   reviewReceived    Review[]            @relation("recipient")
+  ReportBlog        ReportBlog[]
+  Notification      Notification[]
 }
 
 enum Gender {
@@ -175,46 +177,46 @@ model Branches {
   businessLicense   String
   openingHours      String
   closingHours      String
+  orderId           String?
+  isPayment         Boolean             @default(false)
   isDelete          Boolean             @default(false)
   isAccept          Boolean             @default(false)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
 }
 
-enum STATUS_BLOG {
-  DRAFT
-  PUBLISHED
-  ARCHIVED
-  BAN
+model Blog {
+  id         Int          @id @default(autoincrement())
+  accountId  Int
+  account    Account      @relation(fields: [accountId], references: [id])
+  caption    String
+  image      String
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  comment    Comment[]
+  ReportBlog ReportBlog[]
 }
 
-model Blog {
-  id        Int         @id @default(autoincrement())
+model ReportBlog {
+  id        Int      @id @default(autoincrement())
+  reason    String
+  blogId    Int
+  blog      Blog     @relation(fields: [blogId], references: [id])
   accountId Int
-  account   Account     @relation(fields: [accountId], references: [id])
-  title     String
-  content   String
-  image     String
-  status    STATUS_BLOG
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  comment   Comment[]
+  account   Account  @relation(fields: [accountId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Comment {
-  id              Int         @id @default(autoincrement())
-  blogId          Int
-  blog            Blog        @relation(fields: [blogId], references: [id])
-  accountId       Int
-  account         Account     @relation(fields: [accountId], references: [id])
-  content         String
-  parentCommentId Int? // Sử dụng Int? để cho phép giá trị null
-  parentComment   Comment?    @relation("CommentToParentComment", fields: [parentCommentId], references: [id]) // Đặt tên mối quan hệ
-  childComments   Comment[]   @relation("CommentToParentComment") // Đặt tên mối quan hệ để khớp với phần trên
-  image           String
-  status          STATUS_BLOG
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
+  id        Int      @id @default(autoincrement())
+  blogId    Int
+  blog      Blog     @relation(fields: [blogId], references: [id])
+  accountId Int
+  account   Account  @relation(fields: [accountId], references: [id])
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum TYPE_PRICE_COUT {
@@ -242,8 +244,8 @@ model Booking {
   updatedAt     DateTime     @updatedAt
   accountId     Int
   account       Account      @relation(fields: [accountId], references: [id])
-  Court         Court?       @relation(fields: [courtId], references: [id])
-  courtId       Int?
+  Court         Court        @relation(fields: [courtId], references: [id])
+  courtId       Int
   startTime     DateTime
   endTime       DateTime
   price         Int
@@ -277,12 +279,14 @@ model UserAvailability {
   provinces  String
   districts  String
   Invitation Invitation[]
+  level      Level?
 }
 
 enum StatusInvitation {
   NEW
   ACCEPT
   NOACCEPT
+  CANCEL
 }
 
 enum TypeInvitation {
@@ -299,12 +303,13 @@ model Invitation {
   postId             Int
   type               TypeInvitation
   status             StatusInvitation
+  reasonCancel       String?
   createdAt          DateTime         @default(now())
   updatedAt          DateTime         @updatedAt
   userAvailability   UserAvailability @relation(fields: [userAvailabilityId], references: [id])
   Post               Post             @relation(fields: [postId], references: [id])
 
-  @@unique([userAvailabilityId, postId, type])
+  @@unique([userAvailabilityId, postId])
 }
 
 enum Level {
@@ -357,33 +362,17 @@ model Review {
   comment            String
 }
 
-model Notification {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  message   String
-  createdAt DateTime @default(now())
+enum StatusNotification {
+  SEED
+  READ
 }
 
-// TABLE notification {
-//   notification_id int [pk, increment]
-//   user_id int [ref: > user.user_id]
-//   message text
-//   type ENUM('BLOG', 'COMMENT', 'INVITATION', 'BOOKING')
-//   status ENUM('UNREAD', 'READ')
-//   blog_id int [ref: > blog.blog_id]
-//   comment_id int [ref: > comment.comment_id]
-//   invitation_id int [ref: > invitation.invitation_id]
-//   created_at timestamp
-//   updated_at timestamp
-// }
-
-// //Tố cáo
-// TABLE report as report {
-//   report_id int [pk, increment]
-//   reported_by int [ref: > user.user_id]
-//   reported_user_id int [ref: > user.user_id]
-//   description json
-//   status ENUM('PENDING', 'REVIEWED', 'RESOLVED')
-//   created_at timestamp
-//   updated_at timestamp
-// }
+model Notification {
+  id        Int                @id @default(autoincrement())
+  accountId Int
+  account   Account            @relation(fields: [accountId], references: [id])
+  message   String
+  url       String
+  status    StatusNotification
+  createdAt DateTime           @default(now())
+}

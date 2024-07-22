@@ -41,6 +41,7 @@ const courtService = {
             priceTypeCourt: {
               orderBy: {
                 startTime: 'desc',
+                times: 'desc',
               },
             },
           },
