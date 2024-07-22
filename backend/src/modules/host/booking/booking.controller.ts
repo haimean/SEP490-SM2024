@@ -46,6 +46,25 @@ const bookingHostController = {
       next(new CustomError(error?.message, 500));
     }
   },
+  update: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { startTime, endTime, price } = req.body;
+      const { id } = req.params;
+      // check giờ đặt có người đặt chưa
+      const result = await bookingHostService.update({
+        id: Number(id),
+        startTime,
+        endTime,
+        price,
+      });
+      //TODO: thông báo mail và realtime cho user
+      ResponseHandler(res, result);
+    } catch (error: any) {
+      console.log(error);
+
+      next(new CustomError(error?.message, 500));
+    }
+  },
   getDetail: async (
     req: Request,
     res: Response,

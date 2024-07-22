@@ -26,6 +26,11 @@ const bookingHostValidator = {
   getAForWeek: Joi.object({
     date: Joi.date().required().label('Giờ bắt đầu'),
   }),
+  update: Joi.object({
+    startTime: Joi.date().label('Giờ bắt đầu'),
+    endTime: Joi.date().label('Giờ kết thúc'),
+    price: Joi.number().label('Tổng tiền'),
+  }),
 };
 
 export default bookingHostValidator;

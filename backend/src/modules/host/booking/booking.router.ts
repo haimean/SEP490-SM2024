@@ -35,5 +35,10 @@ bookingHostRouter.post(
   validate(bookingHostValidator.getAForWeek),
   bookingHostController.getAForWeek
 );
+bookingHostRouter.put(
+  '/update/:id',
+  validate(bookingHostValidator.update),
+  bookingHostController.update
+);
 
 export default bookingHostRouter;

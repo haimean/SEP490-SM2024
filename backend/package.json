@@ -12,7 +12,7 @@
     "doc": "node swagger.js",
     "gen:module": "npx hygen module new",
     "gen:seed": "npx hygen seed new",
-    "gen": "npx tsx ./prisma/seed.ts",
+    "gen": "npx tsx ./seed.ts",
     "lint": "eslint . -c .ts,.js --fix"
   },
   "prisma": {

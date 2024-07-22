@@ -2,7 +2,10 @@ import { Prisma } from '@prisma/client';
 import database from '../../../lib/db.server';
 import { Pagination } from '../../index.model';
 import { getQueryPagination } from '../../index.service';
-import { BookingCreateInput } from './booking.model';
+import {
+  BookingCreateInput,
+  BookingUpdateInput,
+} from './booking.model';
 import dateUtils from '../../../utils/date';
 
 const bookingHostService = {
@@ -29,6 +32,23 @@ const bookingHostService = {
             numberPhone,
           },
         },
+      },
+      include: {
+        bookingInfo: true,
+      },
+    });
+  },
+
+  update: async (data: BookingUpdateInput) => {
+    const { id, endTime, price, startTime } = data;
+    return await database.booking.update({
+      where: {
+        id,
+      },
+      data: {
+        endTime,
+        price,
+        startTime,
       },
       include: {
         bookingInfo: true,

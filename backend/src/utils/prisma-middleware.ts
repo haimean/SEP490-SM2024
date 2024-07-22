@@ -26,7 +26,9 @@ const dateTimeMiddleware: Prisma.Middleware = async (
   if (
     params.action === 'findUnique' ||
     params.action === 'findMany' ||
-    params.action === 'findFirst'
+    params.action === 'findFirst' ||
+    params.action === 'create' ||
+    params.action === 'update'
   ) {
     const convertDateToTimezone = (date: any) =>
       dayjs(date).add(timezoneOffset, 'hour').toISOString();
