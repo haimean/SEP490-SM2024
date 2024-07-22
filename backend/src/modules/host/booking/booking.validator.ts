@@ -30,6 +30,10 @@ const bookingHostValidator = {
     startTime: Joi.date().label('Giờ bắt đầu'),
     endTime: Joi.date().label('Giờ kết thúc'),
     price: Joi.number().label('Tổng tiền'),
+    name: Joi.string().label('Người đặt sân'),
+    numberPhone: Joi.string()
+      .regex(regex.phoneNumber)
+      .label('Số điện thoại'),
   }),
 };
 

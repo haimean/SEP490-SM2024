@@ -48,7 +48,8 @@ const bookingHostController = {
   },
   update: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { startTime, endTime, price } = req.body;
+      const { startTime, endTime, price, name, numberPhone } =
+        req.body;
       const { id } = req.params;
       // check giờ đặt có người đặt chưa
       const result = await bookingHostService.update({
@@ -56,6 +57,8 @@ const bookingHostController = {
         startTime,
         endTime,
         price,
+        name,
+        numberPhone,
       });
       //TODO: thông báo mail và realtime cho user
       ResponseHandler(res, result);

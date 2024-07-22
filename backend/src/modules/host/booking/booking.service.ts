@@ -40,7 +40,7 @@ const bookingHostService = {
   },
 
   update: async (data: BookingUpdateInput) => {
-    const { id, endTime, price, startTime } = data;
+    const { id, endTime, price, startTime, numberPhone, name } = data;
     return await database.booking.update({
       where: {
         id,
@@ -49,6 +49,12 @@ const bookingHostService = {
         endTime,
         price,
         startTime,
+        bookingInfo: {
+          update: {
+            numberPhone,
+            name,
+          },
+        },
       },
       include: {
         bookingInfo: true,
