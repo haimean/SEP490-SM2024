@@ -8,7 +8,6 @@ const FileUploadCp = ({ field, control, errors }) => (
     name={field.name}
     control={control}
     defaultValue={field.defaultValue || ""}
-    errors={errors}
     rules={{ required: field.required }}
     render={({ field: { onChange, value } }) => (
       <Box>
@@ -48,14 +47,17 @@ const FileUploadCp = ({ field, control, errors }) => (
         ) : (
           <Box
             sx={{
-              border: "2px dashed #ccc",
+              border: errors[field.name]
+                ? "2px dashed #f44336"
+                : "2px dashed #ccc",
               borderRadius: "4px",
               padding: "20px",
               textAlign: "center",
               cursor: "pointer",
-              width: "200px", // Điều chỉnh kích thước theo nhu cầu
+              width: "200px",
               height: "200px",
               display: "flex",
+              flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
               "&:hover": {
@@ -85,6 +87,11 @@ const FileUploadCp = ({ field, control, errors }) => (
               </Box>
             </label>
           </Box>
+        )}
+        {errors[field.name] && (
+          <Typography color="error" variant="caption" sx={{ mt: 1 }}>
+            {field.label} là bắt buộc
+          </Typography>
         )}
       </Box>
     )}
