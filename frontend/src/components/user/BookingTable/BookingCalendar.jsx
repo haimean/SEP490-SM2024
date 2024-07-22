@@ -1,4 +1,3 @@
-// CreateEventWithNoOverlap.jsx
 import React, { useState, useEffect } from 'react';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import { parse, startOfWeek, getDay, format, setHours, setMinutes, setSeconds, differenceInMinutes } from 'date-fns';
@@ -7,6 +6,7 @@ import enUS from 'date-fns/locale/en-US';
 import { toast } from 'react-toastify';
 import CallApi from '../../../service/CallAPI';
 import PriceListModal from './PriceListModal';
+import ConfirmBookingModal from './ConfirmBookingModal';
 
 const locales = {
   'en-US': enUS,
@@ -25,14 +25,12 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
   const [selectedEvents, setSelectedEvents] = useState([]);
   const [isSameTime, setIsSameTime] = useState(true);
   const [repeatDisabled, setRepeatDisabled] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
+  const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   const [court, setCourt] = useState(null);
   const [booking1, setBooking1] = useState([]);
-  const [priceList1, setPriceList1] = useState([]);
-  const [repeatPriceListWeekly1, setRepeatPriceListWeekly1] = useState([]);
-  const [repeatPriceListDaily1, setRepeatPriceListDaily1] = useState([]);
-
+  const [priceLists, setPriceLists] = useState({});
   const openHour = setSeconds(setMinutes(setHours(new Date(), 5), 0), 0);
   const closeHour = setSeconds(setMinutes(setHours(new Date(), 22), 0), 0);
 
@@ -61,7 +59,6 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
         {}
       );
       setCourt(response.data);
-
       const now = new Date();
 
       const futureBookings = response.data.booking
@@ -75,31 +72,25 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
 
       setBooking1(futureBookings);
 
-      const priceList = [];
-      const repeatPriceListWeekly = [];
-      const repeatPriceListDaily = [];
+      const priceLists = {};
 
       response.data.TypeCourt.priceTypeCourt.forEach(p => {
         const priceObject = {
-          start: new Date(p.startTime),
-          end: new Date(p.endTime),
+          start: new Date(p.startTime.replace('Z', '')),
+          end: new Date(p.endTime.replace('Z', '')),
           price: p.price
         };
-        if (p.times === 1) {
-          priceList.push(priceObject);
-        } else if (p.times === 5) {
-          repeatPriceListWeekly.push(priceObject);
-        } else if (p.times === 10) {
-          repeatPriceListDaily.push(priceObject);
-        }
-      });
 
-      setPriceList1(priceList);
-      setRepeatPriceListWeekly1(repeatPriceListWeekly);
-      setRepeatPriceListDaily1(repeatPriceListDaily);
+        if (!priceLists[p.times]) {
+          priceLists[p.times] = [];
+        }
+        priceLists[p.times].push(priceObject);
+      });
+      setPriceLists(priceLists);
     } catch (error) {
       toast.error(error.response?.data?.error || "An error occurred");
     }
+
   };
 
   const handleSelectSlot = ({ start, end }) => {
@@ -122,20 +113,25 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
       alert("Không thể chọn giờ này vì đã có booking.");
       return;
     }
+    const selectedCount = selectedEvents.length + 1;
 
-    let updatedPriceList = priceList1;
+    let applicablePriceList;
 
-    if (selectedEvents.length + 1 >= 10) {
-      updatedPriceList = repeatPriceListDaily1;
-    } else if (selectedEvents.length + 1 >= 5) {
-      updatedPriceList = repeatPriceListWeekly1;
+    Object.keys(priceLists).forEach(times => {
+      if (selectedCount >= times) {
+        applicablePriceList = priceLists[times];
+      }
+    });
+
+    if (!applicablePriceList) {
+      applicablePriceList = priceLists[1] || [];
     }
 
     const newEvent = {
       start,
       end,
-      title: `Price: ${calculatePrice(start, end, updatedPriceList)}`,
-      price: calculatePrice(start, end, updatedPriceList)
+      title: `Price: ${calculatePrice(start, end, applicablePriceList)}`,
+      price: calculatePrice(start, end, applicablePriceList)
     };
 
     const firstEvent = selectedEvents[0];
@@ -155,11 +151,16 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
       !(start < event.end && end > event.start)
     );
 
-    let newPriceList = priceList1;
-    if (selectedEvents.length + 1 >= 10) {
-      newPriceList = repeatPriceListDaily1;
-    } else if (selectedEvents.length + 1 >= 5) {
-      newPriceList = repeatPriceListWeekly1;
+    let newApplicablePriceList;
+
+    Object.keys(priceLists).forEach(times => {
+      if (selectedCount >= times) {
+        newApplicablePriceList = priceLists[times];
+      }
+    });
+
+    if (!newApplicablePriceList) {
+      newApplicablePriceList = priceLists[1] || [];
     }
 
     let updatedEvents = [...filteredEvents, newEvent];
@@ -167,8 +168,8 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
     if (selectedEvents.length + 1 >= 5) {
       updatedEvents = updatedEvents.map(event => ({
         ...event,
-        price: calculatePrice(event.start, event.end, newPriceList),
-        title: `Price: ${calculatePrice(event.start, event.end, newPriceList)}`
+        price: calculatePrice(event.start, event.end, newApplicablePriceList),
+        title: `Price: ${calculatePrice(event.start, event.end, newApplicablePriceList)}`
       }));
     }
 
@@ -182,26 +183,25 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
     const updatedSelectedEvents = selectedEvents.filter(event => event !== eventToDelete);
     setSelectedEvents(updatedSelectedEvents);
 
-    let updatedPriceList = priceList1;
+    const selectedCount = selectedEvents.length - 1;
 
-    if (updatedSelectedEvents.length >= 10) {
-      updatedPriceList = repeatPriceListDaily1;
-    } else if (updatedSelectedEvents.length >= 5) {
-      updatedPriceList = repeatPriceListWeekly1;
+    let applicablePriceList;
+
+    Object.keys(priceLists).forEach(times => {
+      if (selectedCount >= times) {
+        applicablePriceList = priceLists[times];
+      }
+    });
+
+    if (!applicablePriceList) {
+      applicablePriceList = priceLists[1] || [];
     }
 
     const updatedEvents = events.filter(event => event !== eventToDelete).map(event => ({
       ...event,
-      price: calculatePrice(event.start, event.end, updatedPriceList),
-      title: `Price: ${calculatePrice(event.start, event.end, updatedPriceList)}`
+      price: calculatePrice(event.start, event.end, applicablePriceList),
+      title: `Price: ${calculatePrice(event.start, event.end, applicablePriceList)}`
     }));
-
-    if (updatedSelectedEvents.length < 5) {
-      updatedEvents.forEach(event => {
-        event.price = calculatePrice(event.start, event.end, priceList1);
-        event.title = `Price: ${calculatePrice(event.start, event.end, priceList1)}`;
-      });
-    }
 
     setEvents(updatedEvents);
   };
@@ -210,25 +210,23 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
     let totalPrice = 0;
 
     priceListToUse.forEach(priceRange => {
-      const rangeStartHour = priceRange.start.getUTCHours();
-      const rangeEndHour = priceRange.end.getUTCHours();
+      const rangeStartHour = priceRange.start.getHours();
+      const rangeEndHour = priceRange.end.getHours();
       let eventStart = new Date(start);
       let eventEnd = new Date(end);
       while (eventStart < eventEnd) {
         let nextSlot = new Date(eventStart);
         nextSlot.setMinutes(eventStart.getMinutes() + 30);
-
         if (nextSlot > eventEnd) {
           nextSlot = eventEnd;
         }
 
-        const eventHour = eventStart.getUTCHours();
+        const eventHour = eventStart.getHours();
 
         if (eventHour >= rangeStartHour && eventHour < rangeEndHour) {
           const duration = Math.round((nextSlot - eventStart) / (1000 * 60 * 30)) / 2;
           totalPrice += priceRange.price * duration;
         }
-
         eventStart = nextSlot;
       }
     });
@@ -237,6 +235,17 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
   };
 
   const slotPropGetter = (date) => {
+    const hours = date.getHours();
+    if (hours === 0) { // This will target the all-day slots which have a time of 0:00
+      return {
+        style: {
+          backgroundColor: 'lightgray',
+          pointerEvents: 'none',
+          cursor: 'not-allowed'
+        }
+      };
+    }
+
     const now = new Date();
     if (date < now) {
       return {
@@ -252,12 +261,7 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
 
   const eventStyleGetter = (event, start, end, isSelected) => {
     const style = {
-      backgroundColor: event.isBooking ? 'gray' : 'lightblue',
-      borderRadius: '0px',
-      opacity: 0.8,
-      color: 'black',
-      border: '0px',
-      display: 'block',
+      backgroundColor: event.isBooking ? 'rgb(255, 99, 71)' : 'rgb(70, 130, 180)',
       pointerEvents: event.isBooking ? 'none' : 'auto'
     };
     return {
@@ -270,34 +274,20 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
     setSelectedEvents([]);
   };
 
-  const handleBookCourt = async () => {
-    const payload = selectedEvents.map(event => ({
-      courtId,
-      startTime: event.start.toISOString(),
-      endTime: event.end.toISOString(),
-      price: event.price,
-      name: "minh", // Replace with actual user name
-      numberPhone: "0963400923" // Replace with actual phone number
-    }));
-console.log(payload);
-    try {
-      for (const data of payload) {
-        await CallApi("/api/user/booking", "post", {}, data);
-      }
-      toast.success("Booking successful!");
-      setSelectedEvents([]);
-      fetchData(courtId); // Refresh the data
-    } catch (error) {
-      toast.error(error.response?.data?.error || "An error occurred during booking");
-    }
+  const handleOpenPriceModal = () => {
+    setIsPriceModalOpen(true);
   };
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
+  const handleClosePriceModal = () => {
+    setIsPriceModalOpen(false);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  const handleOpenBookingModal = () => {
+    setIsBookingModalOpen(true);
+  };
+
+  const handleCloseBookingModal = () => {
+    setIsBookingModalOpen(false);
   };
 
   const Event = ({ event }) => {
@@ -335,14 +325,14 @@ console.log(payload);
           Hủy tất cả
         </button>
         <button
-          onClick={handleBookCourt}
+          onClick={handleOpenBookingModal}
           className={`p-2 ml-2 rounded ${selectedEvents.length === 0 ? 'bg-gray-500' : 'bg-blue-500 text-white'}`}
           disabled={selectedEvents.length === 0} // Disable button when no event is selected
         >
           Đặt sân
         </button>
         <button
-          onClick={handleOpenModal}
+          onClick={handleOpenPriceModal}
           className="p-2 ml-2 bg-green-500 text-white rounded"
         >
           Xem Bảng Giá
@@ -369,11 +359,16 @@ console.log(payload);
         max={closeHour}
       />
       <PriceListModal
-        isOpen={isModalOpen}
-        onRequestClose={handleCloseModal}
-        priceList={priceList1}
-        repeatPriceListWeekly={repeatPriceListWeekly1}
-        repeatPriceListDaily={repeatPriceListDaily1}
+        isOpen={isPriceModalOpen}
+        onRequestClose={handleClosePriceModal}
+        priceLists={priceLists}
+      />
+      <ConfirmBookingModal
+        isOpen={isBookingModalOpen}
+        onRequestClose={handleCloseBookingModal}
+        courtId={courtId}
+        selectedEvents={selectedEvents}
+        refreshData={fetchData}
       />
     </div>
   );
