@@ -29,4 +29,10 @@ invitationUserRouter.post(
   invitationUserController.getUnavailableOfUser
 );
 
+invitationUserRouter.post(
+  '/update',
+  validate(invitationUserValidator.update),
+  invitationUserController.update
+);
+
 export default invitationUserRouter;

@@ -87,6 +87,19 @@ const invitationUserController = {
       next(new CustomError(error?.message, 500));
     }
   },
+  update: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { invitationId, status, reasonCancel } = req.body;
+      const invitation = await invitationUserService.update({
+        invitationId,
+        status,
+        reasonCancel,
+      });
+      ResponseHandler(res, invitation);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
 };
 
 export default invitationUserController;

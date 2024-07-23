@@ -17,6 +17,15 @@ const invitationUserValidator = {
   getUnavailableOfUser: Joi.object({
     pagination: validator.pagination,
   }),
+  update: Joi.object({
+    invitationId: Joi.number().required().label('ID lời mời'),
+    postId: Joi.number().required().label('ID bài tìm gia lưu'),
+    status: Joi.string()
+      .required()
+      .valid('ACCEPT', 'NOACCEPT', 'CANCEL')
+      .label('Trạng thái'),
+    reasonCancel: Joi.string().required().label('Lý do'),
+  }),
 };
 
 export default invitationUserValidator;

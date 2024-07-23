@@ -1,4 +1,9 @@
-import { Invitation, Post, TypeInvitation } from '@prisma/client';
+import {
+  Invitation,
+  Post,
+  StatusInvitation,
+  TypeInvitation,
+} from '@prisma/client';
 import database from '../../../lib/db.server';
 import { Pagination } from '../../index.model';
 import { getQueryPagination } from '../../index.service';
@@ -192,6 +197,22 @@ const invitationUserService = {
       ...getQueryPagination(pagination),
     });
     return { data, total: total.length };
+  },
+  update: async (data: {
+    invitationId: number;
+    status: StatusInvitation;
+    reasonCancel: string;
+  }) => {
+    const { invitationId, status, reasonCancel } = data;
+    return database.invitation.update({
+      where: {
+        id: invitationId,
+      },
+      data: {
+        status,
+        reasonCancel,
+      },
+    });
   },
 };
 
