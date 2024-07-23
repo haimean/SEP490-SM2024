@@ -4,7 +4,7 @@ import validate from '../../../utils/validate';
 import bookingHostValidator from './booking.validator';
 
 const bookingHostRouter = Router();
-bookingHostRouter.post('/', bookingHostController.getBookingList);
+// bookingHostRouter.post('/', bookingHostController.getBookingList);
 bookingHostRouter.post(
   '/history',
   validate(bookingHostValidator.history),
