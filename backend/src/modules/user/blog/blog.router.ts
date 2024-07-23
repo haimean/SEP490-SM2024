@@ -6,10 +6,10 @@ import blogUserController from './blog.controller';
 
 const blogUserRouter = Router();
 
-blogUserRouter.get('/', blogUserController.getAllOfUser);
-blogUserRouter.get(
-  '/archived',
-  blogUserController.getArchivedDOfUser
+blogUserRouter.post(
+  '/get-all',
+  validate(blogUserValidator.getAll),
+  blogUserController.getAllOfUser
 );
 blogUserRouter.get('/:id', blogUserController.get);
 blogUserRouter.put(
@@ -18,6 +18,7 @@ blogUserRouter.put(
   validate(blogUserValidator.blog),
   blogUserController.update
 );
+// blogUserRouter.delete('/:id', blogUserController.delete);
 blogUserRouter.post(
   '/',
   upload.single('image'),

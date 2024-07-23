@@ -1,8 +1,10 @@
 import { Blog } from '@prisma/client';
 import database from '../../../lib/db.server';
 import { BlogInput } from './blog.model';
+import { getQueryPagination } from '../../index.service';
+import { Pagination } from '../../index.model';
 
-const blogHostService = {
+const blogUserService = {
   create: async (data: BlogInput): Promise<Blog> => {
     const { accountId, image, caption } = data;
     return await database.blog.create({
@@ -18,22 +20,20 @@ const blogHostService = {
     return await database.blog.update({
       where: {
         id,
+        accountId,
       },
       data: {
-        accountId,
         caption,
         image,
       },
     });
   },
-  getAll: async (accountId: number): Promise<Blog[]> => {
+  getAll: async (pagination: Pagination): Promise<Blog[]> => {
     return await database.blog.findMany({
-      where: {
-        accountId,
-      },
       orderBy: {
         createdAt: 'desc',
       },
+      ...getQueryPagination(pagination),
     });
   },
   get: async (id: number): Promise<Blog | null> => {
@@ -45,4 +45,4 @@ const blogHostService = {
   },
 };
 
-export default blogHostService;
+export default blogUserService;

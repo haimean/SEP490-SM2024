@@ -35,21 +35,8 @@ const blogUserController = {
     next: NextFunction
   ) => {
     try {
-      const accountId = Number(req.headers.authorization);
-      const blogs: Blog[] = await blogUserService.getAll(accountId);
-      ResponseHandler(res, blogs);
-    } catch (error: any) {
-      next(new CustomError(error?.message, 500));
-    }
-  },
-  getArchivedDOfUser: async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => {
-    try {
-      const accountId = Number(req.headers.authorization);
-      const blogs: Blog[] = await blogUserService.getAll(accountId);
+      const { pagination } = req.body;
+      const blogs: Blog[] = await blogUserService.getAll(pagination);
       ResponseHandler(res, blogs);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
@@ -91,6 +78,20 @@ const blogUserController = {
       next(new CustomError(error?.message, 500));
     }
   },
+  // delete: async (req: Request, res: Response, next: NextFunction) => {
+
+  //   try {
+  //     const accountId = Number(req.headers.authorization);
+  //     const { id } = req.params;
+  //     const blog: Blog = await blogUserService.update(Number(id)
+  //       accountId,
+  //     );
+  //     ResponseHandler(res, blog);
+  //   } catch (error: any) {
+  //     if (imageName) deleteFile(imageName);
+  //     next(new CustomError(error?.message, 500));
+  //   }
+  // },
 };
 
 export default blogUserController;
