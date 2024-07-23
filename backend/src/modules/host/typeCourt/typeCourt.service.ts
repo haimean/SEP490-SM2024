@@ -92,6 +92,7 @@ const typeCourtHostService = {
       },
       include: {
         attributeCourt: true,
+        priceTypeCourt: true,
       },
     });
   },
