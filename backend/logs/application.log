@@ -32016,3 +32016,66 @@
 [2024-07-23T16:49:49.203] [INFO] default - Response null
 [2024-07-23T16:49:53.557] [INFO] default - Response null
 [2024-07-23T16:51:04.483] [INFO] default - Response null
+[2024-07-23T16:56:45.960] [INFO] default - Express server is listening at http://localhost:9999 🚀
+[2024-07-23T18:14:19.384] [ERROR] default - ERROR LOG  7/23/2024, 6:14:19 PM
+[2024-07-23T18:14:19.386] [WARN] default - Request: "GET" "/api/user/post/1"
+[2024-07-23T18:14:19.386] [WARN] default - Params: {}
+[2024-07-23T18:14:19.387] [WARN] default - Body: {}
+[2024-07-23T18:14:19.387] [WARN] default - Query: {}
+[2024-07-23T18:14:19.388] [ERROR] default - Error:  {"status":401,"messageObject":"Authentication"}
+[2024-07-23T18:14:19.393] [ERROR] default - Error stack:  Error
+    at verifyToken (D:\Learning\SEP490-SM2024\backend\src\modules\index.middleware.ts:34:17)
+[2024-07-23T18:14:19.393] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-23T18:14:30.259] [ERROR] default - ERROR LOG  7/23/2024, 6:14:30 PM
+[2024-07-23T18:14:30.259] [WARN] default - Request: "POST" "/api/auth/login"
+[2024-07-23T18:14:30.260] [WARN] default - Params: {}
+[2024-07-23T18:14:30.260] [WARN] default - Body: {"email":"inuyashapc162@gmail.com","password":"Duyanh1602@"}
+[2024-07-23T18:14:30.260] [WARN] default - Query: {}
+[2024-07-23T18:14:30.260] [ERROR] default - Error:  {"status":500,"messageObject":"Account does not exist"}
+[2024-07-23T18:14:30.262] [ERROR] default - Error stack:  Error
+    at login (D:\Learning\SEP490-SM2024\backend\src\modules\auth\auth.controller.ts:30:12)
+[2024-07-23T18:14:30.262] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-23T18:14:39.007] [ERROR] default - ERROR LOG  7/23/2024, 6:14:39 PM
+[2024-07-23T18:14:39.007] [WARN] default - Request: "POST" "/api/auth/login"
+[2024-07-23T18:14:39.007] [WARN] default - Params: {}
+[2024-07-23T18:14:39.008] [WARN] default - Body: {"email":"user@gmail.com","password":"Abcd@1234"}
+[2024-07-23T18:14:39.008] [WARN] default - Query: {}
+[2024-07-23T18:14:39.008] [ERROR] default - Error:  {"status":500,"messageObject":"Account does not exist"}
+[2024-07-23T18:14:39.009] [ERROR] default - Error stack:  Error
+    at login (D:\Learning\SEP490-SM2024\backend\src\modules\auth\auth.controller.ts:30:12)
+[2024-07-23T18:14:39.009] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-23T18:15:15.412] [INFO] default - Express server is listening at http://localhost:9999 🚀
+[2024-07-23T18:15:29.646] [INFO] default - Express server is listening at http://localhost:9999 🚀
+[2024-07-23T18:15:41.500] [INFO] default - Express server is listening at http://localhost:9999 🚀
+[2024-07-23T18:19:48.992] [INFO] default - Response {
+  id: 1,
+  email: 'inuyashapc162@gmail.com',
+  password: '$2b$10$Jy2TkJdn.Fi7Gh2/rlNfjudaYUjUQjGuhVpP.BBpVI2KYA6rV7Hta',
+  role: 'USER',
+  otp: null,
+  otpExpired: null,
+  isVerified: false,
+  emailToken: 'f03cf78e5453b843ec02dc6ccae65bd326a68342f4d148898748e01d1f09f9e6f93aa6e276ed2926c66503fb0a050926a24d24172817463824f31297ab1b2fda',
+  isActive: true,
+  createdAt: '2024-07-23T18:19:44.627Z',
+  updatedAt: '2024-07-23T18:19:44.627Z'
+}
+[2024-07-23T18:20:10.159] [INFO] default - Response {
+  id: 1,
+  email: 'inuyashapc162@gmail.com',
+  password: 'Not show',
+  role: 'USER',
+  otp: null,
+  otpExpired: null,
+  isVerified: true,
+  emailToken: null,
+  isActive: true,
+  createdAt: '2024-07-23T18:19:44.627Z',
+  updatedAt: '2024-07-23T18:20:00.064Z',
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJlbWFpbCI6ImludXlhc2hhcGMxNjJAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkSnkyVGtKZG4uRmk3R2gyL3JsTmZqdWRhWVVqVVFqR3VoVnBQLkJCcFZJMktZQTZyVjdIdGEiLCJyb2xlIjoiVVNFUiIsIm90cCI6bnVsbCwib3RwRXhwaXJlZCI6bnVsbCwiaXNWZXJpZmllZCI6dHJ1ZSwiZW1haWxUb2tlbiI6bnVsbCwiaXNBY3RpdmUiOnRydWUsImNyZWF0ZWRBdCI6IjIwMjQtMDctMjNUMTg6MTk6NDQuNjI3WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDctMjNUMTg6MjA6MDAuMDY0WiJ9LCJpYXQiOjE3MjE3MzM2MTAsImV4cCI6MTcyMTgyMDAxMH0.n6-PQyRj742XZrkCkrYP0wyqL7u1-TMjNFDLslI4hjE'
+}
+[2024-07-23T18:29:36.786] [INFO] default - Response []
+[2024-07-23T18:29:50.573] [INFO] default - Response null
+[2024-07-23T18:38:48.229] [INFO] default - Express server is listening at http://localhost:9999 🚀
+[2024-07-23T18:41:11.556] [INFO] default - Express server is listening at http://localhost:9999 🚀
+[2024-07-23T19:40:32.972] [INFO] default - Express server is listening at http://localhost:9999 🚀

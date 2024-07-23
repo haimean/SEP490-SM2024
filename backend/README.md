@@ -10,7 +10,7 @@ npx prisma generate
 
 **Chạy để gen dữ liệu giar**
 npx @snaplet/seed init : dùng để setup
-npm run gen : fake dữ liệu
+npx tsx seed.ts
 
 Logger: sử dụng logger
 
