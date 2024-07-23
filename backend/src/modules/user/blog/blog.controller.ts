@@ -3,10 +3,10 @@ import { deleteFile, uploadFile } from '../../../lib/s3';
 import { ResponseHandler } from '../../../outcomes/responseHandler';
 import CustomError from '../../../outcomes/customError';
 import { Blog } from '@prisma/client';
-import blogHostService from './blog.service';
+import blogUserService from './blog.service';
 import NotFoundError from '../../../outcomes/notFoundError';
 
-const blogHostController = {
+const blogUserController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
     let imageName: string = '';
     const file = req.file;
@@ -18,7 +18,7 @@ const blogHostController = {
     try {
       const accountId = Number(req.headers.authorization);
       const { caption } = req.body;
-      const blog: Blog = await blogHostService.create({
+      const blog: Blog = await blogUserService.create({
         accountId,
         caption,
         image: imageName,
@@ -36,7 +36,7 @@ const blogHostController = {
   ) => {
     try {
       const accountId = Number(req.headers.authorization);
-      const blogs: Blog[] = await blogHostService.getAll(accountId);
+      const blogs: Blog[] = await blogUserService.getAll(accountId);
       ResponseHandler(res, blogs);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
@@ -49,7 +49,7 @@ const blogHostController = {
   ) => {
     try {
       const accountId = Number(req.headers.authorization);
-      const blogs: Blog[] = await blogHostService.getAll(accountId);
+      const blogs: Blog[] = await blogUserService.getAll(accountId);
       ResponseHandler(res, blogs);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
@@ -58,7 +58,7 @@ const blogHostController = {
   get: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;
-      const blog: Blog | null = await blogHostService.get(Number(id));
+      const blog: Blog | null = await blogUserService.get(Number(id));
       if (blog) {
         ResponseHandler(res, blog);
       } else {
@@ -80,7 +80,7 @@ const blogHostController = {
       const accountId = Number(req.headers.authorization);
       const { caption } = req.body;
       const { id } = req.params;
-      const blog: Blog = await blogHostService.update(Number(id), {
+      const blog: Blog = await blogUserService.update(Number(id), {
         accountId,
         caption,
         image: imageName,
@@ -93,4 +93,4 @@ const blogHostController = {
   },
 };
 
-export default blogHostController;
+export default blogUserController;

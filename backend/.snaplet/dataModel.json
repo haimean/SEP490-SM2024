@@ -1,12 +1,12 @@
 {
   "models": {
     "Account": {
-      "id": "dbsep490.Account",
-      "schemaName": "dbsep490",
+      "id": "sep490.Account",
+      "schemaName": "sep490",
       "tableName": "Account",
       "fields": [
         {
-          "id": "dbsep490.Account.createdAt",
+          "id": "sep490.Account.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -20,7 +20,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Account.email",
+          "id": "sep490.Account.email",
           "name": "email",
           "columnName": "email",
           "type": "varchar",
@@ -34,7 +34,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.Account.emailToken",
+          "id": "sep490.Account.emailToken",
           "name": "emailToken",
           "columnName": "emailToken",
           "type": "varchar",
@@ -48,7 +48,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.Account.id",
+          "id": "sep490.Account.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -57,7 +57,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "dbsep490.Account.id",
+            "identifier": "sep490.Account.id",
             "increment": 1,
             "start": 1
           },
@@ -66,7 +66,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Account.isActive",
+          "id": "sep490.Account.isActive",
           "name": "isActive",
           "columnName": "isActive",
           "type": "tinyint",
@@ -80,7 +80,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Account.isVerified",
+          "id": "sep490.Account.isVerified",
           "name": "isVerified",
           "columnName": "isVerified",
           "type": "tinyint",
@@ -94,7 +94,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Account.otp",
+          "id": "sep490.Account.otp",
           "name": "otp",
           "columnName": "otp",
           "type": "varchar",
@@ -108,7 +108,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.Account.otpExpired",
+          "id": "sep490.Account.otpExpired",
           "name": "otpExpired",
           "columnName": "otpExpired",
           "type": "datetime",
@@ -122,7 +122,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Account.password",
+          "id": "sep490.Account.password",
           "name": "password",
           "columnName": "password",
           "type": "varchar",
@@ -136,10 +136,10 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.Account.role",
+          "id": "sep490.Account.role",
           "name": "role",
           "columnName": "role",
-          "type": "enum_dbsep490_account_role",
+          "type": "enum_sep490_account_role",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -150,7 +150,7 @@
           "maxLength": 5
         },
         {
-          "id": "dbsep490.Account.updatedAt",
+          "id": "sep490.Account.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -225,6 +225,34 @@
           "isRequired": false,
           "kind": "object",
           "relationName": "CommentToAccount",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "Notification",
+          "type": "Notification",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "NotificationToAccount",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "ReportBlog",
+          "type": "ReportBlog",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "ReportBlogToAccount",
           "relationFromFields": [],
           "relationToFields": [],
           "isList": true,
@@ -320,13 +348,13 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490.Account.email",
+          "name": "sep490.Account.email",
           "fields": [
             "email"
           ]
         },
         {
-          "name": "dbsep490.Account.id",
+          "name": "sep490.Account.id",
           "fields": [
             "id"
           ]
@@ -334,12 +362,12 @@
       ]
     },
     "AddressBranch": {
-      "id": "dbsep490.AddressBranch",
-      "schemaName": "dbsep490",
+      "id": "sep490.AddressBranch",
+      "schemaName": "sep490",
       "tableName": "AddressBranch",
       "fields": [
         {
-          "id": "dbsep490.AddressBranch.branchesId",
+          "id": "sep490.AddressBranch.branchesId",
           "name": "branchesId",
           "columnName": "branchesId",
           "type": "int",
@@ -353,7 +381,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.AddressBranch.detail",
+          "id": "sep490.AddressBranch.detail",
           "name": "detail",
           "columnName": "detail",
           "type": "varchar",
@@ -367,7 +395,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.AddressBranch.districts",
+          "id": "sep490.AddressBranch.districts",
           "name": "districts",
           "columnName": "districts",
           "type": "varchar",
@@ -381,7 +409,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.AddressBranch.id",
+          "id": "sep490.AddressBranch.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -390,7 +418,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "dbsep490.AddressBranch.id",
+            "identifier": "sep490.AddressBranch.id",
             "increment": 1,
             "start": 1
           },
@@ -399,7 +427,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.AddressBranch.latitude",
+          "id": "sep490.AddressBranch.latitude",
           "name": "latitude",
           "columnName": "latitude",
           "type": "varchar",
@@ -413,7 +441,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.AddressBranch.longitude",
+          "id": "sep490.AddressBranch.longitude",
           "name": "longitude",
           "columnName": "longitude",
           "type": "varchar",
@@ -427,7 +455,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.AddressBranch.provinces",
+          "id": "sep490.AddressBranch.provinces",
           "name": "provinces",
           "columnName": "provinces",
           "type": "varchar",
@@ -441,7 +469,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.AddressBranch.wards",
+          "id": "sep490.AddressBranch.wards",
           "name": "wards",
           "columnName": "wards",
           "type": "varchar",
@@ -475,13 +503,13 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490.AddressBranch.branchesId",
+          "name": "sep490.AddressBranch.branchesId",
           "fields": [
             "branchesId"
           ]
         },
         {
-          "name": "dbsep490.AddressBranch.id",
+          "name": "sep490.AddressBranch.id",
           "fields": [
             "id"
           ]
@@ -489,12 +517,12 @@
       ]
     },
     "AttributeBranches": {
-      "id": "dbsep490.AttributeBranches",
-      "schemaName": "dbsep490",
+      "id": "sep490.AttributeBranches",
+      "schemaName": "sep490",
       "tableName": "AttributeBranches",
       "fields": [
         {
-          "id": "dbsep490.AttributeBranches.accountId",
+          "id": "sep490.AttributeBranches.accountId",
           "name": "accountId",
           "columnName": "accountId",
           "type": "int",
@@ -508,7 +536,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.AttributeBranches.attributeKeyBranchesId",
+          "id": "sep490.AttributeBranches.attributeKeyBranchesId",
           "name": "attributeKeyBranchesId",
           "columnName": "attributeKeyBranchesId",
           "type": "int",
@@ -522,7 +550,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.AttributeBranches.createdAt",
+          "id": "sep490.AttributeBranches.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -536,7 +564,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.AttributeBranches.id",
+          "id": "sep490.AttributeBranches.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -545,7 +573,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "dbsep490.AttributeBranches.id",
+            "identifier": "sep490.AttributeBranches.id",
             "increment": 1,
             "start": 1
           },
@@ -554,7 +582,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.AttributeBranches.isActive",
+          "id": "sep490.AttributeBranches.isActive",
           "name": "isActive",
           "columnName": "isActive",
           "type": "tinyint",
@@ -568,7 +596,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.AttributeBranches.isPublic",
+          "id": "sep490.AttributeBranches.isPublic",
           "name": "isPublic",
           "columnName": "isPublic",
           "type": "tinyint",
@@ -582,7 +610,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.AttributeBranches.updatedAt",
+          "id": "sep490.AttributeBranches.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -596,7 +624,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.AttributeBranches.value",
+          "id": "sep490.AttributeBranches.value",
           "name": "value",
           "columnName": "value",
           "type": "varchar",
@@ -662,14 +690,14 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490.AttributeBranches.value_attributeKeyBranchesId",
+          "name": "sep490.AttributeBranches.value_attributeKeyBranchesId",
           "fields": [
             "value",
             "attributeKeyBranchesId"
           ]
         },
         {
-          "name": "dbsep490.AttributeBranches.id",
+          "name": "sep490.AttributeBranches.id",
           "fields": [
             "id"
           ]
@@ -677,12 +705,12 @@
       ]
     },
     "AttributeKeyBranches": {
-      "id": "dbsep490.AttributeKeyBranches",
-      "schemaName": "dbsep490",
+      "id": "sep490.AttributeKeyBranches",
+      "schemaName": "sep490",
       "tableName": "AttributeKeyBranches",
       "fields": [
         {
-          "id": "dbsep490.AttributeKeyBranches.createdAt",
+          "id": "sep490.AttributeKeyBranches.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -696,7 +724,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.AttributeKeyBranches.description",
+          "id": "sep490.AttributeKeyBranches.description",
           "name": "description",
           "columnName": "description",
           "type": "varchar",
@@ -710,7 +738,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.AttributeKeyBranches.id",
+          "id": "sep490.AttributeKeyBranches.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -719,7 +747,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "dbsep490.AttributeKeyBranches.id",
+            "identifier": "sep490.AttributeKeyBranches.id",
             "increment": 1,
             "start": 1
           },
@@ -728,7 +756,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.AttributeKeyBranches.isActive",
+          "id": "sep490.AttributeKeyBranches.isActive",
           "name": "isActive",
           "columnName": "isActive",
           "type": "tinyint",
@@ -742,7 +770,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.AttributeKeyBranches.name",
+          "id": "sep490.AttributeKeyBranches.name",
           "name": "name",
           "columnName": "name",
           "type": "varchar",
@@ -756,7 +784,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.AttributeKeyBranches.updatedAt",
+          "id": "sep490.AttributeKeyBranches.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -786,13 +814,13 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490.AttributeKeyBranches.name",
+          "name": "sep490.AttributeKeyBranches.name",
           "fields": [
             "name"
           ]
         },
         {
-          "name": "dbsep490.AttributeKeyBranches.id",
+          "name": "sep490.AttributeKeyBranches.id",
           "fields": [
             "id"
           ]
@@ -800,12 +828,12 @@
       ]
     },
     "AttributeKeyCourt": {
-      "id": "dbsep490.AttributeKeyCourt",
-      "schemaName": "dbsep490",
+      "id": "sep490.AttributeKeyCourt",
+      "schemaName": "sep490",
       "tableName": "AttributeKeyCourt",
       "fields": [
         {
-          "id": "dbsep490.AttributeKeyCourt.createdAt",
+          "id": "sep490.AttributeKeyCourt.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -819,7 +847,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.AttributeKeyCourt.description",
+          "id": "sep490.AttributeKeyCourt.description",
           "name": "description",
           "columnName": "description",
           "type": "varchar",
@@ -833,7 +861,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.AttributeKeyCourt.id",
+          "id": "sep490.AttributeKeyCourt.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -842,7 +870,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "dbsep490.AttributeKeyCourt.id",
+            "identifier": "sep490.AttributeKeyCourt.id",
             "increment": 1,
             "start": 1
           },
@@ -851,7 +879,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.AttributeKeyCourt.isActive",
+          "id": "sep490.AttributeKeyCourt.isActive",
           "name": "isActive",
           "columnName": "isActive",
           "type": "tinyint",
@@ -865,7 +893,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.AttributeKeyCourt.name",
+          "id": "sep490.AttributeKeyCourt.name",
           "name": "name",
           "columnName": "name",
           "type": "varchar",
@@ -879,7 +907,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.AttributeKeyCourt.updatedAt",
+          "id": "sep490.AttributeKeyCourt.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -909,13 +937,13 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490.AttributeKeyCourt.name",
+          "name": "sep490.AttributeKeyCourt.name",
           "fields": [
             "name"
           ]
         },
         {
-          "name": "dbsep490.AttributeKeyCourt.id",
+          "name": "sep490.AttributeKeyCourt.id",
           "fields": [
             "id"
           ]
@@ -923,12 +951,12 @@
       ]
     },
     "Blog": {
-      "id": "dbsep490.Blog",
-      "schemaName": "dbsep490",
+      "id": "sep490.Blog",
+      "schemaName": "sep490",
       "tableName": "Blog",
       "fields": [
         {
-          "id": "dbsep490.Blog.accountId",
+          "id": "sep490.Blog.accountId",
           "name": "accountId",
           "columnName": "accountId",
           "type": "int",
@@ -942,9 +970,9 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Blog.content",
-          "name": "content",
-          "columnName": "content",
+          "id": "sep490.Blog.caption",
+          "name": "caption",
+          "columnName": "caption",
           "type": "varchar",
           "isRequired": true,
           "kind": "scalar",
@@ -956,7 +984,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.Blog.createdAt",
+          "id": "sep490.Blog.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -970,7 +998,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Blog.id",
+          "id": "sep490.Blog.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -979,7 +1007,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "dbsep490.Blog.id",
+            "identifier": "sep490.Blog.id",
             "increment": 1,
             "start": 1
           },
@@ -988,7 +1016,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Blog.image",
+          "id": "sep490.Blog.image",
           "name": "image",
           "columnName": "image",
           "type": "varchar",
@@ -1002,35 +1030,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.Blog.status",
-          "name": "status",
-          "columnName": "status",
-          "type": "enum_dbsep490_blog_status",
-          "isRequired": true,
-          "kind": "scalar",
-          "isList": false,
-          "isGenerated": false,
-          "sequence": false,
-          "hasDefaultValue": false,
-          "isId": false,
-          "maxLength": 9
-        },
-        {
-          "id": "dbsep490.Blog.title",
-          "name": "title",
-          "columnName": "title",
-          "type": "varchar",
-          "isRequired": true,
-          "kind": "scalar",
-          "isList": false,
-          "isGenerated": false,
-          "sequence": false,
-          "hasDefaultValue": false,
-          "isId": false,
-          "maxLength": 191
-        },
-        {
-          "id": "dbsep490.Blog.updatedAt",
+          "id": "sep490.Blog.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -1074,11 +1074,25 @@
           "isGenerated": false,
           "sequence": false,
           "hasDefaultValue": false
+        },
+        {
+          "name": "ReportBlog",
+          "type": "ReportBlog",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "ReportBlogToBlog",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
         }
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490.Blog.id",
+          "name": "sep490.Blog.id",
           "fields": [
             "id"
           ]
@@ -1086,12 +1100,12 @@
       ]
     },
     "Booking": {
-      "id": "dbsep490.Booking",
-      "schemaName": "dbsep490",
+      "id": "sep490.Booking",
+      "schemaName": "sep490",
       "tableName": "Booking",
       "fields": [
         {
-          "id": "dbsep490.Booking.accountId",
+          "id": "sep490.Booking.accountId",
           "name": "accountId",
           "columnName": "accountId",
           "type": "int",
@@ -1105,11 +1119,11 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Booking.courtId",
+          "id": "sep490.Booking.courtId",
           "name": "courtId",
           "columnName": "courtId",
           "type": "int",
-          "isRequired": false,
+          "isRequired": true,
           "kind": "scalar",
           "isList": false,
           "isGenerated": false,
@@ -1119,7 +1133,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Booking.createdAt",
+          "id": "sep490.Booking.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -1133,7 +1147,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Booking.endTime",
+          "id": "sep490.Booking.endTime",
           "name": "endTime",
           "columnName": "endTime",
           "type": "datetime",
@@ -1147,7 +1161,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Booking.id",
+          "id": "sep490.Booking.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -1156,7 +1170,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "dbsep490.Booking.id",
+            "identifier": "sep490.Booking.id",
             "increment": 1,
             "start": 1
           },
@@ -1165,7 +1179,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Booking.isDelete",
+          "id": "sep490.Booking.isDelete",
           "name": "isDelete",
           "columnName": "isDelete",
           "type": "tinyint",
@@ -1179,7 +1193,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Booking.price",
+          "id": "sep490.Booking.price",
           "name": "price",
           "columnName": "price",
           "type": "int",
@@ -1193,7 +1207,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Booking.reasonCancell",
+          "id": "sep490.Booking.reasonCancell",
           "name": "reasonCancell",
           "columnName": "reasonCancell",
           "type": "varchar",
@@ -1207,7 +1221,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.Booking.startTime",
+          "id": "sep490.Booking.startTime",
           "name": "startTime",
           "columnName": "startTime",
           "type": "datetime",
@@ -1221,7 +1235,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Booking.updatedAt",
+          "id": "sep490.Booking.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -1255,7 +1269,7 @@
         {
           "name": "Court",
           "type": "Court",
-          "isRequired": false,
+          "isRequired": true,
           "kind": "object",
           "relationName": "BookingToCourt",
           "relationFromFields": [
@@ -1301,7 +1315,7 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490.Booking.id",
+          "name": "sep490.Booking.id",
           "fields": [
             "id"
           ]
@@ -1309,12 +1323,12 @@
       ]
     },
     "BookingInfo": {
-      "id": "dbsep490.BookingInfo",
-      "schemaName": "dbsep490",
+      "id": "sep490.BookingInfo",
+      "schemaName": "sep490",
       "tableName": "BookingInfo",
       "fields": [
         {
-          "id": "dbsep490.BookingInfo.bookingId",
+          "id": "sep490.BookingInfo.bookingId",
           "name": "bookingId",
           "columnName": "bookingId",
           "type": "int",
@@ -1328,7 +1342,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.BookingInfo.createdAt",
+          "id": "sep490.BookingInfo.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -1342,7 +1356,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.BookingInfo.id",
+          "id": "sep490.BookingInfo.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -1351,7 +1365,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "dbsep490.BookingInfo.id",
+            "identifier": "sep490.BookingInfo.id",
             "increment": 1,
             "start": 1
           },
@@ -1360,7 +1374,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.BookingInfo.name",
+          "id": "sep490.BookingInfo.name",
           "name": "name",
           "columnName": "name",
           "type": "varchar",
@@ -1374,7 +1388,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.BookingInfo.numberPhone",
+          "id": "sep490.BookingInfo.numberPhone",
           "name": "numberPhone",
           "columnName": "numberPhone",
           "type": "varchar",
@@ -1388,7 +1402,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.BookingInfo.updatedAt",
+          "id": "sep490.BookingInfo.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -1422,13 +1436,13 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490.BookingInfo.bookingId",
+          "name": "sep490.BookingInfo.bookingId",
           "fields": [
             "bookingId"
           ]
         },
         {
-          "name": "dbsep490.BookingInfo.id",
+          "name": "sep490.BookingInfo.id",
           "fields": [
             "id"
           ]
@@ -1436,12 +1450,12 @@
       ]
     },
     "Branches": {
-      "id": "dbsep490.Branches",
-      "schemaName": "dbsep490",
+      "id": "sep490.Branches",
+      "schemaName": "sep490",
       "tableName": "Branches",
       "fields": [
         {
-          "id": "dbsep490.Branches.accountId",
+          "id": "sep490.Branches.accountId",
           "name": "accountId",
           "columnName": "accountId",
           "type": "int",
@@ -1455,7 +1469,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Branches.businessLicense",
+          "id": "sep490.Branches.businessLicense",
           "name": "businessLicense",
           "columnName": "businessLicense",
           "type": "varchar",
@@ -1469,7 +1483,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.Branches.closingHours",
+          "id": "sep490.Branches.closingHours",
           "name": "closingHours",
           "columnName": "closingHours",
           "type": "varchar",
@@ -1483,7 +1497,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.Branches.createdAt",
+          "id": "sep490.Branches.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -1497,7 +1511,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Branches.description",
+          "id": "sep490.Branches.description",
           "name": "description",
           "columnName": "description",
           "type": "varchar",
@@ -1511,7 +1525,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.Branches.email",
+          "id": "sep490.Branches.email",
           "name": "email",
           "columnName": "email",
           "type": "varchar",
@@ -1525,7 +1539,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.Branches.id",
+          "id": "sep490.Branches.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -1534,7 +1548,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "dbsep490.Branches.id",
+            "identifier": "sep490.Branches.id",
             "increment": 1,
             "start": 1
           },
@@ -1543,7 +1557,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Branches.image",
+          "id": "sep490.Branches.image",
           "name": "image",
           "columnName": "image",
           "type": "varchar",
@@ -1557,7 +1571,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.Branches.isAccept",
+          "id": "sep490.Branches.isAccept",
           "name": "isAccept",
           "columnName": "isAccept",
           "type": "tinyint",
@@ -1571,7 +1585,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Branches.isDelete",
+          "id": "sep490.Branches.isDelete",
           "name": "isDelete",
           "columnName": "isDelete",
           "type": "tinyint",
@@ -1585,7 +1599,21 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Branches.name",
+          "id": "sep490.Branches.isPayment",
+          "name": "isPayment",
+          "columnName": "isPayment",
+          "type": "tinyint",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.Branches.name",
           "name": "name",
           "columnName": "name",
           "type": "varchar",
@@ -1599,7 +1627,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.Branches.openingHours",
+          "id": "sep490.Branches.openingHours",
           "name": "openingHours",
           "columnName": "openingHours",
           "type": "varchar",
@@ -1613,7 +1641,21 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.Branches.phone",
+          "id": "sep490.Branches.orderId",
+          "name": "orderId",
+          "columnName": "orderId",
+          "type": "varchar",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.Branches.phone",
           "name": "phone",
           "columnName": "phone",
           "type": "varchar",
@@ -1627,7 +1669,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.Branches.updatedAt",
+          "id": "sep490.Branches.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -1703,7 +1745,7 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490.Branches.id",
+          "name": "sep490.Branches.id",
           "fields": [
             "id"
           ]
@@ -1711,12 +1753,12 @@
       ]
     },
     "Comment": {
-      "id": "dbsep490.Comment",
-      "schemaName": "dbsep490",
+      "id": "sep490.Comment",
+      "schemaName": "sep490",
       "tableName": "Comment",
       "fields": [
         {
-          "id": "dbsep490.Comment.accountId",
+          "id": "sep490.Comment.accountId",
           "name": "accountId",
           "columnName": "accountId",
           "type": "int",
@@ -1730,7 +1772,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Comment.blogId",
+          "id": "sep490.Comment.blogId",
           "name": "blogId",
           "columnName": "blogId",
           "type": "int",
@@ -1744,7 +1786,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Comment.content",
+          "id": "sep490.Comment.content",
           "name": "content",
           "columnName": "content",
           "type": "varchar",
@@ -1758,7 +1800,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.Comment.createdAt",
+          "id": "sep490.Comment.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -1772,7 +1814,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Comment.id",
+          "id": "sep490.Comment.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -1781,7 +1823,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "dbsep490.Comment.id",
+            "identifier": "sep490.Comment.id",
             "increment": 1,
             "start": 1
           },
@@ -1790,49 +1832,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Comment.image",
-          "name": "image",
-          "columnName": "image",
-          "type": "varchar",
-          "isRequired": true,
-          "kind": "scalar",
-          "isList": false,
-          "isGenerated": false,
-          "sequence": false,
-          "hasDefaultValue": false,
-          "isId": false,
-          "maxLength": 191
-        },
-        {
-          "id": "dbsep490.Comment.parentCommentId",
-          "name": "parentCommentId",
-          "columnName": "parentCommentId",
-          "type": "int",
-          "isRequired": false,
-          "kind": "scalar",
-          "isList": false,
-          "isGenerated": false,
-          "sequence": false,
-          "hasDefaultValue": false,
-          "isId": false,
-          "maxLength": null
-        },
-        {
-          "id": "dbsep490.Comment.status",
-          "name": "status",
-          "columnName": "status",
-          "type": "enum_dbsep490_comment_status",
-          "isRequired": true,
-          "kind": "scalar",
-          "isList": false,
-          "isGenerated": false,
-          "sequence": false,
-          "hasDefaultValue": false,
-          "isId": false,
-          "maxLength": 9
-        },
-        {
-          "id": "dbsep490.Comment.updatedAt",
+          "id": "sep490.Comment.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -1880,43 +1880,11 @@
           "isGenerated": false,
           "sequence": false,
           "hasDefaultValue": false
-        },
-        {
-          "name": "Comment",
-          "type": "Comment",
-          "isRequired": false,
-          "kind": "object",
-          "relationName": "CommentToComment",
-          "relationFromFields": [
-            "parentCommentId"
-          ],
-          "relationToFields": [
-            "id"
-          ],
-          "isList": false,
-          "isId": false,
-          "isGenerated": false,
-          "sequence": false,
-          "hasDefaultValue": false
-        },
-        {
-          "name": "Comment",
-          "type": "Comment",
-          "isRequired": false,
-          "kind": "object",
-          "relationName": "CommentToComment",
-          "relationFromFields": [],
-          "relationToFields": [],
-          "isList": true,
-          "isId": false,
-          "isGenerated": false,
-          "sequence": false,
-          "hasDefaultValue": false
         }
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490.Comment.id",
+          "name": "sep490.Comment.id",
           "fields": [
             "id"
           ]
@@ -1924,12 +1892,12 @@
       ]
     },
     "Court": {
-      "id": "dbsep490.Court",
-      "schemaName": "dbsep490",
+      "id": "sep490.Court",
+      "schemaName": "sep490",
       "tableName": "Court",
       "fields": [
         {
-          "id": "dbsep490.Court.branchesId",
+          "id": "sep490.Court.branchesId",
           "name": "branchesId",
           "columnName": "branchesId",
           "type": "int",
@@ -1943,7 +1911,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Court.createdAt",
+          "id": "sep490.Court.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -1957,7 +1925,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Court.id",
+          "id": "sep490.Court.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -1966,7 +1934,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "dbsep490.Court.id",
+            "identifier": "sep490.Court.id",
             "increment": 1,
             "start": 1
           },
@@ -1975,7 +1943,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Court.name",
+          "id": "sep490.Court.name",
           "name": "name",
           "columnName": "name",
           "type": "varchar",
@@ -1989,7 +1957,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.Court.typeCourtId",
+          "id": "sep490.Court.typeCourtId",
           "name": "typeCourtId",
           "columnName": "typeCourtId",
           "type": "int",
@@ -2003,7 +1971,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Court.updatedAt",
+          "id": "sep490.Court.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -2069,7 +2037,7 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490.Court.id",
+          "name": "sep490.Court.id",
           "fields": [
             "id"
           ]
@@ -2077,12 +2045,12 @@
       ]
     },
     "Invitation": {
-      "id": "dbsep490.Invitation",
-      "schemaName": "dbsep490",
+      "id": "sep490.Invitation",
+      "schemaName": "sep490",
       "tableName": "Invitation",
       "fields": [
         {
-          "id": "dbsep490.Invitation.createdAt",
+          "id": "sep490.Invitation.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -2096,7 +2064,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Invitation.id",
+          "id": "sep490.Invitation.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -2105,7 +2073,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "dbsep490.Invitation.id",
+            "identifier": "sep490.Invitation.id",
             "increment": 1,
             "start": 1
           },
@@ -2114,7 +2082,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Invitation.postId",
+          "id": "sep490.Invitation.postId",
           "name": "postId",
           "columnName": "postId",
           "type": "int",
@@ -2128,10 +2096,24 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Invitation.status",
+          "id": "sep490.Invitation.reasonCancel",
+          "name": "reasonCancel",
+          "columnName": "reasonCancel",
+          "type": "varchar",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.Invitation.status",
           "name": "status",
           "columnName": "status",
-          "type": "enum_dbsep490_invitation_status",
+          "type": "enum_sep490_invitation_status",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -2142,10 +2124,10 @@
           "maxLength": 8
         },
         {
-          "id": "dbsep490.Invitation.type",
+          "id": "sep490.Invitation.type",
           "name": "type",
           "columnName": "type",
-          "type": "enum_dbsep490_invitation_type",
+          "type": "enum_sep490_invitation_type",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -2156,7 +2138,7 @@
           "maxLength": 11
         },
         {
-          "id": "dbsep490.Invitation.updatedAt",
+          "id": "sep490.Invitation.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -2170,7 +2152,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Invitation.userAvailabilityId",
+          "id": "sep490.Invitation.userAvailabilityId",
           "name": "userAvailabilityId",
           "columnName": "userAvailabilityId",
           "type": "int",
@@ -2222,15 +2204,14 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490.Invitation.userAvailabilityId_postId_type",
+          "name": "sep490.Invitation.userAvailabilityId_postId",
           "fields": [
             "userAvailabilityId",
-            "postId",
-            "type"
+            "postId"
           ]
         },
         {
-          "name": "dbsep490.Invitation.id",
+          "name": "sep490.Invitation.id",
           "fields": [
             "id"
           ]
@@ -2238,12 +2219,12 @@
       ]
     },
     "MemberPost": {
-      "id": "dbsep490.MemberPost",
-      "schemaName": "dbsep490",
+      "id": "sep490.MemberPost",
+      "schemaName": "sep490",
       "tableName": "MemberPost",
       "fields": [
         {
-          "id": "dbsep490.MemberPost.createdAt",
+          "id": "sep490.MemberPost.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -2257,10 +2238,10 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.MemberPost.genderPost",
+          "id": "sep490.MemberPost.genderPost",
           "name": "genderPost",
           "columnName": "genderPost",
-          "type": "enum_dbsep490_member_post_gender_post",
+          "type": "enum_sep490_member_post_gender_post",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -2271,7 +2252,7 @@
           "maxLength": 6
         },
         {
-          "id": "dbsep490.MemberPost.id",
+          "id": "sep490.MemberPost.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -2280,7 +2261,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "dbsep490.MemberPost.id",
+            "identifier": "sep490.MemberPost.id",
             "increment": 1,
             "start": 1
           },
@@ -2289,10 +2270,10 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.MemberPost.level",
+          "id": "sep490.MemberPost.level",
           "name": "level",
           "columnName": "level",
-          "type": "enum_dbsep490_member_post_level",
+          "type": "enum_sep490_member_post_level",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -2303,7 +2284,7 @@
           "maxLength": 2
         },
         {
-          "id": "dbsep490.MemberPost.postId",
+          "id": "sep490.MemberPost.postId",
           "name": "postId",
           "columnName": "postId",
           "type": "int",
@@ -2317,7 +2298,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.MemberPost.price",
+          "id": "sep490.MemberPost.price",
           "name": "price",
           "columnName": "price",
           "type": "varchar",
@@ -2331,7 +2312,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.MemberPost.updatedAt",
+          "id": "sep490.MemberPost.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -2365,7 +2346,7 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490.MemberPost.id",
+          "name": "sep490.MemberPost.id",
           "fields": [
             "id"
           ]
@@ -2373,12 +2354,26 @@
       ]
     },
     "Notification": {
-      "id": "dbsep490.Notification",
-      "schemaName": "dbsep490",
+      "id": "sep490.Notification",
+      "schemaName": "sep490",
       "tableName": "Notification",
       "fields": [
         {
-          "id": "dbsep490.Notification.createdAt",
+          "id": "sep490.Notification.accountId",
+          "name": "accountId",
+          "columnName": "accountId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.Notification.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -2392,7 +2387,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Notification.id",
+          "id": "sep490.Notification.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -2401,7 +2396,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "dbsep490.Notification.id",
+            "identifier": "sep490.Notification.id",
             "increment": 1,
             "start": 1
           },
@@ -2410,7 +2405,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Notification.message",
+          "id": "sep490.Notification.message",
           "name": "message",
           "columnName": "message",
           "type": "varchar",
@@ -2424,10 +2419,10 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.Notification.userId",
-          "name": "userId",
-          "columnName": "userId",
-          "type": "int",
+          "id": "sep490.Notification.status",
+          "name": "status",
+          "columnName": "status",
+          "type": "enum_sep490_notification_status",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -2435,12 +2430,44 @@
           "sequence": false,
           "hasDefaultValue": false,
           "isId": false,
-          "maxLength": null
+          "maxLength": 4
+        },
+        {
+          "id": "sep490.Notification.url",
+          "name": "url",
+          "columnName": "url",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "name": "Account",
+          "type": "Account",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "NotificationToAccount",
+          "relationFromFields": [
+            "accountId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
         }
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490.Notification.id",
+          "name": "sep490.Notification.id",
           "fields": [
             "id"
           ]
@@ -2448,12 +2475,12 @@
       ]
     },
     "Post": {
-      "id": "dbsep490.Post",
-      "schemaName": "dbsep490",
+      "id": "sep490.Post",
+      "schemaName": "sep490",
       "tableName": "Post",
       "fields": [
         {
-          "id": "dbsep490.Post.bookingId",
+          "id": "sep490.Post.bookingId",
           "name": "bookingId",
           "columnName": "bookingId",
           "type": "int",
@@ -2467,7 +2494,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Post.createdAt",
+          "id": "sep490.Post.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -2481,7 +2508,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Post.description",
+          "id": "sep490.Post.description",
           "name": "description",
           "columnName": "description",
           "type": "varchar",
@@ -2495,7 +2522,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.Post.id",
+          "id": "sep490.Post.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -2504,7 +2531,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "dbsep490.Post.id",
+            "identifier": "sep490.Post.id",
             "increment": 1,
             "start": 1
           },
@@ -2513,7 +2540,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Post.numberMember",
+          "id": "sep490.Post.numberMember",
           "name": "numberMember",
           "columnName": "numberMember",
           "type": "int",
@@ -2527,7 +2554,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Post.updatedAt",
+          "id": "sep490.Post.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -2589,13 +2616,13 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490.Post.bookingId",
+          "name": "sep490.Post.bookingId",
           "fields": [
             "bookingId"
           ]
         },
         {
-          "name": "dbsep490.Post.id",
+          "name": "sep490.Post.id",
           "fields": [
             "id"
           ]
@@ -2603,12 +2630,12 @@
       ]
     },
     "PriceTypeCourt": {
-      "id": "dbsep490.PriceTypeCourt",
-      "schemaName": "dbsep490",
+      "id": "sep490.PriceTypeCourt",
+      "schemaName": "sep490",
       "tableName": "PriceTypeCourt",
       "fields": [
         {
-          "id": "dbsep490.PriceTypeCourt.createdAt",
+          "id": "sep490.PriceTypeCourt.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -2622,7 +2649,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.PriceTypeCourt.endTime",
+          "id": "sep490.PriceTypeCourt.endTime",
           "name": "endTime",
           "columnName": "endTime",
           "type": "datetime",
@@ -2636,7 +2663,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.PriceTypeCourt.id",
+          "id": "sep490.PriceTypeCourt.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -2645,7 +2672,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "dbsep490.PriceTypeCourt.id",
+            "identifier": "sep490.PriceTypeCourt.id",
             "increment": 1,
             "start": 1
           },
@@ -2654,7 +2681,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.PriceTypeCourt.price",
+          "id": "sep490.PriceTypeCourt.price",
           "name": "price",
           "columnName": "price",
           "type": "int",
@@ -2668,7 +2695,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.PriceTypeCourt.startTime",
+          "id": "sep490.PriceTypeCourt.startTime",
           "name": "startTime",
           "columnName": "startTime",
           "type": "datetime",
@@ -2682,7 +2709,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.PriceTypeCourt.times",
+          "id": "sep490.PriceTypeCourt.times",
           "name": "times",
           "columnName": "times",
           "type": "int",
@@ -2696,10 +2723,10 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.PriceTypeCourt.type",
+          "id": "sep490.PriceTypeCourt.type",
           "name": "type",
           "columnName": "type",
-          "type": "enum_dbsep490_price_type_court_type",
+          "type": "enum_sep490_price_type_court_type",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -2710,7 +2737,7 @@
           "maxLength": 7
         },
         {
-          "id": "dbsep490.PriceTypeCourt.typeCourtId",
+          "id": "sep490.PriceTypeCourt.typeCourtId",
           "name": "typeCourtId",
           "columnName": "typeCourtId",
           "type": "int",
@@ -2724,7 +2751,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.PriceTypeCourt.updatedAt",
+          "id": "sep490.PriceTypeCourt.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -2758,22 +2785,22 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490.PriceTypeCourt.id",
+          "name": "sep490.PriceTypeCourt.id",
           "fields": [
             "id"
           ]
         }
       ]
     },
-    "Review": {
-      "id": "dbsep490.Review",
-      "schemaName": "dbsep490",
-      "tableName": "Review",
+    "ReportBlog": {
+      "id": "sep490.ReportBlog",
+      "schemaName": "sep490",
+      "tableName": "ReportBlog",
       "fields": [
         {
-          "id": "dbsep490.Review.accountRecipientId",
-          "name": "accountRecipientId",
-          "columnName": "accountRecipientId",
+          "id": "sep490.ReportBlog.accountId",
+          "name": "accountId",
+          "columnName": "accountId",
           "type": "int",
           "isRequired": true,
           "kind": "scalar",
@@ -2785,9 +2812,9 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Review.accountSendId",
-          "name": "accountSendId",
-          "columnName": "accountSendId",
+          "id": "sep490.ReportBlog.blogId",
+          "name": "blogId",
+          "columnName": "blogId",
           "type": "int",
           "isRequired": true,
           "kind": "scalar",
@@ -2799,21 +2826,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Review.comment",
-          "name": "comment",
-          "columnName": "comment",
-          "type": "varchar",
-          "isRequired": true,
-          "kind": "scalar",
-          "isList": false,
-          "isGenerated": false,
-          "sequence": false,
-          "hasDefaultValue": false,
-          "isId": false,
-          "maxLength": 191
-        },
-        {
-          "id": "dbsep490.Review.createdAt",
+          "id": "sep490.ReportBlog.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -2827,7 +2840,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Review.id",
+          "id": "sep490.ReportBlog.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -2836,7 +2849,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "dbsep490.Review.id",
+            "identifier": "sep490.ReportBlog.id",
             "increment": 1,
             "start": 1
           },
@@ -2845,7 +2858,160 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Review.rating",
+          "id": "sep490.ReportBlog.reason",
+          "name": "reason",
+          "columnName": "reason",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.ReportBlog.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "name": "Account",
+          "type": "Account",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "ReportBlogToAccount",
+          "relationFromFields": [
+            "accountId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "Blog",
+          "type": "Blog",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "ReportBlogToBlog",
+          "relationFromFields": [
+            "blogId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "sep490.ReportBlog.id",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "Review": {
+      "id": "sep490.Review",
+      "schemaName": "sep490",
+      "tableName": "Review",
+      "fields": [
+        {
+          "id": "sep490.Review.accountRecipientId",
+          "name": "accountRecipientId",
+          "columnName": "accountRecipientId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.Review.accountSendId",
+          "name": "accountSendId",
+          "columnName": "accountSendId",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.Review.comment",
+          "name": "comment",
+          "columnName": "comment",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
+          "id": "sep490.Review.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "datetime",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.Review.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "int",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": {
+            "identifier": "sep490.Review.id",
+            "increment": 1,
+            "start": 1
+          },
+          "hasDefaultValue": false,
+          "isId": true,
+          "maxLength": null
+        },
+        {
+          "id": "sep490.Review.rating",
           "name": "rating",
           "columnName": "rating",
           "type": "int",
@@ -2859,7 +3025,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.Review.updatedAt",
+          "id": "sep490.Review.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -2911,7 +3077,7 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490.Review.id",
+          "name": "sep490.Review.id",
           "fields": [
             "id"
           ]
@@ -2919,12 +3085,12 @@
       ]
     },
     "TypeCourt": {
-      "id": "dbsep490.TypeCourt",
-      "schemaName": "dbsep490",
+      "id": "sep490.TypeCourt",
+      "schemaName": "sep490",
       "tableName": "TypeCourt",
       "fields": [
         {
-          "id": "dbsep490.TypeCourt.accountId",
+          "id": "sep490.TypeCourt.accountId",
           "name": "accountId",
           "columnName": "accountId",
           "type": "int",
@@ -2938,7 +3104,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.TypeCourt.createdAt",
+          "id": "sep490.TypeCourt.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -2952,7 +3118,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.TypeCourt.description",
+          "id": "sep490.TypeCourt.description",
           "name": "description",
           "columnName": "description",
           "type": "varchar",
@@ -2966,7 +3132,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.TypeCourt.id",
+          "id": "sep490.TypeCourt.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -2975,7 +3141,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "dbsep490.TypeCourt.id",
+            "identifier": "sep490.TypeCourt.id",
             "increment": 1,
             "start": 1
           },
@@ -2984,7 +3150,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.TypeCourt.image",
+          "id": "sep490.TypeCourt.image",
           "name": "image",
           "columnName": "image",
           "type": "varchar",
@@ -2998,7 +3164,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.TypeCourt.name",
+          "id": "sep490.TypeCourt.name",
           "name": "name",
           "columnName": "name",
           "type": "varchar",
@@ -3012,7 +3178,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.TypeCourt.updatedAt",
+          "id": "sep490.TypeCourt.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -3088,13 +3254,13 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490.TypeCourt.id",
+          "name": "sep490.TypeCourt.id",
           "fields": [
             "id"
           ]
         },
         {
-          "name": "dbsep490.TypeCourt.name_accountId",
+          "name": "sep490.TypeCourt.name_accountId",
           "fields": [
             "name",
             "accountId"
@@ -3103,12 +3269,12 @@
       ]
     },
     "User": {
-      "id": "dbsep490.User",
-      "schemaName": "dbsep490",
+      "id": "sep490.User",
+      "schemaName": "sep490",
       "tableName": "User",
       "fields": [
         {
-          "id": "dbsep490.User.accountId",
+          "id": "sep490.User.accountId",
           "name": "accountId",
           "columnName": "accountId",
           "type": "int",
@@ -3122,7 +3288,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.User.address",
+          "id": "sep490.User.address",
           "name": "address",
           "columnName": "address",
           "type": "varchar",
@@ -3136,7 +3302,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.User.avatar",
+          "id": "sep490.User.avatar",
           "name": "avatar",
           "columnName": "avatar",
           "type": "varchar",
@@ -3150,7 +3316,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.User.createdAt",
+          "id": "sep490.User.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -3164,7 +3330,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.User.dob",
+          "id": "sep490.User.dob",
           "name": "dob",
           "columnName": "dob",
           "type": "datetime",
@@ -3178,7 +3344,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.User.fullName",
+          "id": "sep490.User.fullName",
           "name": "fullName",
           "columnName": "fullName",
           "type": "varchar",
@@ -3192,10 +3358,10 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.User.gender",
+          "id": "sep490.User.gender",
           "name": "gender",
           "columnName": "gender",
-          "type": "enum_dbsep490_user_gender",
+          "type": "enum_sep490_user_gender",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -3206,7 +3372,7 @@
           "maxLength": 6
         },
         {
-          "id": "dbsep490.User.id",
+          "id": "sep490.User.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -3215,7 +3381,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "dbsep490.User.id",
+            "identifier": "sep490.User.id",
             "increment": 1,
             "start": 1
           },
@@ -3224,7 +3390,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.User.identifierCode",
+          "id": "sep490.User.identifierCode",
           "name": "identifierCode",
           "columnName": "identifierCode",
           "type": "varchar",
@@ -3238,7 +3404,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.User.numberPhone",
+          "id": "sep490.User.numberPhone",
           "name": "numberPhone",
           "columnName": "numberPhone",
           "type": "varchar",
@@ -3252,7 +3418,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.User.updatedAt",
+          "id": "sep490.User.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -3286,13 +3452,13 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490.User.id",
+          "name": "sep490.User.id",
           "fields": [
             "id"
           ]
         },
         {
-          "name": "dbsep490.User.accountId",
+          "name": "sep490.User.accountId",
           "fields": [
             "accountId"
           ]
@@ -3300,12 +3466,12 @@
       ]
     },
     "UserAvailability": {
-      "id": "dbsep490.UserAvailability",
-      "schemaName": "dbsep490",
+      "id": "sep490.UserAvailability",
+      "schemaName": "sep490",
       "tableName": "UserAvailability",
       "fields": [
         {
-          "id": "dbsep490.UserAvailability.accountId",
+          "id": "sep490.UserAvailability.accountId",
           "name": "accountId",
           "columnName": "accountId",
           "type": "int",
@@ -3319,7 +3485,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.UserAvailability.createdAt",
+          "id": "sep490.UserAvailability.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -3333,7 +3499,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.UserAvailability.districts",
+          "id": "sep490.UserAvailability.districts",
           "name": "districts",
           "columnName": "districts",
           "type": "varchar",
@@ -3347,7 +3513,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.UserAvailability.endTime",
+          "id": "sep490.UserAvailability.endTime",
           "name": "endTime",
           "columnName": "endTime",
           "type": "datetime",
@@ -3361,7 +3527,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.UserAvailability.id",
+          "id": "sep490.UserAvailability.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -3370,7 +3536,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "dbsep490.UserAvailability.id",
+            "identifier": "sep490.UserAvailability.id",
             "increment": 1,
             "start": 1
           },
@@ -3379,7 +3545,21 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.UserAvailability.provinces",
+          "id": "sep490.UserAvailability.level",
+          "name": "level",
+          "columnName": "level",
+          "type": "enum_sep490_user_availability_level",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 2
+        },
+        {
+          "id": "sep490.UserAvailability.provinces",
           "name": "provinces",
           "columnName": "provinces",
           "type": "varchar",
@@ -3393,7 +3573,7 @@
           "maxLength": 191
         },
         {
-          "id": "dbsep490.UserAvailability.startTime",
+          "id": "sep490.UserAvailability.startTime",
           "name": "startTime",
           "columnName": "startTime",
           "type": "datetime",
@@ -3407,7 +3587,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.UserAvailability.updatedAt",
+          "id": "sep490.UserAvailability.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -3455,7 +3635,7 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490.UserAvailability.id",
+          "name": "sep490.UserAvailability.id",
           "fields": [
             "id"
           ]
@@ -3463,12 +3643,12 @@
       ]
     },
     "_AttributeBranchesToBranches": {
-      "id": "dbsep490._AttributeBranchesToBranches",
-      "schemaName": "dbsep490",
+      "id": "sep490._AttributeBranchesToBranches",
+      "schemaName": "sep490",
       "tableName": "_AttributeBranchesToBranches",
       "fields": [
         {
-          "id": "dbsep490._AttributeBranchesToBranches.A",
+          "id": "sep490._AttributeBranchesToBranches.A",
           "name": "A",
           "columnName": "A",
           "type": "int",
@@ -3482,7 +3662,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490._AttributeBranchesToBranches.B",
+          "id": "sep490._AttributeBranchesToBranches.B",
           "name": "B",
           "columnName": "B",
           "type": "int",
@@ -3534,7 +3714,7 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490._AttributeBranchesToBranches.A_B",
+          "name": "sep490._AttributeBranchesToBranches.A_B",
           "fields": [
             "A",
             "B"
@@ -3543,12 +3723,12 @@
       ]
     },
     "_AttributeCourtToTypeCourt": {
-      "id": "dbsep490._AttributeCourtToTypeCourt",
-      "schemaName": "dbsep490",
+      "id": "sep490._AttributeCourtToTypeCourt",
+      "schemaName": "sep490",
       "tableName": "_AttributeCourtToTypeCourt",
       "fields": [
         {
-          "id": "dbsep490._AttributeCourtToTypeCourt.A",
+          "id": "sep490._AttributeCourtToTypeCourt.A",
           "name": "A",
           "columnName": "A",
           "type": "int",
@@ -3562,7 +3742,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490._AttributeCourtToTypeCourt.B",
+          "id": "sep490._AttributeCourtToTypeCourt.B",
           "name": "B",
           "columnName": "B",
           "type": "int",
@@ -3614,7 +3794,7 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490._AttributeCourtToTypeCourt.A_B",
+          "name": "sep490._AttributeCourtToTypeCourt.A_B",
           "fields": [
             "A",
             "B"
@@ -3623,12 +3803,12 @@
       ]
     },
     "_prisma_migrations": {
-      "id": "dbsep490._prisma_migrations",
-      "schemaName": "dbsep490",
+      "id": "sep490._prisma_migrations",
+      "schemaName": "sep490",
       "tableName": "_prisma_migrations",
       "fields": [
         {
-          "id": "dbsep490._prisma_migrations.applied_steps_count",
+          "id": "sep490._prisma_migrations.applied_steps_count",
           "name": "applied_steps_count",
           "columnName": "applied_steps_count",
           "type": "int",
@@ -3642,7 +3822,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490._prisma_migrations.checksum",
+          "id": "sep490._prisma_migrations.checksum",
           "name": "checksum",
           "columnName": "checksum",
           "type": "varchar",
@@ -3656,7 +3836,7 @@
           "maxLength": 64
         },
         {
-          "id": "dbsep490._prisma_migrations.finished_at",
+          "id": "sep490._prisma_migrations.finished_at",
           "name": "finished_at",
           "columnName": "finished_at",
           "type": "datetime",
@@ -3670,7 +3850,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490._prisma_migrations.id",
+          "id": "sep490._prisma_migrations.id",
           "name": "id",
           "columnName": "id",
           "type": "varchar",
@@ -3684,7 +3864,7 @@
           "maxLength": 36
         },
         {
-          "id": "dbsep490._prisma_migrations.logs",
+          "id": "sep490._prisma_migrations.logs",
           "name": "logs",
           "columnName": "logs",
           "type": "text",
@@ -3698,7 +3878,7 @@
           "maxLength": 65535
         },
         {
-          "id": "dbsep490._prisma_migrations.migration_name",
+          "id": "sep490._prisma_migrations.migration_name",
           "name": "migration_name",
           "columnName": "migration_name",
           "type": "varchar",
@@ -3712,7 +3892,7 @@
           "maxLength": 255
         },
         {
-          "id": "dbsep490._prisma_migrations.rolled_back_at",
+          "id": "sep490._prisma_migrations.rolled_back_at",
           "name": "rolled_back_at",
           "columnName": "rolled_back_at",
           "type": "datetime",
@@ -3726,7 +3906,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490._prisma_migrations.started_at",
+          "id": "sep490._prisma_migrations.started_at",
           "name": "started_at",
           "columnName": "started_at",
           "type": "datetime",
@@ -3742,7 +3922,7 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490._prisma_migrations.id",
+          "name": "sep490._prisma_migrations.id",
           "fields": [
             "id"
           ]
@@ -3750,12 +3930,12 @@
       ]
     },
     "category": {
-      "id": "dbsep490.category",
-      "schemaName": "dbsep490",
+      "id": "sep490.category",
+      "schemaName": "sep490",
       "tableName": "category",
       "fields": [
         {
-          "id": "dbsep490.category.accountId",
+          "id": "sep490.category.accountId",
           "name": "accountId",
           "columnName": "accountId",
           "type": "int",
@@ -3769,7 +3949,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.category.attributeKeyCourtId",
+          "id": "sep490.category.attributeKeyCourtId",
           "name": "attributeKeyCourtId",
           "columnName": "attributeKeyCourtId",
           "type": "int",
@@ -3783,7 +3963,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.category.createdAt",
+          "id": "sep490.category.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
           "type": "datetime",
@@ -3797,7 +3977,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.category.id",
+          "id": "sep490.category.id",
           "name": "id",
           "columnName": "id",
           "type": "int",
@@ -3806,7 +3986,7 @@
           "isList": false,
           "isGenerated": false,
           "sequence": {
-            "identifier": "dbsep490.category.id",
+            "identifier": "sep490.category.id",
             "increment": 1,
             "start": 1
           },
@@ -3815,7 +3995,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.category.isActive",
+          "id": "sep490.category.isActive",
           "name": "isActive",
           "columnName": "isActive",
           "type": "tinyint",
@@ -3829,7 +4009,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.category.isPublic",
+          "id": "sep490.category.isPublic",
           "name": "isPublic",
           "columnName": "isPublic",
           "type": "tinyint",
@@ -3843,7 +4023,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.category.updatedAt",
+          "id": "sep490.category.updatedAt",
           "name": "updatedAt",
           "columnName": "updatedAt",
           "type": "datetime",
@@ -3857,7 +4037,7 @@
           "maxLength": null
         },
         {
-          "id": "dbsep490.category.value",
+          "id": "sep490.category.value",
           "name": "value",
           "columnName": "value",
           "type": "varchar",
@@ -3923,14 +4103,14 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "dbsep490.category.value_attributeKeyCourtId",
+          "name": "sep490.category.value_attributeKeyCourtId",
           "fields": [
             "value",
             "attributeKeyCourtId"
           ]
         },
         {
-          "name": "dbsep490.category.id",
+          "name": "sep490.category.id",
           "fields": [
             "id"
           ]
@@ -3939,8 +4119,8 @@
     }
   },
   "enums": {
-    "enum_dbsep490_user_gender": {
-      "schemaName": "dbsep490",
+    "enum_sep490_user_gender": {
+      "schemaName": "sep490",
       "values": [
         {
           "name": "MALE"
@@ -3953,8 +4133,8 @@
         }
       ]
     },
-    "enum_dbsep490_member_post_gender_post": {
-      "schemaName": "dbsep490",
+    "enum_sep490_member_post_gender_post": {
+      "schemaName": "sep490",
       "values": [
         {
           "name": "MALE"
@@ -3967,8 +4147,8 @@
         }
       ]
     },
-    "enum_dbsep490_member_post_level": {
-      "schemaName": "dbsep490",
+    "enum_sep490_member_post_level": {
+      "schemaName": "sep490",
       "values": [
         {
           "name": "Y"
@@ -3987,8 +4167,28 @@
         }
       ]
     },
-    "enum_dbsep490_account_role": {
-      "schemaName": "dbsep490",
+    "enum_sep490_user_availability_level": {
+      "schemaName": "sep490",
+      "values": [
+        {
+          "name": "Y"
+        },
+        {
+          "name": "TB"
+        },
+        {
+          "name": "K"
+        },
+        {
+          "name": "T"
+        },
+        {
+          "name": "CN"
+        }
+      ]
+    },
+    "enum_sep490_account_role": {
+      "schemaName": "sep490",
       "values": [
         {
           "name": "USER"
@@ -4001,42 +4201,8 @@
         }
       ]
     },
-    "enum_dbsep490_blog_status": {
-      "schemaName": "dbsep490",
-      "values": [
-        {
-          "name": "DRAFT"
-        },
-        {
-          "name": "PUBLISHED"
-        },
-        {
-          "name": "ARCHIVED"
-        },
-        {
-          "name": "BAN"
-        }
-      ]
-    },
-    "enum_dbsep490_comment_status": {
-      "schemaName": "dbsep490",
-      "values": [
-        {
-          "name": "DRAFT"
-        },
-        {
-          "name": "PUBLISHED"
-        },
-        {
-          "name": "ARCHIVED"
-        },
-        {
-          "name": "BAN"
-        }
-      ]
-    },
-    "enum_dbsep490_invitation_status": {
-      "schemaName": "dbsep490",
+    "enum_sep490_invitation_status": {
+      "schemaName": "sep490",
       "values": [
         {
           "name": "NEW"
@@ -4046,11 +4212,25 @@
         },
         {
           "name": "NOACCEPT"
+        },
+        {
+          "name": "CANCEL"
         }
       ]
     },
-    "enum_dbsep490_invitation_type": {
-      "schemaName": "dbsep490",
+    "enum_sep490_notification_status": {
+      "schemaName": "sep490",
+      "values": [
+        {
+          "name": "SEED"
+        },
+        {
+          "name": "READ"
+        }
+      ]
+    },
+    "enum_sep490_invitation_type": {
+      "schemaName": "sep490",
       "values": [
         {
           "name": "AVAILABLE"
@@ -4060,8 +4240,8 @@
         }
       ]
     },
-    "enum_dbsep490_price_type_court_type": {
-      "schemaName": "dbsep490",
+    "enum_sep490_price_type_court_type": {
+      "schemaName": "sep490",
       "values": [
         {
           "name": "WEEKLY"

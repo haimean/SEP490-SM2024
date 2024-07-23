@@ -28,25 +28,28 @@ interface Notification {
   userId: number;
   message: string;
 }
-app.post(
-  '/send-notification',
-  async (req: Request, res: Response) => {
-    const { userId, message }: Notification = req.body;
+// app.post(
+//   '/send-notification',
+//   async (req: Request, res: Response) => {
+//     const { userId, message }: Notification = req.body;
 
-    // Lưu thông báo vào cơ sở dữ liệu
-    const notification = await database.notification.create({
-      data: {
-        userId,
-        message,
-      },
-    });
+//     // Lưu thông báo vào cơ sở dữ liệu
+//     // const notification = await database.notification.create({
+//     //   data: {
+//     //     userId,
+//     //     message,
+//     //   },
+//     // });
 
-    // Gửi thông báo real-time tới user cụ thể
-    io.to(userId.toString()).emit('notification', notification);
+//     // Gửi thông báo real-time tới user cụ thể
+//     io.to(userId.toString()).emit('notification', {
+//       // notification,
+//       url: '/court/1',
+//     });
 
-    res.status(200).json(notification);
-  }
-);
+//     // res.status(200).json(notification);
+//   }
+// );
 
 io.on('connection', (socket: any) => {
   console.log('New client connected');

@@ -7,6 +7,7 @@ import bookingUserRouter from './booking/booking.router';
 import userAvailableRouter from './UserAvailability/userAvailable.router';
 import postUserRouter from './post/post.router';
 import reviewUserRouter from './review/review.router';
+import blogUserRouter from './blog/blog.router';
 
 const userRouter = Router();
 userRouter.put(
@@ -26,5 +27,6 @@ userRouter.use('/booking', bookingUserRouter);
 userRouter.use('/user-available', userAvailableRouter);
 userRouter.use('/post', postUserRouter);
 userRouter.use('/review', reviewUserRouter);
+userRouter.use('/blog', blogUserRouter);
 
 export default userRouter;

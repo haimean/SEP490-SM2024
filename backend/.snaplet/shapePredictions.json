@@ -1,475 +1,503 @@
 [
   {
-    "schemaName": "dbsep490",
+    "schemaName": "sep490",
     "tableName": "Account",
     "predictions": [
       {
-        "input": "dbsep_490 account email",
+        "input": "sep_490 account email",
         "column": "email",
         "shape": "EMAIL",
-        "confidence": 0.7472118139266968,
+        "confidence": 0.9919812679290771,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 account email_token",
+        "input": "sep_490 account email_token",
         "column": "emailToken",
         "shape": "TOKEN",
-        "confidence": 0.4990699291229248,
+        "confidence": 0.9067814350128174,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 account otp",
+        "input": "sep_490 account otp",
         "column": "otp",
-        "shape": "FINANCE_IBAN",
-        "confidence": 0.2681731581687927,
+        "shape": "FINANCE_ACCOUNT_NAME",
+        "confidence": 0.2292232513427734,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 account password",
+        "input": "sep_490 account password",
         "column": "password",
         "shape": "PASSWORD",
-        "confidence": 0.9794592261314392,
+        "confidence": 0.9943842887878418,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "dbsep490",
+    "schemaName": "sep490",
     "tableName": "AddressBranch",
     "predictions": [
       {
-        "input": "dbsep_490 address_branch detail",
+        "input": "sep_490 address_branch detail",
         "column": "detail",
         "shape": "GIT_BRANCH",
-        "confidence": 0.9925260543823242,
+        "confidence": 0.9856469035148621,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 address_branch districts",
+        "input": "sep_490 address_branch districts",
         "column": "districts",
         "shape": "GIT_BRANCH",
-        "confidence": 0.9910877346992493,
+        "confidence": 0.981978714466095,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 address_branch latitude",
+        "input": "sep_490 address_branch latitude",
         "column": "latitude",
         "shape": "GIT_BRANCH",
-        "confidence": 0.8965789675712585,
+        "confidence": 0.658754289150238,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 address_branch longitude",
+        "input": "sep_490 address_branch longitude",
         "column": "longitude",
         "shape": "GIT_BRANCH",
-        "confidence": 0.9781743288040161,
+        "confidence": 0.9356034994125366,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 address_branch provinces",
+        "input": "sep_490 address_branch provinces",
         "column": "provinces",
         "shape": "GIT_BRANCH",
-        "confidence": 0.9925538897514343,
+        "confidence": 0.9857302904129028,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 address_branch wards",
+        "input": "sep_490 address_branch wards",
         "column": "wards",
         "shape": "GIT_BRANCH",
-        "confidence": 0.9893231987953186,
+        "confidence": 0.9734216332435608,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "dbsep490",
+    "schemaName": "sep490",
     "tableName": "AttributeBranches",
     "predictions": [
       {
-        "input": "dbsep_490 attribute_branches value",
+        "input": "sep_490 attribute_branches value",
         "column": "value",
         "shape": "GIT_BRANCH",
-        "confidence": 0.9701173901557922,
+        "confidence": 0.9425062537193298,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "dbsep490",
+    "schemaName": "sep490",
     "tableName": "AttributeKeyBranches",
     "predictions": [
       {
-        "input": "dbsep_490 attribute_key_branches description",
+        "input": "sep_490 attribute_key_branches description",
         "column": "description",
         "shape": "GIT_BRANCH",
-        "confidence": 0.8729108572006226,
+        "confidence": 0.9276391863822937,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 attribute_key_branches name",
+        "input": "sep_490 attribute_key_branches name",
         "column": "name",
         "shape": "GIT_BRANCH",
-        "confidence": 0.9542827010154724,
+        "confidence": 0.9766653776168823,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "dbsep490",
+    "schemaName": "sep490",
     "tableName": "AttributeKeyCourt",
     "predictions": [
       {
-        "input": "dbsep_490 attribute_key_court description",
+        "input": "sep_490 attribute_key_court description",
         "column": "description",
-        "shape": "COMMERCE_PRODUCT_DESCRIPTION",
-        "confidence": 0.1475009471178055,
+        "shape": "FINANCE_TRANSACTION_DESCRIPTION",
+        "confidence": 0.2298868745565414,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 attribute_key_court name",
+        "input": "sep_490 attribute_key_court name",
         "column": "name",
         "shape": "SYSTEM_FILE_NAME",
-        "confidence": 0.2685501575469971,
+        "confidence": 0.2181120812892914,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "dbsep490",
+    "schemaName": "sep490",
     "tableName": "Blog",
     "predictions": [
       {
-        "input": "dbsep_490 blog content",
-        "column": "content",
-        "shape": "POST_BODY",
-        "confidence": 0.2832752764225006,
+        "input": "sep_490 blog caption",
+        "column": "caption",
+        "shape": "IMAGE_DESCRIPTION",
+        "confidence": 0.7111587524414062,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 blog image",
+        "input": "sep_490 blog image",
         "column": "image",
-        "shape": "IMAGE_RAW",
-        "confidence": 0.3604391813278198,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
-      {
-        "input": "dbsep_490 blog title",
-        "column": "title",
-        "shape": "MOVIE_TITLE",
-        "confidence": 0.391181468963623,
+        "shape": "INTERNET_AVATAR",
+        "confidence": 0.5267336964607239,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "dbsep490",
+    "schemaName": "sep490",
     "tableName": "Booking",
     "predictions": [
       {
-        "input": "dbsep_490 booking reason_cancell",
+        "input": "sep_490 booking reason_cancell",
         "column": "reasonCancell",
-        "shape": "FINANCE_TRANSACTION_DESCRIPTION",
-        "confidence": 0.3891099393367767,
+        "shape": "IMAGE_URL",
+        "confidence": 0.3339617550373077,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "dbsep490",
+    "schemaName": "sep490",
     "tableName": "BookingInfo",
     "predictions": [
       {
-        "input": "dbsep_490 booking_info name",
+        "input": "sep_490 booking_info name",
         "column": "name",
-        "shape": "AIRLINE_RECORD_LOCATOR",
-        "confidence": 0.3367131054401398,
+        "shape": "EQUIPMENT_NAME",
+        "confidence": 0.2451191842556,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 booking_info number_phone",
+        "input": "sep_490 booking_info number_phone",
         "column": "numberPhone",
         "shape": "PHONE_NUMBER",
-        "confidence": 0.810075581073761,
+        "confidence": 0.9844273924827576,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "dbsep490",
+    "schemaName": "sep490",
     "tableName": "Branches",
     "predictions": [
       {
-        "input": "dbsep_490 branches business_license",
+        "input": "sep_490 branches business_license",
         "column": "businessLicense",
         "shape": "VEHICLE_VRM",
-        "confidence": 0.4316912889480591,
+        "confidence": 0.8500894904136658,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 branches closing_hours",
+        "input": "sep_490 branches closing_hours",
         "column": "closingHours",
         "shape": "GIT_BRANCH",
-        "confidence": 0.9520841836929321,
+        "confidence": 0.9616100192070007,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 branches description",
+        "input": "sep_490 branches description",
         "column": "description",
         "shape": "GIT_BRANCH",
-        "confidence": 0.8461827635765076,
+        "confidence": 0.9601215720176697,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 branches email",
+        "input": "sep_490 branches email",
         "column": "email",
         "shape": "GIT_BRANCH",
-        "confidence": 0.5326626300811768,
+        "confidence": 0.3272792994976044,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 branches image",
+        "input": "sep_490 branches image",
         "column": "image",
         "shape": "GIT_BRANCH",
-        "confidence": 0.8527461290359497,
+        "confidence": 0.8908788561820984,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 branches name",
+        "input": "sep_490 branches name",
         "column": "name",
         "shape": "GIT_BRANCH",
-        "confidence": 0.9556301832199097,
+        "confidence": 0.9872463941574097,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 branches opening_hours",
+        "input": "sep_490 branches opening_hours",
         "column": "openingHours",
         "shape": "GIT_BRANCH",
-        "confidence": 0.9496347308158875,
+        "confidence": 0.9461163282394409,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 branches phone",
+        "input": "sep_490 branches order_id",
+        "column": "orderId",
+        "shape": "GIT_BRANCH",
+        "confidence": 0.7945703268051147,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 branches phone",
         "column": "phone",
         "shape": "GIT_BRANCH",
-        "confidence": 0.8611065149307251,
+        "confidence": 0.9577454328536987,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "dbsep490",
+    "schemaName": "sep490",
     "tableName": "Comment",
     "predictions": [
       {
-        "input": "dbsep_490 comment content",
+        "input": "sep_490 comment content",
         "column": "content",
         "shape": "POST_COMMENT",
-        "confidence": 0.9554601907730103,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
-      {
-        "input": "dbsep_490 comment image",
-        "column": "image",
-        "shape": "POST_COMMENT",
-        "confidence": 0.6317644119262695,
+        "confidence": 0.9878904819488525,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "dbsep490",
+    "schemaName": "sep490",
     "tableName": "Court",
     "predictions": [
       {
-        "input": "dbsep_490 court name",
+        "input": "sep_490 court name",
         "column": "name",
         "shape": "PERSON_SUFFIX",
-        "confidence": 0.1183396875858307,
+        "confidence": 0.1286870390176773,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "dbsep490",
+    "schemaName": "sep490",
+    "tableName": "Invitation",
+    "predictions": [
+      {
+        "input": "sep_490 invitation reason_cancel",
+        "column": "reasonCancel",
+        "shape": "FINANCE_TRANSACTION_DESCRIPTION",
+        "confidence": 0.6805278062820435,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "sep490",
     "tableName": "Notification",
     "predictions": [
       {
-        "input": "dbsep_490 notification message",
+        "input": "sep_490 notification message",
         "column": "message",
         "shape": "GIT_COMMIT_MESSAGE",
-        "confidence": 0.1628306806087494,
+        "confidence": 0.4162376821041107,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "sep_490 notification url",
+        "column": "url",
+        "shape": "URL",
+        "confidence": 0.2961271405220032,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "dbsep490",
+    "schemaName": "sep490",
     "tableName": "Post",
     "predictions": [
       {
-        "input": "dbsep_490 post description",
+        "input": "sep_490 post description",
         "column": "description",
-        "shape": "IMAGE_DESCRIPTION",
-        "confidence": 0.1239374503493309,
+        "shape": "COMPANY_CATCH_PHRASE",
+        "confidence": 0.2557607293128967,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "dbsep490",
+    "schemaName": "sep490",
+    "tableName": "ReportBlog",
+    "predictions": [
+      {
+        "input": "sep_490 report_blog reason",
+        "column": "reason",
+        "shape": "FINANCE_TRANSACTION_DESCRIPTION",
+        "confidence": 0.9800702929496765,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "sep490",
     "tableName": "Review",
     "predictions": [
       {
-        "input": "dbsep_490 review comment",
+        "input": "sep_490 review comment",
         "column": "comment",
         "shape": "POST_COMMENT",
-        "confidence": 0.9261139035224915,
+        "confidence": 0.9809495806694031,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "dbsep490",
+    "schemaName": "sep490",
     "tableName": "TypeCourt",
     "predictions": [
       {
-        "input": "dbsep_490 type_court description",
+        "input": "sep_490 type_court description",
         "column": "description",
         "shape": "FINANCE_TRANSACTION_DESCRIPTION",
-        "confidence": 0.1524609625339508,
+        "confidence": 0.761260986328125,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 type_court image",
+        "input": "sep_490 type_court image",
         "column": "image",
         "shape": "INTERNET_AVATAR",
-        "confidence": 0.3577299416065216,
+        "confidence": 0.5064718127250671,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 type_court name",
+        "input": "sep_490 type_court name",
         "column": "name",
-        "shape": "DRINKS",
-        "confidence": 0.08547595888376236,
+        "shape": "PERSON_JOB_TYPE",
+        "confidence": 0.1189649626612663,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "dbsep490",
+    "schemaName": "sep490",
     "tableName": "User",
     "predictions": [
       {
-        "input": "dbsep_490 user address",
+        "input": "sep_490 user address",
         "column": "address",
         "shape": "FULL_ADDRESS",
-        "confidence": 0.1411145329475403,
+        "confidence": 0.8935832381248474,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 user avatar",
+        "input": "sep_490 user avatar",
         "column": "avatar",
         "shape": "INTERNET_AVATAR",
-        "confidence": 0.9963111281394958,
+        "confidence": 0.9967744946479797,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 user full_name",
+        "input": "sep_490 user full_name",
         "column": "fullName",
-        "shape": "SYSTEM_FILE_NAME",
-        "confidence": 0.1866164207458496,
+        "shape": "PERSON_FULL_NAME",
+        "confidence": 0.8327159285545349,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 user identifier_code",
+        "input": "sep_490 user identifier_code",
         "column": "identifierCode",
         "shape": "UUID",
-        "confidence": 0.2702668905258179,
+        "confidence": 0.1380919963121414,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 user number_phone",
+        "input": "sep_490 user number_phone",
         "column": "numberPhone",
         "shape": "PHONE_NUMBER",
-        "confidence": 0.8764015436172485,
+        "confidence": 0.9945611357688904,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "dbsep490",
+    "schemaName": "sep490",
     "tableName": "UserAvailability",
     "predictions": [
       {
-        "input": "dbsep_490 user_availability districts",
+        "input": "sep_490 user_availability districts",
         "column": "districts",
-        "shape": "INTERNET_AVATAR",
-        "confidence": 0.1199353411793709,
+        "shape": "INTERNET_DOMAIN_NAME",
+        "confidence": 0.2958584427833557,
         "context": "GENERAL",
         "confidenceContext": 0
       },
       {
-        "input": "dbsep_490 user_availability provinces",
+        "input": "sep_490 user_availability provinces",
         "column": "provinces",
-        "shape": "SYSTEM_FILE_NAME",
-        "confidence": 0.1467411816120148,
+        "shape": "GIT_COMMIT_SHA",
+        "confidence": 0.140470027923584,
         "context": "GENERAL",
         "confidenceContext": 0
       }
     ]
   },
   {
-    "schemaName": "dbsep490",
+    "schemaName": "sep490",
     "tableName": "category",
     "predictions": [
       {
-        "input": "dbsep_490 category value",
+        "input": "sep_490 category value",
         "column": "value",
-        "shape": "META_DATA",
-        "confidence": 0.1695893406867981,
+        "shape": "BOOK_CATEGORY",
+        "confidence": 0.7965717315673828,
         "context": "GENERAL",
         "confidenceContext": 0
       }

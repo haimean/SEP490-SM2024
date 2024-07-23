@@ -1,0 +1,1228 @@
+[2024-07-22T18:27:29.566] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-22T18:27:57.425] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-22T18:28:58.559] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-22T18:43:57.600] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-22T18:46:44.384] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-22T18:46:48.683] [INFO] default - Response []
+[2024-07-22T18:51:05.061] [INFO] default - Response []
+[2024-07-22T18:57:26.917] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-22T18:57:35.318] [INFO] default - Response [
+  {
+    id: 1,
+    createdAt: '2024-07-22T14:53:35.529Z',
+    updatedAt: '2024-07-22T15:28:20.633Z',
+    accountId: 1,
+    courtId: 5,
+    startTime: '2024-07-23T15:30:00.000Z',
+    endTime: '2024-07-22T14:30:00.000Z',
+    price: 44740,
+    isDelete: false,
+    reasonCancell: 'thích',
+    bookingInfo: {
+      id: 1,
+      createdAt: 2024-07-21T07:53:42.024Z,
+      updatedAt: 2024-07-21T09:04:09.203Z,
+      name: 'Recte tollitterum cum bonoriis omnem responennii.',
+      numberPhone: '+101169697530072',
+      bookingId: 1
+    },
+    post: {
+      id: 1,
+      createdAt: 2024-07-22T07:54:25.913Z,
+      updatedAt: 2024-07-22T08:22:31.862Z,
+      bookingId: 1,
+      description: 'Invidet quis reprimenta quoniam voluptate romanim.',
+      numberMember: 1943
+    },
+    Court: {
+      id: 5,
+      name: 'Commodo eam invenire nollem interpretar.',
+      branchesId: 12,
+      typeCourtId: null,
+      createdAt: 2024-07-21T07:52:16.172Z,
+      updatedAt: 2024-07-21T14:38:30.001Z,
+      Branches: [Object],
+      TypeCourt: null
+    }
+  }
+]
+[2024-07-22T18:58:05.641] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-22T18:58:09.568] [INFO] default - Response []
+[2024-07-22T18:58:29.931] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-22T18:58:51.053] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-22T18:58:58.374] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-22T18:59:08.930] [INFO] default - Response [
+  {
+    id: 1,
+    createdAt: '2024-07-22T14:53:35.529Z',
+    updatedAt: '2024-07-22T15:28:20.633Z',
+    accountId: 1,
+    courtId: 5,
+    startTime: '2024-07-23T15:30:00.000Z',
+    endTime: '2024-07-22T14:30:00.000Z',
+    price: 44740,
+    isDelete: false,
+    reasonCancell: 'thích',
+    bookingInfo: {
+      id: 1,
+      createdAt: 2024-07-21T07:53:42.024Z,
+      updatedAt: 2024-07-21T09:04:09.203Z,
+      name: 'Recte tollitterum cum bonoriis omnem responennii.',
+      numberPhone: '+101169697530072',
+      bookingId: 1
+    },
+    post: {
+      id: 1,
+      createdAt: 2024-07-22T07:54:25.913Z,
+      updatedAt: 2024-07-22T08:22:31.862Z,
+      bookingId: 1,
+      description: 'Invidet quis reprimenta quoniam voluptate romanim.',
+      numberMember: 1943
+    },
+    Court: {
+      id: 5,
+      name: 'Commodo eam invenire nollem interpretar.',
+      branchesId: 12,
+      typeCourtId: null,
+      createdAt: 2024-07-21T07:52:16.172Z,
+      updatedAt: 2024-07-21T14:38:30.001Z,
+      Branches: [Object],
+      TypeCourt: null
+    }
+  },
+  {
+    id: 2,
+    createdAt: '2024-07-21T14:53:36.145Z',
+    updatedAt: '2024-07-21T22:06:23.803Z',
+    accountId: 1,
+    courtId: 6,
+    startTime: '2024-07-22T15:30:00.000Z',
+    endTime: '2024-07-22T16:30:00.000Z',
+    price: 22370,
+    isDelete: false,
+    reasonCancell: 'Voluptate finire et notis iis.',
+    bookingInfo: {
+      id: 2,
+      createdAt: 2024-07-21T07:53:42.640Z,
+      updatedAt: 2024-07-21T09:04:09.203Z,
+      name: 'Omnem esse iis philos ensionemus num.',
+      numberPhone: '+238901284390441',
+      bookingId: 2
+    },
+    post: {
+      id: 2,
+      createdAt: 2024-07-21T07:54:26.836Z,
+      updatedAt: 2024-07-21T12:30:28.161Z,
+      bookingId: 2,
+      description: 'Inos epicia super ob docerentur.',
+      numberMember: 10302
+    },
+    Court: {
+      id: 6,
+      name: 'Non ensa et etsi perpetu quae.',
+      branchesId: 12,
+      typeCourtId: null,
+      createdAt: 2024-07-21T07:52:16.788Z,
+      updatedAt: 2024-07-21T14:38:30.001Z,
+      Branches: [Object],
+      TypeCourt: null
+    }
+  },
+  {
+    id: 3,
+    createdAt: '2024-07-21T14:53:36.778Z',
+    updatedAt: '2024-07-21T23:54:16.485Z',
+    accountId: 1,
+    courtId: 8,
+    startTime: '2024-07-23T15:00:00.000Z',
+    endTime: '2024-07-23T17:00:00.000Z',
+    price: 17584,
+    isDelete: false,
+    reasonCancell: 'sân 3',
+    bookingInfo: {
+      id: 3,
+      createdAt: 2024-07-21T07:53:43.259Z,
+      updatedAt: 2024-07-21T09:04:09.203Z,
+      name: 'Explicem possit cupid scriberit saepe qui patiat.',
+      numberPhone: '+365128700207234',
+      bookingId: 3
+    },
+    post: {
+      id: 3,
+      createdAt: 2024-07-21T07:54:27.452Z,
+      updatedAt: 2024-07-21T12:30:28.161Z,
+      bookingId: 3,
+      description: 'Tur et cursionest etiam ea.',
+      numberMember: 50473
+    },
+    Court: {
+      id: 8,
+      name: 'Verbis cere omi de quietem patiat, tempore non parvos sine in.',
+      branchesId: 12,
+      typeCourtId: null,
+      createdAt: 2024-07-21T07:52:18.020Z,
+      updatedAt: 2024-07-21T14:38:30.001Z,
+      Branches: [Object],
+      TypeCourt: null
+    }
+  },
+  {
+    id: 83,
+    createdAt: '2024-07-22T14:09:54.374Z',
+    updatedAt: '2024-07-22T14:09:54.374Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-24T13:30:00.000Z',
+    endTime: '2024-07-24T15:30:00.000Z',
+    price: 240000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 53,
+      createdAt: 2024-07-22T07:09:54.374Z,
+      updatedAt: 2024-07-22T07:09:54.374Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 83
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 84,
+    createdAt: '2024-07-22T14:09:57.580Z',
+    updatedAt: '2024-07-22T14:09:57.580Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-25T13:30:00.000Z',
+    endTime: '2024-07-25T16:00:00.000Z',
+    price: 300000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 54,
+      createdAt: 2024-07-22T07:09:57.580Z,
+      updatedAt: 2024-07-22T07:09:57.580Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 84
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 85,
+    createdAt: '2024-07-22T14:50:28.560Z',
+    updatedAt: '2024-07-22T14:50:28.560Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-26T13:30:00.000Z',
+    endTime: '2024-07-26T15:30:00.000Z',
+    price: 240000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 55,
+      createdAt: 2024-07-22T07:50:28.560Z,
+      updatedAt: 2024-07-22T07:50:28.560Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 85
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 86,
+    createdAt: '2024-07-22T14:53:58.061Z',
+    updatedAt: '2024-07-22T14:53:58.061Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-24T00:00:00.000Z',
+    endTime: '2024-07-24T02:00:00.000Z',
+    price: 240000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 56,
+      createdAt: 2024-07-22T07:53:58.061Z,
+      updatedAt: 2024-07-22T07:53:58.061Z,
+      name: 'Lê Đức Mạnh',
+      numberPhone: '0912345678',
+      bookingId: 86
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 87,
+    createdAt: '2024-07-22T14:55:07.711Z',
+    updatedAt: '2024-07-22T14:55:07.711Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-25T16:30:00.000Z',
+    endTime: '2024-07-25T18:00:00.000Z',
+    price: 180000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 57,
+      createdAt: 2024-07-22T07:55:07.711Z,
+      updatedAt: 2024-07-22T07:55:07.711Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 87
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 88,
+    createdAt: '2024-07-22T15:04:04.541Z',
+    updatedAt: '2024-07-22T15:04:04.541Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-23T14:00:00.000Z',
+    endTime: '2024-07-23T16:00:00.000Z',
+    price: 240000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 58,
+      createdAt: 2024-07-22T08:04:04.541Z,
+      updatedAt: 2024-07-22T08:04:04.541Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 88
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 89,
+    createdAt: '2024-07-22T15:11:07.546Z',
+    updatedAt: '2024-07-22T15:11:07.546Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-24T21:00:00.000Z',
+    endTime: '2024-07-24T22:30:00.000Z',
+    price: 150000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 59,
+      createdAt: 2024-07-22T08:11:07.546Z,
+      updatedAt: 2024-07-22T08:11:07.546Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 89
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 90,
+    createdAt: '2024-07-22T15:11:10.902Z',
+    updatedAt: '2024-07-22T15:11:10.902Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-27T13:00:00.000Z',
+    endTime: '2024-07-27T15:30:00.000Z',
+    price: 300000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 60,
+      createdAt: 2024-07-22T08:11:10.902Z,
+      updatedAt: 2024-07-22T08:11:10.902Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 90
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 91,
+    createdAt: '2024-07-22T15:11:43.943Z',
+    updatedAt: '2024-07-22T15:11:43.943Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-24T19:30:00.000Z',
+    endTime: '2024-07-24T20:30:00.000Z',
+    price: 100000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 61,
+      createdAt: 2024-07-22T08:11:43.943Z,
+      updatedAt: 2024-07-22T08:11:43.943Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 91
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 92,
+    createdAt: '2024-07-22T15:11:46.289Z',
+    updatedAt: '2024-07-22T15:11:46.289Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-25T20:00:00.000Z',
+    endTime: '2024-07-25T21:00:00.000Z',
+    price: 100000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 62,
+      createdAt: 2024-07-22T08:11:46.289Z,
+      updatedAt: 2024-07-22T08:11:46.289Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 92
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 93,
+    createdAt: '2024-07-22T15:20:33.246Z',
+    updatedAt: '2024-07-22T15:20:33.246Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-26T17:30:00.000Z',
+    endTime: '2024-07-26T19:00:00.000Z',
+    price: 180000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 63,
+      createdAt: 2024-07-22T08:20:33.246Z,
+      updatedAt: 2024-07-22T08:20:33.246Z,
+      name: 'Le ',
+      numberPhone: '0987654321',
+      bookingId: 93
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 94,
+    createdAt: '2024-07-22T15:21:05.348Z',
+    updatedAt: '2024-07-22T15:21:05.348Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-24T18:00:00.000Z',
+    endTime: '2024-07-24T19:00:00.000Z',
+    price: 120000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 64,
+      createdAt: 2024-07-22T08:21:05.348Z,
+      updatedAt: 2024-07-22T08:21:05.348Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 94
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 95,
+    createdAt: '2024-07-22T15:21:24.485Z',
+    updatedAt: '2024-07-22T15:21:24.485Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-23T18:00:00.000Z',
+    endTime: '2024-07-23T19:00:00.000Z',
+    price: 120000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 65,
+      createdAt: 2024-07-22T08:21:24.485Z,
+      updatedAt: 2024-07-22T08:21:24.485Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 95
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 96,
+    createdAt: '2024-07-22T15:21:49.296Z',
+    updatedAt: '2024-07-22T15:21:49.296Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-24T16:00:00.000Z',
+    endTime: '2024-07-24T17:00:00.000Z',
+    price: 120000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 66,
+      createdAt: 2024-07-22T08:21:49.296Z,
+      updatedAt: 2024-07-22T08:21:49.296Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 96
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  }
+]
+[2024-07-22T18:59:10.654] [INFO] default - Response {
+  id: 3,
+  email: 'host@gmail.com',
+  password: 'Not show',
+  role: 'HOST',
+  otp: null,
+  otpExpired: null,
+  isVerified: true,
+  emailToken: null,
+  isActive: true,
+  createdAt: '2024-07-21T14:44:54.348Z',
+  updatedAt: '2024-07-21T14:46:17.763Z',
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjozLCJlbWFpbCI6Imhvc3RAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkN2svY3B4emt5Sk9FaDNmYm1ERUhXT0R4LlA3N0VMSGlJc3V5Lk90Yjl3WFNoYmlhejU1cW0iLCJyb2xlIjoiSE9TVCIsIm90cCI6bnVsbCwib3RwRXhwaXJlZCI6bnVsbCwiaXNWZXJpZmllZCI6dHJ1ZSwiZW1haWxUb2tlbiI6bnVsbCwiaXNBY3RpdmUiOnRydWUsImNyZWF0ZWRBdCI6IjIwMjQtMDctMjFUMTQ6NDQ6NTQuMzQ4WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDctMjFUMTQ6NDY6MTcuNzYzWiJ9LCJpYXQiOjE3MjE2NDk1NTAsImV4cCI6MTcyMTczNTk1MH0.p7gy0M_A70htTECW8Qb-O4H0lCkEfFZHGr75DVFfmuk'
+}
+[2024-07-22T18:59:18.230] [INFO] default - Response [
+  {
+    id: 1,
+    createdAt: '2024-07-22T14:53:35.529Z',
+    updatedAt: '2024-07-22T15:28:20.633Z',
+    accountId: 1,
+    courtId: 5,
+    startTime: '2024-07-23T15:30:00.000Z',
+    endTime: '2024-07-22T14:30:00.000Z',
+    price: 44740,
+    isDelete: false,
+    reasonCancell: 'thích',
+    bookingInfo: {
+      id: 1,
+      createdAt: 2024-07-21T07:53:42.024Z,
+      updatedAt: 2024-07-21T09:04:09.203Z,
+      name: 'Recte tollitterum cum bonoriis omnem responennii.',
+      numberPhone: '+101169697530072',
+      bookingId: 1
+    },
+    post: {
+      id: 1,
+      createdAt: 2024-07-22T07:54:25.913Z,
+      updatedAt: 2024-07-22T08:22:31.862Z,
+      bookingId: 1,
+      description: 'Invidet quis reprimenta quoniam voluptate romanim.',
+      numberMember: 1943
+    },
+    Court: {
+      id: 5,
+      name: 'Commodo eam invenire nollem interpretar.',
+      branchesId: 12,
+      typeCourtId: null,
+      createdAt: 2024-07-21T07:52:16.172Z,
+      updatedAt: 2024-07-21T14:38:30.001Z,
+      Branches: [Object],
+      TypeCourt: null
+    }
+  },
+  {
+    id: 2,
+    createdAt: '2024-07-21T14:53:36.145Z',
+    updatedAt: '2024-07-21T22:06:23.803Z',
+    accountId: 1,
+    courtId: 6,
+    startTime: '2024-07-22T15:30:00.000Z',
+    endTime: '2024-07-22T16:30:00.000Z',
+    price: 22370,
+    isDelete: false,
+    reasonCancell: 'Voluptate finire et notis iis.',
+    bookingInfo: {
+      id: 2,
+      createdAt: 2024-07-21T07:53:42.640Z,
+      updatedAt: 2024-07-21T09:04:09.203Z,
+      name: 'Omnem esse iis philos ensionemus num.',
+      numberPhone: '+238901284390441',
+      bookingId: 2
+    },
+    post: {
+      id: 2,
+      createdAt: 2024-07-21T07:54:26.836Z,
+      updatedAt: 2024-07-21T12:30:28.161Z,
+      bookingId: 2,
+      description: 'Inos epicia super ob docerentur.',
+      numberMember: 10302
+    },
+    Court: {
+      id: 6,
+      name: 'Non ensa et etsi perpetu quae.',
+      branchesId: 12,
+      typeCourtId: null,
+      createdAt: 2024-07-21T07:52:16.788Z,
+      updatedAt: 2024-07-21T14:38:30.001Z,
+      Branches: [Object],
+      TypeCourt: null
+    }
+  },
+  {
+    id: 3,
+    createdAt: '2024-07-21T14:53:36.778Z',
+    updatedAt: '2024-07-21T23:54:16.485Z',
+    accountId: 1,
+    courtId: 8,
+    startTime: '2024-07-23T15:00:00.000Z',
+    endTime: '2024-07-23T17:00:00.000Z',
+    price: 17584,
+    isDelete: false,
+    reasonCancell: 'sân 3',
+    bookingInfo: {
+      id: 3,
+      createdAt: 2024-07-21T07:53:43.259Z,
+      updatedAt: 2024-07-21T09:04:09.203Z,
+      name: 'Explicem possit cupid scriberit saepe qui patiat.',
+      numberPhone: '+365128700207234',
+      bookingId: 3
+    },
+    post: {
+      id: 3,
+      createdAt: 2024-07-21T07:54:27.452Z,
+      updatedAt: 2024-07-21T12:30:28.161Z,
+      bookingId: 3,
+      description: 'Tur et cursionest etiam ea.',
+      numberMember: 50473
+    },
+    Court: {
+      id: 8,
+      name: 'Verbis cere omi de quietem patiat, tempore non parvos sine in.',
+      branchesId: 12,
+      typeCourtId: null,
+      createdAt: 2024-07-21T07:52:18.020Z,
+      updatedAt: 2024-07-21T14:38:30.001Z,
+      Branches: [Object],
+      TypeCourt: null
+    }
+  },
+  {
+    id: 83,
+    createdAt: '2024-07-22T14:09:54.374Z',
+    updatedAt: '2024-07-22T14:09:54.374Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-24T13:30:00.000Z',
+    endTime: '2024-07-24T15:30:00.000Z',
+    price: 240000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 53,
+      createdAt: 2024-07-22T07:09:54.374Z,
+      updatedAt: 2024-07-22T07:09:54.374Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 83
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 84,
+    createdAt: '2024-07-22T14:09:57.580Z',
+    updatedAt: '2024-07-22T14:09:57.580Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-25T13:30:00.000Z',
+    endTime: '2024-07-25T16:00:00.000Z',
+    price: 300000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 54,
+      createdAt: 2024-07-22T07:09:57.580Z,
+      updatedAt: 2024-07-22T07:09:57.580Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 84
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 85,
+    createdAt: '2024-07-22T14:50:28.560Z',
+    updatedAt: '2024-07-22T14:50:28.560Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-26T13:30:00.000Z',
+    endTime: '2024-07-26T15:30:00.000Z',
+    price: 240000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 55,
+      createdAt: 2024-07-22T07:50:28.560Z,
+      updatedAt: 2024-07-22T07:50:28.560Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 85
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 86,
+    createdAt: '2024-07-22T14:53:58.061Z',
+    updatedAt: '2024-07-22T14:53:58.061Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-24T00:00:00.000Z',
+    endTime: '2024-07-24T02:00:00.000Z',
+    price: 240000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 56,
+      createdAt: 2024-07-22T07:53:58.061Z,
+      updatedAt: 2024-07-22T07:53:58.061Z,
+      name: 'Lê Đức Mạnh',
+      numberPhone: '0912345678',
+      bookingId: 86
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 87,
+    createdAt: '2024-07-22T14:55:07.711Z',
+    updatedAt: '2024-07-22T14:55:07.711Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-25T16:30:00.000Z',
+    endTime: '2024-07-25T18:00:00.000Z',
+    price: 180000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 57,
+      createdAt: 2024-07-22T07:55:07.711Z,
+      updatedAt: 2024-07-22T07:55:07.711Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 87
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 88,
+    createdAt: '2024-07-22T15:04:04.541Z',
+    updatedAt: '2024-07-22T15:04:04.541Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-23T14:00:00.000Z',
+    endTime: '2024-07-23T16:00:00.000Z',
+    price: 240000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 58,
+      createdAt: 2024-07-22T08:04:04.541Z,
+      updatedAt: 2024-07-22T08:04:04.541Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 88
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 89,
+    createdAt: '2024-07-22T15:11:07.546Z',
+    updatedAt: '2024-07-22T15:11:07.546Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-24T21:00:00.000Z',
+    endTime: '2024-07-24T22:30:00.000Z',
+    price: 150000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 59,
+      createdAt: 2024-07-22T08:11:07.546Z,
+      updatedAt: 2024-07-22T08:11:07.546Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 89
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 90,
+    createdAt: '2024-07-22T15:11:10.902Z',
+    updatedAt: '2024-07-22T15:11:10.902Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-27T13:00:00.000Z',
+    endTime: '2024-07-27T15:30:00.000Z',
+    price: 300000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 60,
+      createdAt: 2024-07-22T08:11:10.902Z,
+      updatedAt: 2024-07-22T08:11:10.902Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 90
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 91,
+    createdAt: '2024-07-22T15:11:43.943Z',
+    updatedAt: '2024-07-22T15:11:43.943Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-24T19:30:00.000Z',
+    endTime: '2024-07-24T20:30:00.000Z',
+    price: 100000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 61,
+      createdAt: 2024-07-22T08:11:43.943Z,
+      updatedAt: 2024-07-22T08:11:43.943Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 91
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 92,
+    createdAt: '2024-07-22T15:11:46.289Z',
+    updatedAt: '2024-07-22T15:11:46.289Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-25T20:00:00.000Z',
+    endTime: '2024-07-25T21:00:00.000Z',
+    price: 100000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 62,
+      createdAt: 2024-07-22T08:11:46.289Z,
+      updatedAt: 2024-07-22T08:11:46.289Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 92
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 93,
+    createdAt: '2024-07-22T15:20:33.246Z',
+    updatedAt: '2024-07-22T15:20:33.246Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-26T17:30:00.000Z',
+    endTime: '2024-07-26T19:00:00.000Z',
+    price: 180000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 63,
+      createdAt: 2024-07-22T08:20:33.246Z,
+      updatedAt: 2024-07-22T08:20:33.246Z,
+      name: 'Le ',
+      numberPhone: '0987654321',
+      bookingId: 93
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 94,
+    createdAt: '2024-07-22T15:21:05.348Z',
+    updatedAt: '2024-07-22T15:21:05.348Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-24T18:00:00.000Z',
+    endTime: '2024-07-24T19:00:00.000Z',
+    price: 120000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 64,
+      createdAt: 2024-07-22T08:21:05.348Z,
+      updatedAt: 2024-07-22T08:21:05.348Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 94
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 95,
+    createdAt: '2024-07-22T15:21:24.485Z',
+    updatedAt: '2024-07-22T15:21:24.485Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-23T18:00:00.000Z',
+    endTime: '2024-07-23T19:00:00.000Z',
+    price: 120000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 65,
+      createdAt: 2024-07-22T08:21:24.485Z,
+      updatedAt: 2024-07-22T08:21:24.485Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 95
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  },
+  {
+    id: 96,
+    createdAt: '2024-07-22T15:21:49.296Z',
+    updatedAt: '2024-07-22T15:21:49.296Z',
+    accountId: 246,
+    courtId: 1,
+    startTime: '2024-07-24T16:00:00.000Z',
+    endTime: '2024-07-24T17:00:00.000Z',
+    price: 120000,
+    isDelete: false,
+    reasonCancell: null,
+    bookingInfo: {
+      id: 66,
+      createdAt: 2024-07-22T08:21:49.296Z,
+      updatedAt: 2024-07-22T08:21:49.296Z,
+      name: 'Lê ',
+      numberPhone: '0987654321',
+      bookingId: 96
+    },
+    post: null,
+    Court: {
+      id: 1,
+      name: 'Etur quietae responsummum legendum praesendi, privatio omnia audire viam constantia mors eptricesse.',
+      branchesId: 5,
+      typeCourtId: 1,
+      createdAt: 2024-07-21T07:52:13.706Z,
+      updatedAt: 2024-07-21T13:02:00.598Z,
+      Branches: [Object],
+      TypeCourt: [Object]
+    }
+  }
+]
+[2024-07-22T18:59:34.240] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-22T18:59:41.402] [INFO] default - Response [
+  {
+    id: 1,
+    createdAt: '2024-07-22T14:53:35.529Z',
+    updatedAt: '2024-07-22T15:28:20.633Z',
+    accountId: 1,
+    courtId: 5,
+    startTime: '2024-07-23T15:30:00.000Z',
+    endTime: '2024-07-22T14:30:00.000Z',
+    price: 44740,
+    isDelete: false,
+    reasonCancell: 'thích',
+    bookingInfo: {
+      id: 1,
+      createdAt: 2024-07-21T07:53:42.024Z,
+      updatedAt: 2024-07-21T09:04:09.203Z,
+      name: 'Recte tollitterum cum bonoriis omnem responennii.',
+      numberPhone: '+101169697530072',
+      bookingId: 1
+    },
+    post: {
+      id: 1,
+      createdAt: 2024-07-22T07:54:25.913Z,
+      updatedAt: 2024-07-22T08:22:31.862Z,
+      bookingId: 1,
+      description: 'Invidet quis reprimenta quoniam voluptate romanim.',
+      numberMember: 1943
+    },
+    Court: {
+      id: 5,
+      name: 'Commodo eam invenire nollem interpretar.',
+      branchesId: 12,
+      typeCourtId: null,
+      createdAt: 2024-07-21T07:52:16.172Z,
+      updatedAt: 2024-07-21T14:38:30.001Z,
+      Branches: [Object],
+      TypeCourt: null
+    }
+  }
+]
+[2024-07-22T19:01:41.694] [ERROR] default - ERROR LOG  7/22/2024, 7:01:41 PM
+[2024-07-22T19:01:41.695] [WARN] default - Request: "POST" "/api/host/history-booking/"
+[2024-07-22T19:01:41.696] [WARN] default - Params: {}
+[2024-07-22T19:01:41.697] [WARN] default - Body: {"courtId":1,"startTime":"2024-07-11T09:36:26.608Z","endTime":"2024-07-11T11:36:26.608Z","price":1200,"name":"minh","numberPhone":"0963400923"}
+[2024-07-22T19:01:41.697] [WARN] default - Query: {}
+[2024-07-22T19:01:41.698] [ERROR] default - Error:  {"status":500,"messageObject":"Cannot read properties of undefined (reading 'page')"}
+[2024-07-22T19:01:41.703] [ERROR] default - Error stack:  Error
+    at getBookingList (D:\SEP490\SEP490-SM2024\backend\src\modules\host\booking\booking.controller.ts:20:12)
+[2024-07-22T19:01:41.704] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-22T20:40:42.559] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-22T20:41:49.883] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-22T20:42:42.814] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-22T20:43:15.307] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-22T20:43:25.473] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-22T22:37:15.100] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-23T02:31:04.656] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-23T02:31:39.888] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-23T02:31:51.985] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-23T02:32:05.003] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-23T02:32:17.653] [INFO] default - Express server is listening at http://localhost:4200 🚀
