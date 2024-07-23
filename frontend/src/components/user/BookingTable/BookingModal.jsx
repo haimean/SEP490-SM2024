@@ -1,6 +1,6 @@
-// BookingModal.jsx
 import React from 'react';
-import { Modal, Box, Typography, Button } from '@mui/material';
+import { Modal, Box, Typography, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import CreateEventWithNoOverlap from './BookingCalendar';
 
 const BookingModal = ({ open, onClose, courtId }) => {
@@ -11,26 +11,17 @@ const BookingModal = ({ open, onClose, courtId }) => {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '90%', // Đặt width là 90% để modal không sát cạnh màn hình
-        height: '90%', // Đặt height là 90% để modal không sát cạnh màn hình
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
-        overflow: 'auto' // Đảm bảo nội dung modal có thể scroll nếu vượt quá kích thước
-      }}>
+      <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-11/12 h-5/6 bg-white border border-gray-300 shadow-lg p-4 rounded-lg overflow-auto">
+        <IconButton
+          onClick={onClose}
+          className="!absolute !top-2 !right-2"
+        >
+          <CloseIcon />
+        </IconButton>
         <Typography id="modal-modal-title" variant="h6" component="h2">
           Đặt sân: {courtId}
         </Typography>
         <CreateEventWithNoOverlap courtId={courtId} />
-        <Button onClick={onClose} variant="contained" color="secondary" style={{ marginTop: '20px' }}>
-          Đóng
-        </Button>
       </Box>
     </Modal>
   );

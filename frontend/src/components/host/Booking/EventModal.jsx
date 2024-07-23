@@ -87,14 +87,26 @@ const EventModal = ({ isOpen, onClose, eventData, setEventData, isNewEvent, onSa
         <Typography variant="h6" component="h2">
           {isNewEvent ? 'Thêm sự kiện mới' : 'Chỉnh sửa sự kiện'}
         </Typography>
-        <TextField
-          margin="normal"
-          fullWidth
-          label="Tiêu đề"
-          name="title"
-          value={eventData.title}
-          onChange={handleChange}
-        />
+        {!isNewEvent && eventData.bookingInfo && (
+          <>
+            <TextField
+              margin="normal"
+              fullWidth
+              label="Tên người đặt"
+              name="name"
+              value={eventData.name}
+              onChange={handleChange}
+            />
+            <TextField
+              margin="normal"
+              fullWidth
+              label="Số điện thoại"
+              name="numberPhone"
+              value={eventData.numberPhone}
+              onChange={handleChange}
+            />
+          </>
+        )}
         <TextField
           label="Ngày"
           type="date"

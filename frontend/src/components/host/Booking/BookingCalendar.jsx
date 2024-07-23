@@ -1,12 +1,24 @@
-import React, { useState } from 'react';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
-import moment from 'moment';
-import { setHours, setMinutes, setSeconds, differenceInMinutes } from 'date-fns';
+import React, { useState, useEffect } from 'react';
+import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
+import { parse, startOfWeek, getDay, format, setHours, setMinutes, setSeconds, differenceInMinutes, subHours } from 'date-fns';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { Box } from '@mui/material';
+import enUS from 'date-fns/locale/en-US';
+import { Box, CircularProgress, Backdrop } from '@mui/material';
 import EventModal from './EventModal';
+import CallApi from '../../../service/CallAPI';
+import { toast } from 'react-toastify';
 
-const localizer = momentLocalizer(moment);
+const locales = {
+  'en-US': enUS,
+};
+
+const localizer = dateFnsLocalizer({
+  format,
+  parse,
+  startOfWeek: () => startOfWeek(new Date(), { weekStartsOn: 1 }),
+  getDay,
+  locales,
+});
 
 const CalendarComponent = () => {
   const openHour = setSeconds(setMinutes(setHours(new Date(), 5), 0), 0);
@@ -17,33 +29,54 @@ const CalendarComponent = () => {
     { start: 17, end: 22, price: 150000 },
   ];
 
-  const [events, setEvents] = useState([
-    {
-      title: 'Sự kiện 1 - 100000',
-      start: new Date('2024-07-20T08:00:00'),
-      end: new Date('2024-07-20T09:00:00'),
-      isNew: false,
-      price: 100000,
-    },
-    {
-      title: 'Sự kiện 2 - 120000',
-      start: new Date('2024-07-20T10:00:00'),
-      end: new Date('2024-07-20T11:00:00'),
-      isNew: false,
-      price: 120000,
-    },
-    {
-      title: 'Sự kiện 3 - 120000',
-      start: new Date('2024-07-19T14:00:00'),
-      end: new Date('2024-07-19T15:00:00'),
-      isNew: false,
-      price: 120000,
-    },
-  ]);
+  const courtId = 1;
+
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isNewEvent, setIsNewEvent] = useState(false);
   const [eventData, setEventData] = useState({ title: '', start: '', end: '', price: 0 });
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    fetchData(currentDate);
+  }, [currentDate]);
+
+  const fetchData = async (date) => {
+    setLoading(true);
+    try {
+      const response = await CallApi(
+        `/api/host/history-booking/get-for-week/${courtId}`,
+        "post",
+        {
+          date: date.toISOString(),
+        },
+        {}
+      );
+      console.log(response);
+
+      // Chuyển đổi dữ liệu nhận được từ API thành các sự kiện
+      const eventsData = response.data.map(event => ({
+        id: event.id,
+        title: `${event.bookingInfo.name} - ${event.price} VND`,
+        start: subHours(new Date(event.startTime.replace('Z', '')), 7),
+        end: subHours(new Date(event.endTime.replace('Z', '')), 7),
+        bookingInfo: event.bookingInfo,
+      }));
+      console.log(eventsData);
+      // Cập nhật state `events`
+      setEvents(eventsData);
+    } catch (error) {
+      toast.error(error.response?.data?.error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleNavigate = (date) => {
+    setCurrentDate(date);
+  };
 
   const handleSelectSlot = ({ start, end }) => {
     const now = new Date();
@@ -51,24 +84,24 @@ const CalendarComponent = () => {
       alert("Không thể chọn khoảng thời gian đã trôi qua.");
       return;
     }
-  
+
     const isSlotOccupied = events.some(
-      event =>
+      (event) =>
         (start >= event.start && start < event.end) ||
         (end > event.start && end <= event.end) ||
         (start < event.start && end > event.end)
     );
-  
+
     if (!isSlotOccupied) {
       const price = calculatePrice(start, end, priceList);
-      setEventData({ title: `Sự kiện mới - ${price}`, start, end, price });
+      setEventData({ title: ``, start, end, price, name: '', numberPhone: '' });
       setIsNewEvent(true);
       setIsModalOpen(true);
     } else {
       alert("This time slot is already occupied. Please choose another time.");
     }
   };
-  
+
   const handleSelectEvent = (event) => {
     setSelectedEvent(event);
     setEventData(event);
@@ -82,10 +115,9 @@ const CalendarComponent = () => {
     setEventData({ title: '', start: '', end: '', price: 0 });
   };
 
-  const handleSaveEvent = () => {
+  const handleSaveEvent = async () => {
     const start = new Date(eventData.start).getHours();
     const end = new Date(eventData.end).getHours();
-    console.log(start, openHour);
     if (start < openHour.getHours() || end > closeHour.getHours()) {
       alert("Thời gian sự kiện phải nằm trong khoảng từ 05:00 đến 22:00.");
       return;
@@ -96,7 +128,7 @@ const CalendarComponent = () => {
       return;
     }
 
-    const isSlotOccupied = events.some(event => {
+    const isSlotOccupied = events.some((event) => {
       if (selectedEvent && areEventsEqual(event, selectedEvent)) {
         return false; // Bỏ qua sự kiện hiện tại đang được chỉnh sửa
       }
@@ -113,15 +145,43 @@ const CalendarComponent = () => {
     }
 
     if (isNewEvent) {
-      setEvents([...events, { ...eventData, title: `Sự kiện - ${eventData.price}`, start: new Date(eventData.start), end: new Date(eventData.end), isNew: true }]);
+      try {
+        const response = await CallApi(
+          "/api/host/history-booking/",
+          "post",
+          {
+            courtId,
+            startTime: new Date(eventData.start).toISOString(),
+            endTime: new Date(eventData.end).toISOString(),
+            price: eventData.price,
+            name: eventData.name,
+            numberPhone: eventData.numberPhone
+          },
+          {}
+        );
+        const newEvent = {
+          ...eventData,
+          title: `${eventData.name} - ${eventData.price} VND`,
+          start: new Date(eventData.start),
+          end: new Date(eventData.end),
+          isNew: true,
+          bookingInfo: { name: eventData.name, numberPhone: eventData.numberPhone }
+        };
+        setEvents([...events, newEvent]);
+        toast.success("Event added successfully");
+      } catch (error) {
+        toast.error(error.response?.data?.error);
+      }
     } else {
-      setEvents(events.map(event => areEventsEqual(event, selectedEvent) ? { ...eventData, title: `Sự kiện - ${eventData.price}`, start: new Date(eventData.start), end: new Date(eventData.end), isNew: event.isNew } : event));
+      setEvents(events.map((event) =>
+        areEventsEqual(event, selectedEvent) ? { ...eventData, title: `Sự kiện - ${eventData.price}`, start: new Date(eventData.start), end: new Date(eventData.end), isNew: event.isNew } : event
+      ));
     }
     handleCloseModal();
   };
 
   const handleDeleteEvent = () => {
-    setEvents(events.filter(event => !areEventsEqual(event, selectedEvent)));
+    setEvents(events.filter((event) => !areEventsEqual(event, selectedEvent)));
     handleCloseModal();
   };
 
@@ -137,10 +197,20 @@ const CalendarComponent = () => {
     const backgroundColor = event.isNew ? 'rgb(70, 130, 180)' : 'rgb(34, 139, 34)';
     const style = {
       backgroundColor,
+      color: 'white',
+      borderRadius: '5px',
+      border: 'none',
+      display: 'block',
+      padding: '4px',
+      textAlign: 'left'
     };
     return {
-      style: style
+      style: style,
     };
+  };
+
+  const eventTooltipAccessor = (event) => {
+    return `${event.bookingInfo.name} - ${event.bookingInfo.numberPhone}`;
   };
 
   const slotPropGetter = (date) => {
@@ -150,8 +220,8 @@ const CalendarComponent = () => {
         style: {
           backgroundColor: 'lightgray',
           pointerEvents: 'none',
-          cursor: 'not-allowed'
-        }
+          cursor: 'not-allowed',
+        },
       };
     }
     return {};
@@ -163,7 +233,7 @@ const CalendarComponent = () => {
 
     while (currentTime < end) {
       const currentHour = currentTime.getHours();
-      const priceSlot = priceList.find(slot => currentHour >= slot.start && currentHour < slot.end);
+      const priceSlot = priceList.find((slot) => currentHour >= slot.start && currentHour < slot.end);
       const nextHour = new Date(currentTime);
       nextHour.setHours(currentHour + 1);
 
@@ -182,11 +252,16 @@ const CalendarComponent = () => {
 
   return (
     <Box>
+      <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Calendar
         localizer={localizer}
         events={events}
         startAccessor="start"
         endAccessor="end"
+        titleAccessor="title"
+        tooltipAccessor={eventTooltipAccessor}
         selectable
         onSelectSlot={handleSelectSlot}
         onSelectEvent={handleSelectEvent}
@@ -195,6 +270,7 @@ const CalendarComponent = () => {
         max={new Date(closeHour)}
         eventPropGetter={eventStyleGetter}
         slotPropGetter={slotPropGetter}
+        onNavigate={handleNavigate}
       />
       <EventModal
         isOpen={isModalOpen}

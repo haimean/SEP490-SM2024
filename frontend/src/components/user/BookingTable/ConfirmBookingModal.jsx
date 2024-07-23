@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Modal, Box, Typography, TextField, Button, CircularProgress } from '@mui/material';
+import { Modal, Box, Typography, TextField, Button, CircularProgress, Backdrop } from '@mui/material';
 import { toast } from 'react-toastify';
 import CallApi from '../../../service/CallAPI';
 
-const ConfirmBookingModal = ({ isOpen, onRequestClose, courtId, selectedEvents, refreshData, clearSelectedEvents }) => {
+const ConfirmBookingModal = ({ isOpen, onRequestClose, courtId, selectedEvents, refreshData, resetEvents }) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false); // Thêm trạng thái loading
@@ -47,8 +47,10 @@ const ConfirmBookingModal = ({ isOpen, onRequestClose, courtId, selectedEvents, 
       await CallApi("/api/user/booking", "post", data, {});
       toast.success("Booking successful!");
       onRequestClose();
-      refreshData(courtId); // Refresh the data to get the latest bookings
-      clearSelectedEvents(); // Xóa state
+      setTimeout(async () => {
+        resetEvents(); // Xóa state
+        await refreshData(courtId); // Refresh the data to get the latest bookings
+      }, 10); // Chờ 1 giây trước khi tải lại dữ liệu
       setName(''); // Xóa state
       setPhone(''); // Xóa state
     } catch (error) {
@@ -61,50 +63,47 @@ const ConfirmBookingModal = ({ isOpen, onRequestClose, courtId, selectedEvents, 
   return (
     <Modal open={isOpen} onClose={!loading ? onRequestClose : null} aria-labelledby="booking-modal-title" aria-describedby="booking-modal-description">
       <Box sx={{ bgcolor: 'background.paper', p: 4, borderRadius: 1, maxWidth: 500, mx: 'auto', mt: 10, position: 'relative' }}>
-        {loading && (
-          <Box sx={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1300 }}>
-            <CircularProgress />
-          </Box>
-        )}
-        {!loading && (
-          <>
-            <Typography id="booking-modal-title" variant="h6" component="h2" className="!mb-4">
-              Nhập thông tin đặt sân
-            </Typography>
-            <TextField
-              label="Tên"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              fullWidth
-              className="!mb-4"
-            />
-            <TextField
-              label="Số điện thoại"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              fullWidth
-              className="!mb-4"
-            />
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
-              <Button
-                onClick={handleConfirmBooking}
-                variant="contained"
-                color="primary"
-                disabled={loading} // Vô hiệu hóa nút khi đang tải
-              >
-                Xác nhận
-              </Button>
-              <Button
-                onClick={onRequestClose}
-                variant="outlined"
-                color="secondary"
-                disabled={loading} // Vô hiệu hóa nút khi đang tải
-              >
-                Đóng
-              </Button>
-            </Box>
-          </>
-        )}
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+        <Typography id="booking-modal-title" variant="h6" component="h2" className="!mb-4">
+          Nhập thông tin đặt sân
+        </Typography>
+        <TextField
+          label="Tên"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          fullWidth
+          className="!mb-4"
+        />
+        <TextField
+          label="Số điện thoại"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          fullWidth
+          className="!mb-4"
+        />
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
+          <Button
+            onClick={handleConfirmBooking}
+            variant="contained"
+            color="primary"
+            disabled={loading} // Vô hiệu hóa nút khi đang tải
+          >
+            Xác nhận
+          </Button>
+          <Button
+            onClick={onRequestClose}
+            variant="outlined"
+            color="secondary"
+            disabled={loading} // Vô hiệu hóa nút khi đang tải
+          >
+            Đóng
+          </Button>
+        </Box>
       </Box>
     </Modal>
   );
