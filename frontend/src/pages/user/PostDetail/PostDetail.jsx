@@ -22,7 +22,7 @@ const PostDetail = () => {
   const fetchData = async (id) => {
     try {
       const response = await CallApi(`/api/user/post/${id}`, "get");
-      console.log("🚀 ========= response:", response.data);
+      console.log("🚀 ========= response:", response);
       setPost(response.data);
     } catch (error) {
       toast.error(error.response?.data?.error);
