@@ -36,7 +36,11 @@ const blogUserService = {
         createdAt: 'asc',
       },
       include: {
-        account: true,
+        account: {
+          include: {
+            user: true,
+          },
+        },
       },
       ...getQueryPagination(pagination),
     });
@@ -49,7 +53,11 @@ const blogUserService = {
         id,
       },
       include: {
-        account: true,
+        account: {
+          include: {
+            user: true,
+          },
+        },
       },
     });
   },

@@ -32079,3 +32079,155 @@
 [2024-07-23T18:38:48.229] [INFO] default - Express server is listening at http://localhost:9999 🚀
 [2024-07-23T18:41:11.556] [INFO] default - Express server is listening at http://localhost:9999 🚀
 [2024-07-23T19:40:32.972] [INFO] default - Express server is listening at http://localhost:9999 🚀
+[2024-07-23T19:58:11.146] [INFO] default - Express server is listening at http://localhost:9999 🚀
+[2024-07-23T20:14:30.420] [ERROR] default - ERROR LOG  7/23/2024, 8:14:30 PM
+[2024-07-23T20:14:30.421] [WARN] default - Request: "GET" "/api/user/blog/23"
+[2024-07-23T20:14:30.422] [WARN] default - Params: {}
+[2024-07-23T20:14:30.422] [WARN] default - Body: {}
+[2024-07-23T20:14:30.423] [WARN] default - Query: {}
+[2024-07-23T20:14:30.423] [ERROR] default - Error:  {"status":400,"messageObject":"Khồng tìm thấy bài viết"}
+[2024-07-23T20:14:30.427] [ERROR] default - Error stack:  Error
+    at get (D:\Learning\SEP490-SM2024\backend\src\modules\user\blog\blog.controller.ts:68:14)
+[2024-07-23T20:14:30.439] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-23T20:14:40.452] [INFO] default - Response {
+  id: 1,
+  accountId: 124,
+  caption: 'Nature photography of a forest',
+  image: 'https://sep490.s3.us-east-1.amazonaws.com/Reperum%20brevit%20ut%20eritos%20certe%20beatequos%2C%20bonassiden%20in%20epicatio%20gravistotel%20in%20dolorum%20homin.?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131440Z&X-Amz-Expires=60&X-Amz-Signature=4a7443027e0383bb07f8b99329ea2db38ca6a3d17a9c9dddbdb8ca2f6dc1ff6f&X-Amz-SignedHeaders=host&x-id=GetObject',
+  createdAt: '2024-06-24T02:56:02.762Z',
+  updatedAt: '2024-07-23T19:59:09.312Z',
+  account: {
+    id: 124,
+    email: 'Ethyl.Littel3056@vainhoward.biz',
+    password: 'h%%dkjwQ%IVO',
+    role: 'USER',
+    otp: 'Labornatur protere greges ilest ab quae.',
+    otpExpired: 2020-05-17T23:29:27.000Z,
+    isVerified: false,
+    emailToken: '5e9a7fd7-d1c1-5edd-bd0d-cf77325483eb',
+    isActive: true,
+    createdAt: 2024-07-23T19:56:02.239Z,
+    updatedAt: 2020-01-25T07:11:36.000Z
+  }
+}
+[2024-07-23T20:15:27.235] [INFO] default - Express server is listening at http://localhost:9999 🚀
+[2024-07-23T20:15:28.042] [INFO] default - Response {
+  id: 1,
+  accountId: 124,
+  caption: 'Nature photography of a forest',
+  image: 'https://sep490.s3.us-east-1.amazonaws.com/Reperum%20brevit%20ut%20eritos%20certe%20beatequos%2C%20bonassiden%20in%20epicatio%20gravistotel%20in%20dolorum%20homin.?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131528Z&X-Amz-Expires=60&X-Amz-Signature=e9dcc6819a8dcc2474353c5c2fa8ee59fdceef97ed07a3beea50dbc7fc5f2fee&X-Amz-SignedHeaders=host&x-id=GetObject',
+  createdAt: '2024-06-24T02:56:02.762Z',
+  updatedAt: '2024-07-23T19:59:09.312Z',
+  account: {
+    id: 124,
+    email: 'Ethyl.Littel3056@vainhoward.biz',
+    password: 'h%%dkjwQ%IVO',
+    role: 'USER',
+    otp: 'Labornatur protere greges ilest ab quae.',
+    otpExpired: 2020-05-17T23:29:27.000Z,
+    isVerified: false,
+    emailToken: '5e9a7fd7-d1c1-5edd-bd0d-cf77325483eb',
+    isActive: true,
+    createdAt: 2024-07-23T19:56:02.239Z,
+    updatedAt: 2020-01-25T07:11:36.000Z,
+    user: null
+  }
+}
+[2024-07-23T20:15:56.885] [INFO] default - Express server is listening at http://localhost:9999 🚀
+[2024-07-23T20:16:00.461] [ERROR] default - ERROR LOG  7/23/2024, 8:16:00 PM
+[2024-07-23T20:16:00.461] [WARN] default - Request: "GET" "/api/user/blog/get-all"
+[2024-07-23T20:16:00.462] [WARN] default - Params: {}
+[2024-07-23T20:16:00.462] [WARN] default - Body: {}
+[2024-07-23T20:16:00.462] [WARN] default - Query: {}
+[2024-07-23T20:16:00.463] [ERROR] default - Error:  {"status":500,"messageObject":"\nInvalid `database.blog.findUnique()` invocation in\nD:\\Learning\\SEP490-SM2024\\backend\\src\\modules\\user\\blog\\blog.service.ts:51:26\n\n  48   return { total: total.length, blogs };\n  49 },\n  50 get: async (id: number): Promise<Blog | null> => {\n→ 51   return database.blog.findUnique({\n         where: {\n       +   id: Int\n         },\n         include: {\n           account: {\n             include: {\n               user: true\n             }\n           }\n         }\n       })\n\nArgument `id` is missing."}
+[2024-07-23T20:16:00.464] [ERROR] default - Error stack:  Error
+    at get (D:\Learning\SEP490-SM2024\backend\src\modules\user\blog\blog.controller.ts:71:12)
+[2024-07-23T20:16:00.464] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-23T20:16:04.524] [ERROR] default - ERROR LOG  7/23/2024, 8:16:04 PM
+[2024-07-23T20:16:04.524] [WARN] default - Request: "GET" "/api/user/blog/get-all"
+[2024-07-23T20:16:04.525] [WARN] default - Params: {}
+[2024-07-23T20:16:04.525] [WARN] default - Body: {}
+[2024-07-23T20:16:04.525] [WARN] default - Query: {}
+[2024-07-23T20:16:04.525] [ERROR] default - Error:  {"status":500,"messageObject":"\nInvalid `database.blog.findUnique()` invocation in\nD:\\Learning\\SEP490-SM2024\\backend\\src\\modules\\user\\blog\\blog.service.ts:51:26\n\n  48   return { total: total.length, blogs };\n  49 },\n  50 get: async (id: number): Promise<Blog | null> => {\n→ 51   return database.blog.findUnique({\n         where: {\n       +   id: Int\n         },\n         include: {\n           account: {\n             include: {\n               user: true\n             }\n           }\n         }\n       })\n\nArgument `id` is missing."}
+[2024-07-23T20:16:04.526] [ERROR] default - Error stack:  Error
+    at get (D:\Learning\SEP490-SM2024\backend\src\modules\user\blog\blog.controller.ts:71:12)
+[2024-07-23T20:16:04.526] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-23T20:16:15.888] [INFO] default - Express server is listening at http://localhost:9999 🚀
+[2024-07-23T20:16:18.244] [ERROR] default - ERROR LOG  7/23/2024, 8:16:18 PM
+[2024-07-23T20:16:18.244] [WARN] default - Request: "GET" "/api/user/blog/get-all"
+[2024-07-23T20:16:18.245] [WARN] default - Params: {}
+[2024-07-23T20:16:18.245] [WARN] default - Body: {}
+[2024-07-23T20:16:18.245] [WARN] default - Query: {}
+[2024-07-23T20:16:18.246] [ERROR] default - Error:  {"status":500,"messageObject":"\nInvalid `database.blog.findUnique()` invocation in\nD:\\Learning\\SEP490-SM2024\\backend\\src\\modules\\user\\blog\\blog.service.ts:47:26\n\n  44   return { total: total.length, blogs };\n  45 },\n  46 get: async (id: number): Promise<Blog | null> => {\n→ 47   return database.blog.findUnique({\n         where: {\n       +   id: Int\n         },\n         include: {\n           account: {\n             include: {\n               user: true\n             }\n           }\n         }\n       })\n\nArgument `id` is missing."}
+[2024-07-23T20:16:18.261] [ERROR] default - Error stack:  Error
+    at get (D:\Learning\SEP490-SM2024\backend\src\modules\user\blog\blog.controller.ts:71:12)
+[2024-07-23T20:16:18.261] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-23T20:16:34.491] [INFO] default - Express server is listening at http://localhost:9999 🚀
+[2024-07-23T20:16:44.519] [ERROR] default - ERROR LOG  7/23/2024, 8:16:44 PM
+[2024-07-23T20:16:44.520] [WARN] default - Request: "GET" "/api/user/blog/get-all"
+[2024-07-23T20:16:44.520] [WARN] default - Params: {}
+[2024-07-23T20:16:44.521] [WARN] default - Body: {"pagination":{"page":1,"perPage":5}}
+[2024-07-23T20:16:44.521] [WARN] default - Query: {}
+[2024-07-23T20:16:44.521] [ERROR] default - Error:  {"status":500,"messageObject":"\nInvalid `database.blog.findUnique()` invocation in\nD:\\Learning\\SEP490-SM2024\\backend\\src\\modules\\user\\blog\\blog.service.ts:47:26\n\n  44   return { total: total.length, blogs };\n  45 },\n  46 get: async (id: number): Promise<Blog | null> => {\n→ 47   return database.blog.findUnique({\n         where: {\n       +   id: Int\n         },\n         include: {\n           account: {\n             include: {\n               user: true\n             }\n           }\n         }\n       })\n\nArgument `id` is missing."}
+[2024-07-23T20:16:44.522] [ERROR] default - Error stack:  Error
+    at get (D:\Learning\SEP490-SM2024\backend\src\modules\user\blog\blog.controller.ts:71:12)
+[2024-07-23T20:16:44.523] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-23T20:16:46.242] [ERROR] default - ERROR LOG  7/23/2024, 8:16:46 PM
+[2024-07-23T20:16:46.243] [WARN] default - Request: "GET" "/api/user/blog/get-all"
+[2024-07-23T20:16:46.243] [WARN] default - Params: {}
+[2024-07-23T20:16:46.243] [WARN] default - Body: {"pagination":{"page":1,"perPage":5}}
+[2024-07-23T20:16:46.244] [WARN] default - Query: {}
+[2024-07-23T20:16:46.244] [ERROR] default - Error:  {"status":500,"messageObject":"\nInvalid `database.blog.findUnique()` invocation in\nD:\\Learning\\SEP490-SM2024\\backend\\src\\modules\\user\\blog\\blog.service.ts:47:26\n\n  44   return { total: total.length, blogs };\n  45 },\n  46 get: async (id: number): Promise<Blog | null> => {\n→ 47   return database.blog.findUnique({\n         where: {\n       +   id: Int\n         },\n         include: {\n           account: {\n             include: {\n               user: true\n             }\n           }\n         }\n       })\n\nArgument `id` is missing."}
+[2024-07-23T20:16:46.245] [ERROR] default - Error stack:  Error
+    at get (D:\Learning\SEP490-SM2024\backend\src\modules\user\blog\blog.controller.ts:71:12)
+[2024-07-23T20:16:46.245] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-23T20:16:49.284] [INFO] default - Response {
+  total: 21,
+  blogs: [
+    {
+      id: 8,
+      accountId: 131,
+      caption: 'Abstract photography of patterns',
+      image: 'https://sep490.s3.us-east-1.amazonaws.com/Ophia%20maxime%20non%20sunt%20si%20ficilius%20nobistunae%2C%20saperitur%20patre%20nec%20dicavitor%20veren.?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131649Z&X-Amz-Expires=60&X-Amz-Signature=e0e88c0a21e4820660ee206f1cd847bfcc169de4a7093a6f4825344e5be45cd8&X-Amz-SignedHeaders=host&x-id=GetObject',
+      createdAt: '2022-07-24T02:56:03.127Z',
+      updatedAt: '2024-07-23T20:14:58.685Z',
+      account: [Object]
+    },
+    {
+      id: 1,
+      accountId: 124,
+      caption: 'Nature photography of a forest',
+      image: 'https://sep490.s3.us-east-1.amazonaws.com/Reperum%20brevit%20ut%20eritos%20certe%20beatequos%2C%20bonassiden%20in%20epicatio%20gravistotel%20in%20dolorum%20homin.?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131649Z&X-Amz-Expires=60&X-Amz-Signature=435c88e5a64444dc0b96b254ebdc185e4d83bff48ad5bcf393bcdcbddcb2163e&X-Amz-SignedHeaders=host&x-id=GetObject',
+      createdAt: '2024-06-24T02:56:02.762Z',
+      updatedAt: '2024-07-23T19:59:09.312Z',
+      account: [Object]
+    },
+    {
+      id: 21,
+      accountId: 2,
+      caption: 'bài mới nhất',
+      image: 'https://sep490.s3.us-east-1.amazonaws.com/a87466f6433203448ab6624b14b81920249f56a72af08597173ccc80f260979d?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131649Z&X-Amz-Expires=60&X-Amz-Signature=f97a68f18b6bd6578e4dffa4099cd5d738cac684cbc17ea25803f57029ccfb9a&X-Amz-SignedHeaders=host&x-id=GetObject',
+      createdAt: '2024-07-23T20:03:15.295Z',
+      updatedAt: '2024-07-23T20:03:15.295Z',
+      account: [Object]
+    },
+    {
+      id: 2,
+      accountId: 125,
+      caption: 'Macro shot of a bee on a flower',
+      image: 'https://sep490.s3.us-east-1.amazonaws.com/Delectari%20non%20de%20disciplinam%20maior%20tum%20viderita.?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131649Z&X-Amz-Expires=60&X-Amz-Signature=6e1cd5f7d8cb761ae8caebce4fbc30145310cd572fca20fe843a58b1a237d79b&X-Amz-SignedHeaders=host&x-id=GetObject',
+      createdAt: '2024-07-24T02:56:02.813Z',
+      updatedAt: '2020-09-06T10:47:56.000Z',
+      account: [Object]
+    },
+    {
+      id: 3,
+      accountId: 126,
+      caption: 'Landscape of a city skyline',
+      image: 'https://sep490.s3.us-east-1.amazonaws.com/Quod%20voluptates%20anim%20es%20nihilla%20geometiam%2C%20non%20et%20suo%20etenimus%20tota%20via%20et%20illudicur.?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131649Z&X-Amz-Expires=60&X-Amz-Signature=757b6b29896f175bd4640528af9390809a28c3757d8f9a11ec2ba8d1f4baee9a&X-Amz-SignedHeaders=host&x-id=GetObject',
+      createdAt: '2024-07-24T02:56:02.865Z',
+      updatedAt: '2020-01-21T14:50:20.000Z',
+      account: [Object]
+    }
+  ]
+}
