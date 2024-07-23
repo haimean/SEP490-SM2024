@@ -32231,3 +32231,54 @@
     }
   ]
 }
+[2024-07-23T20:17:08.760] [INFO] default - Express server is listening at http://localhost:9999 🚀
+[2024-07-23T20:17:11.336] [INFO] default - Response {
+  total: 21,
+  blogs: [
+    {
+      id: 8,
+      accountId: 131,
+      caption: 'Abstract photography of patterns',
+      image: 'https://sep490.s3.us-east-1.amazonaws.com/Ophia%20maxime%20non%20sunt%20si%20ficilius%20nobistunae%2C%20saperitur%20patre%20nec%20dicavitor%20veren.?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131711Z&X-Amz-Expires=60&X-Amz-Signature=2ba9f99b758c56d67c4f1eabb932b0c898f3d630ce5c114203add2b0cc6b46dd&X-Amz-SignedHeaders=host&x-id=GetObject',
+      createdAt: '2022-07-24T02:56:03.127Z',
+      updatedAt: '2024-07-23T20:14:58.685Z',
+      account: [Object]
+    },
+    {
+      id: 1,
+      accountId: 124,
+      caption: 'Nature photography of a forest',
+      image: 'https://sep490.s3.us-east-1.amazonaws.com/Reperum%20brevit%20ut%20eritos%20certe%20beatequos%2C%20bonassiden%20in%20epicatio%20gravistotel%20in%20dolorum%20homin.?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131711Z&X-Amz-Expires=60&X-Amz-Signature=d80a270453e2db633192cf2e0cb08faf0cff45a92b561a05a47771ee214d67b7&X-Amz-SignedHeaders=host&x-id=GetObject',
+      createdAt: '2024-06-24T02:56:02.762Z',
+      updatedAt: '2024-07-23T19:59:09.312Z',
+      account: [Object]
+    },
+    {
+      id: 21,
+      accountId: 2,
+      caption: 'bài mới nhất',
+      image: 'https://sep490.s3.us-east-1.amazonaws.com/a87466f6433203448ab6624b14b81920249f56a72af08597173ccc80f260979d?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131711Z&X-Amz-Expires=60&X-Amz-Signature=d12358cff2601a5e07ff5fee0c0bba836d6569853a1e93445feec4e9b1e035ac&X-Amz-SignedHeaders=host&x-id=GetObject',
+      createdAt: '2024-07-23T20:03:15.295Z',
+      updatedAt: '2024-07-23T20:03:15.295Z',
+      account: [Object]
+    },
+    {
+      id: 2,
+      accountId: 125,
+      caption: 'Macro shot of a bee on a flower',
+      image: 'https://sep490.s3.us-east-1.amazonaws.com/Delectari%20non%20de%20disciplinam%20maior%20tum%20viderita.?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131711Z&X-Amz-Expires=60&X-Amz-Signature=b7c2fa502e68ec1d45b8ea37e682a51e0ffdb6385f991e808e20bc4b94ff5d8b&X-Amz-SignedHeaders=host&x-id=GetObject',
+      createdAt: '2024-07-24T02:56:02.813Z',
+      updatedAt: '2020-09-06T10:47:56.000Z',
+      account: [Object]
+    },
+    {
+      id: 3,
+      accountId: 126,
+      caption: 'Landscape of a city skyline',
+      image: 'https://sep490.s3.us-east-1.amazonaws.com/Quod%20voluptates%20anim%20es%20nihilla%20geometiam%2C%20non%20et%20suo%20etenimus%20tota%20via%20et%20illudicur.?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131711Z&X-Amz-Expires=60&X-Amz-Signature=ea36a4841772f132d1188b84f74806a5eaa5fadfa99bab5d39c02025bdd8b3a6&X-Amz-SignedHeaders=host&x-id=GetObject',
+      createdAt: '2024-07-24T02:56:02.865Z',
+      updatedAt: '2020-01-21T14:50:20.000Z',
+      account: [Object]
+    }
+  ]
+}

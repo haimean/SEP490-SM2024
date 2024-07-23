@@ -33,7 +33,7 @@ const blogUserService = {
   ): Promise<{ total: number; blogs: Blog[] }> => {
     const blogs = await database.blog.findMany({
       orderBy: {
-        createdAt: 'asc',
+        createdAt: 'desc',
       },
       include: {
         account: {
