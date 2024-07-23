@@ -20,6 +20,13 @@ const postUserService = {
     return await database.post.findUnique({
       where: {
         id,
+        booking: {
+          Court: {
+            Branches: {
+              accountId,
+            },
+          },
+        },
       },
       include: {
         booking: {
