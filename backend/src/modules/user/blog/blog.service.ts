@@ -28,13 +28,20 @@ const blogUserService = {
       },
     });
   },
-  getAll: async (pagination: Pagination): Promise<Blog[]> => {
-    return await database.blog.findMany({
+  getAll: async (
+    pagination: Pagination
+  ): Promise<{ total: number; blogs: Blog[] }> => {
+    const blogs = await database.blog.findMany({
       orderBy: {
-        createdAt: 'desc',
+        createdAt: 'asc',
+      },
+      include: {
+        account: true,
       },
       ...getQueryPagination(pagination),
     });
+    const total = await database.blog.findMany();
+    return { total: total.length, blogs };
   },
   get: async (id: number): Promise<Blog | null> => {
     return database.blog.findUnique({

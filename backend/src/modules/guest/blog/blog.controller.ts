@@ -4,12 +4,27 @@ import { ResponseHandler } from '../../../outcomes/responseHandler';
 import CustomError from '../../../outcomes/customError';
 import NotFoundError from '../../../outcomes/notFoundError';
 import { Blog } from '@prisma/client';
+import { getObjectSignedUrl } from '../../../lib/s3';
 
 const blogGuestController = {
-  getAll: async (req: Request, res: Response, next: NextFunction) => {
+  getAllOfUser: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
     try {
-      const blogs: Blog[] = await blogGuestService.getAll();
-      ResponseHandler(res, blogs);
+      const { pagination } = req.body;
+      const data: { total: number; blogs: Blog[] } =
+        await blogGuestService.getAll(pagination);
+
+      for (let index = 0; index < data.blogs.length; index++) {
+        if (data.blogs[index]?.image) {
+          data.blogs[index].image = await getObjectSignedUrl(
+            data.blogs[index]?.image
+          );
+        }
+      }
+      ResponseHandler(res, data);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
     }

@@ -40,8 +40,17 @@ const blogUserController = {
   ) => {
     try {
       const { pagination } = req.body;
-      const blogs: Blog[] = await blogUserService.getAll(pagination);
-      ResponseHandler(res, blogs);
+      const data: { total: number; blogs: Blog[] } =
+        await blogUserService.getAll(pagination);
+
+      for (let index = 0; index < data.blogs.length; index++) {
+        if (data.blogs[index]?.image) {
+          data.blogs[index].image = await getObjectSignedUrl(
+            data.blogs[index]?.image
+          );
+        }
+      }
+      ResponseHandler(res, data);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
     }
