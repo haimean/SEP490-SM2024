@@ -1,5 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
-import { deleteFile, uploadFile } from '../../../lib/s3';
+import {
+  deleteFile,
+  getObjectSignedUrl,
+  uploadFile,
+} from '../../../lib/s3';
 import { ResponseHandler } from '../../../outcomes/responseHandler';
 import CustomError from '../../../outcomes/customError';
 import { Blog } from '@prisma/client';
@@ -46,6 +50,9 @@ const blogUserController = {
     try {
       const { id } = req.params;
       const blog: Blog | null = await blogUserService.get(Number(id));
+      if (blog?.image) {
+        blog.image = await getObjectSignedUrl(blog?.image);
+      }
       if (blog) {
         ResponseHandler(res, blog);
       } else {

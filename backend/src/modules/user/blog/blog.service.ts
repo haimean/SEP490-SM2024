@@ -41,6 +41,9 @@ const blogUserService = {
       where: {
         id,
       },
+      include: {
+        account: true,
+      },
     });
   },
 };
