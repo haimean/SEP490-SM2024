@@ -20,7 +20,7 @@ bookingHostRouter.post(
 );
 
 bookingHostRouter.post(
-  '/',
+  '/create',
   validate(bookingHostValidator.create),
   bookingHostController.create
 );
