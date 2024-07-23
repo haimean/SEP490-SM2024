@@ -1,11 +1,9 @@
-import React from 'react';
-import AvailableCourt from '../../../components/user/AvailableCourt/AvailableCourt.jsx';
+import AvailableCourt from "../../../components/user/AvailableCourt/AvailableCourt.jsx";
 
 const AvailableCourtPage = () => {
-
   return (
     <div>
-      <AvailableCourt/>
+      <AvailableCourt />
     </div>
   );
 };

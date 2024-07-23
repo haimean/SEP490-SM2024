@@ -9,77 +9,110 @@ import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip"; // Thêm Tooltip từ Material-UI
+import { toast } from "react-toastify";
+import CallApi from "../../../service/CallAPI";
 
-export default function WaitingListRow({ row, handleInvite }) {
-  const { name, avatarUrl, title, level, friendliness } = row;
+export default function WaitingListRow({ row, handleInvite, postId }) {
+  console.log("🚀 ========= row:", row);
+  const { type } = row;
+  const { email, avatarUrl, friendliness } = row.userAvailability.account;
+  // const { fullName, gender } = row?.userAvailability?.account?.user;
+  const { id } = row.userAvailability;
+
+  // console.log("🚀 ========= fullName:", fullName);
   const [isInvited, setIsInvited] = useState(false);
-  const [isFading, setIsFading] = useState(false);
 
   const handleInviteClick = () => {
     setIsInvited(true);
-    setIsFading(true);
-    setTimeout(() => {
-      handleInvite(name);
+    setTimeout((id) => {
+      handleInvite(id);
     }, 1000); // Thời gian mờ dần là 1 giây
   };
-
+  const sendInvitation = async (id) => {
+    console.log("🚀 ========= id:", id);
+    console.log("🚀 ========= pid:", postId);
+    try {
+      const result = await CallApi(
+        "/api/user/invitation/requests-to-match",
+        "post",
+        {
+          postId: postId,
+          userAvailabilityId: id,
+        }
+      );
+      toast.success("Mời thành công");
+      console.log("🚀 ========= result:", result);
+    } catch (error) {
+      console.log("🚀 ========= error:", error);
+      toast.error(error.response?.data?.error);
+    }
+  };
   return (
     <>
-      <TableRow
-        hover
-        tabIndex={-1}
-        className={`transition-opacity duration-1000 ${isFading ? "opacity-0" : "opacity-100"
-          }`}
-      >
-        <TableCell component="th" scope="row" padding="none" sx={{ paddingLeft: '1.5rem', width: "20%", maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis" }}>
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <Avatar alt={name} src={avatarUrl} />
-            <Tooltip title={name}>
-              <Typography variant="subtitle2" noWrap>
-                {name}
-              </Typography>
-            </Tooltip>
-          </Stack>
-        </TableCell>
+      {type == "UNAVAILABLE" && (
+        <TableRow hover tabIndex={-1}>
+          <TableCell
+            component="th"
+            scope="row"
+            padding="none"
+            sx={{
+              paddingLeft: "1.5rem",
+              width: "20%",
+              maxWidth: "150px",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Avatar alt={email} src={avatarUrl} />
+              <Tooltip title={email}>
+                <Typography variant="subtitle2" noWrap>
+                  {email}
+                </Typography>
+              </Tooltip>
+            </Stack>
+          </TableCell>
 
-        <TableCell align="center" sx={{ width: "20%", maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis" }}>
-          <Tooltip title={title}>
-            <Typography variant="subtitle2" noWrap>
-              {title}
+          <TableCell
+            align="center"
+            sx={{
+              width: "20%",
+              maxWidth: "150px",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            <Tooltip>
+              {/* <Typography variant="subtitle2" noWrap>
+                {fullName !== null ? fullName : ""}
+              </Typography> */}
+            </Tooltip>
+          </TableCell>
+          {/* <TableCell align="center">
+            <Typography variant="subtitle2" className="font-bold" noWrap>
+              {gender == "FEMALE" ? "Nữ" : "Nam"}
             </Typography>
-          </Tooltip>
-        </TableCell>
-        <TableCell align="center">
-          <Typography variant="subtitle2" className="font-bold" noWrap>
-            {level}
-          </Typography>
-        </TableCell>
-        <TableCell align="center">
-          <Rating value={friendliness} readOnly />
-        </TableCell>
-        <TableCell align="center">
-          {isInvited ? (
-            <Button variant="contained" disabled>
-              Đã mời
-            </Button>
-          ) : (
-            <Button variant="contained" color="primary" onClick={handleInviteClick}>
-              Mời
-            </Button>
-          )}
-        </TableCell>
-      </TableRow>
+          </TableCell> */}
+          <TableCell align="center">
+            <Rating value={friendliness} readOnly />
+          </TableCell>
+          <TableCell align="center">
+            {isInvited ? (
+              <Button variant="contained" disabled>
+                Đã mời
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => sendInvitation(id)}
+              >
+                Mời
+              </Button>
+            )}
+          </TableCell>
+        </TableRow>
+      )}
     </>
   );
 }
-
-WaitingListRow.propTypes = {
-  row: PropTypes.shape({
-    avatarUrl: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    level: PropTypes.string.isRequired,
-    friendliness: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-  }).isRequired,
-  handleInvite: PropTypes.func.isRequired,
-};

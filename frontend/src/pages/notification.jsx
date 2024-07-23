@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import socketIOClient from "socket.io-client";
 
-const ENDPOINT = "http://localhost:4200";
+const ENDPOINT = "https://sep490-be.mooo.com";
 
 const Notification = () => {
   const [notifications, setNotifications] = useState([]);

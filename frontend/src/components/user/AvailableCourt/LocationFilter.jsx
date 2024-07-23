@@ -1,117 +1,199 @@
-import React, { useState, useEffect } from 'react';
-import { FormControl, Select, MenuItem, Box, TextField } from '@mui/material';
-import axios from 'axios';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from "react";
+import { FormControl, Select, MenuItem, Box, TextField } from "@mui/material";
+import axios from "axios";
+import PropTypes from "prop-types";
 
 const LocationFilter = ({ onFilterChange }) => {
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
-  const [selectedProvince, setSelectedProvince] = useState({ id: '', name: '' });
-  const [selectedDistrict, setSelectedDistrict] = useState({ id: '', name: '' });
-  const [selectedWard, setSelectedWard] = useState({ id: '', name: '' });
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
-  const [level, setLevel] = useState('');
-  const [price, setPrice] = useState('');
+  const [selectedProvince, setSelectedProvince] = useState({
+    id: "",
+    name: "",
+  });
+  const [selectedDistrict, setSelectedDistrict] = useState({
+    id: "",
+    name: "",
+  });
+  const [selectedWard, setSelectedWard] = useState({ id: "", name: "" });
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [level, setLevel] = useState("");
+  const [price, setPrice] = useState("");
 
   useEffect(() => {
-    axios.get('https://esgoo.net/api-tinhthanh/1/0.htm')
-      .then(response => {
+    axios
+      .get("https://esgoo.net/api-tinhthanh/1/0.htm")
+      .then((response) => {
         if (response.data.error === 0) {
           setProvinces(response.data.data);
         }
       })
-      .catch(error => console.error('Error fetching provinces:', error));
+      .catch((error) => console.error("Error fetching provinces:", error));
   }, []);
 
   const handleProvinceChange = (event) => {
     const value = event.target.value;
     if (!value) {
-      setSelectedProvince({ id: '', name: '' });
-      setSelectedDistrict({ id: '', name: '' });
-      setSelectedWard({ id: '', name: '' });
+      setSelectedProvince({ id: "", name: "" });
+      setSelectedDistrict({ id: "", name: "" });
+      setSelectedWard({ id: "", name: "" });
       setDistricts([]);
       setWards([]);
-      onFilterChange('', '', '', date, time, level, price);
+      onFilterChange("", "", "", date, time, level, price);
       return;
     }
 
-    const selectedOption = provinces.find(province => province.id === value);
-    setSelectedProvince({ id: selectedOption.id, name: selectedOption.full_name });
-    setSelectedDistrict({ id: '', name: '' });
-    setSelectedWard({ id: '', name: '' });
-    axios.get(`https://esgoo.net/api-tinhthanh/2/${selectedOption.id}.htm`)
-      .then(response => {
+    const selectedOption = provinces.find((province) => province.id === value);
+    setSelectedProvince({
+      id: selectedOption.id,
+      name: selectedOption.full_name,
+    });
+    setSelectedDistrict({ id: "", name: "" });
+    setSelectedWard({ id: "", name: "" });
+    axios
+      .get(`https://esgoo.net/api-tinhthanh/2/${selectedOption.id}.htm`)
+      .then((response) => {
         if (response.data.error === 0) {
           setDistricts(response.data.data);
-          setWards([]);  // Reset wards
+          setWards([]); // Reset wards
         }
       })
-      .catch(error => console.error('Error fetching districts:', error));
-    onFilterChange(selectedOption.full_name, '', '', date, time, level, price);
+      .catch((error) => console.error("Error fetching districts:", error));
+    onFilterChange(selectedOption.full_name, "", "", date, time, level, price);
   };
 
   const handleDistrictChange = (event) => {
     const value = event.target.value;
     if (!value) {
-      setSelectedDistrict({ id: '', name: '' });
-      setSelectedWard({ id: '', name: '' });
+      setSelectedDistrict({ id: "", name: "" });
+      setSelectedWard({ id: "", name: "" });
       setWards([]);
-      onFilterChange(selectedProvince.name, '', '', date, time, level, price);
+      onFilterChange(selectedProvince.name, "", "", date, time, level, price);
       return;
     }
 
-    const selectedOption = districts.find(district => district.id === value);
-    setSelectedDistrict({ id: selectedOption.id, name: selectedOption.full_name });
-    setSelectedWard({ id: '', name: '' });
-    axios.get(`https://esgoo.net/api-tinhthanh/3/${selectedOption.id}.htm`)
-      .then(response => {
+    const selectedOption = districts.find((district) => district.id === value);
+    setSelectedDistrict({
+      id: selectedOption.id,
+      name: selectedOption.full_name,
+    });
+    setSelectedWard({ id: "", name: "" });
+    axios
+      .get(`https://esgoo.net/api-tinhthanh/3/${selectedOption.id}.htm`)
+      .then((response) => {
         if (response.data.error === 0) {
           setWards(response.data.data);
         }
       })
-      .catch(error => console.error('Error fetching wards:', error));
-    onFilterChange(selectedProvince.name, selectedOption.full_name, '', date, time, level, price);
+      .catch((error) => console.error("Error fetching wards:", error));
+    onFilterChange(
+      selectedProvince.name,
+      selectedOption.full_name,
+      "",
+      date,
+      time,
+      level,
+      price
+    );
   };
 
   const handleWardChange = (event) => {
     const value = event.target.value;
     if (!value) {
-      setSelectedWard({ id: '', name: '' });
-      onFilterChange(selectedProvince.name, selectedDistrict.name, '', date, time, level, price);
+      setSelectedWard({ id: "", name: "" });
+      onFilterChange(
+        selectedProvince.name,
+        selectedDistrict.name,
+        "",
+        date,
+        time,
+        level,
+        price
+      );
       return;
     }
 
-    const selectedOption = wards.find(ward => ward.id === value);
+    const selectedOption = wards.find((ward) => ward.id === value);
     setSelectedWard({ id: selectedOption.id, name: selectedOption.full_name });
-    onFilterChange(selectedProvince.name, selectedDistrict.name, selectedOption.full_name, date, time, level, price);
+    onFilterChange(
+      selectedProvince.name,
+      selectedDistrict.name,
+      selectedOption.full_name,
+      date,
+      time,
+      level,
+      price
+    );
   };
 
   const handleDateChange = (event) => {
     setDate(event.target.value);
-    onFilterChange(selectedProvince.name, selectedDistrict.name, selectedWard.name, event.target.value, time, level, price);
+    onFilterChange(
+      selectedProvince.name,
+      selectedDistrict.name,
+      selectedWard.name,
+      event.target.value,
+      time,
+      level,
+      price
+    );
   };
 
   const handleTimeChange = (event) => {
     setTime(event.target.value);
-    onFilterChange(selectedProvince.name, selectedDistrict.name, selectedWard.name, date, event.target.value, level, price);
+    onFilterChange(
+      selectedProvince.name,
+      selectedDistrict.name,
+      selectedWard.name,
+      date,
+      event.target.value,
+      level,
+      price
+    );
   };
 
   const handleLevelChange = (event) => {
     setLevel(event.target.value);
-    onFilterChange(selectedProvince.name, selectedDistrict.name, selectedWard.name, date, time, event.target.value, price);
+    onFilterChange(
+      selectedProvince.name,
+      selectedDistrict.name,
+      selectedWard.name,
+      date,
+      time,
+      event.target.value,
+      price
+    );
   };
 
   const handlePriceChange = (event) => {
     setPrice(event.target.value);
-    onFilterChange(selectedProvince.name, selectedDistrict.name, selectedWard.name, date, time, level, event.target.value);
+    onFilterChange(
+      selectedProvince.name,
+      selectedDistrict.name,
+      selectedWard.name,
+      date,
+      time,
+      level,
+      event.target.value
+    );
   };
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" mb={4} gap={2} className="flex-wrap">
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      mb={4}
+      gap={2}
+      className="flex-wrap"
+    >
       <FormControl className="w-48">
-        <Select value={selectedProvince.id} onChange={handleProvinceChange} displayEmpty>
+        <Select
+          value={selectedProvince.id}
+          onChange={handleProvinceChange}
+          displayEmpty
+        >
           <MenuItem value="">
             <span>Tỉnh/Thành phố</span>
           </MenuItem>
@@ -123,7 +205,11 @@ const LocationFilter = ({ onFilterChange }) => {
         </Select>
       </FormControl>
       <FormControl className="w-48" disabled={!selectedProvince.id}>
-        <Select value={selectedDistrict.id} onChange={handleDistrictChange} displayEmpty>
+        <Select
+          value={selectedDistrict.id}
+          onChange={handleDistrictChange}
+          displayEmpty
+        >
           <MenuItem value="">
             <span>Quận/Huyện</span>
           </MenuItem>
@@ -135,7 +221,11 @@ const LocationFilter = ({ onFilterChange }) => {
         </Select>
       </FormControl>
       <FormControl className="w-48" disabled={!selectedDistrict.id}>
-        <Select value={selectedWard.id} onChange={handleWardChange} displayEmpty>
+        <Select
+          value={selectedWard.id}
+          onChange={handleWardChange}
+          displayEmpty
+        >
           <MenuItem value="">
             <span>Phường/Xã</span>
           </MenuItem>
@@ -146,8 +236,20 @@ const LocationFilter = ({ onFilterChange }) => {
           ))}
         </Select>
       </FormControl>
-      <TextField type="date" label="Ngày" value={date} onChange={handleDateChange} InputLabelProps={{ shrink: true }} />
-      <TextField type="time" label="Giờ" value={time} onChange={handleTimeChange} InputLabelProps={{ shrink: true }} />
+      <TextField
+        type="date"
+        label="Ngày"
+        value={date}
+        onChange={handleDateChange}
+        InputLabelProps={{ shrink: true }}
+      />
+      <TextField
+        type="time"
+        label="Giờ"
+        value={time}
+        onChange={handleTimeChange}
+        InputLabelProps={{ shrink: true }}
+      />
       <FormControl className="w-48">
         <Select value={price} onChange={handlePriceChange} displayEmpty>
           <MenuItem value="">
@@ -157,20 +259,6 @@ const LocationFilter = ({ onFilterChange }) => {
           <MenuItem value="50000">Dưới 50,000</MenuItem>
           <MenuItem value="100000">Dưới 100,000</MenuItem>
           <MenuItem value="200000">Dưới 200,000</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl className="w-48">
-        <Select value={level} onChange={handleLevelChange} displayEmpty>
-          <MenuItem value="">
-            <span>Trình độ</span>
-          </MenuItem>
-          <MenuItem value="Yếu">Yếu</MenuItem>
-          <MenuItem value="Trung bình yếu">Trung bình yếu</MenuItem>
-          <MenuItem value="Trung bình">Trung bình</MenuItem>
-          <MenuItem value="Trung bình khá">Trung bình khá</MenuItem>
-          <MenuItem value="Khá">Khá</MenuItem>
-          <MenuItem value="Giỏi">Giỏi</MenuItem>
-          <MenuItem value="Chuyên nghiệp">Chuyên nghiệp</MenuItem>
         </Select>
       </FormControl>
     </Box>
