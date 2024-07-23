@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Card from "@mui/material/Card";
 import Table from "@mui/material/Table";
@@ -12,11 +12,16 @@ import WatingListRow from "./WatingListRow.jsx";
 import TableHeadCP from "../../common/TableHeadCP.jsx";
 import TableEmptyRows from "../../../sections/admin/user/table-empty-rows.jsx";
 import TableToolbar from "../../common/TableToolbar.jsx";
-import { emptyRows, applyFilter, getComparator } from "../../../utils/TableUtils.jsx";
+import {
+  emptyRows,
+  applyFilter,
+  getComparator,
+} from "../../../utils/TableUtils.jsx";
+import CallApi from "../../../service/CallAPI.jsx";
 
 // ----------------------------------------------------------------------
 
-export default function WaitingListTable({ open, onClose }) {
+export default function WaitingListTable({ open, onClose, postId }) {
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("name");
@@ -24,6 +29,18 @@ export default function WaitingListTable({ open, onClose }) {
   const [filterLevel, setFilterLevel] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [users, setUsers] = useState(initialUsers);
+  const [listInvitation, setListInvitation] = useState([]);
+  const getListInvitation = async () => {
+    try {
+      const result = await CallApi(`/api/user/post/${postId}`, "get");
+      setListInvitation(result.data.invitation);
+    } catch (error) {
+      console.log("🚀 ========= error:", error);
+    }
+  };
+  useEffect(() => {
+    getListInvitation();
+  }, []);
 
   const handleSort = (event, id) => {
     const isAsc = orderBy === id && order === "asc";
@@ -65,7 +82,13 @@ export default function WaitingListTable({ open, onClose }) {
   const notFound = !dataFiltered.length && !!filterName;
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="md" scroll="paper">
+    <Dialog
+      open={open}
+      onClose={onClose}
+      fullWidth
+      maxWidth="md"
+      scroll="paper"
+    >
       <Card>
         <TableToolbar
           inputPlaceholder="Tên người chơi"
@@ -82,21 +105,27 @@ export default function WaitingListTable({ open, onClose }) {
               orderBy={orderBy}
               onRequestSort={handleSort}
               headLabel={[
-                { id: "name", label: "Tên", width: "20%" },
-                { id: "title", label: "Tiêu đề", width: "20%" },
-                { id: "level", label: "Trình độ", width: "20%" },
-                { id: "friendliness", label: "Thân thiện", align: "center", width: "20%" },
+                // { id: "email", label: "Email", width: "20%" },
+                { id: "fullName", label: "Tên", width: "20%" },
+                { id: "gender", label: "Giới tính", width: "20%" },
+                {
+                  id: "friendliness",
+                  label: "Đánh giá",
+                  align: "center",
+                  width: "20%",
+                },
                 { id: "", align: "center", width: "20%" },
               ]}
             />
             <TableBody>
-              {dataFiltered
+              {listInvitation
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => (
                   <WatingListRow
                     key={row.id}
                     row={row}
                     handleInvite={handleInvite}
+                    postId={postId}
                   />
                 ))}
               <TableEmptyRows
@@ -120,16 +149,16 @@ export default function WaitingListTable({ open, onClose }) {
             `${from}–${to} trên ${count !== -1 ? count : `hơn ${to}`}`
           }
           getItemAriaLabel={(type) => {
-            if (type === 'first') {
-              return 'Trang đầu tiên';
-            } else if (type === 'last') {
-              return 'Trang cuối cùng';
-            } else if (type === 'next') {
-              return 'Trang tiếp theo';
-            } else if (type === 'previous') {
-              return 'Trang trước đó';
+            if (type === "first") {
+              return "Trang đầu tiên";
+            } else if (type === "last") {
+              return "Trang cuối cùng";
+            } else if (type === "next") {
+              return "Trang tiếp theo";
+            } else if (type === "previous") {
+              return "Trang trước đó";
             }
-            return '';
+            return "";
           }}
         />
       </Card>
