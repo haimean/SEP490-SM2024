@@ -123,6 +123,43 @@ const typeCourtHostService = {
       },
     });
   },
+  createPrice: async (id: number, data: any): Promise<any> => {
+    const { endTime, price, startTime, times } = data;
+    return await database.priceTypeCourt.create({
+      data: {
+        endTime,
+        price,
+        startTime,
+        times,
+        typeCourtId: id,
+      },
+    });
+  },
+  updatePrice: async (
+    typeCourtId: number,
+    data: any
+  ): Promise<any> => {
+    const { id, endTime, price, startTime, times } = data;
+    return await database.priceTypeCourt.update({
+      where: { id },
+      data: {
+        endTime,
+        price,
+        startTime,
+        times,
+        typeCourtId,
+      },
+    });
+  },
+  deletePrice: async (
+    typeCourtId: number,
+    data: any
+  ): Promise<any> => {
+    const { id } = data;
+    return await database.priceTypeCourt.delete({
+      where: { id, typeCourtId },
+    });
+  },
 };
 
 export default typeCourtHostService;

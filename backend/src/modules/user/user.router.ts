@@ -8,6 +8,7 @@ import userAvailableRouter from './UserAvailability/userAvailable.router';
 import postUserRouter from './post/post.router';
 import reviewUserRouter from './review/review.router';
 import blogUserRouter from './blog/blog.router';
+import commentUserRouter from './comment/comment.router';
 
 const userRouter = Router();
 userRouter.put(
@@ -28,5 +29,6 @@ userRouter.use('/user-available', userAvailableRouter);
 userRouter.use('/post', postUserRouter);
 userRouter.use('/review', reviewUserRouter);
 userRouter.use('/blog', blogUserRouter);
+userRouter.use('/comment', commentUserRouter);
 
 export default userRouter;
