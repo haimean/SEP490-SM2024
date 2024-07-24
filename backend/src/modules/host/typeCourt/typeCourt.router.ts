@@ -28,5 +28,9 @@ typeCourtHostRouter.get('/', typeCourtHostController.getAll);
 
 // get
 typeCourtHostRouter.get('/:id', typeCourtHostController.get);
-
+// get all price of type court
+typeCourtHostRouter.get(
+  '/:id/price',
+  typeCourtHostController.getPrice
+);
 export default typeCourtHostRouter;

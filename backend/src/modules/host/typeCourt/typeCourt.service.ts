@@ -1,4 +1,4 @@
-import { Prisma, TypeCourt } from '@prisma/client';
+import { PriceTypeCourt, Prisma, TypeCourt } from '@prisma/client';
 import database from '../../../lib/db.server';
 import { TypeCourtHostServiceCreatePayload } from './typeCourt.model';
 import { DefaultArgs } from '@prisma/client/runtime/library';
@@ -41,6 +41,12 @@ const typeCourtHostService = {
   ): Promise<TypeCourt> => {
     const { name, accountId, description, image, attributeCourtIds } =
       data;
+    database.typeCourt.update({
+      where: { id: 1 },
+      data: {
+        priceTypeCourt: {},
+      },
+    });
     const query: Prisma.TypeCourtUpdateArgs<DefaultArgs> = {
       where: { id, accountId },
       data: {
@@ -93,6 +99,17 @@ const typeCourtHostService = {
       include: {
         attributeCourt: true,
         priceTypeCourt: true,
+      },
+    });
+  },
+
+  getPrice: async (id: number): Promise<PriceTypeCourt[]> => {
+    return await database.priceTypeCourt.findMany({
+      where: {
+        typeCourtId: id,
+      },
+      orderBy: {
+        startTime: 'asc',
       },
     });
   },

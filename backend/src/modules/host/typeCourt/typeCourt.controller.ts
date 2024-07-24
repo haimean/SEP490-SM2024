@@ -8,7 +8,7 @@ import CustomError from '../../../outcomes/customError';
 import typeCourtHostService from './typeCourt.service';
 import { ResponseHandler } from '../../../outcomes/responseHandler';
 import NotFoundError from '../../../outcomes/notFoundError';
-import { TypeCourt } from '@prisma/client';
+import { PriceTypeCourt, TypeCourt } from '@prisma/client';
 
 const typeCourtHostController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
@@ -111,6 +111,21 @@ const typeCourtHostController = {
         }
       });
       ResponseHandler(res, typeCourts);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
+  getPrice: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { id } = req.params;
+      const typeCourt = await typeCourtHostService.getPrice(
+        Number(id)
+      );
+      ResponseHandler(res, typeCourt);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
     }
