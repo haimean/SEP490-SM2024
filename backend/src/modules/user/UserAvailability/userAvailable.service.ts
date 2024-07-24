@@ -88,7 +88,7 @@ const userAvailableService = {
         Invitation: {
           every: {
             postId,
-            status: { not: 'ACCEPT' },
+            status: 'NEW',
           },
         },
       },
@@ -96,7 +96,7 @@ const userAvailableService = {
         Invitation: {
           where: {
             postId,
-            status: { not: 'ACCEPT' },
+            status: 'NEW',
           },
         },
         account: {
