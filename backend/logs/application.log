@@ -32079,3 +32079,655 @@
 [2024-07-23T18:38:48.229] [INFO] default - Express server is listening at http://localhost:9999 🚀
 [2024-07-23T18:41:11.556] [INFO] default - Express server is listening at http://localhost:9999 🚀
 [2024-07-23T19:40:32.972] [INFO] default - Express server is listening at http://localhost:9999 🚀
+[2024-07-23T19:58:11.146] [INFO] default - Express server is listening at http://localhost:9999 🚀
+[2024-07-23T20:14:30.420] [ERROR] default - ERROR LOG  7/23/2024, 8:14:30 PM
+[2024-07-23T20:14:30.421] [WARN] default - Request: "GET" "/api/user/blog/23"
+[2024-07-23T20:14:30.422] [WARN] default - Params: {}
+[2024-07-23T20:14:30.422] [WARN] default - Body: {}
+[2024-07-23T20:14:30.423] [WARN] default - Query: {}
+[2024-07-23T20:14:30.423] [ERROR] default - Error:  {"status":400,"messageObject":"Khồng tìm thấy bài viết"}
+[2024-07-23T20:14:30.427] [ERROR] default - Error stack:  Error
+    at get (D:\Learning\SEP490-SM2024\backend\src\modules\user\blog\blog.controller.ts:68:14)
+[2024-07-23T20:14:30.439] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-23T20:14:40.452] [INFO] default - Response {
+  id: 1,
+  accountId: 124,
+  caption: 'Nature photography of a forest',
+  image: 'https://sep490.s3.us-east-1.amazonaws.com/Reperum%20brevit%20ut%20eritos%20certe%20beatequos%2C%20bonassiden%20in%20epicatio%20gravistotel%20in%20dolorum%20homin.?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131440Z&X-Amz-Expires=60&X-Amz-Signature=4a7443027e0383bb07f8b99329ea2db38ca6a3d17a9c9dddbdb8ca2f6dc1ff6f&X-Amz-SignedHeaders=host&x-id=GetObject',
+  createdAt: '2024-06-24T02:56:02.762Z',
+  updatedAt: '2024-07-23T19:59:09.312Z',
+  account: {
+    id: 124,
+    email: 'Ethyl.Littel3056@vainhoward.biz',
+    password: 'h%%dkjwQ%IVO',
+    role: 'USER',
+    otp: 'Labornatur protere greges ilest ab quae.',
+    otpExpired: 2020-05-17T23:29:27.000Z,
+    isVerified: false,
+    emailToken: '5e9a7fd7-d1c1-5edd-bd0d-cf77325483eb',
+    isActive: true,
+    createdAt: 2024-07-23T19:56:02.239Z,
+    updatedAt: 2020-01-25T07:11:36.000Z
+  }
+}
+[2024-07-23T20:15:27.235] [INFO] default - Express server is listening at http://localhost:9999 🚀
+[2024-07-23T20:15:28.042] [INFO] default - Response {
+  id: 1,
+  accountId: 124,
+  caption: 'Nature photography of a forest',
+  image: 'https://sep490.s3.us-east-1.amazonaws.com/Reperum%20brevit%20ut%20eritos%20certe%20beatequos%2C%20bonassiden%20in%20epicatio%20gravistotel%20in%20dolorum%20homin.?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131528Z&X-Amz-Expires=60&X-Amz-Signature=e9dcc6819a8dcc2474353c5c2fa8ee59fdceef97ed07a3beea50dbc7fc5f2fee&X-Amz-SignedHeaders=host&x-id=GetObject',
+  createdAt: '2024-06-24T02:56:02.762Z',
+  updatedAt: '2024-07-23T19:59:09.312Z',
+  account: {
+    id: 124,
+    email: 'Ethyl.Littel3056@vainhoward.biz',
+    password: 'h%%dkjwQ%IVO',
+    role: 'USER',
+    otp: 'Labornatur protere greges ilest ab quae.',
+    otpExpired: 2020-05-17T23:29:27.000Z,
+    isVerified: false,
+    emailToken: '5e9a7fd7-d1c1-5edd-bd0d-cf77325483eb',
+    isActive: true,
+    createdAt: 2024-07-23T19:56:02.239Z,
+    updatedAt: 2020-01-25T07:11:36.000Z,
+    user: null
+  }
+}
+[2024-07-23T20:15:56.885] [INFO] default - Express server is listening at http://localhost:9999 🚀
+[2024-07-23T20:16:00.461] [ERROR] default - ERROR LOG  7/23/2024, 8:16:00 PM
+[2024-07-23T20:16:00.461] [WARN] default - Request: "GET" "/api/user/blog/get-all"
+[2024-07-23T20:16:00.462] [WARN] default - Params: {}
+[2024-07-23T20:16:00.462] [WARN] default - Body: {}
+[2024-07-23T20:16:00.462] [WARN] default - Query: {}
+[2024-07-23T20:16:00.463] [ERROR] default - Error:  {"status":500,"messageObject":"\nInvalid `database.blog.findUnique()` invocation in\nD:\\Learning\\SEP490-SM2024\\backend\\src\\modules\\user\\blog\\blog.service.ts:51:26\n\n  48   return { total: total.length, blogs };\n  49 },\n  50 get: async (id: number): Promise<Blog | null> => {\n→ 51   return database.blog.findUnique({\n         where: {\n       +   id: Int\n         },\n         include: {\n           account: {\n             include: {\n               user: true\n             }\n           }\n         }\n       })\n\nArgument `id` is missing."}
+[2024-07-23T20:16:00.464] [ERROR] default - Error stack:  Error
+    at get (D:\Learning\SEP490-SM2024\backend\src\modules\user\blog\blog.controller.ts:71:12)
+[2024-07-23T20:16:00.464] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-23T20:16:04.524] [ERROR] default - ERROR LOG  7/23/2024, 8:16:04 PM
+[2024-07-23T20:16:04.524] [WARN] default - Request: "GET" "/api/user/blog/get-all"
+[2024-07-23T20:16:04.525] [WARN] default - Params: {}
+[2024-07-23T20:16:04.525] [WARN] default - Body: {}
+[2024-07-23T20:16:04.525] [WARN] default - Query: {}
+[2024-07-23T20:16:04.525] [ERROR] default - Error:  {"status":500,"messageObject":"\nInvalid `database.blog.findUnique()` invocation in\nD:\\Learning\\SEP490-SM2024\\backend\\src\\modules\\user\\blog\\blog.service.ts:51:26\n\n  48   return { total: total.length, blogs };\n  49 },\n  50 get: async (id: number): Promise<Blog | null> => {\n→ 51   return database.blog.findUnique({\n         where: {\n       +   id: Int\n         },\n         include: {\n           account: {\n             include: {\n               user: true\n             }\n           }\n         }\n       })\n\nArgument `id` is missing."}
+[2024-07-23T20:16:04.526] [ERROR] default - Error stack:  Error
+    at get (D:\Learning\SEP490-SM2024\backend\src\modules\user\blog\blog.controller.ts:71:12)
+[2024-07-23T20:16:04.526] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-23T20:16:15.888] [INFO] default - Express server is listening at http://localhost:9999 🚀
+[2024-07-23T20:16:18.244] [ERROR] default - ERROR LOG  7/23/2024, 8:16:18 PM
+[2024-07-23T20:16:18.244] [WARN] default - Request: "GET" "/api/user/blog/get-all"
+[2024-07-23T20:16:18.245] [WARN] default - Params: {}
+[2024-07-23T20:16:18.245] [WARN] default - Body: {}
+[2024-07-23T20:16:18.245] [WARN] default - Query: {}
+[2024-07-23T20:16:18.246] [ERROR] default - Error:  {"status":500,"messageObject":"\nInvalid `database.blog.findUnique()` invocation in\nD:\\Learning\\SEP490-SM2024\\backend\\src\\modules\\user\\blog\\blog.service.ts:47:26\n\n  44   return { total: total.length, blogs };\n  45 },\n  46 get: async (id: number): Promise<Blog | null> => {\n→ 47   return database.blog.findUnique({\n         where: {\n       +   id: Int\n         },\n         include: {\n           account: {\n             include: {\n               user: true\n             }\n           }\n         }\n       })\n\nArgument `id` is missing."}
+[2024-07-23T20:16:18.261] [ERROR] default - Error stack:  Error
+    at get (D:\Learning\SEP490-SM2024\backend\src\modules\user\blog\blog.controller.ts:71:12)
+[2024-07-23T20:16:18.261] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-23T20:16:34.491] [INFO] default - Express server is listening at http://localhost:9999 🚀
+[2024-07-23T20:16:44.519] [ERROR] default - ERROR LOG  7/23/2024, 8:16:44 PM
+[2024-07-23T20:16:44.520] [WARN] default - Request: "GET" "/api/user/blog/get-all"
+[2024-07-23T20:16:44.520] [WARN] default - Params: {}
+[2024-07-23T20:16:44.521] [WARN] default - Body: {"pagination":{"page":1,"perPage":5}}
+[2024-07-23T20:16:44.521] [WARN] default - Query: {}
+[2024-07-23T20:16:44.521] [ERROR] default - Error:  {"status":500,"messageObject":"\nInvalid `database.blog.findUnique()` invocation in\nD:\\Learning\\SEP490-SM2024\\backend\\src\\modules\\user\\blog\\blog.service.ts:47:26\n\n  44   return { total: total.length, blogs };\n  45 },\n  46 get: async (id: number): Promise<Blog | null> => {\n→ 47   return database.blog.findUnique({\n         where: {\n       +   id: Int\n         },\n         include: {\n           account: {\n             include: {\n               user: true\n             }\n           }\n         }\n       })\n\nArgument `id` is missing."}
+[2024-07-23T20:16:44.522] [ERROR] default - Error stack:  Error
+    at get (D:\Learning\SEP490-SM2024\backend\src\modules\user\blog\blog.controller.ts:71:12)
+[2024-07-23T20:16:44.523] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-23T20:16:46.242] [ERROR] default - ERROR LOG  7/23/2024, 8:16:46 PM
+[2024-07-23T20:16:46.243] [WARN] default - Request: "GET" "/api/user/blog/get-all"
+[2024-07-23T20:16:46.243] [WARN] default - Params: {}
+[2024-07-23T20:16:46.243] [WARN] default - Body: {"pagination":{"page":1,"perPage":5}}
+[2024-07-23T20:16:46.244] [WARN] default - Query: {}
+[2024-07-23T20:16:46.244] [ERROR] default - Error:  {"status":500,"messageObject":"\nInvalid `database.blog.findUnique()` invocation in\nD:\\Learning\\SEP490-SM2024\\backend\\src\\modules\\user\\blog\\blog.service.ts:47:26\n\n  44   return { total: total.length, blogs };\n  45 },\n  46 get: async (id: number): Promise<Blog | null> => {\n→ 47   return database.blog.findUnique({\n         where: {\n       +   id: Int\n         },\n         include: {\n           account: {\n             include: {\n               user: true\n             }\n           }\n         }\n       })\n\nArgument `id` is missing."}
+[2024-07-23T20:16:46.245] [ERROR] default - Error stack:  Error
+    at get (D:\Learning\SEP490-SM2024\backend\src\modules\user\blog\blog.controller.ts:71:12)
+[2024-07-23T20:16:46.245] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-23T20:16:49.284] [INFO] default - Response {
+  total: 21,
+  blogs: [
+    {
+      id: 8,
+      accountId: 131,
+      caption: 'Abstract photography of patterns',
+      image: 'https://sep490.s3.us-east-1.amazonaws.com/Ophia%20maxime%20non%20sunt%20si%20ficilius%20nobistunae%2C%20saperitur%20patre%20nec%20dicavitor%20veren.?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131649Z&X-Amz-Expires=60&X-Amz-Signature=e0e88c0a21e4820660ee206f1cd847bfcc169de4a7093a6f4825344e5be45cd8&X-Amz-SignedHeaders=host&x-id=GetObject',
+      createdAt: '2022-07-24T02:56:03.127Z',
+      updatedAt: '2024-07-23T20:14:58.685Z',
+      account: [Object]
+    },
+    {
+      id: 1,
+      accountId: 124,
+      caption: 'Nature photography of a forest',
+      image: 'https://sep490.s3.us-east-1.amazonaws.com/Reperum%20brevit%20ut%20eritos%20certe%20beatequos%2C%20bonassiden%20in%20epicatio%20gravistotel%20in%20dolorum%20homin.?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131649Z&X-Amz-Expires=60&X-Amz-Signature=435c88e5a64444dc0b96b254ebdc185e4d83bff48ad5bcf393bcdcbddcb2163e&X-Amz-SignedHeaders=host&x-id=GetObject',
+      createdAt: '2024-06-24T02:56:02.762Z',
+      updatedAt: '2024-07-23T19:59:09.312Z',
+      account: [Object]
+    },
+    {
+      id: 21,
+      accountId: 2,
+      caption: 'bài mới nhất',
+      image: 'https://sep490.s3.us-east-1.amazonaws.com/a87466f6433203448ab6624b14b81920249f56a72af08597173ccc80f260979d?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131649Z&X-Amz-Expires=60&X-Amz-Signature=f97a68f18b6bd6578e4dffa4099cd5d738cac684cbc17ea25803f57029ccfb9a&X-Amz-SignedHeaders=host&x-id=GetObject',
+      createdAt: '2024-07-23T20:03:15.295Z',
+      updatedAt: '2024-07-23T20:03:15.295Z',
+      account: [Object]
+    },
+    {
+      id: 2,
+      accountId: 125,
+      caption: 'Macro shot of a bee on a flower',
+      image: 'https://sep490.s3.us-east-1.amazonaws.com/Delectari%20non%20de%20disciplinam%20maior%20tum%20viderita.?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131649Z&X-Amz-Expires=60&X-Amz-Signature=6e1cd5f7d8cb761ae8caebce4fbc30145310cd572fca20fe843a58b1a237d79b&X-Amz-SignedHeaders=host&x-id=GetObject',
+      createdAt: '2024-07-24T02:56:02.813Z',
+      updatedAt: '2020-09-06T10:47:56.000Z',
+      account: [Object]
+    },
+    {
+      id: 3,
+      accountId: 126,
+      caption: 'Landscape of a city skyline',
+      image: 'https://sep490.s3.us-east-1.amazonaws.com/Quod%20voluptates%20anim%20es%20nihilla%20geometiam%2C%20non%20et%20suo%20etenimus%20tota%20via%20et%20illudicur.?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131649Z&X-Amz-Expires=60&X-Amz-Signature=757b6b29896f175bd4640528af9390809a28c3757d8f9a11ec2ba8d1f4baee9a&X-Amz-SignedHeaders=host&x-id=GetObject',
+      createdAt: '2024-07-24T02:56:02.865Z',
+      updatedAt: '2020-01-21T14:50:20.000Z',
+      account: [Object]
+    }
+  ]
+}
+[2024-07-23T20:17:08.760] [INFO] default - Express server is listening at http://localhost:9999 🚀
+[2024-07-23T20:17:11.336] [INFO] default - Response {
+  total: 21,
+  blogs: [
+    {
+      id: 8,
+      accountId: 131,
+      caption: 'Abstract photography of patterns',
+      image: 'https://sep490.s3.us-east-1.amazonaws.com/Ophia%20maxime%20non%20sunt%20si%20ficilius%20nobistunae%2C%20saperitur%20patre%20nec%20dicavitor%20veren.?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131711Z&X-Amz-Expires=60&X-Amz-Signature=2ba9f99b758c56d67c4f1eabb932b0c898f3d630ce5c114203add2b0cc6b46dd&X-Amz-SignedHeaders=host&x-id=GetObject',
+      createdAt: '2022-07-24T02:56:03.127Z',
+      updatedAt: '2024-07-23T20:14:58.685Z',
+      account: [Object]
+    },
+    {
+      id: 1,
+      accountId: 124,
+      caption: 'Nature photography of a forest',
+      image: 'https://sep490.s3.us-east-1.amazonaws.com/Reperum%20brevit%20ut%20eritos%20certe%20beatequos%2C%20bonassiden%20in%20epicatio%20gravistotel%20in%20dolorum%20homin.?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131711Z&X-Amz-Expires=60&X-Amz-Signature=d80a270453e2db633192cf2e0cb08faf0cff45a92b561a05a47771ee214d67b7&X-Amz-SignedHeaders=host&x-id=GetObject',
+      createdAt: '2024-06-24T02:56:02.762Z',
+      updatedAt: '2024-07-23T19:59:09.312Z',
+      account: [Object]
+    },
+    {
+      id: 21,
+      accountId: 2,
+      caption: 'bài mới nhất',
+      image: 'https://sep490.s3.us-east-1.amazonaws.com/a87466f6433203448ab6624b14b81920249f56a72af08597173ccc80f260979d?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131711Z&X-Amz-Expires=60&X-Amz-Signature=d12358cff2601a5e07ff5fee0c0bba836d6569853a1e93445feec4e9b1e035ac&X-Amz-SignedHeaders=host&x-id=GetObject',
+      createdAt: '2024-07-23T20:03:15.295Z',
+      updatedAt: '2024-07-23T20:03:15.295Z',
+      account: [Object]
+    },
+    {
+      id: 2,
+      accountId: 125,
+      caption: 'Macro shot of a bee on a flower',
+      image: 'https://sep490.s3.us-east-1.amazonaws.com/Delectari%20non%20de%20disciplinam%20maior%20tum%20viderita.?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131711Z&X-Amz-Expires=60&X-Amz-Signature=b7c2fa502e68ec1d45b8ea37e682a51e0ffdb6385f991e808e20bc4b94ff5d8b&X-Amz-SignedHeaders=host&x-id=GetObject',
+      createdAt: '2024-07-24T02:56:02.813Z',
+      updatedAt: '2020-09-06T10:47:56.000Z',
+      account: [Object]
+    },
+    {
+      id: 3,
+      accountId: 126,
+      caption: 'Landscape of a city skyline',
+      image: 'https://sep490.s3.us-east-1.amazonaws.com/Quod%20voluptates%20anim%20es%20nihilla%20geometiam%2C%20non%20et%20suo%20etenimus%20tota%20via%20et%20illudicur.?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA25CESKBCYS4WOE4H%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131711Z&X-Amz-Expires=60&X-Amz-Signature=ea36a4841772f132d1188b84f74806a5eaa5fadfa99bab5d39c02025bdd8b3a6&X-Amz-SignedHeaders=host&x-id=GetObject',
+      createdAt: '2024-07-24T02:56:02.865Z',
+      updatedAt: '2020-01-21T14:50:20.000Z',
+      account: [Object]
+    }
+  ]
+}
+[2024-07-23T20:40:55.677] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-23T20:46:14.957] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-23T20:46:38.208] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-23T20:52:28.571] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T09:10:53.418] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T09:13:55.510] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T09:14:30.616] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T09:21:58.755] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T09:30:29.000] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T09:31:05.114] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T09:31:49.488] [ERROR] default - ERROR LOG  7/24/2024, 9:31:49 AM
+[2024-07-24T09:31:49.491] [WARN] default - Request: "POST" "/api/host/type-court/1/price"
+[2024-07-24T09:31:49.492] [WARN] default - Params: {}
+[2024-07-24T09:31:49.492] [WARN] default - Body: {"courtId":1,"startTime":"2024-07-11T09:36:26.608Z","endTime":"2024-07-11T11:36:26.608Z","price":1200,"name":"minh","numberPhone":"0963400923"}
+[2024-07-24T09:31:49.494] [WARN] default - Query: {}
+[2024-07-24T09:31:49.495] [ERROR] default - Error:  {"status":401,"messageObject":"Authorization"}
+[2024-07-24T09:31:49.502] [ERROR] default - Error stack:  Error
+    at verifyToken (D:\SEP490\SEP490-SM2024\backend\src\modules\index.middleware.ts:30:23)
+[2024-07-24T09:31:49.503] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-24T09:32:06.838] [ERROR] default - ERROR LOG  7/24/2024, 9:32:06 AM
+[2024-07-24T09:32:06.840] [WARN] default - Request: "GET" "/api/host/type-court/1/price"
+[2024-07-24T09:32:06.841] [WARN] default - Params: {}
+[2024-07-24T09:32:06.841] [WARN] default - Body: {"courtId":1,"startTime":"2024-07-11T09:36:26.608Z","endTime":"2024-07-11T11:36:26.608Z","price":1200,"name":"minh","numberPhone":"0963400923"}
+[2024-07-24T09:32:06.842] [WARN] default - Query: {}
+[2024-07-24T09:32:06.842] [ERROR] default - Error:  {"status":400,"messageObject":"Không tìm được kiểu sân."}
+[2024-07-24T09:32:06.844] [ERROR] default - Error stack:  Error
+    at get (D:\SEP490\SEP490-SM2024\backend\src\modules\host\typeCourt\typeCourt.controller.ts:95:14)
+[2024-07-24T09:32:06.845] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-24T09:32:46.337] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T09:32:51.178] [ERROR] default - ERROR LOG  7/24/2024, 9:32:51 AM
+[2024-07-24T09:32:51.179] [WARN] default - Request: "GET" "/api/host/type-court/1/price"
+[2024-07-24T09:32:51.179] [WARN] default - Params: {}
+[2024-07-24T09:32:51.180] [WARN] default - Body: {"courtId":1,"startTime":"2024-07-11T09:36:26.608Z","endTime":"2024-07-11T11:36:26.608Z","price":1200,"name":"minh","numberPhone":"0963400923"}
+[2024-07-24T09:32:51.180] [WARN] default - Query: {}
+[2024-07-24T09:32:51.181] [ERROR] default - Error:  {"status":400,"messageObject":"Không tìm được giá của kiểu sân."}
+[2024-07-24T09:32:51.185] [ERROR] default - Error stack:  Error
+    at getPrice (D:\SEP490\SEP490-SM2024\backend\src\modules\host\typeCourt\typeCourt.controller.ts:131:14)
+[2024-07-24T09:32:51.187] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-24T09:33:33.844] [INFO] default - Response {
+  id: 1,
+  createdAt: '2024-07-24T02:56:06.092Z',
+  updatedAt: '2024-07-24T09:33:25.285Z',
+  startTime: '2024-07-23T12:00:00.000Z',
+  endTime: '2024-07-23T19:00:00.000Z',
+  type: 'ONETIME',
+  price: 120000,
+  times: 1,
+  typeCourtId: 1
+}
+[2024-07-24T09:34:08.491] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T09:34:24.073] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T09:34:26.905] [INFO] default - Response [
+  {
+    id: 1,
+    createdAt: '2024-07-24T02:56:06.092Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-23T12:00:00.000Z',
+    endTime: '2024-07-23T19:00:00.000Z',
+    type: 'ONETIME',
+    price: 120000,
+    times: 1,
+    typeCourtId: 1
+  },
+  {
+    id: 4,
+    createdAt: '2024-07-24T02:56:06.318Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-23T12:00:00.000Z',
+    endTime: '2024-07-24T05:00:00.000Z',
+    type: 'WEEKLY',
+    price: 100000,
+    times: 5,
+    typeCourtId: 1
+  },
+  {
+    id: 5,
+    createdAt: '2024-07-24T02:56:06.392Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-23T12:00:00.000Z',
+    endTime: '2024-07-24T05:00:00.000Z',
+    type: 'ONETIME',
+    price: 80000,
+    times: 10,
+    typeCourtId: 1
+  },
+  {
+    id: 2,
+    createdAt: '2024-07-24T02:56:06.167Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-23T19:00:00.000Z',
+    endTime: '2024-07-24T00:00:00.000Z',
+    type: 'ONETIME',
+    price: 100000,
+    times: 1,
+    typeCourtId: 1
+  },
+  {
+    id: 3,
+    createdAt: '2024-07-24T02:56:06.241Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-24T00:00:00.000Z',
+    endTime: '2024-07-24T05:00:00.000Z',
+    type: 'ONETIME',
+    price: 150000,
+    times: 1,
+    typeCourtId: 1
+  }
+]
+[2024-07-24T09:35:18.474] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T09:35:19.759] [ERROR] default - ERROR LOG  7/24/2024, 9:35:19 AM
+[2024-07-24T09:35:19.761] [WARN] default - Request: "GET" "/api/host/type-court/1/price"
+[2024-07-24T09:35:19.761] [WARN] default - Params: {}
+[2024-07-24T09:35:19.762] [WARN] default - Body: {"courtId":1,"startTime":"2024-07-11T09:36:26.608Z","endTime":"2024-07-11T11:36:26.608Z","price":1200,"name":"minh","numberPhone":"0963400923"}
+[2024-07-24T09:35:19.762] [WARN] default - Query: {}
+[2024-07-24T09:35:19.763] [ERROR] default - Error:  {"status":500,"messageObject":"\nInvalid `database.priceTypeCourt.findMany()` invocation in\nD:\\SEP490\\SEP490-SM2024\\backend\\src\\modules\\host\\typeCourt\\typeCourt.service.ts:107:42\n\n  104 },\n  105 \n  106 getPrice: async (id: number): Promise<PriceTypeCourt[]> => {\n→ 107   return await database.priceTypeCourt.findMany({\n          where: {\n            typeCourtId: 1\n          },\n          orderBy: {\n            startTime: \"asc\",\n            times: \"asc\"\n          }\n          ~~~~~~~~~~~~~~~~~~\n        })\n\nArgument `orderBy`: Invalid value provided. Expected PriceTypeCourtOrderByWithRelationInput[], provided Object."}
+[2024-07-24T09:35:19.764] [ERROR] default - Error stack:  Error
+    at getPrice (D:\SEP490\SEP490-SM2024\backend\src\modules\host\typeCourt\typeCourt.controller.ts:130:12)
+[2024-07-24T09:35:19.764] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-24T09:35:29.554] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T09:37:16.322] [ERROR] default - ERROR LOG  7/24/2024, 9:37:16 AM
+[2024-07-24T09:37:16.324] [WARN] default - Request: "GET" "/api/host/type-court/1/price"
+[2024-07-24T09:37:16.324] [WARN] default - Params: {}
+[2024-07-24T09:37:16.325] [WARN] default - Body: {"courtId":1,"startTime":"2024-07-11T09:36:26.608Z","endTime":"2024-07-11T11:36:26.608Z","price":1200,"name":"minh","numberPhone":"0963400923"}
+[2024-07-24T09:37:16.326] [WARN] default - Query: {}
+[2024-07-24T09:37:16.326] [ERROR] default - Error:  {"status":500,"messageObject":"\nInvalid `database.priceTypeCourt.findMany()` invocation in\nD:\\SEP490\\SEP490-SM2024\\backend\\src\\modules\\host\\typeCourt\\typeCourt.service.ts:107:42\n\n  104 },\n  105 \n  106 getPrice: async (id: number): Promise<PriceTypeCourt[]> => {\n→ 107   return await database.priceTypeCourt.findMany({\n          where: {\n            typeCourtId: 1\n          },\n          orderBy: {\n            startTime: \"asc\",\n            times: \"asc\"\n          }\n          ~~~~~~~~~~~~~~~~~~\n        })\n\nArgument `orderBy`: Invalid value provided. Expected PriceTypeCourtOrderByWithRelationInput[], provided Object."}
+[2024-07-24T09:37:16.328] [ERROR] default - Error stack:  Error
+    at getPrice (D:\SEP490\SEP490-SM2024\backend\src\modules\host\typeCourt\typeCourt.controller.ts:130:12)
+[2024-07-24T09:37:16.328] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-24T09:37:37.216] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T09:37:38.443] [INFO] default - Response [
+  {
+    id: 1,
+    createdAt: '2024-07-24T02:56:06.092Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-23T12:00:00.000Z',
+    endTime: '2024-07-23T19:00:00.000Z',
+    type: 'ONETIME',
+    price: 120000,
+    times: 1,
+    typeCourtId: 1
+  },
+  {
+    id: 4,
+    createdAt: '2024-07-24T02:56:06.318Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-23T12:00:00.000Z',
+    endTime: '2024-07-24T05:00:00.000Z',
+    type: 'WEEKLY',
+    price: 100000,
+    times: 5,
+    typeCourtId: 1
+  },
+  {
+    id: 5,
+    createdAt: '2024-07-24T02:56:06.392Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-23T12:00:00.000Z',
+    endTime: '2024-07-24T05:00:00.000Z',
+    type: 'ONETIME',
+    price: 80000,
+    times: 10,
+    typeCourtId: 1
+  },
+  {
+    id: 2,
+    createdAt: '2024-07-24T02:56:06.167Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-23T19:00:00.000Z',
+    endTime: '2024-07-24T00:00:00.000Z',
+    type: 'ONETIME',
+    price: 100000,
+    times: 1,
+    typeCourtId: 1
+  },
+  {
+    id: 3,
+    createdAt: '2024-07-24T02:56:06.241Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-24T00:00:00.000Z',
+    endTime: '2024-07-24T05:00:00.000Z',
+    type: 'ONETIME',
+    price: 150000,
+    times: 1,
+    typeCourtId: 1
+  }
+]
+[2024-07-24T09:45:36.178] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T09:45:55.809] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T09:46:15.785] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T09:48:39.129] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T09:54:07.374] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T09:54:46.490] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T09:54:51.482] [ERROR] default - ERROR LOG  7/24/2024, 9:54:51 AM
+[2024-07-24T09:54:51.483] [WARN] default - Request: "POST" "/api/host/type-court/1/price"
+[2024-07-24T09:54:51.484] [WARN] default - Params: {}
+[2024-07-24T09:54:51.484] [WARN] default - Body: {"data":[{"startTime":"2024-07-24T07:00:00.000Z","endTime":"2024-07-24T07:00:00.000Z","price":20000,"time":1},{"startTime":"2024-07-24T07:00:00.000Z","endTime":"2024-07-24T07:00:00.000Z","price":20000,"time":2}]}
+[2024-07-24T09:54:51.486] [WARN] default - Query: {}
+[2024-07-24T09:54:51.487] [ERROR] default - Error:  {"status":422,"messageObject":"\"Số lần lặp\" là bắt buộc"}
+[2024-07-24T09:54:51.493] [ERROR] default - Error stack:  Error
+    at D:\SEP490\SEP490-SM2024\backend\src\utils\validate.ts:34:14
+[2024-07-24T09:54:51.494] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-24T09:55:01.868] [INFO] default - Response [
+  {
+    id: 1,
+    createdAt: '2024-07-24T02:56:06.092Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-23T12:00:00.000Z',
+    endTime: '2024-07-23T19:00:00.000Z',
+    type: 'ONETIME',
+    price: 120000,
+    times: 1,
+    typeCourtId: 1
+  },
+  {
+    id: 4,
+    createdAt: '2024-07-24T02:56:06.318Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-23T12:00:00.000Z',
+    endTime: '2024-07-24T05:00:00.000Z',
+    type: 'WEEKLY',
+    price: 100000,
+    times: 5,
+    typeCourtId: 1
+  },
+  {
+    id: 5,
+    createdAt: '2024-07-24T02:56:06.392Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-23T12:00:00.000Z',
+    endTime: '2024-07-24T05:00:00.000Z',
+    type: 'ONETIME',
+    price: 80000,
+    times: 10,
+    typeCourtId: 1
+  },
+  {
+    id: 2,
+    createdAt: '2024-07-24T02:56:06.167Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-23T19:00:00.000Z',
+    endTime: '2024-07-24T00:00:00.000Z',
+    type: 'ONETIME',
+    price: 100000,
+    times: 1,
+    typeCourtId: 1
+  },
+  {
+    id: 3,
+    createdAt: '2024-07-24T02:56:06.241Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-24T00:00:00.000Z',
+    endTime: '2024-07-24T05:00:00.000Z',
+    type: 'ONETIME',
+    price: 150000,
+    times: 1,
+    typeCourtId: 1
+  },
+  {
+    id: 11,
+    createdAt: '2024-07-24T09:55:01.096Z',
+    updatedAt: '2024-07-24T09:55:01.096Z',
+    startTime: '2024-07-24T07:00:00.000Z',
+    endTime: '2024-07-24T07:00:00.000Z',
+    type: 'ONETIME',
+    price: 20000,
+    times: 1,
+    typeCourtId: 1
+  },
+  {
+    id: 12,
+    createdAt: '2024-07-24T09:55:01.529Z',
+    updatedAt: '2024-07-24T09:55:01.529Z',
+    startTime: '2024-07-24T07:00:00.000Z',
+    endTime: '2024-07-24T07:00:00.000Z',
+    type: 'ONETIME',
+    price: 20000,
+    times: 2,
+    typeCourtId: 1
+  }
+]
+[2024-07-24T09:59:36.191] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T09:59:50.481] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T10:00:17.197] [INFO] default - Response [
+  {
+    id: 1,
+    createdAt: '2024-07-24T02:56:06.092Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-23T12:00:00.000Z',
+    endTime: '2024-07-23T19:00:00.000Z',
+    type: 'ONETIME',
+    price: 120000,
+    times: 1,
+    typeCourtId: 1
+  },
+  {
+    id: 4,
+    createdAt: '2024-07-24T02:56:06.318Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-23T12:00:00.000Z',
+    endTime: '2024-07-24T05:00:00.000Z',
+    type: 'WEEKLY',
+    price: 100000,
+    times: 5,
+    typeCourtId: 1
+  },
+  {
+    id: 5,
+    createdAt: '2024-07-24T02:56:06.392Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-23T12:00:00.000Z',
+    endTime: '2024-07-24T05:00:00.000Z',
+    type: 'ONETIME',
+    price: 80000,
+    times: 10,
+    typeCourtId: 1
+  },
+  {
+    id: 2,
+    createdAt: '2024-07-24T02:56:06.167Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-23T19:00:00.000Z',
+    endTime: '2024-07-24T00:00:00.000Z',
+    type: 'ONETIME',
+    price: 100000,
+    times: 1,
+    typeCourtId: 1
+  },
+  {
+    id: 3,
+    createdAt: '2024-07-24T02:56:06.241Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-24T00:00:00.000Z',
+    endTime: '2024-07-24T05:00:00.000Z',
+    type: 'ONETIME',
+    price: 150000,
+    times: 1,
+    typeCourtId: 1
+  },
+  {
+    id: 11,
+    createdAt: '2024-07-24T09:55:01.096Z',
+    updatedAt: '2024-07-24T10:00:16.483Z',
+    startTime: '2024-07-24T07:00:00.000Z',
+    endTime: '2024-07-24T07:00:00.000Z',
+    type: 'ONETIME',
+    price: 1,
+    times: 2,
+    typeCourtId: 1
+  },
+  {
+    id: 12,
+    createdAt: '2024-07-24T09:55:01.529Z',
+    updatedAt: '2024-07-24T10:00:15.719Z',
+    startTime: '2024-07-24T07:00:00.000Z',
+    endTime: '2024-07-24T07:00:00.000Z',
+    type: 'ONETIME',
+    price: 2,
+    times: 1,
+    typeCourtId: 1
+  }
+]
+[2024-07-24T10:02:02.490] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T10:02:09.988] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T10:03:19.486] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T10:03:30.454] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T10:03:41.817] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T10:04:03.917] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T10:04:07.659] [INFO] default - Response [
+  {
+    id: 1,
+    createdAt: '2024-07-24T02:56:06.092Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-23T12:00:00.000Z',
+    endTime: '2024-07-23T19:00:00.000Z',
+    type: 'ONETIME',
+    price: 120000,
+    times: 1,
+    typeCourtId: 1
+  },
+  {
+    id: 4,
+    createdAt: '2024-07-24T02:56:06.318Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-23T12:00:00.000Z',
+    endTime: '2024-07-24T05:00:00.000Z',
+    type: 'WEEKLY',
+    price: 100000,
+    times: 5,
+    typeCourtId: 1
+  },
+  {
+    id: 5,
+    createdAt: '2024-07-24T02:56:06.392Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-23T12:00:00.000Z',
+    endTime: '2024-07-24T05:00:00.000Z',
+    type: 'ONETIME',
+    price: 80000,
+    times: 10,
+    typeCourtId: 1
+  },
+  {
+    id: 2,
+    createdAt: '2024-07-24T02:56:06.167Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-23T19:00:00.000Z',
+    endTime: '2024-07-24T00:00:00.000Z',
+    type: 'ONETIME',
+    price: 100000,
+    times: 1,
+    typeCourtId: 1
+  },
+  {
+    id: 3,
+    createdAt: '2024-07-24T02:56:06.241Z',
+    updatedAt: '2024-07-24T09:33:25.285Z',
+    startTime: '2024-07-24T00:00:00.000Z',
+    endTime: '2024-07-24T05:00:00.000Z',
+    type: 'ONETIME',
+    price: 150000,
+    times: 1,
+    typeCourtId: 1
+  }
+]
+[2024-07-24T10:11:08.162] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T10:11:30.849] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T10:13:28.263] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T10:14:24.380] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T10:14:32.388] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T10:16:35.773] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T10:17:27.080] [ERROR] default - ERROR LOG  7/24/2024, 10:17:27 AM
+[2024-07-24T10:17:27.082] [WARN] default - Request: "POST" "/api/user/comment"
+[2024-07-24T10:17:27.082] [WARN] default - Params: {}
+[2024-07-24T10:17:27.083] [WARN] default - Body: {"blogId":1,"content":213}
+[2024-07-24T10:17:27.083] [WARN] default - Query: {}
+[2024-07-24T10:17:27.084] [ERROR] default - Error:  {"status":500,"messageObject":"\nInvalid `database.comment.create()` invocation in\nD:\\SEP490\\SEP490-SM2024\\backend\\src\\modules\\user\\comment\\comment.service.ts:6:35\n\n  3 const commentUserService = {\n  4   create: async (accountId: number, data: any) => {\n  5     const { content, blogId } = data;\n→ 6     return await database.comment.create({\n          data: {\n            content: 213,\n                     ~~~\n            blogId: 1,\n            accountId: 3\n          }\n        })\n\nArgument `content`: Invalid value provided. Expected String, provided Int."}
+[2024-07-24T10:17:27.086] [ERROR] default - Error stack:  Error
+    at create (D:\SEP490\SEP490-SM2024\backend\src\modules\user\comment\comment.controller.ts:16:12)
+[2024-07-24T10:17:27.087] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-24T10:17:51.846] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T10:17:53.588] [ERROR] default - ERROR LOG  7/24/2024, 10:17:53 AM
+[2024-07-24T10:17:53.589] [WARN] default - Request: "POST" "/api/user/comment"
+[2024-07-24T10:17:53.590] [WARN] default - Params: {}
+[2024-07-24T10:17:53.591] [WARN] default - Body: {"blogId":1,"content":213}
+[2024-07-24T10:17:53.591] [WARN] default - Query: {}
+[2024-07-24T10:17:53.592] [ERROR] default - Error:  {"status":500,"messageObject":"\nInvalid `database.comment.create()` invocation in\nD:\\SEP490\\SEP490-SM2024\\backend\\src\\modules\\user\\comment\\comment.service.ts:6:35\n\n  3 const commentUserService = {\n  4   create: async (accountId: number, data: any) => {\n  5     const { content, blogId } = data;\n→ 6     return await database.comment.create({\n          data: {\n            content: 213,\n                     ~~~\n            blogId: 1,\n            accountId: 3\n          }\n        })\n\nArgument `content`: Invalid value provided. Expected String, provided Int."}
+[2024-07-24T10:17:53.593] [ERROR] default - Error stack:  Error
+    at create (D:\SEP490\SEP490-SM2024\backend\src\modules\user\comment\comment.controller.ts:16:12)
+[2024-07-24T10:17:53.595] [WARN] default - --------------------------------------------------------------------------------------

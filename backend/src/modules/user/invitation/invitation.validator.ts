@@ -19,7 +19,6 @@ const invitationUserValidator = {
   }),
   update: Joi.object({
     invitationId: Joi.number().required().label('ID lời mời'),
-    postId: Joi.number().required().label('ID bài tìm gia lưu'),
     status: Joi.string()
       .required()
       .valid('ACCEPT', 'NOACCEPT', 'CANCEL')

@@ -28,5 +28,27 @@ typeCourtHostRouter.get('/', typeCourtHostController.getAll);
 
 // get
 typeCourtHostRouter.get('/:id', typeCourtHostController.get);
+// get all price of type court
+typeCourtHostRouter.get(
+  '/:id/price',
+  typeCourtHostController.getPrice
+);
+
+typeCourtHostRouter.post(
+  '/:id/price',
+  validate(typeCourtHostValidator.createPrice),
+  typeCourtHostController.createPrice
+);
+typeCourtHostRouter.put(
+  '/:id/price',
+  validate(typeCourtHostValidator.updatePrice),
+  typeCourtHostController.updatePrice
+);
+
+typeCourtHostRouter.delete(
+  '/:id/price',
+  validate(typeCourtHostValidator.deletePrice),
+  typeCourtHostController.deletePrice
+);
 
 export default typeCourtHostRouter;

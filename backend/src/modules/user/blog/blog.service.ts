@@ -33,10 +33,14 @@ const blogUserService = {
   ): Promise<{ total: number; blogs: Blog[] }> => {
     const blogs = await database.blog.findMany({
       orderBy: {
-        createdAt: 'asc',
+        createdAt: 'desc',
       },
       include: {
-        account: true,
+        account: {
+          include: {
+            user: true,
+          },
+        },
       },
       ...getQueryPagination(pagination),
     });
@@ -49,7 +53,25 @@ const blogUserService = {
         id,
       },
       include: {
-        account: true,
+        account: {
+          include: {
+            user: true,
+          },
+        },
+      },
+    });
+  },
+  getComment: async (id: number): Promise<any> => {
+    return database.comment.findMany({
+      where: {
+        blogId: id,
+      },
+      include: {
+        account: {
+          include: {
+            user: true,
+          },
+        },
       },
     });
   },

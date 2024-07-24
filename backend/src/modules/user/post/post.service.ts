@@ -21,11 +21,7 @@ const postUserService = {
       where: {
         id,
         booking: {
-          Court: {
-            Branches: {
-              accountId,
-            },
-          },
+          accountId,
         },
       },
       include: {

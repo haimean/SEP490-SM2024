@@ -71,6 +71,26 @@ const blogUserController = {
       next(new CustomError(error?.message, 500));
     }
   },
+
+  getComment: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { id } = req.params;
+      const blog: Blog | null = await blogUserService.getComment(
+        Number(id)
+      );
+      if (blog) {
+        ResponseHandler(res, blog);
+      } else {
+        next(new NotFoundError('Khồng tìm thấy bài viết'));
+      }
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
   update: async (req: Request, res: Response, next: NextFunction) => {
     let imageName: string = '';
     const file = req.file;

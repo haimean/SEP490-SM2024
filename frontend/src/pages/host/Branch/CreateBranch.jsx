@@ -1,6 +1,5 @@
 import { useEffect, useState, useMemo, useCallback } from "react";
 import Form from "../../../components/host/Form";
-import Navbar from "../../../layouts/player/Navbar";
 import { Box } from "@mui/material";
 import { useForm } from "react-hook-form";
 import CallApi from "../../../service/CallAPI";

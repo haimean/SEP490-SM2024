@@ -32,23 +32,6 @@ const userAvailableService = {
     });
   },
   getUserFree: async (postId: number) => {
-    const post = database.post.findUnique({
-      where: {
-        id: postId,
-      },
-      include: {
-        booking: {
-          include: {
-            Court: {
-              include: {
-                Branches: {},
-              },
-            },
-          },
-        },
-      },
-    });
-
     // GET  booking -> start time end time
     const booking: any = database.booking.findFirst({
       where: {

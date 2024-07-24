@@ -1,4 +1,4 @@
-import { Prisma, TypeCourt } from '@prisma/client';
+import { PriceTypeCourt, Prisma, TypeCourt } from '@prisma/client';
 import database from '../../../lib/db.server';
 import { TypeCourtHostServiceCreatePayload } from './typeCourt.model';
 import { DefaultArgs } from '@prisma/client/runtime/library';
@@ -41,6 +41,12 @@ const typeCourtHostService = {
   ): Promise<TypeCourt> => {
     const { name, accountId, description, image, attributeCourtIds } =
       data;
+    database.typeCourt.update({
+      where: { id: 1 },
+      data: {
+        priceTypeCourt: {},
+      },
+    });
     const query: Prisma.TypeCourtUpdateArgs<DefaultArgs> = {
       where: { id, accountId },
       data: {
@@ -92,6 +98,18 @@ const typeCourtHostService = {
       },
       include: {
         attributeCourt: true,
+        priceTypeCourt: true,
+      },
+    });
+  },
+
+  getPrice: async (id: number): Promise<PriceTypeCourt[]> => {
+    return await database.priceTypeCourt.findMany({
+      where: {
+        typeCourtId: id,
+      },
+      orderBy: {
+        startTime: 'asc',
       },
     });
   },
@@ -103,6 +121,43 @@ const typeCourtHostService = {
       include: {
         attributeCourt: true,
       },
+    });
+  },
+  createPrice: async (id: number, data: any): Promise<any> => {
+    const { endTime, price, startTime, times } = data;
+    return await database.priceTypeCourt.create({
+      data: {
+        endTime,
+        price,
+        startTime,
+        times,
+        typeCourtId: id,
+      },
+    });
+  },
+  updatePrice: async (
+    typeCourtId: number,
+    data: any
+  ): Promise<any> => {
+    const { id, endTime, price, startTime, times } = data;
+    return await database.priceTypeCourt.update({
+      where: { id },
+      data: {
+        endTime,
+        price,
+        startTime,
+        times,
+        typeCourtId,
+      },
+    });
+  },
+  deletePrice: async (
+    typeCourtId: number,
+    data: any
+  ): Promise<any> => {
+    const { id } = data;
+    return await database.priceTypeCourt.delete({
+      where: { id, typeCourtId },
     });
   },
 };
