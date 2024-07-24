@@ -61,10 +61,10 @@ const NavbarItemUser = () => {
       <Button
         color="inherit"
         component={Link}
-        to="/player/create-post"
+        to="/list-blog"
         sx={{ textTransform: "none" }}
       >
-        Đăng bài
+        Trạng thái
       </Button>
       <Button
         color="inherit"

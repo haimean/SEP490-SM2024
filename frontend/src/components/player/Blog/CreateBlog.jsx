@@ -1,0 +1,144 @@
+import { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { TextField, Button, Box, Typography, Modal, IconButton } from "@mui/material";
+import { Close } from "@mui/icons-material";
+import CallApi from "../../../service/CallAPI";
+import { toast } from "react-toastify";
+
+const CreateBlog = ({ open, onClose, onBlogCreated }) => {
+  const { control, handleSubmit, reset } = useForm();
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const onSubmit = async (data) => {
+    try {
+      const formData = new FormData();
+      formData.append("caption", data.caption);
+      if (selectedImage) {
+        formData.append("image", selectedImage);
+      }
+
+      const response = await CallApi("/api/user/blog", "post", formData);
+
+      console.log("Blog created successfully:", response.data);
+      onBlogCreated(response.data);
+      toast.success("Tạo trạng thái thành công");
+      handleCancel();
+    } catch (error) {
+      console.error("Error creating blog:", error);
+      toast.error("Tạo trạng thái thất bại");
+    }
+  };
+
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setSelectedImage(file);
+    }
+  };
+
+  const handleCancel = () => {
+    reset();
+    setSelectedImage(null);
+    onClose();
+  };
+
+  return (
+    <Modal open={open} onClose={handleCancel}>
+      <Box
+        sx={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: 400,
+          bgcolor: "background.paper",
+          boxShadow: 24,
+          p: 4,
+          borderRadius: 2,
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            mb: 2,
+          }}
+        >
+          <Typography variant="h6" component="h1">
+            Tạo bài viết
+          </Typography>
+          <IconButton 
+            onClick={handleCancel}
+            sx={{
+              color: "text.secondary",
+              "&:hover": {
+                color: "text.primary",
+              },
+            }}
+          >
+            <Close />
+          </IconButton>
+        </Box>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Controller
+            name="caption"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <TextField
+                {...field}
+                placeholder="Bạn đang nghĩ gì thế?"
+                fullWidth
+                multiline
+                rows={4}
+              />
+            )}
+          />
+          {selectedImage && (
+            <Box sx={{ mt: 2 }}>
+              <img
+                src={URL.createObjectURL(selectedImage)}
+                alt="Selected"
+                style={{ maxWidth: "100%", maxHeight: "200px" }}
+              />
+            </Box>
+          )}
+          <Box
+            sx={{
+              mt: 2,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Box>
+              <input
+                type="file"
+                accept="image/*"
+                id="image-upload"
+                style={{ display: "none" }}
+                onChange={handleImageChange}
+              />
+              <label htmlFor="image-upload">
+                <Button variant="text" component="span">
+                  {selectedImage ? "Thay đổi ảnh" : "Thêm ảnh"}
+                </Button>
+              </label>
+            </Box>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              sx={{ textTransform: "none" }}
+            >
+              Đăng
+            </Button>
+          </Box>
+        </form>
+      </Box>
+    </Modal>
+  );
+};
+
+export default CreateBlog;
