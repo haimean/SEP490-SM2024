@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
-import { parse, startOfWeek, getDay, format, setHours, setMinutes, setSeconds, differenceInMinutes, subHours } from 'date-fns';
+import { parse, startOfWeek, getDay, format, setHours, setMinutes, setSeconds, differenceInMinutes, subHours, addHours } from 'date-fns';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import enUS from 'date-fns/locale/en-US';
 import { Box, CircularProgress, Backdrop } from '@mui/material';
 import EventModal from './EventModal';
+import DeleteConfirmationModal from './DeleteConfirmationModal';
 import CallApi from '../../../service/CallAPI';
 import { toast } from 'react-toastify';
 
@@ -29,15 +30,16 @@ const CalendarComponent = () => {
     { start: 17, end: 22, price: 150000 },
   ];
 
-  const courtId = 1;
+  const courtId = 30;
 
   const [currentDate, setCurrentDate] = useState(new Date());
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isNewEvent, setIsNewEvent] = useState(false);
-  const [eventData, setEventData] = useState({ title: '', start: '', end: '', price: 0 });
+  const [eventData, setEventData] = useState({ title: '', start: '', end: '', price: 0, name: '', numberPhone: '' });
   const [loading, setLoading] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   useEffect(() => {
     fetchData(currentDate);
@@ -54,18 +56,19 @@ const CalendarComponent = () => {
         },
         {}
       );
-      console.log(response);
-
-      // Chuyển đổi dữ liệu nhận được từ API thành các sự kiện
+      console.log(response.data);
+      // Transform API data to calendar events
       const eventsData = response.data.map(event => ({
         id: event.id,
         title: `${event.bookingInfo.name} - ${event.price} VND`,
         start: subHours(new Date(event.startTime.replace('Z', '')), 7),
         end: subHours(new Date(event.endTime.replace('Z', '')), 7),
         bookingInfo: event.bookingInfo,
+        price: event.price
       }));
+      
       console.log(eventsData);
-      // Cập nhật state `events`
+      // Update state with fetched events
       setEvents(eventsData);
     } catch (error) {
       toast.error(error.response?.data?.error);
@@ -80,8 +83,8 @@ const CalendarComponent = () => {
 
   const handleSelectSlot = ({ start, end }) => {
     const now = new Date();
-    if (isNewEvent && start < now) {
-      alert("Không thể chọn khoảng thời gian đã trôi qua.");
+    if (start < now) {
+      alert("Cannot select past time slots.");
       return;
     }
 
@@ -94,7 +97,7 @@ const CalendarComponent = () => {
 
     if (!isSlotOccupied) {
       const price = calculatePrice(start, end, priceList);
-      setEventData({ title: ``, start, end, price, name: '', numberPhone: '' });
+      setEventData({ title: '', start, end, price, name: '', numberPhone: '' });
       setIsNewEvent(true);
       setIsModalOpen(true);
     } else {
@@ -104,7 +107,14 @@ const CalendarComponent = () => {
 
   const handleSelectEvent = (event) => {
     setSelectedEvent(event);
-    setEventData(event);
+    setEventData({
+      title: event.title,
+      start: event.start,
+      end: event.end,
+      price: event.price,
+      name: event.bookingInfo.name,
+      numberPhone: event.bookingInfo.numberPhone
+    });
     setIsNewEvent(false);
     setIsModalOpen(true);
   };
@@ -112,30 +122,28 @@ const CalendarComponent = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedEvent(null);
-    setEventData({ title: '', start: '', end: '', price: 0 });
+    setEventData({ title: '', start: '', end: '', price: 0, name: '', numberPhone: '' });
   };
 
   const handleSaveEvent = async () => {
     const start = new Date(eventData.start).getHours();
     const end = new Date(eventData.end).getHours();
     if (start < openHour.getHours() || end > closeHour.getHours()) {
-      alert("Thời gian sự kiện phải nằm trong khoảng từ 05:00 đến 22:00.");
+      alert("Event time must be between 05:00 and 22:00.");
       return;
     }
 
     if (start >= end) {
-      alert("Giờ bắt đầu không được lớn hơn hoặc bằng giờ kết thúc.");
+      alert("Start time cannot be greater than or equal to end time.");
       return;
     }
 
     const isSlotOccupied = events.some((event) => {
       if (selectedEvent && areEventsEqual(event, selectedEvent)) {
-        return false; // Bỏ qua sự kiện hiện tại đang được chỉnh sửa
+        return false; // Ignore the current event being edited
       }
       return (
-        (start >= new Date(event.start).getTime() && start < new Date(event.end).getTime()) ||
-        (end > new Date(event.start).getTime() && end <= new Date(event.end).getTime()) ||
-        (start < new Date(event.start).getTime() && end > new Date(event.end).getTime())
+        (new Date(eventData.start) < new Date(event.end) && new Date(eventData.end) > new Date(event.start))
       );
     });
 
@@ -146,43 +154,61 @@ const CalendarComponent = () => {
 
     if (isNewEvent) {
       try {
+        setLoading(true);
         const response = await CallApi(
-          "/api/host/history-booking/",
+          "/api/host/history-booking/create",
           "post",
           {
             courtId,
-            startTime: new Date(eventData.start).toISOString(),
-            endTime: new Date(eventData.end).toISOString(),
+            startTime: addHours(new Date(eventData.start), 14),
+            endTime: addHours(new Date(eventData.end), 14),
             price: eventData.price,
             name: eventData.name,
             numberPhone: eventData.numberPhone
           },
           {}
         );
-        const newEvent = {
-          ...eventData,
-          title: `${eventData.name} - ${eventData.price} VND`,
-          start: new Date(eventData.start),
-          end: new Date(eventData.end),
-          isNew: true,
-          bookingInfo: { name: eventData.name, numberPhone: eventData.numberPhone }
-        };
-        setEvents([...events, newEvent]);
+        console.log(response);
         toast.success("Event added successfully");
+        handleCloseModal();
       } catch (error) {
         toast.error(error.response?.data?.error);
+      } finally {
+        setLoading(false);
+        fetchData(currentDate);
       }
     } else {
-      setEvents(events.map((event) =>
-        areEventsEqual(event, selectedEvent) ? { ...eventData, title: `Sự kiện - ${eventData.price}`, start: new Date(eventData.start), end: new Date(eventData.end), isNew: event.isNew } : event
-      ));
+      handleCloseModal();
     }
-    handleCloseModal();
   };
 
   const handleDeleteEvent = () => {
-    setEvents(events.filter((event) => !areEventsEqual(event, selectedEvent)));
-    handleCloseModal();
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = async (reasonCancell) => {
+    try {
+      setLoading(true);
+      console.log(reasonCancell, selectedEvent.id);
+      await CallApi(
+        "/api/host/history-booking/cancel",
+        "put",
+        {
+          reasonCancell,
+          bookingId: selectedEvent.id
+        },
+        {}
+      );
+      setEvents(events.filter((event) => !areEventsEqual(event, selectedEvent)));
+      toast.success("Event canceled successfully");
+      handleCloseModal();
+      setIsDeleteModalOpen(false);
+    } catch (error) {
+      toast.error(error.response?.data?.error);
+    } finally {
+      setLoading(false);
+      fetchData(currentDate);
+    }
   };
 
   const areEventsEqual = (event1, event2) => {
@@ -210,7 +236,7 @@ const CalendarComponent = () => {
   };
 
   const eventTooltipAccessor = (event) => {
-    return `${event.bookingInfo.name} - ${event.bookingInfo.numberPhone}`;
+    return `${event.bookingInfo.name} - ${event.bookingInfo.numberPhone} - ${event.price}`;
   };
 
   const slotPropGetter = (date) => {
@@ -280,6 +306,11 @@ const CalendarComponent = () => {
         isNewEvent={isNewEvent}
         onSave={handleSaveEvent}
         onDelete={handleDeleteEvent}
+      />
+      <DeleteConfirmationModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onDelete={handleConfirmDelete}
       />
     </Box>
   );

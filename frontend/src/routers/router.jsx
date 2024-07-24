@@ -42,6 +42,7 @@ import BookingDetailHost from "../components/host/BranchBookHistory/BookingDetai
 import ListBranchAdmin from "../pages/admin/Branch/ListBranchAdmin.jsx";
 import CreatePost from "../pages/player/Post/CreatePost.jsx";
 import RequestList from "../pages/user/requestList/requestList.jsx";
+import PriceSetupPage from "../components/host/court/PriceSetupPage.jsx";
 
 const router = [
   {
@@ -363,6 +364,13 @@ const router = [
     name: "Request List",
     component: <RequestList />,
     role: ["USER"],
+    layout: "",
+  },
+  {
+    path: "/host/price",
+    name: "Price set up page",
+    component: <PriceSetupPage />,
+    role: ["HOST"],
     layout: "",
   },
 ];
