@@ -93,6 +93,12 @@ const userAvailableService = {
         },
       },
       include: {
+        Invitation: {
+          where: {
+            postId,
+            status: { not: 'ACCEPT' },
+          },
+        },
         account: {
           include: {
             user: true,
