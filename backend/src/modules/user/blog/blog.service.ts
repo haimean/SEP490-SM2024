@@ -61,6 +61,20 @@ const blogUserService = {
       },
     });
   },
+  getComment: async (id: number): Promise<any> => {
+    return database.comment.findMany({
+      where: {
+        blogId: id,
+      },
+      include: {
+        account: {
+          include: {
+            user: true,
+          },
+        },
+      },
+    });
+  },
 };
 
 export default blogUserService;

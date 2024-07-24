@@ -16,6 +16,19 @@ const commentUserController = {
       next(new CustomError(error?.message, 500));
     }
   },
+  delete: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const accountId = Number(req.headers.authorization);
+      const { id } = req.params;
+      const result = await commentUserService.delete(
+        accountId,
+        Number(id)
+      );
+      ResponseHandler(res, result);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
 };
 
 export default commentUserController;

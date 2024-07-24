@@ -12,6 +12,7 @@ blogUserRouter.post(
   blogUserController.getAllOfUser
 );
 blogUserRouter.get('/:id', blogUserController.get);
+blogUserRouter.get('/:id/comment', blogUserController.getComment);
 blogUserRouter.put(
   '/:id',
   upload.single('image'),

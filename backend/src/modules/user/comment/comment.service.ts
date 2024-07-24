@@ -11,6 +11,14 @@ const commentUserService = {
       },
     });
   },
+  delete: async (accountId: number, id: number) => {
+    return await database.comment.delete({
+      where: {
+        id,
+        accountId,
+      },
+    });
+  },
 };
 
 export default commentUserService;

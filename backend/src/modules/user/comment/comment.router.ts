@@ -6,9 +6,10 @@ import commentUserController from './comment.controller';
 const commentUserRouter = Router();
 commentUserRouter.post(
   '/',
-
   validate(commentUserValidator.create),
   commentUserController.create
 );
+
+commentUserRouter.delete('/:id', commentUserController.delete);
 
 export default commentUserRouter;
