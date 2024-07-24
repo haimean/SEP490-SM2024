@@ -105,6 +105,9 @@ const userAvailableService = {
           },
         },
       },
+      orderBy: {
+        updatedAt: 'desc',
+      },
     });
     return invitation.map((item: any) => item.userAvailability);
   },
@@ -130,6 +133,9 @@ const userAvailableService = {
             },
           },
         },
+      },
+      orderBy: {
+        updatedAt: 'desc',
       },
     });
     return invitation.map((item: any) => item.userAvailability);
