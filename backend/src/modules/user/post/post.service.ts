@@ -16,13 +16,10 @@ const postUserService = {
       },
     });
   },
-  get: async (id: number, accountId: number): Promise<any> => {
+  get: async (id: number): Promise<any> => {
     return await database.post.findUnique({
       where: {
         id,
-        booking: {
-          accountId,
-        },
       },
       include: {
         booking: {
