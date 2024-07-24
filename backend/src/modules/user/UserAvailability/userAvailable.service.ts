@@ -91,7 +91,12 @@ const userAvailableService = {
       include: {
         userAvailability: {
           include: {
-            Invitation: true,
+            Invitation: {
+              where: {
+                status: 'NEW',
+                postId,
+              },
+            },
             account: {
               include: {
                 user: true,
@@ -112,7 +117,12 @@ const userAvailableService = {
       include: {
         userAvailability: {
           include: {
-            Invitation: true,
+            Invitation: {
+              where: {
+                status: 'ACCEPT',
+                postId,
+              },
+            },
             account: {
               include: {
                 user: true,
