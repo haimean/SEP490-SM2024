@@ -40,8 +40,8 @@ import RegisterTypeCourt from "../pages/host/TypeCourt/CreateTypeCourt.jsx";
 import BookingHistoryHost from "../pages/host/BranchBookHistory/BookingHistoryHost.jsx";
 import BookingDetailHost from "../components/host/BranchBookHistory/BookingDetailHost.jsx";
 import ListBranchAdmin from "../pages/admin/Branch/ListBranchAdmin.jsx";
-import CreatePost from "../pages/player/Post/CreatePost.jsx";
 import RequestList from "../pages/user/requestList/requestList.jsx";
+import ListBlog from "../pages/player/Blog/ListBlog.jsx";
 
 const router = [
   {
@@ -352,17 +352,17 @@ const router = [
     layout: "admin",
   },
   {
-    path: "/player/create-post",
-    name: "Create Post",
-    component: <CreatePost />,
-    role: ["USER"], // Chỉ cho phép HOST truy cập
-    layout: "",
-  },
-  {
     path: "/player/request-list",
     name: "Request List",
     component: <RequestList />,
     role: ["USER"],
+    layout: "",
+  },
+  {
+    path: "/list-blog",
+    name: "List Blog",
+    component: <ListBlog />,
+    role: ["USER", "HOST"],
     layout: "",
   },
 ];
