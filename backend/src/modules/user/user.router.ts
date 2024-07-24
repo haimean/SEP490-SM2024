@@ -9,6 +9,7 @@ import postUserRouter from './post/post.router';
 import reviewUserRouter from './review/review.router';
 import blogUserRouter from './blog/blog.router';
 import commentUserRouter from './comment/comment.router';
+import reportBlogUserRouter from './reportBlog/reportBlog.router';
 
 const userRouter = Router();
 userRouter.put(
@@ -30,5 +31,6 @@ userRouter.use('/post', postUserRouter);
 userRouter.use('/review', reviewUserRouter);
 userRouter.use('/blog', blogUserRouter);
 userRouter.use('/comment', commentUserRouter);
+userRouter.use('/report-blog/', reportBlogUserRouter);
 
 export default userRouter;

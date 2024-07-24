@@ -75,6 +75,24 @@ const blogUserService = {
       },
     });
   },
+  getCommentNew: async (id: number): Promise<any> => {
+    return database.comment.findMany({
+      where: {
+        blogId: id,
+      },
+      include: {
+        account: {
+          include: {
+            user: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      ...getQueryPagination({ page: 1, perPage: 3 }),
+    });
+  },
 };
 
 export default blogUserService;

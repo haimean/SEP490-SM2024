@@ -32731,3 +32731,446 @@
 [2024-07-24T10:17:53.593] [ERROR] default - Error stack:  Error
     at create (D:\SEP490\SEP490-SM2024\backend\src\modules\user\comment\comment.controller.ts:16:12)
 [2024-07-24T10:17:53.595] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-24T10:18:25.395] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T10:18:29.095] [INFO] default - Response {
+  id: 11,
+  blogId: 1,
+  accountId: 3,
+  content: '213',
+  createdAt: '2024-07-24T10:18:28.308Z',
+  updatedAt: '2024-07-24T10:18:28.308Z'
+}
+[2024-07-24T10:20:43.832] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T10:22:10.553] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T10:23:05.632] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T10:23:27.148] [INFO] default - Response {
+  id: 11,
+  blogId: 1,
+  accountId: 3,
+  content: '213',
+  createdAt: 2024-07-24T03:18:28.308Z,
+  updatedAt: 2024-07-24T03:18:28.308Z
+}
+[2024-07-24T10:27:11.525] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T10:27:41.619] [INFO] default - Response [
+  {
+    id: 1,
+    blogId: 11,
+    accountId: 134,
+    content: "Can we expect more posts like this? I'm eager to read more!",
+    createdAt: '2024-07-24T02:56:05.307Z',
+    updatedAt: '2020-05-14T06:17:22.000Z',
+    account: {
+      id: 134,
+      email: 'Brown.Brown75187@organic-willow.info',
+      password: 'cICRn9lbFnIi',
+      role: 'USER',
+      otp: 'Voluptates cum id satis gloriae eamus eo itaque.',
+      otpExpired: 2020-11-08T05:49:22.000Z,
+      isVerified: false,
+      emailToken: '2747aedc-dbf4-5b38-b542-0277b220f348',
+      isActive: true,
+      createdAt: 2024-07-23T19:56:03.299Z,
+      updatedAt: 2020-10-03T05:01:35.000Z,
+      user: null
+    }
+  }
+]
+[2024-07-24T18:03:36.160] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T18:03:57.524] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T18:04:08.157] [INFO] default - Response [
+  {
+    id: 1,
+    blogId: 11,
+    accountId: 134,
+    content: "Can we expect more posts like this? I'm eager to read more!",
+    createdAt: '2024-07-24T02:56:05.307Z',
+    updatedAt: '2020-05-14T06:17:22.000Z',
+    account: {
+      id: 134,
+      email: 'Brown.Brown75187@organic-willow.info',
+      password: 'cICRn9lbFnIi',
+      role: 'USER',
+      otp: 'Voluptates cum id satis gloriae eamus eo itaque.',
+      otpExpired: 2020-11-08T05:49:22.000Z,
+      isVerified: false,
+      emailToken: '2747aedc-dbf4-5b38-b542-0277b220f348',
+      isActive: true,
+      createdAt: 2024-07-23T19:56:03.299Z,
+      updatedAt: 2020-10-03T05:01:35.000Z,
+      user: null
+    }
+  }
+]
+[2024-07-24T18:04:53.525] [INFO] default - Response [
+  {
+    id: 1,
+    blogId: 11,
+    accountId: 134,
+    content: "Can we expect more posts like this? I'm eager to read more!",
+    createdAt: '2024-07-24T02:56:05.307Z',
+    updatedAt: '2020-05-14T06:17:22.000Z',
+    account: {
+      id: 134,
+      email: 'Brown.Brown75187@organic-willow.info',
+      password: 'cICRn9lbFnIi',
+      role: 'USER',
+      otp: 'Voluptates cum id satis gloriae eamus eo itaque.',
+      otpExpired: 2020-11-08T05:49:22.000Z,
+      isVerified: false,
+      emailToken: '2747aedc-dbf4-5b38-b542-0277b220f348',
+      isActive: true,
+      createdAt: 2024-07-23T19:56:03.299Z,
+      updatedAt: 2020-10-03T05:01:35.000Z,
+      user: null
+    }
+  },
+  {
+    id: 2,
+    blogId: 11,
+    accountId: 136,
+    content: 'The visuals in this article are really helpful. Thanks for including them.',
+    createdAt: '2024-07-24T02:56:05.380Z',
+    updatedAt: '2024-07-24T18:04:40.346Z',
+    account: {
+      id: 136,
+      email: 'Kolby.Cummerata17470@monstrouszen.biz',
+      password: 'Bm]q[f5u1e7ee',
+      role: 'HOST',
+      otp: 'Minis sed hominavoc sed adhiben captetur poetae, ut vocanimi consed etennius voluptatis sed.',
+      otpExpired: 2020-07-27T13:21:21.000Z,
+      isVerified: false,
+      emailToken: '5753c3ae-4bc4-5bba-9258-9ff1374f76e5',
+      isActive: true,
+      createdAt: 2024-07-23T19:56:03.402Z,
+      updatedAt: 2020-12-09T06:23:14.000Z,
+      user: null
+    }
+  },
+  {
+    id: 3,
+    blogId: 11,
+    accountId: 138,
+    content: 'This is exactly what I needed to read today. Thank you!',
+    createdAt: '2024-07-24T02:56:05.452Z',
+    updatedAt: '2024-07-24T18:04:40.346Z',
+    account: {
+      id: 138,
+      email: 'Aileen.Cartwright46323@popular-carp.org',
+      password: 'JEdegCyk4mkA',
+      role: 'ADMIN',
+      otp: 'Ulas virtutibus accur eos reici providie, idciret nostra in hanc qui nihillum nosque.',
+      otpExpired: 2020-03-15T09:49:12.000Z,
+      isVerified: false,
+      emailToken: 'cd526207-1481-59bb-bc4c-db56dce8a332',
+      isActive: true,
+      createdAt: 2024-07-23T19:56:03.504Z,
+      updatedAt: 2020-06-19T00:52:57.000Z,
+      user: null
+    }
+  }
+]
+[2024-07-24T18:05:43.872] [INFO] default - Response [
+  {
+    id: 1,
+    blogId: 11,
+    accountId: 134,
+    content: "Can we expect more posts like this? I'm eager to read more!",
+    createdAt: '2024-07-24T02:56:05.307Z',
+    updatedAt: '2020-05-14T06:17:22.000Z',
+    account: {
+      id: 134,
+      email: 'Brown.Brown75187@organic-willow.info',
+      password: 'cICRn9lbFnIi',
+      role: 'USER',
+      otp: 'Voluptates cum id satis gloriae eamus eo itaque.',
+      otpExpired: 2020-11-08T05:49:22.000Z,
+      isVerified: false,
+      emailToken: '2747aedc-dbf4-5b38-b542-0277b220f348',
+      isActive: true,
+      createdAt: 2024-07-23T19:56:03.299Z,
+      updatedAt: 2020-10-03T05:01:35.000Z,
+      user: null
+    }
+  },
+  {
+    id: 2,
+    blogId: 11,
+    accountId: 136,
+    content: 'The visuals in this article are really helpful. Thanks for including them.',
+    createdAt: '2024-07-24T02:56:05.380Z',
+    updatedAt: '2024-07-24T18:04:40.346Z',
+    account: {
+      id: 136,
+      email: 'Kolby.Cummerata17470@monstrouszen.biz',
+      password: 'Bm]q[f5u1e7ee',
+      role: 'HOST',
+      otp: 'Minis sed hominavoc sed adhiben captetur poetae, ut vocanimi consed etennius voluptatis sed.',
+      otpExpired: 2020-07-27T13:21:21.000Z,
+      isVerified: false,
+      emailToken: '5753c3ae-4bc4-5bba-9258-9ff1374f76e5',
+      isActive: true,
+      createdAt: 2024-07-23T19:56:03.402Z,
+      updatedAt: 2020-12-09T06:23:14.000Z,
+      user: null
+    }
+  },
+  {
+    id: 3,
+    blogId: 11,
+    accountId: 138,
+    content: 'This is exactly what I needed to read today. Thank you!',
+    createdAt: '2024-07-24T02:56:05.452Z',
+    updatedAt: '2024-07-24T18:04:40.346Z',
+    account: {
+      id: 138,
+      email: 'Aileen.Cartwright46323@popular-carp.org',
+      password: 'JEdegCyk4mkA',
+      role: 'ADMIN',
+      otp: 'Ulas virtutibus accur eos reici providie, idciret nostra in hanc qui nihillum nosque.',
+      otpExpired: 2020-03-15T09:49:12.000Z,
+      isVerified: false,
+      emailToken: 'cd526207-1481-59bb-bc4c-db56dce8a332',
+      isActive: true,
+      createdAt: 2024-07-23T19:56:03.504Z,
+      updatedAt: 2020-06-19T00:52:57.000Z,
+      user: null
+    }
+  }
+]
+[2024-07-24T18:06:07.664] [INFO] default - Response [
+  {
+    id: 1,
+    blogId: 11,
+    accountId: 134,
+    content: "Can we expect more posts like this? I'm eager to read more!",
+    createdAt: '2024-07-24T02:56:05.307Z',
+    updatedAt: '2020-05-14T06:17:22.000Z',
+    account: {
+      id: 134,
+      email: 'Brown.Brown75187@organic-willow.info',
+      password: 'cICRn9lbFnIi',
+      role: 'USER',
+      otp: 'Voluptates cum id satis gloriae eamus eo itaque.',
+      otpExpired: 2020-11-08T05:49:22.000Z,
+      isVerified: false,
+      emailToken: '2747aedc-dbf4-5b38-b542-0277b220f348',
+      isActive: true,
+      createdAt: 2024-07-23T19:56:03.299Z,
+      updatedAt: 2020-10-03T05:01:35.000Z,
+      user: null
+    }
+  },
+  {
+    id: 2,
+    blogId: 11,
+    accountId: 136,
+    content: 'The visuals in this article are really helpful. Thanks for including them.',
+    createdAt: '2024-07-24T02:56:05.380Z',
+    updatedAt: '2024-07-24T18:04:40.346Z',
+    account: {
+      id: 136,
+      email: 'Kolby.Cummerata17470@monstrouszen.biz',
+      password: 'Bm]q[f5u1e7ee',
+      role: 'HOST',
+      otp: 'Minis sed hominavoc sed adhiben captetur poetae, ut vocanimi consed etennius voluptatis sed.',
+      otpExpired: 2020-07-27T13:21:21.000Z,
+      isVerified: false,
+      emailToken: '5753c3ae-4bc4-5bba-9258-9ff1374f76e5',
+      isActive: true,
+      createdAt: 2024-07-23T19:56:03.402Z,
+      updatedAt: 2020-12-09T06:23:14.000Z,
+      user: null
+    }
+  },
+  {
+    id: 4,
+    blogId: 11,
+    accountId: 140,
+    content: 'This approach is quite innovative. How did you come up with it?',
+    createdAt: '2024-07-24T02:56:05.551Z',
+    updatedAt: '2024-07-24T18:04:40.346Z',
+    account: {
+      id: 140,
+      email: 'Remington.Ruecker90562@hoaxpulley.org',
+      password: 'm60%446&!#^vX',
+      role: 'ADMIN',
+      otp: 'Faciant sentioribus gubere quid eam ea nam vitam.',
+      otpExpired: 2020-07-19T13:38:00.000Z,
+      isVerified: false,
+      emailToken: '0e6bed07-0f66-5bc2-b4a7-b9b7fdd7b531',
+      isActive: true,
+      createdAt: 2024-07-23T19:56:03.607Z,
+      updatedAt: 2020-05-09T11:17:46.000Z,
+      user: null
+    }
+  }
+]
+[2024-07-24T18:06:31.644] [INFO] default - Response [
+  {
+    id: 1,
+    blogId: 11,
+    accountId: 134,
+    content: "Can we expect more posts like this? I'm eager to read more!",
+    createdAt: '2024-07-24T02:56:05.307Z',
+    updatedAt: '2020-05-14T06:17:22.000Z',
+    account: {
+      id: 134,
+      email: 'Brown.Brown75187@organic-willow.info',
+      password: 'cICRn9lbFnIi',
+      role: 'USER',
+      otp: 'Voluptates cum id satis gloriae eamus eo itaque.',
+      otpExpired: 2020-11-08T05:49:22.000Z,
+      isVerified: false,
+      emailToken: '2747aedc-dbf4-5b38-b542-0277b220f348',
+      isActive: true,
+      createdAt: 2024-07-23T19:56:03.299Z,
+      updatedAt: 2020-10-03T05:01:35.000Z,
+      user: null
+    }
+  },
+  {
+    id: 2,
+    blogId: 11,
+    accountId: 136,
+    content: 'The visuals in this article are really helpful. Thanks for including them.',
+    createdAt: '2024-07-24T02:56:05.380Z',
+    updatedAt: '2024-07-24T18:04:40.346Z',
+    account: {
+      id: 136,
+      email: 'Kolby.Cummerata17470@monstrouszen.biz',
+      password: 'Bm]q[f5u1e7ee',
+      role: 'HOST',
+      otp: 'Minis sed hominavoc sed adhiben captetur poetae, ut vocanimi consed etennius voluptatis sed.',
+      otpExpired: 2020-07-27T13:21:21.000Z,
+      isVerified: false,
+      emailToken: '5753c3ae-4bc4-5bba-9258-9ff1374f76e5',
+      isActive: true,
+      createdAt: 2024-07-23T19:56:03.402Z,
+      updatedAt: 2020-12-09T06:23:14.000Z,
+      user: null
+    }
+  },
+  {
+    id: 4,
+    blogId: 11,
+    accountId: 140,
+    content: 'This approach is quite innovative. How did you come up with it?',
+    createdAt: '2024-07-24T02:56:05.551Z',
+    updatedAt: '2024-07-24T18:04:40.346Z',
+    account: {
+      id: 140,
+      email: 'Remington.Ruecker90562@hoaxpulley.org',
+      password: 'm60%446&!#^vX',
+      role: 'ADMIN',
+      otp: 'Faciant sentioribus gubere quid eam ea nam vitam.',
+      otpExpired: 2020-07-19T13:38:00.000Z,
+      isVerified: false,
+      emailToken: '0e6bed07-0f66-5bc2-b4a7-b9b7fdd7b531',
+      isActive: true,
+      createdAt: 2024-07-23T19:56:03.607Z,
+      updatedAt: 2020-05-09T11:17:46.000Z,
+      user: null
+    }
+  }
+]
+[2024-07-24T18:07:00.682] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T18:07:02.211] [INFO] default - Response [
+  {
+    id: 3,
+    blogId: 11,
+    accountId: 138,
+    content: 'This is exactly what I needed to read today. Thank you!',
+    createdAt: '2024-07-26T02:56:05.452Z',
+    updatedAt: '2024-07-24T18:06:04.425Z',
+    account: {
+      id: 138,
+      email: 'Aileen.Cartwright46323@popular-carp.org',
+      password: 'JEdegCyk4mkA',
+      role: 'ADMIN',
+      otp: 'Ulas virtutibus accur eos reici providie, idciret nostra in hanc qui nihillum nosque.',
+      otpExpired: 2020-03-15T09:49:12.000Z,
+      isVerified: false,
+      emailToken: 'cd526207-1481-59bb-bc4c-db56dce8a332',
+      isActive: true,
+      createdAt: 2024-07-23T19:56:03.504Z,
+      updatedAt: 2020-06-19T00:52:57.000Z,
+      user: null
+    }
+  },
+  {
+    id: 9,
+    blogId: 11,
+    accountId: 150,
+    content: 'The historical context provided adds so much depth to the discussion.',
+    createdAt: '2024-07-24T02:56:05.946Z',
+    updatedAt: '2024-07-24T18:04:40.346Z',
+    account: {
+      id: 150,
+      email: 'Ophelia_D_Amore22739@electricring.net',
+      password: 'Fu]!^pTm1#ua1i',
+      role: 'USER',
+      otp: 'Omnino enda at propterire voluptas, ant quod synephebos deinde sunt spe.',
+      otpExpired: 2020-04-08T22:31:20.000Z,
+      isVerified: false,
+      emailToken: 'd9d6b5ed-a191-541c-9f36-5cc5f0abef93',
+      isActive: true,
+      createdAt: 2024-07-23T19:56:04.283Z,
+      updatedAt: 2020-04-24T10:46:23.000Z,
+      user: null
+    }
+  },
+  {
+    id: 8,
+    blogId: 11,
+    accountId: 148,
+    content: "Great read! I've learned a lot and am excited to apply some of these tips.",
+    createdAt: '2024-07-24T02:56:05.873Z',
+    updatedAt: '2024-07-24T18:04:40.346Z',
+    account: {
+      id: 148,
+      email: 'Ansel.Kozey58300@beard-macrofauna.biz',
+      password: '5toI]H9dKo]4',
+      role: 'USER',
+      otp: 'Dixi mnesarem aiunt hanc autem causae mihi magnum, eret eum torquate amur facil conciliantur ruinae ornatural.',
+      otpExpired: 2020-05-13T23:34:44.000Z,
+      isVerified: false,
+      emailToken: 'aadf0ad7-7262-5ccc-987e-faa54d59eb3f',
+      isActive: true,
+      createdAt: 2024-07-23T19:56:04.146Z,
+      updatedAt: 2020-02-02T20:23:52.000Z,
+      user: null
+    }
+  }
+]
+[2024-07-24T18:10:44.304] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T18:11:21.127] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T18:15:59.941] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T18:16:26.048] [ERROR] default - ERROR LOG  7/24/2024, 6:16:26 PM
+[2024-07-24T18:16:26.049] [WARN] default - Request: "POST" "/api/user/report-blog/11"
+[2024-07-24T18:16:26.050] [WARN] default - Params: {}
+[2024-07-24T18:16:26.050] [WARN] default - Body: {"reason":"cực tệ"}
+[2024-07-24T18:16:26.051] [WARN] default - Query: {}
+[2024-07-24T18:16:26.051] [ERROR] default - Error:  {"status":500,"messageObject":"\nInvalid `database.reportBlog.create()` invocation in\nD:\\SEP490\\SEP490-SM2024\\backend\\src\\modules\\user\\reportBlog\\reportBlog.service.ts:6:38\n\n  3 const reportBlogUserService = {\n  4   create: async (data: any): Promise<any> => {\n  5     const { reason, accountId, blogId } = data;\n→ 6     return await database.reportBlog.create({\n          data: {\n            reason: \"cực tệ\",\n            accountId: 3,\n            blogId: NaN,\n        +   blog: {\n        +     create: BlogCreateWithoutReportBlogInput | BlogUncheckedCreateWithoutReportBlogInput,\n        +     connectOrCreate: BlogCreateOrConnectWithoutReportBlogInput,\n        +     connect: BlogWhereUniqueInput\n        +   }\n          }\n        })\n\nArgument `blog` is missing."}
+[2024-07-24T18:16:26.054] [ERROR] default - Error stack:  Error
+    at create (D:\SEP490\SEP490-SM2024\backend\src\modules\user\reportBlog\reportBlog.controller.ts:19:12)
+[2024-07-24T18:16:26.055] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-24T18:17:03.424] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T18:17:05.648] [ERROR] default - ERROR LOG  7/24/2024, 6:17:05 PM
+[2024-07-24T18:17:05.649] [WARN] default - Request: "POST" "/api/user/report-blog/11"
+[2024-07-24T18:17:05.649] [WARN] default - Params: {}
+[2024-07-24T18:17:05.650] [WARN] default - Body: {"reason":"cực tệ"}
+[2024-07-24T18:17:05.651] [WARN] default - Query: {}
+[2024-07-24T18:17:05.651] [ERROR] default - Error:  {"status":500,"messageObject":"\nInvalid `database.reportBlog.create()` invocation in\nD:\\SEP490\\SEP490-SM2024\\backend\\src\\modules\\user\\reportBlog\\reportBlog.service.ts:6:38\n\n  3 const reportBlogUserService = {\n  4   create: async (data: any): Promise<any> => {\n  5     const { reason, accountId, blogId } = data;\n→ 6     return await database.reportBlog.create({\n          data: {\n            reason: \"cực tệ\",\n            accountId: 3,\n            blogId: NaN,\n        +   blog: {\n        +     create: BlogCreateWithoutReportBlogInput | BlogUncheckedCreateWithoutReportBlogInput,\n        +     connectOrCreate: BlogCreateOrConnectWithoutReportBlogInput,\n        +     connect: BlogWhereUniqueInput\n        +   }\n          }\n        })\n\nArgument `blog` is missing."}
+[2024-07-24T18:17:05.653] [ERROR] default - Error stack:  Error
+    at create (D:\SEP490\SEP490-SM2024\backend\src\modules\user\reportBlog\reportBlog.controller.ts:19:12)
+[2024-07-24T18:17:05.654] [WARN] default - --------------------------------------------------------------------------------------
+[2024-07-24T18:17:25.337] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-07-24T18:17:26.915] [INFO] default - Response {
+  id: 1,
+  reason: 'cực tệ',
+  blogId: 11,
+  accountId: 3,
+  createdAt: '2024-07-24T18:17:26.771Z',
+  updatedAt: '2024-07-24T18:17:26.771Z'
+}
