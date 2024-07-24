@@ -43,14 +43,23 @@ const blogUserController = {
       const data: { total: number; blogs: Blog[] } =
         await blogUserService.getAll(pagination);
 
-      for (let index = 0; index < data.blogs.length; index++) {
-        if (data.blogs[index]?.image) {
-          data.blogs[index].image = await getObjectSignedUrl(
-            data.blogs[index]?.image
-          );
+      for (const element of data.blogs) {
+        if (element?.image) {
+          element.image = await getObjectSignedUrl(element?.image);
         }
       }
       ResponseHandler(res, data);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
+  delete: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id } = req.params;
+      const blog: Blog | null = await blogUserService.delete(
+        Number(id)
+      );
+      ResponseHandler(res, blog);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
     }

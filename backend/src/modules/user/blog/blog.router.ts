@@ -23,7 +23,7 @@ blogUserRouter.put(
   validate(blogUserValidator.blog),
   blogUserController.update
 );
-// blogUserRouter.delete('/:id', blogUserController.delete);
+blogUserRouter.delete('/:id', blogUserController.delete);
 blogUserRouter.post(
   '/',
   upload.single('image'),

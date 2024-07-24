@@ -15,6 +15,23 @@ const blogUserService = {
       },
     });
   },
+  delete: async (id: number): Promise<Blog> => {
+    await database.comment.deleteMany({
+      where: {
+        blogId: id,
+      },
+    });
+    await database.reportBlog.deleteMany({
+      where: {
+        blogId: id,
+      },
+    });
+    return await database.blog.delete({
+      where: {
+        id,
+      },
+    });
+  },
   update: async (id: number, data: BlogInput): Promise<Blog> => {
     const { accountId, image, caption } = data;
     return await database.blog.update({
