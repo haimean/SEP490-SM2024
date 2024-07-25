@@ -52,9 +52,7 @@ export default function TableToolbar({
           input={<OutlinedInput />}
           sx={{ width: 150 }}
         >
-          <MenuItem value="">
-            Trình độ
-          </MenuItem>
+          <MenuItem value="">Trình độ</MenuItem>
           {levels.map((level) => (
             <MenuItem key={level} value={level}>
               {level}

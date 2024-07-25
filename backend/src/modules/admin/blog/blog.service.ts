@@ -3,6 +3,7 @@ import { getQueryPagination } from '../../index.service';
 import { Pagination } from '../../index.model';
 import { ReportBlog } from '@prisma/client';
 import database from '../../../lib/db.server';
+import { getObjectSignedUrl } from '../../../lib/s3';
 
 const blogAdminService = {
   getAllReport: async (
@@ -29,6 +30,10 @@ const blogAdminService = {
       ...getQueryPagination(pagination),
     });
     const total = await database.reportBlog.findMany();
+    reports;
+    for (let report of reports) {
+      report.blog.image = await getObjectSignedUrl(report.blog.image);
+    }
     return { total: total.length, reports };
   },
   delete: async (id: number): Promise<ReportBlog> => {

@@ -42,6 +42,8 @@ import BookingDetailHost from "../components/host/BranchBookHistory/BookingDetai
 import ListBranchAdmin from "../pages/admin/Branch/ListBranchAdmin.jsx";
 import RequestList from "../pages/user/requestList/requestList.jsx";
 import ListBlog from "../pages/player/Blog/ListBlog.jsx";
+import DashboardHost from "../pages/host/Dashboard/Dashboard.jsx";
+import PriceSetupPage from "../components/host/court/PriceSetupPage.jsx";
 
 const router = [
   {
@@ -282,8 +284,8 @@ const router = [
     layout: "",
   },
   {
-    path: "/available-court",
-    name: "Available Court",
+    path: "/available-post",
+    name: "Available Post",
     component: <AvailableCourtPage />,
     // role: ["USER"],
     layout: "",
@@ -363,6 +365,20 @@ const router = [
     name: "List Blog",
     component: <ListBlog />,
     role: ["USER", "HOST"],
+    layout: "",
+  },
+  {
+    path: "/host/dashboard",
+    name: "Dashboarad",
+    component: <DashboardHost />,
+    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    layout: "host",
+  },
+  {
+    path: "/host/price",
+    name: "Price set up page",
+    component: <PriceSetupPage />,
+    role: ["HOST"],
     layout: "",
   },
 ];

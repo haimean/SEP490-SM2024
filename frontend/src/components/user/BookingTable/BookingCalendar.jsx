@@ -4,6 +4,7 @@ import { parse, startOfWeek, getDay, format, setHours, setMinutes, setSeconds, d
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import enUS from 'date-fns/locale/en-US';
 import { toast } from 'react-toastify';
+import { CircularProgress, Backdrop } from '@mui/material';
 import CallApi from '../../../service/CallAPI';
 import PriceListModal from './PriceListModal';
 import ConfirmBookingModal from './ConfirmBookingModal';
@@ -27,6 +28,7 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
   const [repeatDisabled, setRepeatDisabled] = useState(false);
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false); // Thêm trạng thái loading
 
   const [court, setCourt] = useState(null);
   const [booking1, setBooking1] = useState([]);
@@ -51,6 +53,7 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
   }, []);
 
   const fetchData = async (id) => {
+    setLoading(true); // Bắt đầu tải
     try {
       const response = await CallApi(
         `/api/court/${id}`,
@@ -89,8 +92,9 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
       setPriceLists(priceLists);
     } catch (error) {
       toast.error(error.response?.data?.error || "An error occurred");
+    } finally {
+      setLoading(false); // Kết thúc tải
     }
-
   };
 
   const handleSelectSlot = ({ start, end }) => {
@@ -290,15 +294,20 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
     setIsBookingModalOpen(false);
   };
 
+  const resetEvents = () => {
+    setEvents([]);
+    setSelectedEvents([]);
+    fetchData(courtId);
+  };
+
   const Event = ({ event }) => {
     return (
-      <span>
-        <strong>{event.title}</strong>
+      <span className='flex'>
         {!event.isBooking && (
           <button
             onClick={() => handleEventDelete(event)}
             style={{
-              float: 'right',
+              float: 'left',
               background: 'none',
               border: 'none',
               color: 'red',
@@ -308,16 +317,20 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
             X
           </button>
         )}
+        <strong>{event.title}</strong>
       </span>
     );
   };
 
   return (
     <div className="">
-      <div className="text-center mb-4">
+      <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
+      <div className="text-center">
         <h2>Giờ hoạt động: {format(openHour, 'HH:mm')} - {format(closeHour, 'HH:mm')}</h2>
       </div>
-      <div className="text-center mb-4">
+      <div className="text-center my-2">
         <button
           onClick={handleClearAll}
           className="p-2 ml-2 bg-red-500 text-white rounded"
@@ -338,7 +351,7 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
           Xem Bảng Giá
         </button>
       </div>
-      <div className="text-center mb-4">
+      <div className="text-center mb-2">
         <p>Số lượng ca đã chọn: {selectedEvents.length}</p>
       </div>
       <Calendar
@@ -369,6 +382,7 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
         courtId={courtId}
         selectedEvents={selectedEvents}
         refreshData={fetchData}
+        resetEvents={resetEvents}
       />
     </div>
   );

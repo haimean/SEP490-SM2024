@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import { useForm } from "react-hook-form";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
-import PaymentCreateBranch from "../../../components/host/Branch/PaymentCreateBranch";
+import PaymentCreateBranch from "../../../components/host/branch/PaymentCreateBranch";
 
 const CreateBranch = () => {
   const {
