@@ -25,6 +25,9 @@ const courtService = {
       include: {
         Branches: true,
         booking: {
+          where: {
+            isDelete: false
+          },
           include: {
             bookingInfo: true,
             account: true,
