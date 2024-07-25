@@ -110913,3 +110913,136 @@
     }
   }
 ]
+[2024-07-25T18:50:07.364] [INFO] default - Express server is listening at http://localhost:9999 🚀
+[2024-07-25T18:51:05.507] [INFO] default - Response [
+  {
+    id: 1,
+    accountId: 1,
+    fullName: 'Duy Anh',
+    identifierCode: '',
+    dob: null,
+    numberPhone: '',
+    gender: 'FEMALE',
+    address: null,
+    avatar: null,
+    createdAt: '2024-07-23T18:19:44.805Z',
+    updatedAt: '2024-07-24T00:34:39.680Z',
+    account: {
+      id: 1,
+      email: 'inuyashapc162@gmail.com',
+      password: '$2b$10$Jy2TkJdn.Fi7Gh2/rlNfjudaYUjUQjGuhVpP.BBpVI2KYA6rV7Hta',
+      role: 'USER',
+      otp: null,
+      otpExpired: null,
+      isVerified: true,
+      emailToken: null,
+      isActive: true,
+      createdAt: 2024-07-23T11:19:44.627Z,
+      updatedAt: 2024-07-23T11:20:00.064Z
+    }
+  },
+  {
+    id: 2,
+    accountId: 162,
+    fullName: 'USER',
+    identifierCode: '',
+    dob: null,
+    numberPhone: '',
+    gender: 'FEMALE',
+    address: null,
+    avatar: null,
+    createdAt: '2024-07-23T19:52:32.340Z',
+    updatedAt: '2024-07-24T00:18:08.618Z',
+    account: {
+      id: 162,
+      email: 'Spencer.Lebsack12035@masculine-import.net',
+      password: 'h{dy]O@N5dKv',
+      role: 'ADMIN',
+      otp: 'Nunc bonum hoc aliqua intus mortemnitat esta maximpedir, in latin praeclaret ut vitae.',
+      otpExpired: 2020-05-13T11:29:15.000Z,
+      isVerified: false,
+      emailToken: 'c687fc4d-4662-5ea3-a8b5-3ee1ee479e3c',
+      isActive: true,
+      createdAt: 2024-07-23T19:56:07.486Z,
+      updatedAt: 2020-03-07T21:05:22.000Z
+    }
+  },
+  {
+    id: 3,
+    accountId: 3,
+    fullName: 'Tài khoản của HOST',
+    identifierCode: '',
+    dob: '2002-08-13T00:00:00.000Z',
+    numberPhone: '0866928455',
+    gender: 'FEMALE',
+    address: null,
+    avatar: null,
+    createdAt: '2024-07-23T19:52:58.685Z',
+    updatedAt: '2024-07-24T10:40:50.987Z',
+    account: {
+      id: 3,
+      email: 'host@gmail.com',
+      password: '$2b$10$kg/hVYpAEUysyAanwGy.3eMfQjzW6rTsZbfJsAwtGoMlSRVzY8sCm',
+      role: 'HOST',
+      otp: null,
+      otpExpired: null,
+      isVerified: true,
+      emailToken: 'a349075300427f9e307cf2a47aad8d9fe2dd278f0e066d80b783a302d11d6ef669b3cf3c3407d9aae951b87146a7434c99bdceca05fd91e98516135ef297f519',
+      isActive: true,
+      createdAt: 2024-07-23T12:52:58.524Z,
+      updatedAt: 2024-07-25T09:38:04.634Z
+    }
+  },
+  {
+    id: 4,
+    accountId: 234,
+    fullName: 'Le Duc Manh (K16_HL)',
+    identifierCode: '',
+    dob: null,
+    numberPhone: '',
+    gender: 'FEMALE',
+    address: null,
+    avatar: null,
+    createdAt: '2024-07-23T20:18:29.215Z',
+    updatedAt: '2024-07-23T20:18:29.215Z',
+    account: {
+      id: 234,
+      email: 'manhldhe160520@fpt.edu.vn',
+      password: '',
+      role: 'HOST',
+      otp: null,
+      otpExpired: null,
+      isVerified: true,
+      emailToken: '',
+      isActive: true,
+      createdAt: 2024-07-23T13:18:29.212Z,
+      updatedAt: 2024-07-23T13:18:29.212Z
+    }
+  },
+  {
+    id: 5,
+    accountId: 164,
+    fullName: 'Duy Anh dove',
+    identifierCode: null,
+    dob: null,
+    numberPhone: '',
+    gender: 'MALE',
+    address: null,
+    avatar: 'https://i.pinimg.com/236x/db/16/7f/db167f5639b20ed2857ddd862626e24e.jpg',
+    createdAt: '2024-07-24T00:35:47.469Z',
+    updatedAt: '2024-07-24T00:34:49.241Z',
+    account: {
+      id: 164,
+      email: 'Jannie_Langosh32677@excitingpastor.net',
+      password: 'z%9X5pmTDowj',
+      role: 'ADMIN',
+      otp: 'Moles qua conquisitat ipsa futur, iis locus gauderetur sentior aren apparte.',
+      otpExpired: 2020-01-05T07:27:00.000Z,
+      isVerified: false,
+      emailToken: '1c4a217b-e88e-5d8b-afb9-6759de22c2ec',
+      isActive: true,
+      createdAt: 2024-07-23T19:56:09.788Z,
+      updatedAt: 2024-07-25T11:25:25.651Z
+    }
+  }
+]
