@@ -38,12 +38,7 @@ const courtService = {
         },
         TypeCourt: {
           include: {
-            priceTypeCourt: {
-              orderBy: {
-                startTime: 'desc',
-                times: 'desc',
-              },
-            },
+            priceTypeCourt: true,
           },
         },
       },

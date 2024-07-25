@@ -46,7 +46,6 @@ const accountService = {
         id,
       },
     });
-    let result = {};
     if (existAccount) {
       return await database.account.update({
         where: {
@@ -56,7 +55,6 @@ const accountService = {
           isActive: !existAccount.isActive,
         },
       });
-      return result;
     } else {
       throw new Error('Account not exist');
     }

@@ -3,6 +3,7 @@ import { getQueryPagination } from '../../index.service';
 import { Pagination } from '../../index.model';
 import { ReportBlog } from '@prisma/client';
 import database from '../../../lib/db.server';
+import { getObjectSignedUrl } from '../../../lib/s3';
 
 const blogAdminService = {
   getAllReport: async (
@@ -29,6 +30,10 @@ const blogAdminService = {
       ...getQueryPagination(pagination),
     });
     const total = await database.reportBlog.findMany();
+    reports;
+    for (let report of reports) {
+      report.blog.image = await getObjectSignedUrl(report.blog.image);
+    }
     return { total: total.length, reports };
   },
   delete: async (id: number): Promise<ReportBlog> => {
@@ -36,12 +41,14 @@ const blogAdminService = {
       where: { id },
     });
   },
-  banReport: async (id: number): Promise<ReportBlog> => {
+  banReport: async (id: number): Promise<any> => {
     const report = await database.reportBlog.findFirst({
       where: { id },
     });
     if (report) {
-      await database.blog.delete({ where: { id: report?.blogId } });
+      await database.reportBlog.delete({
+        where: { id },
+      });
       await database.account.update({
         where: {
           id: report.accountId,
@@ -50,10 +57,13 @@ const blogAdminService = {
           isActive: false,
         },
       });
+      await database.comment.deleteMany({
+        where: { blogId: report?.blogId },
+      });
+      return await database.blog.delete({
+        where: { id: report?.blogId },
+      });
     }
-    return await database.reportBlog.delete({
-      where: { id },
-    });
   },
 };
 

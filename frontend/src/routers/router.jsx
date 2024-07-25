@@ -43,6 +43,7 @@ import ListBranchAdmin from "../pages/admin/Branch/ListBranchAdmin.jsx";
 import RequestList from "../pages/user/requestList/requestList.jsx";
 import ListBlog from "../pages/player/Blog/ListBlog.jsx";
 import DashboardHost from "../pages/host/Dashboard/Dashboard.jsx";
+import PriceSetupPage from "../components/host/court/PriceSetupPage.jsx";
 
 const router = [
   {
@@ -372,6 +373,13 @@ const router = [
     component: <DashboardHost />,
     // role: ["HOST"], // Chỉ cho phép HOST truy cập
     layout: "host",
+  },
+  {
+    path: "/host/price",
+    name: "Price set up page",
+    component: <PriceSetupPage />,
+    role: ["HOST"],
+    layout: "",
   },
 ];
 
