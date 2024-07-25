@@ -2,7 +2,7 @@ import discover_1 from "../../assets/svg/discover_1.svg";
 import discover_2 from "../../assets/svg/discover_2.svg";
 import discover_3 from "../../assets/svg/discover_3.svg";
 import tick from "../../assets/svg/tick.svg";
-import Blog from "../../components/player/Blog/Blog.jsx";
+import PostLandingPage from "../../components/player/Post/PostLandingPage";
 
 const LandingPage = () => {
   const blogData = [
@@ -53,7 +53,7 @@ const LandingPage = () => {
         </section>
 
         {/* CallAPI mảng obj 3 bài báo, đây chỉ là fix cứng */}
-        <Blog blog={blogData} /> 
+        <PostLandingPage blog={blogData} /> 
 
         <section className="block">
           <div className="container">
