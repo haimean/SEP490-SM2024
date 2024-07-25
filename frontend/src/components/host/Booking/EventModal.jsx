@@ -6,12 +6,14 @@ const EventModal = ({ isOpen, onClose, eventData, setEventData, isNewEvent, onSa
   const [saveDisabled, setSaveDisabled] = useState(!isNewEvent);
   const [deleteDisabled, setDeleteDisabled] = useState(false);
   const [isPastEvent, setIsPastEvent] = useState(false);
+  const [fieldsDisabled, setFieldsDisabled] = useState(!isNewEvent);
 
   useEffect(() => {
     setSaveDisabled(!isNewEvent);
     setDeleteDisabled(isNewEvent);
+    setFieldsDisabled(!isNewEvent);
     checkIfPastEvent();
-  }, [isNewEvent, eventData.start]);
+  }, [isNewEvent]);
 
   const checkIfPastEvent = () => {
     const now = new Date();
@@ -85,15 +87,25 @@ const EventModal = ({ isOpen, onClose, eventData, setEventData, isNewEvent, onSa
         }}
       >
         <Typography variant="h6" component="h2">
-          {isNewEvent ? 'Thêm sự kiện mới' : 'Chỉnh sửa sự kiện'}
+          {isNewEvent ? 'Thêm Ca đặt mới' : 'Chi tiết ca đặt'}
         </Typography>
         <TextField
           margin="normal"
           fullWidth
-          label="Tiêu đề"
-          name="title"
-          value={eventData.title}
+          label="Tên người đặt"
+          name="name"
+          value={eventData.name}
           onChange={handleChange}
+          disabled={fieldsDisabled}
+        />
+        <TextField
+          margin="normal"
+          fullWidth
+          label="Số điện thoại"
+          name="numberPhone"
+          value={eventData.numberPhone}
+          onChange={handleChange}
+          disabled={fieldsDisabled}
         />
         <TextField
           label="Ngày"
@@ -101,7 +113,7 @@ const EventModal = ({ isOpen, onClose, eventData, setEventData, isNewEvent, onSa
           fullWidth
           value={date}
           onChange={(e) => handleDateChange('date', e.target.value)}
-          disabled={isPastEvent}
+          disabled={fieldsDisabled || isPastEvent}
           className='!mt-2'
         />
         <TextField
@@ -110,7 +122,7 @@ const EventModal = ({ isOpen, onClose, eventData, setEventData, isNewEvent, onSa
           fullWidth
           value={formatTime(eventData.start)}
           onChange={(e) => handleTimeChange('start', e.target.value)}
-          disabled={isPastEvent}
+          disabled={fieldsDisabled || isPastEvent}
           className='!mt-4'
         />
         <TextField
@@ -119,7 +131,7 @@ const EventModal = ({ isOpen, onClose, eventData, setEventData, isNewEvent, onSa
           fullWidth
           value={formatTime(eventData.end)}
           onChange={(e) => handleTimeChange('end', e.target.value)}
-          disabled={isPastEvent}
+          disabled={fieldsDisabled || isPastEvent}
           className='!mt-4'
         />
         <TextField
@@ -129,18 +141,21 @@ const EventModal = ({ isOpen, onClose, eventData, setEventData, isNewEvent, onSa
           name="price"
           value={eventData.price}
           onChange={handleChange}
+          disabled={fieldsDisabled}
         />
         <Box sx={{ mt: 2 }}>
-          <Button variant="contained" color="primary" onClick={handleSave} disabled={saveDisabled}>
-            Lưu
-          </Button>
+          {isNewEvent && (
+            <Button variant="contained" color="primary" onClick={handleSave} disabled={saveDisabled}>
+              Lưu
+            </Button>
+          )}
           {!isNewEvent && (
-            <Button variant="contained" color="secondary" onClick={onDelete} sx={{ ml: 2 }} disabled={deleteDisabled}>
-              Xóa
+            <Button variant="contained" color="secondary" onClick={onDelete} sx={{ ml: 2 }}>
+              Hủy ca đặt
             </Button>
           )}
           <Button variant="outlined" onClick={onClose} sx={{ ml: 2 }}>
-            Hủy
+            {isNewEvent ? 'Hủy' : 'Đóng'}
           </Button>
         </Box>
       </Box>
