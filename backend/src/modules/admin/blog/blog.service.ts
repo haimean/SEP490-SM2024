@@ -36,12 +36,14 @@ const blogAdminService = {
       where: { id },
     });
   },
-  banReport: async (id: number): Promise<ReportBlog> => {
+  banReport: async (id: number): Promise<any> => {
     const report = await database.reportBlog.findFirst({
       where: { id },
     });
     if (report) {
-      await database.blog.delete({ where: { id: report?.blogId } });
+      await database.reportBlog.delete({
+        where: { id },
+      });
       await database.account.update({
         where: {
           id: report.accountId,
@@ -50,10 +52,13 @@ const blogAdminService = {
           isActive: false,
         },
       });
+      await database.comment.deleteMany({
+        where: { blogId: report?.blogId },
+      });
+      return await database.blog.delete({
+        where: { id: report?.blogId },
+      });
     }
-    return await database.reportBlog.delete({
-      where: { id },
-    });
   },
 };
 
