@@ -28,7 +28,7 @@ const blogAdminService = {
       },
       ...getQueryPagination(pagination),
     });
-    const total = await database.blog.findMany();
+    const total = await database.reportBlog.findMany();
     return { total: total.length, reports };
   },
   delete: async (id: number): Promise<ReportBlog> => {
