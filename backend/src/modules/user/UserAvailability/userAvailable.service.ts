@@ -83,42 +83,62 @@ const userAvailableService = {
   },
 
   getUserMatch: async (postId: number) => {
-    return database.userAvailability.findMany({
+    const invitation: any = await database.invitation.findMany({
       where: {
-        Invitation: {
-          every: {
-            postId,
-            status: { not: 'ACCEPT' },
-          },
-        },
+        postId,
+        status: 'NEW',
       },
       include: {
-        account: {
+        userAvailability: {
           include: {
-            user: true,
+            Invitation: {
+              where: {
+                status: 'NEW',
+                postId,
+              },
+            },
+            account: {
+              include: {
+                user: true,
+              },
+            },
           },
         },
       },
+      orderBy: {
+        updatedAt: 'desc',
+      },
     });
+    return invitation.map((item: any) => item.userAvailability);
   },
   getUserAccept: async (postId: number) => {
-    return database.userAvailability.findMany({
+    const invitation: any = await database.invitation.findMany({
       where: {
-        Invitation: {
-          every: {
-            postId,
-            status: 'ACCEPT',
-          },
-        },
+        postId,
+        status: 'ACCEPT',
       },
       include: {
-        account: {
+        userAvailability: {
           include: {
-            user: true,
+            Invitation: {
+              where: {
+                status: 'ACCEPT',
+                postId,
+              },
+            },
+            account: {
+              include: {
+                user: true,
+              },
+            },
           },
         },
       },
+      orderBy: {
+        updatedAt: 'desc',
+      },
     });
+    return invitation.map((item: any) => item.userAvailability);
   },
 };
 export default userAvailableService;

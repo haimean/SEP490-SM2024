@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 
-const BlogCard = ({ court, address, time, image, isLarge }) => {
+const PostCard = ({ court, address, time, image, isLarge }) => {
   //isLarge true thì hiển thị ảnh to
   return (
     <Card
@@ -44,4 +44,4 @@ const BlogCard = ({ court, address, time, image, isLarge }) => {
   );
 };
 
-export default BlogCard;
+export default PostCard;

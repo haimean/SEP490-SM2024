@@ -23,7 +23,7 @@ const invitationUserValidator = {
       .required()
       .valid('ACCEPT', 'NOACCEPT', 'CANCEL')
       .label('Trạng thái'),
-    reasonCancel: Joi.string().required().label('Lý do'),
+    reasonCancel: Joi.string().label('Lý do'),
   }),
 };
 

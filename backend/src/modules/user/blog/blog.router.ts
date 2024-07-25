@@ -13,13 +13,17 @@ blogUserRouter.post(
 );
 blogUserRouter.get('/:id', blogUserController.get);
 blogUserRouter.get('/:id/comment', blogUserController.getComment);
+blogUserRouter.get(
+  '/:id/comment-newest',
+  blogUserController.getCommentNew
+);
 blogUserRouter.put(
   '/:id',
   upload.single('image'),
   validate(blogUserValidator.blog),
   blogUserController.update
 );
-// blogUserRouter.delete('/:id', blogUserController.delete);
+blogUserRouter.delete('/:id', blogUserController.delete);
 blogUserRouter.post(
   '/',
   upload.single('image'),

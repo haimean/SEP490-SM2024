@@ -21,6 +21,14 @@ const NavbarItemHost = () => {
       >
         Trang chủ
       </Button>
+      <Button
+        color="inherit"
+        component={Link}
+        to="/list-blog"
+        sx={{ textTransform: "none" }}
+      >
+        Trạng thái
+      </Button>
       <FormControl sx={{ m: 1, minWidth: 120 }}>
         <Select
           value={selectedOption}
