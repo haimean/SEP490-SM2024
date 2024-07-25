@@ -4,13 +4,14 @@ import { useParams } from "react-router-dom";
 import PostDetailCP from "../../../components/user/Post/PostDetailCP.jsx";
 import CallApi from "../../../service/CallAPI.jsx";
 import { toast } from "react-toastify";
+import Loading from "../../../components/common/Loading.jsx";
 
 const PostDetail = () => {
   const [userRole, setUserRole] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const { id } = useParams();
   const [post, setPost] = useState({});
-
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const storedUserRole = localStorage.getItem("userRole");
     const storedUserEmail = JSON.parse(localStorage.getItem("user"));
@@ -20,10 +21,12 @@ const PostDetail = () => {
   }, [id]);
 
   const fetchData = async (id) => {
+    setIsLoading(true);
     try {
       const response = await CallApi(`/api/user/post/${id}`, "get");
       console.log("🚀 ========= response:", response);
       setPost(response.data);
+      setIsLoading(false);
     } catch (error) {
       toast.error(error.response?.data?.error);
     }
@@ -44,7 +47,7 @@ const PostDetail = () => {
           flexGrow: 1,
         }}
       >
-        <PostDetailCP post={post} postId={id} />
+        {isLoading ? <Loading /> : <PostDetailCP post={post} postId={id} />}
       </Box>
     </Box>
   );

@@ -74,7 +74,6 @@ const bookingUserController = {
   ) => {
     try {
       const { id } = req.params;
-      console.log('🚀 ========= id:', id);
       const accountId = Number(req.headers.authorization);
       const result = await bookingUserService.getDetailBooking(
         Number(id),

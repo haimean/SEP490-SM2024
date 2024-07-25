@@ -17,12 +17,11 @@ import {
 } from "@mui/icons-material";
 import Map from "../../common/Map";
 import FormatTime from "../../../utils/user/formatTime";
-import Loading from "../../common/Loading";
 import PostRightCP from "./PostRightCP";
 
 const PostDetailCP = ({ post, postId }) => {
   if (!post?.booking?.Court) {
-    return <Loading />;
+    return "Không tồn tại bài này";
   }
 
   const { Court } = post.booking;
@@ -53,7 +52,11 @@ const PostDetailCP = ({ post, postId }) => {
           <CardMedia
             component="img"
             className={"object-cover bg-blue-200 h-96"}
-            image={TypeCourt.image || "https://via.placeholder.com/600x400"}
+            image={
+              TypeCourt?.image !== null
+                ? TypeCourt?.image
+                : "https://via.placeholder.com/600x400"
+            }
             alt="Activity image"
           />
           <CardContent>
@@ -118,9 +121,10 @@ const PostDetailCP = ({ post, postId }) => {
         </Card>
       </Grid>
       <PostRightCP
-        user={post.booking.bookingInfo}
+        user={post?.booking?.bookingInfo}
         post={post}
         postId={postId}
+        isOwner={true}
       />
     </Grid>
   );
