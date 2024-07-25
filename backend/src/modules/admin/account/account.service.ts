@@ -52,7 +52,7 @@ const accountService = {
           id,
         },
         data: {
-          isActive: false,
+          isActive: !existAccount.isActive,
         },
       });
       return existAccount;

@@ -83,6 +83,9 @@ const blogUserService = {
       where: {
         blogId: id,
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
       include: {
         account: {
           include: {
