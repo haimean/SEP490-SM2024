@@ -15,11 +15,13 @@ import { MoreVert, Flag, Comment } from "@mui/icons-material";
 import { getTimeSinceCreation } from "../../../utils/getTimeSinceCreation";
 import CreateComment from "./CreateComment";
 import NewestComments from "./NewestComments";
+import ReportModal from "./ReportModal";
 import { toast } from "react-toastify";
 
 const BlogItem = ({ blog, onOpenDetail, onDelete }) => {
   const [commentingBlogId, setCommentingBlogId] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [reportModalOpen, setReportModalOpen] = useState(false);
   const currentAccountId = parseInt(localStorage.getItem("accountId"));
 
   const handleMenuOpen = (event) => {
@@ -46,6 +48,14 @@ const BlogItem = ({ blog, onOpenDetail, onDelete }) => {
       toast.error("Xóa trạng thái thất bại");
     }
     handleMenuClose();
+  };
+
+  const handleReportClick = () => {
+    setReportModalOpen(true);
+  };
+
+  const handleReportClose = () => {
+    setReportModalOpen(false);
   };
 
   return (
@@ -103,9 +113,11 @@ const BlogItem = ({ blog, onOpenDetail, onDelete }) => {
         >
           <Comment />
         </IconButton>
-        <IconButton aria-label="report">
-          <Flag />
-        </IconButton>
+        {currentAccountId !== blog?.accountId && (
+          <IconButton aria-label="report" onClick={handleReportClick}>
+            <Flag />
+          </IconButton>
+        )}
       </CardActions>
       {commentingBlogId === blog?.id && (
         <CardContent>
@@ -119,6 +131,11 @@ const BlogItem = ({ blog, onOpenDetail, onDelete }) => {
         blogId={blog?.id}
         onClick={() => onOpenDetail(blog)}
         refresh={handleCommentCreated}
+      />
+      <ReportModal
+        open={reportModalOpen}
+        onClose={handleReportClose}
+        blogId={blog?.id}
       />
     </Card>
   );
