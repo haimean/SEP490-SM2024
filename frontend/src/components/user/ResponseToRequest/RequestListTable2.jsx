@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import FormRequest from "./FormRequest";
+import ModalProfile from "../../common/ModalProfile";
 const processData = (data) => {
   return data.map((item) => ({
     id: item.id,
@@ -20,6 +21,8 @@ export default function RequestListTable2({ open, onClose, postId }) {
   const [listAccept, setListAccept] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isModal, setIsModal] = useState(false);
+  const [isModalProfile, setIsModalProfile] = useState(false);
+  const [profileId, setProfileId] = useState();
   const {
     register,
     handleSubmit,
@@ -55,7 +58,21 @@ export default function RequestListTable2({ open, onClose, postId }) {
         </div>
       ),
     },
-    { field: "fullName", headerName: "Họ tên", width: 200 },
+    {
+      field: "fullName",
+      headerName: "Họ tên",
+      width: 200,
+      renderCell: (params) => {
+        return (
+          <div
+            onClick={() => handleOpenModalProfile(params?.rows?.id)}
+            className="hover:underline hover:cursor-pointer"
+          >
+            {params?.row?.fullName}
+          </div>
+        );
+      },
+    },
     {
       field: "level",
       headerName: "Trình độ",
@@ -164,7 +181,13 @@ export default function RequestListTable2({ open, onClose, postId }) {
   const handleCloseModal = () => {
     setIsModal(false);
   };
-
+  const handleOpenModalProfile = (id) => {
+    setProfileId(id);
+    setIsModalProfile(true);
+  };
+  const handleCloseModalProfile = () => {
+    setIsModalProfile(false);
+  };
   return (
     <Dialog
       open={open}
@@ -192,6 +215,13 @@ export default function RequestListTable2({ open, onClose, postId }) {
           loading={isLoading}
         />
       </div>
+      {isModalProfile && (
+        <ModalProfile
+          open={isModalProfile}
+          onClose={handleCloseModalProfile}
+          id={profileId}
+        />
+      )}
       {isModal && (
         <Dialog
           open={isModal}

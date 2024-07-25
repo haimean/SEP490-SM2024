@@ -20,18 +20,40 @@ import WaitingListTable2 from "../WaitingList/WaitingListTable2.jsx";
 import RequestListTable2 from "../ResponseToRequest/RequestListTable2.jsx";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { toast } from "react-toastify";
+import ModalProfile from "../../common/ModalProfile.jsx";
+import ModalReason from "../../common/ModalReason.jsx";
+import { useForm } from "react-hook-form";
 
 const PostRightCP = ({ user, post, postId }) => {
   const [accountId, setAccountId] = useState(null);
   const [listJoin, setListJoin] = useState([]);
   const [openWaitingList, setOpenWaitingList] = useState(false);
   const [openRequestList, setOpenRequestList] = useState(false);
-
+  const [openProfile, setOpenProfile] = useState(false);
+  const [openModalReason, setOpenModalReason] = useState(false);
+  const [profileId, setProfileId] = useState();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm({
+    defaultValues: {
+      reason: "", // Giá trị mặc định của trường nhập liệu
+      id: "", // Giá trị mặc định của id
+    },
+  });
   const handleOpenWaitingList = () => setOpenWaitingList(true);
   const handleCloseWaitingList = () => setOpenWaitingList(false);
 
   const handleOpenRequestList = () => setOpenRequestList(true);
   const handleCloseRequestList = () => setOpenRequestList(false);
+
+  const handleCloseProfile = () => setOpenProfile(false);
+  const handleOpenDetail = (id) => {
+    setOpenProfile(true);
+    setProfileId(id);
+  };
   const getListInvitation = async () => {
     try {
       const result = await CallApi(
@@ -62,6 +84,31 @@ const PostRightCP = ({ user, post, postId }) => {
     } catch (error) {
       console.log("🚀 ========= error:", error);
     }
+  };
+  const deletePlayer = async (id, status, reason) => {
+    try {
+      const result = await CallApi("/api/user/invitation/update", "post", {
+        invitationId: id,
+        status: status,
+        reasonCancel: reason,
+      });
+      toast.success("Hủy thành công");
+      getListInvitation();
+      console.log("🚀 ========= result:", result);
+    } catch (error) {
+      console.log("🚀 ========= error:", error);
+      toast.error(error.response?.data?.error);
+    }
+  };
+  const onSubmit = (data) => {
+    deletePlayer(data.id, "CANCEL", data.reason);
+    setOpenModalReason(false);
+    // Thực hiện gửi dữ liệu hoặc các hành động khác ở đây
+  };
+  const handleCloseModalReason = () => setOpenModalReason(false);
+  const handleOpenModalReason = (id) => {
+    setValue("id", id);
+    setOpenModalReason(true);
   };
   return (
     <Grid item xs={12} md={4}>
@@ -144,10 +191,19 @@ const PostRightCP = ({ user, post, postId }) => {
                     <TableCell component="th" scope="row">
                       {item.id}
                     </TableCell>
-                    <TableCell>{item?.account?.user?.fullName}</TableCell>
+                    <TableCell
+                      onClick={() => handleOpenDetail(item?.accountId)}
+                      className="hover:underline hover:cursor-pointer"
+                    >
+                      {item?.account?.user?.fullName}
+                    </TableCell>
                     {isOwner && (
                       <TableCell>
-                        <Button variant="contained" color="error">
+                        <Button
+                          variant="contained"
+                          color="error"
+                          onClick={() => handleOpenModalReason(item?.id)}
+                        >
                           <DeleteIcon />
                         </Button>
                       </TableCell>
@@ -157,6 +213,23 @@ const PostRightCP = ({ user, post, postId }) => {
               </TableBody>
             </Table>
           </TableContainer>
+          {openModalReason && (
+            <ModalReason
+              handleSubmit={handleSubmit}
+              onSubmit={onSubmit}
+              register={register}
+              errors={errors}
+              open={openModalReason}
+              onClose={handleCloseModalReason}
+            />
+          )}
+          {openProfile && (
+            <ModalProfile
+              open={openProfile}
+              onClose={handleCloseProfile}
+              id={profileId}
+            />
+          )}
         </div>
       </Paper>
     </Grid>

@@ -3,6 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import CallApi from "../../../service/CallAPI";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import ModalProfile from "../../common/ModalProfile";
 
 const processData = (data) => {
   return data.map((item) => ({
@@ -16,6 +17,8 @@ const processData = (data) => {
 
 export default function WaitingListTable2({ open, onClose, postId }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isModalProfile, setIsModalProfile] = useState(false);
+  const [profileId, setProfileId] = useState();
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
     {
@@ -33,7 +36,21 @@ export default function WaitingListTable2({ open, onClose, postId }) {
         </div>
       ),
     },
-    { field: "fullName", headerName: "Họ tên", width: 200 },
+    {
+      field: "fullName",
+      headerName: "Họ tên",
+      width: 200,
+      renderCell: (params) => {
+        return (
+          <div
+            onClick={() => handleOpenModalProfile(params?.row?.id)}
+            className="hover:underline hover:cursor-pointer"
+          >
+            {params?.row?.fullName}
+          </div>
+        );
+      },
+    },
     {
       field: "level",
       headerName: "Trình độ",
@@ -91,8 +108,6 @@ export default function WaitingListTable2({ open, onClose, postId }) {
     getListInvitation();
   }, []);
   const sendInvitation = async (id) => {
-    console.log("🚀 ========= id:", id);
-    console.log("🚀 ========= pid:", postId);
     try {
       const result = await CallApi(
         "/api/user/invitation/requests-to-match",
@@ -109,6 +124,13 @@ export default function WaitingListTable2({ open, onClose, postId }) {
       console.log("🚀 ========= error:", error);
       toast.error(error.response?.data?.error);
     }
+  };
+  const handleOpenModalProfile = (id) => {
+    setProfileId(id);
+    setIsModalProfile(true);
+  };
+  const handleCloseModalProfile = () => {
+    setIsModalProfile(false);
   };
   return (
     <Dialog
@@ -137,6 +159,13 @@ export default function WaitingListTable2({ open, onClose, postId }) {
           loading={isLoading}
         />
       </div>
+      {isModalProfile && (
+        <ModalProfile
+          open={isModalProfile}
+          onClose={handleCloseModalProfile}
+          id={profileId}
+        />
+      )}
     </Dialog>
   );
 }

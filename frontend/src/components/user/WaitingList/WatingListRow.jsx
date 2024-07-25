@@ -31,8 +31,6 @@ export default function WaitingListRow({ row, handleInvite, postId }) {
     }, 1000); // Thời gian mờ dần là 1 giây
   };
   const sendInvitation = async (id) => {
-    console.log("🚀 ========= id:", id);
-    console.log("🚀 ========= pid:", postId);
     try {
       const result = await CallApi(
         "/api/user/invitation/requests-to-match",

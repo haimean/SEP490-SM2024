@@ -14,14 +14,18 @@ import {
 } from "@mui/material";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import DoneIcon from "@mui/icons-material/Done";
+import Loading from "../../../../components/common/Loading";
+import ModalReason from "../../../../components/common/ModalReason";
+import { useForm } from "react-hook-form";
 export default function DataTable() {
   const [page, setPage] = React.useState(0);
   const [pageSize, setPageSize] = React.useState(5);
   const [rows, setRows] = React.useState([]);
   const [totalRecords, setTotalRecords] = React.useState(0);
-  console.log("🚀 ========= rows:", rows);
-
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [openModalReason, setOpenModalReason] = React.useState(false);
   const getData = async (page, pageSize) => {
+    setIsLoading(true);
     try {
       const result = await CallApi("/api/admin/account/", "post", {
         sort: {
@@ -32,7 +36,6 @@ export default function DataTable() {
           perPage: pageSize,
         },
       });
-      console.log("🚀 ========= result1:", result);
       setTotalRecords(result.total);
       setRows(
         result.data.map((item) => ({
@@ -46,33 +49,26 @@ export default function DataTable() {
           role: item.account.role,
         }))
       );
+      setIsLoading(false);
     } catch (error) {
       toast.error(error.response?.data?.error);
     }
   };
-  const banAccount = async (id) => {
+  const banAccount = async (id, reason) => {
+    setIsLoading(true);
     try {
-      const confirmBan = window.confirm("Bạn muốn ban tài khoản không?");
-      if (!confirmBan) return;
-
-      const result = await CallApi(`/api/admin/account/ban/${id}`, "put");
+      const result = await CallApi(`/api/admin/account/ban/${id}`, "put", {
+        reason,
+      });
       console.log("🚀 ========= result1:", result);
       getData(page, pageSize);
+      setIsLoading(false);
       toast.success("Ban thành công");
     } catch (error) {
       toast.error(error.response?.data?.error);
     }
   };
-  const unBanAccount = async (id) => {
-    try {
-      const result = await CallApi(`/api/admin/account/ban/${id}`, "put");
-      console.log("🚀 ========= result1:", result);
-      getData(page, pageSize);
-      toast.success("Hủy ban thành công");
-    } catch (error) {
-      toast.error(error.response?.data?.error);
-    }
-  };
+
   React.useEffect(() => {
     getData(page, pageSize);
   }, [page, pageSize]);
@@ -85,7 +81,30 @@ export default function DataTable() {
     setPageSize(parseInt(event.target.value, 10));
     setPage(0);
   };
-  return (
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm({
+    defaultValues: {
+      reason: "", // Giá trị mặc định của trường nhập liệu
+      id: "", // Giá trị mặc định của id
+    },
+  });
+  const onSubmit = (data) => {
+    banAccount(data.id, data.reason);
+    setOpenModalReason(false);
+    // Thực hiện gửi dữ liệu hoặc các hành động khác ở đây
+  };
+  const handleOpenModalReason = (id) => {
+    setValue("id", id);
+    setOpenModalReason(true);
+  };
+  const handleCloseModal = () => setOpenModalReason(false);
+  return isLoading ? (
+    <Loading />
+  ) : (
     <div style={{ height: 500, width: "100%" }}>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -140,14 +159,14 @@ export default function DataTable() {
                   {row.isActive === true ? (
                     <IconButton
                       aria-label="delete"
-                      onClick={() => banAccount(row.accountId)}
+                      onClick={() => handleOpenModalReason(row.accountId)}
                     >
                       <RemoveCircleIcon className="text-red-500" />
                     </IconButton>
                   ) : (
                     <IconButton
                       aria-label="delete"
-                      onClick={() => unBanAccount(row.accountId)}
+                      onClick={() => handleOpenModalReason(row.accountId)}
                     >
                       <DoneIcon className="text-green-500" />
                     </IconButton>
@@ -167,6 +186,16 @@ export default function DataTable() {
         rowsPerPage={pageSize}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      {openModalReason && (
+        <ModalReason
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmit}
+          open={openModalReason}
+          handleCloseModal={handleCloseModal}
+          errors={errors}
+          register={register}
+        />
+      )}
     </div>
   );
 }
