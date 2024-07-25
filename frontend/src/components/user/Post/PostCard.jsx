@@ -16,11 +16,19 @@ import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
 import { format, parseISO } from "date-fns";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
 
 const PostCard = ({ activity }) => {
+  console.log("🚀 ========= activity:", activity);
   const testImg = "https://via.placeholder.com/200";
   const navigate = useNavigate();
+  const [accountId, setAccountId] = useState(null);
 
+  useEffect(() => {
+    // Lấy accountId từ localStorage
+    const storedAccountId = localStorage.getItem("accountId");
+    setAccountId(storedAccountId);
+  }, []);
   const handleClick = () => {
     navigate(`/post/${activity?.post?.id}`);
   };

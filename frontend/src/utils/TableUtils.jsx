@@ -2,12 +2,12 @@ export const visuallyHidden = {
   border: 0,
   margin: -1,
   padding: 0,
-  width: '1px',
-  height: '1px',
-  overflow: 'hidden',
-  position: 'absolute',
-  whiteSpace: 'nowrap',
-  clip: 'rect(0 0 0 0)',
+  width: "1px",
+  height: "1px",
+  overflow: "hidden",
+  position: "absolute",
+  whiteSpace: "nowrap",
+  clip: "rect(0 0 0 0)",
 };
 
 export function emptyRows(page, rowsPerPage, arrayLength) {
@@ -31,13 +31,19 @@ function descendingComparator(a, b, orderBy) {
 }
 
 export function getComparator(order, orderBy) {
-  return order === 'desc'
+  return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-export function applyFilter({ inputData, comparator, filterName, filterLevel }) {
+export function applyFilter({
+  inputData,
+  comparator,
+  filterName,
+  filterLevel,
+}) {
   const stabilizedThis = inputData.map((el, index) => [el, index]);
+  console.log('🚀 ========= stabilizedThis:', stabilizedThis)
 
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
@@ -46,10 +52,14 @@ export function applyFilter({ inputData, comparator, filterName, filterLevel }) 
   });
 
   inputData = stabilizedThis.map((el) => el[0]);
+  console.log("🚀 ========= inputData:", inputData);
 
   if (filterName) {
-    inputData = inputData.filter(
-      (user) => user.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
+    inputData = inputData?.filter(
+      (user) =>
+        user?.account?.name
+          ?.toLowerCase()
+          ?.indexOf(filterName?.toLowerCase()) !== -1
     );
   }
 

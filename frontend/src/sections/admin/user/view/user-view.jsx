@@ -13,6 +13,7 @@ import {
   TableRow,
 } from "@mui/material";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import DoneIcon from "@mui/icons-material/Done";
 export default function DataTable() {
   const [page, setPage] = React.useState(0);
   const [pageSize, setPageSize] = React.useState(5);
@@ -31,10 +32,11 @@ export default function DataTable() {
           perPage: pageSize,
         },
       });
-      console.log("🚀 ========= result1:", result.total);
+      console.log("🚀 ========= result1:", result);
       setTotalRecords(result.total);
       setRows(
         result.data.map((item) => ({
+          accountId: item.accountId,
           id: item.id,
           email: item.account.email,
           name: item.name,
@@ -57,6 +59,16 @@ export default function DataTable() {
       console.log("🚀 ========= result1:", result);
       getData(page, pageSize);
       toast.success("Ban thành công");
+    } catch (error) {
+      toast.error(error.response?.data?.error);
+    }
+  };
+  const unBanAccount = async (id) => {
+    try {
+      const result = await CallApi(`/api/admin/account/ban/${id}`, "put");
+      console.log("🚀 ========= result1:", result);
+      getData(page, pageSize);
+      toast.success("Hủy ban thành công");
     } catch (error) {
       toast.error(error.response?.data?.error);
     }
@@ -125,12 +137,21 @@ export default function DataTable() {
                 <TableCell>{row.phoneNumber}</TableCell>
                 <TableCell>{row.role}</TableCell>
                 <TableCell>
-                  <IconButton
-                    aria-label="delete"
-                    onClick={() => banAccount(row.id)}
-                  >
-                    <RemoveCircleIcon className="text-red-500" />
-                  </IconButton>
+                  {row.isActive === true ? (
+                    <IconButton
+                      aria-label="delete"
+                      onClick={() => banAccount(row.accountId)}
+                    >
+                      <RemoveCircleIcon className="text-red-500" />
+                    </IconButton>
+                  ) : (
+                    <IconButton
+                      aria-label="delete"
+                      onClick={() => unBanAccount(row.accountId)}
+                    >
+                      <DoneIcon className="text-green-500" />
+                    </IconButton>
+                  )}
                 </TableCell>
               </TableRow>
             ))}

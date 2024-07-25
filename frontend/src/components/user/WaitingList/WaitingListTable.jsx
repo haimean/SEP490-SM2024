@@ -29,11 +29,17 @@ export default function WaitingListTable({ open, onClose, postId }) {
   const [filterLevel, setFilterLevel] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [users, setUsers] = useState(initialUsers);
+  console.log("🚀 ========= users:", users);
   const [listInvitation, setListInvitation] = useState([]);
   const getListInvitation = async () => {
     try {
-      const result = await CallApi(`/api/user/post/${postId}`, "get");
-      setListInvitation(result.data.invitation);
+      const result = await CallApi(
+        `/api/user/user-available/${postId}/get-user-free`,
+        "post"
+      );
+      console.log("🚀 ========= result:", result);
+      setUsers(result?.data);
+      setListInvitation(result?.data);
     } catch (error) {
       console.log("🚀 ========= error:", error);
     }
@@ -60,6 +66,7 @@ export default function WaitingListTable({ open, onClose, postId }) {
   };
 
   const handleFilterByName = (event) => {
+    console.log("🚀 ========= name:", event.target.value);
     setPage(0);
     setFilterName(event.target.value);
   };
@@ -105,8 +112,7 @@ export default function WaitingListTable({ open, onClose, postId }) {
               orderBy={orderBy}
               onRequestSort={handleSort}
               headLabel={[
-                // { id: "email", label: "Email", width: "20%" },
-                { id: "fullName", label: "Tên", width: "20%" },
+                { id: "name", label: "Tên", width: "20%" },
                 { id: "gender", label: "Giới tính", width: "20%" },
                 {
                   id: "friendliness",

@@ -14,10 +14,12 @@ import CallApi from "../../../service/CallAPI";
 
 export default function WaitingListRow({ row, handleInvite, postId }) {
   console.log("🚀 ========= row:", row);
-  const { type } = row;
-  const { email, avatarUrl, friendliness } = row.userAvailability.account;
+  if (!row?.account) {
+    return "Không có dữ liệu";
+  }
+  const { email, avatarUrl, friendliness } = row.account;
   // const { fullName, gender } = row?.userAvailability?.account?.user;
-  const { id } = row.userAvailability;
+  const { id } = row;
 
   // console.log("🚀 ========= fullName:", fullName);
   const [isInvited, setIsInvited] = useState(false);
@@ -49,70 +51,89 @@ export default function WaitingListRow({ row, handleInvite, postId }) {
   };
   return (
     <>
-      {type == "UNAVAILABLE" && (
-        <TableRow hover tabIndex={-1}>
-          <TableCell
-            component="th"
-            scope="row"
-            padding="none"
-            sx={{
-              paddingLeft: "1.5rem",
-              width: "20%",
-              maxWidth: "150px",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-            }}
-          >
-            <Stack direction="row" alignItems="center" spacing={2}>
-              <Avatar alt={email} src={avatarUrl} />
-              <Tooltip title={email}>
-                <Typography variant="subtitle2" noWrap>
-                  {email}
-                </Typography>
-              </Tooltip>
-            </Stack>
-          </TableCell>
-
-          <TableCell
-            align="center"
-            sx={{
-              width: "20%",
-              maxWidth: "150px",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-            }}
-          >
-            <Tooltip>
-              {/* <Typography variant="subtitle2" noWrap>
-                {fullName !== null ? fullName : ""}
-              </Typography> */}
+      <TableRow hover tabIndex={-1}>
+        <TableCell
+          component="th"
+          scope="row"
+          padding="none"
+          sx={{
+            paddingLeft: "1.5rem",
+            width: "20%",
+            maxWidth: "150px",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Avatar
+              alt={
+                row?.account?.user?.fullName !== null
+                  ? row?.account?.user?.fullName
+                  : ""
+              }
+              src={
+                row?.account?.user?.avatar !== null
+                  ? row?.account?.user?.avatar
+                  : avatarUrl
+              }
+            />
+            <Tooltip
+              title={
+                row?.account?.user?.fullName !== null
+                  ? row?.account?.user?.fullName
+                  : ""
+              }
+            >
+              <Typography variant="subtitle2" noWrap>
+                {row?.account?.user?.fullName !== null
+                  ? row?.account?.user?.fullName
+                  : ""}
+              </Typography>
             </Tooltip>
-          </TableCell>
-          {/* <TableCell align="center">
+          </Stack>
+        </TableCell>
+
+        <TableCell
+          align="center"
+          sx={{
+            width: "20%",
+            maxWidth: "150px",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          <Tooltip>
+            <Typography variant="subtitle2" noWrap>
+              {row?.account?.user?.fullName !== null
+                ? row?.account?.user?.fullName
+                : ""}
+            </Typography>
+          </Tooltip>
+        </TableCell>
+        {/* <TableCell align="center">
             <Typography variant="subtitle2" className="font-bold" noWrap>
               {gender == "FEMALE" ? "Nữ" : "Nam"}
             </Typography>
           </TableCell> */}
-          <TableCell align="center">
-            <Rating value={friendliness} readOnly />
-          </TableCell>
-          <TableCell align="center">
-            {isInvited ? (
-              <Button variant="contained" disabled>
-                Đã mời
-              </Button>
-            ) : (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => sendInvitation(id)}
-              >
-                Mời
-              </Button>
-            )}
-          </TableCell>
-        </TableRow>
-      )}
+        <TableCell align="center">
+          <Rating value={friendliness} readOnly />
+        </TableCell>
+        <TableCell align="center">
+          {isInvited ? (
+            <Button variant="contained" disabled>
+              Đã mời
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => sendInvitation(id)}
+            >
+              Mời
+            </Button>
+          )}
+        </TableCell>
+      </TableRow>
     </>
   );
 }
