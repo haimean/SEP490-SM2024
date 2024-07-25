@@ -2,25 +2,15 @@ import { useEffect, useState } from "react";
 import {
   Box,
   Container,
-  Card,
-  CardHeader,
-  CardContent,
-  CardActions,
-  Avatar,
-  Typography,
-  IconButton,
   Pagination,
   TextField,
   InputAdornment,
+  Avatar,
 } from "@mui/material";
-import CommentIcon from "@mui/icons-material/Comment";
-import FlagIcon from "@mui/icons-material/Flag";
 import CreateBlog from "../../../components/player/Blog/CreateBlog";
 import CallApi from "../../../service/CallAPI";
-import { getTimeSinceCreation } from "../../../utils/getTimeSinceCreation";
 import BlogDetailModal from "../../../components/player/Blog/BlogDetailModal";
-import CreateComment from "../../../components/player/Blog/CreateComment";
-import NewestComments from "../../../components/player/Blog/NewestComments";
+import BlogItem from "../../../components/player/Blog/BlogItem";
 
 const ListBlog = () => {
   const perPage = 5;
@@ -28,10 +18,8 @@ const ListBlog = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [blogs, setBlogs] = useState([]);
   const [selectedBlog, setSelectedBlog] = useState(null);
-
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const [openDetailModal, setOpenDetailModal] = useState(false);
-  const [commentingBlogId, setCommentingBlogId] = useState(null);
 
   const handleOpenCreateModal = () => setOpenCreateModal(true);
   const handleCloseCreateModal = () => setOpenCreateModal(false);
@@ -50,20 +38,18 @@ const ListBlog = () => {
     setBlogs([newBlog, ...blogs]);
   };
 
-  const handleCommentClick = (blogId) => {
-    setCommentingBlogId(commentingBlogId === blogId ? null : blogId);
-  };
-
-  const handleCommentCreated = () => {
-    setCommentingBlogId(null);
+  const handleDelete = async (blogId) => {
+    try {
+      await CallApi(`/api/user/blog/${blogId}`, "delete");
+      setBlogs(blogs.filter((blog) => blog.id !== blogId));
+    } catch (error) {
+      console.error("Error deleting blog:", error);
+    }
   };
 
   const fetchBlogs = async () => {
     const requestData = {
-      pagination: {
-        page: page,
-        perPage: perPage,
-      },
+      pagination: { page, perPage },
     };
     try {
       const result = await CallApi(
@@ -74,7 +60,7 @@ const ListBlog = () => {
       setBlogs(result?.data?.blogs);
       setTotalPages(Math.max(1, Math.ceil(result?.data?.total / perPage) || 1));
     } catch (error) {
-      console.error("Error fetching blog:", error);
+      console.error("Error fetching blogs:", error);
     }
   };
 
@@ -84,7 +70,7 @@ const ListBlog = () => {
 
   useEffect(() => {
     fetchBlogs();
-  }, [openCreateModal, page]);
+  }, [page, openCreateModal]);
 
   return (
     <Container maxWidth="md">
@@ -114,56 +100,12 @@ const ListBlog = () => {
       </Box>
 
       {blogs.map((blog) => (
-        <Card key={blog?.id} sx={{ mb: 2 }}>
-          <CardHeader
-            avatar={<Avatar>{blog?.account?.user?.fullName}</Avatar>}
-            title={blog?.account?.user?.fullName || "Người dùng"}
-            subheader={getTimeSinceCreation(blog?.createdAt)}
-          />
-          <CardContent
-            sx={{ cursor: "pointer" }}
-            onClick={() => handleOpenDetailModal(blog)}
-          >
-            <Typography variant="body2" color="text.secondary">
-              {blog?.caption}
-            </Typography>
-            <Box sx={{ mt: 2 }}>
-              <img
-                src={blog?.image}
-                alt="Blog image"
-                style={{ width: "100%", height: "auto" }}
-              />
-            </Box>
-          </CardContent>
-          <CardActions disableSpacing>
-            <IconButton
-              aria-label="comment"
-              onClick={() => handleCommentClick(blog?.id)}
-            >
-              <CommentIcon />
-            </IconButton>
-            <IconButton aria-label="report">
-              <FlagIcon />
-            </IconButton>
-          </CardActions>
-          {commentingBlogId === blog?.id && (
-            <CardContent>
-              <CreateComment
-                blogId={blog?.id}
-                onCommentCreated={() => {
-                  handleCommentCreated();
-                }}
-              />
-            </CardContent>
-          )}
-          <NewestComments
-            blogId={blog?.id}
-            onClick={() => handleOpenDetailModal(blog)}
-            refresh={() => {
-              handleCommentCreated();
-            }}
-          />
-        </Card>
+        <BlogItem
+          key={blog?.id}
+          blog={blog}
+          onOpenDetail={handleOpenDetailModal}
+          onDelete={handleDelete}
+        />
       ))}
 
       <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>

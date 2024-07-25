@@ -47,22 +47,34 @@ const NewestComments = ({ blogId, onClick, refresh }) => {
   }
 
   return (
-    <Box sx={{ mt: 1, px: 2 }}>
-      <Typography sx={{ mb: 1, cursor: "pointer" }} onClick={onClick} variant="body1" color="text.secondary">
+    <Box sx={{ mt: 1, mb: 2, px: 2 }}>
+      <Typography
+        sx={{ mb: 1, cursor: "pointer" }}
+        onClick={onClick}
+        variant="body1"
+        color="text.secondary"
+      >
         Xem thêm bình luận
       </Typography>
       {comments.map((comment) => (
-        <Box key={comment?.id} sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+        <Box
+          key={comment?.id}
+          sx={{ display: "flex", alignItems: "center", mb: 1 }}
+        >
           <Avatar sx={{ mr: 1 }}>
             {comment?.account?.user?.fullName?.charAt(0) || "U"}
           </Avatar>
           <Box sx={{ flex: 1, overflow: "hidden" }}>
-            <Typography variant="body2" noWrap>
-              <strong>{comment?.account?.user?.fullName || "Người dùng"}</strong>
-              : {comment?.content}
-            </Typography>
-            <Typography variant="caption" color="text.secondary">
-              {getTimeSinceCreation(comment?.createdAt)}
+            <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
+              <Typography variant="subtitle2" sx={{ mr: 1 }}>
+                {comment?.account?.user?.fullName || "Người dùng"}
+              </Typography>
+              <Typography variant="caption" color="text.secondary">
+                {getTimeSinceCreation(comment?.createdAt)}
+              </Typography>
+            </Box>
+            <Typography variant="body2" color="text.secondary">
+              {comment?.content}
             </Typography>
           </Box>
         </Box>
