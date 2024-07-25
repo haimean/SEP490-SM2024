@@ -1,0 +1,127 @@
+import { useState } from "react";
+import {
+  Box,
+  Card,
+  CardHeader,
+  CardContent,
+  CardActions,
+  Avatar,
+  Typography,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@mui/material";
+import { MoreVert, Flag, Comment } from "@mui/icons-material";
+import { getTimeSinceCreation } from "../../../utils/getTimeSinceCreation";
+import CreateComment from "./CreateComment";
+import NewestComments from "./NewestComments";
+import { toast } from "react-toastify";
+
+const BlogItem = ({ blog, onOpenDetail, onDelete }) => {
+  const [commentingBlogId, setCommentingBlogId] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const currentAccountId = parseInt(localStorage.getItem("accountId"));
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleCommentClick = (blogId) => {
+    setCommentingBlogId(commentingBlogId === blogId ? null : blogId);
+  };
+
+  const handleCommentCreated = () => {
+    setCommentingBlogId(null);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await onDelete(blog?.id);
+      toast.success("Xóa trạng thái thành công");
+    } catch (error) {
+      toast.error("Xóa trạng thái thất bại");
+    }
+    handleMenuClose();
+  };
+
+  return (
+    <Card sx={{ mb: 2 }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <CardHeader
+          avatar={<Avatar>{blog?.account?.user?.fullName?.[0] || "U"}</Avatar>}
+          title={blog?.account?.user?.fullName || "Người dùng"}
+          subheader={getTimeSinceCreation(blog?.createdAt)}
+        />
+        {currentAccountId === blog?.accountId && (
+          <>
+            <IconButton sx={{ mr: 1 }} onClick={handleMenuOpen}>
+              <MoreVert />
+            </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              open={!!anchorEl}
+              onClose={handleMenuClose}
+              elevation={1}
+            >
+              <MenuItem onClick={handleDelete}>Xóa trạng thái</MenuItem>
+            </Menu>
+          </>
+        )}
+      </Box>
+
+      <CardContent
+        sx={{ cursor: "pointer" }}
+        onClick={() => onOpenDetail(blog)}
+      >
+        <Typography variant="body2" color="text.secondary">
+          {blog?.caption}
+        </Typography>
+        {blog?.image && (
+          <Box sx={{ mt: 2 }}>
+            <img
+              src={blog?.image}
+              alt="Blog image"
+              style={{ width: "100%", height: "auto" }}
+            />
+          </Box>
+        )}
+      </CardContent>
+      <CardActions disableSpacing>
+        <IconButton
+          aria-label="comment"
+          onClick={() => handleCommentClick(blog?.id)}
+        >
+          <Comment />
+        </IconButton>
+        <IconButton aria-label="report">
+          <Flag />
+        </IconButton>
+      </CardActions>
+      {commentingBlogId === blog?.id && (
+        <CardContent>
+          <CreateComment
+            blogId={blog?.id}
+            onCommentCreated={handleCommentCreated}
+          />
+        </CardContent>
+      )}
+      <NewestComments
+        blogId={blog?.id}
+        onClick={() => onOpenDetail(blog)}
+        refresh={handleCommentCreated}
+      />
+    </Card>
+  );
+};
+
+export default BlogItem;
