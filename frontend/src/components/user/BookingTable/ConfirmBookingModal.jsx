@@ -44,7 +44,8 @@ const ConfirmBookingModal = ({ isOpen, onRequestClose, courtId, selectedEvents, 
     console.log(selectedEvents);
     console.log(data);
     try {
-      await CallApi("/api/user/booking", "post", data, {});
+      const response = await CallApi("/api/user/booking", "post", data, {});
+      console.log(response);
       toast.success("Booking successful!");
       onRequestClose();
       setTimeout(async () => {
