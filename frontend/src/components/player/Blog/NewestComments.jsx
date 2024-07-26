@@ -47,11 +47,11 @@ const NewestComments = ({ blogId, onClick, refresh }) => {
   }
 
   return (
-    <Box sx={{ mt: 1, mb: 2, px: 2 }}>
+    <Box sx={{ mt: 1, mb: 1, px: 1.5 }}>
       <Typography
-        sx={{ mb: 1, cursor: "pointer" }}
+        sx={{ mb: 0.5, cursor: "pointer", fontSize: "1rem" }}
         onClick={onClick}
-        variant="body1"
+        variant="body2"
         color="text.secondary"
       >
         Xem thêm bình luận
@@ -59,21 +59,33 @@ const NewestComments = ({ blogId, onClick, refresh }) => {
       {comments.map((comment) => (
         <Box
           key={comment?.id}
-          sx={{ display: "flex", alignItems: "center", mb: 1 }}
+          sx={{ display: "flex", alignItems: "flex-start", mb: 2 }}
         >
-          <Avatar sx={{ mr: 1 }}>
+          <Avatar sx={{ mr: 1, width: 40, height: 40, fontSize: "1rem" }}>
             {comment?.account?.user?.fullName?.charAt(0) || "U"}
           </Avatar>
           <Box sx={{ flex: 1, overflow: "hidden" }}>
-            <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
-              <Typography variant="subtitle2" sx={{ mr: 1 }}>
+            <Box sx={{ display: "flex", alignItems: "center", mb: 0.25 }}>
+              <Typography
+                variant="subtitle2"
+                fontWeight="bold"
+                sx={{ mr: 1, fontSize: "0.85rem" }}
+              >
                 {comment?.account?.user?.fullName || "Người dùng"}
               </Typography>
-              <Typography variant="caption" color="text.secondary">
+              <Typography
+                variant="caption"
+                color="text.secondary"
+                sx={{ fontSize: "0.8rem" }}
+              >
                 {getTimeSinceCreation(comment?.createdAt)}
               </Typography>
             </Box>
-            <Typography variant="body2" color="text.secondary">
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ fontSize: "0.8rem", lineHeight: 1.2 }}
+            >
               {comment?.content}
             </Typography>
           </Box>

@@ -72,7 +72,7 @@ const NavbarItemUser = () => {
         to="/list-blog"
         sx={{ textTransform: "none" }}
       >
-        Trạng thái
+        Bài đăng
       </Button>
       <Button
         color="inherit"

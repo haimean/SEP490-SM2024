@@ -44,6 +44,7 @@ import RequestList from "../pages/user/requestList/requestList.jsx";
 import ListBlog from "../pages/player/Blog/ListBlog.jsx";
 import DashboardHost from "../pages/host/Dashboard/Dashboard.jsx";
 import PriceSetupPage from "../components/host/court/PriceSetupPage.jsx";
+import ListReportBlog from "../pages/admin/ListReportBlog/ListReportBlog.jsx";
 
 const router = [
   {
@@ -380,6 +381,13 @@ const router = [
     component: <PriceSetupPage />,
     role: ["HOST"],
     layout: "",
+  },
+  {
+    path: "/admin/report-blog",
+    name: "List Report Blog",
+    component: <ListReportBlog />,
+    role: ["ADMIN"],
+    layout: "admin",
   },
 ];
 

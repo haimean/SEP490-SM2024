@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import {
   Box,
   Card,
@@ -10,16 +10,19 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Divider,
 } from "@mui/material";
 import { MoreVert, Flag, Comment } from "@mui/icons-material";
 import { getTimeSinceCreation } from "../../../utils/getTimeSinceCreation";
 import CreateComment from "./CreateComment";
 import NewestComments from "./NewestComments";
+import ReportModal from "./ReportModal";
 import { toast } from "react-toastify";
 
 const BlogItem = ({ blog, onOpenDetail, onDelete }) => {
   const [commentingBlogId, setCommentingBlogId] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [reportModalOpen, setReportModalOpen] = useState(false);
   const currentAccountId = parseInt(localStorage.getItem("accountId"));
 
   const handleMenuOpen = (event) => {
@@ -39,17 +42,30 @@ const BlogItem = ({ blog, onOpenDetail, onDelete }) => {
   };
 
   const handleDelete = async () => {
-    try {
-      await onDelete(blog?.id);
-      toast.success("Xóa trạng thái thành công");
-    } catch (error) {
-      toast.error("Xóa trạng thái thất bại");
+    const isConfirmed = window.confirm(
+      "Bạn có chắc chắn muốn xóa trạng thái này không?"
+    );
+    if (isConfirmed) {
+      try {
+        await onDelete(blog?.id);
+        toast.success("Xóa trạng thái thành công");
+      } catch (error) {
+        toast.error("Xóa trạng thái thất bại");
+      }
     }
     handleMenuClose();
   };
 
+  const handleReportClick = () => {
+    setReportModalOpen(true);
+  };
+
+  const handleReportClose = () => {
+    setReportModalOpen(false);
+  };
+
   return (
-    <Card sx={{ mb: 2 }}>
+    <Card sx={{ mb: 5, boxShadow: 3 }}>
       <Box
         sx={{
           display: "flex",
@@ -84,7 +100,12 @@ const BlogItem = ({ blog, onOpenDetail, onDelete }) => {
         onClick={() => onOpenDetail(blog)}
       >
         <Typography variant="body2" color="text.secondary">
-          {blog?.caption}
+          {blog?.caption?.split("\n").map((line, index) => (
+            <Fragment key={index}>
+              {line}
+              <br />
+            </Fragment>
+          ))}
         </Typography>
         {blog?.image && (
           <Box sx={{ mt: 2 }}>
@@ -103,9 +124,11 @@ const BlogItem = ({ blog, onOpenDetail, onDelete }) => {
         >
           <Comment />
         </IconButton>
-        <IconButton aria-label="report">
-          <Flag />
-        </IconButton>
+        {currentAccountId !== blog?.accountId && (
+          <IconButton aria-label="report" onClick={handleReportClick}>
+            <Flag />
+          </IconButton>
+        )}
       </CardActions>
       {commentingBlogId === blog?.id && (
         <CardContent>
@@ -115,10 +138,17 @@ const BlogItem = ({ blog, onOpenDetail, onDelete }) => {
           />
         </CardContent>
       )}
+      <Divider sx={{ mt: 1, mx: 2 }} />
+
       <NewestComments
         blogId={blog?.id}
         onClick={() => onOpenDetail(blog)}
         refresh={handleCommentCreated}
+      />
+      <ReportModal
+        open={reportModalOpen}
+        onClose={handleReportClose}
+        blogId={blog?.id}
       />
     </Card>
   );

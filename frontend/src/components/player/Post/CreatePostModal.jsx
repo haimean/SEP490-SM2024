@@ -102,6 +102,7 @@ const CreatePostModal = ({ bookings }) => {
             bgcolor: "background.paper",
             boxShadow: 24,
             p: 4,
+            borderRadius: 2,
             maxHeight: "90vh",
             overflowY: "auto",
           }}
@@ -112,7 +113,7 @@ const CreatePostModal = ({ bookings }) => {
             component="h2"
             gutterBottom
           >
-            Tạo Post Mới
+            Bài đăng tìm người chơi
           </Typography>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Controller
