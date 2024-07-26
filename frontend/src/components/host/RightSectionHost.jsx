@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
 import {
   Grid,
@@ -13,10 +12,12 @@ import {
 } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import CallApi from "../../service/CallAPI";
+import BookingModal from "./Booking/BookingModal";
 
 const RightSectionHost = ({ id, type }) => {
   const { idCourt } = useParams();
   const [court, setCourt] = useState([]);
+  const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
 
   useEffect(() => {
     const getAllCourt = async () => {
@@ -48,6 +49,14 @@ const RightSectionHost = ({ id, type }) => {
         {children}
       </Tooltip>
     );
+  };
+
+  const handleOpenCalendarModal = () => {
+    setIsCalendarModalOpen(true);
+  };
+
+  const handleCloseCalendarModal = () => {
+    setIsCalendarModalOpen(false);
   };
 
   return (
@@ -94,19 +103,30 @@ const RightSectionHost = ({ id, type }) => {
           </>
         )}
         {type === "courtDetail" && (
-          <Link
-            to={`/host/update-court/${idCourt}`}
-            style={{ textDecoration: "none" }}
-          >
+          <>
+            <Link
+              to={`/host/update-court/${idCourt}`}
+              style={{ textDecoration: "none" }}
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                sx={{ mb: 2 }}
+              >
+                Cập nhật chi tiết sân đấu
+              </Button>
+            </Link>
             <Button
               variant="contained"
               color="primary"
               fullWidth
               sx={{ mb: 2 }}
+              onClick={handleOpenCalendarModal} // Open Calendar Modal
             >
-              Cập nhật chi tiết sân đấu
+              Xem lịch sân
             </Button>
-          </Link>
+          </>
         )}
         <List
           sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
@@ -137,6 +157,11 @@ const RightSectionHost = ({ id, type }) => {
             : ""}
         </List>
       </Paper>
+      <BookingModal
+        open={isCalendarModalOpen}
+        onClose={handleCloseCalendarModal}
+        courtId={idCourt}
+      />
     </Grid>
   );
 };

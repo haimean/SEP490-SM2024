@@ -21,17 +21,11 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-const CalendarComponent = () => {
+const CalendarModalComponent = ({ courtId }) => {
   const openHour = setSeconds(setMinutes(setHours(new Date(), 5), 0), 0);
   const closeHour = setSeconds(setMinutes(setHours(new Date(), 22), 0), 0);
-  const priceList = [
-    { start: 5, end: 10, price: 100000 },
-    { start: 10, end: 17, price: 120000 },
-    { start: 17, end: 22, price: 150000 },
-  ];
 
-  const courtId = 30;
-
+  const [priceLists, setPriceLists] = useState({});
   const [currentDate, setCurrentDate] = useState(new Date());
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -48,37 +42,36 @@ const CalendarComponent = () => {
   const fetchData = async (date) => {
     setLoading(true);
     try {
-      const response = await CallApi(
-        `/api/host/history-booking/get-for-week/${courtId}`,
-        "post",
-        {
-          date: date.toISOString(),
-        },
-        {}
-      );
-      console.log(response.data);
-      // Transform API data to calendar events
-      const eventsData = response.data.map(event => ({
+      const response = await CallApi(`/api/court/${courtId}`, "get", {}, {});
+      const eventsData = response?.data?.booking.map(event => ({
         id: event.id,
         title: `${event.bookingInfo.name} - ${event.price} VND`,
-        start: subHours(new Date(event.startTime.replace('Z', '')), 7),
-        end: subHours(new Date(event.endTime.replace('Z', '')), 7),
+        start: new Date(event.startTime.replace('Z', '')),
+        end: new Date(event.endTime.replace('Z', '')),
         bookingInfo: event.bookingInfo,
         price: event.price
       }));
-      
-      console.log(eventsData);
-      // Update state with fetched events
       setEvents(eventsData);
+
+      const priceLists = {};
+      response.data.TypeCourt.priceTypeCourt.forEach(p => {
+        const priceObject = {
+          start: new Date(p.startTime.replace('Z', '')),
+          end: new Date(p.endTime.replace('Z', '')),
+          price: p.price
+        };
+        if (!priceLists[p.times]) {
+          priceLists[p.times] = [];
+        }
+        priceLists[p.times].push(priceObject);
+      });
+      setPriceLists(priceLists);
+
     } catch (error) {
       toast.error(error.response?.data?.error);
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleNavigate = (date) => {
-    setCurrentDate(date);
   };
 
   const handleSelectSlot = ({ start, end }) => {
@@ -87,16 +80,14 @@ const CalendarComponent = () => {
       alert("Cannot select past time slots.");
       return;
     }
-
     const isSlotOccupied = events.some(
       (event) =>
         (start >= event.start && start < event.end) ||
         (end > event.start && end <= event.end) ||
         (start < event.start && end > event.end)
     );
-
     if (!isSlotOccupied) {
-      const price = calculatePrice(start, end, priceList);
+      const price = calculatePrice(start, end, priceLists[1]);
       setEventData({ title: '', start, end, price, name: '', numberPhone: '' });
       setIsNewEvent(true);
       setIsModalOpen(true);
@@ -132,30 +123,26 @@ const CalendarComponent = () => {
       alert("Event time must be between 05:00 and 22:00.");
       return;
     }
-
     if (start >= end) {
       alert("Start time cannot be greater than or equal to end time.");
       return;
     }
-
     const isSlotOccupied = events.some((event) => {
       if (selectedEvent && areEventsEqual(event, selectedEvent)) {
-        return false; // Ignore the current event being edited
+        return false;
       }
       return (
         (new Date(eventData.start) < new Date(event.end) && new Date(eventData.end) > new Date(event.start))
       );
     });
-
     if (isSlotOccupied) {
       alert("This time slot is already occupied. Please choose another time.");
       return;
     }
-
     if (isNewEvent) {
       try {
         setLoading(true);
-        const response = await CallApi(
+        await CallApi(
           "/api/host/history-booking/create",
           "post",
           {
@@ -168,7 +155,6 @@ const CalendarComponent = () => {
           },
           {}
         );
-        console.log(response);
         toast.success("Event added successfully");
         handleCloseModal();
       } catch (error) {
@@ -189,7 +175,6 @@ const CalendarComponent = () => {
   const handleConfirmDelete = async (reasonCancell) => {
     try {
       setLoading(true);
-      console.log(reasonCancell, selectedEvent.id);
       await CallApi(
         "/api/host/history-booking/cancel",
         "put",
@@ -220,16 +205,7 @@ const CalendarComponent = () => {
   };
 
   const eventStyleGetter = (event, start, end, isSelected) => {
-    const backgroundColor = event.isNew ? 'rgb(70, 130, 180)' : 'rgb(34, 139, 34)';
-    const style = {
-      backgroundColor,
-      color: 'white',
-      borderRadius: '5px',
-      border: 'none',
-      display: 'block',
-      padding: '4px',
-      textAlign: 'left'
-    };
+    const style = {};
     return {
       style: style,
     };
@@ -241,7 +217,7 @@ const CalendarComponent = () => {
 
   const slotPropGetter = (date) => {
     const hours = date.getHours();
-    if (hours === 0) { // This will target the all-day slots which have a time of 0:00
+    if (hours === 0) {
       return {
         style: {
           backgroundColor: 'lightgray',
@@ -253,26 +229,27 @@ const CalendarComponent = () => {
     return {};
   };
 
-  const calculatePrice = (start, end, priceList) => {
+  const calculatePrice = (start, end, priceListToUse) => {
     let totalPrice = 0;
-    let currentTime = new Date(start);
-
-    while (currentTime < end) {
-      const currentHour = currentTime.getHours();
-      const priceSlot = priceList.find((slot) => currentHour >= slot.start && currentHour < slot.end);
-      const nextHour = new Date(currentTime);
-      nextHour.setHours(currentHour + 1);
-
-      if (nextHour > end) {
-        nextHour.setTime(end.getTime());
+    priceListToUse.forEach(priceRange => {
+      const rangeStartHour = priceRange.start.getHours();
+      const rangeEndHour = priceRange.end.getHours();
+      let eventStart = new Date(start);
+      let eventEnd = new Date(end);
+      while (eventStart < eventEnd) {
+        let nextSlot = new Date(eventStart);
+        nextSlot.setMinutes(eventStart.getMinutes() + 30);
+        if (nextSlot > eventEnd) {
+          nextSlot = eventEnd;
+        }
+        const eventHour = eventStart.getHours();
+        if (eventHour >= rangeStartHour && eventHour < rangeEndHour) {
+          const duration = Math.round((nextSlot - eventStart) / (1000 * 60 * 30)) / 2;
+          totalPrice += priceRange.price * duration;
+        }
+        eventStart = nextSlot;
       }
-
-      const duration = differenceInMinutes(nextHour, currentTime) / 60;
-      totalPrice += priceSlot.price * duration;
-
-      currentTime = nextHour;
-    }
-
+    });
     return totalPrice;
   };
 
@@ -291,12 +268,11 @@ const CalendarComponent = () => {
         selectable
         onSelectSlot={handleSelectSlot}
         onSelectEvent={handleSelectEvent}
-        style={{ height: 500 }}
+        style={{ height: '70vh' }}
         min={new Date(openHour)}
         max={new Date(closeHour)}
         eventPropGetter={eventStyleGetter}
         slotPropGetter={slotPropGetter}
-        onNavigate={handleNavigate}
       />
       <EventModal
         isOpen={isModalOpen}
@@ -316,4 +292,4 @@ const CalendarComponent = () => {
   );
 };
 
-export default CalendarComponent;
+export default CalendarModalComponent;
