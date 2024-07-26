@@ -1,4 +1,3 @@
-import { report } from 'superagent';
 import { getQueryPagination } from '../../index.service';
 import { Pagination } from '../../index.model';
 import { ReportBlog } from '@prisma/client';
@@ -30,7 +29,6 @@ const blogAdminService = {
       ...getQueryPagination(pagination),
     });
     const total = await database.reportBlog.findMany();
-    reports;
     for (let report of reports) {
       report.blog.image = await getObjectSignedUrl(report.blog.image);
     }
