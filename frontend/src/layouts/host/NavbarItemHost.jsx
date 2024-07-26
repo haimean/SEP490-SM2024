@@ -27,7 +27,7 @@ const NavbarItemHost = () => {
         to="/list-blog"
         sx={{ textTransform: "none" }}
       >
-        Trạng thái
+        Bài đăng
       </Button>
       <FormControl sx={{ m: 1, minWidth: 120 }}>
         <Select

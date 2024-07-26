@@ -1,26 +1,34 @@
 import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { TextField, Button, Box, Typography, Modal, IconButton } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  Modal,
+  IconButton,
+} from "@mui/material";
 import { Close } from "@mui/icons-material";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
 
 const CreateBlog = ({ open, onClose, onBlogCreated }) => {
-  const { control, handleSubmit, reset } = useForm();
+  const { control, handleSubmit, reset } = useForm({
+    defaultValues: {
+      caption: "",
+    },
+  });
   const [selectedImage, setSelectedImage] = useState(null);
 
   const onSubmit = async (data) => {
     try {
       const formData = new FormData();
-      formData.append("caption", data.caption);
+      formData.append("caption", data.caption.trim());
       if (selectedImage) {
         formData.append("image", selectedImage);
       }
-
       const response = await CallApi("/api/user/blog", "post", formData);
-
-      console.log("Blog created successfully:", response.data);
-      onBlogCreated(response.data);
+      onBlogCreated(response?.data);
       toast.success("Tạo trạng thái thành công");
       handleCancel();
     } catch (error) {
@@ -50,10 +58,17 @@ const CreateBlog = ({ open, onClose, onBlogCreated }) => {
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: 400,
+          width: {
+            xs: "90%",
+            sm: "75%",
+            md: "60%",
+          },
+          maxWidth: 1000,
           bgcolor: "background.paper",
           boxShadow: 24,
-          p: 4,
+          pt: 2,
+          pb: 3,
+          px: 4,
           borderRadius: 2,
         }}
       >
@@ -65,10 +80,10 @@ const CreateBlog = ({ open, onClose, onBlogCreated }) => {
             mb: 2,
           }}
         >
-          <Typography variant="h6" component="h1">
+          <Typography variant="h6" component="h6">
             Tạo bài viết
           </Typography>
-          <IconButton 
+          <IconButton
             onClick={handleCancel}
             sx={{
               color: "text.secondary",
@@ -84,14 +99,21 @@ const CreateBlog = ({ open, onClose, onBlogCreated }) => {
           <Controller
             name="caption"
             control={control}
-            defaultValue=""
-            render={({ field }) => (
+            rules={{
+              required: "Nội dung bài viết không được để trống",
+              validate: (value) =>
+                value.trim().length > 0 ||
+                "Nội dung không thể chỉ chứa khoảng trắng",
+            }}
+            render={({ field, fieldState: { error } }) => (
               <TextField
                 {...field}
                 placeholder="Bạn đang nghĩ gì thế?"
                 fullWidth
                 multiline
                 rows={4}
+                error={!!error}
+                helperText={error?.message}
               />
             )}
           />

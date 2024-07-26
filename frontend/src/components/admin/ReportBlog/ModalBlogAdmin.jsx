@@ -1,4 +1,3 @@
-import { Fragment, useRef } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -7,39 +6,23 @@ import {
   IconButton,
   Typography,
   Avatar,
-  Divider,
-  DialogActions,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import FlagIcon from "@mui/icons-material/Flag";
+import { Close } from "@mui/icons-material";
 import { getTimeSinceCreation } from "../../../utils/getTimeSinceCreation";
-import ViewCommentByBlog from "../../../components/player/Blog/ViewCommentByBlog";
-import CreateComment from "./CreateComment";
 
-const BlogDetailModal = ({ open, onClose, blog }) => {
-  const fetchCommentsRef = useRef(null);
-
+const ModalBlogAdmin = ({ open, onClose, blog }) => {
   if (!blog) return null;
-
-  const handleCommentCreated = () => {
-    if (fetchCommentsRef.current) {
-      fetchCommentsRef.current();
-    }
-  };
-
-  const setFetchComments = (fetchFunc) => {
-    fetchCommentsRef.current = fetchFunc;
-  };
+  console.log(blog);
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle>
         <Box display="flex" alignItems="center" justifyContent="space-between">
           <Typography variant="h6">
-            Bài viết của {blog?.account?.user?.fullName}
+            Bài viết của {blog?.account?.user?.fullName || "Người dùng"}
           </Typography>
           <IconButton onClick={onClose}>
-            <CloseIcon />
+            <Close />
           </IconButton>
         </Box>
       </DialogTitle>
@@ -63,17 +46,9 @@ const BlogDetailModal = ({ open, onClose, blog }) => {
               </Typography>
             </Box>
           </Box>
-          <IconButton aria-label="report">
-            <FlagIcon />
-          </IconButton>
         </Box>
-        <Typography variant="body1" color="text.secondary">
-          {blog?.caption?.split("\n").map((line, index) => (
-            <Fragment key={index}>
-              {line}
-              <br />
-            </Fragment>
-          ))}
+        <Typography variant="body1" paragraph>
+          {blog?.caption}
         </Typography>
         {blog?.image && (
           <Box mb={2}>
@@ -84,21 +59,9 @@ const BlogDetailModal = ({ open, onClose, blog }) => {
             />
           </Box>
         )}
-        <Divider sx={{ my: 2 }} />
-
-        <ViewCommentByBlog
-          blogId={blog?.id}
-          refreshComments={setFetchComments}
-        />
       </DialogContent>
-      <DialogActions sx={{ p: 2, borderTop: "1px solid rgba(0, 0, 0, 0.12)" }}>
-        <CreateComment
-          blogId={blog?.id}
-          onCommentCreated={handleCommentCreated}
-        />
-      </DialogActions>
     </Dialog>
   );
 };
 
-export default BlogDetailModal;
+export default ModalBlogAdmin;

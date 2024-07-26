@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import {
   Box,
   Card,
@@ -10,6 +10,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Divider,
 } from "@mui/material";
 import { MoreVert, Flag, Comment } from "@mui/icons-material";
 import { getTimeSinceCreation } from "../../../utils/getTimeSinceCreation";
@@ -41,11 +42,16 @@ const BlogItem = ({ blog, onOpenDetail, onDelete }) => {
   };
 
   const handleDelete = async () => {
-    try {
-      await onDelete(blog?.id);
-      toast.success("Xóa trạng thái thành công");
-    } catch (error) {
-      toast.error("Xóa trạng thái thất bại");
+    const isConfirmed = window.confirm(
+      "Bạn có chắc chắn muốn xóa trạng thái này không?"
+    );
+    if (isConfirmed) {
+      try {
+        await onDelete(blog?.id);
+        toast.success("Xóa trạng thái thành công");
+      } catch (error) {
+        toast.error("Xóa trạng thái thất bại");
+      }
     }
     handleMenuClose();
   };
@@ -59,7 +65,7 @@ const BlogItem = ({ blog, onOpenDetail, onDelete }) => {
   };
 
   return (
-    <Card sx={{ mb: 2 }}>
+    <Card sx={{ mb: 5, boxShadow: 3 }}>
       <Box
         sx={{
           display: "flex",
@@ -94,7 +100,12 @@ const BlogItem = ({ blog, onOpenDetail, onDelete }) => {
         onClick={() => onOpenDetail(blog)}
       >
         <Typography variant="body2" color="text.secondary">
-          {blog?.caption}
+          {blog?.caption?.split("\n").map((line, index) => (
+            <Fragment key={index}>
+              {line}
+              <br />
+            </Fragment>
+          ))}
         </Typography>
         {blog?.image && (
           <Box sx={{ mt: 2 }}>
@@ -127,6 +138,8 @@ const BlogItem = ({ blog, onOpenDetail, onDelete }) => {
           />
         </CardContent>
       )}
+      <Divider sx={{ mt: 1, mx: 2 }} />
+
       <NewestComments
         blogId={blog?.id}
         onClick={() => onOpenDetail(blog)}

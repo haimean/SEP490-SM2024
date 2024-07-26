@@ -21,6 +21,11 @@ const navConfig = [
     icon: icon("ic_user"),
   },
   {
+    title: "report blog",
+    path: "/admin/report-blog",
+    icon: icon("ic_report"),
+  },
+  {
     title: "branch attribute",
     path: "/admin/branch-attribute",
     icon: icon("ic_cart"),
