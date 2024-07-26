@@ -45,13 +45,16 @@ const blogAdminService = {
     const report = await database.reportBlog.findFirst({
       where: { id },
     });
+    const blog = await database.blog.findFirst({
+      where: { id: report?.blogId },
+    });
     if (report) {
       await database.reportBlog.delete({
         where: { id },
       });
       await database.account.update({
         where: {
-          id: report.accountId,
+          id: blog?.accountId,
         },
         data: {
           isActive: false,
