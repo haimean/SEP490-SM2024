@@ -38,12 +38,12 @@ const bookingUserService = {
           include: {
             Branches: {
               include: {
+                address: true,
                 attributeBranches: {
                   include: {
                     attributeKeyBranches: true,
                   },
                 },
-                address: true,
               },
             },
             TypeCourt: true,
@@ -69,6 +69,11 @@ const bookingUserService = {
             Branches: {
               include: {
                 address: true,
+                attributeBranches: {
+                  include: {
+                    attributeKeyBranches: true,
+                  },
+                },
               },
             },
             TypeCourt: true,
