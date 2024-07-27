@@ -10,7 +10,7 @@ const processData = (data) => {
     id: item.id,
     avatar: item.account?.user?.avatar || "",
     fullName: item.account?.user?.fullName || "",
-    level: item.level || "5",
+    level: item?.level,
     // Add other fields as needed
   }));
 };
@@ -20,7 +20,7 @@ export default function WaitingListTable2({ open, onClose, postId }) {
   const [isModalProfile, setIsModalProfile] = useState(false);
   const [profileId, setProfileId] = useState();
   const columns = [
-    { field: "id", headerName: "ID", width: 70 },
+    { field: "id", headerName: "ID", width: 70, sortable: false },
     {
       field: "avatar",
       headerName: "Avatar",
@@ -40,6 +40,7 @@ export default function WaitingListTable2({ open, onClose, postId }) {
       field: "fullName",
       headerName: "Họ tên",
       width: 200,
+      sortable: false,
       renderCell: (params) => {
         return (
           <div
@@ -54,7 +55,6 @@ export default function WaitingListTable2({ open, onClose, postId }) {
     {
       field: "level",
       headerName: "Trình độ",
-      type: "number",
       width: 150,
     },
     {
