@@ -38,14 +38,9 @@ const PostCard = ({ activity }) => {
   };
   const join = async (activity) => {
     try {
-      const response = await CallApi(
-        "/api/user/invitation/requests-to-match",
-        "post",
-        {
-          postId: activity?.post?.id,
-        },
-        {}
-      );
+      const response = await CallApi("/api/user/invitation/invite", "post", {
+        postId: activity?.post?.id,
+      });
       toast.success("Gửi lời mời thành công!");
     } catch (error) {
       console.log(error);

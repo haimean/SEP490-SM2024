@@ -12,7 +12,7 @@ const processData = (data) => {
     id: item.id,
     avatar: item.account?.user?.avatar || "",
     fullName: item.account?.user?.fullName || "",
-    level: item.level || "5",
+    level: item?.level,
     invitation: item.Invitation,
     // Add other fields as needed
   }));
@@ -20,29 +20,11 @@ const processData = (data) => {
 export default function RequestListTable2({ open, onClose, postId }) {
   const [listAccept, setListAccept] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isModal, setIsModal] = useState(false);
   const [isModalProfile, setIsModalProfile] = useState(false);
   const [profileId, setProfileId] = useState();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-  } = useForm({
-    defaultValues: {
-      reason: "", // Giá trị mặc định của trường nhập liệu
-      id: "", // Giá trị mặc định của id
-    },
-  });
 
-  // Xử lý gửi form
-  const onSubmit = (data) => {
-    handleAccept(data.id, "NOACCEPT", data.reason);
-    setIsModal(false);
-    // Thực hiện gửi dữ liệu hoặc các hành động khác ở đây
-  };
   const columns = [
-    { field: "id", headerName: "ID", width: 70 },
+    { field: "id", headerName: "ID", width: 70, sortable: false },
     {
       field: "avatar",
       headerName: "Avatar",
@@ -62,10 +44,11 @@ export default function RequestListTable2({ open, onClose, postId }) {
       field: "fullName",
       headerName: "Họ tên",
       width: 200,
+      sortable: false,
       renderCell: (params) => {
         return (
           <div
-            onClick={() => handleOpenModalProfile(params?.rows?.id)}
+            onClick={() => handleOpenModalProfile(params?.row?.id)}
             className="hover:underline hover:cursor-pointer"
           >
             {params?.row?.fullName}
@@ -76,7 +59,6 @@ export default function RequestListTable2({ open, onClose, postId }) {
     {
       field: "level",
       headerName: "Trình độ",
-      type: "number",
       width: 150,
     },
     {
@@ -120,7 +102,11 @@ export default function RequestListTable2({ open, onClose, postId }) {
                 onClick={(event) => {
                   console.log("🚀 ========= event:", event);
                   event.stopPropagation();
-                  return handleOpenModal(params.row?.invitation[0]?.id);
+                  return handleAccept(
+                    params.row?.invitation[0]?.id,
+                    "NOACCEPT",
+                    "Không chấp nhận"
+                  );
                 }}
               >
                 Từ Chối
@@ -174,13 +160,6 @@ export default function RequestListTable2({ open, onClose, postId }) {
       toast.error(error.response?.data?.error);
     }
   };
-  const handleOpenModal = (id) => {
-    setValue("id", id);
-    setIsModal(true);
-  };
-  const handleCloseModal = () => {
-    setIsModal(false);
-  };
   const handleOpenModalProfile = (id) => {
     setProfileId(id);
     setIsModalProfile(true);
@@ -221,23 +200,6 @@ export default function RequestListTable2({ open, onClose, postId }) {
           onClose={handleCloseModalProfile}
           id={profileId}
         />
-      )}
-      {isModal && (
-        <Dialog
-          open={isModal}
-          onClose={handleCloseModal}
-          fullWidth
-          maxWidth="sm"
-          scroll="paper"
-        >
-          <FormRequest
-            handleSubmit={handleSubmit}
-            onSubmit={onSubmit}
-            register={register}
-            errors={errors}
-            handleCloseModal={handleCloseModal}
-          />
-        </Dialog>
       )}
     </Dialog>
   );

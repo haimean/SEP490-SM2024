@@ -46,7 +46,11 @@ const NavbarItemUser = () => {
                 <ImageIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary="Photos" secondary="Jan 9, 2014" />
+            <ListItemText
+              primary="Photos"
+              secondary="Jan 9, 2014"
+              className="text-black"
+            />
           </ListItem>
           <div className="flex justify-around">
             <Button variant="contained" color="success">
