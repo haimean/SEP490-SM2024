@@ -4,10 +4,9 @@ import cors, { CorsOptions } from 'cors';
 import { configDotenv } from 'dotenv';
 import routes from './src/modules/index.router';
 import swaggerUi from 'swagger-ui-express';
-import http from 'http';
 import * as swaggerFile from './swagger-output.json';
-import database from './src/lib/db.server';
-const { Server } = require('socket.io');
+import { createNotifications } from './src/lib/notificationService';
+import { Notification } from '@prisma/client';
 
 configDotenv();
 const PORT: number = Number(process.env.PORT ?? '8080');
@@ -17,53 +16,25 @@ const corsOptions: CorsOptions = {
 };
 const app: Application = express();
 
-const server = http.createServer(app);
-const io = new Server(server, {
-  cors: corsOptions,
-});
 app.use(cors(corsOptions));
 app.use(express.json());
 
-interface Notification {
-  userId: number;
-  message: string;
-}
-// app.post(
-//   '/send-notification',
-//   async (req: Request, res: Response) => {
-//     const { userId, message }: Notification = req.body;
-
-//     // Lưu thông báo vào cơ sở dữ liệu
-//     // const notification = await database.notification.create({
-//     //   data: {
-//     //     userId,
-//     //     message,
-//     //   },
-//     // });
-
-//     // Gửi thông báo real-time tới user cụ thể
-//     io.to(userId.toString()).emit('notification', {
-//       // notification,
-//       url: '/court/1',
-//     });
-
-//     // res.status(200).json(notification);
-//   }
-// );
-
-io.on('connection', (socket: any) => {
-  console.log('New client connected');
-
-  // Lắng nghe sự kiện `joinRoom` để thêm client vào phòng dựa trên userId
-  socket.on('joinRoom', (userId: number) => {
-    socket.join(userId.toString());
-    console.log(`User with ID ${userId} joined room`);
-  });
-
-  socket.on('disconnect', () => {
-    console.log('Client disconnected');
-  });
-});
+app.post(
+  '/send-notification',
+  async (req: Request, res: Response) => {
+    const notification: Notification = {
+      message:
+        'adsadfsdfsadfsdsadfdsfsdfsadfsadfdsafsdfsdfssdafsadfsdfsadfadsad',
+      accountId: 2,
+      status: 'SEED',
+      url: '/',
+      createdAt: new Date(),
+      id: 1,
+    };
+    await createNotifications([notification]);
+    res.status(200).json(notification);
+  }
+);
 
 app.use(express.urlencoded({ extended: true }));
 app.use('/api/', routes);
