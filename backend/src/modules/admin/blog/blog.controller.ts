@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 import blogAdminService from './blog.service';
 import { ResponseHandler } from '../../../outcomes/responseHandler';
 import CustomError from '../../../outcomes/customError';
-import { getObjectSignedUrl } from '../../../lib/s3';
 import { ReportBlog } from '@prisma/client';
 
 const blogAdminController = {

@@ -29,7 +29,7 @@ const invitationUserController = {
           accountId: userAvailability.accountId,
           message: 'Có người mời bạn vào trận đấu của họ',
           status: 'SEED',
-          url: '/',
+          url: '/post/' + postId,
           createdAt: new Date(),
           id: 23,
         },
