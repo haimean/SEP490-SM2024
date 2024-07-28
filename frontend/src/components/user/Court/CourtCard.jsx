@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardMedia, Typography, Stack, Button, Tooltip } from "@mui/material";
-import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import BookingModal from "../BookingTable/BookingModal";
 
 const CourtCard = ({ court, image }) => {
     const [openModal, setOpenModal] = useState(false);
 
-    const handleBookClick = () => {
+    const handleBookClick = (event) => {
+        event.stopPropagation(); // Prevent the card click event
         setOpenModal(true);
     };
 
@@ -16,8 +15,12 @@ const CourtCard = ({ court, image }) => {
         setOpenModal(false);
     };
 
+    const handleCardClick = () => {
+        window.open(`/branch/4/court/${court.id}`, '_blank');
+    };
+
     return (
-        <Card>
+        <Card onClick={handleCardClick} style={{ cursor: 'pointer' }}>
             <CardMedia
                 component="img"
                 image={image}
@@ -25,14 +28,14 @@ const CourtCard = ({ court, image }) => {
             />
             <CardContent>
                 <Tooltip title={court.name}>
-                <Typography component="h2" variant="h5" className="truncate">
-                    {court.name}
-                </Typography>
+                    <Typography component="h2" variant="h5" className="truncate">
+                        {court.name}
+                    </Typography>
                 </Tooltip>
                 <Stack direction="row" alignItems="center" spacing={1}>
                     <ChecklistIcon className="text-red-600" />
                     <Tooltip title={court?.TypeCourt?.description}>
-                    <Typography className="truncate">{court?.TypeCourt?.description}</Typography>
+                        <Typography className="truncate">{court?.TypeCourt?.description}</Typography>
                     </Tooltip>
                 </Stack>
                 <div className="mt-4 space-x-4">
@@ -45,7 +48,7 @@ const CourtCard = ({ court, image }) => {
                     </Button>
                 </div>
             </CardContent>
-            <BookingModal open={openModal} onClose={handleCloseModal} courtId={court.id} />
+            <BookingModal open={openModal} onClose={handleCloseModal} court={court} />
         </Card>
     );
 };

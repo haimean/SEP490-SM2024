@@ -3,7 +3,8 @@ import { Modal, Box, Typography, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import CreateEventWithNoOverlap from './BookingCalendar';
 
-const BookingModal = ({ open, onClose, courtId }) => {
+const BookingModal = ({ open, onClose, court }) => {
+  console.log(court);
   return (
     <Modal
       open={open}
@@ -19,9 +20,9 @@ const BookingModal = ({ open, onClose, courtId }) => {
           <CloseIcon />
         </IconButton>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Đặt sân: {courtId}
+          {court.name}
         </Typography>
-        <CreateEventWithNoOverlap courtId={courtId} />
+        <CreateEventWithNoOverlap courtId={court.id} />
       </Box>
     </Modal>
   );

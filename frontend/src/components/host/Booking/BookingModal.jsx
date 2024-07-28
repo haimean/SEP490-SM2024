@@ -3,7 +3,7 @@ import { Modal, Box, Typography, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import CalendarModalComponen from './BookingCalendar';
 
-const BookingModal = ({ open, onClose, courtId }) => {
+const BookingModal = ({ open, onClose, courtId, court }) => {
   return (
     <Modal
       open={open}
@@ -19,7 +19,10 @@ const BookingModal = ({ open, onClose, courtId }) => {
           <CloseIcon />
         </IconButton>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Sân: {courtId}
+          Sân: {court?.name}
+        </Typography>
+        <Typography id="modal-modal-title" variant="h6" component="h2">
+        Chi nhánh: {court?.Branches?.name}
         </Typography>
         <CalendarModalComponen courtId={courtId} />
       </Box>

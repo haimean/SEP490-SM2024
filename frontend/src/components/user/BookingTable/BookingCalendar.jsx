@@ -4,7 +4,7 @@ import { parse, startOfWeek, getDay, format, setHours, setMinutes, setSeconds, d
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import enUS from 'date-fns/locale/en-US';
 import { toast } from 'react-toastify';
-import { CircularProgress, Backdrop } from '@mui/material';
+import { CircularProgress, Backdrop, Modal } from '@mui/material';
 import CallApi from '../../../service/CallAPI';
 import PriceListModal from './PriceListModal';
 import ConfirmBookingModal from './ConfirmBookingModal';
@@ -21,69 +21,80 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
+const messages = {
+  allDay: 'Cả ngày',
+  previous: 'Trước',
+  next: 'Sau',
+  today: 'Hôm nay',
+  month: 'Tháng',
+  week: 'Tuần',
+  day: 'Ngày',
+  agenda: 'Chương trình',
+  date: 'Ngày',
+  time: 'Thời gian',
+  event: 'Sự kiện',
+  noEventsInRange: 'Không có sự kiện nào trong khoảng thời gian này.',
+  showMore: total => `+ Xem thêm (${total})`,
+};
+
 const CreateEventWithNoOverlap = ({ courtId }) => {
   const [events, setEvents] = useState([]);
   const [selectedEvents, setSelectedEvents] = useState([]);
-  const [isSameTime, setIsSameTime] = useState(true);
-  const [repeatDisabled, setRepeatDisabled] = useState(false);
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-  const [loading, setLoading] = useState(false); // Thêm trạng thái loading
-
-  const [court, setCourt] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [booking1, setBooking1] = useState([]);
   const [priceLists, setPriceLists] = useState({});
-  const openHour = setSeconds(setMinutes(setHours(new Date(), 5), 0), 0);
-  const closeHour = setSeconds(setMinutes(setHours(new Date(), 22), 0), 0);
+  const [openHour, setOpenHour] = useState(null);
+  const [closeHour, setCloseHour] = useState(null);
 
-  useEffect(() => {
-    if (selectedEvents.length > 1) {
-      const firstEvent = selectedEvents[0];
-      const allSame = selectedEvents.every(event =>
-        event.start.getTime() === firstEvent.start.getTime() && event.end.getTime() === firstEvent.end.getTime()
-      );
-      setIsSameTime(allSame);
-    } else {
-      setIsSameTime(true);
-    }
-  }, [selectedEvents]);
+  const parseTime = (timeStr, date = new Date()) => {
+    const [hours, minutes] = timeStr.split(':').map(Number);
+    const result = new Date(date);
+    result.setHours(hours);
+    result.setMinutes(minutes);
+    result.setSeconds(0);
+    result.setMilliseconds(0);
+    return result;
+  };
 
   useEffect(() => {
     fetchData(courtId);
-  }, []);
+  }, [courtId]);
 
   const fetchData = async (id) => {
-    setLoading(true); // Bắt đầu tải
+    setLoading(true);
     try {
-      const response = await CallApi(
-        `/api/court/${id}`,
-        "get",
-        {},
-        {}
-      );
-      setCourt(response.data);
-      const now = new Date();
+      const response = await CallApi(`/api/court/${id}`, "get", {}, {});
+      setOpenHour(parseTime(response?.data?.Branches?.openingHours));
+      setCloseHour(parseTime(response?.data?.Branches?.closingHours));
 
+      const now = new Date();
+      const accountId = localStorage.getItem('accountId');
       const futureBookings = response.data.booking
-        .filter(b => new Date(b.startTime) > now)
+        .filter(b => {
+          const startTime = new Date(b.startTime.replace('Z', ''));
+          const endTime = new Date(b.endTime.replace('Z', ''));
+          const openingHour = parseTime(response?.data?.Branches?.openingHours, startTime);
+          const closingHour = parseTime(response?.data?.Branches?.closingHours, endTime);
+          return startTime > now && startTime >= openingHour && endTime <= closingHour;
+        })
         .map(b => ({
           start: new Date(b.startTime.replace('Z', '')),
           end: new Date(b.endTime.replace('Z', '')),
           title: `Đã đặt`,
-          isBooking: true
+          isBooking: true,
+          isOwnBooking: b.accountId == accountId
         }));
-
       setBooking1(futureBookings);
 
       const priceLists = {};
-
       response.data.TypeCourt.priceTypeCourt.forEach(p => {
         const priceObject = {
           start: new Date(p.startTime.replace('Z', '')),
           end: new Date(p.endTime.replace('Z', '')),
           price: p.price
         };
-
         if (!priceLists[p.times]) {
           priceLists[p.times] = [];
         }
@@ -91,14 +102,17 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
       });
       setPriceLists(priceLists);
     } catch (error) {
-      toast.error(error.response?.data?.error || "An error occurred");
+      toast.error(error.response?.data?.error);
     } finally {
-      setLoading(false); // Kết thúc tải
+      setLoading(false);
     }
   };
 
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+  };
+
   const handleSelectSlot = ({ start, end }) => {
-    setRepeatDisabled(false);
     const now = new Date();
     if (start < now) {
       alert("Không thể chọn giờ đã qua.");
@@ -112,7 +126,6 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
     }
 
     const isOverlapWithBooking = booking1.some(bookedEvent => start < bookedEvent.end && end > bookedEvent.start);
-
     if (isOverlapWithBooking) {
       alert("Không thể chọn giờ này vì đã có booking.");
       return;
@@ -120,13 +133,11 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
     const selectedCount = selectedEvents.length + 1;
 
     let applicablePriceList;
-
     Object.keys(priceLists).forEach(times => {
       if (selectedCount >= times) {
         applicablePriceList = priceLists[times];
       }
     });
-
     if (!applicablePriceList) {
       applicablePriceList = priceLists[1] || [];
     }
@@ -134,16 +145,9 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
     const newEvent = {
       start,
       end,
-      title: `Price: ${calculatePrice(start, end, applicablePriceList)}`,
+      title: `Giá: ${formatPrice(calculatePrice(start, end, applicablePriceList))}`,
       price: calculatePrice(start, end, applicablePriceList)
     };
-
-    const firstEvent = selectedEvents[0];
-    if (selectedEvents.length > 0 && (newEvent.start.getTime() !== firstEvent.start.getTime() || newEvent.end.getTime() !== firstEvent.end.getTime())) {
-      setIsSameTime(false);
-    } else {
-      setIsSameTime(true);
-    }
 
     const updatedSelectedEvents = selectedEvents.filter(event =>
       !(start < event.end && end > event.start)
@@ -156,28 +160,26 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
     );
 
     let newApplicablePriceList;
-
     Object.keys(priceLists).forEach(times => {
       if (selectedCount >= times) {
         newApplicablePriceList = priceLists[times];
       }
     });
-
     if (!newApplicablePriceList) {
       newApplicablePriceList = priceLists[1] || [];
     }
 
     let updatedEvents = [...filteredEvents, newEvent];
-
     if (selectedEvents.length + 1 >= 5) {
       updatedEvents = updatedEvents.map(event => ({
         ...event,
         price: calculatePrice(event.start, event.end, newApplicablePriceList),
-        title: `Price: ${calculatePrice(event.start, event.end, newApplicablePriceList)}`
+        title: `Giá: ${formatPrice(calculatePrice(event.start, event.end, newApplicablePriceList))}`
       }));
     }
 
     setEvents(updatedEvents);
+    setSelectedEvents(updatedEvents);
   };
 
   const handleEventDelete = (eventToDelete) => {
@@ -188,15 +190,12 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
     setSelectedEvents(updatedSelectedEvents);
 
     const selectedCount = selectedEvents.length - 1;
-
     let applicablePriceList;
-
     Object.keys(priceLists).forEach(times => {
       if (selectedCount >= times) {
         applicablePriceList = priceLists[times];
       }
     });
-
     if (!applicablePriceList) {
       applicablePriceList = priceLists[1] || [];
     }
@@ -204,15 +203,14 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
     const updatedEvents = events.filter(event => event !== eventToDelete).map(event => ({
       ...event,
       price: calculatePrice(event.start, event.end, applicablePriceList),
-      title: `Price: ${calculatePrice(event.start, event.end, applicablePriceList)}`
+      title: `Giá: ${formatPrice(calculatePrice(event.start, event.end, applicablePriceList))}`
     }));
-
     setEvents(updatedEvents);
+    setSelectedEvents(updatedEvents);
   };
 
   const calculatePrice = (start, end, priceListToUse) => {
     let totalPrice = 0;
-
     priceListToUse.forEach(priceRange => {
       const rangeStartHour = priceRange.start.getHours();
       const rangeEndHour = priceRange.end.getHours();
@@ -224,9 +222,7 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
         if (nextSlot > eventEnd) {
           nextSlot = eventEnd;
         }
-
         const eventHour = eventStart.getHours();
-
         if (eventHour >= rangeStartHour && eventHour < rangeEndHour) {
           const duration = Math.round((nextSlot - eventStart) / (1000 * 60 * 30)) / 2;
           totalPrice += priceRange.price * duration;
@@ -234,13 +230,12 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
         eventStart = nextSlot;
       }
     });
-
     return totalPrice;
   };
 
   const slotPropGetter = (date) => {
     const hours = date.getHours();
-    if (hours === 0) { // This will target the all-day slots which have a time of 0:00
+    if (hours === 0) {
       return {
         style: {
           backgroundColor: 'lightgray',
@@ -249,7 +244,6 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
         }
       };
     }
-
     const now = new Date();
     if (date < now) {
       return {
@@ -265,8 +259,17 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
 
   const eventStyleGetter = (event, start, end, isSelected) => {
     const style = {
-      backgroundColor: event.isBooking ? 'rgb(255, 99, 71)' : 'rgb(70, 130, 180)',
-      pointerEvents: event.isBooking ? 'none' : 'auto'
+      backgroundColor: event.isBooking
+        ? (event.isOwnBooking ? 'rgb(34, 139, 34)' : 'rgb(255, 99, 71)')
+        : 'rgb(70, 130, 180)',
+      pointerEvents: event.isBooking ? 'none' : 'auto',
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%',
+      wordWrap: 'break-word',
+      lineHeight: 1,
+      height: '100%',
+      minHeight: '1em',
     };
     return {
       style: style
@@ -302,7 +305,7 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
 
   const Event = ({ event }) => {
     return (
-      <span className='flex'>
+      <div className='flex'>
         {!event.isBooking && (
           <button
             onClick={() => handleEventDelete(event)}
@@ -318,7 +321,7 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
           </button>
         )}
         <strong>{event.title}</strong>
-      </span>
+      </div>
     );
   };
 
@@ -328,49 +331,53 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
         <CircularProgress color="inherit" />
       </Backdrop>
       <div className="text-center">
-        <h2>Giờ hoạt động: {format(openHour, 'HH:mm')} - {format(closeHour, 'HH:mm')}</h2>
+        {openHour && closeHour && (
+          <>
+            <h2>Giờ hoạt động: {format(openHour, 'HH:mm')} - {format(closeHour, 'HH:mm')}</h2>
+            <div className="text-center my-2">
+              <button
+                onClick={handleClearAll}
+                className={`p-2 ml-2 rounded ${selectedEvents.length === 0 ? 'bg-gray-500' : 'bg-red-500 text-white'}`}
+                disabled={selectedEvents.length === 0}
+              >
+                Hủy tất cả
+              </button>
+              <button
+                onClick={handleOpenBookingModal}
+                className={`p-2 ml-2 rounded ${selectedEvents.length === 0 ? 'bg-gray-500' : 'bg-blue-500 text-white'}`}
+                disabled={selectedEvents.length === 0}
+              >
+                Đặt sân
+              </button>
+              <button
+                onClick={handleOpenPriceModal}
+                className="p-2 ml-2 bg-green-500 text-white rounded"
+              >
+                Xem Bảng Giá
+              </button>
+            </div>
+            <div className="text-center mb-2">
+              <p>Số lượng ca đã chọn: {selectedEvents.length}</p>
+            </div>
+            <Calendar
+              selectable
+              localizer={localizer}
+              events={[...events, ...booking1]}
+              defaultView="week"
+              views={['week', 'day']}
+              onSelectSlot={handleSelectSlot}
+              style={{ height: 500 }}
+              className="border p-4"
+              slotPropGetter={slotPropGetter}
+              eventPropGetter={eventStyleGetter}
+              components={{ event: Event }}
+              min={openHour}
+              max={closeHour}
+              messages={messages}
+            />
+          </>
+        )}
       </div>
-      <div className="text-center my-2">
-        <button
-          onClick={handleClearAll}
-          className="p-2 ml-2 bg-red-500 text-white rounded"
-        >
-          Hủy tất cả
-        </button>
-        <button
-          onClick={handleOpenBookingModal}
-          className={`p-2 ml-2 rounded ${selectedEvents.length === 0 ? 'bg-gray-500' : 'bg-blue-500 text-white'}`}
-          disabled={selectedEvents.length === 0} // Disable button when no event is selected
-        >
-          Đặt sân
-        </button>
-        <button
-          onClick={handleOpenPriceModal}
-          className="p-2 ml-2 bg-green-500 text-white rounded"
-        >
-          Xem Bảng Giá
-        </button>
-      </div>
-      <div className="text-center mb-2">
-        <p>Số lượng ca đã chọn: {selectedEvents.length}</p>
-      </div>
-      <Calendar
-        selectable
-        localizer={localizer}
-        events={[...events, ...booking1]}
-        defaultView="week"
-        views={['week', 'day']}
-        onSelectSlot={handleSelectSlot}
-        style={{ height: 500 }}
-        className="border p-4"
-        slotPropGetter={slotPropGetter}
-        eventPropGetter={eventStyleGetter}
-        components={{
-          event: Event
-        }}
-        min={openHour}
-        max={closeHour}
-      />
       <PriceListModal
         isOpen={isPriceModalOpen}
         onRequestClose={handleClosePriceModal}

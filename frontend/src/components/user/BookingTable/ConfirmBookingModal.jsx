@@ -6,7 +6,7 @@ import CallApi from '../../../service/CallAPI';
 const ConfirmBookingModal = ({ isOpen, onRequestClose, courtId, selectedEvents, refreshData, resetEvents }) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [loading, setLoading] = useState(false); // Thêm trạng thái loading
+  const [loading, setLoading] = useState(false); 
 
   const pad = (n) => n.toString().padStart(2, '0');
 
@@ -17,7 +17,7 @@ const ConfirmBookingModal = ({ isOpen, onRequestClose, courtId, selectedEvents, 
   };
 
   const formatDateTime = (date) => {
-    const newDate = addHours(date, 7); // Cộng thêm 7 giờ
+    const newDate = addHours(date, 7);
     const year = newDate.getFullYear();
     const month = pad(newDate.getMonth() + 1);
     const day = pad(newDate.getDate());
@@ -28,11 +28,11 @@ const ConfirmBookingModal = ({ isOpen, onRequestClose, courtId, selectedEvents, 
   };
 
   const handleConfirmBooking = async () => {
-    setLoading(true); // Bắt đầu tải
+    setLoading(true); 
     const payload = selectedEvents.map(event => ({
       courtId,
-      startTime: formatDateTime(event.start),  // giữ nguyên múi giờ
-      endTime: formatDateTime(event.end),      // giữ nguyên múi giờ
+      startTime: formatDateTime(event.start),
+      endTime: formatDateTime(event.end), 
       price: event.price,
       name,
       numberPhone: phone
@@ -49,15 +49,15 @@ const ConfirmBookingModal = ({ isOpen, onRequestClose, courtId, selectedEvents, 
       toast.success("Booking successful!");
       onRequestClose();
       setTimeout(async () => {
-        resetEvents(); // Xóa state
-        await refreshData(courtId); // Refresh the data to get the latest bookings
-      }, 10); // Chờ 1 giây trước khi tải lại dữ liệu
-      setName(''); // Xóa state
-      setPhone(''); // Xóa state
+        resetEvents(); 
+        await refreshData(courtId); 
+      }, 10); 
+      setName('');
+      setPhone(''); 
     } catch (error) {
       toast.error(error.response?.data?.error || "An error occurred during booking");
     } finally {
-      setLoading(false); // Kết thúc tải
+      setLoading(false); 
     }
   };
 
@@ -71,7 +71,7 @@ const ConfirmBookingModal = ({ isOpen, onRequestClose, courtId, selectedEvents, 
           <CircularProgress color="inherit" />
         </Backdrop>
         <Typography id="booking-modal-title" variant="h6" component="h2" className="!mb-4">
-          Nhập thông tin đặt sân
+          Nhập thông tin người đặt
         </Typography>
         <TextField
           label="Tên"
@@ -92,15 +92,15 @@ const ConfirmBookingModal = ({ isOpen, onRequestClose, courtId, selectedEvents, 
             onClick={handleConfirmBooking}
             variant="contained"
             color="primary"
-            disabled={loading} // Vô hiệu hóa nút khi đang tải
+            disabled={loading} 
           >
             Xác nhận
           </Button>
           <Button
             onClick={onRequestClose}
             variant="outlined"
-            color="secondary"
-            disabled={loading} // Vô hiệu hóa nút khi đang tải
+            color="primary"
+            disabled={loading} 
           >
             Đóng
           </Button>
