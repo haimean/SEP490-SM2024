@@ -20,6 +20,7 @@ import FormatTime from "../../../utils/user/formatTime";
 import PostRightCP from "./PostRightCP";
 
 const PostDetailCP = ({ post, postId }) => {
+  console.log("🚀 ========= post:", post);
   if (!post?.booking?.Court) {
     return "Không tồn tại bài này";
   }
