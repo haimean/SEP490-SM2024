@@ -25,6 +25,9 @@ const invitationUserValidator = {
       .label('Trạng thái'),
     reasonCancel: Joi.string().label('Lý do'),
   }),
+  getAvailableOfUser: Joi.object({
+    postId: Joi.number().required().label('ID bài tìm gia lưu'),
+  }),
 };
 
 export default invitationUserValidator;

@@ -30,6 +30,12 @@ invitationUserRouter.post(
 );
 
 invitationUserRouter.post(
+  '/available-of-user',
+  validate(invitationUserValidator.getAvailableOfUser),
+  invitationUserController.getAvailableOfUser
+);
+
+invitationUserRouter.post(
   '/update',
   validate(invitationUserValidator.update),
   invitationUserController.update

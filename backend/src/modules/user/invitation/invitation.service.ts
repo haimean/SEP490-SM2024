@@ -3,7 +3,6 @@ import {
   Post,
   StatusInvitation,
   TypeInvitation,
-  UserAvailability,
 } from '@prisma/client';
 import database from '../../../lib/db.server';
 import { Pagination } from '../../index.model';
@@ -34,6 +33,21 @@ const invitationUserService = {
       },
     });
   },
+
+  getAvailable: async (
+    postId: number,
+    accountId: number
+  ): Promise<any> => {
+    return await database.invitation.findMany({
+      where: {
+        postId,
+        userAvailability: {
+          accountId: accountId,
+        },
+      },
+    });
+  },
+
   createForPlayer: async (
     type: TypeInvitation,
     postId: number,
