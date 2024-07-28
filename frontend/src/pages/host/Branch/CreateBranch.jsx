@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import { useForm } from "react-hook-form";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
-import PaymentCreateBranch from "../../../components/host/branch/PaymentCreateBranch";
+import PaymentCreateBranch from "../../../components/host/Branch/PaymentCreateBranch";
 
 const CreateBranch = () => {
   const {
@@ -108,7 +108,7 @@ const CreateBranch = () => {
         console.log(`${key}: ${value}`);
       }
       await CallApi("/api/host/branches", "post", formData);
-      toast.success(`Tạo chi nhánh ${data.branchName} thành công!`);
+      toast.success(`Tạo chi nhánh ${data.branchName} thành công! Vui lòng chờ admin duyệt chi nhánh`);
     } catch (error) {
       toast.error(
         error.response?.data?.error || "Có lỗi xảy ra khi tạo chi nhánh"
