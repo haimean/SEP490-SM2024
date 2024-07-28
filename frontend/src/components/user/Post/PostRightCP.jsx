@@ -195,10 +195,10 @@ const PostRightCP = ({ user, post, postId }) => {
             <TableContainer component={Paper}>
               <Table aria-label="simple table">
                 <TableBody>
-                  {listJoin.map((item) => (
+                  {listJoin.map((item, index) => (
                     <TableRow key={item.id}>
                       <TableCell component="th" scope="row">
-                        {item.id}
+                        {index + 1}
                       </TableCell>
                       <TableCell
                         onClick={() => handleOpenDetail(item?.accountId)}
