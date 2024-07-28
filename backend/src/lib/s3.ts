@@ -29,7 +29,7 @@ const s3Client = new S3Client({
 
 export async function uploadFile(file: any): Promise<string> {
   const fileBuffer = await sharp(file.buffer)
-    .resize({ height: 1920, width: 1080, fit: 'contain' })
+    .resize({ fit: 'contain' })
     .toBuffer();
   const filename = generateFileName();
   const uploadParams = {
