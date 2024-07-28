@@ -175,62 +175,72 @@ const PostRightCP = ({ user, post, postId }) => {
                 variant="contained"
                 color="primary"
                 onClick={() => requestJoin(postId)}
+                disabled={listJoin?.length == post?.numberMember}
               >
-                Gửi lời mời tham gia
+                {listJoin?.length == post?.numberMember
+                  ? "Sẫn đã đủ người"
+                  : "Gửi lời mời tham gia"}
               </Button>
             )}
           </div>
         </div>
         <div className="max-w-sm p-4 border rounded-lg shadow-lg mx-auto mt-4">
-          <Typography className="mt-2">Danh sách người tham gia</Typography>
-          <TableContainer component={Paper}>
-            <Table aria-label="simple table">
-              <TableBody>
-                {listJoin.map((item) => (
-                  <TableRow key={item.id}>
-                    <TableCell component="th" scope="row">
-                      {item.id}
-                    </TableCell>
-                    <TableCell
-                      onClick={() => handleOpenDetail(item?.accountId)}
-                      className="hover:underline hover:cursor-pointer"
-                    >
-                      {item?.account?.user?.fullName}
-                    </TableCell>
-                    {isOwner && (
-                      <TableCell>
-                        <Button
-                          variant="contained"
-                          color="error"
-                          onClick={() => handleOpenModalReason(item?.id)}
-                        >
-                          <DeleteIcon />
-                        </Button>
-                      </TableCell>
-                    )}
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          {openModalReason && (
-            <ModalReason
-              handleSubmit={handleSubmit}
-              onSubmit={onSubmit}
-              register={register}
-              errors={errors}
-              open={openModalReason}
-              onClose={handleCloseModalReason}
-            />
-          )}
-          {openProfile && (
-            <ModalProfile
-              open={openProfile}
-              onClose={handleCloseProfile}
-              id={profileId}
-            />
-          )}
+          <Typography className="mt-2">
+            Có {listJoin?.length} / {post?.numberMember} người chơi
+          </Typography>
         </div>
+        {isOwner && (
+          <div className="max-w-sm p-4 border rounded-lg shadow-lg mx-auto mt-4">
+            <Typography className="mt-2">Danh sách người tham gia</Typography>
+            <TableContainer component={Paper}>
+              <Table aria-label="simple table">
+                <TableBody>
+                  {listJoin.map((item) => (
+                    <TableRow key={item.id}>
+                      <TableCell component="th" scope="row">
+                        {item.id}
+                      </TableCell>
+                      <TableCell
+                        onClick={() => handleOpenDetail(item?.accountId)}
+                        className="hover:underline hover:cursor-pointer"
+                      >
+                        {item?.account?.user?.fullName}
+                      </TableCell>
+                      {isOwner && (
+                        <TableCell>
+                          <Button
+                            variant="contained"
+                            color="error"
+                            onClick={() => handleOpenModalReason(item?.id)}
+                          >
+                            <DeleteIcon />
+                          </Button>
+                        </TableCell>
+                      )}
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            {openModalReason && (
+              <ModalReason
+                handleSubmit={handleSubmit}
+                onSubmit={onSubmit}
+                register={register}
+                errors={errors}
+                open={openModalReason}
+                onClose={handleCloseModalReason}
+              />
+            )}
+            {openProfile && (
+              <ModalProfile
+                open={openProfile}
+                onClose={handleCloseProfile}
+                id={profileId}
+              />
+            )}
+          </div>
+        )}
       </Paper>
     </Grid>
   );

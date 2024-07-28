@@ -13,6 +13,7 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import EventIcon from "@mui/icons-material/Event";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
+import PersonIcon from "@mui/icons-material/Person";
 import { format, parseISO } from "date-fns";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
@@ -104,13 +105,25 @@ const PostCard = ({ activity }) => {
           <PaidOutlinedIcon className="text-red-600" />
           <Typography>{formattedPrice}</Typography>
         </Stack>
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <PersonIcon className="text-red-600" />
+          <Typography>
+            Tuyển {activity?.post?.numberMember} người (Hiện có:{" "}
+            {activity?.post?.memberPost.length}/{activity?.post?.numberMember})
+          </Typography>
+        </Stack>
         <div className="space-x-4 flex justify-center">
           <Button
             variant="contained"
             className="bg-blue-500 hover:bg-blue-700 text-white rounded"
             onClick={handleJoin}
+            disabled={
+              activity?.post?.memberPost.length == activity?.post?.numberMember
+            }
           >
-            Gửi lời mời tham gia
+            {activity?.post?.memberPost.length == activity?.post?.numberMember
+              ? "Sân đã đủ người"
+              : "Gửi lời mời tham gia"}
           </Button>
           <Button
             variant="contained"
