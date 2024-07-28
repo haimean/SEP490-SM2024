@@ -17,7 +17,11 @@ const bookingGuestService = {
       },
       include: {
         bookingInfo: true,
-        post: true,
+        post: {
+          include: {
+            memberPost: true,
+          },
+        },
         Court: {
           include: {
             Branches: {
@@ -53,7 +57,11 @@ const bookingGuestService = {
       },
       include: {
         bookingInfo: true,
-        post: true,
+        post: {
+          include: {
+            memberPost: true,
+          },
+        },
         Court: {
           include: {
             Branches: {
