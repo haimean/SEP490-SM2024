@@ -31,6 +31,9 @@ const bookingUserService = {
         accountId,
         isDelete: false,
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
       include: {
         bookingInfo: true,
         post: true,
