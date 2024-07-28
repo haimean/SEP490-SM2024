@@ -3,6 +3,7 @@ import {
   Post,
   StatusInvitation,
   TypeInvitation,
+  UserAvailability,
 } from '@prisma/client';
 import database from '../../../lib/db.server';
 import { Pagination } from '../../index.model';
@@ -20,6 +21,16 @@ const invitationUserService = {
         postId,
         type,
         status: 'NEW',
+      },
+    });
+  },
+
+  getUserAvailability: async (
+    userAvailabilityId: number
+  ): Promise<any> => {
+    return await database.userAvailability.findUnique({
+      where: {
+        id: userAvailabilityId,
       },
     });
   },
