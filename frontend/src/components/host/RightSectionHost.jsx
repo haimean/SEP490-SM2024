@@ -124,7 +124,7 @@ const RightSectionHost = ({ id, type }) => {
               sx={{ mb: 2 }}
               onClick={handleOpenCalendarModal} // Open Calendar Modal
             >
-              Xem lịch sân
+              Xem lịch đặt sân
             </Button>
           </>
         )}
@@ -161,6 +161,7 @@ const RightSectionHost = ({ id, type }) => {
         open={isCalendarModalOpen}
         onClose={handleCloseCalendarModal}
         courtId={idCourt}
+        court={court}
       />
     </Grid>
   );

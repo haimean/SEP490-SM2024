@@ -48,6 +48,9 @@ export default function CourtDetail() {
   const [id, setId] = React.useState(idCourt);
   const [reload, setReload] = React.useState(0);
   const { idBranch } = useParams();
+
+  const userRole = localStorage.getItem('userRole') || "";
+  console.log(userRole);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -70,6 +73,7 @@ export default function CourtDetail() {
       const result = await CallApi(`/api/court/${id ? id : idCourt}`, "get");
       // console.log("🚀 ========= result:", result.data);
       setData(result.data);
+      console.log(result.data);
     } catch (error) {
       console.log("🚀 ========= error:", error);
     }
@@ -122,6 +126,8 @@ export default function CourtDetail() {
                     description={data?.TypeCourt?.description}
                     participants={data?.Branches?.name}
                     type={"courtDetail"}
+                    role={userRole}
+                    court={data}
                   />
                 )}
               </Box>

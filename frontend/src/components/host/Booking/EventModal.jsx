@@ -96,7 +96,9 @@ const EventModal = ({ isOpen, onClose, eventData, setEventData, isNewEvent, onSa
           name="name"
           value={eventData.name}
           onChange={handleChange}
-          disabled={fieldsDisabled}
+          InputProps={{
+            readOnly: fieldsDisabled,
+          }}
         />
         <TextField
           margin="normal"
@@ -105,7 +107,9 @@ const EventModal = ({ isOpen, onClose, eventData, setEventData, isNewEvent, onSa
           name="numberPhone"
           value={eventData.numberPhone}
           onChange={handleChange}
-          disabled={fieldsDisabled}
+          InputProps={{
+            readOnly: fieldsDisabled,
+          }}
         />
         <TextField
           label="Ngày"
@@ -113,7 +117,9 @@ const EventModal = ({ isOpen, onClose, eventData, setEventData, isNewEvent, onSa
           fullWidth
           value={date}
           onChange={(e) => handleDateChange('date', e.target.value)}
-          disabled={fieldsDisabled || isPastEvent}
+          InputProps={{
+            readOnly: fieldsDisabled || isPastEvent,
+          }}
           className='!mt-2'
         />
         <TextField
@@ -122,7 +128,9 @@ const EventModal = ({ isOpen, onClose, eventData, setEventData, isNewEvent, onSa
           fullWidth
           value={formatTime(eventData.start)}
           onChange={(e) => handleTimeChange('start', e.target.value)}
-          disabled={fieldsDisabled || isPastEvent}
+          InputProps={{
+            readOnly: fieldsDisabled || isPastEvent,
+          }}
           className='!mt-4'
         />
         <TextField
@@ -131,7 +139,9 @@ const EventModal = ({ isOpen, onClose, eventData, setEventData, isNewEvent, onSa
           fullWidth
           value={formatTime(eventData.end)}
           onChange={(e) => handleTimeChange('end', e.target.value)}
-          disabled={fieldsDisabled || isPastEvent}
+          InputProps={{
+            readOnly: fieldsDisabled || isPastEvent,
+          }}
           className='!mt-4'
         />
         <TextField
@@ -141,20 +151,22 @@ const EventModal = ({ isOpen, onClose, eventData, setEventData, isNewEvent, onSa
           name="price"
           value={eventData.price}
           onChange={handleChange}
-          disabled={fieldsDisabled}
+          InputProps={{
+            readOnly: fieldsDisabled,
+          }}
         />
         <Box sx={{ mt: 2 }}>
           {isNewEvent && (
-            <Button variant="contained" color="primary" onClick={handleSave} disabled={saveDisabled}>
+            <Button variant="contained" color="success" onClick={handleSave} disabled={saveDisabled}>
               Lưu
             </Button>
           )}
           {!isNewEvent && (
-            <Button variant="contained" color="secondary" onClick={onDelete} sx={{ ml: 2 }}>
+            <Button variant="contained" color="error" onClick={onDelete} sx={{ ml: 2 }}>
               Hủy ca đặt
             </Button>
           )}
-          <Button variant="outlined" onClick={onClose} sx={{ ml: 2 }}>
+          <Button variant="contained" onClick={onClose} sx={{ ml: 2 }}>
             {isNewEvent ? 'Hủy' : 'Đóng'}
           </Button>
         </Box>

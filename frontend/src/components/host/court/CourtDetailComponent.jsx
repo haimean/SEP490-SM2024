@@ -33,6 +33,7 @@ const CourtDetailComponent = ({
   id,
   role,
   type,
+  court
 }) => {
   const renderInfoItem = (Icon, text) => (
     <Box display="flex" alignItems="center" mb={1}>
@@ -77,9 +78,9 @@ const CourtDetailComponent = ({
         </Card>
       </Grid>
       {role == "USER" ? (
-        <RightSectionDetailPage />
+        <RightSectionDetailPage court={court}/>
       ) : (
-        <RightSectionHost id={id} type={type} />
+        <RightSectionHost id={id} type={type} court1={court}/>
       )}
     </Grid>
   );
