@@ -30,7 +30,11 @@ const blogAdminService = {
     });
     const total = await database.reportBlog.findMany();
     for (let report of reports) {
-      report.blog.image = await getObjectSignedUrl(report.blog.image);
+      if (report?.blog?.image) {
+        report.blog.image = await getObjectSignedUrl(
+          report.blog.image
+        );
+      }
     }
     return { total: total.length, reports };
   },
