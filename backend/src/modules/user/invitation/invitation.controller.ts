@@ -14,7 +14,7 @@ const invitationUserController = {
       const { postId, userAvailabilityId } = req.body;
       const invitation: Invitation =
         await invitationUserService.create(
-          'UNAVAILABLE',
+          'AVAILABLE',
           userAvailabilityId,
           postId
         );
@@ -32,6 +32,8 @@ const invitationUserController = {
       next(new CustomError(error?.message, 500));
     }
   },
+
+  // người rảnh xin vao tran
   createInvitePlayer: async (
     req: Request,
     res: Response,
@@ -42,7 +44,7 @@ const invitationUserController = {
       const accountId = Number(req.headers.authorization);
       const invitation: Invitation =
         await invitationUserService.createForPlayer(
-          'AVAILABLE',
+          'UNAVAILABLE',
           postId,
           accountId
         );
