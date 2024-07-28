@@ -42,7 +42,7 @@ const invitationUserController = {
       const accountId = Number(req.headers.authorization);
       const invitation: Invitation =
         await invitationUserService.createForPlayer(
-          'UNAVAILABLE',
+          'AVAILABLE',
           postId,
           accountId
         );
