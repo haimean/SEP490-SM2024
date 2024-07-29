@@ -52,8 +52,22 @@ const UpdateBranch = () => {
         setValue("businessLicense", response?.data?.businessLicense);
         setValue("openingHours", response?.data?.openingHours);
         setValue("closingHours", response?.data?.closingHours);
-        response?.data?.attributeBranches?.value.forEach((atb, index) => {
-          setValue(`attributeBranches[${index}]`, atb.id);
+        response?.data?.attributeBranches.forEach((atb) => {
+          // Tìm giá trị phù hợp trong branchAtbList
+          const matchingAttribute = branchAtbList.find(
+            (item) => item.id === atb.attributeKeyBranchesId
+          );
+          if (matchingAttribute) {
+            const matchingValue = matchingAttribute.attributeBranches.find(
+              (attr) => attr.value === atb.value
+            );
+            if (matchingValue) {
+              setValue(
+                `attributeBranches[${atb.attributeKeyBranchesId}]`,
+                matchingValue.id
+              );
+            }
+          }
         });
       } catch (error) {
         console.log(
@@ -63,7 +77,7 @@ const UpdateBranch = () => {
       }
     };
     fetchBranch();
-  }, [id, setValue]);
+  }, [id, setValue, branchAtbList]);
 
   const addNewAttributeValue = useCallback(async (data) => {
     const requestData = {
@@ -115,11 +129,6 @@ const UpdateBranch = () => {
           formData.append(`attributeBranches`, item);
         }
       });
-      // data.court.forEach((item, index) => {
-      //   if (item !== "") {
-      //     formData.append(`court[${index}]`, item);
-      //   }
-      // });
 
       if (data.image) {
         formData.append("image", data.image);
@@ -137,16 +146,20 @@ const UpdateBranch = () => {
   //hàm này để lọc theo atbName và render ra option value theo atb key
   const serviceOptions = useMemo(
     () =>
-      branchAtbList.map((item, index) => ({
-        name: `attributeBranches[${index}]`,
+      branchAtbList.map((item) => ({
+        name: `attributeBranches[${item.id}]`,
         key: item.id,
         label: item.name,
         type: "select-custom",
         required: true,
-        options: item.attributeBranches.map((itemChildren) => ({
-          key: itemChildren.id,
-          label: itemChildren.value,
-        })),
+        options: [
+          { key: "", label: "Chọn giá trị" },
+          ...item.attributeBranches.map((itemChildren) => ({
+            key: itemChildren.id,
+            label: itemChildren.value,
+          })),
+          { key: "custom", label: "Thêm mới" },
+        ],
         gridWidth: 6,
         onCustomInput: (data) => addNewAttributeValue({ ...data, id: item.id }),
       })),
