@@ -1,10 +1,12 @@
 import { useEffect, useState, useMemo, useCallback } from "react";
 import Form from "../../../components/host/Form";
-import { Box } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
 import PaymentCreateBranch from "../../../components/host/Branch/PaymentCreateBranch";
+import { Link } from "react-router-dom";
+import { ArrowBack } from "@mui/icons-material";
 
 const CreateBranch = () => {
   const {
@@ -108,7 +110,7 @@ const CreateBranch = () => {
         console.log(`${key}: ${value}`);
       }
       await CallApi("/api/host/branches", "post", formData);
-      toast.success(`Tạo chi nhánh ${data.branchName} thành công! Vui lòng chờ admin duyệt chi nhánh`);
+      toast.success(`Tạo chi nhánh ${data.branchName} thành công!`);
     } catch (error) {
       toast.error(
         error.response?.data?.error || "Có lỗi xảy ra khi tạo chi nhánh"
@@ -319,6 +321,20 @@ const CreateBranch = () => {
           flexGrow: 1,
         }}
       >
+        <Box
+          component={Link}
+          to="/host/list-branch"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            textDecoration: "none",
+            cursor: "pointer",
+            color: "gray",
+          }}
+        >
+          <ArrowBack fontSize="small" sx={{ mr: 0.5 }} />
+          <Typography variant="h6">QUAY LẠI</Typography>
+        </Box>
         <Form
           formConfig={formConfig}
           handleSubmit={handleSubmit}

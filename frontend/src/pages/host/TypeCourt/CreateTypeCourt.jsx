@@ -11,6 +11,9 @@ import Chip from "@mui/material/Chip";
 import Box from "@mui/material/Box";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import { ArrowBack } from "@mui/icons-material";
+import { Typography } from "@mui/material";
 
 const RegisterTypeCourt = () => {
   const { handleSubmit, control, reset } = useForm();
@@ -56,123 +59,139 @@ const RegisterTypeCourt = () => {
     getAttributeCourtList();
   }, []);
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="max-w-lg">
-      <Controller
-        name="image"
-        control={control}
-        defaultValue={null}
-        render={({ field }) => (
-          <div>
+    <>
+      <Box
+        component={Link}
+        to="/host/register-court"
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          textDecoration: "none",
+          cursor: "pointer",
+          color: "gray",
+        }}
+      >
+        <ArrowBack fontSize="small" sx={{ mr: 0.5 }} />
+        <Typography variant="h6">QUAY LẠI</Typography>
+      </Box>
+      <form onSubmit={handleSubmit(onSubmit)} className="max-w-lg">
+        <Controller
+          name="image"
+          control={control}
+          defaultValue={null}
+          render={({ field }) => (
+            <div>
+              <TextField
+                type="file"
+                label="Image"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={(e) => {
+                  field.onChange(e.target.files); // Cập nhật trường tệp với FileList
+                  handleImageChange(e);
+                }}
+              />
+              {imagePreview && (
+                <Box mt={2} mb={2}>
+                  <img
+                    src={imagePreview}
+                    alt="Preview"
+                    className="mx-auto"
+                    style={{ width: "400px", maxHeight: 300 }}
+                  />
+                </Box>
+              )}
+            </div>
+          )}
+        />
+
+        <Controller
+          name="name"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
             <TextField
-              type="file"
-              label="Image"
+              {...field}
+              label="Name"
               variant="outlined"
               fullWidth
               margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              onChange={(e) => {
-                field.onChange(e.target.files); // Cập nhật trường tệp với FileList
-                handleImageChange(e);
-              }}
             />
-            {imagePreview && (
-              <Box mt={2} mb={2}>
-                <img
-                  src={imagePreview}
-                  alt="Preview"
-                  className="mx-auto"
-                  style={{ width: "400px", maxHeight: 300 }}
-                />
-              </Box>
-            )}
-          </div>
-        )}
-      />
-
-      <Controller
-        name="name"
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-          <TextField
-            {...field}
-            label="Name"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-          />
-        )}
-      />
-      <Controller
-        name="description"
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-          <TextField
-            {...field}
-            label="Description"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            multiline
-            rows={4}
-          />
-        )}
-      />
-      <Controller
-        name="attributeCourtIds"
-        control={control}
-        defaultValue={[]}
-        render={({ field }) => (
-          <FormControl fullWidth margin="normal">
-            <InputLabel id="attribute-label">Attributes</InputLabel>
-            <Select
+          )}
+        />
+        <Controller
+          name="description"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <TextField
               {...field}
-              labelId="attribute-label"
-              multiple
-              input={
-                <OutlinedInput id="select-multiple-chip" label="Attributes" />
-              }
-              renderValue={(selected) => (
-                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                  {selected.map((value) => (
-                    <Chip
-                      key={value}
-                      label={
-                        listAttributeCourt.find((attr) => attr.id === value)
-                          ?.value
-                      }
-                    />
-                  ))}
-                </Box>
-              )}
-            >
-              {listAttributeCourt.map((attribute) => (
-                <MenuItem key={attribute.id} value={attribute.id}>
-                  {attribute.value}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        )}
-      />
-      <Button type="submit" variant="contained" color="primary">
-        Submit
-      </Button>
-      <Button
-        type="button"
-        variant="outlined"
-        color="secondary"
-        onClick={() => {
-          reset();
-          setImagePreview(null); // Reset image preview
-        }}
-      >
-        Reset
-      </Button>
-    </form>
+              label="Description"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              multiline
+              rows={4}
+            />
+          )}
+        />
+        <Controller
+          name="attributeCourtIds"
+          control={control}
+          defaultValue={[]}
+          render={({ field }) => (
+            <FormControl fullWidth margin="normal">
+              <InputLabel id="attribute-label">Attributes</InputLabel>
+              <Select
+                {...field}
+                labelId="attribute-label"
+                multiple
+                input={
+                  <OutlinedInput id="select-multiple-chip" label="Attributes" />
+                }
+                renderValue={(selected) => (
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                    {selected.map((value) => (
+                      <Chip
+                        key={value}
+                        label={
+                          listAttributeCourt.find((attr) => attr.id === value)
+                            ?.value
+                        }
+                      />
+                    ))}
+                  </Box>
+                )}
+              >
+                {listAttributeCourt.map((attribute) => (
+                  <MenuItem key={attribute.id} value={attribute.id}>
+                    {attribute.value}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )}
+        />
+        <Button type="submit" variant="contained" color="primary">
+          Submit
+        </Button>
+        <Button
+          type="button"
+          variant="outlined"
+          color="secondary"
+          onClick={() => {
+            reset();
+            setImagePreview(null); // Reset image preview
+          }}
+        >
+          Reset
+        </Button>
+      </form>
+    </>
   );
 };
 
