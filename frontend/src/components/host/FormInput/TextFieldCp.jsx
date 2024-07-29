@@ -14,6 +14,7 @@ const TextFieldCp = ({ field, control, errors, readOnly }) => (
         label={field.label}
         type={field.type}
         value={value}
+        required={field.required}
         onChange={onChange}
         error={!!error}
         InputProps={{
