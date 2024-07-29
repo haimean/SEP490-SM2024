@@ -90,7 +90,7 @@ const BookingsHistoryItemHost = ({ bookings, onCancelSuccess, branchId }) => {
             <Button
               component={Link}
               to={`/host/booking-history/detail/${bookings?.id}`}
-              state={{ branchId: props.branchId }}
+              state={{ branchId: branchId }}
               variant="contained"
               size="small"
               sx={{ mr: canCancel ? 1 : 0 }}

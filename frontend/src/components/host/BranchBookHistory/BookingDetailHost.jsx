@@ -21,7 +21,7 @@ const BookingDetailHost = () => {
   const [booking, setBooking] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [reasonCancel, setReasonCancel] = useState("");
-  const branchId = location.state?.branchId || booking?.Court?.branchesId;//////////////////////////////////////
+  const branchId = location.state?.branchId || booking?.Court?.branchesId;
 
   const now = new Date().getTime();
   const bookingStartTime = booking ? new Date(booking?.startTime).getTime() : 0;
@@ -137,12 +137,12 @@ const BookingDetailHost = () => {
           )}
         </Grid>
 
-        <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end" }}>
+        <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end", gap: 1 }}>
           <Button
             component={Link}
             to={`/host/booking-history/${branchId}`}
             variant="contained"
-            color="secondary"
+            color="info"
             size="small"
           >
             Quay lại
