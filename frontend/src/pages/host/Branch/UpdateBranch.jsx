@@ -52,7 +52,7 @@ const UpdateBranch = () => {
         setValue("businessLicense", response?.data?.businessLicense);
         setValue("openingHours", response?.data?.openingHours);
         setValue("closingHours", response?.data?.closingHours);
-        response?.data?.attributeBranches.forEach((atb, index) => {
+        response?.data?.attributeBranches?.value.forEach((atb, index) => {
           setValue(`attributeBranches[${index}]`, atb.id);
         });
       } catch (error) {
