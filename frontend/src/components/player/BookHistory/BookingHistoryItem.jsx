@@ -55,12 +55,24 @@ const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
               to={`/player/booking-history/${bookings?.id}`}
               variant="contained"
               size="small"
-              sx={{ mr: canCancel ? 1 : 0 }}
+              sx={{ mr: canCancel || bookings?.post ? 1 : 0 }}
             >
               Chi tiết
             </Button>
-            {canCancel && !bookings.post && (
+            {canCancel && !bookings?.post && (
               <CreatePostModal bookings={bookings} />
+            )}
+            {bookings?.post && (
+              <Button
+                component={Link}
+                to={`/post/${bookings?.post?.id}`}
+                variant="contained"
+                color="secondary"
+                size="small"
+                sx={{ mr: 1 }}
+              >
+                Xem bài đăng
+              </Button>
             )}
             {canCancel && (
               <Button
