@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Card, CardContent, CardMedia, Typography, Stack, Button, Tooltip } from "@mui/material";
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import BookingModal from "../BookingTable/BookingModal";
+import { Link} from "react-router-dom";
 
 const CourtCard = ({ court, image }) => {
     const [openModal, setOpenModal] = useState(false);
-
     const handleBookClick = (event) => {
         event.stopPropagation(); // Prevent the card click event
         setOpenModal(true);
@@ -14,13 +14,8 @@ const CourtCard = ({ court, image }) => {
     const handleCloseModal = () => {
         setOpenModal(false);
     };
-
-    const handleCardClick = () => {
-        window.open(`/branch/4/court/${court.id}`, '_blank');
-    };
-
     return (
-        <Card onClick={handleCardClick} style={{ cursor: 'pointer' }}>
+        <Card >
             <CardMedia
                 component="img"
                 image={image}
@@ -45,6 +40,14 @@ const CourtCard = ({ court, image }) => {
                         onClick={handleBookClick}
                     >
                         Đặt sân
+                    </Button>
+                    <Button
+                        variant="contained"
+                        className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
+                        component={Link}
+                        to={`/branch/4/court/${court.id}`}
+                    >
+                        Xem chi tiết
                     </Button>
                 </div>
             </CardContent>
