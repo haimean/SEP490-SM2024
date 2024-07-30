@@ -19,5 +19,8 @@ userAvailableRouter.post(
   '/:postId/get-user-accept',
   userAvailableController.getUserAccept
 );
-
+userAvailableRouter.get(
+  '/request-list-join',
+  userAvailableController.getRequestListJoin
+);
 export default userAvailableRouter;

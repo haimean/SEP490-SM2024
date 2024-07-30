@@ -68,5 +68,20 @@ const userAvailableController = {
       next(new CustomError(error?.message, 500));
     }
   },
+
+  getRequestListJoin: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const accountId = Number(req.headers.authorization);
+      const requestList =
+        await userAvailableService.getRequestListJoin(accountId);
+      ResponseHandler(res, requestList);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
 };
 export default userAvailableController;
