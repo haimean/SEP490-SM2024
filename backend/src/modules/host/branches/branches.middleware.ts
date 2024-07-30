@@ -5,6 +5,8 @@ import NotFoundError from '../../../outcomes/notFoundError';
 import { ErrorCallback } from 'typescript';
 import { uploadFile } from '../../../lib/s3';
 import courtServiceBase from '../../../baseService/courtServiceBase';
+import branchesHostService from './branches.service';
+import dateUtils from '../../../utils/date';
 
 interface BranchesHostMiddleware {
   create: (
@@ -65,8 +67,10 @@ const branchesHostMiddleware: BranchesHostMiddleware = {
   },
   update: async (req, res, next) => {
     try {
+      const { id } = req.params;
       const accountId: number = Number(req.headers.authorization);
-      const { attributeBranches, court } = req.body;
+      const { attributeBranches, court, openingHours, closingHours } =
+        req.body;
       attributeBranches?.forEach(async (id: number) => {
         const dataAttributeBranches =
           await attributeBranchesServiceBase.findById(id);
@@ -87,6 +91,30 @@ const branchesHostMiddleware: BranchesHostMiddleware = {
           next(new NotFoundError('Không tồn tại sân'));
         }
       });
+      // get booking not start
+      const bookings = await branchesHostService.getBookingNotStart(
+        Number(id)
+      );
+      console.log('openingHours', openingHours);
+      console.log('closingHours', closingHours);
+      console.log('bookings', bookings);
+      for (const booking of bookings) {
+        if (
+          !dateUtils.areHoursWithinOpeningClosingHours(
+            booking.startTime,
+            booking.endTime,
+            openingHours,
+            closingHours
+          )
+        ) {
+          next(
+            new CustomError(
+              'Trùng khung giờ với lịch sử đặt sân trước đó',
+              500
+            )
+          );
+        }
+      }
       const file = req.file;
       //check file
       if (file) {

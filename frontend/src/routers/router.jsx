@@ -45,6 +45,7 @@ import ListBlog from "../pages/player/Blog/ListBlog.jsx";
 import DashboardHost from "../pages/host/Dashboard/Dashboard.jsx";
 import PriceSetupPage from "../components/host/court/PriceSetupPage.jsx";
 import ListReportBlog from "../pages/admin/ListReportBlog/ListReportBlog.jsx";
+import RequestListJoin from "../pages/user/RequestListJoin/RequestListJoin.jsx";
 
 const router = [
   {
@@ -388,6 +389,13 @@ const router = [
     component: <ListReportBlog />,
     role: ["ADMIN"],
     layout: "admin",
+  },
+  {
+    path: "/request-list-join",
+    name: "Request List Join",
+    component: <RequestListJoin />,
+    role: ["USER"],
+    layout: "",
   },
 ];
 

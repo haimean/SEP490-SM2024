@@ -140,5 +140,33 @@ const userAvailableService = {
     });
     return invitation.map((item: any) => item.userAvailability);
   },
+  getRequestListJoin: async (accountId: number) => {
+    const requestList: any = await database.invitation.findMany({
+      where: {
+        type: 'UNAVAILABLE',
+        status: 'NEW',
+        userAvailability: {
+          accountId,
+        },
+      },
+      include: {
+        Post: {
+          include: {
+            booking: {
+              include: {
+                bookingInfo: true,
+                account: {
+                  include: {
+                    user: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+    return requestList;
+  },
 };
 export default userAvailableService;

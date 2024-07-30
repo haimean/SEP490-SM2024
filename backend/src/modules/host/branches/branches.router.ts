@@ -19,6 +19,8 @@ branchesHostRouter.post(
   branchesHostMiddleware.create,
   branchesHostController.create
 );
+
+//update branches
 branchesHostRouter.put(
   '/:id',
   upload.single('image'),

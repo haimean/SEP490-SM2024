@@ -20,6 +20,7 @@ const bookingGuestService = {
         post: {
           include: {
             memberPost: true,
+            invitation: true,
           },
         },
         Court: {
@@ -60,6 +61,7 @@ const bookingGuestService = {
         post: {
           include: {
             memberPost: true,
+            invitation: true,
           },
         },
         Court: {
