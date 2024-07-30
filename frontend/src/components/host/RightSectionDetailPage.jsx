@@ -3,12 +3,26 @@ import React, {useState} from "react";
 import { Typography, Grid, Paper, Button } from "@mui/material";
 import BookingModal from "../user/BookingTable/BookingModal";
 import { AccountBox, Email, LocationOn, Phone } from "@mui/icons-material";
+import { useSelector } from 'react-redux';
+import LoginModal from "../auth/LoginModal";
+import { toast } from "react-toastify";
 const RightSectionDetailPage = ({court, branch}) => {
   const [openModal, setOpenModal] = useState(false);
 
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+  const user = useSelector((state) => state.user.user);
+
   const handleBookClick = () => {
-    setOpenModal(true);
+      if (user) {
+          setOpenModal(true);
+      } else {
+          toast.error("Bạn chưa đăng nhập!");
+          setOpenLoginModal(true);
+      }
   };
+  const handleCloseLoginModal = () => {
+    setOpenLoginModal(false);
+};
 
   const handleCloseModal = () => {
     setOpenModal(false);
@@ -41,6 +55,7 @@ const RightSectionDetailPage = ({court, branch}) => {
         </Button>
       </Paper>
       <BookingModal open={openModal} onClose={handleCloseModal} court={court} />
+      <LoginModal open={openLoginModal} onClose={handleCloseLoginModal} />
     </Grid>
   );
 };

@@ -168,22 +168,56 @@ export default function PrimarySearchAppBar() {
             {user ? (
               <AccountPopover />
             ) : (
-              <Button
-                onClick={openLoginModal}
-                sx={{
-                  backgroundColor: "white",
-                  color: "green",
-                  fontWeight: "bold",
-                  "&:hover": {
-                    color: "white",
-                  },
-                  textTransform: "none",
-                  padding: "6px 16px",
-                  borderRadius: "10px",
-                }}
-              >
-                Login
-              </Button>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Button
+                  color="inherit"
+                  component={Link}
+                  to="/"
+                  sx={{ textTransform: "none" }}
+                >
+                  Trang chủ
+                </Button>
+                <Button
+                  color="inherit"
+                  component={Link}
+                  to="/list-blog"
+                  sx={{ textTransform: "none" }}
+                >
+                  Bài đăng
+                </Button>
+                <Button
+                  color="inherit"
+                  component={Link}
+                  to="/available-post"
+                  sx={{ textTransform: "none" }}
+                >
+                  Trận đấu đang tìm người
+                </Button>
+                <Button
+                  color="inherit"
+                  component={Link}
+                  to="/search-courts"
+                  sx={{ textTransform: "none", marginRight: "2px" }}
+                >
+                  Tìm sân đấu
+                </Button>
+                <Button
+                  onClick={openLoginModal}
+                  sx={{
+                    backgroundColor: "white",
+                    color: "green",
+                    fontWeight: "bold",
+                    "&:hover": {
+                      color: "white",
+                    },
+                    textTransform: "none",
+                    padding: "6px 16px",
+                    borderRadius: "10px",
+                  }}
+                >
+                  Login
+                </Button>
+              </Box>
             )}
           </Box>
 
