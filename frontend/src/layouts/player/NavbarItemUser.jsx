@@ -24,6 +24,14 @@ const NavbarItemUser = () => {
       <Button
         color="inherit"
         component={Link}
+        to="/request-list-join"
+        sx={{ textTransform: "none" }}
+      >
+        Lịch sử xin vào trận đấu
+      </Button>
+      <Button
+        color="inherit"
+        component={Link}
         to="/search-courts"
         sx={{ textTransform: "none" }}
       >
