@@ -10,10 +10,10 @@ import {
   Modal,
   TextField,
 } from "@mui/material";
-import { ArrowBack } from "@mui/icons-material";
 import { format } from "date-fns";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
+import { useLocation } from "react-router-dom";
 
 const BookingDetailHost = () => {
   const { id } = useParams();
@@ -21,6 +21,7 @@ const BookingDetailHost = () => {
   const [booking, setBooking] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [reasonCancel, setReasonCancel] = useState("");
+  const branchId = location.state?.branchId || booking?.Court?.branchesId;
 
   const now = new Date().getTime();
   const bookingStartTime = booking ? new Date(booking?.startTime).getTime() : 0;
@@ -90,30 +91,7 @@ const BookingDetailHost = () => {
         maxWidth: { sm: "720px", md: "1170px" },
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          mb: 2,
-        }}
-      >
-        <Box
-          component={Link}
-          to={`/host/booking-history/${booking?.Court?.branchesId}`}
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            textDecoration: "none",
-            color: "gray",
-          }}
-        >
-          <ArrowBack fontSize="small" sx={{ mr: 0.5 }} />
-          <Typography variant="h6">QUAY LẠI</Typography>
-        </Box>
-        <Typography variant="h6">Chi tiết đặt sân {booking?.id}</Typography>
-      </Box>
-
+      <Typography variant="h6">Chi tiết đặt sân {booking?.id}</Typography>
       <Paper elevation={3} sx={{ p: 3 }}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
@@ -135,7 +113,9 @@ const BookingDetailHost = () => {
                   : "Đã diễn ra"
               }
               color={
-                new Date(booking?.startTime) > new Date() ? "primary" : "default"
+                new Date(booking?.startTime) > new Date()
+                  ? "primary"
+                  : "default"
               }
               sx={{ mt: 1 }}
             />
@@ -157,7 +137,16 @@ const BookingDetailHost = () => {
           )}
         </Grid>
 
-        <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end" }}>
+        <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end", gap: 1 }}>
+          <Button
+            component={Link}
+            to={`/host/booking-history/${branchId}`}
+            variant="contained"
+            color="info"
+            size="small"
+          >
+            Quay lại
+          </Button>
           {canCancel && (
             <Button
               onClick={handleOpenModal}

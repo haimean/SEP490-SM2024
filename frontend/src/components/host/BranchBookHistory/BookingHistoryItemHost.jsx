@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import CallApi from "../../../service/CallAPI";
 
-const BookingsHistoryItemHost = ({ bookings, onCancelSuccess }) => {
+const BookingsHistoryItemHost = ({ bookings, onCancelSuccess, branchId }) => {
   const [openModal, setOpenModal] = useState(false);
   const [reasonCancel, setReasonCancel] = useState("");
 
@@ -90,6 +90,7 @@ const BookingsHistoryItemHost = ({ bookings, onCancelSuccess }) => {
             <Button
               component={Link}
               to={`/host/booking-history/detail/${bookings?.id}`}
+              state={{ branchId: branchId }}
               variant="contained"
               size="small"
               sx={{ mr: canCancel ? 1 : 0 }}

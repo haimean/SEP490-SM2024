@@ -53,7 +53,6 @@ const NavbarItemHost = () => {
             Quản lý
           </MenuItem>
           <MenuItem value="/host/list-branch">Danh sách cơ sở</MenuItem>
-          <MenuItem value="/host/....">Lịch sử thuê</MenuItem>
         </Select>
       </FormControl>
 

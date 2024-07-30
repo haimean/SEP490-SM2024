@@ -92,6 +92,7 @@ const BookingHistoryHost = () => {
             <BookingHistoryItemHost
               bookings={booking}
               onCancelSuccess={handleCancelSuccess}
+              branchId={id}
             />
           </ListItem>
         ))}
