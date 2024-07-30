@@ -2,20 +2,35 @@ import React, { useState } from "react";
 import { Card, CardContent, CardMedia, Typography, Stack, Button, Tooltip } from "@mui/material";
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import BookingModal from "../BookingTable/BookingModal";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import LoginModal from "../../auth/LoginModal";
+import { toast } from "react-toastify";
 
 const CourtCard = ({ court, image }) => {
     const [openModal, setOpenModal] = useState(false);
-    const handleBookClick = (event) => {
-        event.stopPropagation(); // Prevent the card click event
-        setOpenModal(true);
+    const [openLoginModal, setOpenLoginModal] = useState(false);
+    const user = useSelector((state) => state.user.user);
+
+    const handleBookClick = () => {
+        if (user) {
+            setOpenModal(true);
+        } else {
+            toast.error("Bạn chưa đăng nhập!");
+            setOpenLoginModal(true);
+        }
     };
 
     const handleCloseModal = () => {
         setOpenModal(false);
     };
+
+    const handleCloseLoginModal = () => {
+        setOpenLoginModal(false);
+    };
+
     return (
-        <Card >
+        <Card>
             <CardMedia
                 component="img"
                 image={image}
@@ -52,6 +67,7 @@ const CourtCard = ({ court, image }) => {
                 </div>
             </CardContent>
             <BookingModal open={openModal} onClose={handleCloseModal} court={court} />
+            <LoginModal open={openLoginModal} onClose={handleCloseLoginModal} />
         </Card>
     );
 };

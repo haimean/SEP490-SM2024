@@ -40,9 +40,6 @@ const messages = {
 const CalendarModalComponent = ({ courtId }) => {
   const [openHour, setOpenHour] = useState(null);
   const [closeHour, setCloseHour] = useState(null);
-  const [selectedOpenHour, setSelectedOpenHour] = useState('');
-  const [selectedCloseHour, setSelectedCloseHour] = useState('');
-
   const [priceLists, setPriceLists] = useState({});
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -53,7 +50,7 @@ const CalendarModalComponent = ({ courtId }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   useEffect(() => {
-    fetchData();
+    fetchData(courtId);
   }, [courtId]);
 
   const parseTime = (timeStr, date = new Date()) => {
@@ -66,27 +63,19 @@ const CalendarModalComponent = ({ courtId }) => {
     return result;
   };
 
-  const fetchData = async () => {
+  const fetchData = async (courtId) => {
     setLoading(true);
     try {
       const response = await CallApi(`/api/court/${courtId}`, "get", {}, {});
-      const fetchedOpenHour = parseTime(response?.data?.Branches?.openingHours);
-      const fetchedCloseHour = parseTime(response?.data?.Branches?.closingHours);
-
-      if (!openHour && !closeHour) {
-        setOpenHour(fetchedOpenHour);
-        setCloseHour(fetchedCloseHour);
-        setSelectedOpenHour(format(fetchedOpenHour, 'HH:mm'));
-        setSelectedCloseHour(format(fetchedCloseHour, 'HH:mm'));
-      }
-
+      setOpenHour(parseTime(response?.data?.Branches?.openingHours));
+      setCloseHour(parseTime(response?.data?.Branches?.closingHours));
+      const accountId = localStorage.getItem('accountId');
       const eventsData = response?.data?.booking
         .filter(b => {
           const startTime = new Date(b.startTime.replace('Z', ''));
           const endTime = new Date(b.endTime.replace('Z', ''));
           const openingHour = parseTime(response?.data?.Branches?.openingHours, startTime);
           const closingHour = parseTime(response?.data?.Branches?.closingHours, endTime);
-          console.log(startTime, endTime, openingHour, closingHour);
           return startTime >= openingHour && endTime <= closingHour;
         })
         .map(event => ({
@@ -95,7 +84,8 @@ const CalendarModalComponent = ({ courtId }) => {
           start: new Date(event.startTime.replace('Z', '')),
           end: new Date(event.endTime.replace('Z', '')),
           bookingInfo: event.bookingInfo,
-          price: event.price
+          price: event.price,
+          isOwnBooking: event.accountId == accountId
         }));
       setEvents(eventsData);
 
@@ -112,35 +102,6 @@ const CalendarModalComponent = ({ courtId }) => {
         priceLists[p.times].push(priceObject);
       });
       setPriceLists(priceLists);
-
-    } catch (error) {
-      toast.error(error.response?.data?.error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchEventsData = async () => {
-    setLoading(true);
-    try {
-      const response = await CallApi(`/api/court/${courtId}`, "get", {}, {});
-      const eventsData = response?.data?.booking
-        .filter(b => {
-          const startTime = new Date(b.startTime.replace('Z', ''));
-          const endTime = new Date(b.endTime.replace('Z', ''));
-          const openingHour = setHours(setMinutes(new Date(startTime), openHour.getMinutes()), openHour.getHours());
-          const closingHour = setHours(setMinutes(new Date(endTime), closeHour.getMinutes()), closeHour.getHours());
-          return startTime >= openingHour && endTime <= closingHour;
-        })
-        .map(event => ({
-          id: event.id,
-          title: `${event.bookingInfo.name} - ${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(event.price)}`,
-          start: new Date(event.startTime.replace('Z', '')),
-          end: new Date(event.endTime.replace('Z', '')),
-          bookingInfo: event.bookingInfo,
-          price: event.price
-        }));
-      setEvents(eventsData);
 
     } catch (error) {
       toast.error(error.response?.data?.error);
@@ -232,11 +193,11 @@ const CalendarModalComponent = ({ courtId }) => {
         );
         toast.success("Thêm sự kiện thành công");
         handleCloseModal();
+        await fetchData(courtId);
       } catch (error) {
         toast.error(error.response?.data?.error);
       } finally {
         setLoading(false);
-        fetchEventsData();
       }
     } else {
       handleCloseModal();
@@ -259,15 +220,14 @@ const CalendarModalComponent = ({ courtId }) => {
         },
         {}
       );
-      setEvents(events.filter((event) => !areEventsEqual(event, selectedEvent)));
       toast.success("Hủy sự kiện thành công");
       handleCloseModal();
       setIsDeleteModalOpen(false);
+      await fetchData(courtId);
     } catch (error) {
       toast.error(error.response?.data?.error);
     } finally {
       setLoading(false);
-      fetchEventsData();
     }
   };
 
@@ -280,7 +240,17 @@ const CalendarModalComponent = ({ courtId }) => {
   };
 
   const eventStyleGetter = (event, start, end, isSelected) => {
-    const style = {};
+    const style = {
+      backgroundColor: event.isOwnBooking ? 'rgb(34, 139, 34)' : 'rgb(70, 130, 180)',
+      pointerEvents: 'auto',
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%',
+      wordWrap: 'break-word',
+      lineHeight: 1,
+      height: '100%',
+      minHeight: '1em',
+    };
     return {
       style: style,
     };
@@ -328,54 +298,11 @@ const CalendarModalComponent = ({ courtId }) => {
     return totalPrice;
   };
 
-  const handleOpenHourChange = (event) => {
-    setSelectedOpenHour(event.target.value);
-  };
-
-  const handleCloseHourChange = (event) => {
-    setSelectedCloseHour(event.target.value);
-  };
-
-  const handleApplyHours = () => {
-    setOpenHour(parseTime(selectedOpenHour));
-    setCloseHour(parseTime(selectedCloseHour));
-    fetchEventsData();
-  };
-
   return (
     <Box>
       <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading}>
         <CircularProgress color="inherit" />
       </Backdrop>
-      <Box display="flex" gap="8px" justifyContent="center" alignItems="center" mb={2}>
-        <TextField
-          label="Giờ mở cửa"
-          type="time"
-          value={selectedOpenHour}
-          onChange={handleOpenHourChange}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          inputProps={{
-            step: 300, // 5 min
-          }}
-        />
-        <TextField
-          label="Giờ đóng cửa"
-          type="time"
-          value={selectedCloseHour}
-          onChange={handleCloseHourChange}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          inputProps={{
-            step: 300, // 5 min
-          }}
-        />
-        <Button variant="contained" color="primary" onClick={handleApplyHours}>
-          Áp dụng giờ
-        </Button>
-      </Box>
       {openHour && closeHour && (
         <Calendar
           localizer={localizer}
