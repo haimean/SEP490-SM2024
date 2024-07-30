@@ -19,6 +19,7 @@ const BranchCard = ({ name, location, image, onClick  }) => {
                 component="img"
                 image={image}
                 alt={name}
+                style={{ height: '250px'}}
                 className={"object-cover bg-blue-200 h-40"}
             />
             <CardContent>
