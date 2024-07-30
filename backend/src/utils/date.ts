@@ -16,5 +16,34 @@ const dateUtils = {
 
     return { lastSaturday, lastSunday };
   },
+  areHoursWithinOpeningClosingHours(
+    startTimeStr: Date,
+    endTimeStr: Date,
+    openingHours: string,
+    closingHours: string
+  ): boolean {
+    const openingTime = new Date(
+      `1970-01-01T${openingHours}:00Z`
+    ).getTime();
+    const closingTime = new Date(
+      `1970-01-01T${closingHours}:00Z`
+    ).getTime();
+
+    const startTime =
+      new Date(startTimeStr).getUTCHours() * 60 +
+      new Date(startTimeStr).getUTCMinutes();
+    const endTime =
+      new Date(endTimeStr).getUTCHours() * 60 +
+      new Date(endTimeStr).getUTCMinutes();
+
+    const openingMinutes =
+      new Date(openingTime).getUTCHours() * 60 +
+      new Date(openingTime).getUTCMinutes();
+    const closingMinutes =
+      new Date(closingTime).getUTCHours() * 60 +
+      new Date(closingTime).getUTCMinutes();
+
+    return startTime >= openingMinutes && endTime <= closingMinutes;
+  },
 };
 export default dateUtils;

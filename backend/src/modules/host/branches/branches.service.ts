@@ -228,7 +228,10 @@ const branchesHostService = {
             id,
           },
         },
-        startTime: {},
+        startTime: {
+          // from
+          gte: new Date(),
+        },
       },
       select: {
         startTime: true,
