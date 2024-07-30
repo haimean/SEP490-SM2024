@@ -219,6 +219,24 @@ const branchesHostService = {
     });
     return result;
   },
+
+  getBookingNotStart: async (id: number) => {
+    const result = await database.booking.findMany({
+      where: {
+        Court: {
+          Branches: {
+            id,
+          },
+        },
+        startTime: {},
+      },
+      select: {
+        startTime: true,
+        endTime: true,
+      },
+    });
+    return result;
+  },
 };
 
 export default branchesHostService;
