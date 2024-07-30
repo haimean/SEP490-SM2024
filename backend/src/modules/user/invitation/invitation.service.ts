@@ -38,7 +38,7 @@ const invitationUserService = {
     postId: number,
     accountId: number
   ): Promise<any> => {
-    return await database.invitation.findMany({
+    return await database.invitation.findFirst({
       where: {
         postId,
         userAvailability: {

@@ -93,13 +93,10 @@ const invitationUserController = {
     next: NextFunction
   ) => {
     try {
-      const { postId } = req.params;
+      const { postId } = req.body;
       const accountId = Number(req.headers.authorization);
       const invitation: { data: Invitation[]; total: number } =
-        await invitationUserService.getAvailable(
-          Number(postId),
-          accountId
-        );
+        await invitationUserService.getAvailable(postId, accountId);
       ResponseHandler(res, invitation);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));

@@ -131,7 +131,6 @@ export default function RequestListTable2({ open, onClose, postId }) {
         "post"
       );
       setIsLoading(false);
-      console.log("🚀 ========= listAccept:", result);
       setListAccept(processData(result?.data || []));
     } catch (error) {
       console.log("🚀 ========= error:", error);
