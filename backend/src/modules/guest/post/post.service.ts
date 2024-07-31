@@ -1,0 +1,43 @@
+import { Post } from '@prisma/client';
+import database from '../../../lib/db.server';
+
+const postService = {
+  get: async (id: number): Promise<any> => {
+    return await database.post.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        booking: {
+          include: {
+            Court: {
+              include: {
+                TypeCourt: true,
+                Branches: {
+                  include: {
+                    attributeBranches: true,
+                    address: true,
+                    account: true,
+                  },
+                },
+              },
+            },
+            bookingInfo: true,
+          },
+        },
+        memberPost: true,
+        invitation: {
+          include: {
+            userAvailability: {
+              include: {
+                account: true,
+              },
+            },
+          },
+        },
+      },
+    });
+  },
+};
+
+export default postService;
