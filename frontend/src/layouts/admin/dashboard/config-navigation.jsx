@@ -11,37 +11,37 @@ const icon = (name) => (
 
 const navConfig = [
   {
-    title: "dashboard",
+    title: "Thống kê",
     path: "/admin/dashboard",
     icon: icon("ic_analytics"),
   },
   {
-    title: "user",
+    title: "Tài khoản",
     path: "/admin/list-account",
     icon: icon("ic_user"),
   },
   {
-    title: "report blog",
+    title: "Tố cáo bài đăng",
     path: "/admin/report-blog",
     icon: icon("ic_report"),
   },
   {
-    title: "branch attribute",
+    title: "Thuộc tính chi nhánh",
     path: "/admin/branch-attribute",
     icon: icon("ic_cart"),
   },
   {
-    title: "court attribute",
+    title: "Thuộc tính sân đấu",
     path: "/admin/court-attribute",
     icon: icon("ic_blog"),
   },
   {
-    title: "accept branch",
+    title: "Duyệt chi nhánh",
     path: "/admin/accept-branch",
     icon: icon("ic_approve"),
   },
   {
-    title: "list branch",
+    title: "Danh sách chi nhánh",
     path: "/admin/list-branch",
     icon: icon("ic_court"),
   },
