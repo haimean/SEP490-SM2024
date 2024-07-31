@@ -18,7 +18,8 @@ import { format, parseISO } from "date-fns";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-
+import { useSelector } from "react-redux";
+import LoginModal from "../../auth/LoginModal";
 const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
   const acceptCount = activity?.post?.invitation?.filter(
     (invite) => invite?.status === "ACCEPT"
@@ -26,7 +27,8 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
   const testImg = "https://via.placeholder.com/200";
   const navigate = useNavigate();
   const [accountId, setAccountId] = useState(null);
-
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+  const user = useSelector((state) => state.user.user);
   useEffect(() => {
     // Lấy accountId từ localStorage
     const storedAccountId = localStorage.getItem("accountId");
@@ -37,7 +39,15 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
   };
 
   const handleJoin = () => {
-    join(activity);
+    if (user) {
+      join(activity);
+    } else {
+      toast.error("Bạn chưa đăng nhập!");
+      setOpenLoginModal(true);
+    }
+  };
+  const handleCloseLoginModal = () => {
+    setOpenLoginModal(false);
   };
   const join = async (activity) => {
     try {
@@ -81,7 +91,7 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
 
     // Sử dụng `some` để kiểm tra nếu bất kỳ invitationAccountId nào khớp với storedAccountId
     return data.some((invitation) => {
-      const invitationAccountId = invitation?.userAvailability.accountId;
+      const invitationAccountId = invitation?.userAvailability?.accountId;
       return invitationAccountId === Number(accountId);
     });
   };
@@ -160,6 +170,7 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
           </Button>
         </div>
       </CardContent>
+      <LoginModal open={openLoginModal} onClose={handleCloseLoginModal} />
     </Card>
   );
 };
