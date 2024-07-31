@@ -59,6 +59,53 @@ const accountService = {
       throw new Error('Account not exist');
     }
   },
+  listMonthAccount: async () => {
+    const now = new Date();
+    const startOfMonth = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      1
+    );
+    const endOfMonth = new Date(
+      now.getFullYear(),
+      now.getMonth() + 1,
+      0,
+      23,
+      59,
+      59
+    );
+    const result = await database.account.findMany({
+      where: {
+        createdAt: {
+          gte: startOfMonth,
+          lte: endOfMonth,
+        },
+      },
+    });
+    return result;
+  },
+  getListAccountNoSort: async () => {
+    const resultAdmin = await database.account.findMany({
+      where: {
+        role: 'ADMIN',
+      },
+    });
+    const resultHost = await database.account.findMany({
+      where: {
+        role: 'HOST',
+      },
+    });
+    const resultPlayer = await database.account.findMany({
+      where: {
+        role: 'USER',
+      },
+    });
+    return {
+      totalAdmin: resultAdmin.length,
+      totalHost: resultHost.length,
+      totalPlayer: resultPlayer.length,
+    };
+  },
 };
 
 export default accountService;
