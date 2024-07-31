@@ -15,6 +15,7 @@ const CardComponent = ({
   image,
   role,
   id,
+  isAccept,
   onDeleteBranch,
 }) => {
   const truncateName = (text, maxLength) => {
@@ -22,29 +23,17 @@ const CardComponent = ({
     return text.slice(0, maxLength) + "...";
   };
 
-  return (
-    <Card
-      sx={{
-        boxShadow: "0 3px 3px rgba(0, 0, 0, 0.2)",
-        "&:hover": {
-          boxShadow: "0 10px 15px rgba(0, 0, 0, 0.2)",
-        },
-        display: "flex",
-        flexDirection: "column",
-        height: "100%",
-      }}
-    >
-      <Link to={`/${role === "HOST" ? "host" : "player"}/branch/${id}`}>
-        <CardMedia
-          component="img"
-          image={image}
-          alt={name}
-          sx={{
-            height: 300, // Chiều cao cố định cho ảnh
-            objectFit: "cover",
-          }}
-        />
-      </Link>
+  const cardContent = (
+    <>
+      <CardMedia
+        component="img"
+        image={image}
+        alt={name}
+        sx={{
+          height: 300,
+          objectFit: "cover",
+        }}
+      />
       <CardContent
         sx={{
           flexGrow: 1,
@@ -76,7 +65,7 @@ const CardComponent = ({
         <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
           {time}
         </Typography>
-        {role == "HOST" && (
+        {role === "HOST" && isAccept && (
           <Button
             variant="contained"
             onClick={() => {
@@ -87,6 +76,30 @@ const CardComponent = ({
           </Button>
         )}
       </CardContent>
+    </>
+  );
+
+  return (
+    <Card
+      sx={{
+        boxShadow: "0 3px 3px rgba(0, 0, 0, 0.2)",
+        "&:hover": {
+          boxShadow: "0 10px 15px rgba(0, 0, 0, 0.2)",
+        },
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+        opacity: isAccept ? 1 : 0.5,
+        pointerEvents: isAccept ? "auto" : "none",
+      }}
+    >
+      {isAccept ? (
+        <Link to={`/${role === "HOST" ? "host" : "player"}/branch/${id}`}>
+          {cardContent}
+        </Link>
+      ) : (
+        cardContent
+      )}
     </Card>
   );
 };
