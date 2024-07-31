@@ -32,6 +32,7 @@ const bookingHostController = {
       } = req.body;
       const accountId = Number(req.headers.authorization);
       // check giờ đặt có người đặt chưa
+      // TODO: check đã đặt trước đó chưa
       const result = await bookingHostService.create({
         accountId,
         courtId,

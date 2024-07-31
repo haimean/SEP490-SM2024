@@ -12,7 +12,6 @@ const branchesHostService = {
     const branches = await database.branches.findMany({
       where: {
         accountId,
-        isAccept: true,
         isDelete: false,
       },
       include: {
@@ -43,7 +42,6 @@ const branchesHostService = {
     const branches = await database.branches.findMany({
       where: {
         accountId,
-        isAccept: true,
         isDelete: false,
       },
     });
