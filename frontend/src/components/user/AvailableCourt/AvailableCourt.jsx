@@ -15,6 +15,7 @@ import { format, parseISO } from "date-fns";
 const AvailableCourt = () => {
   const [activities, setActivities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSendRequest, SetIsSendRequest] = useState(false);
   const [filters, setFilters] = useState({
     province: "",
     district: "",
@@ -27,7 +28,7 @@ const AvailableCourt = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [isSendRequest]);
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -133,7 +134,11 @@ const AvailableCourt = () => {
       <Grid container spacing={2}>
         {filteredActivities.map((activity) => (
           <Grid item xs={12} md={6} key={activity?.id}>
-            <PostCard activity={activity} />
+            <PostCard
+              activity={activity}
+              isSendRequest={isSendRequest}
+              SetIsSendRequest={SetIsSendRequest}
+            />
           </Grid>
         ))}
       </Grid>

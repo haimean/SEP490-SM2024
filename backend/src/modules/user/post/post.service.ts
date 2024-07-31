@@ -40,6 +40,15 @@ const postUserService = {
           },
         },
         memberPost: true,
+        invitation: {
+          include: {
+            userAvailability: {
+              include: {
+                account: true,
+              },
+            },
+          },
+        },
       },
     });
   },

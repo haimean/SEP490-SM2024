@@ -61,7 +61,11 @@ const bookingGuestService = {
         post: {
           include: {
             memberPost: true,
-            invitation: true,
+            invitation: {
+              include: {
+                userAvailability: true,
+              },
+            },
           },
         },
         Court: {
