@@ -4,9 +4,10 @@ import { Box } from "@mui/material";
 import { useForm } from "react-hook-form";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const UpdateBranch = () => {
+  const navigate = useNavigate();
   const {
     control,
     reset,
@@ -135,6 +136,7 @@ const UpdateBranch = () => {
       }
 
       await CallApi(`/api/host/branches/${id}`, "put", formData);
+      navigate(`/host/branch/${id}`);
       toast.success(`Cập nhật chi nhánh ${data.branchName} thành công!`);
     } catch (error) {
       toast.error(
