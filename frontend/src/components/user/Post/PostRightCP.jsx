@@ -250,13 +250,16 @@ const PostRightCP = ({ user, post, postId }) => {
                     onClick={() => requestJoin(postId)}
                     disabled={
                       listJoin?.length == post?.numberMember ||
-                      detail?.status == "ACCEPT"
+                      detail?.status == "ACCEPT" ||
+                      detail?.status == "NEW"
                     }
                   >
                     {listJoin?.length == post?.numberMember
                       ? "Sẫn đã đủ người"
                       : detail?.status == "ACCEPT"
                       ? "Đã tham gia trận đấu"
+                      : detail?.status == "NEW"
+                      ? "Đã yêu cầu tham gia trận đâu"
                       : "Gửi lời mời tham gia"}
                   </Button>
                 )}

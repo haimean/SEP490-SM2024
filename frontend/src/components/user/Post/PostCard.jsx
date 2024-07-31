@@ -19,7 +19,7 @@ import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 
-const PostCard = ({ activity }) => {
+const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
   const acceptCount = activity?.post?.invitation?.filter(
     (invite) => invite?.status === "ACCEPT"
   ).length;
@@ -44,6 +44,7 @@ const PostCard = ({ activity }) => {
       const response = await CallApi("/api/user/invitation/invite", "post", {
         postId: activity?.post?.id,
       });
+      SetIsSendRequest(!isSendRequest);
       toast.success("Gửi lời mời thành công!");
     } catch (error) {
       console.log(error);
@@ -65,6 +66,26 @@ const PostCard = ({ activity }) => {
     }
     return text;
   };
+  const checkRequestInvitation = (data) => {
+    // Kiểm tra nếu data không phải là một mảng hoặc là null/undefined
+    if (!Array.isArray(data)) {
+      return false;
+    }
+
+    // Lấy accountId từ localStorage và chuyển đổi nó thành số (nếu cần)
+
+    // Kiểm tra nếu dữ liệu không có accountId
+    if (isNaN(accountId)) {
+      return false;
+    }
+
+    // Sử dụng `some` để kiểm tra nếu bất kỳ invitationAccountId nào khớp với storedAccountId
+    return data.some((invitation) => {
+      const invitationAccountId = invitation?.userAvailability.accountId;
+      return invitationAccountId === Number(accountId);
+    });
+  };
+
   return (
     <Card className="">
       <CardMedia
@@ -119,11 +140,16 @@ const PostCard = ({ activity }) => {
             variant="contained"
             className="bg-blue-500 hover:bg-blue-700 text-white rounded"
             onClick={handleJoin}
-            disabled={acceptCount == activity?.post?.numberMember}
+            disabled={
+              acceptCount == activity?.post?.numberMember ||
+              checkRequestInvitation(activity?.post?.invitation) === true
+            }
           >
             {acceptCount == activity?.post?.numberMember
               ? "Sân đã đủ người"
-              : "Gửi lời mời tham gia"}
+              : checkRequestInvitation(activity?.post?.invitation) !== true
+              ? "Gửi lời mời tham gia"
+              : "Đã gửi lời mời"}
           </Button>
           <Button
             variant="contained"
