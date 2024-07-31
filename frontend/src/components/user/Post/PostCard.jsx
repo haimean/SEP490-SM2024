@@ -23,7 +23,6 @@ const PostCard = ({ activity }) => {
   const acceptCount = activity?.post?.invitation?.filter(
     (invite) => invite?.status === "ACCEPT"
   ).length;
-  console.log("🚀 ========= activity:", acceptCount);
   const testImg = "https://via.placeholder.com/200";
   const navigate = useNavigate();
   const [accountId, setAccountId] = useState(null);
@@ -120,11 +119,9 @@ const PostCard = ({ activity }) => {
             variant="contained"
             className="bg-blue-500 hover:bg-blue-700 text-white rounded"
             onClick={handleJoin}
-            disabled={
-              activity?.post?.memberPost.length == activity?.post?.numberMember
-            }
+            disabled={acceptCount == activity?.post?.numberMember}
           >
-            {activity?.post?.memberPost.length == activity?.post?.numberMember
+            {acceptCount == activity?.post?.numberMember
               ? "Sân đã đủ người"
               : "Gửi lời mời tham gia"}
           </Button>

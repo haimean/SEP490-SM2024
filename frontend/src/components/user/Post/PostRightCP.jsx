@@ -218,7 +218,7 @@ const PostRightCP = ({ user, post, postId }) => {
                 /> */}
               </>
             ) : (
-              <div className="w-full">
+              <div className="w-full flex justify-center">
                 {detail?.status === "NEW" && detail?.type === "AVAILABLE" ? (
                   <div className="w-full h-full flex justify-between items-center">
                     <Button
