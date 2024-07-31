@@ -23,7 +23,16 @@ const courtService = {
         id,
       },
       include: {
-        Branches: true,
+        Branches: {
+          include: {
+            address: true,
+            account: {
+              include: {
+                user: true
+              }
+            },
+          }
+        },
         booking: {
           where: {
             isDelete: false
@@ -41,6 +50,11 @@ const courtService = {
         },
         TypeCourt: {
           include: {
+            attributeCourt: {
+              include: {
+                attributeKeyCourt: true,
+              },
+            },
             priceTypeCourt: true,
           },
         },

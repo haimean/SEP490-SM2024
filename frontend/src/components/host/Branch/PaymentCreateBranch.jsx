@@ -2,8 +2,13 @@ import { Box, Button, Modal, Typography } from "@mui/material";
 import { useState } from "react";
 import QRCode from "qrcode.react";
 
-const PaymentCreateBranch = ({ open, handleClose, branchName }) => {
+const PaymentCreateBranch = ({ open, handleClose, branchName, onConfirmPayment }) => {
   const [qrValue] = useState("https://example.com/payment"); // URL thanh toán thực tế
+
+  const handleConfirmAndClose = () => {
+    onConfirmPayment();
+    handleClose();
+  };
 
   return (
     <Modal
@@ -56,8 +61,8 @@ const PaymentCreateBranch = ({ open, handleClose, branchName }) => {
         <Box sx={{ my: 2 }}>
           <QRCode value={qrValue} size={200} />
         </Box>
-        <Button onClick={handleClose} variant="contained">
-          Đóng
+        <Button onClick={handleConfirmAndClose} variant="contained">
+          Xác nhận đã thanh toán
         </Button>
       </Box>
     </Modal>

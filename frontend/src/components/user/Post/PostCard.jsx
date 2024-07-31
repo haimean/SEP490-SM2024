@@ -20,7 +20,9 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 
 const PostCard = ({ activity }) => {
-  console.log("🚀 ========= activity:", activity);
+  const acceptCount = activity?.post?.invitation?.filter(
+    (invite) => invite?.status === "ACCEPT"
+  ).length;
   const testImg = "https://via.placeholder.com/200";
   const navigate = useNavigate();
   const [accountId, setAccountId] = useState(null);
@@ -108,8 +110,8 @@ const PostCard = ({ activity }) => {
         <Stack direction="row" alignItems="center" spacing={1}>
           <PersonIcon className="text-red-600" />
           <Typography>
-            Tuyển {activity?.post?.numberMember} người (Hiện có:{" "}
-            {activity?.post?.memberPost.length}/{activity?.post?.numberMember})
+            Tuyển {activity?.post?.numberMember} người (Hiện có: {acceptCount}/
+            {activity?.post?.numberMember})
           </Typography>
         </Stack>
         <div className="space-x-4 flex justify-center">
@@ -117,11 +119,9 @@ const PostCard = ({ activity }) => {
             variant="contained"
             className="bg-blue-500 hover:bg-blue-700 text-white rounded"
             onClick={handleJoin}
-            disabled={
-              activity?.post?.memberPost.length == activity?.post?.numberMember
-            }
+            disabled={acceptCount == activity?.post?.numberMember}
           >
-            {activity?.post?.memberPost.length == activity?.post?.numberMember
+            {acceptCount == activity?.post?.numberMember
               ? "Sân đã đủ người"
               : "Gửi lời mời tham gia"}
           </Button>

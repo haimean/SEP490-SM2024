@@ -1,6 +1,6 @@
 import React from "react";
 import PostCard from "./PostCard";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Link, Typography } from "@mui/material";
 
 const PostLandingPage = ({ blog }) => {
   return (
@@ -9,9 +9,15 @@ const PostLandingPage = ({ blog }) => {
         <Typography variant="h4" component="h2" mb={6} fontWeight={600}>
           Trận đấu sắp tới
         </Typography>
-        <Button variant="contained" color="primary" sx={{ height: 40, px: 2 }}>
-          Xem thêm
-        </Button>
+        <Link href="/available-post">
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ height: 40, px: 2 }}
+          >
+            Xem thêm
+          </Button>
+        </Link>
       </div>
 
       <Grid container spacing={3}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Box, Typography, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import CalendarModalComponen from './BookingCalendar';
+import CalendarModalComponent from './BookingCalendar';
 
 const BookingModal = ({ open, onClose, courtId, court }) => {
   return (
@@ -18,13 +18,27 @@ const BookingModal = ({ open, onClose, courtId, court }) => {
         >
           <CloseIcon />
         </IconButton>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          Sân: {court?.name}
-        </Typography>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-        Chi nhánh: {court?.Branches?.name}
-        </Typography>
-        <CalendarModalComponen courtId={courtId} />
+        <Box display="flex" alignItems="center">
+          <Box className="w-1/3">
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Sân: {court?.name}
+            </Typography>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Chi nhánh: {court?.Branches?.name}
+            </Typography>
+          </Box>
+          <Box display="flex" className="w-1/3" alignItems="center" justifyContent="center">
+            <Box display="flex" alignItems="center" mr={2}>
+              <Box width={16} height={16} bgcolor="rgb(70, 130, 180)" mr={1} />
+              <Typography variant="body2">Ca khách đặt trên hệ thống</Typography>
+            </Box>
+            <Box display="flex" alignItems="center">
+              <Box width={16} height={16} bgcolor="rgb(34, 139, 34)" mr={1} />
+              <Typography variant="body2">Ca tự đặt</Typography>
+            </Box>
+          </Box>
+        </Box>
+        <CalendarModalComponent courtId={courtId} />
       </Box>
     </Modal>
   );

@@ -31,20 +31,10 @@ const ListBranch = () => {
 
   const getFilteredAndSortedBranches = () => {
     let filteredBranches = [...listBranch];
-
-    // Lọc theo khu vực
-    if (filters.area) {
-      filteredBranches = filteredBranches.filter((branch) =>
-        branch.address.province
-          .toLowerCase()
-          .includes(filters.area.toLowerCase())
-      );
-    }
-
     // Sắp xếp theo thời gian mở cửa
     if (filters.time) {
       filteredBranches.sort((a, b) => {
-        const timeA = a.openingHours.split("-")[0].trim(); // Lấy giờ mở cửa
+        const timeA = a.openingHours.split("-")[0].trim();
         const timeB = b.openingHours.split("-")[0].trim();
         if (filters.time === "earliest") {
           return timeA.localeCompare(timeB);
@@ -58,16 +48,6 @@ const ListBranch = () => {
   };
 
   const filterOptions = [
-    {
-      name: "area",
-      label: "Khu vực",
-      options: [
-        { value: "cau giay", label: "Cầu Giấy" },
-        { value: "thanh xuan", label: "Thanh Xuân" },
-        { value: "hai ba trung", label: "Hai Bà Trưng" },
-      ],
-      onChange: (value) => handleFilterChange("area", value), // chưa có filter address
-    },
     {
       name: "time",
       label: "Thời gian mở cửa",
@@ -135,7 +115,7 @@ const ListBranch = () => {
       <FilterCp filters={filterOptions} />
       <Grid container spacing={3}>
         {branchesDisplay.map((item) => (
-          <Grid item xs={12} sm={4} md={3} key={item.id}>
+          <Grid item xs={12} md={6} key={item?.id}>
             <CardComponent
               name={item?.name}
               location={item?.address?.districts}
@@ -143,6 +123,7 @@ const ListBranch = () => {
               image={item?.image}
               role={role}
               id={item?.id}
+              isAccept={item?.isAccept}
               onDeleteBranch={handleDeleteBranch}
             />
           </Grid>

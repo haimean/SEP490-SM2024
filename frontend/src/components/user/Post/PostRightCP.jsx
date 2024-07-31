@@ -60,7 +60,6 @@ const PostRightCP = ({ user, post, postId }) => {
         `/api/user/user-available/${postId}/get-user-accept`,
         "post"
       );
-      console.log("🚀 ========= listjoin:", result.data);
       setListJoin(result.data);
     } catch (error) {
       console.log("🚀 ========= error:", error);
@@ -110,6 +109,46 @@ const PostRightCP = ({ user, post, postId }) => {
     setValue("id", id);
     setOpenModalReason(true);
   };
+
+  const [detail, setDetail] = useState(false);
+  const detailUser = async () => {
+    try {
+      const result = await CallApi(
+        "/api/user/invitation/available-of-user",
+        "post",
+        {
+          postId: postId,
+        }
+      );
+      console.log("🚀 ========= result:", result.data);
+      setDetail(result?.data);
+    } catch (error) {
+      console.log("🚀 ========= error:", error);
+    }
+  };
+  useEffect(() => {
+    detailUser();
+  }, [postId]);
+  const handleAccept = async (id, status, reason) => {
+    try {
+      const result = await CallApi("/api/user/invitation/update", "post", {
+        invitationId: id,
+        status: status,
+        reasonCancel: reason,
+      });
+      if (status === "ACCEPT") {
+        toast.success("Chấp nhận lời mời");
+        detailUser();
+        getListInvitation();
+      } else {
+        toast.info("Từ chối thành công");
+      }
+      console.log("🚀 ========= result:", result);
+    } catch (error) {
+      console.log("🚀 ========= error:", error);
+      toast.error(error.response?.data?.error);
+    }
+  };
   return (
     <Grid item xs={12} md={4}>
       <Paper sx={{ position: "sticky", top: 100, p: 2 }}>
@@ -141,7 +180,11 @@ const PostRightCP = ({ user, post, postId }) => {
           <div className="mt-4 flex justify-center space-x-2">
             {isOwner ? (
               <>
-                <Button variant="contained" onClick={handleOpenWaitingList}>
+                <Button
+                  variant="contained"
+                  onClick={handleOpenWaitingList}
+                  disabled={listJoin?.length == post?.numberMember}
+                >
                   Mời người chơi
                 </Button>
                 {openWaitingList && (
@@ -156,7 +199,11 @@ const PostRightCP = ({ user, post, postId }) => {
                   onClose={handleCloseWaitingList}
                   postId={postId}
                 /> */}
-                <Button variant="contained" onClick={handleOpenRequestList}>
+                <Button
+                  variant="contained"
+                  onClick={handleOpenRequestList}
+                  disabled={listJoin?.length == post?.numberMember}
+                >
                   Xem danh sách chờ
                 </Button>
                 <RequestListTable2
@@ -171,16 +218,49 @@ const PostRightCP = ({ user, post, postId }) => {
                 /> */}
               </>
             ) : (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => requestJoin(postId)}
-                disabled={listJoin?.length == post?.numberMember}
-              >
-                {listJoin?.length == post?.numberMember
-                  ? "Sẫn đã đủ người"
-                  : "Gửi lời mời tham gia"}
-              </Button>
+              <div className="w-full flex justify-center">
+                {detail?.status === "NEW" && detail?.type === "AVAILABLE" ? (
+                  <div className="w-full h-full flex justify-between items-center">
+                    <Button
+                      variant="contained"
+                      color="success"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        handleAccept(detail?.id, "ACCEPT", "Chấp nhận");
+                      }}
+                    >
+                      Chấp nhận
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="error"
+                      onClick={(event) => {
+                        console.log("🚀 ========= event:", event);
+                        event.stopPropagation();
+                        handleAccept(detail?.id, "NOACCEPT", "Không chấp nhận");
+                      }}
+                    >
+                      Từ Chối
+                    </Button>
+                  </div>
+                ) : (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => requestJoin(postId)}
+                    disabled={
+                      listJoin?.length == post?.numberMember ||
+                      detail?.status == "ACCEPT"
+                    }
+                  >
+                    {listJoin?.length == post?.numberMember
+                      ? "Sẫn đã đủ người"
+                      : detail?.status == "ACCEPT"
+                      ? "Đã tham gia trận đấu"
+                      : "Gửi lời mời tham gia"}
+                  </Button>
+                )}
+              </div>
             )}
           </div>
         </div>

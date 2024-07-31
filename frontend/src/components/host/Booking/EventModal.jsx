@@ -23,7 +23,12 @@ const EventModal = ({ isOpen, onClose, eventData, setEventData, isNewEvent, onSa
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setEventData({ ...eventData, [name]: value });
+    if (name === "price") {
+      const numericValue = value.replace(/\D/g, '');
+      setEventData({ ...eventData, [name]: numericValue });
+    } else {
+      setEventData({ ...eventData, [name]: value });
+    }
   };
 
   const handleDateChange = (field, value) => {
@@ -51,6 +56,10 @@ const EventModal = ({ isOpen, onClose, eventData, setEventData, isNewEvent, onSa
 
   const formatTime = (date) => {
     return isValid(new Date(date)) ? format(new Date(date), "HH:mm") : '';
+  };
+
+  const formatNumber = (value) => {
+    return new Intl.NumberFormat('vi-VN').format(value);
   };
 
   const validateTime = () => {
@@ -149,7 +158,7 @@ const EventModal = ({ isOpen, onClose, eventData, setEventData, isNewEvent, onSa
           fullWidth
           label="Giá"
           name="price"
-          value={eventData.price}
+          value={formatNumber(eventData.price)}
           onChange={handleChange}
           InputProps={{
             readOnly: fieldsDisabled,

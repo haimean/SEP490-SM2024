@@ -5,10 +5,11 @@ import { useForm } from "react-hook-form";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
 import PaymentCreateBranch from "../../../components/host/Branch/PaymentCreateBranch";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowBack } from "@mui/icons-material";
 
 const CreateBranch = () => {
+  const navigate = useNavigate();
   const {
     control,
     reset,
@@ -20,6 +21,7 @@ const CreateBranch = () => {
   const [branchAtbList, setBranchAtbList] = useState([]);
   const [isSecondBranch, setIsSecondBranch] = useState(false);
   const [openPaymentModal, setOpenPaymentModal] = useState(false);
+  const [formData, setFormData] = useState(null);
 
   useEffect(() => {
     fetchBranchAtbList();
@@ -78,39 +80,46 @@ const CreateBranch = () => {
 
     if (branchCount >= 2) {
       setIsSecondBranch(true);
+      setFormData(data);
       handleOpenPaymentModal();
       return;
     }
+
+    await createBranch(data);
+  };
+
+  const createBranch = async (data) => {
     const formData = new FormData();
+    formData.append("name", data?.branchName);
+    formData.append("description", data?.description);
+    formData.append("phone", data?.phone);
+    formData.append("openingHours", "10:10");
+    formData.append("closingHours", "20:10");
+    formData.append("longitude", "107.09848786676099");
+    formData.append("latitude", "20.962297338909874");
+    formData.append("provinces", data?.provinces);
+    formData.append("districts", data?.districts);
+    formData.append("wards", data?.wards);
+    formData.append("detail", data?.detail);
+    formData.append("email", data?.email);
+    data?.attributeBranches.map((item) => {
+      if (item != "") {
+        formData.append("attributeBranches", item);
+      }
+    });
+    if (data?.businessLicensePicture) {
+      formData.append("businessLicense", data?.businessLicensePicture);
+    }
+    if (data?.image) {
+      formData.append("image", data?.image);
+    }
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
     try {
-      formData.append("name", data.branchName);
-      formData.append("description", data.description);
-      formData.append("phone", data.phone);
-      formData.append("openingHours", "10:10");
-      formData.append("closingHours", "20:10");
-      formData.append("longitude", "107.09848786676099");
-      formData.append("latitude", "20.962297338909874");
-      formData.append("provinces", data.provinces);
-      formData.append("districts", data.districts);
-      formData.append("wards", data.wards);
-      formData.append("detail", data.detail);
-      formData.append("email", data.email);
-      data.attributeBranches.map((item) => {
-        if (item != "") {
-          formData.append("attributeBranches", item);
-        }
-      });
-      if (data.businessLicensePicture) {
-        formData.append("businessLicense", data.businessLicensePicture);
-      }
-      if (data.image) {
-        formData.append("image", data.image);
-      }
-      for (let [key, value] of formData.entries()) {
-        console.log(`${key}: ${value}`);
-      }
       await CallApi("/api/host/branches", "post", formData);
-      toast.success(`Tạo chi nhánh ${data.branchName} thành công!`);
+      navigate("/host/list-branch");
+      toast.success(`Tạo chi nhánh ${data?.branchName} thành công!`);
     } catch (error) {
       toast.error(
         error.response?.data?.error || "Có lỗi xảy ra khi tạo chi nhánh"
@@ -127,6 +136,12 @@ const CreateBranch = () => {
         "=============== fetch branch attribute ERROR: " +
           error.response?.data?.error
       );
+    }
+  };
+
+  const handleConfirmPayment = () => {
+    if (formData) {
+      createBranch(formData);
     }
   };
 
@@ -348,6 +363,7 @@ const CreateBranch = () => {
           open={openPaymentModal}
           handleClose={handleClosePaymentModal}
           branchName={getValues().branchName || "mới"}
+          onConfirmPayment={handleConfirmPayment}
         />
       </Box>
     </Box>
