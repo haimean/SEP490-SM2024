@@ -4,6 +4,7 @@ import SectionDashboard from "./SectionDashboard";
 import SelectChart from "./SelectChart";
 const PieChart = React.lazy(() => import("./PieChart"));
 const LineChart = React.lazy(() => import("./LineChart"));
+import Loading from "../../common/Loading";
 const DashboardCp = () => {
   const [age, setAge] = React.useState("");
 
@@ -37,7 +38,7 @@ const DashboardCp = () => {
         </Typography>
       </div>
       <div className="grid grid-cols-3 gap-4 mt-5">
-        <React.Suspense fallback={<div>Đang tải...</div>}>
+        <React.Suspense fallback={<Loading />}>
           <PieChart />
         </React.Suspense>
       </div>
@@ -46,11 +47,11 @@ const DashboardCp = () => {
           Biểu đồ số lượng người đăng ký mới theo tuần - tháng
         </Typography>
       </div>
-      <div>
+      <div className="max-w-11">
         <SelectChart age={age} handleChange={handleChange} />
       </div>
       <div className="grid grid-cols-2 gap-4 mt-5">
-        <React.Suspense fallback={<div>Đang tải...</div>}>
+        <React.Suspense fallback={<Loading />}>
           <LineChart />
         </React.Suspense>
       </div>
