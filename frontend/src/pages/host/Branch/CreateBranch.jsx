@@ -35,7 +35,6 @@ const CreateBranch = () => {
   } = useForm();
 
   const [branchAtbList, setBranchAtbList] = useState([]);
-  const [isSecondBranch, setIsSecondBranch] = useState(false);
   const [openPaymentModal, setOpenPaymentModal] = useState(false);
   const [formData, setFormData] = useState(null);
   const [provinces, setProvinces] = useState([]);
@@ -161,7 +160,6 @@ const CreateBranch = () => {
     const branchCount = await checkBranchCount();
 
     if (branchCount >= 2) {
-      setIsSecondBranch(true);
       setFormData(data);
       handleOpenPaymentModal();
       return;
