@@ -175,7 +175,7 @@ const SignInForm = ({ isModal, onSuccess }) => {
             href="/sign-up-host"
             className="text-indigo-600 hover:text-indigo-800"
           >
-            Đăng kí cho chủ sân.
+            Đăng ký tài khoản cho chủ sân
           </a>
         </div>
       </div>

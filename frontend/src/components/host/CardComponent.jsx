@@ -65,10 +65,11 @@ const CardComponent = ({
         <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
           {time}
         </Typography>
-        {role === "HOST" && isAccept && (
+        {role === "HOST" && (
           <Button
             variant="contained"
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               onDeleteBranch(id);
             }}
           >
@@ -77,6 +78,14 @@ const CardComponent = ({
         )}
       </CardContent>
     </>
+  );
+
+  const cardWrapper = isAccept ? (
+    <Link to={`/${role === "HOST" ? "host" : "player"}/branch/${id}`}>
+      {cardContent}
+    </Link>
+  ) : (
+    <Box>{cardContent}</Box>
   );
 
   return (
@@ -89,17 +98,10 @@ const CardComponent = ({
         display: "flex",
         flexDirection: "column",
         height: "100%",
-        opacity: isAccept ? 1 : 0.5,
-        pointerEvents: isAccept ? "auto" : "none",
+        opacity: isAccept ? 1 : 0.6,
       }}
     >
-      {isAccept ? (
-        <Link to={`/${role === "HOST" ? "host" : "player"}/branch/${id}`}>
-          {cardContent}
-        </Link>
-      ) : (
-        cardContent
-      )}
+      {cardWrapper}
     </Card>
   );
 };
