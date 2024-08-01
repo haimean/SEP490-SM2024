@@ -129,10 +129,10 @@ export default function DataTable() {
                 <h1 className="font-bold">Số điện thoại</h1>
               </TableCell>
               <TableCell>
-                <h1 className="font-bold">Role</h1>
+                <h1 className="font-bold">Vai trò</h1>
               </TableCell>
               <TableCell>
-                <h1 className="font-bold">Action</h1>
+                <h1 className="font-bold">Hành động</h1>
               </TableCell>
             </TableRow>
           </TableHead>

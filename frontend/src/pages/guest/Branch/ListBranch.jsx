@@ -4,6 +4,7 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import FilterCp from "../../../components/host/FilterCp";
 import CallApi from "../../../service/CallAPI";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const ListBranch = () => {
   const [listBranch, setListBranch] = useState([]);
@@ -70,16 +71,24 @@ const ListBranch = () => {
     return filters.area !== "" || filters.time !== "";
   };
   const handleDeleteBranch = async (id) => {
-    try {
-      const apiUrl = `/api/host/branches/branch-delete/${id}`;
-      const response = await CallApi(apiUrl, "put");
-      fetchBranchList();
-    } catch (error) {
-      console.log(
-        "=============== delete branch ERROR: " + error.response?.data?.error
-      );
+    const isConfirmed = window.confirm(
+      "Bạn có chắc chắn muốn xóa chi nhánh này không?"
+    );
+
+    if (isConfirmed) {
+      try {
+        await CallApi(`/api/host/branches/branch-delete/${id}`, "put");
+        fetchBranchList();
+        toast.success("Đã xóa chi nhánh thành công");
+      } catch (error) {
+        console.log(
+          "=============== delete branch ERROR: " + error.response?.data?.error
+        );
+        toast.error("Có lỗi xảy ra khi xóa chi nhánh");
+      }
     }
   };
+
   const branchesDisplay = isFilterApplied()
     ? getFilteredAndSortedBranches()
     : listBranch;

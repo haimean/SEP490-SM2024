@@ -1,7 +1,7 @@
 // ----------------------------------------------------------------------
-
+const name = localStorage?.getItem('userRole');
 export const account = {
-  displayName: 'Jaydon Frankie',
-  email: 'demo@minimals.cc',
+  displayName: name,
+  email: 'admin@gmail.com',
   photoURL: '/assets/images/avatars/avatar_25.jpg',
 };

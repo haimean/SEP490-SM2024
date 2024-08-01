@@ -61,9 +61,9 @@ const colorChange = keyframes`
 
 export default function SectionDashboard({
   title,
-  direction,
+  direction = true,
   percentage,
-  subTitle,
+  subTitle = "User",
 }) {
   return (
     <div>
@@ -116,8 +116,4 @@ SectionDashboard.propTypes = {
   direction: PropTypes.bool,
   percentage: PropTypes.string.isRequired,
   subTitle: PropTypes.string,
-};
-SectionDashboard.defaultProps = {
-  direction: true,
-  subTitle: "Users",
 };

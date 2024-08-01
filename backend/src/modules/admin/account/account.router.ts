@@ -10,4 +10,6 @@ accountRouter.post(
   accountController.listAccount
 );
 accountRouter.put('/ban/:id', accountController.banAccount);
+accountRouter.get('/month', accountController.listMonthAccount);
+accountRouter.get('/get-all', accountController.getListAccountNoSort);
 export default accountRouter;

@@ -1,21 +1,7 @@
 import { Post } from '@prisma/client';
 import database from '../../../lib/db.server';
-import { PostInputCreate } from './post.model';
 
-const postUserService = {
-  create: async (data: PostInputCreate): Promise<Post | null> => {
-    const { description, numberMember, bookingId, memberPost } = data;
-    return await database.post.create({
-      data: {
-        description,
-        numberMember,
-        bookingId,
-        memberPost: {
-          createMany: { data: memberPost },
-        },
-      },
-    });
-  },
+const postService = {
   get: async (id: number): Promise<any> => {
     return await database.post.findUnique({
       where: {
@@ -54,4 +40,4 @@ const postUserService = {
   },
 };
 
-export default postUserService;
+export default postService;

@@ -18,17 +18,13 @@ import { toast } from "react-toastify";
 
 const MENU_OPTIONS = [
   {
-    label: "Home",
+    label: "Trang chủ",
     icon: "eva:home-fill",
   },
   {
-    label: "Profile",
+    label: "Hồ sơ",
     icon: "eva:person-fill",
     link: '/profile'
-  },
-  {
-    label: "Settings",
-    icon: "eva:settings-2-fill",
   },
 ];
 

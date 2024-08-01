@@ -74,6 +74,30 @@ const accountController = {
       next(new CustomError(error?.message, 500));
     }
   },
+  listMonthAccount: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const result = await accountService.listMonthAccount();
+      ResponseHandler(res, result);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
+  getListAccountNoSort: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const result = await accountService.getListAccountNoSort();
+      ResponseHandler(res, result);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
 };
 
 export default accountController;

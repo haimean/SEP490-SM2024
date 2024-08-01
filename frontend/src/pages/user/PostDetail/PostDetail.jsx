@@ -7,25 +7,19 @@ import { toast } from "react-toastify";
 import Loading from "../../../components/common/Loading.jsx";
 
 const PostDetail = () => {
-  const [userRole, setUserRole] = useState("");
-  const [userEmail, setUserEmail] = useState("");
   const { id } = useParams();
   const [post, setPost] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    const storedUserRole = localStorage.getItem("userRole");
-    const storedUserEmail = JSON.parse(localStorage.getItem("user"));
-    if (storedUserRole) setUserRole(storedUserRole);
-    if (storedUserEmail) setUserEmail(storedUserEmail);
     fetchData(id);
   }, [id]);
 
   const fetchData = async (id) => {
     setIsLoading(true);
     try {
-      const response = await CallApi(`/api/user/post/${id}`, "get");
+      const response = await CallApi(`/api/post/${id}`, "get");
       console.log("🚀 ========= response:", response);
-      setPost(response.data);
+      setPost(response?.data);
       setIsLoading(false);
     } catch (error) {
       toast.error(error.response?.data?.error);

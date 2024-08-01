@@ -21,6 +21,22 @@ const NavbarItemAdmin = () => {
       >
         Trang chủ
       </Button>
+      <Button
+        color="inherit"
+        component={Link}
+        to="/admin/list-account"
+        sx={{ textTransform: "none" }}
+      >
+        Quản lý tài khoản
+      </Button>
+      <Button
+        color="inherit"
+        component={Link}
+        to="/admin/report-blog"
+        sx={{ textTransform: "none" }}
+      >
+        Quản lý tố cáo
+      </Button>
       <FormControl sx={{ m: 1, minWidth: 120 }}>
         <Select
           value={selectedOption}
@@ -46,8 +62,33 @@ const NavbarItemAdmin = () => {
           <MenuItem value="/admin/court-attribute">Thuộc tính sân đấu</MenuItem>
         </Select>
       </FormControl>
+      <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <Select
+          value={selectedOption}
+          onChange={handleSelectChange}
+          displayEmpty
+          inputProps={{ "aria-label": "Without label" }}
+          sx={{
+            color: "white",
+            "& .MuiSelect-icon": { color: "white" },
+            "& .MuiOutlinedInput-notchedOutline": { border: "none" },
+            "&:hover .MuiOutlinedInput-notchedOutline": {
+              border: "none",
+            },
+            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              border: "none",
+            },
+          }}
+        >
+          <MenuItem value="" disabled>
+            Chi nhánh
+          </MenuItem>
+          <MenuItem value="/admin/accept-branch">Duyệt chi nhánh</MenuItem>
+          <MenuItem value="/admin/list-branch">Danh sách chi nhánh</MenuItem>
+        </Select>
+      </FormControl>
 
-      {/* dẫn đến trang dashboard của host */}
+      {/* dẫn đến trang dashboard của admin */}
       <Button
         color="inherit"
         component={Link}

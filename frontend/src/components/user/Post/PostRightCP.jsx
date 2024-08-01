@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
 import {
   Typography,
   Grid,
@@ -13,8 +12,6 @@ import {
   TableCell,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
-// import WaitingListTable from "../../../components/user/WaitingList/WaitingListTable.jsx";
-// import RequestListTable from "../../../components/user/ResponseToRequest/RequestListTable.jsx";
 import CallApi from "../../../service/CallAPI.jsx";
 import WaitingListTable2 from "../WaitingList/WaitingListTable2.jsx";
 import RequestListTable2 from "../ResponseToRequest/RequestListTable2.jsx";
@@ -23,7 +20,8 @@ import { toast } from "react-toastify";
 import ModalProfile from "../../common/ModalProfile.jsx";
 import ModalReason from "../../common/ModalReason.jsx";
 import { useForm } from "react-hook-form";
-
+import { useSelector } from "react-redux";
+import LoginModal from "../../auth/LoginModal.jsx";
 const PostRightCP = ({ user, post, postId }) => {
   const [accountId, setAccountId] = useState(null);
   const [listJoin, setListJoin] = useState([]);
@@ -32,6 +30,8 @@ const PostRightCP = ({ user, post, postId }) => {
   const [openProfile, setOpenProfile] = useState(false);
   const [openModalReason, setOpenModalReason] = useState(false);
   const [profileId, setProfileId] = useState();
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+  const isLogin = useSelector((state) => state.user.user);
   const {
     register,
     handleSubmit,
@@ -75,14 +75,22 @@ const PostRightCP = ({ user, post, postId }) => {
   }, [openWaitingList, openRequestList]);
   const isOwner = Number(accountId) === post?.booking?.accountId;
   const requestJoin = async (id) => {
-    try {
-      await CallApi(`/api/user/invitation/invite`, "post", {
-        postId: id,
-      });
-      toast.success("Yêu cầu tham gia thành công");
-    } catch (error) {
-      console.log("🚀 ========= error:", error);
+    if (isLogin) {
+      try {
+        await CallApi(`/api/user/invitation/invite`, "post", {
+          postId: id,
+        });
+        toast.success("Yêu cầu tham gia thành công");
+      } catch (error) {
+        console.log("🚀 ========= error:", error);
+      }
+    } else {
+      toast.error("Bạn chưa đăng nhập!");
+      setOpenLoginModal(true);
     }
+  };
+  const handleCloseLoginModal = () => {
+    setOpenLoginModal(false);
   };
   const deletePlayer = async (id, status, reason) => {
     try {
@@ -194,11 +202,6 @@ const PostRightCP = ({ user, post, postId }) => {
                     postId={postId}
                   />
                 )}
-                {/* <WaitingListTable
-                  open={openWaitingList}
-                  onClose={handleCloseWaitingList}
-                  postId={postId}
-                /> */}
                 <Button
                   variant="contained"
                   onClick={handleOpenRequestList}
@@ -211,11 +214,6 @@ const PostRightCP = ({ user, post, postId }) => {
                   onClose={handleCloseRequestList}
                   postId={postId}
                 />
-                {/* <RequestListTable
-                  open={openRequestList}
-                  onClose={handleCloseRequestList}
-                  postId={postId}
-                /> */}
               </>
             ) : (
               <div className="w-full flex justify-center">
@@ -250,13 +248,16 @@ const PostRightCP = ({ user, post, postId }) => {
                     onClick={() => requestJoin(postId)}
                     disabled={
                       listJoin?.length == post?.numberMember ||
-                      detail?.status == "ACCEPT"
+                      detail?.status == "ACCEPT" ||
+                      detail?.status == "NEW"
                     }
                   >
                     {listJoin?.length == post?.numberMember
                       ? "Sẫn đã đủ người"
                       : detail?.status == "ACCEPT"
                       ? "Đã tham gia trận đấu"
+                      : detail?.status == "NEW"
+                      ? "Đã yêu cầu tham gia trận đâu"
                       : "Gửi lời mời tham gia"}
                   </Button>
                 )}
@@ -322,6 +323,7 @@ const PostRightCP = ({ user, post, postId }) => {
           </div>
         )}
       </Paper>
+      <LoginModal open={openLoginModal} onClose={handleCloseLoginModal} />
     </Grid>
   );
 };
