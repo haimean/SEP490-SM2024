@@ -19,6 +19,11 @@ interface BranchesHostMiddleware {
     res: Response,
     next: NextFunction
   ) => Promise<void>;
+  isBeforeCreate: (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => Promise<void>;
 }
 
 const branchesHostMiddleware: BranchesHostMiddleware = {
@@ -65,6 +70,21 @@ const branchesHostMiddleware: BranchesHostMiddleware = {
       next(new CustomError(error?.message, 500));
     }
   },
+  isBeforeCreate: async (req, res, next) => {
+    try {
+      const { attributeBranches, court } = req.body;
+      if (typeof attributeBranches === 'string') {
+        req.body.attributeBranches = [attributeBranches];
+      }
+      if (typeof court === 'string') {
+        req.body.attributeBranches = [court];
+      }
+      next();
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
+
   update: async (req, res, next) => {
     try {
       const { id } = req.params;
