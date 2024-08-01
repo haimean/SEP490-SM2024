@@ -60,6 +60,7 @@ const PostRightCP = ({ user, post, postId }) => {
         `/api/user/user-available/${postId}/get-user-accept`,
         "post"
       );
+      console.log("🚀 ========= resultaaaaaaaaa:", result);
       setListJoin(result.data);
     } catch (error) {
       console.log("🚀 ========= error:", error);
@@ -80,6 +81,7 @@ const PostRightCP = ({ user, post, postId }) => {
         await CallApi(`/api/user/invitation/invite`, "post", {
           postId: id,
         });
+        detailUser();
         toast.success("Yêu cầu tham gia thành công");
       } catch (error) {
         console.log("🚀 ========= error:", error);
@@ -139,7 +141,7 @@ const PostRightCP = ({ user, post, postId }) => {
   }, [postId]);
   const handleAccept = async (id, status, reason) => {
     try {
-      const result = await CallApi("/api/user/invitation/update", "post", {
+      const result = await CallApi("/api/user/invitation/update", "put", {
         invitationId: id,
         status: status,
         reasonCancel: reason,
@@ -252,12 +254,12 @@ const PostRightCP = ({ user, post, postId }) => {
                       detail?.status == "NEW"
                     }
                   >
-                    {listJoin?.length == post?.numberMember
-                      ? "Sẫn đã đủ người"
-                      : detail?.status == "ACCEPT"
+                    {detail?.status == "ACCEPT"
                       ? "Đã tham gia trận đấu"
+                      : listJoin?.length == post?.numberMember
+                      ? "Sẫn đã đủ người"
                       : detail?.status == "NEW"
-                      ? "Đã yêu cầu tham gia trận đâu"
+                      ? "Đã yêu cầu tham gia trận đấu"
                       : "Gửi lời mời tham gia"}
                   </Button>
                 )}

@@ -134,7 +134,7 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
       <CardContent className="">
         <Tooltip title={activity?.bookingInfo?.name}>
           <Typography component="h2" variant="h5" className="truncate">
-            {activity?.bookingInfo?.name}
+            Trận đấu của: {activity?.bookingInfo?.name}
           </Typography>
         </Tooltip>
         <Tooltip title={activity?.Court?.Branches?.address?.detail}>
@@ -178,11 +178,14 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
             onClick={handleJoin}
             disabled={
               acceptCount == activity?.post?.numberMember ||
+              detail?.status == "ACCEPT" ||
               detail?.status == "NEW"
             }
           >
             {acceptCount == activity?.post?.numberMember
               ? "Sân đã đủ người"
+              : detail?.status == "ACCEPT"
+              ? "Đã tham gia"
               : detail == null || detail?.status !== "NEW"
               ? "Gửi lời mời tham gia"
               : "Đã gửi lời mời"}
