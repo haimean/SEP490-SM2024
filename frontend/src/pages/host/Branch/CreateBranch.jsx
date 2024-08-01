@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import PaymentCreateBranch from "../../../components/host/Branch/PaymentCreateBranch";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowBack } from "@mui/icons-material";
+import MapComponent from "../../../components/common/MapAutoComplate";
 
 const CreateBranch = () => {
   const navigate = useNavigate();
@@ -366,6 +367,7 @@ const CreateBranch = () => {
           onConfirmPayment={handleConfirmPayment}
         />
       </Box>
+      <MapComponent />
     </Box>
   );
 };
