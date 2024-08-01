@@ -18,12 +18,12 @@ const SignUpForm = ({ role }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-let roleName;
-if (role === "HOST") {
-  roleName = "Chủ Sân";
-}else{
-  roleName = "Người Chơi"
-}
+  let roleName;
+  if (role === "HOST") {
+    roleName = "Chủ Sân";
+  } else {
+    roleName = "Người Chơi";
+  }
 
   const onSubmit = async (data) => {
     const { name, email, password, confirmPassword } = data;
@@ -71,7 +71,7 @@ if (role === "HOST") {
         );
         const { token } = response.data;
         const accountId = response.data.id;
-        const newRole = response.data.role
+        const newRole = response.data.role;
         localStorage.setItem("accessToken", token);
         localStorage.setItem("userRole", newRole); // Lưu vai trò người dùng
         localStorage.setItem("accountId", accountId);
@@ -103,10 +103,12 @@ if (role === "HOST") {
 
   return (
     <div className="border-t-8 rounded-sm border-indigo-600 bg-white p-12 shadow-2xl w-96">
-      <h1 className="font-bold text-center block text-2xl mb-2">Đăng Kí {roleName}</h1>
+      <h1 className="font-bold text-center block text-2xl mb-2">
+        Đăng Kí {roleName}
+      </h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <InputLabel
-          label="Tên"
+          label="Họ và tên"
           id="name"
           register={register}
           errors={errors}
@@ -155,13 +157,16 @@ if (role === "HOST") {
           Đăng kí
         </button>
       </form>
-      <div className="mt-4 text-center flex justify-center w-full">
-        <GoogleLogin
-          onSuccess={handleGoogleLogin}
-          onError={handleGoogleLoginFailure}
-          text="signup_with"
-        />
-      </div>
+      {role === "USER" && (
+        <div className="mt-4 text-center flex justify-center w-full">
+          <GoogleLogin
+            onSuccess={handleGoogleLogin}
+            onError={handleGoogleLoginFailure}
+            text="signup_with"
+          />
+        </div>
+      )}
+
       <style>{`
         ::-ms-reveal {
           display: none;
