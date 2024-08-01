@@ -22,6 +22,8 @@ import WardSelect from "../../../components/host/FormInput/WardSelect";
 import CallApi from "../../../service/CallAPI";
 import PaymentCreateBranch from "../../../components/host/Branch/PaymentCreateBranch";
 import axios from "axios";
+import TelCp from "../../../components/host/FormInput/TelCp";
+import EmailCp from "../../../components/host/FormInput/EmailCp";
 
 const CreateBranch = () => {
   const navigate = useNavigate();
@@ -246,9 +248,12 @@ const CreateBranch = () => {
   const renderField = (field) => {
     switch (field.type) {
       case "text":
-      case "tel":
       case "number":
         return <TextFieldCp field={field} control={control} errors={errors} />;
+      case "tel":
+        return <TelCp field={field} control={control} errors={errors} />;
+      case "email":
+        return <EmailCp field={field} control={control} errors={errors} />;
       case "select":
         return <SelectCp field={field} control={control} errors={errors} />;
       case "select-custom":
@@ -403,7 +408,7 @@ const CreateBranch = () => {
       {
         name: "email",
         label: "Địa chỉ email liên hệ",
-        type: "text",
+        type: "email",
         required: true,
         gridWidth: 6,
       },

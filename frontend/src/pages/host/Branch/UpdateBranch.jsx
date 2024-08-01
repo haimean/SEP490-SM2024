@@ -13,6 +13,8 @@ import SectionCp from "../../../components/host/FormInput/SectionCp";
 import CallApi from "../../../service/CallAPI";
 import TimePickerCp from "../../../components/host/FormInput/TimePickerCp";
 import TimePickerPreviewCp from "./../../../components/host/FormInput/TimePickerPreviewCp";
+import TelCp from "../../../components/host/FormInput/TelCp";
+import EmailCp from "../../../components/host/FormInput/EmailCp";
 
 const UpdateBranch = () => {
   const navigate = useNavigate();
@@ -231,9 +233,12 @@ const UpdateBranch = () => {
   const renderField = (field) => {
     switch (field.type) {
       case "text":
-      case "tel":
       case "number":
         return <TextFieldCp field={field} control={control} errors={errors} />;
+      case "tel":
+        return <TelCp field={field} control={control} errors={errors} />;
+      case "email":
+        return <EmailCp field={field} control={control} errors={errors} />;
       case "select":
         return <SelectCp field={field} control={control} errors={errors} />;
       case "select-custom":
