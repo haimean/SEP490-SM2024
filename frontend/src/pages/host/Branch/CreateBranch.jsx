@@ -358,6 +358,7 @@ const CreateBranch = () => {
           fetchDistricts(value);
         },
         provinces: provinces,
+        gridWidth: 4,
       },
       {
         name: "districts",
@@ -370,6 +371,7 @@ const CreateBranch = () => {
           fetchWards(value);
         },
         districts: districts,
+        gridWidth: 4,
       },
       {
         name: "wards",
@@ -378,12 +380,20 @@ const CreateBranch = () => {
         required: true,
         districtId: getValues().districts?.id,
         wards: wards,
+        gridWidth: 4,
       },
       {
         name: "branchContact",
         label: "Thông tin liên hệ chi nhánh",
         type: "section",
         required: true,
+      },
+      {
+        name: "managerName",
+        label: "Tên quản lý chi nhánh",
+        type: "text",
+        required: true,
+        gridWidth: 12,
       },
       {
         name: "phone",
@@ -405,13 +415,7 @@ const CreateBranch = () => {
         type: "section",
         required: true,
       },
-      {
-        name: "managerName",
-        label: "Tên quản lý chi nhánh",
-        type: "text",
-        required: true,
-        gridWidth: 12,
-      },
+
       {
         name: "openingHours",
         label: "Giờ mở cửa",
@@ -429,42 +433,15 @@ const CreateBranch = () => {
       ...serviceOptions,
       {
         name: "legalInfo",
-        label: "Thông tin pháp lý",
+        label: "Giấy phép kinh doanh",
         type: "section",
         required: true,
-      },
-      {
-        name: "businessLicense",
-        label: "Giấy phép kinh doanh",
-        type: "text",
-        required: false,
-        gridWidth: 6,
-      },
-      {
-        name: "taxId",
-        label: "Mã số thuế",
-        type: "text",
-        required: false,
-        gridWidth: 6,
       },
       {
         name: "businessLicensePicture",
         type: "image",
         label: "Ảnh giấy phép kinh doanh",
         required: true,
-        gridWidth: 12,
-      },
-      {
-        name: "additionalInfo",
-        label: "Thông tin bổ sung",
-        type: "section",
-        required: true,
-      },
-      {
-        name: "branchDescription",
-        label: "Mô tả",
-        type: "text",
-        required: false,
         gridWidth: 12,
       },
     ],
