@@ -1,12 +1,26 @@
-import { useEffect, useState, useMemo, useCallback } from "react";
-import Form from "../../../components/host/Form";
-import { Box, Button, Typography } from "@mui/material";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
+import { Box, Typography, Button, Grid } from "@mui/material";
 import { useForm } from "react-hook-form";
-import CallApi from "../../../service/CallAPI";
-import { toast } from "react-toastify";
-import PaymentCreateBranch from "../../../components/host/Branch/PaymentCreateBranch";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowBack } from "@mui/icons-material";
+import { toast } from "react-toastify";
+import dayjs from "dayjs";
+
+import TextFieldCp from "../../../components/host/FormInput/TextFieldCp";
+import SelectCp from "../../../components/host/FormInput/SelectCp";
+import CustomSelectCp from "../../../components/host/FormInput/CustomSelectCp";
+import DatePickerCp from "../../../components/host/FormInput/DatePickerCp";
+import CheckboxCp from "../../../components/host/FormInput/CheckboxCp";
+import FileUploadCp from "../../../components/host/FormInput/FileUploadCp";
+import SectionCp from "../../../components/host/FormInput/SectionCp";
+import TimePickerCp from "../../../components/host/FormInput/TimePickerCp";
+import ProvinceSelect from "../../../components/host/FormInput/ProvinceSelect";
+import DistrictSelect from "../../../components/host/FormInput/DistrictSelect";
+import WardSelect from "../../../components/host/FormInput/WardSelect";
+
+import CallApi from "../../../service/CallAPI";
+import PaymentCreateBranch from "../../../components/host/Branch/PaymentCreateBranch";
+import axios from "axios";
 
 const CreateBranch = () => {
   const navigate = useNavigate();
@@ -18,17 +32,85 @@ const CreateBranch = () => {
     setValue,
     formState: { errors },
   } = useForm();
+
   const [branchAtbList, setBranchAtbList] = useState([]);
   const [isSecondBranch, setIsSecondBranch] = useState(false);
   const [openPaymentModal, setOpenPaymentModal] = useState(false);
   const [formData, setFormData] = useState(null);
+  const [provinces, setProvinces] = useState([]);
+  const [districts, setDistricts] = useState([]);
+  const [wards, setWards] = useState([]);
 
   useEffect(() => {
     fetchBranchAtbList();
   }, []);
 
+  useEffect(() => {
+    fetchProvinces();
+  }, []);
+
+  useEffect(() => {
+    if (getValues().provinces?.id) {
+      fetchDistricts(getValues().provinces.id);
+    }
+  }, [getValues().provinces]);
+
+  useEffect(() => {
+    if (getValues().districts?.id) {
+      fetchWards(getValues().districts.id);
+    }
+  }, [getValues().districts]);
+
   const handleOpenPaymentModal = () => setOpenPaymentModal(true);
   const handleClosePaymentModal = () => setOpenPaymentModal(false);
+
+  const fetchProvinces = async () => {
+    try {
+      const response = await axios.get(
+        "https://esgoo.net/api-tinhthanh/1/0.htm"
+      );
+      if (response.status === 200) {
+        setProvinces(response.data?.data || []);
+      } else {
+        toast.error("Có lỗi xảy ra khi lấy dữ liệu tỉnh thành");
+      }
+    } catch (error) {
+      console.error("Lỗi khi fetch dữ liệu tỉnh:", error);
+      toast.error("Có lỗi xảy ra khi lấy dữ liệu tỉnh thành");
+    }
+  };
+
+  const fetchDistricts = async (provinceId) => {
+    try {
+      const response = await axios.get(
+        `https://esgoo.net/api-tinhthanh/2/${provinceId}.htm`
+      );
+      if (response.status === 200) {
+        setDistricts(response.data?.data || []);
+      } else {
+        toast.error("Có lỗi xảy ra khi lấy dữ liệu quận huyện");
+      }
+    } catch (error) {
+      console.error("Lỗi khi fetch dữ liệu quận huyện:", error);
+      toast.error("Có lỗi xảy ra khi lấy dữ liệu quận huyện");
+    }
+  };
+
+  const fetchWards = async (districtId) => {
+    try {
+      const response = await axios.get(
+        `https://esgoo.net/api-tinhthanh/3/${districtId}.htm`
+      );
+      if (response.status === 200) {
+        setWards(response.data?.data || []);
+      } else {
+        toast.error("Có lỗi xảy ra khi lấy dữ liệu xã phường");
+      }
+    } catch (error) {
+      console.error("Lỗi khi fetch dữ liệu xã phường:", error);
+      toast.error("Có lỗi xảy ra khi lấy dữ liệu xã phường");
+    }
+  };
 
   const addNewAttributeValue = useCallback(async (data) => {
     const requestData = {
@@ -57,7 +139,6 @@ const CreateBranch = () => {
         )
       );
 
-      // Trả về giá trị mới để CustomSelectCp có thể sử dụng
       return { id: response.data.id, value: response.data.value };
     } catch (error) {
       toast.error(error.response?.data?.error);
@@ -93,18 +174,22 @@ const CreateBranch = () => {
     formData.append("name", data?.branchName);
     formData.append("description", data?.description);
     formData.append("phone", data?.phone);
-    formData.append("openingHours", "10:10");
-    formData.append("closingHours", "20:10");
+    formData.append("openingHours", dayjs(data?.openingHours).format("HH:mm"));
+    formData.append("closingHours", dayjs(data?.closingHours).format("HH:mm"));
     formData.append("longitude", "107.09848786676099");
     formData.append("latitude", "20.962297338909874");
-    formData.append("provinces", data?.provinces);
-    formData.append("districts", data?.districts);
-    formData.append("wards", data?.wards);
+    formData.append("provinces", data?.provinces?.name || "");
+    formData.append("districts", data?.districts?.name || "");
+    formData.append("wards", data?.wards?.name || "");
     formData.append("detail", data?.detail);
     formData.append("email", data?.email);
-    data?.attributeBranches.map((item) => {
-      if (item != "") {
-        formData.append("attributeBranches", item);
+    Object.keys(data?.attributeBranches || {}).forEach((key) => {
+      const value = data.attributeBranches[key];
+      if (value !== "") {
+        const arrayValue = Array.isArray(value) ? value : [value];
+        arrayValue.forEach((item) => {
+          formData.append("attributeBranches", item);
+        });
       }
     });
     if (data?.businessLicensePicture) {
@@ -113,9 +198,7 @@ const CreateBranch = () => {
     if (data?.image) {
       formData.append("image", data?.image);
     }
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
+
     try {
       await CallApi("/api/host/branches", "post", formData);
       navigate("/host/list-branch");
@@ -132,10 +215,7 @@ const CreateBranch = () => {
       const response = await CallApi(`/api/host/attribute-branches`, "get");
       setBranchAtbList(response?.data);
     } catch (error) {
-      console.log(
-        "=============== fetch branch attribute ERROR: " +
-          error.response?.data?.error
-      );
+      console.error("Lỗi khi lấy danh sách thuộc tính chi nhánh:", error);
     }
   };
 
@@ -145,7 +225,6 @@ const CreateBranch = () => {
     }
   };
 
-  //hàm này để lọc theo atbName và render ra option value theo atb key
   const serviceOptions = useMemo(
     () =>
       branchAtbList.map((item, index) => ({
@@ -160,9 +239,70 @@ const CreateBranch = () => {
         })),
         gridWidth: 6,
         onCustomInput: (data) => addNewAttributeValue({ ...data, id: item.id }),
+        multiple: true,
       })),
     [branchAtbList, addNewAttributeValue]
   );
+
+  const renderField = (field) => {
+    switch (field.type) {
+      case "text":
+      case "tel":
+      case "number":
+        return <TextFieldCp field={field} control={control} errors={errors} />;
+      case "select":
+        return <SelectCp field={field} control={control} errors={errors} />;
+      case "select-custom":
+        return (
+          <CustomSelectCp
+            field={field}
+            control={control}
+            errors={errors}
+            setValue={setValue}
+          />
+        );
+      case "datetime":
+        return <DatePickerCp field={field} control={control} errors={errors} />;
+      case "checkbox":
+        return <CheckboxCp field={field} control={control} errors={errors} />;
+      case "file":
+      case "image":
+        return <FileUploadCp field={field} control={control} errors={errors} />;
+      case "section":
+        return <SectionCp field={field} />;
+      case "province-select":
+        return (
+          <ProvinceSelect
+            field={field}
+            control={control}
+            errors={errors}
+            provinces={provinces}
+          />
+        );
+      case "district-select":
+        return (
+          <DistrictSelect
+            field={field}
+            control={control}
+            errors={errors}
+            districts={districts}
+          />
+        );
+      case "ward-select":
+        return (
+          <WardSelect
+            field={field}
+            control={control}
+            errors={errors}
+            wards={wards}
+          />
+        );
+      case "timepicker":
+        return <TimePickerCp field={field} control={control} errors={errors} />;
+      default:
+        return null;
+    }
+  };
 
   const formConfig = useMemo(
     () => [
@@ -193,7 +333,6 @@ const CreateBranch = () => {
         required: true,
         gridWidth: 12,
       },
-
       {
         name: "branchLocation",
         label: "Địa chỉ chi nhánh",
@@ -210,20 +349,34 @@ const CreateBranch = () => {
       {
         name: "provinces",
         label: "Tỉnh",
-        type: "text",
+        type: "province-select",
         required: true,
+        onProvinceChange: (value) => {
+          setValue("districts", "");
+          setValue("wards", "");
+          fetchDistricts(value);
+        },
+        provinces: provinces,
       },
       {
         name: "districts",
         label: "Huyện",
-        type: "text",
+        type: "district-select",
         required: true,
+        provinceId: getValues().provinces?.id,
+        onDistrictChange: (value) => {
+          setValue("wards", "");
+          fetchWards(value);
+        },
+        districts: districts,
       },
       {
         name: "wards",
         label: "Xã",
-        type: "text",
+        type: "ward-select",
         required: true,
+        districtId: getValues().districts?.id,
+        wards: wards,
       },
       {
         name: "branchContact",
@@ -261,14 +414,14 @@ const CreateBranch = () => {
       {
         name: "openingHours",
         label: "Giờ mở cửa",
-        type: "text",
+        type: "timepicker",
         required: true,
         gridWidth: 6,
       },
       {
         name: "closingHours",
         label: "Giờ đóng cửa",
-        type: "text",
+        type: "timepicker",
         required: true,
         gridWidth: 6,
       },
@@ -314,7 +467,7 @@ const CreateBranch = () => {
         gridWidth: 12,
       },
     ],
-    [serviceOptions]
+    [serviceOptions, getValues, setValue]
   );
 
   const handleCancel = () => {
@@ -350,15 +503,33 @@ const CreateBranch = () => {
           <ArrowBack fontSize="small" sx={{ mr: 0.5 }} />
           <Typography variant="h6">QUAY LẠI</Typography>
         </Box>
-        <Form
-          formConfig={formConfig}
-          handleSubmit={handleSubmit}
-          onSubmit={onSubmit}
-          handleCancel={handleCancel}
-          control={control}
-          errors={errors}
-          setValue={setValue}
-        />
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Grid container spacing={2}>
+            {formConfig.map((field) => (
+              <Grid
+                item
+                sm={12}
+                md={field.type === "section" ? 12 : field.gridWidth || 6}
+                key={`${field.name}-${JSON.stringify(field.options)}`}
+              >
+                {renderField(field)}
+              </Grid>
+            ))}
+          </Grid>
+          <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end" }}>
+            <Button
+              onClick={handleCancel}
+              type="button"
+              variant="outlined"
+              sx={{ mr: 1 }}
+            >
+              Hủy
+            </Button>
+            <Button type="submit" variant="contained" color="primary">
+              Xác nhận
+            </Button>
+          </Box>
+        </form>
         <PaymentCreateBranch
           open={openPaymentModal}
           handleClose={handleClosePaymentModal}
