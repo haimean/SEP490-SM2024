@@ -1,13 +1,22 @@
-import { useEffect, useState, useMemo, useCallback } from "react";
-import Form from "../../../components/host/Form";
-import { Box } from "@mui/material";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
+import { Box, Button, Grid } from "@mui/material";
 import { useForm } from "react-hook-form";
-import CallApi from "../../../service/CallAPI";
-import { toast } from "react-toastify";
 import { useParams, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import TextFieldCp from "../../../components/host/FormInput/TextFieldCp";
+import SelectCp from "../../../components/host/FormInput/SelectCp";
+import CustomSelectCp from "../../../components/host/FormInput/CustomSelectCp";
+import FileUploadCp from "../../../components/host/FormInput/FileUploadCp";
+import SectionCp from "../../../components/host/FormInput/SectionCp";
+
+import CallApi from "../../../service/CallAPI";
+import TimePickerCp from "../../../components/host/FormInput/TimePickerCp";
+import TimePickerPreviewCp from "./../../../components/host/FormInput/TimePickerPreviewCp";
 
 const UpdateBranch = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const {
     control,
     reset,
@@ -15,7 +24,7 @@ const UpdateBranch = () => {
     setValue,
     formState: { errors },
   } = useForm();
-  const { id } = useParams();
+
   const [branchAtbList, setBranchAtbList] = useState([]);
   const [branch, setBranch] = useState({});
 
@@ -54,7 +63,6 @@ const UpdateBranch = () => {
         setValue("openingHours", response?.data?.openingHours);
         setValue("closingHours", response?.data?.closingHours);
         response?.data?.attributeBranches.forEach((atb) => {
-          // Tìm giá trị phù hợp trong branchAtbList
           const matchingAttribute = branchAtbList.find(
             (item) => item.id === atb.attributeKeyBranchesId
           );
@@ -107,7 +115,6 @@ const UpdateBranch = () => {
         )
       );
 
-      // Trả về giá trị mới để CustomSelectCp có thể sử dụng
       return { id: response.data.id, value: response.data.value };
     } catch (error) {
       toast.error(error.response?.data?.error);
@@ -116,7 +123,6 @@ const UpdateBranch = () => {
   }, []);
 
   const onSubmit = async (data) => {
-    console.log(data);
     const formData = new FormData();
     try {
       formData.append("name", data.branchName);
@@ -145,7 +151,6 @@ const UpdateBranch = () => {
     }
   };
 
-  //hàm này để lọc theo atbName và render ra option value theo atb key
   const serviceOptions = useMemo(
     () =>
       branchAtbList.map((item) => ({
@@ -207,27 +212,18 @@ const UpdateBranch = () => {
       {
         name: "openingHours",
         label: "Giờ mở cửa",
-        type: "text",
+        type: "timepickerpreview",
         required: true,
         gridWidth: 6,
       },
       {
         name: "closingHours",
         label: "Giờ đóng cửa",
-        type: "text",
+        type: "timepickerpreview",
         required: true,
         gridWidth: 6,
       },
       ...serviceOptions,
-      // {
-      //   name: "court",
-      //   label: "Sân",
-      //   type: "select-custom",
-      //   required: false,
-      //   options: [],
-      //   gridWidth: 6,
-      //   multiple: true,
-      // },
       {
         name: "email",
         label: "Địa chỉ email liên hệ",
@@ -291,6 +287,42 @@ const UpdateBranch = () => {
     [serviceOptions]
   );
 
+  const renderField = (field) => {
+    switch (field.type) {
+      case "text":
+      case "tel":
+      case "number":
+        return <TextFieldCp field={field} control={control} errors={errors} />;
+      case "select":
+        return <SelectCp field={field} control={control} errors={errors} />;
+      case "select-custom":
+        return (
+          <CustomSelectCp
+            field={field}
+            control={control}
+            errors={errors}
+            setValue={setValue}
+          />
+        );
+      case "image":
+        return <FileUploadCp field={field} control={control} errors={errors} />;
+      case "section":
+        return <SectionCp field={field} />;
+      case "timepicker":
+        return <TimePickerCp field={field} control={control} errors={errors} />;
+      case "timepickerpreview":
+        return (
+          <TimePickerPreviewCp
+            field={field}
+            control={control}
+            errors={errors}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
   const handleCancel = () => {
     reset();
   };
@@ -310,15 +342,33 @@ const UpdateBranch = () => {
           flexGrow: 1,
         }}
       >
-        <Form
-          formConfig={formConfig}
-          handleSubmit={handleSubmit}
-          onSubmit={onSubmit}
-          handleCancel={handleCancel}
-          control={control}
-          errors={errors}
-          setValue={setValue}
-        />
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Grid container spacing={2}>
+            {formConfig.map((field) => (
+              <Grid
+                item
+                sm={12}
+                md={field.type === "section" ? 12 : field.gridWidth || 6}
+                key={`${field.name}-${JSON.stringify(field.options)}`}
+              >
+                {renderField(field)}
+              </Grid>
+            ))}
+          </Grid>
+          <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end" }}>
+            <Button
+              onClick={handleCancel}
+              type="button"
+              variant="outlined"
+              sx={{ mr: 1 }}
+            >
+              Hủy
+            </Button>
+            <Button type="submit" variant="contained" color="primary">
+              Xác nhận
+            </Button>
+          </Box>
+        </form>
       </Box>
     </Box>
   );

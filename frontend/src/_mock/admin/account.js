@@ -1,7 +1,7 @@
 // ----------------------------------------------------------------------
-
+const name = localStorage?.getItem('userRole');
 export const account = {
-  displayName: 'ADMIN',
+  displayName: name,
   email: 'admin@gmail.com',
   photoURL: '/assets/images/avatars/avatar_25.jpg',
 };
