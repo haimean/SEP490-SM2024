@@ -137,7 +137,7 @@ const UpdateBranch = () => {
         }
       });
 
-      if (data.image) {
+      if (typeof data.image !== "string") {
         formData.append("image", data.image);
       }
 
@@ -193,14 +193,7 @@ const UpdateBranch = () => {
         label: "Tên chi nhánh",
         type: "text",
         required: true,
-        gridWidth: 12,
-      },
-      {
-        name: "description",
-        label: "Mô tả",
-        type: "text",
-        required: true,
-        gridWidth: 12,
+        gridWidth: 6,
       },
       {
         name: "phone",
@@ -208,6 +201,13 @@ const UpdateBranch = () => {
         type: "tel",
         required: true,
         gridWidth: 6,
+      },
+      {
+        name: "description",
+        label: "Mô tả",
+        type: "text",
+        required: true,
+        gridWidth: 12,
       },
       {
         name: "openingHours",
@@ -224,65 +224,6 @@ const UpdateBranch = () => {
         gridWidth: 6,
       },
       ...serviceOptions,
-      {
-        name: "email",
-        label: "Địa chỉ email liên hệ",
-        type: "text",
-        readOnly: true,
-        gridWidth: 6,
-      },
-      {
-        name: "provinces",
-        label: "Tỉnh",
-        type: "text",
-        readOnly: true,
-      },
-      {
-        name: "districts",
-        label: "Huyện",
-        type: "text",
-        readOnly: true,
-      },
-      {
-        name: "wards",
-        label: "Xã",
-        type: "text",
-        readOnly: true,
-      },
-      {
-        name: "detail",
-        label: "Địa chỉ chi tiết",
-        type: "text",
-        readOnly: true,
-      },
-      {
-        name: "managerName",
-        label: "Tên quản lý chi nhánh",
-        type: "text",
-        readOnly: true,
-        gridWidth: 12,
-      },
-      {
-        name: "businessLicenseName",
-        label: "Giấy phép kinh doanh",
-        type: "text",
-        readOnly: true,
-        gridWidth: 6,
-      },
-      {
-        name: "taxId",
-        label: "Mã số thuế",
-        type: "text",
-        readOnly: true,
-        gridWidth: 6,
-      },
-      {
-        name: "businessLicense",
-        type: "image",
-        label: "Ảnh giấy phép kinh doanh",
-        readOnly: true,
-        gridWidth: 12,
-      },
     ],
     [serviceOptions]
   );
