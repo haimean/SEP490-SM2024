@@ -6,64 +6,74 @@ const PieChart = React.lazy(() => import("./PieChart"));
 const LineChart = React.lazy(() => import("./LineChart"));
 import Loading from "../../common/Loading";
 import CallApi from "../../../service/CallAPI";
+
 const DashboardCp = () => {
   const [age, setAge] = React.useState("");
-  const [totalAccount, setTotalAccount] = useState(0);
+  // const [totalAccount, setTotalAccount] = useState(0);
+  const [dataAccount, setDataAccount] = useState({});
+  const [percentage, setPercentage] = useState(0);
   const [totalMonthAccount, setTotalMonthAccount] = useState(0);
   const handleChange = React.useCallback((event) => {
     setAge(event.target.value);
   }, []);
 
-  const getListAccount = async () => {
+  const getDataAccount = async () => {
     try {
-      const result = await CallApi("/api/admin/account", "post", {
-        pagination: {
-          page: 1,
-          perPage: 5,
-        },
-      });
-      console.log("🚀 ========= result:", result);
-      setTotalAccount(result?.total);
+      const result = await CallApi("/api/admin/account/get-all", "get");
+      setDataAccount(result?.data);
     } catch (error) {
       console.log("🚀 ========= error:", error);
     }
   };
+  // const getListAccount = async () => {
+  //   try {
+  //     const result = await CallApi("/api/admin/account", "post", {
+  //       pagination: {
+  //         page: 1,
+  //         perPage: 5,
+  //       },
+  //     });
+  //     console.log("🚀 ========= result:", result);
+  //     setTotalAccount(result?.total);
+  //   } catch (error) {
+  //     console.log("🚀 ========= error:", error);
+  //   }
+  // };
+
   const getListAccountMonth = async () => {
     try {
-      const result = await CallApi("/api/admin/account/month", "get", {
-        pagination: {
-          page: 1,
-          perPage: 5,
-        },
-      });
+      const result = await CallApi("/api/admin/account/month", "get");
       console.log("🚀 ========= result:", result);
-      setTotalMonthAccount(result?.data?.length);
+      setTotalMonthAccount(result?.data?.accounts?.length);
+      setPercentage(result?.data?.percentage);
     } catch (error) {
       console.log("🚀 ========= error:", error);
     }
   };
   useEffect(() => {
-    getListAccount();
+    // getListAccount();
     getListAccountMonth();
+    getDataAccount();
   }, []);
   return (
     <div>
-      <Typography variant="h6" component="h2">
-        Thống kê admin
-      </Typography>
       <div className="grid grid-cols-2 gap-4">
         <SectionDashboard
           key="user-count"
-          title={`Số lượng user: ${totalAccount} người`}
-          direction={true}
-          percentage={`${((totalMonthAccount / totalAccount) * 100).toFixed(
-            2
-          )} %`}
-          subTitle={`Đăng ký mới : ${totalMonthAccount} (trong tháng)`}
+          title={`Số lượng người dùng: ${
+            dataAccount?.totalHost + dataAccount?.totalPlayer
+          } người`}
+          direction={percentage >= 0 ? true : false}
+          percentage={
+            percentage !== 3
+              ? `${(percentage * 100).toFixed(2)} % so với tháng trước`
+              : "Không có dữ liệu tháng trước"
+          }
+          subTitle={`Đăng ký mới : ${totalMonthAccount}`}
         />
         <SectionDashboard
           title={"Số lượng bài post tìm trận: 28k"}
-          irection={true}
+          direction={true}
           percentage={"-12.4%"}
           subTitle={"Đăng ký mới : 13 (trong tháng)"}
         />

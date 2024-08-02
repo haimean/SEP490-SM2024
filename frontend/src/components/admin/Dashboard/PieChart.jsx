@@ -22,9 +22,9 @@ const PieChart = React.memo(() => {
         // Set a thinner border width
         borderWidth: 1,
         data: [
-          dataAccount?.totalAdmin || 30,
-          dataAccount?.totalHost || 30,
-          dataAccount?.totalPlayer || 30,
+          dataAccount?.totalAdmin || 0,
+          dataAccount?.totalHost || 0,
+          dataAccount?.totalPlayer || 0,
         ],
       },
     ],

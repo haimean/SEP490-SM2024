@@ -69,13 +69,31 @@ const accountService = {
     const endOfMonth = new Date(
       now.getFullYear(),
       now.getMonth() + 1,
-      0,
-      23,
-      59,
-      59
+      1
     );
     const result = await database.account.findMany({
       where: {
+        role: { not: 'ADMIN' },
+        createdAt: {
+          gte: startOfMonth,
+          lte: endOfMonth,
+        },
+      },
+    });
+    return result;
+  },
+
+  listPreviousMonthAccount: async () => {
+    const now = new Date();
+    const startOfMonth = new Date(
+      now.getFullYear(),
+      now.getMonth() - 1,
+      1
+    );
+    const endOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const result = await database.account.findMany({
+      where: {
+        role: { not: 'ADMIN' },
         createdAt: {
           gte: startOfMonth,
           lte: endOfMonth,
