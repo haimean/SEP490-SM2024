@@ -268,6 +268,16 @@ const bookingHostService = {
             Branches: true,
           },
         },
+        post: {
+          include: {
+            invitation: {
+              where: { status: 'ACCEPT' },
+              include: {
+                userAvailability: true,
+              },
+            },
+          },
+        },
       },
     });
     return response;

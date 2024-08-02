@@ -19,6 +19,16 @@ const bookingUserService = {
             Branches: true,
           },
         },
+        post: {
+          include: {
+            invitation: {
+              where: { status: 'ACCEPT' },
+              include: {
+                userAvailability: true,
+              },
+            },
+          },
+        },
       },
     });
   },

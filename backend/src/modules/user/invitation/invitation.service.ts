@@ -240,6 +240,30 @@ const invitationUserService = {
         status,
         reasonCancel,
       },
+      include: {
+        Post: {
+          include: {
+            booking: {
+              include: {
+                account: {
+                  include: {
+                    user: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+        userAvailability: {
+          include: {
+            account: {
+              include: {
+                user: true,
+              },
+            },
+          },
+        },
+      },
     });
   },
 };

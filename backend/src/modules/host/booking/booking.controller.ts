@@ -139,7 +139,22 @@ const bookingHostController = {
         bookingId,
         reasonCancell
       );
-
+      // TODO: thông báo cho các user đã được đồng ý trận đấu
+      const invitations = result?.post?.invitation;
+      if (invitations) {
+        for (const invitation of invitations) {
+          createNotifications([
+            {
+              id: 1,
+              accountId: invitation.userAvailability.accountId,
+              createdAt: new Date(),
+              message: `Chủ sân ${result.Court.Branches?.name} đã hủy lịch với lý do: ${reasonCancell}`,
+              url: `/#`,
+              status: 'SEED',
+            },
+          ]);
+        }
+      }
       // thông báo hủy hủy booking của host -> thông báo + mail cho người chơi, trường hợp có người xin
       createNotifications([
         {

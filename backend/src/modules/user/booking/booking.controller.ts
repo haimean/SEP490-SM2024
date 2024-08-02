@@ -25,6 +25,21 @@ const bookingUserController = {
           status: 'SEED',
         },
       ]);
+      const invitations = result?.post?.invitation;
+      if (invitations) {
+        for (const invitation of invitations) {
+          createNotifications([
+            {
+              id: 1,
+              accountId: invitation.userAvailability.accountId,
+              createdAt: new Date(),
+              message: `Người chơi đã hủy sân ${result.Court.Branches?.name}`,
+              url: `/#`,
+              status: 'SEED',
+            },
+          ]);
+        }
+      }
       ResponseHandler(res, result);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));

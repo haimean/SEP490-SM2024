@@ -140,26 +140,114 @@ const invitationUserController = {
         status,
         reasonCancel,
       });
-      // TODO: lấy thông tin invitation
-      // TODO:  Kiểm tra invitation là người chơi hay chủ sân
-      // TODO: INvi là của người có sân  ==> gửi tb cho người xin vào trận
-      // TODO: UNINvi là của người rảnh ==> gửi tb cho chủ sân
-      // TODO Thông báo
-      switch (status) {
-        case 'ACCEPT':
-          // đã accept
-          break;
+      const postId = invitation.Post.id;
+      // người không có sân
+      if ((invitation.type = 'AVAILABLE')) {
+        //id người có sân
+        const accountId: number = invitation.Post.booking.accountId;
+        // tên người không có sân
+        const name =
+          invitation.userAvailability.account.user?.fullName;
+        // id bài post
+        // Thông báo
+        switch (status) {
+          case 'ACCEPT':
+            // đã accept
+            createNotifications([
+              {
+                id: 1,
+                accountId,
+                createdAt: new Date(),
+                message: `${name} đã đồng ý lời mời vào trận đấu của bạn`,
+                url: `post/${postId}`,
+                status: 'SEED',
+              },
+            ]);
+            break;
 
-        case 'NOACCEPT':
-          // đã accept
-          break;
+          case 'NOACCEPT':
+            createNotifications([
+              {
+                id: 1,
+                accountId,
+                createdAt: new Date(),
+                message: `${name} đã từ chối lời mời vào trận đấu của bạn`,
+                url: `post/${postId}`,
+                status: 'SEED',
+              },
+            ]);
+            // đã accept
+            break;
 
-        case 'CANCEL':
-          // đã accept
-          break;
+          case 'CANCEL':
+            // đã accept
+            createNotifications([
+              {
+                id: 1,
+                accountId,
+                createdAt: new Date(),
+                message: `${name} đã đồng hủy lời mời vào trận đấu của bạn với lý do: ${reasonCancel}`,
+                url: `post/${postId}`,
+                status: 'SEED',
+              },
+            ]);
+            break;
 
-        default:
-          break;
+          default:
+            break;
+        }
+      } else {
+        // gửi thông báo cho người rảnh
+        // account người rảnh
+        const accountId: number =
+          invitation.userAvailability.accountId;
+        const name = invitation.Post.booking.account.user?.fullName;
+        switch (status) {
+          case 'ACCEPT':
+            // đã accept
+            createNotifications([
+              {
+                id: 1,
+                accountId,
+                createdAt: new Date(),
+                message: `${name} đã đồng ý lời xin vào trận đấu của bạn`,
+                url: `post/${postId}`,
+                status: 'SEED',
+              },
+            ]);
+            break;
+
+          case 'NOACCEPT':
+            // đã accept
+            createNotifications([
+              {
+                id: 1,
+                accountId,
+                createdAt: new Date(),
+                message: `${name} đã từ chối lời xin vào trận đấu của bạn`,
+                url: `post/${postId}`,
+                status: 'SEED',
+              },
+            ]);
+            break;
+
+          case 'CANCEL':
+            // đã accept
+            createNotifications([
+              {
+                id: 1,
+                accountId,
+                createdAt: new Date(),
+                message: `${name} đã đồng hủy lời xin vào trận đấu của bạn với lý do: ${reasonCancel}`,
+                url: `post/${postId}`,
+                status: 'SEED',
+              },
+            ]);
+            break;
+
+          default:
+            break;
+        }
       }
       ResponseHandler(res, invitation);
     } catch (error: any) {
