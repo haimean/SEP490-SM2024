@@ -16,6 +16,43 @@ const dateUtils = {
 
     return { lastSaturday, lastSunday };
   },
+
+  getDateStartAndEndOfMonth(date: Date): {
+    gte: Date;
+    lt: Date;
+  } {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    if (month == 1) {
+      return {
+        gte: new Date(year - 1, 12, 1),
+        lt: new Date(year, month, 1),
+      };
+    } else {
+      return {
+        gte: new Date(year, month - 1, 1),
+        lt: new Date(year, month, 1),
+      };
+    }
+  },
+
+  getList12Month(): Date[] {
+    //  - lấy được tháng hiện tại new Date
+    const month = new Date().getMonth();
+    const year = new Date().getFullYear();
+    // - lấy được 1 mảng 12 tháng gần nhất
+    const listMonth = [];
+    const listMonthPrevious = [];
+    for (let index = 0; index < 12; index++) {
+      if (index > month) {
+        listMonthPrevious.push(new Date(year - 1, index));
+      } else {
+        listMonth.push(new Date(year, index));
+      }
+    }
+    // sắp xếp lại mảng trên theo cái kia
+    return [...listMonthPrevious, ...listMonth];
+  },
   areHoursWithinOpeningClosingHours(
     startTimeStr: Date,
     endTimeStr: Date,

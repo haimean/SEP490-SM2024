@@ -9,6 +9,7 @@ import { join } from 'path';
 import { readFileSync } from 'fs';
 import ejs from 'ejs';
 import sendEmail from '../../../lib/sendEmail';
+import dateUtils from '../../../utils/date';
 
 const getEmailContent = (link: string) => {
   const templatePath = join(
@@ -107,38 +108,41 @@ const accountController = {
       next(new CustomError(error?.message, 500));
     }
   },
-  // todo: async (req: Request, res: Response, next: NextFunction) => {
-  //   try {
-  //     const result = [];
-
-  //     //  - lấy được tháng hiện tại new Date
-  //     const monhth = new Date().getDate();
-  //     const year = new Date().getFullYear();
-  //     // - lấy được 1 mảng 12 tháng gần nhất
-  //     const listMonth = [];
-  //     const listMonthPrevious = [];
-  //     for (let index = 1; index <= 12; index++) {
-  //       if (index > monhth) {
-  //         listMonthPrevious.push(new Date(year - 1, index, 1));
-  //       } else {
-  //         listMonth.push(new Date(year, index, 1));
-  //       }
-  //     }
-  //     // sắp xếp lại mảng trên theo cái kia
-  //     const list = [...listMonthPrevious, ...listMonth];
-
-  //     //  TODO: - vòng lặp đẻ lấy số lượng user và host trong 1 tháng
-  //     for (const item of list) {
-  //      //  TODO:   - truyền ngày vào
-  //      //  TODO:   - lấy mùng 1 tháng này và 1 tháng sau
-  //      //  TODO:   - lấy được số lượng host và player {host: 123, player:123,month: }
-  //      // TODO: push return vào result
-  //     }
-  //     ResponseHandler(res, result);
-  //   } catch (error: any) {
-  //     next(new CustomError(error?.message, 500));
-  //   }
-  // },
+  getListAccount12MonthLatest: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const result = [];
+      for (const item of dateUtils.getList12Month()) {
+        const resultHost =
+          await accountService.getListAccount12MonthLatest(
+            item,
+            'HOST'
+          );
+        const resultPlayer =
+          await accountService.getListAccount12MonthLatest(
+            item,
+            'USER'
+          );
+        result.push({
+          host: resultHost.length,
+          player: resultPlayer.length,
+          label: `${
+            item.getMonth() === 0 ? 12 : item.getMonth()
+          }/${item.getFullYear()}`,
+        });
+        //  TODO:   - truyền ngày vào
+        //  TODO:   - lấy mùng 1 tháng này và 1 tháng sau
+        //  TODO:   - lấy được số lượng host và player {host: 123, player:123,month: }
+        // TODO: push return vào result
+      }
+      ResponseHandler(res, result);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
 };
 
 export default accountController;

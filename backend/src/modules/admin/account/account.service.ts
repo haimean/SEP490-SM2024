@@ -1,4 +1,5 @@
 import database from '../../../lib/db.server';
+import dateUtils from '../../../utils/date';
 import { Pagination } from '../../index.model';
 import { getQueryPagination } from '../../index.service';
 
@@ -127,6 +128,19 @@ const accountService = {
       totalHost: resultHost.length,
       totalPlayer: resultPlayer.length,
     };
+  },
+  getListAccount12MonthLatest: async (
+    date: Date,
+    role: 'USER' | 'HOST'
+  ) => {
+    const { gte, lt } = dateUtils.getDateStartAndEndOfMonth(date);
+    const result = await database.account.findMany({
+      where: {
+        role: role,
+        createdAt: { gte, lt },
+      },
+    });
+    return result;
   },
 };
 
