@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import SectionDashboard from "./SectionDashboard";
 const PieChart = React.lazy(() => import("./PieChart"));
-const LineChart = React.lazy(() => import("./LineChart"));
 import Loading from "../../common/Loading";
 import CallApi from "../../../service/CallAPI";
 import BarChartForAccountAdmin from "./BarChartForAccountAdmin";
@@ -88,6 +87,11 @@ const DashboardCp = () => {
         <Typography variant="h6" component="h2">
           Biểu đồ số lượng người đăng ký mới theo 12 tháng gần nhất
         </Typography>
+      </div>
+      <div className="mt-5">
+        <React.Suspense fallback={<Loading />}>
+          <BarChartForAccountAdmin />
+        </React.Suspense>
       </div>
       <div className="mt-5">
         <React.Suspense fallback={<Loading />}>
