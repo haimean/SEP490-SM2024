@@ -35,6 +35,10 @@ const accountService = {
         },
       };
     }
+    queryOption.orderBy = {
+      ...queryOption.orderBy,
+      createdAt: 'desc',
+    };
     const result = await database.user.findMany(queryOption);
     const totalCount = (await database.user.findMany()).length;
     return { result, totalCount };
