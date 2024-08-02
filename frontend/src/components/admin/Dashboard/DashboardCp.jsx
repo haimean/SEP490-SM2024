@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import SectionDashboard from "./SectionDashboard";
-import SelectChart from "./SelectChart";
 const PieChart = React.lazy(() => import("./PieChart"));
 const LineChart = React.lazy(() => import("./LineChart"));
 import Loading from "../../common/Loading";
 import CallApi from "../../../service/CallAPI";
+import BarChartForAccountAdmin from "./BarChartForAccountAdmin";
 
 const DashboardCp = () => {
-  const [age, setAge] = React.useState("");
   // const [totalAccount, setTotalAccount] = useState(0);
   const [dataAccount, setDataAccount] = useState({});
   const [percentage, setPercentage] = useState(0);
   const [totalMonthAccount, setTotalMonthAccount] = useState(0);
-  const handleChange = React.useCallback((event) => {
-    setAge(event.target.value);
-  }, []);
 
   const getDataAccount = async () => {
     try {
@@ -90,15 +86,12 @@ const DashboardCp = () => {
       </div>
       <div className="mt-5">
         <Typography variant="h6" component="h2">
-          Biểu đồ số lượng người đăng ký mới theo tuần - tháng
+          Biểu đồ số lượng người đăng ký mới theo 12 tháng gần nhất
         </Typography>
       </div>
-      <div className="max-w-11">
-        <SelectChart age={age} handleChange={handleChange} />
-      </div>
-      <div className="grid grid-cols-2 gap-4 mt-5">
+      <div className="mt-5">
         <React.Suspense fallback={<Loading />}>
-          <LineChart />
+          <BarChartForAccountAdmin />
         </React.Suspense>
       </div>
     </div>

@@ -82,8 +82,6 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
       return false;
     }
 
-    // Lấy accountId từ localStorage và chuyển đổi nó thành số (nếu cần)
-
     // Kiểm tra nếu dữ liệu không có accountId
     if (isNaN(accountId)) {
       return false;
@@ -95,20 +93,48 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
       return invitationAccountId === Number(accountId);
     });
   };
+  const [detail, setDetail] = useState(false);
+  const detailUser = async () => {
+    try {
+      const result = await CallApi(
+        "/api/user/invitation/available-of-user",
+        "post",
+        {
+          postId: activity?.post?.id,
+        }
+      );
+      console.log("🚀 ========= result:", result.data);
+      setDetail(result?.data);
+    } catch (error) {
+      console.log("🚀 ========= error:", error);
+    }
+  };
+  useEffect(() => {
+    detailUser();
+  }, []);
+  const parseDate = (isoString) => {
+    const date = new Date(isoString);
 
+    // Lấy ngày, tháng, và năm từ đối tượng Date
+    const day = date.getUTCDate().toString().padStart(2, "0"); // Thêm số 0 vào trước nếu day có 1 chữ số
+    const month = (date.getUTCMonth() + 1).toString().padStart(2, "0"); // Thêm 1 vào tháng vì getUTCMonth() trả về giá trị từ 0-11
+    const year = date.getUTCFullYear();
+
+    // Ghép ngày, tháng, và năm thành chuỗi định dạng "dd/MM/yyyy"
+    return `${day}/${month}/${year}`;
+  };
   return (
-    <Card className="">
+    <Card>
       <CardMedia
         component="img"
         sx={{ height: 200 }}
-        // image={activity.Court.Branches.image}
-        image={testImg}
+        image={activity?.Court?.TypeCourt?.image || testImg}
         alt={activity?.bookingInfo?.name}
       />
       <CardContent className="">
         <Tooltip title={activity?.bookingInfo?.name}>
           <Typography component="h2" variant="h5" className="truncate">
-            {activity?.bookingInfo?.name}
+            Trận đấu của: {activity?.bookingInfo?.name}
           </Typography>
         </Tooltip>
         <Tooltip title={activity?.Court?.Branches?.address?.detail}>
@@ -126,7 +152,7 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
         </Tooltip>
         <Stack direction="row" alignItems="center" spacing={1}>
           <EventIcon className="text-red-600" />
-          <Typography>{activity?.dateTime}</Typography>
+          <Typography>{parseDate(activity?.startTime)}</Typography>
         </Stack>
         <Stack direction="row" alignItems="center" spacing={1}>
           <AccessTimeIcon className="text-red-600" />
@@ -152,12 +178,15 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
             onClick={handleJoin}
             disabled={
               acceptCount == activity?.post?.numberMember ||
-              checkRequestInvitation(activity?.post?.invitation) === true
+              detail?.status == "ACCEPT" ||
+              detail?.status == "NEW"
             }
           >
             {acceptCount == activity?.post?.numberMember
               ? "Sân đã đủ người"
-              : checkRequestInvitation(activity?.post?.invitation) !== true
+              : detail?.status == "ACCEPT"
+              ? "Đã tham gia"
+              : detail == null || detail?.status !== "NEW"
               ? "Gửi lời mời tham gia"
               : "Đã gửi lời mời"}
           </Button>

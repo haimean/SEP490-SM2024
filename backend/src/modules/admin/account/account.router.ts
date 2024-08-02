@@ -12,4 +12,8 @@ accountRouter.post(
 accountRouter.put('/ban/:id', accountController.banAccount);
 accountRouter.get('/month', accountController.listMonthAccount);
 accountRouter.get('/get-all', accountController.getListAccountNoSort);
+accountRouter.get(
+  '/get-all-account-12-month-latest',
+  accountController.getListAccount12MonthLatest
+);
 export default accountRouter;
