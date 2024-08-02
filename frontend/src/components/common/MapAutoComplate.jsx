@@ -6,6 +6,7 @@ import { OpenStreetMapProvider, GeoSearchControl } from "leaflet-geosearch";
 import "leaflet-geosearch/dist/geosearch.css";
 import L from "leaflet";
 import axios from "axios";
+import { Box } from "@mui/material";
 
 const SearchControl = ({ onResultSelect }) => {
   const map = useMap();
@@ -96,7 +97,7 @@ const MapComponent = () => {
   };
 
   return (
-    <div>
+    <Box style={{ width: "100%", padding: "10px", marginBottom: "10px" }}>
       <input
         type="text"
         value={address}
@@ -142,7 +143,7 @@ const MapComponent = () => {
           <strong>Address:</strong> {JSON.stringify(details?.address)}
         </p>
       </div>
-    </div>
+    </Box>
   );
 };
 

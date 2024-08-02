@@ -15,6 +15,7 @@ branchesHostRouter.post(
     { name: 'image', maxCount: 1 },
     { name: 'businessLicense', maxCount: 1 },
   ]),
+  branchesHostMiddleware.isBeforeCreate,
   validate(branchesHostValidator.create),
   branchesHostMiddleware.create,
   branchesHostController.create

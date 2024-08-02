@@ -46,7 +46,7 @@ const SignInForm = ({ isModal, onSuccess }) => {
     }
     if (isModal && onSuccess) {
       if (role === "ADMIN") {
-        navigate("/admin/list-account");
+        navigate("/admin/dashboard");
       }
       onSuccess();
     }

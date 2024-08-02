@@ -1,25 +1,30 @@
 import { Controller } from "react-hook-form";
 import { TextField } from "@mui/material";
+import { PHONE_REGEX } from "../../../utils/regex/index";
 
-const TextFieldCp = ({ field, control, errors, readOnly }) => (
+const TelCp = ({ field, control, errors, readOnly }) => (
   <Controller
     name={field.name}
     control={control}
     defaultValue={field.defaultValue || ""}
     rules={{
       required: field.required ? `${field.label} là bắt buộc` : false,
-      validate: (value) =>
-        value.trim() !== "" || `${field.label} không thể chỉ chứa khoảng trắng`,
+      validate: {
+        validPhoneNumber: (value) =>
+          PHONE_REGEX.test(value) || `${field.label} không hợp lệ`,
+      },
     }}
     render={({ field: { onChange, value }, fieldState: { error } }) => (
       <TextField
         fullWidth
         label={field.label}
-        type={field.type}
+        type="tel"
         value={value}
         required={field.required}
         onChange={(e) => {
-          onChange(e);
+          const input = e.target.value;
+          const sanitizedInput = input.replace(/[^\d+]/g, "");
+          onChange(sanitizedInput);
         }}
         error={!!error}
         InputProps={{
@@ -31,4 +36,4 @@ const TextFieldCp = ({ field, control, errors, readOnly }) => (
   />
 );
 
-export default TextFieldCp;
+export default TelCp;

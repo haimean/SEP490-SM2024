@@ -22,6 +22,8 @@ import WardSelect from "../../../components/host/FormInput/WardSelect";
 import CallApi from "../../../service/CallAPI";
 import PaymentCreateBranch from "../../../components/host/Branch/PaymentCreateBranch";
 import axios from "axios";
+import TelCp from "../../../components/host/FormInput/TelCp";
+import EmailCp from "../../../components/host/FormInput/EmailCp";
 
 const CreateBranch = () => {
   const navigate = useNavigate();
@@ -35,7 +37,6 @@ const CreateBranch = () => {
   } = useForm();
 
   const [branchAtbList, setBranchAtbList] = useState([]);
-  const [isSecondBranch, setIsSecondBranch] = useState(false);
   const [openPaymentModal, setOpenPaymentModal] = useState(false);
   const [formData, setFormData] = useState(null);
   const [provinces, setProvinces] = useState([]);
@@ -161,7 +162,6 @@ const CreateBranch = () => {
     const branchCount = await checkBranchCount();
 
     if (branchCount >= 2) {
-      setIsSecondBranch(true);
       setFormData(data);
       handleOpenPaymentModal();
       return;
@@ -248,9 +248,12 @@ const CreateBranch = () => {
   const renderField = (field) => {
     switch (field.type) {
       case "text":
-      case "tel":
       case "number":
         return <TextFieldCp field={field} control={control} errors={errors} />;
+      case "tel":
+        return <TelCp field={field} control={control} errors={errors} />;
+      case "email":
+        return <EmailCp field={field} control={control} errors={errors} />;
       case "select":
         return <SelectCp field={field} control={control} errors={errors} />;
       case "select-custom":
@@ -358,6 +361,7 @@ const CreateBranch = () => {
           fetchDistricts(value);
         },
         provinces: provinces,
+        gridWidth: 4,
       },
       {
         name: "districts",
@@ -370,6 +374,7 @@ const CreateBranch = () => {
           fetchWards(value);
         },
         districts: districts,
+        gridWidth: 4,
       },
       {
         name: "wards",
@@ -378,12 +383,20 @@ const CreateBranch = () => {
         required: true,
         districtId: getValues().districts?.id,
         wards: wards,
+        gridWidth: 4,
       },
       {
         name: "branchContact",
         label: "Thông tin liên hệ chi nhánh",
         type: "section",
         required: true,
+      },
+      {
+        name: "managerName",
+        label: "Tên quản lý chi nhánh",
+        type: "text",
+        required: true,
+        gridWidth: 12,
       },
       {
         name: "phone",
@@ -395,7 +408,7 @@ const CreateBranch = () => {
       {
         name: "email",
         label: "Địa chỉ email liên hệ",
-        type: "text",
+        type: "email",
         required: true,
         gridWidth: 6,
       },
@@ -405,13 +418,7 @@ const CreateBranch = () => {
         type: "section",
         required: true,
       },
-      {
-        name: "managerName",
-        label: "Tên quản lý chi nhánh",
-        type: "text",
-        required: true,
-        gridWidth: 12,
-      },
+
       {
         name: "openingHours",
         label: "Giờ mở cửa",
@@ -429,42 +436,15 @@ const CreateBranch = () => {
       ...serviceOptions,
       {
         name: "legalInfo",
-        label: "Thông tin pháp lý",
+        label: "Giấy phép kinh doanh",
         type: "section",
         required: true,
-      },
-      {
-        name: "businessLicense",
-        label: "Giấy phép kinh doanh",
-        type: "text",
-        required: false,
-        gridWidth: 6,
-      },
-      {
-        name: "taxId",
-        label: "Mã số thuế",
-        type: "text",
-        required: false,
-        gridWidth: 6,
       },
       {
         name: "businessLicensePicture",
         type: "image",
         label: "Ảnh giấy phép kinh doanh",
         required: true,
-        gridWidth: 12,
-      },
-      {
-        name: "additionalInfo",
-        label: "Thông tin bổ sung",
-        type: "section",
-        required: true,
-      },
-      {
-        name: "branchDescription",
-        label: "Mô tả",
-        type: "text",
-        required: false,
         gridWidth: 12,
       },
     ],
