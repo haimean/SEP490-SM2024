@@ -36,7 +36,7 @@ const SearchControl = ({ onResultSelect }) => {
   return null;
 };
 
-const MapComponent = () => {
+const MapComponent = ({ onSubmit }) => {
   const [position, setPosition] = useState([21.01355745, 105.5252751342127]);
   const [address, setAddress] = useState("");
   const [details, setDetails] = useState({});
@@ -62,6 +62,11 @@ const MapComponent = () => {
             if (response.data && response.data.address) {
               console.log(response.data);
               setDetails({
+                address: response.data.address,
+                latitude: newPosition[0],
+                longitude: newPosition[1],
+              });
+              onSubmit({
                 address: response.data.address,
                 latitude: newPosition[0],
                 longitude: newPosition[1],
@@ -120,9 +125,7 @@ const MapComponent = () => {
             updatePosition([location.y, location.x])
           }
         />
-        <Marker position={position} ref={markerRef}>
-          <Popup>{address}</Popup>
-        </Marker>
+
         <Marker
           position={position}
           draggable={true}
