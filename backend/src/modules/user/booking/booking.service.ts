@@ -13,6 +13,13 @@ const bookingUserService = {
       data: {
         isDelete: true,
       },
+      include: {
+        Court: {
+          include: {
+            Branches: true,
+          },
+        },
+      },
     });
   },
   getAllForUser: async (
@@ -111,6 +118,16 @@ const bookingUserService = {
       },
       include: {
         bookingInfo: true,
+      },
+    });
+  },
+  getCourt: async (id: number) => {
+    return await database.court.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        Branches: true,
       },
     });
   },

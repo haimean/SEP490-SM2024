@@ -58,12 +58,22 @@ const invitationUserController = {
     try {
       const { postId } = req.body;
       const accountId = Number(req.headers.authorization);
-      const invitation: Invitation =
-        await invitationUserService.createForPlayer(
-          'UNAVAILABLE',
-          postId,
-          accountId
-        );
+      const invitation = await invitationUserService.createForPlayer(
+        'UNAVAILABLE',
+        postId,
+        accountId
+      );
+      // thông báo cho chủ sận có người xin vào trận
+      createNotifications([
+        {
+          id: 1,
+          accountId: Number(invitation?.userAvailability?.accountId),
+          createdAt: new Date(),
+          message: `Có người muốn xin vào trận đấu của bạn`,
+          url: `post/${postId}`,
+          status: 'SEED',
+        },
+      ]);
       ResponseHandler(res, invitation);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
@@ -124,11 +134,33 @@ const invitationUserController = {
   update: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { invitationId, status, reasonCancel } = req.body;
+
       const invitation = await invitationUserService.update({
         invitationId,
         status,
         reasonCancel,
       });
+      // TODO: lấy thông tin invitation
+      // TODO:  Kiểm tra invitation là người chơi hay chủ sân
+      // TODO: INvi là của người có sân  ==> gửi tb cho người xin vào trận
+      // TODO: UNINvi là của người rảnh ==> gửi tb cho chủ sân
+      // TODO Thông báo
+      switch (status) {
+        case 'ACCEPT':
+          // đã accept
+          break;
+
+        case 'NOACCEPT':
+          // đã accept
+          break;
+
+        case 'CANCEL':
+          // đã accept
+          break;
+
+        default:
+          break;
+      }
       ResponseHandler(res, invitation);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));

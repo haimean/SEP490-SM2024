@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import bookingUserService from './booking.service';
 import { ResponseHandler } from '../../../outcomes/responseHandler';
 import CustomError from '../../../outcomes/customError';
+import { createNotifications } from '../../../lib/notificationService';
 
 const bookingUserController = {
   remove: async (req: Request, res: Response, next: NextFunction) => {
@@ -12,6 +13,18 @@ const bookingUserController = {
         Number(id),
         accountId
       );
+
+      // thông báo người chơi hủy trận
+      createNotifications([
+        {
+          id: 1,
+          accountId: Number(result?.Court?.Branches?.accountId),
+          createdAt: new Date(),
+          message: `Người chơi đã hủy sân ${result?.Court?.Branches?.name} của bạn`,
+          url: `/#`,
+          status: 'SEED',
+        },
+      ]);
       ResponseHandler(res, result);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
@@ -51,7 +64,7 @@ const bookingUserController = {
           numberPhone,
         } = element;
 
-        await bookingUserService.create({
+        const booking = await bookingUserService.create({
           accountId,
           courtId,
           startTime,
@@ -60,6 +73,19 @@ const bookingUserController = {
           name,
           numberPhone,
         });
+        // Thông báo thành công cho host booking thành công _> thông báo về host
+        // get court
+        const court = await bookingUserService.getCourt(courtId);
+        createNotifications([
+          {
+            id: 1,
+            accountId: Number(court?.Branches?.accountId),
+            createdAt: new Date(),
+            message: `Người chơi đã đắng ký trận của bạn`,
+            url: `/host/booking-history/detail/${booking.id}`,
+            status: 'SEED',
+          },
+        ]);
       }
       // check giờ đặt có người đặt chưa
       ResponseHandler(res, 'success');

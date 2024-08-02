@@ -58,6 +58,11 @@ const bookingHostService = {
       },
       include: {
         bookingInfo: true,
+        Court: {
+          include: {
+            Branches: true,
+          },
+        },
       },
     });
   },
@@ -256,6 +261,13 @@ const bookingHostService = {
       data: {
         isDelete: true,
         reasonCancell,
+      },
+      include: {
+        Court: {
+          include: {
+            Branches: true,
+          },
+        },
       },
     });
     return response;

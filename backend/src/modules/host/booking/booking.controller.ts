@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import bookingHostService from './booking.service';
 import { ResponseHandler } from '../../../outcomes/responseHandler';
 import CustomError from '../../../outcomes/customError';
+import { createNotifications } from '../../../lib/notificationService';
 
 const bookingHostController = {
   getBookingList: async (
@@ -47,6 +48,7 @@ const bookingHostController = {
       next(new CustomError(error?.message, 500));
     }
   },
+
   update: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { startTime, endTime, price, name, numberPhone } =
@@ -61,7 +63,18 @@ const bookingHostController = {
         name,
         numberPhone,
       });
-      //TODO: thông báo mail và realtime cho user
+      // thông báo mail và realtime cho user
+      createNotifications([
+        {
+          id: 1,
+          accountId: result.accountId,
+          createdAt: new Date(),
+          message: `Chủ sân ${result.Court.Branches?.name} đã thay đổi thông tin ca đặt của bạn`,
+          url: `/player/booking-history/${id}`,
+          status: 'SEED',
+        },
+      ]);
+
       ResponseHandler(res, result);
     } catch (error: any) {
       console.log(error);
@@ -127,7 +140,17 @@ const bookingHostController = {
         reasonCancell
       );
 
-      //TODO: gửi mail và thông báo 1
+      // thông báo hủy hủy booking của host -> thông báo + mail cho người chơi, trường hợp có người xin
+      createNotifications([
+        {
+          id: 1,
+          accountId: result.accountId,
+          createdAt: new Date(),
+          message: `Chủ sân ${result.Court.Branches?.name} đã hủy lịch của bạn với lý do: ${reasonCancell}`,
+          url: `/#`,
+          status: 'SEED',
+        },
+      ]);
       ResponseHandler(res, result);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));

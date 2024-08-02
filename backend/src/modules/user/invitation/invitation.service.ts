@@ -52,7 +52,7 @@ const invitationUserService = {
     type: TypeInvitation,
     postId: number,
     accountId: number
-  ): Promise<Invitation> => {
+  ): Promise<any> => {
     const post = await database.post.findUnique({
       where: { id: postId },
       include: {
@@ -84,6 +84,9 @@ const invitationUserService = {
         type,
         status: 'NEW',
         userAvailabilityId: userAvailability.id,
+      },
+      include: {
+        userAvailability: true,
       },
     });
   },
