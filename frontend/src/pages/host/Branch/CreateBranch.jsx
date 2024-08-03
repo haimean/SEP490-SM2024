@@ -518,7 +518,11 @@ const CreateBranch = () => {
           onConfirmPayment={handleConfirmPayment}
         />
       </Box>
-      <MapComponent />
+      <MapComponent
+        onSubmit={(data) => {
+          console.log(data);
+        }}
+      />
     </Box>
   );
 };
