@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import SectionDashboard from "./SectionDashboard";
 const PieChart = React.lazy(() => import("./PieChart"));
 import Loading from "../../common/Loading";
 import CallApi from "../../../service/CallAPI";
 import BarChartForAccountAdmin from "./BarChartForAccountAdmin";
+import BarChartForBookingAndPostAdmin from "./BarChartForBookingAndPostAdmin";
+import TableAccount from "./TableAccount";
+import { Link } from "react-router-dom";
 
 const DashboardCp = () => {
   // const [totalAccount, setTotalAccount] = useState(0);
@@ -78,10 +81,22 @@ const DashboardCp = () => {
           Biểu đồ thống kê các role
         </Typography>
       </div>
-      <div className="grid grid-cols-3 gap-4 mt-5">
+      <div className="grid grid-cols-2 gap-4 mt-5 items-center">
         <React.Suspense fallback={<Loading />}>
           <PieChart />
         </React.Suspense>
+        <div className="flex flex-col">
+          <div className="flex justify-between">
+            <Typography variant="h6" component="h2">
+              5 người dùng mới nhất
+            </Typography>
+            <Link to={"/admin/list-account"}>
+              <Button>Xem thêm</Button>
+            </Link>
+          </div>
+
+          <TableAccount />
+        </div>
       </div>
       <div className="mt-5">
         <Typography variant="h6" component="h2">
@@ -94,8 +109,11 @@ const DashboardCp = () => {
         </React.Suspense>
       </div>
       <div className="mt-5">
+        <Typography variant="h6" component="h2">
+          Biểu đồ số lượng người đặt sân mới theo 12 tháng gần nhất
+        </Typography>
         <React.Suspense fallback={<Loading />}>
-          <BarChartForAccountAdmin />
+          <BarChartForBookingAndPostAdmin />
         </React.Suspense>
       </div>
     </div>
