@@ -42,10 +42,11 @@ import BookingDetailHost from "../components/host/BranchBookHistory/BookingDetai
 import ListBranchAdmin from "../pages/admin/Branch/ListBranchAdmin.jsx";
 import RequestList from "../pages/user/requestList/requestList.jsx";
 import ListBlog from "../pages/player/Blog/ListBlog.jsx";
-import DashboardHost from "../pages/host/Dashboard/Dashboard.jsx";
+import DashboardHost from "../pages/host/Dashboard/DashboardHost.jsx";
 import PriceSetupPage from "../components/host/court/PriceSetupPage.jsx";
 import ListReportBlog from "../pages/admin/ListReportBlog/ListReportBlog.jsx";
 import RequestListJoin from "../pages/user/RequestListJoin/RequestListJoin.jsx";
+import TypeCourtTable from "../components/host/typeCourt/TypeCourtTable.jsx";
 
 const router = [
   {
@@ -395,6 +396,13 @@ const router = [
     name: "Request List Join",
     component: <RequestListJoin />,
     role: ["USER"],
+    layout: "",
+  },
+  {
+    path: "/type-court-table",
+    name: "Type Court Table",
+    component: <TypeCourtTable />,
+    // role: ["USER"],
     layout: "",
   },
 ];
