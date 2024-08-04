@@ -42,7 +42,7 @@ const CreateBranch = () => {
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
-
+  const [mapData, setMapData] = useState();
   useEffect(() => {
     fetchBranchAtbList();
   }, []);
@@ -177,8 +177,8 @@ const CreateBranch = () => {
     formData.append("phone", data?.phone);
     formData.append("openingHours", dayjs(data?.openingHours).format("HH:mm"));
     formData.append("closingHours", dayjs(data?.closingHours).format("HH:mm"));
-    formData.append("longitude", "107.09848786676099");
-    formData.append("latitude", "20.962297338909874");
+    formData.append("longitude", mapData?.longitude || "107.09848786676099");
+    formData.append("latitude", mapData?.latitude || "20.962297338909874");
     formData.append("provinces", data?.provinces?.name || "");
     formData.append("districts", data?.districts?.name || "");
     formData.append("wards", data?.wards?.name || "");
@@ -520,6 +520,7 @@ const CreateBranch = () => {
       </Box>
       <MapComponent
         onSubmit={(data) => {
+          setMapData(data);
           console.log(data);
         }}
       />
