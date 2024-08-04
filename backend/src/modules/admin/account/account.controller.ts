@@ -143,6 +143,38 @@ const accountController = {
       next(new CustomError(error?.message, 500));
     }
   },
+  getListAccountWithDate: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { dateFilter } = req.body;
+      console.log('🚀 ========= dateFilter:', dateFilter);
+      const [year, month, day] = dateFilter.split('-').map(Number);
+      const result = [];
+      for (let index = day < 7 ? 0 : day - 7; index < day; index++) {
+        const resultHost =
+          await accountService.getListAccountWithDate(
+            new Date(year, month, index),
+            'HOST'
+          );
+        const resultPlayer =
+          await accountService.getListAccountWithDate(
+            new Date(year, month, index),
+            'USER'
+          );
+        result.push({
+          host: resultHost.length,
+          player: resultPlayer.length,
+          label: `${index + 1}/${month}`,
+        });
+      }
+      ResponseHandler(res, result);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
 };
 
 export default accountController;

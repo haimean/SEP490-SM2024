@@ -16,4 +16,8 @@ accountRouter.get(
   '/get-all-account-12-month-latest',
   accountController.getListAccount12MonthLatest
 );
+accountRouter.post(
+  '/get-all-account-with-date',
+  accountController.getListAccountWithDate
+);
 export default accountRouter;
