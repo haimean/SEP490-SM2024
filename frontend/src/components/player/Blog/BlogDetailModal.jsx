@@ -16,7 +16,6 @@ import ViewCommentByBlog from "../../../components/player/Blog/ViewCommentByBlog
 import CreateComment from "./CreateComment";
 
 const BlogDetailModal = ({ open, onClose, blog }) => {
-  const currentAccountId = parseInt(localStorage.getItem("accountId"));
   const fetchCommentsRef = useRef(null);
 
   if (!blog) return null;
