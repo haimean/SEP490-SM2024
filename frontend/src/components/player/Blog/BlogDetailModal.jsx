@@ -17,6 +17,7 @@ import ViewCommentByBlog from "../../../components/player/Blog/ViewCommentByBlog
 import CreateComment from "./CreateComment";
 
 const BlogDetailModal = ({ open, onClose, blog }) => {
+  const currentAccountId = parseInt(localStorage.getItem("accountId"));
   const fetchCommentsRef = useRef(null);
 
   if (!blog) return null;
@@ -63,9 +64,11 @@ const BlogDetailModal = ({ open, onClose, blog }) => {
               </Typography>
             </Box>
           </Box>
-          <IconButton aria-label="report">
-            <FlagIcon />
-          </IconButton>
+          {currentAccountId !== blog?.accountId && (
+            <IconButton aria-label="report" onClick={handleReportClick}>
+              <Flag />
+            </IconButton>
+          )}
         </Box>
         <Typography variant="body1" color="text.secondary">
           {blog?.caption?.split("\n").map((line, index) => (
