@@ -32,14 +32,6 @@ const NavbarItemUser = () => {
       <Button
         color="inherit"
         component={Link}
-        to="/available-post"
-        sx={{ textTransform: "none" }}
-      >
-        Trận đấu đang tìm người
-      </Button>
-      <Button
-        color="inherit"
-        component={Link}
         to="/search-courts"
         sx={{ textTransform: "none" }}
       >

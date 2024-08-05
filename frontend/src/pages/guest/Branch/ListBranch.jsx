@@ -17,7 +17,6 @@ const ListBranch = () => {
     try {
       const apiUrl = role === "HOST" ? "/api/host/branches" : "/api/branches";
       const response = await CallApi(apiUrl, "get");
-      console.log("🚀 ========= response:", response);
       setListBranch(response?.data);
     } catch (error) {
       console.log(
