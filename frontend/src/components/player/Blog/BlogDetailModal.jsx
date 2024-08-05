@@ -10,8 +10,7 @@ import {
   Divider,
   DialogActions,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import FlagIcon from "@mui/icons-material/Flag";
+import {Close} from "@mui/icons-material";
 import { getTimeSinceCreation } from "../../../utils/getTimeSinceCreation";
 import ViewCommentByBlog from "../../../components/player/Blog/ViewCommentByBlog";
 import CreateComment from "./CreateComment";
@@ -40,7 +39,7 @@ const BlogDetailModal = ({ open, onClose, blog }) => {
             Bài viết của {blog?.account?.user?.fullName}
           </Typography>
           <IconButton onClick={onClose}>
-            <CloseIcon />
+            <Close />
           </IconButton>
         </Box>
       </DialogTitle>
@@ -64,11 +63,6 @@ const BlogDetailModal = ({ open, onClose, blog }) => {
               </Typography>
             </Box>
           </Box>
-          {currentAccountId !== blog?.accountId && (
-            <IconButton aria-label="report" onClick={handleReportClick}>
-              <Flag />
-            </IconButton>
-          )}
         </Box>
         <Typography variant="body1" color="text.secondary">
           {blog?.caption?.split("\n").map((line, index) => (
