@@ -140,7 +140,15 @@ const CreateBlog = ({ open, onClose, onBlogCreated }) => {
                 accept="image/*"
                 id="image-upload"
                 style={{ display: "none" }}
-                onChange={handleImageChange}
+                onChange={(event) => {
+                  const file = event.target.files[0];
+                  if (file && file.size <= 10 * 1024 * 1024) {
+                    handleImageChange(event);
+                  } else {
+                    alert("Kích thước ảnh phải nhỏ hơn hoặc bằng 10MB.");
+                    event.target.value = null;
+                  }
+                }}
               />
               <label htmlFor="image-upload">
                 <Button variant="text" component="span">
