@@ -142,10 +142,10 @@ const CreateBlog = ({ open, onClose, onBlogCreated }) => {
                 style={{ display: "none" }}
                 onChange={(event) => {
                   const file = event.target.files[0];
-                  if (file && file.size <= 10 * 1024 * 1024) {
+                  if (file && file.size <= 10 * 1024) {
                     handleImageChange(event);
                   } else {
-                    alert("Kích thước ảnh phải nhỏ hơn hoặc bằng 10MB.");
+                    alert("Kích thước ảnh phải nhỏ hơn hoặc bằng 1MB.");
                     event.target.value = null;
                   }
                 }}
