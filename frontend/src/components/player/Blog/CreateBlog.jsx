@@ -81,7 +81,7 @@ const CreateBlog = ({ open, onClose, onBlogCreated }) => {
           }}
         >
           <Typography variant="h6" component="h6">
-            Tạo bài viết
+            Tạo bài đăng trạng thái
           </Typography>
           <IconButton
             onClick={handleCancel}
