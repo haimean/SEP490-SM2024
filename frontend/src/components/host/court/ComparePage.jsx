@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import CallApi from "../../../service/CallAPI";
 import { useParams } from "react-router-dom";
-import ResponsiveDrawer from "../../../layouts/host/LayoutHost";
 import {
   Paper,
   Table,
@@ -79,48 +78,40 @@ export default function ComparePage() {
   ];
 
   return (
-    <ResponsiveDrawer>
-      <TableContainer className="mt-16" component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell>
-                <div className="flex items-center gap-3">
-                  <img
-                    className="w-40 h-40"
-                    src={firstCourt?.Branches?.image}
-                  />
-                  {firstCourt?.name}
-                </div>
+    <TableContainer className="mt-16" component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell></TableCell>
+            <TableCell>
+              <div className="flex items-center gap-3">
+                <img className="w-40 h-40" src={firstCourt?.Branches?.image} />
+                {firstCourt?.name}
+              </div>
+            </TableCell>
+            <TableCell>
+              <div className="flex items-center gap-3">
+                <img className="w-40 h-40" src={secondCourt?.Branches?.image} />
+                {secondCourt?.name}
+              </div>
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows?.map((row) => (
+            <TableRow
+              key={row?.id}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {row?.title}
               </TableCell>
-              <TableCell>
-                <div className="flex items-center gap-3">
-                  <img
-                    className="w-40 h-40"
-                    src={secondCourt?.Branches?.image}
-                  />
-                  {secondCourt?.name}
-                </div>
-              </TableCell>
+              <TableCell>{row?.firstValue}</TableCell>
+              <TableCell>{row?.secondValue}</TableCell>
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows?.map((row) => (
-              <TableRow
-                key={row?.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row?.title}
-                </TableCell>
-                <TableCell>{row?.firstValue}</TableCell>
-                <TableCell>{row?.secondValue}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </ResponsiveDrawer>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
