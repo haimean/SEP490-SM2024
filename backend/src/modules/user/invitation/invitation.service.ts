@@ -96,6 +96,11 @@ const invitationUserService = {
       },
       include: {
         userAvailability: true,
+        Post: {
+          include: {
+            booking: true,
+          },
+        },
       },
     });
   },

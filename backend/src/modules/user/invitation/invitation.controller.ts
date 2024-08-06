@@ -67,7 +67,7 @@ const invitationUserController = {
       createNotifications([
         {
           id: 1,
-          accountId: Number(invitation?.userAvailability?.accountId),
+          accountId: Number(invitation?.Post?.booking?.accountId),
           createdAt: new Date(),
           message: `Có người muốn xin vào trận đấu của bạn`,
           url: `post/${postId}`,
@@ -144,7 +144,9 @@ const invitationUserController = {
       // người không có sân
       if ((invitation.type = 'AVAILABLE')) {
         //id người có sân
-        const accountId: number = invitation.Post.booking.accountId;
+        const accountId: number =
+          invitation.userAvailability.accountId;
+
         // tên người không có sân
         const name =
           invitation.userAvailability.account.user?.fullName;
@@ -199,8 +201,7 @@ const invitationUserController = {
       } else {
         // gửi thông báo cho người rảnh
         // account người rảnh
-        const accountId: number =
-          invitation.userAvailability.accountId;
+        const accountId: number = invitation.Post.booking.accountId;
         const name = invitation.Post.booking.account.user?.fullName;
         switch (status) {
           case 'ACCEPT':
