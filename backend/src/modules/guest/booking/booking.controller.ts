@@ -1,4 +1,4 @@
-import { Account } from '@prisma/client';
+import { Account, Booking } from '@prisma/client';
 import jwt, { Secret } from 'jsonwebtoken';
 import { NextFunction, Request, Response } from 'express';
 import { ResponseHandler } from '../../../outcomes/responseHandler';
@@ -13,6 +13,8 @@ const bookingGuestController = {
     next: NextFunction
   ) => {
     try {
+      console.log('what');
+
       let result: any = [];
       if (req.headers?.authorization) {
         const token = req.headers?.authorization?.split(' ')[1] ?? '';
@@ -22,10 +24,31 @@ const bookingGuestController = {
         ) as {
           data: Account;
         };
-        if (jwtObj.data.id) {
-          result = await bookingGuestService.getBookingPostLogin(
-            jwtObj.data.id
+        const accountId = jwtObj.data.id;
+        if (accountId) {
+          const data = await bookingGuestService.getBookingPostLogin(
+            accountId
           );
+          for (const element of data) {
+            // remove full-person posts
+            const numberMember: number = element.post
+              ?.numberMember as number;
+            const numberInvitation: number = element?.post?.invitation
+              ? element?.post?.invitation.length
+              : 0;
+            const invitation =
+              await bookingGuestService.getInvitation(
+                accountId,
+                element?.post?.id as number
+              );
+            // Don't filter posts that have invitations
+            if (
+              numberMember > numberInvitation &&
+              invitation.length === 0
+            ) {
+              result.push(element);
+            }
+          }
         }
       } else {
         result = await bookingGuestService.getBookingPost();
