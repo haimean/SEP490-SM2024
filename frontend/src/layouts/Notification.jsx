@@ -152,7 +152,11 @@ const Notification = () => {
                 : "text-black "
             }
           >
-            <Link to={record.url} className="underline-none" color="inherit">
+            <Link
+              to={`/${record.url}`}
+              className="underline-none"
+              color="inherit"
+            >
               {record.createAt}
               {record.message}
             </Link>
