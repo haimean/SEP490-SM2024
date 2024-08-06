@@ -20,7 +20,10 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import LoginModal from "../../auth/LoginModal";
+import haversine from "haversine";
+import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
+  // console.log("🚀 ========= activity:", activity);
   const acceptCount = activity?.post?.invitation?.filter(
     (invite) => invite?.status === "ACCEPT"
   ).length;
@@ -94,6 +97,9 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
     });
   };
   const [detail, setDetail] = useState(false);
+  const [error, setError] = useState(null);
+  const [location, setLocation] = useState(null);
+
   const detailUser = async () => {
     try {
       const result = await CallApi(
@@ -123,6 +129,41 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
     // Ghép ngày, tháng, và năm thành chuỗi định dạng "dd/MM/yyyy"
     return `${day}/${month}/${year}`;
   };
+  const distance = haversine(
+    {
+      latitude:
+        activity?.Court?.Branches?.address?.latitude || "21.013393218627524",
+      longitude:
+        activity?.Court?.Branches?.address?.longitude || "105.52526950492785",
+    },
+    {
+      latitude: location?.latitude || "21.013393218627524",
+      longitude: location?.longitude || "105.52526950492785",
+    }
+  );
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            latitude: position?.coords?.latitude,
+            longitude: position?.coords?.longitude,
+          });
+        },
+        (error) => {
+          setError(error.message);
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by this browser.");
+    }
+  };
+  useEffect(() => {
+    getLocation();
+  }, []);
+
+  // Hiển thị kết quả
+  console.log(`Khoảng cách giữa hai điểm là ${distance.toFixed(2)} km`);
   return (
     <Card>
       <CardMedia
@@ -137,12 +178,16 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
             Trận đấu của: {activity?.bookingInfo?.name}
           </Typography>
         </Tooltip>
+        <Stack direction="row" alignItems="center" spacing={1} className="my-1">
+          <DirectionsRunIcon className="text-red-600" />
+          <Typography>Vị trí cách bạn {distance.toFixed(2)} km</Typography>
+        </Stack>
         <Tooltip title={activity?.Court?.Branches?.address?.detail}>
           <Stack
             direction="row"
             alignItems="center"
             spacing={1}
-            className="truncate"
+            className="truncate mb-1"
           >
             <LocationOnOutlinedIcon className="text-red-600" />
             <Typography>
@@ -150,28 +195,28 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
             </Typography>
           </Stack>
         </Tooltip>
-        <Stack direction="row" alignItems="center" spacing={1}>
+        <Stack direction="row" alignItems="center" spacing={1} className="mb-1">
           <EventIcon className="text-red-600" />
           <Typography>{parseDate(activity?.startTime)}</Typography>
         </Stack>
-        <Stack direction="row" alignItems="center" spacing={1}>
+        <Stack direction="row" alignItems="center" spacing={1} className="mb-1">
           <AccessTimeIcon className="text-red-600" />
           <Typography>
             {formattedStartTime} - {formattedEndTime}
           </Typography>
         </Stack>
-        <Stack direction="row" alignItems="center" spacing={1}>
+        <Stack direction="row" alignItems="center" spacing={1} className="mb-1">
           <PaidOutlinedIcon className="text-red-600" />
           <Typography>{formattedPrice}</Typography>
         </Stack>
-        <Stack direction="row" alignItems="center" spacing={1}>
+        <Stack direction="row" alignItems="center" spacing={1} className="mb-1">
           <PersonIcon className="text-red-600" />
           <Typography>
             Tuyển {activity?.post?.numberMember} người (Hiện có: {acceptCount}/
             {activity?.post?.numberMember})
           </Typography>
         </Stack>
-        <div className="space-x-4 flex justify-center">
+        <div className="space-x-4 flex justify-center mt-2">
           <Button
             variant="contained"
             className="bg-blue-500 hover:bg-blue-700 text-white rounded"

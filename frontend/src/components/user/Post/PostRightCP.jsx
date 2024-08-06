@@ -25,6 +25,7 @@ import LoginModal from "../../auth/LoginModal.jsx";
 const PostRightCP = ({ user, post, postId }) => {
   const [accountId, setAccountId] = useState(null);
   const [listJoin, setListJoin] = useState([]);
+  console.log("🚀 ========= listJoin:", listJoin);
   const [openWaitingList, setOpenWaitingList] = useState(false);
   const [openRequestList, setOpenRequestList] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
@@ -251,7 +252,8 @@ const PostRightCP = ({ user, post, postId }) => {
                     disabled={
                       listJoin?.length == post?.numberMember ||
                       detail?.status == "ACCEPT" ||
-                      detail?.status == "NEW"
+                      detail?.status == "NEW" ||
+                      detail?.status == "CANCEL"
                     }
                   >
                     {detail?.status == "ACCEPT"
@@ -260,6 +262,8 @@ const PostRightCP = ({ user, post, postId }) => {
                       ? "Sẫn đã đủ người"
                       : detail?.status == "NEW"
                       ? "Đã yêu cầu tham gia trận đấu"
+                      : detail?.status == "CANCEL"
+                      ? "Bạn bị từ chối"
                       : "Gửi lời mời tham gia"}
                   </Button>
                 )}

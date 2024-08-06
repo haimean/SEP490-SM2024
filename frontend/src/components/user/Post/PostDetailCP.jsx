@@ -38,6 +38,7 @@ const PostDetailCP = ({ post, postId }) => {
   const formattedEndTime = FormatTime(post?.booking?.endTime);
   const date = `${formattedStartTime} - ${formattedEndTime}`;
   const address = post?.booking?.Court?.Branches?.address;
+  console.log("🚀 ========= address:", address);
 
   const renderInfoItem = (Icon, text) => (
     <Box display="flex" alignItems="center" mb={1}>
