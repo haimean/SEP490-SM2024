@@ -4,7 +4,6 @@ import Notification from "../Notification.jsx";
 const NavbarItemUser = () => {
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
-      <Notification />
       <Button
         color="inherit"
         component={Link}
@@ -45,7 +44,8 @@ const NavbarItemUser = () => {
       >
         Lịch sử đặt sân
       </Button>
-    </Box>
+      <Notification />
+      </Box>
   );
 };
 
