@@ -14,7 +14,6 @@ const NavbarItemHost = () => {
 
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
-      <Notification />
       <Button
         color="inherit"
         component={Link}
@@ -65,6 +64,7 @@ const NavbarItemHost = () => {
       >
         Thống kê
       </Button>
+      <Notification />
     </Box>
   );
 };

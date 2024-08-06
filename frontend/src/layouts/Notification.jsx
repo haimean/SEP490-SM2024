@@ -125,7 +125,7 @@ const Notification = () => {
         color="warning"
         badgeContent={seenNumber}
         classes="h-3"
-        className="mr-3"
+        className="mx-2"
       >
         <NotificationsIcon />
       </Badge>

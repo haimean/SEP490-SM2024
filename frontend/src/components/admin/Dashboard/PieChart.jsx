@@ -1,34 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Doughnut } from "react-chartjs-2";
-import { Chart, ArcElement } from "chart.js";
 import CallApi from "../../../service/CallAPI";
-Chart.register(ArcElement);
+import { PieChart } from "@mui/x-charts";
 
-const PieChart = React.memo(() => {
+const PieChartAdmin = React.memo(() => {
   const [dataAccount, setDataAccount] = useState({});
-  const labels = ["Admin", "Host", "Player"];
-  const data = {
-    labels: labels,
-    datasets: [
-      {
-        label: "Số lượng",
-        backgroundColor: [
-          "rgb(255, 99, 132)",
-          "rgb(54, 162, 235)",
-          "rgb(255, 206, 86)",
-        ],
-        // Use a lighter border color for a subtle effect
-        borderColor: "rgba(0,0,255,0.2)",
-        // Set a thinner border width
-        borderWidth: 1,
-        data: [
-          dataAccount?.totalAdmin || 0,
-          dataAccount?.totalHost || 0,
-          dataAccount?.totalPlayer || 0,
-        ],
-      },
-    ],
-  };
   const getDataAccount = async () => {
     try {
       const result = await CallApi("/api/admin/account/get-all", "get");
@@ -43,10 +18,26 @@ const PieChart = React.memo(() => {
   }, []);
   return (
     <div>
-      <Doughnut data={data} />
+      <PieChart
+        series={[
+          {
+            data: [
+              { id: 0, value: dataAccount?.totalHost || 0, label: "Chủ sân" },
+              {
+                id: 1,
+                value: dataAccount?.totalPlayer || 0,
+                label: "Người chơi",
+              },
+            ],
+            innerRadius: 30,
+          },
+        ]}
+        width={400}
+        height={250}
+      />
     </div>
   );
 });
-PieChart.displayName = "PieChart";
+PieChartAdmin.displayName = "PieChart";
 
-export default PieChart;
+export default PieChartAdmin;

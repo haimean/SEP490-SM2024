@@ -3,7 +3,6 @@ import { Container, Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import BranchFilter from '../../../components/user/Branch/BranchFilter';
 import BranchCard from '../../../components/user/Branch/BranchCard';
-// import testImg from "D:/1_2024-05-SEM9/DOAN/scl.jpg"
 import { toast } from 'react-toastify';
 import CallApi from '../../../service/CallAPI';
 
@@ -31,7 +30,6 @@ const BranchListPage = () => {
         {}
       );
       setBranches(response?.data);
-      console.log(response);
     } catch (error) {
       toast.error(error.response?.data?.error);
     }

@@ -2,7 +2,7 @@ import { BarChart } from "@mui/x-charts/BarChart";
 import CallApi from "../../../service/CallAPI";
 import { useEffect, useState } from "react";
 
-export default function BarChartForAccountAdmin() {
+export default function BarChartForBookingAndPostAdmin() {
   const [seriesData, setSeriesData] = useState({
     series: [],
     labels: [],
@@ -11,7 +11,7 @@ export default function BarChartForAccountAdmin() {
   const getData = async () => {
     try {
       const result = await CallApi(
-        "/api/admin/account/get-all-account-12-month-latest",
+        "/api/admin/booking/get-all-booking-and-post-12-month-latest",
         "get"
       );
       console.log("🚀 ========= result:", result);
@@ -22,14 +22,14 @@ export default function BarChartForAccountAdmin() {
   };
 
   const processData = (data) => {
-    const hostData = data.map((item) => item.host);
-    const playerData = data.map((item) => item.player);
+    const booking = data.map((item) => item.booking);
+    const post = data.map((item) => item.post);
     const labels = data.map((item) => item.label);
 
     setSeriesData({
       series: [
-        { data: hostData, label: "Chủ cơ sở" },
-        { data: playerData, label: "Người chơi" },
+        { data: booking, label: "Đặt sân" },
+        { data: post, label: "Bài post" },
       ],
       labels: labels,
     });

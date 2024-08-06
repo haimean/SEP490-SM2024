@@ -81,7 +81,7 @@ const CreateBlog = ({ open, onClose, onBlogCreated }) => {
           }}
         >
           <Typography variant="h6" component="h6">
-            Tạo bài viết
+            Tạo bài đăng trạng thái
           </Typography>
           <IconButton
             onClick={handleCancel}
@@ -140,7 +140,15 @@ const CreateBlog = ({ open, onClose, onBlogCreated }) => {
                 accept="image/*"
                 id="image-upload"
                 style={{ display: "none" }}
-                onChange={handleImageChange}
+                onChange={(event) => {
+                  const file = event.target.files[0];
+                  if (file && file.size <= 1024 * 1024) {
+                    handleImageChange(event);
+                  } else {
+                    alert("Kích thước ảnh phải nhỏ hơn hoặc bằng 1MB.");
+                    event.target.value = null;
+                  }
+                }}
               />
               <label htmlFor="image-upload">
                 <Button variant="text" component="span">

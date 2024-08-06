@@ -142,6 +142,24 @@ const accountService = {
     });
     return result;
   },
+  getListAccountWithDate: async (
+    dateFilter: Date,
+    role: 'USER' | 'HOST'
+  ) => {
+    const year = dateFilter.getFullYear();
+    const month = dateFilter.getMonth();
+    const date = dateFilter.getDay();
+    const result = await database.account.findMany({
+      where: {
+        role: role,
+        createdAt: {
+          gte: new Date(year, month, date < 7 ? 1 : date - 7),
+          lt: new Date(year, month, date),
+        },
+      },
+    });
+    return result;
+  },
 };
 
 export default accountService;

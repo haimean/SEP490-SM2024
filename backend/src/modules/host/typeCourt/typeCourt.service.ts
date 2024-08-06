@@ -97,7 +97,11 @@ const typeCourtHostService = {
         id,
       },
       include: {
-        attributeCourt: true,
+        attributeCourt: {
+          include: {
+            attributeKeyCourt: true,
+          }
+        },
         priceTypeCourt: true,
       },
     });
