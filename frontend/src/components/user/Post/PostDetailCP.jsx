@@ -6,6 +6,7 @@ import {
   CardContent,
   Grid,
   Button,
+  Link,
 } from "@mui/material";
 import {
   LocationOn,
@@ -36,6 +37,7 @@ const PostDetailCP = ({ post, postId }) => {
   const formattedStartTime = FormatTime(post?.booking?.startTime);
   const formattedEndTime = FormatTime(post?.booking?.endTime);
   const date = `${formattedStartTime} - ${formattedEndTime}`;
+  const address = post?.booking?.Court?.Branches?.address;
 
   const renderInfoItem = (Icon, text) => (
     <Box display="flex" alignItems="center" mb={1}>
@@ -102,9 +104,16 @@ const PostDetailCP = ({ post, postId }) => {
               mb={2}
             >
               <Typography variant="h6">Bản đồ</Typography>
-              <Button variant="outlined" startIcon={<LocationOn />}>
-                Xem vị trí
-              </Button>
+              <Link
+                href={`https://www.google.com/maps?q=${address?.latitude},${address?.longitude}&ll=${address?.latitude},${address?.longitude}&z=17`}
+                variant="body2"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button variant="outlined" startIcon={<LocationOn />}>
+                  Xem vị trí
+                </Button>
+              </Link>
             </Box>
             {/* <Typography variant="body2" color="text.secondary">
                 {location}
@@ -116,7 +125,11 @@ const PostDetailCP = ({ post, postId }) => {
                 backgroundColor: "#f0f0f0",
               }}
             >
-              <Map />
+              <Map
+                lat={address?.latitude}
+                lng={address?.longitude}
+                address={address?.detail}
+              />
             </Box>
           </CardContent>
         </Card>
