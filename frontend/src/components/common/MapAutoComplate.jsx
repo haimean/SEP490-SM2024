@@ -67,6 +67,7 @@ const MapComponent = ({ onSubmit }) => {
                 longitude: newPosition[1],
               });
               onSubmit({
+                addressDetail: results[0].label,
                 address: response.data.address,
                 latitude: newPosition[0],
                 longitude: newPosition[1],
