@@ -2,15 +2,20 @@ import { useRef } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
 /* eslint-disable react/prop-types */
-export default function Map({ lat = 21.0285, lng = 105.8542, address = "" }) {
+export default function Map({
+  lat = 21.0285,
+  lng = 105.8542,
+  address = "",
+  height = "55vh",
+  width = "100%",
+}) {
   const position = useRef([lat, lng]);
-  console.log("🚀 ========= position:", position);
 
   return (
     <MapContainer
       center={position.current}
       zoom={20}
-      style={{ height: "55vh", width: "100%" }}
+      style={{ height: height, width: width }}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
