@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useMemo, useCallback } from "react";
-import { Box, Typography, Button, Grid } from "@mui/material";
+import { useEffect, useState, useMemo, useCallback } from "react";
+import { Box, Typography, Button, Grid, Card } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowBack } from "@mui/icons-material";
@@ -24,7 +24,7 @@ import PaymentCreateBranch from "../../../components/host/Branch/PaymentCreateBr
 import axios from "axios";
 import TelCp from "../../../components/host/FormInput/TelCp";
 import EmailCp from "../../../components/host/FormInput/EmailCp";
-
+import EditorInput from "../../../components/host/FormInput/Editor";
 const CreateBranch = () => {
   const navigate = useNavigate();
   const {
@@ -43,6 +43,7 @@ const CreateBranch = () => {
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
   const [mapData, setMapData] = useState();
+  console.log("🚀 ========= mapData:", mapData);
   useEffect(() => {
     fetchBranchAtbList();
   }, []);
@@ -179,10 +180,13 @@ const CreateBranch = () => {
     formData.append("closingHours", dayjs(data?.closingHours).format("HH:mm"));
     formData.append("longitude", mapData?.longitude || "107.09848786676099");
     formData.append("latitude", mapData?.latitude || "20.962297338909874");
-    formData.append("provinces", data?.provinces?.name || "");
-    formData.append("districts", data?.districts?.name || "");
-    formData.append("wards", data?.wards?.name || "");
-    formData.append("detail", data?.detail);
+    formData.append("provinces", mapData?.address?.city || "");
+    formData.append(
+      "districts",
+      mapData?.address?.city_district.replace("Huyện ", "") || ""
+    );
+    formData.append("wards", mapData?.address.suburb || "");
+    formData.append("detail", mapData?.addressDetail || "");
     formData.append("email", data?.email);
     Object.keys(data?.attributeBranches || {}).forEach((key) => {
       const value = data.attributeBranches[key];
@@ -203,11 +207,9 @@ const CreateBranch = () => {
     try {
       await CallApi("/api/host/branches", "post", formData);
       navigate("/host/list-branch");
-      toast.success(`Tạo chi nhánh ${data?.branchName} thành công!`);
+      toast.success(`Tạo cơ sở ${data?.branchName} thành công!`);
     } catch (error) {
-      toast.error(
-        error.response?.data?.error || "Có lỗi xảy ra khi tạo chi nhánh"
-      );
+      toast.error(error.response?.data?.error || "Có lỗi xảy ra khi tạo cơ sở");
     }
   };
 
@@ -216,7 +218,7 @@ const CreateBranch = () => {
       const response = await CallApi(`/api/host/attribute-branches`, "get");
       setBranchAtbList(response?.data);
     } catch (error) {
-      console.error("Lỗi khi lấy danh sách thuộc tính chi nhánh:", error);
+      console.error("Lỗi khi lấy danh sách thuộc tính cơ sở:", error);
     }
   };
 
@@ -303,158 +305,147 @@ const CreateBranch = () => {
         );
       case "timepicker":
         return <TimePickerCp field={field} control={control} errors={errors} />;
+      case "map":
+        return (
+          <MapComponent
+            onSubmit={(data) => {
+              setMapData(data);
+              console.log(data);
+            }}
+          />
+        );
+      case "editor":
+        return <EditorInput field={field} control={control} errors={errors} />;
       default:
         return null;
     }
   };
 
-  const formConfig = useMemo(
-    () => [
-      {
-        name: "branchInfo",
-        label: "Thông tin chi nhánh",
-        type: "section",
-        required: true,
-      },
-      {
-        name: "image",
-        type: "image",
-        label: "Ảnh cơ sở",
-        required: true,
-        gridWidth: 12,
-      },
-      {
-        name: "branchName",
-        label: "Tên chi nhánh",
-        type: "text",
-        required: true,
-        gridWidth: 12,
-      },
-      {
-        name: "description",
-        label: "Mô tả",
-        type: "text",
-        required: true,
-        gridWidth: 12,
-      },
-      {
-        name: "branchLocation",
-        label: "Địa chỉ chi nhánh",
-        type: "section",
-        required: true,
-      },
-      {
-        name: "detail",
-        label: "Địa chỉ",
-        type: "text",
-        required: true,
-        gridWidth: 12,
-      },
-      {
-        name: "provinces",
-        label: "Tỉnh",
-        type: "province-select",
-        required: true,
-        onProvinceChange: (value) => {
-          setValue("districts", "");
-          setValue("wards", "");
-          fetchDistricts(value);
-        },
-        provinces: provinces,
-        gridWidth: 4,
-      },
-      {
-        name: "districts",
-        label: "Huyện",
-        type: "district-select",
-        required: true,
-        provinceId: getValues().provinces?.id,
-        onDistrictChange: (value) => {
-          setValue("wards", "");
-          fetchWards(value);
-        },
-        districts: districts,
-        gridWidth: 4,
-      },
-      {
-        name: "wards",
-        label: "Xã",
-        type: "ward-select",
-        required: true,
-        districtId: getValues().districts?.id,
-        wards: wards,
-        gridWidth: 4,
-      },
-      {
-        name: "branchContact",
-        label: "Thông tin liên hệ chi nhánh",
-        type: "section",
-        required: true,
-      },
-      {
-        name: "managerName",
-        label: "Tên quản lý chi nhánh",
-        type: "text",
-        required: true,
-        gridWidth: 12,
-      },
-      {
-        name: "phone",
-        label: "Số điện thoại liên hệ",
-        type: "tel",
-        required: true,
-        gridWidth: 6,
-      },
-      {
-        name: "email",
-        label: "Địa chỉ email liên hệ",
-        type: "email",
-        required: true,
-        gridWidth: 6,
-      },
-      {
-        name: "branchWork",
-        label: "Thông tin hoạt động",
-        type: "section",
-        required: true,
-      },
-
-      {
-        name: "openingHours",
-        label: "Giờ mở cửa",
-        type: "timepicker",
-        required: true,
-        gridWidth: 6,
-      },
-      {
-        name: "closingHours",
-        label: "Giờ đóng cửa",
-        type: "timepicker",
-        required: true,
-        gridWidth: 6,
-      },
-      ...serviceOptions,
-      {
-        name: "legalInfo",
-        label: "Giấy phép kinh doanh",
-        type: "section",
-        required: true,
-      },
-      {
-        name: "businessLicensePicture",
-        type: "image",
-        label: "Ảnh giấy phép kinh doanh",
-        required: true,
-        gridWidth: 12,
-      },
-    ],
-    [serviceOptions, getValues, setValue]
-  );
-
+  //avt, thông tin liên hê
+  const avt = {
+    name: "image",
+    type: "image",
+    label: "Ảnh cơ sở",
+    required: true,
+    gridWidth: 12,
+  };
+  const branchName = {
+    name: "branchName",
+    label: "Tên cơ sở",
+    type: "text",
+    required: true,
+    gridWidth: 12,
+  };
+  const description = {
+    name: "description",
+    label: "Mô tả",
+    type: "editor",
+    required: true,
+    gridWidth: 12,
+  };
+  const descriptionTitle = {
+    name: "descriptionTitle",
+    label: "Mô tả thêm",
+    type: "section",
+    required: true,
+    gridWidth: 12,
+  };
+  const contactInfo = [
+    {
+      name: "branchContact",
+      label: "Thông tin liên hệ cơ sở",
+      type: "section",
+      required: true,
+    },
+    {
+      name: "managerName",
+      label: "Tên quản lý cơ sở",
+      type: "text",
+      required: true,
+      gridWidth: 12,
+    },
+    {
+      name: "phone",
+      label: "Số điện thoại liên hệ",
+      type: "tel",
+      required: true,
+      gridWidth: 6,
+    },
+    {
+      name: "email",
+      label: "Địa chỉ email liên hệ",
+      type: "email",
+      required: true,
+      gridWidth: 6,
+    },
+  ];
+  const activityInfo = [
+    {
+      name: "branchWork",
+      label: "Giờ hoạt động",
+      type: "section",
+      required: true,
+    },
+    {
+      name: "openingHours",
+      label: "Giờ mở cửa",
+      type: "timepicker",
+      required: true,
+      gridWidth: 6,
+    },
+    {
+      name: "closingHours",
+      label: "Giờ đóng cửa",
+      type: "timepicker",
+      required: true,
+      gridWidth: 6,
+    },
+  ];
+  //giấy phép kinh doanh
+  const businessLicense = [
+    {
+      name: "legalInfo",
+      label: "Giấy phép kinh doanh",
+      type: "section",
+      required: true,
+    },
+    {
+      name: "businessLicensePicture",
+      type: "image",
+      label: "Ảnh giấy phép kinh doanh",
+      required: true,
+      gridWidth: 12,
+    },
+  ];
+  //Địa chỉ
+  const branchAddress = [
+    {
+      name: "branchLocation",
+      label: "Địa chỉ cơ sở",
+      type: "section",
+      required: true,
+    },
+    {
+      name: "map",
+      label: "Map",
+      type: "map",
+      required: true,
+      gridWidth: 12,
+    },
+  ];
+  //Thông tin thêm
+  const additionInfo = [
+    {
+      name: "additionInfo",
+      label: "Thông tin thêm",
+      type: "section",
+      required: true,
+    },
+    ...serviceOptions,
+  ];
   const handleCancel = () => {
     reset();
   };
-
   return (
     <Box
       sx={{
@@ -484,18 +475,174 @@ const CreateBranch = () => {
           <ArrowBack fontSize="small" sx={{ mr: 0.5 }} />
           <Typography variant="h6">QUAY LẠI</Typography>
         </Box>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid container spacing={2}>
-            {formConfig.map((field) => (
+        <Typography variant="h4" component="h3" className="text-center">
+          Tạo cơ sở mới
+        </Typography>
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
+          <Grid container spacing={2} alignItems={"center"}>
+            <Grid item xs={6} justifyContent={"center"}>
               <Grid
                 item
                 sm={12}
-                md={field.type === "section" ? 12 : field.gridWidth || 6}
-                key={`${field.name}-${JSON.stringify(field.options)}`}
+                md={12}
+                key={`${avt.name}-${JSON.stringify(avt.options)}`}
               >
-                {renderField(field)}
+                {renderField(avt)}
               </Grid>
-            ))}
+            </Grid>
+            <Grid container item xs={6} spacing={2}>
+              <Grid
+                item
+                sm={12}
+                md={12}
+                key={`${branchName.name}-${JSON.stringify(branchName.options)}`}
+              >
+                {renderField(branchName)}
+              </Grid>
+              <Grid item>
+                <Card variant="outlined" className="w-full p-3 pt-0">
+                  <Grid
+                    container
+                    item
+                    sm={12}
+                    md={12}
+                    spacing={2}
+                    className="p-2"
+                  >
+                    {contactInfo.map((contact) => (
+                      <Grid
+                        container
+                        item
+                        sm={12}
+                        md={12}
+                        key={`${contact.name}-${JSON.stringify(
+                          contact.options
+                        )}`}
+                      >
+                        {renderField(contact)}
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Card>
+              </Grid>
+              <Grid item>
+                <Card variant="outlined" className="w-full p-3 pt-0">
+                  <Grid
+                    container
+                    item
+                    sm={12}
+                    md={12}
+                    spacing={2}
+                    className="p-2"
+                  >
+                    {activityInfo.map((activity) =>
+                      activity.name == "branchWork" ? (
+                        <Grid
+                          container
+                          item
+                          sm={12}
+                          md={12}
+                          key={`${activity.name}-${JSON.stringify(
+                            activity.options
+                          )}`}
+                        >
+                          {renderField(activity)}
+                        </Grid>
+                      ) : (
+                        <Grid
+                          container
+                          item
+                          sm={6}
+                          md={6}
+                          key={`${activity.name}-${JSON.stringify(
+                            activity.options
+                          )}`}
+                        >
+                          {renderField(activity)}
+                        </Grid>
+                      )
+                    )}
+                  </Grid>
+                </Card>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item container>
+            <Grid item sm={6} md={6} container>
+              {businessLicense.map((business) => (
+                <Grid
+                  container
+                  item
+                  sm={12}
+                  md={12}
+                  key={`${business.name}-${JSON.stringify(business.options)}`}
+                >
+                  {renderField(business)}
+                </Grid>
+              ))}
+            </Grid>
+            <Grid item sm={6} md={6} container>
+              {branchAddress.map((business) => (
+                <Grid
+                  container
+                  item
+                  sm={12}
+                  md={12}
+                  key={`${business.name}-${JSON.stringify(business.options)}`}
+                >
+                  {renderField(business)}
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+          <Grid item container>
+            <Grid item sm={12} md={12} container spacing={2}>
+              {additionInfo.map((business) =>
+                business.name == "additionInfo" ? (
+                  <Grid
+                    container
+                    item
+                    sm={12}
+                    md={12}
+                    key={`${business.name}-${JSON.stringify(business.options)}`}
+                  >
+                    {renderField(business)}
+                  </Grid>
+                ) : (
+                  <Grid
+                    container
+                    item
+                    sm={4}
+                    md={4}
+                    key={`${business.name}-${JSON.stringify(business.options)}`}
+                  >
+                    {renderField(business)}
+                  </Grid>
+                )
+              )}
+            </Grid>
+          </Grid>
+          <Grid item container spacing={2}>
+            <Grid
+              container
+              item
+              sm={12}
+              md={12}
+              key={`${descriptionTitle.name}-${JSON.stringify(
+                descriptionTitle.options
+              )}`}
+            >
+              {renderField(descriptionTitle)}
+            </Grid>
+            <Grid
+              container
+              item
+              sm={12}
+              md={12}
+              key={`${description.name}-${JSON.stringify(description.options)}`}
+            >
+              {renderField(description)}
+            </Grid>
           </Grid>
           <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end" }}>
             <Button
@@ -518,12 +665,6 @@ const CreateBranch = () => {
           onConfirmPayment={handleConfirmPayment}
         />
       </Box>
-      <MapComponent
-        onSubmit={(data) => {
-          setMapData(data);
-          console.log(data);
-        }}
-      />
     </Box>
   );
 };

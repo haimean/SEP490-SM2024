@@ -62,6 +62,9 @@ const bookingGuestService = {
           include: {
             memberPost: true,
             invitation: {
+              where: {
+                status: 'ACCEPT',
+              },
               include: {
                 userAvailability: true,
               },
@@ -82,6 +85,16 @@ const bookingGuestService = {
             },
             TypeCourt: true,
           },
+        },
+      },
+    });
+  },
+  getInvitation: async (accountId: number, postId: number) => {
+    return await database.invitation.findMany({
+      where: {
+        postId,
+        userAvailability: {
+          accountId,
         },
       },
     });

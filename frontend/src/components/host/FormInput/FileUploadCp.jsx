@@ -10,7 +10,14 @@ const FileUploadCp = ({ field, control, errors }) => (
     defaultValue={field.defaultValue || ""}
     rules={{ required: field.required }}
     render={({ field: { onChange, value } }) => (
-      <Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         {value ? (
           <Box
             sx={{
@@ -18,7 +25,7 @@ const FileUploadCp = ({ field, control, errors }) => (
               borderRadius: "4px",
               padding: "10px",
               position: "relative",
-              width: "200px",
+              width: "400px",
             }}
           >
             <img
@@ -54,8 +61,10 @@ const FileUploadCp = ({ field, control, errors }) => (
               padding: "20px",
               textAlign: "center",
               cursor: "pointer",
-              width: "200px",
-              height: "200px",
+              width: "500px",
+              height: "500px",
+              minWidth: "100px",
+              minHeight: "100px",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",

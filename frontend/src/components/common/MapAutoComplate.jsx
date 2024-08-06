@@ -67,6 +67,7 @@ const MapComponent = ({ onSubmit }) => {
                 longitude: newPosition[1],
               });
               onSubmit({
+                addressDetail: results[0].label,
                 address: response.data.address,
                 latitude: newPosition[0],
                 longitude: newPosition[1],
@@ -134,7 +135,7 @@ const MapComponent = ({ onSubmit }) => {
           <Popup>{address}</Popup>
         </Marker>
       </MapContainer>
-      <div style={{ marginTop: "10px" }}>
+      {/* <div style={{ marginTop: "10px" }}>
         <h3>Location Details</h3>
         <p>
           <strong>Latitude:</strong> {details.latitude}
@@ -145,7 +146,7 @@ const MapComponent = ({ onSubmit }) => {
         <p>
           <strong>Address:</strong> {JSON.stringify(details?.address)}
         </p>
-      </div>
+      </div> */}
     </Box>
   );
 };

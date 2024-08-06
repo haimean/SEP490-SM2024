@@ -13,6 +13,18 @@ const postController = {
       next(new CustomError(error?.message, 500));
     }
   },
+  getTopThree: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const result = await postService.getTopThree();
+      ResponseHandler(res, result);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
 };
 
 export default postController;

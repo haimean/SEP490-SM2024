@@ -331,6 +331,7 @@ model Post {
   id           Int          @id @default(autoincrement())
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
+  title        String       @default("")
   bookingId    Int          @unique
   booking      Booking      @relation(fields: [bookingId], references: [id])
   description  String
