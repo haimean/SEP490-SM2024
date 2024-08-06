@@ -70,7 +70,7 @@ const invitationUserController = {
           accountId: Number(invitation?.Post?.booking?.accountId),
           createdAt: new Date(),
           message: `Có người muốn xin vào trận đấu của bạn`,
-          url: `post/${postId}`,
+          url: `/post/${postId}`,
           status: 'SEED',
         },
       ]);
@@ -161,7 +161,7 @@ const invitationUserController = {
                 accountId,
                 createdAt: new Date(),
                 message: `${name} đã đồng ý lời mời vào trận đấu của bạn`,
-                url: `post/${postId}`,
+                url: `/post/${postId}`,
                 status: 'SEED',
               },
             ]);
@@ -174,7 +174,7 @@ const invitationUserController = {
                 accountId,
                 createdAt: new Date(),
                 message: `${name} đã từ chối lời mời vào trận đấu của bạn`,
-                url: `post/${postId}`,
+                url: `/post/${postId}`,
                 status: 'SEED',
               },
             ]);
@@ -189,7 +189,7 @@ const invitationUserController = {
                 accountId,
                 createdAt: new Date(),
                 message: `${name} đã đồng hủy lời mời vào trận đấu của bạn với lý do: ${reasonCancel}`,
-                url: `post/${postId}`,
+                url: `/post/${postId}`,
                 status: 'SEED',
               },
             ]);
@@ -212,7 +212,7 @@ const invitationUserController = {
                 accountId,
                 createdAt: new Date(),
                 message: `${name} đã đồng ý lời xin vào trận đấu của bạn`,
-                url: `post/${postId}`,
+                url: `/post/${postId}`,
                 status: 'SEED',
               },
             ]);
@@ -226,7 +226,7 @@ const invitationUserController = {
                 accountId,
                 createdAt: new Date(),
                 message: `${name} đã từ chối lời xin vào trận đấu của bạn`,
-                url: `post/${postId}`,
+                url: `/post/${postId}`,
                 status: 'SEED',
               },
             ]);
@@ -240,7 +240,7 @@ const invitationUserController = {
                 accountId,
                 createdAt: new Date(),
                 message: `${name} đã đồng hủy lời xin vào trận đấu của bạn với lý do: ${reasonCancel}`,
-                url: `post/${postId}`,
+                url: `/post/${postId}`,
                 status: 'SEED',
               },
             ]);
