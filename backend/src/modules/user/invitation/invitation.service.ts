@@ -23,7 +23,16 @@ const invitationUserService = {
       },
     });
   },
-
+  getInvitation: async (accountId: number, postId: number) => {
+    return await database.invitation.findMany({
+      where: {
+        postId,
+        userAvailability: {
+          accountId,
+        },
+      },
+    });
+  },
   getUserAvailability: async (
     userAvailabilityId: number
   ): Promise<any> => {
