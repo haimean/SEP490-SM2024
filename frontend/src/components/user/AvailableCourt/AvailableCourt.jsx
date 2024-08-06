@@ -11,9 +11,11 @@ import LocationFilter from "./LocationFilter";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
 import { format, parseISO } from "date-fns";
+import haversine from "haversine";
 
 const AvailableCourt = () => {
   const [activities, setActivities] = useState([]);
+  console.log("🚀 ========= activitiesaaaaa:", activities);
   const [isLoading, setIsLoading] = useState(false);
   const [isSendRequest, SetIsSendRequest] = useState(false);
   const [filters, setFilters] = useState({
@@ -25,7 +27,6 @@ const AvailableCourt = () => {
     level: "",
     price: "",
   });
-
   useEffect(() => {
     fetchData();
   }, [isSendRequest]);

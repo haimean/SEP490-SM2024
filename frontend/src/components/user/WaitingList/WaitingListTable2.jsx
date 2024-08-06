@@ -132,6 +132,16 @@ export default function WaitingListTable2({ open, onClose, postId }) {
   const handleCloseModalProfile = () => {
     setIsModalProfile(false);
   };
+  const localeText = {
+    // Add other localized text as needed
+    noRowsLabel: "Không có dữ liệu",
+    footerTotalRows: "Tổng số hàng:",
+    MuiTablePagination: {
+      labelRowsPerPage: "Số hàng mỗi trang:",
+      labelDisplayedRows: ({ from, to, count }) =>
+        `${from} - ${to} trên ${count !== -1 ? count : `hơn ${to}`}`,
+    },
+  };
   return (
     <Dialog
       open={open}
@@ -157,6 +167,7 @@ export default function WaitingListTable2({ open, onClose, postId }) {
             },
           }}
           loading={isLoading}
+          localeText={localeText}
         />
       </div>
       {isModalProfile && (
