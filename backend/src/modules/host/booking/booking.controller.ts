@@ -70,7 +70,7 @@ const bookingHostController = {
           accountId: result.accountId,
           createdAt: new Date(),
           message: `Chủ sân ${result.Court.Branches?.name} đã thay đổi thông tin ca đặt của bạn`,
-          url: `/player/booking-history/${id}`,
+          url: `/post/${id}`,
           status: 'SEED',
         },
       ]);
