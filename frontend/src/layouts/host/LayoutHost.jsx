@@ -18,7 +18,7 @@ export default function LayoutHost({ children }) {
             <Sidebar />
           </div>
         </div>
-        <div className="col-span-4">{children}</div>
+        <div className="col-span-4 bg-[#fafafa]">{children}</div>
       </div>
       <Footer />
     </Box>
