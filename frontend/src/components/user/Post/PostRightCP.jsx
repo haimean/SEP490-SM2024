@@ -287,7 +287,7 @@ const PostRightCP = ({ user, post, postId }) => {
                         onClick={() => handleOpenDetail(item?.accountId)}
                         className="hover:underline hover:cursor-pointer"
                       >
-                        {item?.account?.user?.fullName}
+                        {item?.userAvailability?.account?.user?.fullName}
                       </TableCell>
                       {isOwner && (
                         <TableCell>

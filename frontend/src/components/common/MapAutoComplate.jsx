@@ -112,7 +112,7 @@ const MapComponent = ({ onSubmit }) => {
       <MapContainer
         center={position}
         zoom={20}
-        style={{ height: "80vh", width: "100%" }}
+        style={{ height: "55vh", width: "100%" }}
         whenCreated={(map) => {
           map.on("click", x);
         }}
@@ -132,7 +132,15 @@ const MapComponent = ({ onSubmit }) => {
           draggable={true}
           eventHandlers={{ dragend: handleMarkerDragEnd }}
         >
-          <Popup>{address}</Popup>
+          <Popup>
+            <a
+              href={`https://www.google.com/maps?q=${position[0]},${position[1]}&ll=${position[0]},${position[1]}&z=17`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              open google map
+            </a>
+          </Popup>
         </Marker>
       </MapContainer>
       {/* <div style={{ marginTop: "10px" }}>

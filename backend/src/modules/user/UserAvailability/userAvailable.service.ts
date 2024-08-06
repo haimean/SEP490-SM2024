@@ -193,12 +193,6 @@ const userAvailableService = {
       include: {
         userAvailability: {
           include: {
-            Invitation: {
-              where: {
-                status: 'ACCEPT',
-                postId,
-              },
-            },
             account: {
               include: {
                 user: true,
@@ -211,7 +205,7 @@ const userAvailableService = {
         updatedAt: 'desc',
       },
     });
-    return invitation.map((item: any) => item.userAvailability);
+    return invitation;
   },
   getRequestListJoin: async (accountId: number) => {
     const requestList: any = await database.invitation.findMany({
