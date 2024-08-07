@@ -123,7 +123,12 @@ const typeCourtHostService = {
         accountId,
       },
       include: {
-        attributeCourt: true,
+        attributeCourt: {
+          include: {
+            attributeKeyCourt: true,
+          }
+        },
+        priceTypeCourt: true,
       },
     });
   },

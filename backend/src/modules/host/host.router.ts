@@ -7,6 +7,7 @@ import typeCourtHostRouter from './typeCourt/typeCourt.router';
 import bookCourtHostRouter from './bookCourt/bookCourt.router';
 import bookingHostRouter from './booking/booking.router';
 import statsRouter from './stats/stats.router';
+import attributeKeyCourtHostRouter from './attributeKeyCourt/attributeKeyCourt.router';
 
 const hostRouter = Router();
 hostRouter.use('/attribute-court', attributeCourtHostRouter);
@@ -17,5 +18,6 @@ hostRouter.use('/court', courtHostRouter);
 hostRouter.use('/booking', bookCourtHostRouter);
 hostRouter.use('/history-booking', bookingHostRouter);
 hostRouter.use('/stats', statsRouter);
+hostRouter.use('/attribute-key-court', attributeKeyCourtHostRouter);
 
 export default hostRouter;
