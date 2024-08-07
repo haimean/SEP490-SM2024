@@ -153,7 +153,7 @@ const Notification = () => {
             }
           >
             <Link
-              to={`/${record.url}`}
+              to={`${record.url}`}
               className="underline-none"
               color="inherit"
             >
