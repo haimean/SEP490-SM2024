@@ -27,6 +27,9 @@ const invitationUserService = {
     return await database.invitation.findMany({
       where: {
         postId,
+        status: {
+          not: 'CANCEL',
+        },
         userAvailability: {
           accountId,
         },
