@@ -128,7 +128,7 @@ const PostRightCP = ({ user, post, postId }) => {
           postId: postId,
         }
       );
-      console.log("🚀 ========= result:", result.data);
+      console.log("🚀 ========= resultabcd:", result.data);
       setDetail(result?.data);
     } catch (error) {
       console.log("🚀 ========= error:", error);
@@ -250,7 +250,8 @@ const PostRightCP = ({ user, post, postId }) => {
                       listJoin?.length == post?.numberMember ||
                       detail?.status == "ACCEPT" ||
                       detail?.status == "NEW" ||
-                      detail?.status == "CANCEL"
+                      detail?.status == "CANCEL" ||
+                      detail?.status == "NOACCEPT"
                     }
                   >
                     {detail?.status == "ACCEPT"
@@ -260,7 +261,9 @@ const PostRightCP = ({ user, post, postId }) => {
                       : detail?.status == "NEW"
                       ? "Đã yêu cầu tham gia trận đấu"
                       : detail?.status == "CANCEL"
-                      ? "Bạn bị từ chối"
+                      ? "Bạn bị hủy trận đấu"
+                      : detail?.status == "NOACCEPT"
+                      ? "Bạn bị từ chối trận đấu"
                       : "Gửi lời mời tham gia"}
                   </Button>
                 )}
