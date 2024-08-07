@@ -72,7 +72,7 @@ const DashboardCp = () => {
               ? `${(percentage * 100).toFixed(2)} % so với tháng trước`
               : "Không có dữ liệu tháng trước"
           }
-          subTitle={`Đăng ký mới : ${totalMonthAccount}`}
+          subTitle={`Đăng ký mới : ${totalMonthAccount} trong tháng`}
         />
         <SectionDashboard
           title={"Số lượng bài post tìm trận: 28k"}
@@ -81,24 +81,24 @@ const DashboardCp = () => {
           subTitle={"Đăng ký mới : 13 (trong tháng)"}
         />
       </div>
-      <div className="mt-5">
+      <div className="mt-5 grid grid-cols-2">
         <Typography variant="h6" component="h2">
-          Biểu đồ thống kê các role
+          Biểu đồ thống kê người dùng
         </Typography>
+        <div className="flex justify-between">
+          <Typography variant="h6" component="h2">
+            5 người dùng mới nhất
+          </Typography>
+          <Link to={"/admin/list-account"}>
+            <Button>Xem thêm</Button>
+          </Link>
+        </div>
       </div>
       <div className="grid grid-cols-2 gap-4 mt-5 items-center">
         <React.Suspense fallback={<Loading />}>
           <PieChart />
         </React.Suspense>
         <div className="flex flex-col">
-          <div className="flex justify-between">
-            <Typography variant="h6" component="h2">
-              5 người dùng mới nhất
-            </Typography>
-            <Link to={"/admin/list-account"}>
-              <Button>Xem thêm</Button>
-            </Link>
-          </div>
           <TableAccount />
         </div>
       </div>
