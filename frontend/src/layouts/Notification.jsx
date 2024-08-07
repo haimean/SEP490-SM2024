@@ -107,7 +107,9 @@ const Notification = () => {
   };
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    if (records.length !== 0) {
+      setAnchorEl(event.currentTarget);
+    }
   };
   const open = Boolean(anchorEl);
   const handleClose = () => {
@@ -162,9 +164,7 @@ const Notification = () => {
             </Link>
           </ListItem>
         ))}
-        {records.length === 0 ? (
-          <div>Không có thông báo nào</div>
-        ) : (
+        {records.length !== 0 && (
           <Button onClick={deleteNotifications}>Xóa Hết</Button>
         )}
       </Popover>
