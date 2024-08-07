@@ -137,6 +137,9 @@ const userAvailableService = {
         userAvailability: {
           accountId,
         },
+        status: {
+          not: 'CANCEL',
+        },
         Post: {
           booking: {
             OR: [
