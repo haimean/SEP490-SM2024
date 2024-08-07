@@ -19,9 +19,35 @@ import {
 import Map from "../../common/Map";
 import FormatTime from "../../../utils/user/formatTime";
 import PostRightCP from "./PostRightCP";
+import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
+import haversine from "haversine";
+import { useEffect, useState } from "react";
 
 const PostDetailCP = ({ post, postId }) => {
   console.log("🚀 ========= post:", post);
+  const [location, setLocation] = useState(null);
+  const [error, setError] = useState(null);
+
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            latitude: position?.coords?.latitude,
+            longitude: position?.coords?.longitude,
+          });
+        },
+        (error) => {
+          setError(error.message);
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by this browser.");
+    }
+  };
+  useEffect(() => {
+    getLocation();
+  }, []);
   if (!post?.booking?.Court) {
     return "Không tồn tại bài này";
   }
@@ -31,7 +57,7 @@ const PostDetailCP = ({ post, postId }) => {
   // const { address } = Court.Branches;
 
   // // const location = `${address.wards}, ${address.districts}, ${address.provinces}`;\
-  // const location = address?.detail;
+  const locations = post?.booking?.Court?.Branches?.address?.detail;
 
   // const formattedDate = format(parseISO(post.booking.dateTime), "yyyy-MM-dd");
   const formattedStartTime = FormatTime(post?.booking?.startTime);
@@ -48,7 +74,20 @@ const PostDetailCP = ({ post, postId }) => {
       </Typography>
     </Box>
   );
-
+  const distance = haversine(
+    {
+      latitude:
+        post?.booking?.Court?.Branches?.address?.latitude ||
+        "21.013393218627524",
+      longitude:
+        post?.booking?.Court?.Branches?.address?.longitude ||
+        "105.52526950492785",
+    },
+    {
+      latitude: location?.latitude || "21.013393218627524",
+      longitude: location?.longitude || "105.52526950492785",
+    }
+  );
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} md={8}>
@@ -67,12 +106,17 @@ const PostDetailCP = ({ post, postId }) => {
             <Typography variant="h4" gutterBottom>
               {Court?.name}
             </Typography>
-            {/* {renderInfoItem(LocationOn, location)} */}
+            {renderInfoItem(LocationOn, locations)}
             {renderInfoItem(CalendarToday, date)}
             {renderInfoItem(
               Group,
-              `Cần tuyển ${post?.numberMember} ${post?.memberPost[0]?.genderPost}` ||
-                "Không có thông tin"
+              `Cần tuyển ${post?.numberMember} ${
+                post?.memberPost[0]?.genderPost == "MALE"
+                  ? "nam"
+                  : post?.memberPost[0]?.genderPost == "FEMALE"
+                  ? "nữ"
+                  : "giới tính khác"
+              }` || "Không có thông tin"
             )}
             {renderInfoItem(
               School,
@@ -80,7 +124,12 @@ const PostDetailCP = ({ post, postId }) => {
             )}
             {renderInfoItem(
               AttachMoney,
-              post?.memberPost[0]?.price || "Không có thông tin"
+              `${post?.memberPost[0]?.price} đồng` || "Không có thông tin"
+            )}
+            {renderInfoItem(
+              DirectionsRunIcon,
+              `Vị trí cách bạn ${distance.toFixed(2)} km` ||
+                "Không có thông tin"
             )}
           </CardContent>
         </Card>
