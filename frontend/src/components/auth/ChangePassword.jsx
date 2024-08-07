@@ -3,7 +3,7 @@ import InputLabel from "../common/InputLabel.jsx";
 import CallApi from "../../service/CallAPI.jsx";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { Modal } from "@mui/material";
+import { Button, Modal } from "@mui/material";
 
 // eslint-disable-next-line react/prop-types
 const ChangePassword = ({ open, handleClose }) => {
@@ -11,6 +11,7 @@ const ChangePassword = ({ open, handleClose }) => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
   const navigate = useNavigate();
 
@@ -23,7 +24,8 @@ const ChangePassword = ({ open, handleClose }) => {
     try {
       await changePassword({ oldPassword, newPassword });
       toast.success("Password changed successfully!");
-      navigate("/profile");
+      reset();
+      handleClose();
     } catch (error) {
       toast.error(error.response?.data?.error);
     }
@@ -47,6 +49,12 @@ const ChangePassword = ({ open, handleClose }) => {
             label="Mật khẩu hiện tại"
             id="oldPassword"
             register={register}
+            pattern={{
+              value:
+                /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/,
+              message:
+                "Mật khẩu ít nhất phải chứa một chữ hoa, một chữ thường, một số và một ký tự đặc biệt",
+            }}
             errors={errors}
             required={true}
             type="password"
@@ -59,7 +67,7 @@ const ChangePassword = ({ open, handleClose }) => {
               value:
                 /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/,
               message:
-                "Password must at least contains one uppercase letter, one lowercase letter, one number and one special character:",
+                "Mật khẩu ít nhất phải chứa một chữ hoa, một chữ thường, một số và một ký tự đặc biệt",
             }}
             minLength={8}
             errors={errors}
@@ -70,6 +78,12 @@ const ChangePassword = ({ open, handleClose }) => {
             label="Nhập lại mật khẩu mới"
             id="confirmNewPassword"
             register={register}
+            pattern={{
+              value:
+                /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/,
+              message:
+                "Mật khẩu ít nhất phải chứa một chữ hoa, một chữ thường, một số và một ký tự đặc biệt",
+            }}
             errors={errors}
             required={true}
             type="password"
@@ -79,12 +93,13 @@ const ChangePassword = ({ open, handleClose }) => {
           display: none;
         }
       `}</style>
-          <button
+          <Button
+            variant="contained"
             type="submit"
-            className="mt-6 transition block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg"
+            className="mt-6 transition block py-3 px-4 w-full"
           >
-            Change Password
-          </button>
+            Cập nhật mật khẩu
+          </Button>
         </form>
       </div>
     </Modal>
