@@ -17,7 +17,6 @@ import Checkout from "../pages/player/Court/Checkout.jsx";
 import RegisterCourt from "../pages/host/Court/RegisterCourt.jsx";
 import UpdateCourt from "../pages/host/Court/UpdateCourt.jsx";
 import ComparePage from "../components/host/court/ComparePage.jsx";
-import Notification from "../pages/notification.jsx";
 import BookingHistory from "../pages/player/BookHistory/BookingHistory.jsx";
 import BookingDetail from "../components/player/BookHistory/BookingDetail.jsx";
 import ListBranch from "../pages/guest/Branch/ListBranch.jsx";
@@ -264,12 +263,6 @@ const router = [
     name: "Not Found",
     component: <NotFound />,
     role: [], // Không yêu cầu đăng nhập
-    layout: "",
-  },
-  {
-    path: "/notification",
-    name: "Notification",
-    component: <Notification />,
     layout: "",
   },
   {

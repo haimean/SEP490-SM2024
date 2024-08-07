@@ -134,7 +134,7 @@ const invitationUserController = {
   update: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { invitationId, status, reasonCancel } = req.body;
-
+      const accId = Number(req.headers.authorization);
       const invitation = await invitationUserService.update({
         invitationId,
         status,
@@ -142,7 +142,7 @@ const invitationUserController = {
       });
       const postId = invitation.Post.id;
       // người không có sân
-      if ((invitation.type = 'AVAILABLE')) {
+      if (accId === invitation.Post.booking.accountId) {
         //id người có sân
         const accountId: number =
           invitation.userAvailability.accountId;

@@ -83,7 +83,7 @@ const invitationUserService = {
       data: {
         districts:
           post?.booking.Court?.Branches?.address?.districts ?? '',
-        endTime: post?.booking.startTime as Date,
+        endTime: post?.booking.endTime as Date,
         startTime: post?.booking.startTime as Date,
         provinces:
           post?.booking.Court?.Branches?.address?.provinces ?? '',
