@@ -177,7 +177,7 @@ const DashboardHost = () => {
           <Box sx={{ display: 'flex', gap: 2, marginBottom: 4 }}>
             <Box>
               <Typography variant="h6" component="h2">
-                Thống kê tỷ lệ doanh thu/tỷ lệ sử dụng của các chi nhánh/các sân trong 1 chi nhánh
+                Thống kê tỷ lệ doanh thu các sân trong 1 chi nhánh
               </Typography>
               <TextField
                 select
@@ -196,6 +196,9 @@ const DashboardHost = () => {
               <PieChartAdmin data={usageRevenue} />
             </Box>
           </Box>
+          <Typography variant="h6">
+            Các sân trong chi nhánh:
+          </Typography>
           <Tabs value={selectedCourt} onChange={handleCourtChange} variant="scrollable" scrollButtons="auto">
             {selectedBranchData.court.map((court) => (
               <Tab key={court.id} label={court.name} value={court.id} />
