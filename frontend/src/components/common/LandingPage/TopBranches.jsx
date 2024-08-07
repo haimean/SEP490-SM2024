@@ -77,8 +77,7 @@ const TopBranches = ({ branches, role = "USER" }) => {
                       Hours: {branch?.openingHours} - {branch?.closingHours}
                     </Typography>
                     <Typography variant="body2">
-                      Address: {branch?.address.detail}, {branch?.address.wards}
-                      , {branch?.address.districts}, {branch?.address.provinces}
+                      Address: {branch?.address?.detail}
                     </Typography>
                   </CardContent>
                 </Box>
