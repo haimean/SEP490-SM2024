@@ -8,48 +8,23 @@ const month = [
   { id: 3, label: "9 tháng", value: 9 },
   { id: 4, label: "12 tháng", value: 12 },
 ];
-
+const getRecentYears = () => {
+  const currentYear = new Date().getFullYear();
+  return Array.from({ length: 5 }, (_, index) => currentYear - index);
+};
 const OptionChartPlayerFilter = ({
   optionChartPlayer,
   handleChange,
-  optionYear,
-  handleChangeYear,
+  optionMonthChange,
+  handleChangeMonthInYear,
   optionMonth,
   handleChangeMonth,
-  optionWeek,
-  handleChangeWeek,
+  optionYear,
+  handleChangeYear,
 }) => {
-  const [allSunday, setAllSunday] = useState([]);
-
-  const getAllSundaysOfYear = (year) => {
-    const sundays = [];
-    const date = new Date(year, 0, 1); // Start from January 1st
-
-    // Find the first Sunday of the year
-    while (date.getDay() !== 0) {
-      date.setDate(date.getDate() + 1);
-    }
-
-    // Add all Sundays to the array
-    while (date.getFullYear() === year) {
-      sundays.push(new Date(date));
-      date.setDate(date.getDate() + 7); // Move to the next Sunday
-    }
-    setAllSunday(sundays);
-  };
-
-  useEffect(() => {
-    getAllSundaysOfYear(optionYear);
-  }, [optionYear]);
-
-  const weekOptions = allSunday.map((date, index) => ({
-    id: index,
-    label: `${date.getDate()}-${date.getMonth() + 1}`,
-    value: date.toISOString().split("T")[0], // ISO format for easy comparison
-  }));
-
+  const recentYears = getRecentYears();
   return (
-    <Box sx={{ minWidth: 400, display: "flex", gap: 4 }}>
+    <Box sx={{ minWidth: 600, display: "flex", gap: 2 }}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Filter</InputLabel>
         <Select
@@ -59,8 +34,8 @@ const OptionChartPlayerFilter = ({
           label="chartPlayer"
           onChange={handleChange}
         >
-          <MenuItem value={"week"}>Week</MenuItem>
-          <MenuItem value={"month"}>Month</MenuItem>
+          <MenuItem value={"week"}>Theo tháng cụ thể</MenuItem>
+          <MenuItem value={"month"}>Theo tháng gộp</MenuItem>
         </Select>
       </FormControl>
       {optionChartPlayer === "week" && (
@@ -73,28 +48,36 @@ const OptionChartPlayerFilter = ({
             label="year"
             onChange={handleChangeYear}
           >
-            <MenuItem value={2022}>2022</MenuItem>
-            <MenuItem value={2023}>2023</MenuItem>
-            <MenuItem value={2024}>2024</MenuItem>
-            <MenuItem value={2025}>2025</MenuItem>
+            {recentYears.map((year) => (
+              <MenuItem key={year} value={year}>
+                {year}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       )}
       {optionChartPlayer === "week" && (
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Filter week</InputLabel>
+          <InputLabel id="demo-simple-select-label">Filter year</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={optionWeek}
-            label="week"
-            onChange={handleChangeWeek}
+            value={optionMonthChange}
+            label="year"
+            onChange={handleChangeMonthInYear}
           >
-            {weekOptions.map((item) => (
-              <MenuItem key={item.id} value={item.value}>
-                {item.label}
-              </MenuItem>
-            ))}
+            <MenuItem value={1}>Tháng 1</MenuItem>
+            <MenuItem value={2}>Tháng 2</MenuItem>
+            <MenuItem value={3}>Tháng 3</MenuItem>
+            <MenuItem value={4}>Tháng 4</MenuItem>
+            <MenuItem value={5}>Tháng 5</MenuItem>
+            <MenuItem value={6}>Tháng 6</MenuItem>
+            <MenuItem value={7}>Tháng 7</MenuItem>
+            <MenuItem value={8}>Tháng 8</MenuItem>
+            <MenuItem value={9}>Tháng 9</MenuItem>
+            <MenuItem value={10}>Tháng 10</MenuItem>
+            <MenuItem value={11}>Tháng 11</MenuItem>
+            <MenuItem value={12}>Tháng 12</MenuItem>
           </Select>
         </FormControl>
       )}
@@ -119,16 +102,4 @@ const OptionChartPlayerFilter = ({
     </Box>
   );
 };
-
-OptionChartPlayerFilter.propTypes = {
-  optionChartPlayer: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  optionYear: PropTypes.number.isRequired,
-  handleChangeYear: PropTypes.func.isRequired,
-  optionMonth: PropTypes.number.isRequired,
-  handleChangeMonth: PropTypes.func.isRequired,
-  optionWeek: PropTypes.string.isRequired,
-  handleChangeWeek: PropTypes.func.isRequired,
-};
-
 export default memo(OptionChartPlayerFilter);

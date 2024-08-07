@@ -4,6 +4,7 @@ import { PieChart } from "@mui/x-charts";
 
 const PieChartAdmin = React.memo(() => {
   const [dataAccount, setDataAccount] = useState({});
+
   const getDataAccount = async () => {
     try {
       const result = await CallApi("/api/admin/account/get-all", "get");
@@ -16,28 +17,35 @@ const PieChartAdmin = React.memo(() => {
   useEffect(() => {
     getDataAccount();
   }, []);
+
   return (
     <div>
       <PieChart
         series={[
           {
+            arcLabel: (item) => `${item.value} người`,
+            arcLabelMinAngle: 45,
             data: [
-              { id: 0, value: dataAccount?.totalHost || 0, label: "Chủ sân" },
+              {
+                id: 0,
+                value: dataAccount?.totalHost || 0,
+                label: `Chủ sân`,
+              },
               {
                 id: 1,
                 value: dataAccount?.totalPlayer || 0,
-                label: "Người chơi",
+                label: `Người chơi`,
               },
             ],
             innerRadius: 30,
           },
         ]}
-        width={400}
         height={250}
+        tooltip={false}
       />
     </div>
   );
 });
-PieChartAdmin.displayName = "PieChart";
+PieChartAdmin.displayName = "PieChartAdmin";
 
 export default PieChartAdmin;
