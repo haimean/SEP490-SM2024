@@ -17,7 +17,7 @@ export default function EditorInput({ field, control, errors }) {
           `${field.label} không thể chỉ chứa khoảng trắng`,
       }}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
-        <div>
+        <div className="w-full">
           <Editor
             className="w-full"
             onTextChange={(e) => onChange(e.htmlValue)}

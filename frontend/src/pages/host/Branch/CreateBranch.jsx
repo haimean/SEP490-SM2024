@@ -567,38 +567,10 @@ const CreateBranch = () => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item container>
+          <Grid item container spacing={2} className="w-full pt-3">
             <Grid item sm={6} md={6} container>
-              {businessLicense.map((business) => (
-                <Grid
-                  container
-                  item
-                  sm={12}
-                  md={12}
-                  key={`${business.name}-${JSON.stringify(business.options)}`}
-                >
-                  {renderField(business)}
-                </Grid>
-              ))}
-            </Grid>
-            <Grid item sm={6} md={6} container>
-              {branchAddress.map((business) => (
-                <Grid
-                  container
-                  item
-                  sm={12}
-                  md={12}
-                  key={`${business.name}-${JSON.stringify(business.options)}`}
-                >
-                  {renderField(business)}
-                </Grid>
-              ))}
-            </Grid>
-          </Grid>
-          <Grid item container>
-            <Grid item sm={12} md={12} container spacing={2}>
-              {additionInfo.map((business) =>
-                business.name == "additionInfo" ? (
+              <Card variant="outlined" className="w-full p-3 pt-1">
+                {businessLicense.map((business) => (
                   <Grid
                     container
                     item
@@ -608,19 +580,57 @@ const CreateBranch = () => {
                   >
                     {renderField(business)}
                   </Grid>
-                ) : (
+                ))}
+              </Card>
+            </Grid>
+            <Grid item sm={6} md={6} container>
+              <Card variant="outlined" className="w-full p-3 pt-0">
+                {branchAddress.map((business) => (
                   <Grid
                     container
                     item
-                    sm={4}
-                    md={4}
+                    sm={12}
+                    md={12}
                     key={`${business.name}-${JSON.stringify(business.options)}`}
                   >
                     {renderField(business)}
                   </Grid>
-                )
-              )}
+                ))}
+              </Card>
             </Grid>
+          </Grid>
+          <Grid item container className="w-full pt-3">
+            <Card variant="outlined" className="w-full p-3 pt-1">
+              <Grid item sm={12} md={12} container spacing={2}>
+                {additionInfo.map((business) =>
+                  business.name == "additionInfo" ? (
+                    <Grid
+                      container
+                      item
+                      sm={12}
+                      md={12}
+                      key={`${business.name}-${JSON.stringify(
+                        business.options
+                      )}`}
+                    >
+                      {renderField(business)}
+                    </Grid>
+                  ) : (
+                    <Grid
+                      container
+                      item
+                      sm={4}
+                      md={4}
+                      key={`${business.name}-${JSON.stringify(
+                        business.options
+                      )}`}
+                    >
+                      {renderField(business)}
+                    </Grid>
+                  )
+                )}
+              </Grid>
+            </Card>
           </Grid>
           <Grid item container spacing={2}>
             <Grid

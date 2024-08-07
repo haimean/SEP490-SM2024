@@ -104,11 +104,7 @@ const MapComponent = ({ onSubmit }) => {
 
   return (
     <Box style={{ width: "100%", padding: "10px", marginBottom: "10px" }}>
-      <input
-        type="text"
-        value={address}
-        style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
-      />
+      <p>{address}</p>
       <MapContainer
         center={position}
         zoom={20}
