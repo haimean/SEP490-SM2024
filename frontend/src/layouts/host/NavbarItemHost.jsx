@@ -17,14 +17,6 @@ const NavbarItemHost = () => {
       <Button
         color="inherit"
         component={Link}
-        to="/"
-        sx={{ textTransform: "none" }}
-      >
-        Trang chủ
-      </Button>
-      <Button
-        color="inherit"
-        component={Link}
         to="/list-blog"
         sx={{ textTransform: "none" }}
       >
@@ -64,7 +56,6 @@ const NavbarItemHost = () => {
       >
         Thống kê
       </Button>
-      <Notification />
     </Box>
   );
 };

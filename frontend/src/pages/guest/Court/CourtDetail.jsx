@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import Navbar from "../../../layouts/player/Navbar";
+import Navbar from "../../../layouts/player/NavbarUser";
 import Footer from "../../../layouts/player/Footer";
 import { useParams } from "react-router-dom";
 import CallApi from "../../../service/CallAPI";
@@ -49,7 +49,7 @@ export default function CourtDetail() {
   const [reload, setReload] = React.useState(0);
   const { idBranch } = useParams();
 
-  const userRole = localStorage.getItem('userRole') || "";
+  const userRole = localStorage.getItem("userRole") || "";
   console.log(userRole);
   const handleChange = (event, newValue) => {
     setValue(newValue);

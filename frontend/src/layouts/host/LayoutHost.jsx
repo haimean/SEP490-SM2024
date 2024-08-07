@@ -1,7 +1,8 @@
-import Navbar from "../../layouts/player/Navbar";
+import Navbar from "../player/NavbarUser";
 import Sidebar from "./Sidebar";
 import Footer from "../player/Footer";
 import { Box } from "@mui/material";
+import NavbarHost from "./NavbarHost";
 export default function LayoutHost({ children }) {
   return (
     <Box
@@ -11,7 +12,7 @@ export default function LayoutHost({ children }) {
         minHeight: "100vh",
       }}
     >
-      <Navbar />
+      <NavbarHost />
       <div className="grid grid-cols-5 mb-5">
         <div>
           <div className="">

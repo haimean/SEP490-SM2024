@@ -7,17 +7,16 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import { Button } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../../middleware/redux/userSlice.jsx";
-import AccountPopover from "../admin/dashboard/common/account-popover";
-import LoginModal from "../../components/auth/LoginModal";
-import NavbarItemUser from "./NavbarItemUser.jsx";
+import AccountPopover from "../admin/dashboard/common/account-popover.jsx";
+import LoginModal from "../../components/auth/LoginModal.jsx";
 import Notification from "../Notification.jsx";
 import CallApi from "../../service/CallAPI.jsx";
+import NavbarItemHost from "./NavbarItemHost.jsx";
 
 const MENU_OPTIONS_USER = [
   {
@@ -40,7 +39,7 @@ const MENU_OPTIONS_HOST = [
   },
 ];
 
-export default function PrimarySearchAppBar() {
+export default function NavbarHost() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
@@ -193,9 +192,9 @@ export default function PrimarySearchAppBar() {
           >
             Court Connect
           </Typography>
-          <NavbarItemUser />
+          <NavbarItemHost />
           <Box sx={{ flexGrow: 1 }} />
-
+          {/* notification and login */}
           <Box sx={{ display: { xs: "none", md: "flex" }, ml: "20px" }}>
             {user ? (
               <div>
@@ -223,7 +222,7 @@ export default function PrimarySearchAppBar() {
               </Box>
             )}
           </Box>
-
+          {/* for mobile */}
           <Box sx={{ display: { xs: "flex", md: "none" }, ml: "20px" }}>
             <IconButton
               size="large"
