@@ -77,6 +77,7 @@ const invitationUserService = {
             },
           },
         },
+        memberPost: true,
       },
     });
     const userAvailability = await database.userAvailability.create({
@@ -88,6 +89,7 @@ const invitationUserService = {
         provinces:
           post?.booking.Court?.Branches?.address?.provinces ?? '',
         accountId,
+        level: post?.memberPost[0].level,
       },
     });
     return await database.invitation.create({
