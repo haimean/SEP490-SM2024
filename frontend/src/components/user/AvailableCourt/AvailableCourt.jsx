@@ -11,11 +11,9 @@ import LocationFilter from "./LocationFilter";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
 import { format, parseISO } from "date-fns";
-import haversine from "haversine";
 
 const AvailableCourt = () => {
   const [activities, setActivities] = useState([]);
-  console.log("🚀 ========= activitiesaaaaa:", activities);
   const [isLoading, setIsLoading] = useState(false);
   const [isSendRequest, SetIsSendRequest] = useState(false);
   const [filters, setFilters] = useState({
@@ -53,7 +51,7 @@ const AvailableCourt = () => {
     price
   ) => {
     setFilters({ province, district, ward, date, time, level, price });
-    console.log(date);
+    console.log("a", date);
   };
 
   const isTimeInRange = (start, end, selectedTime) => {
@@ -62,7 +60,8 @@ const AvailableCourt = () => {
   };
 
   const filteredActivities = activities?.filter((activity) => {
-    // const formattedDate = format(parseISO(activity.dateTime), "yyyy-MM-dd");
+    console.log("🚀 ========= activity:", activity?.startTime);
+    const formattedDate = format(parseISO(activity?.startTime), "yyyy-MM-dd");
     const formattedStartTime = format(parseISO(activity?.startTime), "HH:mm");
     const formattedEndTime = format(parseISO(activity?.endTime), "HH:mm");
     if (
@@ -80,12 +79,18 @@ const AvailableCourt = () => {
       activity?.Court?.Branches?.address?.wards !== filters.ward
     )
       return false;
-    // if (filters.date && formattedDate !== filters.date) return false;
+    // console.log("🚀 ========= filters.date:", filters.date);
+    console.log("🚀 ========= formattedDate:", formattedDate);
+    if (filters.date && formattedDate !== filters.date) return false;
     if (
       filters.time &&
       !isTimeInRange(formattedStartTime, formattedEndTime, filters.time)
     )
       return false;
+    // console.log("🚀 ========= formattedStartTime:", formattedStartTime);
+    // console.log("🚀 ========= formattedEndTime:", formattedEndTime);
+    // console.log("🚀 ========= filters.time:", filters.time);
+
     if (filters.level && activity.level !== filters.level) return false;
     if (
       filters.price &&

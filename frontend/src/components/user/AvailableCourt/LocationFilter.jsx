@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FormControl, Select, MenuItem, Box, TextField } from "@mui/material";
 import axios from "axios";
 import PropTypes from "prop-types";
@@ -47,7 +47,7 @@ const LocationFilter = ({ onFilterChange }) => {
     const selectedOption = provinces.find((province) => province.id === value);
     setSelectedProvince({
       id: selectedOption.id,
-      name: selectedOption.full_name,
+      name: selectedOption.name,
     });
     setSelectedDistrict({ id: "", name: "" });
     setSelectedWard({ id: "", name: "" });
@@ -60,7 +60,7 @@ const LocationFilter = ({ onFilterChange }) => {
         }
       })
       .catch((error) => console.error("Error fetching districts:", error));
-    onFilterChange(selectedOption.full_name, "", "", date, time, level, price);
+    onFilterChange(selectedOption.name, "", "", date, time, level, price);
   };
 
   const handleDistrictChange = (event) => {
@@ -76,7 +76,7 @@ const LocationFilter = ({ onFilterChange }) => {
     const selectedOption = districts.find((district) => district.id === value);
     setSelectedDistrict({
       id: selectedOption.id,
-      name: selectedOption.full_name,
+      name: selectedOption.name,
     });
     setSelectedWard({ id: "", name: "" });
     axios
@@ -89,7 +89,7 @@ const LocationFilter = ({ onFilterChange }) => {
       .catch((error) => console.error("Error fetching wards:", error));
     onFilterChange(
       selectedProvince.name,
-      selectedOption.full_name,
+      selectedOption.name,
       "",
       date,
       time,
@@ -115,11 +115,11 @@ const LocationFilter = ({ onFilterChange }) => {
     }
 
     const selectedOption = wards.find((ward) => ward.id === value);
-    setSelectedWard({ id: selectedOption.id, name: selectedOption.full_name });
+    setSelectedWard({ id: selectedOption.id, name: selectedOption.name });
     onFilterChange(
       selectedProvince.name,
       selectedDistrict.name,
-      selectedOption.full_name,
+      selectedOption.name,
       date,
       time,
       level,
@@ -128,6 +128,7 @@ const LocationFilter = ({ onFilterChange }) => {
   };
 
   const handleDateChange = (event) => {
+    console.log("🚀 ========= event:", event.target.value);
     setDate(event.target.value);
     onFilterChange(
       selectedProvince.name,
@@ -149,19 +150,6 @@ const LocationFilter = ({ onFilterChange }) => {
       date,
       event.target.value,
       level,
-      price
-    );
-  };
-
-  const handleLevelChange = (event) => {
-    setLevel(event.target.value);
-    onFilterChange(
-      selectedProvince.name,
-      selectedDistrict.name,
-      selectedWard.name,
-      date,
-      time,
-      event.target.value,
       price
     );
   };
