@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { keyframes } from "@mui/system";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -15,24 +15,54 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../../middleware/redux/userSlice.jsx";
 import AccountPopover from "../admin/dashboard/common/account-popover";
 import LoginModal from "../../components/auth/LoginModal";
-import NavbarItemHost from "../host/NavbarItemHost.jsx";
 import NavbarItemUser from "./NavbarItemUser.jsx";
-import NavbarItemAdmin from "../admin/NavbarItemAdmin.jsx";
 import Notification from "../Notification.jsx";
+import CallApi from "../../service/CallAPI.jsx";
+
+const MENU_OPTIONS_USER = [
+  {
+    label: "Thông tin cá nhân",
+    link: "/profile",
+  },
+  {
+    label: "Lịch sử đặt sân",
+    link: "/player/booking-history",
+  },
+  {
+    label: "Lịch sử xin vào trận",
+    link: "/request-list-join",
+  },
+];
+const MENU_OPTIONS_HOST = [
+  {
+    label: "Thông tin cá nhân",
+    link: "/profile",
+  },
+];
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
-  const role = localStorage.getItem("userRole");
-
+  const { accountId } = useSelector((state) => state.user);
+  const [account, setAccount] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
-
+  const getProfile = async () => {
+    try {
+      const result = await CallApi(`/api/user/profile/${accountId}`);
+      setAccount(result?.data);
+    } catch (error) {
+      console.log("🚀 ========= error:", error);
+    }
+  };
+  useEffect(() => {
+    getProfile();
+  }, []);
   const gentleShakeAnimation = keyframes`
   0% { transform: translateX(0); }
   25% { transform: translateX(-5px); }
@@ -40,10 +70,6 @@ export default function PrimarySearchAppBar() {
   75% { transform: translateX(-5px); }
   100% { transform: translateX(0); }
 `;
-
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -64,7 +90,9 @@ export default function PrimarySearchAppBar() {
     localStorage.removeItem("userRole");
     navigate("/");
   };
-
+  const handleMenuItemClick = (link) => {
+    navigate(link);
+  };
   const openLoginModal = () => {
     setLoginModalOpen(true);
   };
@@ -72,11 +100,6 @@ export default function PrimarySearchAppBar() {
   const closeLoginModal = () => {
     setLoginModalOpen(false);
   };
-
-  // const handleSelectChange = (event) => {
-  //   setSelectedOption(event.target.value);
-  //   navigate(event.target.value);
-  // };
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -95,7 +118,6 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleProfileMenuOpen}>Profile</MenuItem>
       <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </Menu>
   );
@@ -118,18 +140,31 @@ export default function PrimarySearchAppBar() {
       onClose={handleMobileMenuClose}
     >
       {user ? (
-        <MenuItem onClick={handleProfileMenuOpen}>
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls={menuId}
-            aria-haspopup="true"
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
-          <p>Profile</p>
-        </MenuItem>
+        account?.role === "HOST" ? (
+          <>
+            {MENU_OPTIONS_HOST.map((option) => (
+              <MenuItem
+                key={option.label}
+                onClick={() => handleMenuItemClick(option.link)}
+              >
+                {option.label}
+              </MenuItem>
+            ))}
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </>
+        ) : (
+          <>
+            {MENU_OPTIONS_USER.map((option) => (
+              <MenuItem
+                key={option.label}
+                onClick={() => handleMenuItemClick(option.link)}
+              >
+                {option.label}
+              </MenuItem>
+            ))}
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </>
+        )
       ) : (
         <MenuItem onClick={openLoginModal}>
           <p>Login</p>
