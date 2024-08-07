@@ -44,7 +44,7 @@ export default function TableAccount() {
             <TableCell></TableCell>
             <TableCell>Họ và tên</TableCell>
             <TableCell>Email</TableCell>
-            <TableCell>Role</TableCell>
+            <TableCell>Vai trò</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -58,7 +58,9 @@ export default function TableAccount() {
               </TableCell>
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.email}</TableCell>
-              <TableCell>{row.role}</TableCell>
+              <TableCell>
+                {row.role == "USER" ? "Người dùng" : "Chủ cơ sở"}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

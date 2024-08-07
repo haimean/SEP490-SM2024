@@ -154,7 +154,9 @@ export default function DataTable() {
                   {row.isActive ? "Kích hoạt" : "Chưa kích hoạt"}
                 </TableCell>
                 <TableCell>{row.phoneNumber}</TableCell>
-                <TableCell>{row.role}</TableCell>
+                <TableCell>
+                  {row.role == "USER" ? "Người dùng" : "Chủ cơ sở"}
+                </TableCell>
                 <TableCell>
                   {row.isActive === true ? (
                     <IconButton
