@@ -11,71 +11,29 @@ import OptionChartPlayerFilter from "./OptionChartPlayerFilter";
 import LineChartForAccountAdmin from "./LineChartForAccountAdmin";
 
 const DashboardCp = () => {
-  const getCurrentSunday = () => {
-    const today = new Date();
-    const day = today.getDay();
-    const diff = day === 0 ? 0 : 7 - day; // Number of days to Sunday
-    const nextSunday = new Date(today);
-    nextSunday.setDate(today.getDate() - 1 + diff);
-    console.log("date chuan", nextSunday.toISOString().split("T")[0]);
-    return nextSunday.toISOString().split("T")[0]; // ISO format for easy comparison
-  };
-
-  const getFirstSundayOfYear = (year) => {
-    const date = new Date(year, 0, 1); // Start from January 1st
-    while (date.getDay() !== 0) {
-      date.setDate(date.getDate() + 1);
-    }
-    console.log("date dau nam chuan", date.toISOString().split("T")[0]);
-    return date.toISOString().split("T")[0];
-  };
-
   const [dataAccount, setDataAccount] = useState({});
   const [percentage, setPercentage] = useState(0);
   const [totalMonthAccount, setTotalMonthAccount] = useState(0);
   const [optionChartPlayer, setOptionChartPlayer] = useState("month");
-  const [optionWeek, setOptionWeek] = useState(getCurrentSunday());
   const [optionMonth, setOptionMonth] = useState(3);
+  const [optionMonthChange, setOptionMonthChange] = useState(
+    new Date().getMonth()
+  );
   const [optionYear, setOptionYear] = useState(new Date().getFullYear());
-
   const handleChange = useCallback((event) => {
     setOptionChartPlayer(event.target.value);
-  }, []);
-
-  const getWeek = () => {
-    if (optionYear === new Date().getFullYear()) {
-      setOptionWeek(getCurrentSunday());
-    } else {
-      setOptionWeek(getFirstSundayOfYear(optionYear));
-    }
-  };
-
-  useEffect(() => {
-    getWeek();
-  }, [optionYear]);
-
-  const handleChangeYear = useCallback((event) => {
-    const year = parseInt(event.target.value, 10);
-    setOptionYear(year);
-    if (year === new Date().getFullYear()) {
-      console.log(
-        "🚀 ========= year === new Date().getFullYear():",
-        year === new Date().getFullYear()
-      );
-      setOptionWeek(getCurrentSunday());
-    } else {
-      setOptionWeek(getFirstSundayOfYear(year));
-    }
   }, []);
 
   const handleChangeMonth = useCallback((event) => {
     setOptionMonth(event.target.value);
   }, []);
 
-  const handleChangeWeek = useCallback((event) => {
-    setOptionWeek(event.target.value);
+  const handleChangeMonthInYear = useCallback((event) => {
+    setOptionMonthChange(event.target.value);
   }, []);
-
+  const handleChangeYear = useCallback((event) => {
+    setOptionYear(event.target.value);
+  }, []);
   const getDataAccount = async () => {
     try {
       const result = await CallApi("/api/admin/account/get-all", "get");
@@ -146,25 +104,26 @@ const DashboardCp = () => {
       </div>
       <div className="mt-5 flex items-center justify-between">
         <Typography variant="h6" component="h2">
-          Biểu đồ số lượng người đăng ký mới theo 12 tháng gần nhất
+          Biểu đồ số lượng người đăng ký
         </Typography>
         <OptionChartPlayerFilter
           optionChartPlayer={optionChartPlayer}
           handleChange={handleChange}
-          optionYear={optionYear}
-          handleChangeYear={handleChangeYear}
+          optionMonthChange={optionMonthChange}
+          handleChangeMonthInYear={handleChangeMonthInYear}
           optionMonth={optionMonth}
           handleChangeMonth={handleChangeMonth}
-          optionWeek={optionWeek}
-          handleChangeWeek={handleChangeWeek}
+          optionYear={optionYear}
+          handleChangeYear={handleChangeYear}
         />
       </div>
       <div className="mt-5">
         <React.Suspense fallback={<Loading />}>
           <LineChartForAccountAdmin
             optionMonth={optionMonth}
-            optionWeek={optionWeek}
+            optionMonthChange={optionMonthChange}
             optionChartPlayer={optionChartPlayer}
+            optionYear={optionYear}
           />
         </React.Suspense>
       </div>
