@@ -7,6 +7,7 @@ import bcrypt from 'bcrypt';
 import userService from './user.service';
 import { ProfileUpdatePayload } from './user.model';
 import { ResponseHandler } from '../../outcomes/responseHandler';
+import { uploadFile } from '../../lib/s3';
 
 const secret: string = process.env.SECRET_JWT_KEY ?? '';
 
@@ -90,6 +91,12 @@ const userController = {
   ) => {
     try {
       const data: ProfileUpdatePayload = req.body;
+
+      const file = req.file;
+      //check file
+      if (file) {
+        data.image = await uploadFile(file);
+      }
       // get information account
       const accountId = Number(req.headers.authorization);
       const account: User = await userService.updateProfile(

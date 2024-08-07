@@ -9,8 +9,9 @@ const userService = {
       },
       data: {
         fullName: data.name,
-        gender: 'FEMALE',
+        gender: data.gender,
         identifierCode: '',
+        avatar: data.image,
         dob: data.dob,
         numberPhone: data.numberPhone,
       },

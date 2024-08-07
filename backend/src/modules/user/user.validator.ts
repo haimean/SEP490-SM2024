@@ -14,6 +14,7 @@ const userValidator = {
   }),
   updateProfile: Joi.object({
     name: Joi.string().label('Tên'),
+    gender: Joi.string().valid('MALE', 'FEMALE', 'OTHER'),
     dob: Joi.date().label('Ngày tháng năm sinh'),
     numberPhone: Joi.string()
       .regex(regex.phoneNumber)

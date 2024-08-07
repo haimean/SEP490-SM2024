@@ -10,6 +10,7 @@ import reviewUserRouter from './review/review.router';
 import blogUserRouter from './blog/blog.router';
 import commentUserRouter from './comment/comment.router';
 import reportBlogUserRouter from './reportBlog/reportBlog.router';
+import upload from '../../lib/uploadImage';
 
 const userRouter = Router();
 userRouter.put(
@@ -21,6 +22,7 @@ userRouter.get('/profile', userController.profile);
 userRouter.get('/profile/:accountId', userController.profileUser);
 userRouter.put(
   '/profile',
+  upload.single('image'),
   validate(userValidator.updateProfile),
   userController.updateProfile
 );
