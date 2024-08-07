@@ -117,6 +117,7 @@ const userAvailableService = {
     return await database.booking.findMany({
       where: {
         accountId,
+        isDelete: false,
         OR: [
           {
             startTime: {
@@ -144,9 +145,7 @@ const userAvailableService = {
         userAvailability: {
           accountId,
         },
-        status: {
-          not: 'CANCEL',
-        },
+        status: 'ACCEPT',
         Post: {
           booking: {
             OR: [
