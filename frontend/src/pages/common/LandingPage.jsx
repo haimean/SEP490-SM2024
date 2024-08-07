@@ -1,59 +1,36 @@
+import { useEffect, useState } from "react";
 import discover_1 from "../../assets/svg/discover_1.svg";
 import discover_2 from "../../assets/svg/discover_2.svg";
 import discover_3 from "../../assets/svg/discover_3.svg";
 import tick from "../../assets/svg/tick.svg";
 import PostLandingPage from "../../components/player/Post/PostLandingPage";
+import CallApi from "../../service/CallAPI";
+import BannerHost from "./../../components/common/LandingPage/BannerHost";
+import BannerUser from "./../../components/common/LandingPage/BannerUser";
 
 const LandingPage = () => {
-  const blogData = [
-    {
-      court: "Sân vận động Mỹ Đình",
-      address: "Đường Lê Đức Thọ, Mỹ Đình, Nam Từ Liêm, Hà Nội",
-      time: "19:00, 15/07/2024",
-      image: "/path/to/my-dinh-image.jpg",
-    },
-    {
-      court: "Sân vận động Thống Nhất",
-      address: "138 Đặng Văn Ngữ, Phường 14, Phú Nhuận, TP.HCM",
-      time: "18:30, 20/07/2024",
-      image: "/path/to/thong-nhat-image.jpg",
-    },
-    {
-      court: "Sân vận động Cẩm Phả",
-      address: "138 Đặng Văn Ngữ, Phường Cẩm Phả, Cẩm Phả, Quảng Ninh",
-      time: "19:30, 25/07/2024",
-      image: "/path/to/cam-pha-image.jpg",
+  const role = localStorage.getItem("userRole");
+  const [posts, setPosts] = useState([]);
+  const getTopPost = async () => {
+    try {
+      const result = await CallApi(`/api/post/top-3`, "get");
+      setPosts(result?.data);
+    } catch (error) {
+      toast.error(error.response?.data?.error);
     }
-  ];
+  };
+
+  useEffect(() => {
+    getTopPost();
+  }, []);
 
   return (
     <>
       <main>
-        <section className="relative py-10 overflow-hidden text-center text-white text-opacity-80 md:py-20 bg-blue-400 mt-16">
-          <div className="max-w-screen-sm mx-auto">
-            <div>
-              <h1 className="text-4xl font-bold mt-0">
-                Landing template for startups
-              </h1>
-              <p className="mt-4">
-                Our landing page template works for all the devices, so you only
-                have to set it up once, and get beautiful results forever.
-              </p>
-              <p className="mt-6">
-                <a
-                  className="inline-block px-6 py-3 bg-indigo-600 text-white rounded-lg shadow-lg hover:bg-indigo-700"
-                  href="#"
-                >
-                  Get started now
-                </a>
-              </p>
-              <div className="mt-8" />
-            </div>
-          </div>
-        </section>
-
+        {role === "HOST" && <BannerHost />}
+        {role != "HOST" && <BannerUser />}
         {/* CallAPI mảng obj 3 bài báo, đây chỉ là fix cứng */}
-        <PostLandingPage blog={blogData} /> 
+        <PostLandingPage post={posts} />
 
         <section className="block">
           <div className="container">

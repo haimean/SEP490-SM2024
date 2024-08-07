@@ -21,9 +21,9 @@ const Profile = () => {
 
   useEffect(() => {
     if (profile?.user) {
-      setValue("name", profile.user.name);
-      setValue("dob", formatDate(profile.user.dob));
-      setValue("numberPhone", profile.user.numberPhone);
+      setValue("name", profile?.user?.fullName);
+      setValue("dob", formatDate(profile?.user?.dob));
+      setValue("numberPhone", profile?.user?.numberPhone);
     }
   }, [profile, setValue]);
 
@@ -46,13 +46,12 @@ const Profile = () => {
 
   const onSubmit = async (data) => {
     const requestData = {
-      name: data.name || profile?.user?.name,
+      name: data.name || profile?.user?.fullName,
       dob: data.dob || formatDate(profile?.user?.dob),
       numberPhone: data.numberPhone || profile?.user?.numberPhone,
     };
-    console.log(requestData);
     try {
-      await CallApi(`/api/user/profile`, "put", requestData, {});
+      await CallApi(`/api/user/profile`, "put", requestData);
       fetchProfile();
       toast.success(`Cập nhật thông tin cá nhân thành công`);
     } catch (error) {
@@ -82,8 +81,8 @@ const Profile = () => {
               </svg>
             </button> */}
           </div>
-          <h3 className="mt-4 text-xl font-semibold">{profile?.user?.name}</h3>
-          <p className="text-gray-500">{profile.role}</p>
+          <h3 className="mt-4 text-xl font-semibold">{profile?.user?.fullName}</h3>
+          <p className="text-gray-500">{profile?.role}</p>
         </div>
         <div className="mt-4 flex justify-center">
           <button className="px-4 py-2 bg-gray-300 text-gray-700 font-semibold rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
@@ -102,7 +101,7 @@ const Profile = () => {
               id="name"
               placeholder="Họ và tên"
               register={register}
-              defaultValue={profile?.user?.name}
+              defaultValue={profile?.user?.fullName}
               pattern={{
                 value: WHITE_SPACE_REGEX,
                 message: "Vui lòng nhập tên hợp lệ",

@@ -1,8 +1,7 @@
-import React from "react";
 import PostCard from "./PostCard";
 import { Box, Button, Grid, Link, Typography } from "@mui/material";
 
-const PostLandingPage = ({ blog }) => {
+const PostLandingPage = ({ post }) => {
   return (
     <Box sx={{ my: 8, mx: 14 }}>
       <div className="flex justify-between py-4">
@@ -22,13 +21,28 @@ const PostLandingPage = ({ blog }) => {
 
       <Grid container spacing={3}>
         <Grid item xs={12} md={8}>
-          <PostCard {...blog[0]} isLarge={true} />
+          <PostCard
+            postId={post[0]?.id}
+            owner={post[0]?.booking?.bookingInfo?.name}
+            court={post[0]?.booking?.Court?.TypeCourt?.name}
+            price={post[0]?.booking?.price}
+            time={post[0]?.booking?.startTime}
+            image={post[0]?.booking?.Court?.TypeCourt?.image}
+            isLarge={true}
+          />
         </Grid>
         <Grid item xs={12} md={4}>
           <Grid container spacing={3}>
-            {blog.slice(1, 3).map((item, index) => (
+            {post.slice(1, 3).map((post, index) => (
               <Grid item xs={12} key={index}>
-                <PostCard {...item} />
+                <PostCard
+                  postId={post?.id}
+                  owner={post?.booking?.bookingInfo?.name}
+                  court={post?.booking?.Court?.TypeCourt?.name}
+                  price={post?.booking?.price}
+                  time={post?.booking?.startTime}
+                  image={post?.booking?.Court?.TypeCourt?.image}
+                />
               </Grid>
             ))}
           </Grid>
