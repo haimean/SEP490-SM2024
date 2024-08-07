@@ -188,7 +188,7 @@ const invitationUserController = {
                 id: 1,
                 accountId,
                 createdAt: new Date(),
-                message: `${name} đã đồng hủy lời mời vào trận đấu của bạn với lý do: ${reasonCancel}`,
+                message: `${name} đã hủy lời mời vào trận đấu của bạn với lý do: ${reasonCancel}`,
                 url: `/post/${postId}`,
                 status: 'SEED',
               },
