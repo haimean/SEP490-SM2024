@@ -1,8 +1,9 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
 import CallApi from "../../../service/CallAPI";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
+  Button,
   Paper,
   Table,
   TableBody,
@@ -10,7 +11,10 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Tooltip,
 } from "@mui/material";
+import haversine from "haversine";
+import Loading from "../../common/Loading";
 
 export default function ComparePage() {
   const { court1, court2 } = useParams();
@@ -18,20 +22,25 @@ export default function ComparePage() {
   console.log("🚀 ========= firstCourt:", firstCourt);
   const [secondCourt, setSecondCourt] = useState({});
   console.log("🚀 ========= secondCourt:", secondCourt);
-
+  const [error, setError] = useState(null);
+  const [location, setLocation] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const getDetailCourt = async () => {
+    setIsLoading(true);
     try {
       const result1 = await CallApi(`/api/court/${court1}`);
       const result2 = await CallApi(`/api/court/${court2}`);
 
       if (result1 && result1.data) {
         setFirstCourt(result1.data);
+        setIsLoading(false);
       } else {
         console.error("No data found for court1");
       }
 
       if (result2 && result2.data) {
         setSecondCourt(result2.data);
+        setIsLoading(false);
       } else {
         console.error("No data found for court2");
       }
@@ -43,56 +52,109 @@ export default function ComparePage() {
   useEffect(() => {
     getDetailCourt();
   }, []);
-
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            latitude: position?.coords?.latitude,
+            longitude: position?.coords?.longitude,
+          });
+        },
+        (error) => {
+          setError(error.message);
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by this browser.");
+    }
+  };
+  useEffect(() => {
+    getLocation();
+  }, []);
+  const distance = (item) => {
+    return haversine(
+      {
+        latitude: item?.latitude || "21.013393218627524",
+        longitude: item?.longitude || "105.52526950492785",
+      },
+      {
+        latitude: location?.latitude || "21.013393218627524",
+        longitude: location?.longitude || "105.52526950492785",
+      }
+    ).toFixed(2);
+  };
   const rows = [
     {
       id: 1,
-      title: "Name",
+      title: "Tên sân",
       firstValue: firstCourt?.name,
       secondValue: secondCourt?.name,
     },
     {
       id: 2,
-      title: "Address",
-      firstValue: firstCourt?.Branches?.addressLatitude,
-      secondValue: secondCourt?.Branches?.addressLatitude,
+      title: "Địa chỉ",
+      firstValue: firstCourt?.Branches?.address?.detail,
+      secondValue: secondCourt?.Branches?.address?.detail,
     },
     {
       id: 3,
-      title: "Create at",
-      firstValue: firstCourt?.TypeCourt?.createdAt,
-      secondValue: secondCourt?.TypeCourt?.createdAt,
+      title: "Giờ mở cửa",
+      firstValue: firstCourt?.Branches?.openingHours,
+      secondValue: secondCourt?.Branches?.openingHours,
     },
     {
       id: 4,
-      title: "Branch name",
-      firstValue: firstCourt?.Branches?.name,
-      secondValue: secondCourt?.Branches?.name,
+      title: "Khoảng cách",
+      firstValue: `Cách bạn ${distance(firstCourt?.Branches?.name)} km`,
+      secondValue: `Cách bạn ${distance(secondCourt?.Branches?.name)} km`,
     },
     {
       id: 5,
-      title: "Description",
+      title: "Mô tả",
       firstValue: firstCourt?.TypeCourt?.description,
       secondValue: secondCourt?.TypeCourt?.description,
     },
+    {
+      id: 6,
+      title: "Chi tiết sân",
+      firstValue: (
+        <Link to={`/post/${firstCourt?.id}`}>
+          <Button>Xem chi tiết</Button>
+        </Link>
+      ),
+      secondValue: (
+        <Link to={`/post/${secondCourt?.id}`}>
+          <Button>Xem chi tiết</Button>
+        </Link>
+      ),
+    },
   ];
-
-  return (
+  const TruncateText = ({ text, length }) => {
+    return (
+      <Tooltip title={text}>
+        {text?.length > length ? text?.substring(0, length) + "..." : text}
+      </Tooltip>
+    );
+  };
+  return isLoading == true ? (
+    <Loading />
+  ) : (
     <TableContainer className="mt-16" component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell></TableCell>
             <TableCell>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 flex-col">
                 <img className="w-40 h-40" src={firstCourt?.Branches?.image} />
-                {firstCourt?.name}
+                <TruncateText text={firstCourt?.name} length={50} />
               </div>
             </TableCell>
             <TableCell>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 flex-col">
                 <img className="w-40 h-40" src={secondCourt?.Branches?.image} />
-                {secondCourt?.name}
+                <TruncateText text={secondCourt?.name} length={50} />
               </div>
             </TableCell>
           </TableRow>
@@ -106,8 +168,20 @@ export default function ComparePage() {
               <TableCell component="th" scope="row">
                 {row?.title}
               </TableCell>
-              <TableCell>{row?.firstValue}</TableCell>
-              <TableCell>{row?.secondValue}</TableCell>
+              <TableCell align="center">
+                {row?.id != 6 ? (
+                  <TruncateText text={row?.firstValue} length={50} />
+                ) : (
+                  row?.firstValue
+                )}
+              </TableCell>
+              <TableCell align="center">
+                {row?.id != 6 ? (
+                  <TruncateText text={row?.secondValue} length={50} />
+                ) : (
+                  row?.secondValue
+                )}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

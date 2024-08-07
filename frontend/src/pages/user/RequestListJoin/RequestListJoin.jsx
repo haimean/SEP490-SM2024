@@ -11,6 +11,7 @@ import { getTimeSinceCreation } from "../../../utils/getTimeSinceCreation";
 import Loading from "../../../components/common/Loading";
 import { Button } from "@mui/material";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 export default function RequestListJoin() {
   const [requestList, setRequestList] = React.useState([]);
@@ -77,7 +78,14 @@ export default function RequestListJoin() {
                     />
                   </ListItemAvatar>
                   <ListItemText
-                    primary={`Tên bài post: ${item?.Post?.booking?.bookingInfo?.name}`}
+                    primary={
+                      <Link
+                        to={`/post/${item?.Post?.id}`}
+                        className="hover:underline hover:cursor-pointer"
+                      >
+                        Tên bài post: {item?.Post?.booking?.bookingInfo?.name}
+                      </Link>
+                    }
                     secondary={
                       <React.Fragment>
                         <Typography

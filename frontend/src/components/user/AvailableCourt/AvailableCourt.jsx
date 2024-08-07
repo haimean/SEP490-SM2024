@@ -4,6 +4,7 @@ import {
   CircularProgress,
   Container,
   Grid,
+  Pagination,
   Typography,
 } from "@mui/material";
 import PostCard from "../Post/PostCard";
@@ -96,7 +97,12 @@ const AvailableCourt = () => {
       return false;
     return true;
   });
-
+  const pageSize = 6;
+  const [currentPage, setCurrentPage] = useState(1);
+  function paginate(array, page_size, page_number) {
+    // human-readable page numbers usually start with 1, so we reduce 1 in the first argument
+    return array.slice((page_number - 1) * page_size, page_number * page_size);
+  }
   return isLoading === true ? (
     <Box
       sx={{
@@ -132,7 +138,7 @@ const AvailableCourt = () => {
         </Typography>
       </div>
       <Grid container spacing={2}>
-        {filteredActivities.map((activity) => (
+        {paginate(filteredActivities, pageSize, currentPage).map((activity) => (
           <Grid item xs={12} md={6} key={activity?.id}>
             <PostCard
               activity={activity}
@@ -142,6 +148,18 @@ const AvailableCourt = () => {
           </Grid>
         ))}
       </Grid>
+      <div className="flex justify-center mt-4">
+        <Pagination
+          count={Math.ceil(filteredActivities.length / pageSize)}
+          variant="outlined"
+          color="primary"
+          page={currentPage}
+          onChange={(event, index) => {
+            setCurrentPage(index);
+            console.log("data", index);
+          }}
+        />
+      </div>
     </Container>
   );
 };
