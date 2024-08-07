@@ -60,7 +60,6 @@ const AvailableCourt = () => {
   };
 
   const filteredActivities = activities?.filter((activity) => {
-    console.log("🚀 ========= activity:", activity?.startTime);
     const formattedDate = format(parseISO(activity?.startTime), "yyyy-MM-dd");
     const formattedStartTime = format(parseISO(activity?.startTime), "HH:mm");
     const formattedEndTime = format(parseISO(activity?.endTime), "HH:mm");
@@ -79,7 +78,7 @@ const AvailableCourt = () => {
       activity?.Court?.Branches?.address?.wards !== filters.ward
     )
       return false;
-    // console.log("🚀 ========= filters.date:", filters.date);
+    console.log("🚀 ========= filters.date:", filters.date);
     console.log("🚀 ========= formattedDate:", formattedDate);
     if (filters.date && formattedDate !== filters.date) return false;
     if (
