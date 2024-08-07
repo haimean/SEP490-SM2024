@@ -30,6 +30,7 @@ const PostRightCP = ({ user, post, postId }) => {
   const [openModalReason, setOpenModalReason] = useState(false);
   const [profileId, setProfileId] = useState();
   const [openLoginModal, setOpenLoginModal] = useState(false);
+  const [isModal, setIsModal] = useState(false); //nguoi choi xin vao tran roi muon huy tran khi da tham gia
   const isLogin = useSelector((state) => state.user.user);
   const {
     register,
@@ -101,6 +102,7 @@ const PostRightCP = ({ user, post, postId }) => {
       });
       toast.success("Hủy thành công");
       getListInvitation();
+      detailUser();
       console.log("🚀 ========= result:", result);
     } catch (error) {
       console.log("🚀 ========= error:", error);
@@ -110,6 +112,7 @@ const PostRightCP = ({ user, post, postId }) => {
   const onSubmit = (data) => {
     deletePlayer(data.id, "CANCEL", data.reason);
     setOpenModalReason(false);
+    setIsModal(false);
     // Thực hiện gửi dữ liệu hoặc các hành động khác ở đây
   };
   const handleCloseModalReason = () => setOpenModalReason(false);
@@ -118,6 +121,11 @@ const PostRightCP = ({ user, post, postId }) => {
     setOpenModalReason(true);
   };
 
+  const handleCloseModal = () => setIsModal(false);
+  const handleOpenModal = (id) => {
+    setValue("id", id);
+    setIsModal(true);
+  };
   const [detail, setDetail] = useState(false);
   const detailUser = async () => {
     try {
@@ -150,6 +158,8 @@ const PostRightCP = ({ user, post, postId }) => {
         getListInvitation();
       } else {
         toast.info("Từ chối thành công");
+        detailUser();
+        getListInvitation();
       }
       console.log("🚀 ========= result:", result);
     } catch (error) {
@@ -241,6 +251,14 @@ const PostRightCP = ({ user, post, postId }) => {
                       Từ Chối
                     </Button>
                   </div>
+                ) : detail?.status == "ACCEPT" ? (
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={() => handleOpenModal(detail?.id)}
+                  >
+                    Hủy tham gia trận đấu
+                  </Button>
                 ) : (
                   <Button
                     variant="contained"
@@ -261,9 +279,9 @@ const PostRightCP = ({ user, post, postId }) => {
                       : detail?.status == "NEW"
                       ? "Đã yêu cầu tham gia trận đấu"
                       : detail?.status == "CANCEL"
-                      ? "Bạn bị hủy trận đấu"
+                      ? "Hủy trận đấu"
                       : detail?.status == "NOACCEPT"
-                      ? "Bạn bị từ chối trận đấu"
+                      ? "Từ chối trận đấu"
                       : "Gửi lời mời tham gia"}
                   </Button>
                 )}
@@ -276,6 +294,16 @@ const PostRightCP = ({ user, post, postId }) => {
             Có {listJoin?.length} / {post?.numberMember} người chơi
           </Typography>
         </div>
+        {isModal && (
+          <ModalReason
+            handleSubmit={handleSubmit}
+            onSubmit={onSubmit}
+            register={register}
+            errors={errors}
+            open={isModal}
+            onClose={handleCloseModal}
+          />
+        )}
         {isOwner && (
           <div className="max-w-sm p-4 border rounded-lg shadow-lg mx-auto mt-4">
             <Typography className="mt-2">Danh sách người tham gia</Typography>

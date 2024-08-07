@@ -78,17 +78,12 @@ const AvailableCourt = () => {
       activity?.Court?.Branches?.address?.wards !== filters.ward
     )
       return false;
-    console.log("🚀 ========= filters.date:", filters.date);
-    console.log("🚀 ========= formattedDate:", formattedDate);
     if (filters.date && formattedDate !== filters.date) return false;
     if (
       filters.time &&
       !isTimeInRange(formattedStartTime, formattedEndTime, filters.time)
     )
       return false;
-    // console.log("🚀 ========= formattedStartTime:", formattedStartTime);
-    // console.log("🚀 ========= formattedEndTime:", formattedEndTime);
-    // console.log("🚀 ========= filters.time:", filters.time);
 
     if (filters.level && activity.level !== filters.level) return false;
     if (
