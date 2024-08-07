@@ -27,7 +27,7 @@ const PostCard = ({ postId, owner, court, price, time, image, isLarge }) => {
           alt={court}
           className={`object-cover ${isLarge ? "h-96" : "h-40"} bg-blue-200`}
         />
-        <CardContent sx={isLarge && { p: 3, height: 100 }}>
+        <CardContent sx={isLarge && { p: 3, height: "full" }}>
           <Typography
             variant={isLarge ? "h4" : "h5"}
             component="div"

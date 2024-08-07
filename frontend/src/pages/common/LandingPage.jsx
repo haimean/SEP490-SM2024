@@ -1,16 +1,25 @@
 import { useEffect, useState } from "react";
-import discover_1 from "../../assets/svg/discover_1.svg";
-import discover_2 from "../../assets/svg/discover_2.svg";
-import discover_3 from "../../assets/svg/discover_3.svg";
 import tick from "../../assets/svg/tick.svg";
 import PostLandingPage from "../../components/player/Post/PostLandingPage";
 import CallApi from "../../service/CallAPI";
-import BannerHost from "./../../components/common/LandingPage/BannerHost";
-import BannerUser from "./../../components/common/LandingPage/BannerUser";
+import BannerHost from "../../components/common/LandingPage/BannerHost";
+import BannerUser from "../../components/common/LandingPage/BannerUser";
+import TopBranches from "../../components/common/LandingPage/TopBranches";
 
 const LandingPage = () => {
   const role = localStorage.getItem("userRole");
   const [posts, setPosts] = useState([]);
+  const [branches, setBranches] = useState([]);
+
+  const getTopBranch = async () => {
+    try {
+      const result = await CallApi("/api/branches/top-3", "get");
+      setBranches(result?.data);
+    } catch (error) {
+      toast.error(error.response?.data?.error);
+    }
+  };
+
   const getTopPost = async () => {
     try {
       const result = await CallApi(`/api/post/top-3`, "get");
@@ -21,6 +30,7 @@ const LandingPage = () => {
   };
 
   useEffect(() => {
+    getTopBranch();
     getTopPost();
   }, []);
 
@@ -29,68 +39,10 @@ const LandingPage = () => {
       <main>
         {role === "HOST" && <BannerHost />}
         {role != "HOST" && <BannerUser />}
-        {/* CallAPI mảng obj 3 bài báo, đây chỉ là fix cứng */}
         <PostLandingPage post={posts} />
 
-        <section className="block">
-          <div className="container">
-            <div className="py-3 md:py-4 relative mx-40">
-              <div className="text-center">
-                <div className="container mx-auto px-6 sm:px-0 max-w-[800px] sm:max-w-[848px]">
-                  <h2 className="mt-0 mb-4 font-bold text-3xl leading-10 tracking-[-0.1px] sm:text-4xl sm:leading-[46px] sm:tracking-[-0.2px]">
-                    Meet Evelyn
-                  </h2>
-                  <p className="sm:px-[72px] sm:mb-0 mt-0 mb-6">
-                    Lorem ipsum is common placeholder text used to demonstrate
-                    the graphic elements of a document or visual presentation
-                  </p>
-                </div>
-              </div>
-              <div className="pt-3 md:pt-4 md:flex md:items-center md:py-3 lg:px-4">
-                <div className="md:order-1 md:w-auto md:p-6">
-                  <img src={discover_1} alt="discover_1" />
-                </div>
-                <div className="lg:text-left text-center lg:px-40 md:px-24 px-4">
-                  <h3 className="mt-0 mb-5 font-bold text-2xl sm:text-3xl leading-10 sm:leading-14 tracking-tighter sm:tracking-normal">
-                    Discover
-                  </h3>
-                  <p className="mt-0 mb-6">
-                    Where text is visible, people tend to focus on the textual
-                    content rather than upon overall presentation
-                  </p>
-                </div>
-              </div>
-              <div className="pt-3 md:pt-4 md:flex md:items-center md:py-3 lg:px-4">
-                <div className="md:mb-0 md:w-auto md:p-6 lg:p-3">
-                  <img src={discover_2} alt="discover_2" />
-                </div>
-                <div className="lg:text-left text-center lg:px-40 md:px-24 px-4">
-                  <h3 className="mt-0 mb-5 font-bold text-2xl sm:text-3xl leading-10 sm:leading-14 tracking-tighter sm:tracking-normal">
-                    Discover
-                  </h3>
-                  <p className="mt-0 mb-6">
-                    Where text is visible, people tend to focus on the textual
-                    content rather than upon overall presentation
-                  </p>
-                </div>
-              </div>
-              <div className="pt-3 md:pt-4 md:flex md:items-center md:py-3 lg:px-4">
-                <div className="md:order-1 md:w-auto md:p-6">
-                  <img src={discover_3} alt="discover_3" />
-                </div>
-                <div className="lg:text-left text-center lg:px-40 md:px-24 px-4">
-                  <h3 className="mt-0 mb-5 font-bold text-2xl sm:text-3xl leading-10 sm:leading-14 tracking-tighter sm:tracking-normal">
-                    Discover
-                  </h3>
-                  <p className="mt-0 mb-6">
-                    Where text is visible, people tend to focus on the textual
-                    content rather than upon overall presentation
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <TopBranches branches={branches} role={role} />
+
         <section className="block">
           <div className="container">
             <div className="relative py-12 sm:py-20">

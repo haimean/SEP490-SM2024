@@ -3,7 +3,7 @@ import { Box, Button, Grid, Link, Typography } from "@mui/material";
 
 const PostLandingPage = ({ post }) => {
   return (
-    <Box sx={{ my: 8, mx: 14 }}>
+    <Box sx={{ my: { xs: 2, sm: 4, md: 8 }, mx: { xs: 2, sm: 8, md: 14 } }}>
       <div className="flex justify-between py-4">
         <Typography variant="h4" component="h2" mb={6} fontWeight={600}>
           Trận đấu sắp tới
