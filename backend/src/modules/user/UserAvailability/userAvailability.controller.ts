@@ -58,6 +58,11 @@ const userAvailableController = {
       const uniqueUserVariablesUsingSet =
         removeDuplicatesUsingSet(userVariables);
       // Check userAvailable already has time to play (booking or invitation accepted). If so, remove
+      console.log(
+        'uniqueUserVariablesUsingSet',
+        uniqueUserVariablesUsingSet
+      );
+
       const userVariablesNotAccInvitation = [];
       for (const userVariable of uniqueUserVariablesUsingSet) {
         // get invitations with accountId and post
@@ -65,6 +70,8 @@ const userAvailableController = {
           userVariable.accountId,
           Number(postId)
         );
+        console.log('invitation', invitation);
+
         // Check during this time period, if the player has any matches at the same time, if they are invited or booked
         // Find if accountId's booking has the same posting time
         const bookingFinByTime =
@@ -73,6 +80,7 @@ const userAvailableController = {
             post?.booking.startTime as Date,
             post?.booking.endTime as Date
           );
+        console.log('bookingFinByTime', bookingFinByTime);
         // Search invitation status accpect
         const invitationFinByTime =
           await userAvailableService.getInvitationFindByTime(
@@ -80,6 +88,8 @@ const userAvailableController = {
             post?.booking.startTime as Date,
             post?.booking.endTime as Date
           );
+        console.log('invitationFinByTime', invitationFinByTime);
+
         // If not, push to userVariablesNotAccInvitation
         if (
           invitation.length === 0 &&

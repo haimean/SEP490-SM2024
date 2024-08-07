@@ -14,5 +14,13 @@ const accountServiceBase = {
       data,
     });
   },
+  updatePass: async (id: number, password: string) => {
+    return await database.account.update({
+      where: { id },
+      data: {
+        password,
+      },
+    });
+  },
 };
 export default accountServiceBase;

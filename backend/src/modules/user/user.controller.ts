@@ -32,7 +32,7 @@ const userController = {
       );
 
       if (!isPasswordValid) {
-        return next(new CustomError('Password not correct', 500));
+        return next(new CustomError('Sai mật khẩu', 400));
       } else {
         // hash password
         const hashPassword = await bcrypt.hash(
@@ -41,11 +41,12 @@ const userController = {
         );
 
         account.password = hashPassword;
+        console.log(account);
 
         // save new password
-        await accountServiceBase.update(account.id, account);
+        await accountServiceBase.updatePass(account.id, hashPassword);
 
-        ResponseHandler(res, 'Update Password successful.');
+        ResponseHandler(res, 'Cập nhật mât khẩu thành công.');
       }
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
