@@ -148,8 +148,7 @@ const invitationUserController = {
           invitation.userAvailability.accountId;
 
         // tên người không có sân
-        const name =
-          invitation.userAvailability.account.user?.fullName;
+        const name = invitation.Post.booking.account.user?.fullName;
         // id bài post
         // Thông báo
         switch (status) {
@@ -202,7 +201,8 @@ const invitationUserController = {
         // gửi thông báo cho người rảnh
         // account người rảnh
         const accountId: number = invitation.Post.booking.accountId;
-        const name = invitation.Post.booking.account.user?.fullName;
+        const name =
+          invitation.userAvailability.account.user?.fullName;
         switch (status) {
           case 'ACCEPT':
             // đã accept
