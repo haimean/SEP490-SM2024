@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../../../../middleware/redux/userSlice.jsx";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
@@ -11,43 +11,60 @@ import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 
-import { account } from "../../../../_mock/admin/account";
 import { toast } from "react-toastify";
+import CallApi from "../../../../service/CallAPI.jsx";
 
 // ----------------------------------------------------------------------
 
-const MENU_OPTIONS = [
+const MENU_OPTIONS_USER = [
   {
-    label: "Trang chủ",
-    icon: "eva:home-fill",
+    label: "Thông tin cá nhân",
+    link: "/profile",
   },
   {
-    label: "Hồ sơ",
-    icon: "eva:person-fill",
-    link: '/profile'
+    label: "Lịch sử đặt sân",
+    link: "/player/booking-history",
+  },
+  {
+    label: "Lịch sử xin vào trận",
+    link: "/request-list-join",
   },
 ];
-
-// ----------------------------------------------------------------------
+const MENU_OPTIONS_HOST = [
+  {
+    label: "Thông tin cá nhân",
+    link: "/profile",
+  },
+];
 
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
-
+  const { accountId } = useSelector((state) => state.user);
+  const [account, setAccount] = useState(null);
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
   };
-
+  const getProfile = async () => {
+    try {
+      const result = await CallApi(`/api/user/profile/${accountId}`);
+      setAccount(result?.data);
+    } catch (error) {
+      console.log("🚀 ========= error:", error);
+    }
+  };
+  useEffect(() => {
+    getProfile();
+  }, []);
   const handleLogout = () => {
     setOpen(null);
-      dispatch(clearUser());
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('userRole');
-      toast.success("Đăng xuất thành công!");
-      navigate('/');
+    dispatch(clearUser());
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("userRole");
+    toast.success("Đăng xuất thành công!");
+    navigate("/");
   };
 
   const handleClose = () => {
@@ -76,18 +93,17 @@ export default function AccountPopover() {
         }}
       >
         <Avatar
-          src={account.photoURL}
-          alt={user.email}
+          src={account?.user?.avatar}
+          alt={account?.user?.fullName}
           sx={{
             width: 36,
             height: 36,
             border: (theme) => `solid 2px ${theme.palette.background.default}`,
           }}
         >
-          {account.displayName.charAt(0).toUpperCase()}
+          {account?.user?.fullName}
         </Avatar>
       </IconButton>
-
       <Popover
         open={!!open}
         anchorEl={open}
@@ -105,20 +121,32 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {account?.user?.fullName}
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
-            {user}
+            {account?.email}
           </Typography>
         </Box>
 
         <Divider sx={{ borderStyle: "dashed" }} />
 
-        {MENU_OPTIONS.map((option) => (
-          <MenuItem key={option.label} onClick={() => handleMenuItemClick(option.link)}>
-            {option.label}
-          </MenuItem>
-        ))}
+        {account?.role === "HOST"
+          ? MENU_OPTIONS_HOST.map((option) => (
+              <MenuItem
+                key={option.label}
+                onClick={() => handleMenuItemClick(option.link)}
+              >
+                {option.label}
+              </MenuItem>
+            ))
+          : MENU_OPTIONS_USER.map((option) => (
+              <MenuItem
+                key={option.label}
+                onClick={() => handleMenuItemClick(option.link)}
+              >
+                {option.label}
+              </MenuItem>
+            ))}
 
         <Divider sx={{ borderStyle: "dashed", m: 0 }} />
 

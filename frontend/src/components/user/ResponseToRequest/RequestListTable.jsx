@@ -22,6 +22,7 @@ import CallApi from "../../../service/CallAPI.jsx";
 
 // ----------------------------------------------------------------------
 
+// eslint-disable-next-line react/prop-types
 export default function RequestListTable({ open, onClose, postId }) {
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState("asc");

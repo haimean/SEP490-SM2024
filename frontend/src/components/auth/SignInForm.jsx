@@ -32,23 +32,29 @@ const SignInForm = ({ isModal, onSuccess }) => {
     console.log(response);
     if (!isModal) {
       // Kiểm tra nếu không phải modal thì mới chuyển hướng
+      console.log(role);
       switch (role) {
         case "HOST":
-          navigate("/host");
-          return;
+          navigate("/host/dashboard");
+          break;
         case "ADMIN":
           navigate("/admin/dashboard");
-          return;
+          break;
         case "USER":
           navigate("/");
-          return;
+          break;
       }
-    }
-    if (isModal && onSuccess) {
-      if (role === "ADMIN") {
-        navigate("/admin/dashboard");
+    } else {
+      switch (role) {
+        case "HOST":
+          navigate("/host/dashboard");
+          break;
+        case "ADMIN":
+          navigate("/admin/dashboard");
+          break;
+        default:
+          onSuccess();
       }
-      onSuccess();
     }
   };
 

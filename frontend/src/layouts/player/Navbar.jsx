@@ -18,6 +18,7 @@ import LoginModal from "../../components/auth/LoginModal";
 import NavbarItemHost from "../host/NavbarItemHost.jsx";
 import NavbarItemUser from "./NavbarItemUser.jsx";
 import NavbarItemAdmin from "../admin/NavbarItemAdmin.jsx";
+import Notification from "../Notification.jsx";
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -157,50 +158,17 @@ export default function PrimarySearchAppBar() {
           >
             Court Connect
           </Typography>
+          <NavbarItemUser />
           <Box sx={{ flexGrow: 1 }} />
-
-          {role === "HOST" && <NavbarItemHost />}
-          {role === "USER" && <NavbarItemUser />}
-          {role === "ADMIN" && <NavbarItemAdmin />}
-
 
           <Box sx={{ display: { xs: "none", md: "flex" }, ml: "20px" }}>
             {user ? (
-              <AccountPopover />
+              <div>
+                <Notification />
+                <AccountPopover />
+              </div>
             ) : (
               <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Button
-                  color="inherit"
-                  component={Link}
-                  to="/"
-                  sx={{ textTransform: "none" }}
-                >
-                  Trang chủ
-                </Button>
-                <Button
-                  color="inherit"
-                  component={Link}
-                  to="/list-blog"
-                  sx={{ textTransform: "none" }}
-                >
-                  Bài đăng
-                </Button>
-                <Button
-                  color="inherit"
-                  component={Link}
-                  to="/available-post"
-                  sx={{ textTransform: "none" }}
-                >
-                  Trận đấu đang tìm người
-                </Button>
-                <Button
-                  color="inherit"
-                  component={Link}
-                  to="/search-courts"
-                  sx={{ textTransform: "none", marginRight: "2px" }}
-                >
-                  Tìm sân đấu
-                </Button>
                 <Button
                   onClick={openLoginModal}
                   sx={{

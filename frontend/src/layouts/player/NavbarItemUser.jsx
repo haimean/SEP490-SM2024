@@ -1,33 +1,8 @@
 import { Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import Notification from "../Notification.jsx";
 const NavbarItemUser = () => {
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
-      <Button
-        color="inherit"
-        component={Link}
-        to="/"
-        sx={{ textTransform: "none" }}
-      >
-        Trang chủ
-      </Button>
-      <Button
-        color="inherit"
-        component={Link}
-        to="/list-blog"
-        sx={{ textTransform: "none" }}
-      >
-        Bài đăng
-      </Button>
-      <Button
-        color="inherit"
-        component={Link}
-        to="/request-list-join"
-        sx={{ textTransform: "none" }}
-      >
-        Lịch sử xin vào trận đấu
-      </Button>
       <Button
         color="inherit"
         component={Link}
@@ -39,13 +14,20 @@ const NavbarItemUser = () => {
       <Button
         color="inherit"
         component={Link}
-        to="/player/booking-history"
+        to="/available-post"
         sx={{ textTransform: "none" }}
       >
-        Lịch sử đặt sân
+        Tìm trận đấu
       </Button>
-      <Notification />
-      </Box>
+      <Button
+        color="inherit"
+        component={Link}
+        to="/list-blog"
+        sx={{ textTransform: "none" }}
+      >
+        Bài đăng
+      </Button>
+    </Box>
   );
 };
 

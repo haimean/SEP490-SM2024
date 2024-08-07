@@ -9,7 +9,11 @@ import TableNoData from "../../../sections/admin/user/table-no-data";
 import BookedCourtsRow from "./BookedCourtsRow";
 import TableHeadCP from "../../common/TableHeadCP";
 import TableEmptyRows from "../../../sections/admin/user/table-empty-rows";
-import { emptyRows, applyFilter, getComparator } from "../../../utils/TableUtils";
+import {
+  emptyRows,
+  applyFilter,
+  getComparator,
+} from "../../../utils/TableUtils";
 import { Container } from "@mui/material";
 
 // ----------------------------------------------------------------------
@@ -68,7 +72,10 @@ export default function RequestListTable() {
                 .map((row) => (
                   <BookedCourtsRow key={row.id} row={row} />
                 ))}
-              <TableEmptyRows height={69.3} emptyRows={emptyRows(page, rowsPerPage, bookedCourts.length)} />
+              <TableEmptyRows
+                height={69.3}
+                emptyRows={emptyRows(page, rowsPerPage, bookedCourts.length)}
+              />
               {notFound && <TableNoData query={filterName} />}
             </TableBody>
           </Table>
@@ -82,18 +89,20 @@ export default function RequestListTable() {
           rowsPerPageOptions={[5, 10, 20]}
           onRowsPerPageChange={handleChangeRowsPerPage}
           labelRowsPerPage="Số hàng mỗi trang:"
-          labelDisplayedRows={({ from, to, count }) => `${from}–${to} trên ${count !== -1 ? count : `hơn ${to}`}`}
+          labelDisplayedRows={({ from, to, count }) =>
+            `${from}–${to} trên ${count !== -1 ? count : `hơn ${to}`}`
+          }
           getItemAriaLabel={(type) => {
-            if (type === 'first') {
-              return 'Trang đầu tiên';
-            } else if (type === 'last') {
-              return 'Trang cuối cùng';
-            } else if (type === 'next') {
-              return 'Trang tiếp theo';
-            } else if (type === 'previous') {
-              return 'Trang trước đó';
+            if (type === "first") {
+              return "Trang đầu tiên";
+            } else if (type === "last") {
+              return "Trang cuối cùng";
+            } else if (type === "next") {
+              return "Trang tiếp theo";
+            } else if (type === "previous") {
+              return "Trang trước đó";
             }
-            return '';
+            return "";
           }}
         />
       </Card>
