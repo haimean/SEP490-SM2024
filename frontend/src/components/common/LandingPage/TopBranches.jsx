@@ -5,23 +5,55 @@ import {
   Card,
   CardMedia,
   CardContent,
-  Stack,
 } from "@mui/material";
+import haversine from "haversine";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const TopBranches = ({ branches, role = "USER" }) => {
+  const [location, setLocation] = useState(null);
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            latitude: position?.coords?.latitude,
+            longitude: position?.coords?.longitude,
+          });
+        },
+        (error) => {
+          toast.warning(error.message);
+        }
+      );
+    } else {
+      toast.warning("Không lấy được vị trí hiện tại");
+    }
+  };
+  const distance = (latitude, longitude) => {
+    return haversine(
+      {
+        latitude: latitude || "21.013393218627524",
+        longitude: longitude || "105.52526950492785",
+      },
+      {
+        latitude: location?.latitude || "21.013393218627524",
+        longitude: location?.longitude || "105.52526950492785",
+      }
+    );
+  };
+  useEffect(() => {
+    getLocation();
+  }, []);
   return (
     <section className="block">
       <Box sx={{ py: 6, px: { xs: 2, md: 4, lg: 6 } }}>
         <Typography variant="h2" align="center" gutterBottom>
-          Các sân đấu hàng đầu
-        </Typography>
-        <Typography variant="subtitle1" align="center" paragraph>
-          Khám phá các sân cầu lông của chúng tôi và các dịch vụ độc đáo của họ
+          Các sân đấu mới nhất
         </Typography>
 
         <Grid container spacing={4}>
-          {branches.map((branch, index) => {
+          {branches?.map((branch, index) => {
             const cardContent = (
               <Card
                 sx={{
@@ -64,20 +96,30 @@ const TopBranches = ({ branches, role = "USER" }) => {
                     <Typography component="h3" variant="h4" gutterBottom>
                       {branch?.name}
                     </Typography>
-                    <Typography variant="body1" paragraph>
-                      {branch?.description}
-                    </Typography>
                     <Typography variant="body2">
                       Email: {branch?.email}
                     </Typography>
                     <Typography variant="body2">
-                      Phone: {branch?.phone}
+                      Số điện thoại: {branch?.phone}
                     </Typography>
                     <Typography variant="body2">
-                      Hours: {branch?.openingHours} - {branch?.closingHours}
+                      Giờ hoạt động: {branch?.openingHours} -{" "}
+                      {branch?.closingHours}
                     </Typography>
                     <Typography variant="body2">
-                      Address: {branch?.address?.detail}
+                      Địa chỉ: {branch?.address?.detail}
+                    </Typography>
+                    <Typography variant="body2">
+                      Vị trí cách bạn:
+                      {distance(
+                        branch?.address?.latitude,
+                        branch?.address?.longitude
+                      ).toFixed(0) == 0
+                        ? " ~"
+                        : distance(
+                            branch?.address?.latitude,
+                            branch?.address?.longitude
+                          ).toFixed(2) + "km"}
                     </Typography>
                   </CardContent>
                 </Box>

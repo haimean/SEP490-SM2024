@@ -5,6 +5,7 @@ import CallApi from "../../service/CallAPI";
 import BannerHost from "../../components/common/LandingPage/BannerHost";
 import BannerUser from "../../components/common/LandingPage/BannerUser";
 import TopBranches from "../../components/common/LandingPage/TopBranches";
+import { toast } from "react-toastify";
 
 const LandingPage = () => {
   const role = localStorage.getItem("userRole");

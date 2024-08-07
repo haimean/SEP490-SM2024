@@ -56,7 +56,7 @@ const ChangePassword = ({ open, handleClose }) => {
                 "Mật khẩu ít nhất phải chứa một chữ hoa, một chữ thường, một số và một ký tự đặc biệt",
             }}
             errors={errors}
-            required={true}
+            required="Không được bỏ trống trường này."
             type="password"
           />
           <InputLabel
@@ -71,7 +71,7 @@ const ChangePassword = ({ open, handleClose }) => {
             }}
             minLength={8}
             errors={errors}
-            required={true}
+            required="Không được bỏ trống trường này."
             type="password"
           />
           <InputLabel
@@ -85,7 +85,7 @@ const ChangePassword = ({ open, handleClose }) => {
                 "Mật khẩu ít nhất phải chứa một chữ hoa, một chữ thường, một số và một ký tự đặc biệt",
             }}
             errors={errors}
-            required={true}
+            required="Không được bỏ trống trường này."
             type="password"
           />
           <style>{`

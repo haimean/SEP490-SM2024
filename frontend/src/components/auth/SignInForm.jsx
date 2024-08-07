@@ -5,10 +5,11 @@ import { jwtDecode } from "jwt-decode";
 import InputLabel from "../common/InputLabel.jsx";
 import { toast } from "react-toastify";
 import CallApi from "../../service/CallAPI.jsx";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import VerifyAccountModal from "../auth/VerifyAccountModal.jsx";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../middleware/redux/userSlice.jsx";
+import { Button } from "@mui/material";
 
 const SignInForm = ({ isModal, onSuccess }) => {
   const {
@@ -123,7 +124,7 @@ const SignInForm = ({ isModal, onSuccess }) => {
 
   return (
     <div>
-      <div className="border-t-8 rounded-md border-indigo-600 bg-white p-12 shadow-2xl w-96">
+      <div className="rounded-md  bg-white p-12 shadow-2xl w-96">
         <h1 className="font-bold text-center block text-2xl">Đăng nhập</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <InputLabel
@@ -143,23 +144,27 @@ const SignInForm = ({ isModal, onSuccess }) => {
             id="password"
             register={register}
             errors={errors}
+            pattern={{
+              value:
+                /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/,
+              message:
+                "Mật khẩu ít nhất phải chứa một chữ hoa, một chữ thường, một số và một ký tự đặc biệt",
+            }}
             required="Không được bỏ trống trường này."
             type="password"
           />
-          <button
+          <Button
+            variant="contained"
             type="submit"
-            className="mt-6 transition block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg"
+            className="mt-6 transition block py-3 px-4 w-full "
           >
             Đăng nhập
-          </button>
+          </Button>
         </form>
-        <div className="mt-4 text-center">
-          <a
-            href="/forgot-password"
-            className="text-indigo-600 hover:text-indigo-800"
-          >
+        <div className="mt-1 text-center flex justify-end">
+          <Link to="/forgot-password" className="text-[#1976d2]">
             Quên mật khẩu?
-          </a>
+          </Link>
         </div>
         <div className="mt-4 text-center flex justify-center w-full">
           <GoogleLogin
@@ -169,20 +174,14 @@ const SignInForm = ({ isModal, onSuccess }) => {
           />
         </div>
         <div className="mt-4 text-center">
-          <a
-            href="/sign-up-player"
-            className="text-indigo-600 hover:text-indigo-800"
-          >
+          <Link to="/sign-up-player" className="text-[#1976d2]">
             Chưa có tài khoản? Đăng kí
-          </a>
+          </Link>
         </div>
         <div className="mt-4 text-center">
-          <a
-            href="/sign-up-host"
-            className="text-indigo-600 hover:text-indigo-800"
-          >
+          <Link to="/sign-up-host" className="text-[#1976d2]">
             Đăng ký tài khoản cho chủ sân
-          </a>
+          </Link>
         </div>
       </div>
       <VerifyAccountModal show={showVerifyModal} onClose={handleCloseModal}>
