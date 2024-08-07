@@ -176,7 +176,9 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
         </Tooltip>
         <Stack direction="row" alignItems="center" spacing={1} className="my-1">
           <DirectionsRunIcon className="text-red-600" />
-          <Typography>Vị trí cách bạn {distance.toFixed(2)} km</Typography>
+          <Typography component="h6" variant="h6">
+            Vị trí cách bạn {distance.toFixed(2)} km
+          </Typography>
         </Stack>
         <Tooltip title={activity?.Court?.Branches?.address?.detail}>
           <Stack
