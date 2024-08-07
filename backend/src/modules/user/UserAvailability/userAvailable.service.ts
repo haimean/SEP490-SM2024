@@ -87,6 +87,13 @@ const userAvailableService = {
           lte: endOfDay,
         },
       },
+      include: {
+        account: {
+          include: {
+            user: true,
+          },
+        },
+      },
     });
   },
   getInvitation: async (accountId: number, postId: number) => {
