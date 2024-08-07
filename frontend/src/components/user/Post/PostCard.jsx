@@ -109,7 +109,6 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
           postId: activity?.post?.id,
         }
       );
-      console.log("🚀 ========= result:", result.data);
       setDetail(result?.data);
     } catch (error) {
       console.log("🚀 ========= error:", error);
@@ -161,9 +160,6 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
   useEffect(() => {
     getLocation();
   }, []);
-
-  // Hiển thị kết quả
-  console.log(`Khoảng cách giữa hai điểm là ${distance.toFixed(2)} km`);
   return (
     <Card>
       <CardMedia
@@ -197,7 +193,10 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
         </Tooltip>
         <Stack direction="row" alignItems="center" spacing={1} className="mb-1">
           <EventIcon className="text-red-600" />
-          <Typography>{parseDate(activity?.startTime)}</Typography>
+          {/* <Typography>{parseDate(activity?.startTime)}</Typography> */}
+          <Typography>
+            {format(parseISO(activity?.startTime), "yyyy-MM-dd")}
+          </Typography>
         </Stack>
         <Stack direction="row" alignItems="center" spacing={1} className="mb-1">
           <AccessTimeIcon className="text-red-600" />
