@@ -139,7 +139,7 @@ const PostRightCP = ({ user, post, postId }) => {
   }, [postId]);
   const handleAccept = async (id, status, reason) => {
     try {
-      const result = await CallApi("/api/user/invitation/update", "put", {
+      const result = await CallApi("/api/user/invitation/update", "post", {
         invitationId: id,
         status: status,
         reasonCancel: reason,
