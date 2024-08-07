@@ -141,16 +141,16 @@ const invitationUserController = {
         reasonCancel,
       });
       const postId = invitation.Post.id;
-      // người không có sân
+      // people without anger
       if (accId === invitation.Post.booking.accountId) {
-        //id người có sân
+        //person id has yard
         const accountId: number =
           invitation.userAvailability.accountId;
 
-        // tên người không có sân
+        // name of person without anger
         const name = invitation.Post.booking.account.user?.fullName;
-        // id bài post
-        // Thông báo
+
+        // Notification
         switch (status) {
           case 'ACCEPT':
             // đã accept
@@ -177,11 +177,10 @@ const invitationUserController = {
                 status: 'SEED',
               },
             ]);
-            // đã accept
             break;
 
           case 'CANCEL':
-            // đã accept
+            // accepted
             createNotifications([
               {
                 id: 1,
@@ -198,8 +197,8 @@ const invitationUserController = {
             break;
         }
       } else {
-        // gửi thông báo cho người rảnh
-        // account người rảnh
+        // send notification to free person
+        // account of free person
         const accountId: number = invitation.Post.booking.accountId;
         const name =
           invitation.userAvailability.account.user?.fullName;
