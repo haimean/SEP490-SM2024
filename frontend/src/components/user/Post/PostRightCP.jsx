@@ -15,7 +15,6 @@ import StarIcon from "@mui/icons-material/Star";
 import CallApi from "../../../service/CallAPI.jsx";
 import WaitingListTable2 from "../WaitingList/WaitingListTable2.jsx";
 import RequestListTable2 from "../ResponseToRequest/RequestListTable2.jsx";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { toast } from "react-toastify";
 import ModalProfile from "../../common/ModalProfile.jsx";
 import ModalReason from "../../common/ModalReason.jsx";
@@ -25,7 +24,6 @@ import LoginModal from "../../auth/LoginModal.jsx";
 const PostRightCP = ({ user, post, postId }) => {
   const [accountId, setAccountId] = useState(null);
   const [listJoin, setListJoin] = useState([]);
-  console.log("🚀 ========= listJoin:", listJoin);
   const [openWaitingList, setOpenWaitingList] = useState(false);
   const [openRequestList, setOpenRequestList] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
@@ -61,7 +59,6 @@ const PostRightCP = ({ user, post, postId }) => {
         `/api/user/user-available/${postId}/get-user-accept`,
         "post"
       );
-      console.log("🚀 ========= resultaaaaaaaaa:", result);
       setListJoin(result.data);
     } catch (error) {
       console.log("🚀 ========= error:", error);
@@ -300,7 +297,7 @@ const PostRightCP = ({ user, post, postId }) => {
                             color="error"
                             onClick={() => handleOpenModalReason(item?.id)}
                           >
-                            <DeleteIcon />
+                            Xóa người chơi
                           </Button>
                         </TableCell>
                       )}

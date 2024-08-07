@@ -22,12 +22,11 @@ import PostRightCP from "./PostRightCP";
 import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 import haversine from "haversine";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const PostDetailCP = ({ post, postId }) => {
   console.log("🚀 ========= post:", post);
   const [location, setLocation] = useState(null);
-  const [error, setError] = useState(null);
-
   const getLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -38,11 +37,11 @@ const PostDetailCP = ({ post, postId }) => {
           });
         },
         (error) => {
-          setError(error.message);
+          console.log("🚀 ========= error:", error.message);
         }
       );
     } else {
-      setError("Geolocation is not supported by this browser.");
+      toast.warning("Geolocation is not supported by this browser.");
     }
   };
   useEffect(() => {
@@ -54,9 +53,6 @@ const PostDetailCP = ({ post, postId }) => {
 
   const { Court } = post.booking;
   const { TypeCourt } = Court;
-  // const { address } = Court.Branches;
-
-  // // const location = `${address.wards}, ${address.districts}, ${address.provinces}`;\
   const locations = post?.booking?.Court?.Branches?.address?.detail;
 
   // const formattedDate = format(parseISO(post.booking.dateTime), "yyyy-MM-dd");
@@ -141,7 +137,7 @@ const PostDetailCP = ({ post, postId }) => {
             </Typography>
             {renderInfoItem(
               SportsBasketball,
-              post?.desciption || "Không có thông tin"
+              post?.description || "Không có thông tin"
             )}
           </CardContent>
         </Card>
@@ -165,9 +161,6 @@ const PostDetailCP = ({ post, postId }) => {
                 </Button>
               </Link>
             </Box>
-            {/* <Typography variant="body2" color="text.secondary">
-                {location}
-              </Typography> */}
             <Box
               sx={{
                 height: "400px",
