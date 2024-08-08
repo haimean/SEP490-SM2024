@@ -24,7 +24,6 @@ const PriceTable = ({ times, priceLists, editingRows, handleInputChange, handleC
             {priceLists[times].map((item, index) => (
               <TableRow key={index}>
                 <TableCell>
-                  <TextField
                   <TimePicker
                     type="time"
                     name="start"
@@ -35,7 +34,6 @@ const PriceTable = ({ times, priceLists, editingRows, handleInputChange, handleC
                   />
                 </TableCell>
                 <TableCell>
-                  <TextField
                   <TimePicker
                     type="time"
                     name="end"
@@ -80,7 +78,6 @@ const PriceTable = ({ times, priceLists, editingRows, handleInputChange, handleC
             {newRows[times] && (
               <TableRow>
                 <TableCell>
-                  <TextField
                   <TimePicker
                     type="time"
                     name="start"
@@ -90,7 +87,6 @@ const PriceTable = ({ times, priceLists, editingRows, handleInputChange, handleC
                   />
                 </TableCell>
                 <TableCell>
-                  <TextField
                   <TimePicker
                     type="time"
                     name="end"
