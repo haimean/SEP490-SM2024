@@ -110,7 +110,7 @@ const TopBranches = ({ branches, role = "USER" }) => {
                       Địa chỉ: {branch?.address?.detail}
                     </Typography>
                     <Typography variant="body2">
-                      Vị trí cách bạn:
+                      Cách vị trí cách bạn:
                       {distance(
                         branch?.address?.latitude,
                         branch?.address?.longitude
