@@ -40,7 +40,7 @@ const PostCard = ({ postId, owner, court, price, time, image, isLarge }) => {
             Sân: {court}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Phí giao lưu:
+            Phí giao lưu:{" "}
             {new Intl.NumberFormat("vi-VN", {
               style: "currency",
               currency: "VND",
