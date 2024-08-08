@@ -6,4 +6,8 @@ bookingAdminRouter.get(
   '/get-all-booking-and-post-12-month-latest',
   bookingAdminController.getListBookingAndPost12MonthLatest
 );
+bookingAdminRouter.get(
+  '/get-all-booking-in-month',
+  bookingAdminController.getListBookingInMonth
+);
 export default bookingAdminRouter;

@@ -36,7 +36,7 @@ const AvailableCourt = () => {
       const response = await CallApi("/api/booking/get-booking-post", "get");
       console.log("🚀 ========= response:", response);
       setIsLoading(false);
-      setActivities(response.data);
+      setActivities(response.data.reverse());
     } catch (error) {
       toast.error(error.response?.data?.error);
     }

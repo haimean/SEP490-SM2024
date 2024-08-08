@@ -22,6 +22,8 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import LoginModal from "../../auth/LoginModal.jsx";
 const PostRightCP = ({ user, post, postId }) => {
+  console.log("🚀 ========= post:", post);
+  console.log("🚀 ========= user:", user);
   const [accountId, setAccountId] = useState(null);
   const [listJoin, setListJoin] = useState([]);
   const [openWaitingList, setOpenWaitingList] = useState(false);

@@ -72,10 +72,10 @@ const DashboardCp = () => {
               ? `${(percentage * 100).toFixed(2)} % so với tháng trước`
               : "Không có dữ liệu tháng trước"
           }
-          subTitle={`Đăng ký mới : ${totalMonthAccount} trong tháng`}
+          subTitle={`Đăng ký mới : ${totalMonthAccount} người/ tháng`}
         />
         <SectionDashboard
-          title={"Số lượng bài post tìm trận: 28k"}
+          title={"Số lượng bài đăng tìm người chơi: 28k"}
           direction={true}
           percentage={"-12.4%"}
           subTitle={"Đăng ký mới : 13 (trong tháng)"}
