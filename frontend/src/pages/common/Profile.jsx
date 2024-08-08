@@ -12,6 +12,7 @@ import { Button, Container, Grid } from "@mui/material";
 import ChangePassword from "../../components/auth/ChangePassword.jsx";
 
 const Profile = () => {
+  const [openModal, setOpenModal] = useState(false);
   const [profile, setProfile] = useState({});
   const [avatarPreview, setAvatarPreview] = useState(null);
 
@@ -95,7 +96,6 @@ const Profile = () => {
     }
   };
 
-  const [openModal, setOpenModal] = useState(false);
   const handleCloseModal = () => {
     setOpenModal(false);
   };

@@ -233,8 +233,8 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
               : detail?.status == "ACCEPT"
               ? "Đã tham gia"
               : detail == null || detail?.status !== "NEW"
-              ? "Gửi lời mời tham gia"
-              : "Đã gửi lời mời"}
+              ? "Xin tham gia"
+              : "Đã xin tham gia"}
           </Button>
           <Button
             variant="contained"

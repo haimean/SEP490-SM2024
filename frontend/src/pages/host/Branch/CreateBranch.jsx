@@ -172,9 +172,10 @@ const CreateBranch = () => {
   };
 
   const createBranch = async (data) => {
+    console.log("🚀 ========= data:", data);
     const formData = new FormData();
     formData.append("name", data?.branchName);
-    formData.append("description", data?.description);
+    data.description && formData.append("description", data?.description);
     formData.append("phone", data?.phone);
     formData.append("openingHours", dayjs(data?.openingHours).format("HH:mm"));
     formData.append("closingHours", dayjs(data?.closingHours).format("HH:mm"));
@@ -664,7 +665,7 @@ const CreateBranch = () => {
               Hủy
             </Button>
             <Button type="submit" variant="contained" color="primary">
-              Xác nhận
+              Tạo cơ sở
             </Button>
           </Box>
         </form>

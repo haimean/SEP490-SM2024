@@ -17,7 +17,7 @@ const NavbarItemHost = () => {
       <Button
         color="inherit"
         component={Link}
-        to="/list-blog"
+        to="/host/list-blog"
         sx={{ textTransform: "none" }}
       >
         Blog
