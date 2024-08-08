@@ -6,18 +6,22 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import InboxIcon from "@mui/icons-material/Inbox";
+import { Link } from "react-router-dom";
 const sidebar = [
   {
     id: 1,
     name: "Thống kê",
+    router: "/host/dashboard",
   },
   {
     id: 2,
     name: "Danh sách cơ sở",
+    router: "/host/list-branch",
   },
   {
     id: 3,
     name: "Lịch sử đăng ký",
+    router: "",
   },
 ];
 export default function Sidebar() {
@@ -26,14 +30,16 @@ export default function Sidebar() {
       <nav aria-label="main mailbox folders">
         <List>
           {sidebar.map((item) => (
-            <ListItem key={item.id} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary={item.name} />
-              </ListItemButton>
-            </ListItem>
+            <Link to={item.router} key={item.id}>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <InboxIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={item.name} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
           ))}
         </List>
       </nav>

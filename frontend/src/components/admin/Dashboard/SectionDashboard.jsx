@@ -12,7 +12,7 @@ export default function SectionDashboard({
     <div>
       <Card
         sx={{
-          background: "#5A55EB",
+          background: "#29be75",
           color: "white",
           borderRadius: 2,
         }}
@@ -27,9 +27,9 @@ export default function SectionDashboard({
           >
             <span
               style={{
-                color: direction ? "green" : "red",
                 marginRight: 4,
               }}
+              className={direction ? "text-green-800" : "text-red-600"}
             >
               {percentage}
             </span>
