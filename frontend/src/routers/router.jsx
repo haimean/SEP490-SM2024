@@ -39,7 +39,6 @@ import RegisterTypeCourt from "../pages/host/TypeCourt/CreateTypeCourt.jsx";
 import BookingHistoryHost from "../pages/host/BranchBookHistory/BookingHistoryHost.jsx";
 import BookingDetailHost from "../components/host/BranchBookHistory/BookingDetailHost.jsx";
 import ListBranchAdmin from "../pages/admin/Branch/ListBranchAdmin.jsx";
-import RequestList from "../pages/user/requestList/requestList.jsx";
 import ListBlog from "../pages/player/Blog/ListBlog.jsx";
 import DashboardHost from "../pages/host/Dashboard/DashboardHost.jsx";
 import PriceSetupPage from "../components/host/court/PriceSetupPage.jsx";
@@ -348,13 +347,6 @@ const router = [
     component: <ListBranchAdmin />,
     role: ["ADMIN"], // Chỉ cho phép HOST truy cập
     layout: "admin",
-  },
-  {
-    path: "/player/request-list",
-    name: "Request List",
-    component: <RequestList />,
-    role: ["USER"],
-    layout: "",
   },
   {
     path: "/list-blog",
