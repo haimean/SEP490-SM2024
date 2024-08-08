@@ -34,7 +34,7 @@ const BookingDetail = () => {
       try {
         await CallApi(`/api/user/booking/${booking?.id}`, "delete");
         navigate("/player/booking-history");
-        toast.success("Xóa thành công trận đã đặt");
+        toast.success("Hủy thành công trận đã đặt");
       } catch (error) {
         toast.error("Lỗi khi hủy đặt sân:", error);
       }
@@ -82,7 +82,7 @@ const BookingDetail = () => {
 
           <Grid item xs={12} md={6}>
             <Typography variant="h6">Thông tin người đặt</Typography>
-            <Typography>Tên: {booking?.bookingInfo?.name}</Typography>
+            <Typography>Họ và tên: {booking?.bookingInfo?.name}</Typography>
             <Typography>
               Số điện thoại: {booking?.bookingInfo?.numberPhone}
             </Typography>

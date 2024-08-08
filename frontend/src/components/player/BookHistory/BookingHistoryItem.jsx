@@ -19,7 +19,7 @@ const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
       try {
         await CallApi(`/api/user/booking/${bookings?.id}`, "delete");
         onCancelSuccess(bookings?.id);
-        toast.success("Xóa thành công trận đã đặt");
+        toast.success("Hủy thành công trận đã đặt");
       } catch (error) {
         toast.error("Lỗi khi hủy đặt sân:", error);
       }
