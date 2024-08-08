@@ -356,6 +356,13 @@ const router = [
     layout: "",
   },
   {
+    path: "/host/list-blog",
+    name: "List Blog",
+    component: <ListBlog />,
+    role: ["USER", "HOST"],
+    layout: "host",
+  },
+  {
     path: "/host/dashboard",
     name: "Dashboarad",
     component: <DashboardHost />,
