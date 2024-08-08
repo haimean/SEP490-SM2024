@@ -25,7 +25,7 @@ const NavbarItemUser = () => {
         to="/list-blog"
         sx={{ textTransform: "none" }}
       >
-        Bài đăng
+        Blog
       </Button>
     </Box>
   );

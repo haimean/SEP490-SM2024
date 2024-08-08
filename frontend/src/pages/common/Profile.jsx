@@ -12,13 +12,19 @@ import { Button, Container, Grid } from "@mui/material";
 import ChangePassword from "../../components/auth/ChangePassword.jsx";
 
 const Profile = () => {
+  const [openModal, setOpenModal] = useState(false);
   const [profile, setProfile] = useState({});
+  const [avatarPreview, setAvatarPreview] = useState(null);
+
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
+    watch,
   } = useForm();
+
+  const avatarFile = watch("avatar");
 
   useEffect(() => {
     fetchProfile();
@@ -26,11 +32,26 @@ const Profile = () => {
 
   useEffect(() => {
     if (profile?.user) {
-      setValue("name", profile?.user?.fullName);
+      setValue("fullName", profile?.user?.fullName);
       setValue("dob", formatDate(profile?.user?.dob));
       setValue("numberPhone", profile?.user?.numberPhone);
+      setValue("gender", profile?.user?.gender);
     }
   }, [profile, setValue]);
+
+  useEffect(() => {
+    if (avatarFile && avatarFile[0]) {
+      if (avatarFile[0].size > 1024 * 1024) {
+        toast.error("Ảnh phải nhỏ hơn 1MB");
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAvatarPreview(reader?.result);
+      };
+      reader.readAsDataURL(avatarFile[0]);
+    }
+  }, [avatarFile]);
 
   const fetchProfile = async () => {
     try {
@@ -50,26 +71,38 @@ const Profile = () => {
   };
 
   const onSubmit = async (data) => {
-    const requestData = {
-      name: data.name || profile?.user?.fullName,
-      dob: data.dob || formatDate(profile?.user?.dob),
-      numberPhone: data.numberPhone || profile?.user?.numberPhone,
-    };
+    const formData = new FormData();
+    formData.append("fullName", data.fullName || profile?.user?.fullName);
+    formData.append("dob", data.dob || formatDate(profile?.user?.dob));
+    formData.append(
+      "numberPhone",
+      data.numberPhone || profile?.user?.numberPhone
+    );
+    formData.append("gender", data.gender || profile?.user?.gender);
+    if (data.avatar && data.avatar[0]) {
+      formData.append("avatar", data.avatar[0]);
+    }
+
     try {
-      await CallApi(`/api/user/profile`, "put", requestData);
+      await CallApi(`/api/user/profile`, "put", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       fetchProfile();
       toast.success(`Cập nhật thông tin cá nhân thành công`);
     } catch (error) {
       toast.error(error.response?.data?.error);
     }
   };
-  const [openModal, setOpenModal] = useState(false);
+
   const handleCloseModal = () => {
     setOpenModal(false);
   };
   const handleOpenModal = () => {
     setOpenModal(true);
   };
+
   return (
     <>
       <Container className="max-w-7xl mx-auto my-20 p-6 bg-white border shadow-lg rounded-md flex flex-col lg:flex-row">
@@ -79,14 +112,46 @@ const Profile = () => {
             <div className="flex flex-col items-center">
               <div className="relative">
                 <img
-                  src="path/to/avatar.jpg"
+                  src={
+                    avatarPreview ||
+                    profile?.user?.avatar ||
+                    "path/to/default-avatar.jpg"
+                  }
                   alt="Avatar"
                   className="w-32 h-32 rounded-full object-cover bg-blue-500"
+                />
+                <label
+                  htmlFor="avatar"
+                  className="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full p-1 cursor-pointer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path d="M4 13V16H7L16.2929 6.70711L13.2929 3.70711L4 13ZM17.7071 5.29289C18.0976 5.68342 18.0976 6.31658 17.7071 6.70711L16.2929 8.12132L11.8787 3.70711L13.2929 2.29289C13.6834 1.90237 14.3166 1.90237 14.7071 2.29289L17.7071 5.29289Z" />
+                  </svg>
+                </label>
+                <input
+                  id="avatar"
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  {...register("avatar", {
+                    validate: (value) => {
+                      if (value[0] && value[0].size > 1024 * 1024) {
+                        return "Ảnh phải nhỏ hơn 1MB";
+                      }
+                      return true;
+                    },
+                  })}
                 />
               </div>
               <h3 className="mt-4 text-xl font-semibold">
                 {profile?.user?.fullName}
               </h3>
+              <p className="text-gray-500">{profile?.role}</p>
             </div>
             <div className="mt-4 flex justify-center">
               <Button
@@ -105,7 +170,7 @@ const Profile = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <InputLabel
                   label="Họ tên"
-                  id="name"
+                  id="fullName"
                   placeholder="Họ và tên"
                   register={register}
                   defaultValue={profile?.user?.fullName}
@@ -147,6 +212,42 @@ const Profile = () => {
                   required={true}
                   type="date"
                 />
+                <div className="mb-4">
+                  <label
+                    htmlFor="gender"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                  >
+                    Giới tính
+                  </label>
+                  <div className="relative">
+                    <select
+                      id="gender"
+                      {...register("gender", {
+                        required: "Vui lòng chọn giới tính",
+                      })}
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-normal focus:outline-none focus:shadow-outline bg-white"
+                    >
+                      <option value="">Chọn giới tính</option>
+                      <option value="MALE">Nam</option>
+                      <option value="FEMALE">Nữ</option>
+                      <option value="OTHER">Khác</option>
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                      <svg
+                        className="fill-current h-4 w-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                      </svg>
+                    </div>
+                  </div>
+                  {errors.gender && (
+                    <p className="text-red-500 text-xs italic mt-1">
+                      {errors.gender.message}
+                    </p>
+                  )}
+                </div>
                 <InputLabel
                   label="Email"
                   id="email"
@@ -161,13 +262,12 @@ const Profile = () => {
                   errors={errors}
                 />
               </div>
-              <Button
+              <button
                 type="submit"
-                variant="contained"
-                className="mt-6 w-full py-2 px-4"
+                className="mt-6 w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
               >
-                Cập nhật thông tin
-              </Button>
+                Cập nhật
+              </button>
             </form>
           </Grid>
         </Grid>
