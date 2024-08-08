@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, TextField, Button,Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 
 const PriceTable = ({ times, priceLists, editingRows, handleInputChange, handleConfirmEditPrice, handleCancelEditRow, handleEditPrice, handleDeletePrice, handleDeleteAllPrices, newRows, handleAddPrice, handleCancelNewRow, setNewRows }) => {
   return (
@@ -24,20 +25,24 @@ const PriceTable = ({ times, priceLists, editingRows, handleInputChange, handleC
               <TableRow key={index}>
                 <TableCell>
                   <TextField
+                  <TimePicker
                     type="time"
                     name="start"
                     value={editingRows[times] && editingRows[times][index] ? editingRows[times][index].start : item.start}
                     onChange={(e) => handleInputChange(e, times, index)}
                     disabled={!editingRows[times] || !editingRows[times][index]}
+                    ampm={false}
                   />
                 </TableCell>
                 <TableCell>
                   <TextField
+                  <TimePicker
                     type="time"
                     name="end"
                     value={editingRows[times] && editingRows[times][index] ? editingRows[times][index].end : item.end}
                     onChange={(e) => handleInputChange(e, times, index)}
                     disabled={!editingRows[times] || !editingRows[times][index]}
+                    ampm={false}
                   />
                 </TableCell>
                 <TableCell>
@@ -76,18 +81,22 @@ const PriceTable = ({ times, priceLists, editingRows, handleInputChange, handleC
               <TableRow>
                 <TableCell>
                   <TextField
+                  <TimePicker
                     type="time"
                     name="start"
                     value={newRows[times].start}
                     onChange={(e) => handleInputChange(e, times)}
+                    ampm={false}
                   />
                 </TableCell>
                 <TableCell>
                   <TextField
+                  <TimePicker
                     type="time"
                     name="end"
                     value={newRows[times].end}
                     onChange={(e) => handleInputChange(e, times)}
+                    ampm={false}
                   />
                 </TableCell>
                 <TableCell>

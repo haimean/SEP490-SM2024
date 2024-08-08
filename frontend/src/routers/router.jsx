@@ -269,7 +269,7 @@ const router = [
     path: "/waiting-list",
     name: "Waiting List",
     component: <WaitingList />,
-    // role: ["USER"],
+    role: ["USER"],
     layout: "",
   },
   {
