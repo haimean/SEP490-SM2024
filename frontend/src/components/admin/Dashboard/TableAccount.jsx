@@ -42,9 +42,15 @@ export default function TableAccount() {
         <TableHead>
           <TableRow>
             <TableCell></TableCell>
-            <TableCell>Họ và tên</TableCell>
-            <TableCell>Email</TableCell>
-            <TableCell>Vai trò</TableCell>
+            <TableCell>
+              <h1 className="font-bold">Họ và tên</h1>
+            </TableCell>
+            <TableCell>
+              <h1 className="font-bold">Email</h1>
+            </TableCell>
+            <TableCell>
+              <h1 className="font-bold">Vai trò</h1>
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
