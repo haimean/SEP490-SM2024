@@ -45,12 +45,12 @@ const bookingAdminController = {
       ResponseHandler(res, {
         dataInMonth: result.result,
         percentage:
-          (result.result.length /
-            (result.resultPreviousMonth.length == 0 ||
-            result.resultPreviousMonth == null
-              ? result.result.length
-              : result.resultPreviousMonth.length)) *
-          100,
+          result.resultPreviousMonth.length == 0 ||
+          result.resultPreviousMonth == null
+            ? 0
+            : (result.result.length /
+                result.resultPreviousMonth.length) *
+              100,
       });
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
