@@ -269,6 +269,7 @@ const invitationUserService = {
                     user: true,
                   },
                 },
+                bookingInfo: true,
               },
             },
           },

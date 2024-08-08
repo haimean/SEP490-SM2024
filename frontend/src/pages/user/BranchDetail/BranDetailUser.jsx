@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import CallApi from "../../../service/CallAPI";
 import { LocationOn } from "@mui/icons-material";
 import Map from "../../../components/common/Map";
+import Loading from "../../../components/common/Loading";
 
 const testImg = "https://via.placeholder.com/200";
 
@@ -85,7 +86,7 @@ const BranDetailUser = () => {
             branch={branch}
           />
         ) : (
-          <div>Loading...</div>
+          <Loading />
         )}
       </Box>
     </Box>

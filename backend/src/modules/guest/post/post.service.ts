@@ -41,6 +41,11 @@ const postService = {
   },
   getTopThree: async (): Promise<any> => {
     return await database.post.findMany({
+      where: {
+        booking: {
+          isDelete: false,
+        },
+      },
       include: {
         booking: {
           include: {

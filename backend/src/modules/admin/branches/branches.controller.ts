@@ -4,11 +4,17 @@ import CustomError from '../../../outcomes/customError';
 import branchesAdminService from './branches.service';
 import { Branches } from '@prisma/client';
 import NotFoundError from '../../../outcomes/notFoundError';
+import { getObjectSignedUrl } from '../../../lib/s3';
 
 const branchesAdminController = {
   getAll: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const result = await branchesAdminService.getAll();
+      for (let item of result) {
+        if (item?.image) {
+          item.image = await getObjectSignedUrl(item.image);
+        }
+      }
       ResponseHandler(res, result);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));

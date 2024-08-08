@@ -180,7 +180,7 @@ export default function NavbarHost() {
             variant="h6"
             noWrap
             component={Link}
-            to="/"
+            to="/host/dashboard"
             sx={{
               display: { xs: "none", sm: "block" },
               marginRight: 2,
