@@ -664,7 +664,7 @@ const CreateBranch = () => {
               Hủy
             </Button>
             <Button type="submit" variant="contained" color="primary">
-              Xác nhận
+              Tạo cơ sở
             </Button>
           </Box>
         </form>
