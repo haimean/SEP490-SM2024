@@ -63,7 +63,7 @@ const Profile = () => {
       toast.error(error.response?.data?.error);
     }
   };
-  const [openModal, setOpenModal] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
   const handleCloseModal = () => {
     setOpenModal(false);
   };
