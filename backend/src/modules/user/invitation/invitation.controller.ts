@@ -148,7 +148,7 @@ const invitationUserController = {
           invitation.userAvailability.accountId;
 
         // name of person without anger
-        const name = invitation.Post.booking.account.user?.fullName;
+        const name = invitation.Post.booking?.bookingInfo?.name;
 
         // Notification
         switch (status) {
