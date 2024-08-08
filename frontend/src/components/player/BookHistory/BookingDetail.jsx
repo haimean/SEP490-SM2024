@@ -91,8 +91,10 @@ const BookingDetail = () => {
           {booking.Court && (
             <Grid item xs={12}>
               <Typography variant="h6">Thông tin sân</Typography>
-              <Typography>Tên sân: {booking?.Court.name}</Typography>
-              {/* Thêm các thông tin khác về sân nếu có */}
+              <Typography>Chi nhánh: {booking?.Court?.Branches?.name}</Typography>
+              <Typography>Tên sân: {booking?.Court?.name}</Typography>
+              <Typography>Liên hệ: {booking?.Court?.Branches?.phone}</Typography>
+              <Typography>Email: {booking?.Court?.Branches?.email}</Typography>
             </Grid>
           )}
         </Grid>
