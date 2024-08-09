@@ -49,8 +49,10 @@ export default function AccountPopover() {
   };
   const getProfile = async () => {
     try {
-      const result = await CallApi(`/api/user/profile/${accountId}`);
-      setAccount(result?.data);
+      if (accountId) {
+        const result = await CallApi(`/api/user/profile/${accountId}`);
+        setAccount(result?.data);
+      }
     } catch (error) {
       handleLogout();
       console.log("🚀 ========= error:", error);
