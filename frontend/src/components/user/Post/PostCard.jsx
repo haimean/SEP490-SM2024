@@ -13,7 +13,6 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import EventIcon from "@mui/icons-material/Event";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
-import PersonIcon from "@mui/icons-material/Person";
 import { format, parseISO } from "date-fns";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
@@ -22,6 +21,8 @@ import { useSelector } from "react-redux";
 import LoginModal from "../../auth/LoginModal";
 import haversine from "haversine";
 import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
+import { Group } from "@mui/icons-material";
+
 const PostCard = ({ activity, updateStatusInvitation }) => {
   // console.log("🚀 ========= activity:", activity);
   const acceptCount = activity?.post?.invitation?.filter(
@@ -212,7 +213,7 @@ const PostCard = ({ activity, updateStatusInvitation }) => {
           <Typography>{formattedPrice}</Typography>
         </Stack>
         <Stack direction="row" alignItems="center" spacing={1} className="mb-1">
-          <PersonIcon className="text-red-600" />
+          <Group className="text-red-600" />
           <Typography>
             Tuyển {activity?.post?.numberMember} người (Hiện có: {acceptCount}/
             {activity?.post?.numberMember})
