@@ -95,6 +95,23 @@ export default function ComparePage() {
       </>
     );
   };
+
+  const minPrice = (items) => {
+    return items?.reduce((prev, current) => {
+      return prev?.price < current?.price ? prev : current;
+    });
+  };
+  const maxPrice = (items) => {
+    return items?.reduce((prev, current) => {
+      return prev?.price > current?.price ? prev : current;
+    });
+  };
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(value);
+  };
   const rows = [
     {
       id: 1,
@@ -126,12 +143,20 @@ export default function ComparePage() {
       firstValue: firstCourt?.TypeCourt?.description,
       secondValue: secondCourt?.TypeCourt?.description,
     },
-    // {
-    //   id: 6,
-    //   title: "Giá",
-    //   firstValue: PriceFilter(firstCourt?.TypeCourt?.priceTypeCourt),
-    //   secondValue: PriceFilter(secondCourt?.TypeCourt?.priceTypeCourt),
-    // },
+    {
+      id: 6,
+      title: "Giá",
+      firstValue: `Từ ${formatCurrency(
+        minPrice(firstCourt?.TypeCourt?.priceTypeCourt)?.price
+      )} đến ${formatCurrency(
+        maxPrice(firstCourt?.TypeCourt?.priceTypeCourt)?.price
+      )}`,
+      secondValue: `Từ ${formatCurrency(
+        minPrice(secondCourt?.TypeCourt?.priceTypeCourt)?.price
+      )} đến ${formatCurrency(
+        maxPrice(secondCourt?.TypeCourt?.priceTypeCourt)?.price
+      )}`,
+    },
     {
       id: 7,
       title: "Chi tiết sân",
