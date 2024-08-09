@@ -58,6 +58,11 @@ const bookingUserService = {
           include: {
             Branches: {
               include: {
+                account: {
+                  include: {
+                    user: true,
+                  },
+                },
                 address: true,
                 attributeBranches: {
                   include: {

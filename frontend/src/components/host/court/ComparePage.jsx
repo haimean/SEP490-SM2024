@@ -84,6 +84,17 @@ export default function ComparePage() {
       }
     ).toFixed(2);
   };
+  const PriceFilter = ({ data }) => {
+    const prices = data?.map((item) => item?.price);
+    const minPrice = Math.min(...prices);
+    const maxPrice = Math.max(...prices);
+
+    return (
+      <>
+        Giá từ {minPrice} đến {maxPrice}
+      </>
+    );
+  };
   const rows = [
     {
       id: 1,
@@ -115,8 +126,14 @@ export default function ComparePage() {
       firstValue: firstCourt?.TypeCourt?.description,
       secondValue: secondCourt?.TypeCourt?.description,
     },
+    // {
+    //   id: 6,
+    //   title: "Giá",
+    //   firstValue: PriceFilter(firstCourt?.TypeCourt?.priceTypeCourt),
+    //   secondValue: PriceFilter(secondCourt?.TypeCourt?.priceTypeCourt),
+    // },
     {
-      id: 6,
+      id: 7,
       title: "Chi tiết sân",
       firstValue: (
         <Link to={`/post/${firstCourt?.id}`}>
@@ -137,6 +154,7 @@ export default function ComparePage() {
       </Tooltip>
     );
   };
+
   return isLoading == true ? (
     <Loading />
   ) : (
@@ -169,14 +187,14 @@ export default function ComparePage() {
                 {row?.title}
               </TableCell>
               <TableCell align="center">
-                {row?.id != 6 ? (
+                {row?.id != 7 ? (
                   <TruncateText text={row?.firstValue} length={50} />
                 ) : (
                   row?.firstValue
                 )}
               </TableCell>
               <TableCell align="center">
-                {row?.id != 6 ? (
+                {row?.id != 7 ? (
                   <TruncateText text={row?.secondValue} length={50} />
                 ) : (
                   row?.secondValue
