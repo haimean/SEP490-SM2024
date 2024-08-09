@@ -1,8 +1,6 @@
 import { Router } from 'express';
-
 import validate from '../../../utils/validate';
-import upload from '../../../lib/uploadImage';
-
+import { upload } from '../../../lib/upload';
 import typeCourtHostValidator from './typeCourt.validator';
 import typeCourtHostController from './typeCourt.controller';
 

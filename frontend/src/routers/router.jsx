@@ -62,6 +62,13 @@ const router = [
     layout: "",
   },
   {
+    path: "/host/profile",
+    name: "Profile",
+    component: <Profile />,
+    role: ["USER", "HOST", "ADMIN"], // Cho phép cả USER, HOST và ADMIN truy cập
+    layout: "host",
+  },
+  {
     path: "/login",
     name: "Login",
     component: <Login />,

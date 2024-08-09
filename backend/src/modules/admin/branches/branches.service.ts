@@ -1,5 +1,4 @@
 import database from '../../../lib/db.server';
-import { getObjectSignedUrl } from '../../../lib/s3';
 import { Pagination } from '../../index.model';
 import { getQueryPagination } from '../../index.service';
 
@@ -102,11 +101,6 @@ const branchesAdminService = {
       },
       ...getQueryPagination(pagination),
     });
-    for (let item of result) {
-      if (item?.image) {
-        item.image = await getObjectSignedUrl(item.image);
-      }
-    }
     return {
       data: result,
       total: resultCount.length,

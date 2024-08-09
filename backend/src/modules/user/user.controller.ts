@@ -7,7 +7,7 @@ import bcrypt from 'bcrypt';
 import userService from './user.service';
 import { ProfileUpdatePayload } from './user.model';
 import { ResponseHandler } from '../../outcomes/responseHandler';
-import { uploadFile } from '../../lib/s3';
+import { uploadFile } from '../../lib/upLoadImageService';
 
 const secret: string = process.env.SECRET_JWT_KEY ?? '';
 

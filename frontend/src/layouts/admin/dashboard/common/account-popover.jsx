@@ -33,7 +33,7 @@ const MENU_OPTIONS_USER = [
 const MENU_OPTIONS_HOST = [
   {
     label: "Thông tin cá nhân",
-    link: "/profile",
+    link: "/host/profile",
   },
 ];
 

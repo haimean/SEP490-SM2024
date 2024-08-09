@@ -3,7 +3,7 @@ import CustomError from '../../../outcomes/customError';
 import attributeBranchesServiceBase from '../../../baseService/attributeBranchesServiceBase';
 import NotFoundError from '../../../outcomes/notFoundError';
 import { ErrorCallback } from 'typescript';
-import { uploadFile } from '../../../lib/s3';
+import { uploadFile } from '../../../lib/upLoadImageService';
 import courtServiceBase from '../../../baseService/courtServiceBase';
 import branchesHostService from './branches.service';
 import dateUtils from '../../../utils/date';

@@ -1,5 +1,4 @@
 import database from '../../../lib/db.server';
-import { getObjectSignedUrl } from '../../../lib/s3';
 import { getQueryPagination } from '../../index.service';
 
 const branchesGuestService = {
@@ -20,17 +19,6 @@ const branchesGuestService = {
       },
     });
     const finalBranches = JSON.parse(JSON.stringify(branches));
-    for (let index = 0; index < branches.length; index++) {
-      if (finalBranches[index].image) {
-        finalBranches[index].image = await getObjectSignedUrl(
-          finalBranches[index].image
-        );
-        finalBranches[index].businessLicense =
-          await getObjectSignedUrl(
-            finalBranches[index].businessLicense
-          );
-      }
-    }
     return finalBranches;
   },
   getTopThree: async () => {
@@ -57,17 +45,6 @@ const branchesGuestService = {
       }),
     });
     const finalBranches = JSON.parse(JSON.stringify(branches));
-    for (let index = 0; index < branches.length; index++) {
-      if (finalBranches[index].image) {
-        finalBranches[index].image = await getObjectSignedUrl(
-          finalBranches[index].image
-        );
-        finalBranches[index].businessLicense =
-          await getObjectSignedUrl(
-            finalBranches[index].businessLicense
-          );
-      }
-    }
     return finalBranches;
   },
   get: async (id: number): Promise<any> => {
@@ -92,12 +69,6 @@ const branchesGuestService = {
         },
       },
     });
-    if (branches && branches.image) {
-      branches.image = await getObjectSignedUrl(branches.image);
-      branches.businessLicense = await getObjectSignedUrl(
-        branches.businessLicense
-      );
-    }
     return branches;
   },
 };
