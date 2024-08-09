@@ -45,11 +45,6 @@ const navConfig = [
     path: "/admin/list-branch",
     icon: icon("ic_court"),
   },
-  {
-    title: "Not found",
-    path: "/admin/404",
-    icon: icon("ic_disabled"),
-  },
 ];
 
 export default navConfig;
