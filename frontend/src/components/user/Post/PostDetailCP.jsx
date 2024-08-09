@@ -16,6 +16,11 @@ import {
   AttachMoney,
   SportsBasketball,
 } from "@mui/icons-material";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import EventIcon from "@mui/icons-material/Event";
+import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
+
 import Map from "../../common/Map";
 import FormatTime from "../../../utils/user/formatTime";
 import PostRightCP from "./PostRightCP";
@@ -23,6 +28,7 @@ import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 import haversine from "haversine";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { format } from "date-fns";
 
 const PostDetailCP = ({ post, postId }) => {
   console.log("🚀 ========= post:", post);
@@ -64,7 +70,7 @@ const PostDetailCP = ({ post, postId }) => {
 
   const renderInfoItem = (Icon, text) => (
     <Box display="flex" alignItems="center" mb={1}>
-      <Icon color="action" />
+      <Icon className="text-red-600" />
       <Typography variant="body2" ml={1}>
         {text}
       </Typography>
@@ -102,8 +108,12 @@ const PostDetailCP = ({ post, postId }) => {
             <Typography variant="h4" gutterBottom>
               {Court?.name}
             </Typography>
-            {renderInfoItem(LocationOn, locations)}
-            {renderInfoItem(CalendarToday, date)}
+            {renderInfoItem(LocationOnOutlinedIcon, locations)}
+            {renderInfoItem(
+              EventIcon,
+              format(new Date(post?.booking?.startTime), "dd/MM/yyyy")
+            )}
+            {renderInfoItem(AccessTimeIcon, date)}
             {renderInfoItem(
               Group,
               `Cần tuyển ${post?.numberMember} ${
@@ -119,7 +129,7 @@ const PostDetailCP = ({ post, postId }) => {
               `Trình độ: ${post?.memberPost[0]?.level}` || "Không có thông tin"
             )}
             {renderInfoItem(
-              AttachMoney,
+              PaidOutlinedIcon,
               `${post?.memberPost[0]?.price} đồng` || "Không có thông tin"
             )}
             {renderInfoItem(
@@ -128,9 +138,6 @@ const PostDetailCP = ({ post, postId }) => {
                 "Không có thông tin"
             )}
           </CardContent>
-        </Card>
-
-        <Card sx={{ mb: 3 }}>
           <CardContent>
             <Typography variant="h6" gutterBottom>
               Mô tả thêm
