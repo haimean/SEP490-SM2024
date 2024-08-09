@@ -74,7 +74,11 @@ const BlogItem = ({ blog, onOpenDetail, onDelete }) => {
         }}
       >
         <CardHeader
-          avatar={<Avatar>{blog?.account?.user?.fullName?.[0] || "U"}</Avatar>}
+          avatar={
+            <Avatar src={blog?.account?.user?.avatar}>
+              {blog?.account?.user?.fullName?.[0] || "U"}
+            </Avatar>
+          }
           title={blog?.account?.user?.fullName || "Người dùng"}
           subheader={getTimeSinceCreation(blog?.createdAt)}
         />

@@ -10,18 +10,13 @@ import { Link } from "react-router-dom";
 const sidebar = [
   {
     id: 1,
-    name: "Thống kê",
-    router: "/host/dashboard",
+    name: "Danh sách kiểu sân",
+    router: "/type-court-table",
   },
   {
     id: 2,
     name: "Danh sách cơ sở",
     router: "/host/list-branch",
-  },
-  {
-    id: 3,
-    name: "Lịch sử đăng ký",
-    router: "",
   },
 ];
 export default function Sidebar() {

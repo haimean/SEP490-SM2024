@@ -45,16 +45,6 @@ const NavbarItemHost = () => {
           <MenuItem value="/host/list-branch">Danh sách cơ sở</MenuItem>
         </Select>
       </FormControl>
-
-      {/* dẫn đến trang dashboard của host */}
-      <Button
-        color="inherit"
-        component={Link}
-        to="/host/dashboard"
-        sx={{ textTransform: "none" }}
-      >
-        Thống kê
-      </Button>
     </Box>
   );
 };
