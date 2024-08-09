@@ -9,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import VerifyAccountModal from "../auth/VerifyAccountModal.jsx";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../middleware/redux/userSlice.jsx";
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 
 const SignInForm = ({ isModal, onSuccess }) => {
   const {
@@ -124,20 +124,24 @@ const SignInForm = ({ isModal, onSuccess }) => {
 
   return (
     <div>
-      <div className="rounded-md  bg-white p-12 shadow-2xl w-96">
+      <div className="rounded-md bg-white p-12 pt-6 shadow-2xl w-96">
         <h1 className="font-bold text-center block text-2xl">Đăng nhập</h1>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <InputLabel
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-2 h-52">
+          <TextField
             label="Email"
             id="email"
-            register={register}
-            pattern={{
-              value:
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-              message: "Vui lòng nhập email hợp lệ.",
-            }}
-            errors={errors}
-            required="Không được bỏ trống trường này."
+            fullWidth
+            margin="normal"
+            {...register("email", {
+              required: "Không được bỏ trống trường này.",
+              pattern: {
+                value:
+                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                message: "Vui lòng nhập email hợp lệ.",
+              },
+            })}
+            error={!!errors.email}
+            helperText={errors.email?.message}
           />
           <InputLabel
             label="Mật khẩu"
@@ -153,13 +157,15 @@ const SignInForm = ({ isModal, onSuccess }) => {
             required="Không được bỏ trống trường này."
             type="password"
           />
-          <Button
-            variant="contained"
-            type="submit"
-            className="mt-6 transition block py-3 px-4 w-full "
-          >
-            Đăng nhập
-          </Button>
+          <div className="mt-2">
+            <Button
+              variant="contained"
+              type="submit"
+              className="mt-6 transition block py-3 px-4 w-full"
+            >
+              Đăng nhập
+            </Button>
+          </div>
         </form>
         <div className="mt-1 text-center flex justify-end">
           <Link to="/forgot-password" className="text-[#1976d2]">
