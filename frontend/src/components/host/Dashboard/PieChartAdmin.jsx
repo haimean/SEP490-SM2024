@@ -2,6 +2,9 @@
 import { useState } from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
+import { PieChart, useSvgRef } from "@mui/x-charts";
+import { useEffect } from "react";
+import { Typography } from "@mui/material";
 
 //Register the required components
 Chart.register(ArcElement, Tooltip, Legend);
@@ -17,125 +20,52 @@ const getRandomColor = () => {
 };
 
 const PieChartAdmin = ({ data }) => {
-  const defaultColors = [
-    "#FF6384",
-    "#36A2EB",
-    "#FFCE56",
-    "#4BC0C0",
-    "#9966FF",
-    "#FF9F40",
-    "#8A2BE2",
-    "#DC143C",
-    "#00CED1",
-    "#FFD700",
-    "#ADFF2F",
-    "#FF4500",
-  ];
+  console.log("pie admin cuc cut", data);
 
-  // Create a color list with the number of colors equal to or greater than the number of yards
-  const backgroundColors =
-    data.length > defaultColors.length
-      ? [
-          ...defaultColors,
-          ...Array(data.length - defaultColors.length)
-            .fill()
-            .map(getRandomColor),
-        ]
-      : defaultColors;
+  const [dataChart, setDataChart] = useState([]);
+  const [isNull, setIsNull] = useState(true);
+  useEffect(() => {
+    if (data.length === 0) {
+      setIsNull(true);
+    }
+    const value = data.map((item, index) => {
+      if (item.totalRevenue != 0) {
+        setIsNull(false);
+      }
+      return { id: index, value: item.totalRevenue, label: item.courtName };
+    });
 
-  const totalRevenue = data.reduce((sum, item) => sum + item.totalRevenue, 0);
-
-  const [hiddenIndices, setHiddenIndices] = useState([]);
-
-  const toggleVisibility = (index) => {
-    setHiddenIndices((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
-    );
-  };
-
-  const chartData = {
-    labels: data?.map((item) => item.courtName),
-    datasets: [
-      {
-        label: "Doanh thu",
-        data: data.map((item, index) =>
-          hiddenIndices.includes(index) ? 0 : item.totalRevenue
-        ),
-        backgroundColor: backgroundColors,
-      },
-    ],
-  };
-
-  const options = {
-    plugins: {
-      legend: {
-        display: false, //Turn off default captions
-      },
-      tooltip: {
-        callbacks: {
-          label: (tooltipItem) => {
-            const value = tooltipItem.raw;
-            const formattedValue = new Intl.NumberFormat("vi-VN", {
-              style: "currency",
-              currency: "VND",
-            }).format(value);
-            const percentage = ((value / totalRevenue) * 100).toFixed(2);
-            return `${formattedValue} (${percentage}%)`;
-          },
-          title: (tooltipItem) => {
-            return tooltipItem[0].label;
-          },
-        },
-      },
-    },
-  };
-
+    setDataChart(value);
+  }, [data]);
   return (
-    <div style={{ display: "flex", alignItems: "center" }}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          marginRight: "20px",
-        }}
-      >
-        {chartData.labels.map((label, index) => (
-          <div
-            key={index}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              margin: "5px 0",
-              cursor: "pointer",
-            }}
-            onClick={() => toggleVisibility(index)}
-          >
-            <div
-              style={{
-                width: 20,
-                height: 20,
-                backgroundColor: hiddenIndices.includes(index)
-                  ? "#ccc"
-                  : backgroundColors[index],
-                marginRight: 10,
-              }}
-              className="!w-5 !h-5"
-            ></div>
-            <span
-              style={{
-                textDecoration: hiddenIndices.includes(index)
-                  ? "line-through"
-                  : "none",
-              }}
-            >
-              {label}
-            </span>
-          </div>
-        ))}
-      </div>
-      <div>
-        <Pie data={chartData} options={options} />
-      </div>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      {isNull ? (
+        <Typography>Không có dữ liệu</Typography>
+      ) : (
+        dataChart.length > 0 && (
+          <PieChart
+            series={[
+              {
+                arcLabel: (item) =>
+                  `${new Intl.NumberFormat("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(item.value)}`,
+                arcLabelMinAngle: 45,
+                data: dataChart,
+              },
+            ]}
+            width={400}
+            height={200}
+          />
+        )
+      )}
     </div>
   );
 };
