@@ -130,25 +130,27 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: "dashed" }} />
 
-        {account?.role === "HOST"
-          ? MENU_OPTIONS_HOST.map((option) => (
-              <MenuItem
-                key={option.label}
-                onClick={() => handleMenuItemClick(option.link)}
-              >
-                {option.label}
-              </MenuItem>
-            ))
-          : MENU_OPTIONS_USER.map((option) => (
-              <MenuItem
-                key={option.label}
-                onClick={() => handleMenuItemClick(option.link)}
-              >
-                {option.label}
-              </MenuItem>
-            ))}
-
-        <Divider sx={{ borderStyle: "dashed", m: 0 }} />
+        {account?.role === "HOST" &&
+          MENU_OPTIONS_HOST.map((option) => (
+            <MenuItem
+              key={option.label}
+              onClick={() => handleMenuItemClick(option.link)}
+            >
+              {option.label}
+            </MenuItem>
+          ))}
+        {account?.role === "USER" &&
+          MENU_OPTIONS_USER.map((option) => (
+            <MenuItem
+              key={option.label}
+              onClick={() => handleMenuItemClick(option.link)}
+            >
+              {option.label}
+            </MenuItem>
+          ))}
+        {account?.role === "ADMIN" ?? (
+          <Divider sx={{ borderStyle: "dashed", m: 0 }} />
+        )}
 
         <MenuItem
           disableRipple

@@ -6,7 +6,7 @@ import { ArrowBack } from "@mui/icons-material";
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
 
-import MapComponent from "../../../components/common/MapAutoComplate";
+import MapComponent from "../../../components/common/MapAutoComplete";
 import TextFieldCp from "../../../components/host/FormInput/TextFieldCp";
 import SelectCp from "../../../components/host/FormInput/SelectCp";
 import CustomSelectCp from "../../../components/host/FormInput/CustomSelectCp";

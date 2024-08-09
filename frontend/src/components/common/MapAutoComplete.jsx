@@ -4,10 +4,10 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { OpenStreetMapProvider, GeoSearchControl } from "leaflet-geosearch";
 import "leaflet-geosearch/dist/geosearch.css";
-import L from "leaflet";
 import axios from "axios";
 import { Box } from "@mui/material";
 
+// eslint-disable-next-line react/prop-types
 const SearchControl = ({ onResultSelect }) => {
   const map = useMap();
 
@@ -36,15 +36,20 @@ const SearchControl = ({ onResultSelect }) => {
   return null;
 };
 
-const MapComponent = ({ onSubmit }) => {
+// eslint-disable-next-line react/prop-types
+const MapAutoComplete = ({ onSubmit }) => {
   const [position, setPosition] = useState([21.01355745, 105.5252751342127]);
   const [address, setAddress] = useState("");
   const [details, setDetails] = useState({});
   const updatePosition = (newPosition) => {
+    console.log("newPosition", newPosition);
+
     setPosition(newPosition);
+    console.log("newPosition", newPosition);
+
     const provider = new OpenStreetMapProvider({
       params: {
-        "accept-language": "vi", // Thêm tham số này để yêu cầu kết quả bằng tiếng Việt
+        "accept-language": "vi", // Add this parameter to request results in Vietnamese
       },
     });
     provider
@@ -81,6 +86,8 @@ const MapComponent = ({ onSubmit }) => {
   };
 
   const handleMapClick = (e) => {
+    console.log("handleMapClick");
+
     updatePosition([e.latlng.lat, e.latlng.lng]);
   };
 
@@ -99,6 +106,8 @@ const MapComponent = ({ onSubmit }) => {
   const handleMarkerDragEnd = (e) => {
     const marker = e.target;
     const newPosition = marker.getLatLng();
+    console.log("handleMarkerDragEnd");
+
     updatePosition([newPosition.lat, newPosition.lng]);
   };
 
@@ -118,41 +127,32 @@ const MapComponent = ({ onSubmit }) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
         <SearchControl
-          onResultSelect={(location) =>
-            updatePosition([location.y, location.x])
-          }
-        />
+          onResultSelect={(location) => {
+            console.log("SearchControl");
 
-        <Marker
-          position={position}
-          draggable={true}
-          eventHandlers={{ dragend: handleMarkerDragEnd }}
-        >
-          <Popup>
-            <a
-              href={`https://www.google.com/maps?q=${position[0]},${position[1]}&ll=${position[0]},${position[1]}&z=17`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              open google map
-            </a>
-          </Popup>
-        </Marker>
+            updatePosition([location.y, location.x]);
+          }}
+        />
+        {position && (
+          <Marker
+            position={position}
+            draggable={true}
+            eventHandlers={{ dragend: handleMarkerDragEnd }}
+          >
+            <Popup>
+              <a
+                href={`https://www.google.com/maps?q=${position[0]},${position[1]}&ll=${position[0]},${position[1]}&z=17`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {details}
+              </a>
+            </Popup>
+          </Marker>
+        )}
       </MapContainer>
-      {/* <div style={{ marginTop: "10px" }}>
-        <h3>Location Details</h3>
-        <p>
-          <strong>Latitude:</strong> {details.latitude}
-        </p>
-        <p>
-          <strong>Longitude:</strong> {details.longitude}
-        </p>
-        <p>
-          <strong>Address:</strong> {JSON.stringify(details?.address)}
-        </p>
-      </div> */}
     </Box>
   );
 };
 
-export default MapComponent;
+export default MapAutoComplete;

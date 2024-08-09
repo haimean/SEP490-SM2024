@@ -32,8 +32,7 @@ const bookingHostController = {
         numberPhone,
       } = req.body;
       const accountId = Number(req.headers.authorization);
-      // check giờ đặt có người đặt chưa
-      // TODO: check đã đặt trước đó chưa
+      // Check if you have booked before
       const result = await bookingHostService.create({
         accountId,
         courtId,
@@ -139,7 +138,7 @@ const bookingHostController = {
         bookingId,
         reasonCancell
       );
-      // TODO: thông báo cho các user đã được đồng ý trận đấu
+      // Notify users who have agreed to the match
       const invitations = result?.post?.invitation;
       if (invitations) {
         for (const invitation of invitations) {

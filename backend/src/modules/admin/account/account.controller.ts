@@ -133,11 +133,6 @@ const accountController = {
             item.getMonth() === 0 ? 12 : item.getMonth()
           }/${item.getFullYear()}`,
         });
-        //  TODO:   - truyền ngày vào
-        //  TODO:   - lấy mùng 1 tháng này và 1 tháng sau
-        //  TODO:   - lấy được số lượng host và player {host: 123, player:123,month: }
-        // TODO: push return vào result
-        // TODO: push return vào result
       }
       ResponseHandler(res, result);
     } catch (error: any) {

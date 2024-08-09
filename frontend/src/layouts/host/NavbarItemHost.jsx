@@ -1,7 +1,6 @@
 import { Box, Button, FormControl, MenuItem, Select } from "@mui/material";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Notification from "../Notification";
 
 const NavbarItemHost = () => {
   const [selectedOption, setSelectedOption] = useState("");
