@@ -33,10 +33,8 @@ const BookingHistory = () => {
     }
   };
 
-  const handleCancelSuccess = (cancelledBookingId) => {
-    setBookings((prevBookings) =>
-      prevBookings.filter((booking) => booking.id !== cancelledBookingId)
-    );
+  const handleCancelSuccess = async () => {
+    await getBookingHistory();
   };
 
   const handlePageChange = (event, value) => {

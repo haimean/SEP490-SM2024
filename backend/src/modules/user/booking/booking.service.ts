@@ -39,14 +39,12 @@ const bookingUserService = {
     const result = await database.booking.findMany({
       where: {
         accountId,
-        isDelete: false,
       },
     });
     console.log('🚀 ========= result:', result.length);
     const response = await database.booking.findMany({
       where: {
         accountId,
-        isDelete: false,
       },
       orderBy: {
         createdAt: 'desc',

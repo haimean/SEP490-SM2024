@@ -18,7 +18,7 @@ const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
     if (isConfirmed) {
       try {
         await CallApi(`/api/user/booking/${bookings?.id}`, "delete");
-        onCancelSuccess(bookings?.id);
+        onCancelSuccess();
         toast.success("Hủy thành công trận đã đặt");
       } catch (error) {
         toast.error("Lỗi khi hủy đặt sân:", error);
@@ -82,10 +82,10 @@ const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
             >
               Chi tiết
             </Button>
-            {canCancel && !bookings?.post && (
+            {canCancel && !bookings.isDelete && !bookings?.post && (
               <CreatePostModal bookings={bookings} />
             )}
-            {bookings?.post && (
+            {bookings?.post && !bookings.isDelete && (
               <Button
                 component={Link}
                 to={`/post/${bookings?.post?.id}`}
@@ -97,14 +97,20 @@ const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
                 Xem bài đăng
               </Button>
             )}
-            {canCancel && (
+            {canCancel && !bookings.isDelete && (
               <Button
                 onClick={handleCancel}
                 variant="contained"
                 color="error"
                 size="small"
+                sx={{ mr: 1 }}
               >
                 Hủy đặt sân
+              </Button>
+            )}
+            {bookings.isDelete && (
+              <Button variant="contained" color="error" size="small" disabled>
+                Đã hủy đặt sân
               </Button>
             )}
           </Box>
