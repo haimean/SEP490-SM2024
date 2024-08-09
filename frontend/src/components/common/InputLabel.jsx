@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
-import IconButton from "@mui/material/IconButton";
-import InputAdornment from "@mui/material/InputAdornment";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
@@ -28,41 +25,43 @@ const InputLabel = ({
   const inputType = type === "password" && showPassword ? "text" : type;
 
   return (
-    <TextField
-      label={label}
-      id={id}
-      fullWidth
-      margin="normal"
-      type={inputType}
-      defaultValue={defaultValue}
-      placeholder={placeholder}
-      disabled={disabled}
-      InputProps={{
-        readOnly: readOnly,
-        endAdornment: type === "password" && (
-          <InputAdornment position="end">
-            <IconButton
-              aria-label="toggle password visibility"
-              onClick={togglePasswordVisibility}
-              edge="end"
-            >
-              {showPassword ? <RemoveRedEyeIcon /> : <VisibilityOffIcon />}
-            </IconButton>
-          </InputAdornment>
-        ),
-      }}
-      {...register(id, { required, pattern, minLength })}
-      error={!!errors[id]}
-      helperText={
-        errors[id]
-          ? errors[id].type === "pattern"
+    <div className="mb-4">
+      <label
+        htmlFor={id}
+        className="block text-gray-700 text-sm font-bold mb-2"
+      >
+        {label}
+      </label>
+      <div className="relative">
+        <input
+          {...register(id, { required, pattern, minLength })}
+          id={id}
+          defaultValue={defaultValue}
+          placeholder={placeholder}
+          type={inputType}
+          disabled={disabled}
+          readOnly={readOnly}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-normal focus:outline-none focus:shadow-outline"
+        />
+        {type === "password" && (
+          <span
+            onClick={togglePasswordVisibility}
+            className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 cursor-pointer"
+          >
+            {showPassword ? <RemoveRedEyeIcon /> : <VisibilityOffIcon />}
+          </span>
+        )}
+      </div>
+      {errors[id] && (
+        <p className="text-red-500 text-xs italic mt-1">
+          {errors[id].type === "pattern"
             ? pattern.message
             : errors[id].type === "minLength"
             ? `${label} phải có nhiều hơn ${minLength} kí tự.`
-            : `${label} không được để trống`
-          : ""
-      }
-    />
+            : `${label} không được để trống`}
+        </p>
+      )}
+    </div>
   );
 };
 

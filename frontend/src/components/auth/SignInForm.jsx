@@ -10,6 +10,7 @@ import VerifyAccountModal from "../auth/VerifyAccountModal.jsx";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../middleware/redux/userSlice.jsx";
 import { Button, TextField } from "@mui/material";
+import PasswordInput from "../common/PasswordInput.jsx";
 
 const SignInForm = ({ isModal, onSuccess }) => {
   const {
@@ -143,7 +144,7 @@ const SignInForm = ({ isModal, onSuccess }) => {
             error={!!errors.email}
             helperText={errors.email?.message}
           />
-          <InputLabel
+          <PasswordInput
             label="Mật khẩu"
             id="password"
             register={register}
