@@ -193,6 +193,10 @@ export default function DataTable() {
         onPageChange={handleChangePage}
         rowsPerPage={pageSize}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        labelRowsPerPage="Số hàng mỗi trang:"
+        labelDisplayedRows={({ from, to, count }) =>
+          `${from}–${to} trong tổng số ${count !== -1 ? count : `hơn ${to}`}`
+        } // Customize the label for displayed rows
       />
       {openModalReason && (
         <ModalReason
