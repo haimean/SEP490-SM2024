@@ -109,7 +109,8 @@ export default function RequestListJoin() {
                       className="hover:underline hover:cursor-pointer"
                     >
                       <Typography variant="subtitle1" color="primary">
-                        Tên bài post: {item?.Post?.booking?.bookingInfo?.name}
+                        {item?.Post?.title}
+                        {/* Tên bài post: {item?.Post?.booking?.bookingInfo?.name} */}
                       </Typography>
                     </Link>
                   </Grid>
