@@ -100,6 +100,7 @@ const Notification = () => {
       }
       off(userQuery);
     });
+    setAnchorEl(null);
   };
   const fetchProfile = async () => {
     const response = await CallApi("/api/user/profile", "get");
@@ -127,7 +128,7 @@ const Notification = () => {
         color="warning"
         badgeContent={seenNumber}
         classes="h-3"
-        className="mx-2"
+        className="mx-2 cursor-pointer"
       >
         <NotificationsIcon />
       </Badge>
