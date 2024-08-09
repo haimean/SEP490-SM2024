@@ -41,7 +41,7 @@ const ListBlog = () => {
   const handleDelete = async (blogId) => {
     try {
       await CallApi(`/api/user/blog/${blogId}`, "delete");
-      setBlogs(blogs.filter((blog) => blog.id !== blogId));
+      setBlogs(blogs.filter((blog) => blog?.id !== blogId));
     } catch (error) {
       console.error("Error deleting blog:", error);
     }

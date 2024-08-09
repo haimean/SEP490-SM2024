@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import { Pie } from "react-chartjs-2";
-import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
 
-// Đăng ký các thành phần cần thiết
+//Register the required components
 Chart.register(ArcElement, Tooltip, Legend);
 
-// Hàm để tạo màu ngẫu nhiên
+//Function to generate random colors
 const getRandomColor = () => {
-  const letters = '0123456789ABCDEF';
-  let color = '#';
+  const letters = "0123456789ABCDEF";
+  let color = "#";
   for (let i = 0; i < 6; i++) {
     color += letters[Math.floor(Math.random() * 16)];
   }
@@ -28,32 +29,38 @@ const PieChartAdmin = ({ data }) => {
     "#00CED1",
     "#FFD700",
     "#ADFF2F",
-    "#FF4500"
+    "#FF4500",
   ];
 
-  // Tạo danh sách màu với số lượng màu bằng hoặc lớn hơn số lượng sân
-  const backgroundColors = data.length > defaultColors.length
-    ? [...defaultColors, ...Array(data.length - defaultColors.length).fill().map(getRandomColor)]
-    : defaultColors;
+  // Create a color list with the number of colors equal to or greater than the number of yards
+  const backgroundColors =
+    data.length > defaultColors.length
+      ? [
+          ...defaultColors,
+          ...Array(data.length - defaultColors.length)
+            .fill()
+            .map(getRandomColor),
+        ]
+      : defaultColors;
 
   const totalRevenue = data.reduce((sum, item) => sum + item.totalRevenue, 0);
 
   const [hiddenIndices, setHiddenIndices] = useState([]);
 
   const toggleVisibility = (index) => {
-    setHiddenIndices(prev => 
-      prev.includes(index) 
-        ? prev.filter(i => i !== index) 
-        : [...prev, index]
+    setHiddenIndices((prev) =>
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
     );
   };
 
   const chartData = {
-    labels: data?.map(item => item.courtName),
+    labels: data?.map((item) => item.courtName),
     datasets: [
       {
         label: "Doanh thu",
-        data: data.map((item, index) => hiddenIndices.includes(index) ? 0 : item.totalRevenue),
+        data: data.map((item, index) =>
+          hiddenIndices.includes(index) ? 0 : item.totalRevenue
+        ),
         backgroundColor: backgroundColors,
       },
     ],
@@ -62,38 +69,65 @@ const PieChartAdmin = ({ data }) => {
   const options = {
     plugins: {
       legend: {
-        display: false, // Tắt chú thích mặc định
+        display: false, //Turn off default captions
       },
       tooltip: {
         callbacks: {
           label: (tooltipItem) => {
             const value = tooltipItem.raw;
-            const formattedValue = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
+            const formattedValue = new Intl.NumberFormat("vi-VN", {
+              style: "currency",
+              currency: "VND",
+            }).format(value);
             const percentage = ((value / totalRevenue) * 100).toFixed(2);
             return `${formattedValue} (${percentage}%)`;
           },
           title: (tooltipItem) => {
             return tooltipItem[0].label;
-          }
+          },
         },
       },
     },
   };
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', marginRight: '20px' }}>
+    <div style={{ display: "flex", alignItems: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          marginRight: "20px",
+        }}
+      >
         {chartData.labels.map((label, index) => (
-          <div key={index} 
-               style={{ display: "flex", alignItems: "center", margin: "5px 0", cursor: 'pointer' }}
-               onClick={() => toggleVisibility(index)}>
-            <div style={{ 
-                width: 20, 
-                height: 20, 
-                backgroundColor: hiddenIndices.includes(index) ? '#ccc' : backgroundColors[index], 
-                marginRight: 10 
-            }} className="!w-5 !h-5"></div>
-            <span style={{ textDecoration: hiddenIndices.includes(index) ? 'line-through' : 'none' }}>
+          <div
+            key={index}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              margin: "5px 0",
+              cursor: "pointer",
+            }}
+            onClick={() => toggleVisibility(index)}
+          >
+            <div
+              style={{
+                width: 20,
+                height: 20,
+                backgroundColor: hiddenIndices.includes(index)
+                  ? "#ccc"
+                  : backgroundColors[index],
+                marginRight: 10,
+              }}
+              className="!w-5 !h-5"
+            ></div>
+            <span
+              style={{
+                textDecoration: hiddenIndices.includes(index)
+                  ? "line-through"
+                  : "none",
+              }}
+            >
               {label}
             </span>
           </div>
