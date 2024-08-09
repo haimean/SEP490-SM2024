@@ -72,7 +72,9 @@ const Profile = () => {
 
   const onSubmit = async (data) => {
     const formData = new FormData();
-    formData.append("fullName", data.fullName || profile?.user?.fullName);
+    console.log(formData.dob);
+
+    formData.append("name", data.fullName || profile?.user?.fullName);
     formData.append("dob", data.dob || formatDate(profile?.user?.dob));
     formData.append(
       "numberPhone",
