@@ -75,10 +75,10 @@ const DashboardCp = () => {
           subTitle={`Đăng ký mới : ${totalMonthAccount} người/ tháng`}
         />
         <SectionDashboard
-          title={"Số lượng bài đăng tìm người chơi: 28k"}
+          title={"Số lượng bài đăng tìm người chơi: 28 người"}
           direction={true}
           percentage={"-12.4%"}
-          subTitle={"Đăng ký mới : 13 (trong tháng)"}
+          subTitle={"Đăng ký mới : 13 bài/ trong tháng"}
         />
       </div>
       <div className="mt-5 grid grid-cols-2">
