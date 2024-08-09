@@ -10,6 +10,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
+import { useNavigate } from 'react-router-dom';
 
 const genderOptions = [
   { value: "MALE", label: "Nam" },
@@ -41,6 +42,7 @@ const CreatePostModal = ({ bookings }) => {
       price: bookings?.price,
     },
   });
+  const navigate = useNavigate();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -62,8 +64,9 @@ const CreatePostModal = ({ bookings }) => {
           },
         ],
       };
-      await CallApi("/api/user/post", "post", requestData);
+      const result = await CallApi("/api/user/post", "post", requestData);
       handleClose();
+      navigate(`/post/${result?.data?.id}`);
       toast.success("Tạo bài đăng mời chơi thành công");
     } catch (error) {
       console.error("Error posting data:", error);
@@ -225,7 +228,7 @@ const CreatePostModal = ({ bookings }) => {
                 Xóa
               </Button>
               <Button type="submit" variant="contained">
-                Tạo Post
+                Tạo bài đăng
               </Button>
             </Box>
           </form>
