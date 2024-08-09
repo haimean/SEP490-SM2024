@@ -9,8 +9,6 @@ import {
 } from "@mui/material";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 const BranchCard = ({ name, location, image, onClick }) => {
-  //image là link ảnh
-
   return (
     <Card
       onClick={onClick}
