@@ -264,12 +264,13 @@ const Profile = () => {
                   errors={errors}
                 />
               </div>
-              <button
+              <Button
                 type="submit"
-                className="mt-6 w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
+                variant="contained"
+                className="mt-6 w-full py-2 px-4"
               >
                 Cập nhật
-              </button>
+              </Button>
             </form>
           </Grid>
         </Grid>

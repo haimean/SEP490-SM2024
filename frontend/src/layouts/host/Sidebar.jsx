@@ -5,15 +5,15 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
-import InboxIcon from "@mui/icons-material/Inbox";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import CallApi from "../../service/CallAPI";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import StarBorder from "@mui/icons-material/StarBorder";
 import { Collapse } from "@mui/material";
-
+import SplitscreenIcon from "@mui/icons-material/Splitscreen";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import TurnedInNotIcon from "@mui/icons-material/TurnedInNot";
 export default function Sidebar() {
   // list sân
   const [listBranch, setListBranch] = useState([]);
@@ -48,46 +48,52 @@ export default function Sidebar() {
               <ListItemButton>
                 <ListItemIcon>
                   {/* // TODO: */}
-                  <InboxIcon />
+
+                  <SplitscreenIcon />
                 </ListItemIcon>
                 <ListItemText primary="Danh sách kiểu sân" />
               </ListItemButton>
             </ListItem>
           </Link>
+          <Divider />
           <ListItem disablePadding>
             <ListItemButton onClick={handleClick}>
               <ListItemIcon>
                 {/* // TODO: */}
-                <InboxIcon />
+                <FormatListBulletedIcon />
               </ListItemIcon>
               <ListItemText primary="Danh sách cơ sở" />{" "}
               {open ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
           </ListItem>
-
+          <Divider />
           <Collapse sx={{ pl: 4 }} in={open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <Link to="/host/list-branch">
-                <ListItem disablePadding>
+                <ListItem>
                   <ListItemButton>
                     <ListItemIcon>
-                      {/* // TODO: */}
-                      <InboxIcon />
+                      <TurnedInNotIcon />
                     </ListItemIcon>
                     <ListItemText primary="Tất cả cơ sở" />
                   </ListItemButton>
                 </ListItem>
               </Link>
+              <Divider />
               {listBranch?.map((item) => (
-                <Link to={`/host/branch/${item?.id}`} key={item?.id}>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      <StarBorder />
-                      {/* //todo */}
-                    </ListItemIcon>
-                    <ListItemText primary={item?.name} />
-                  </ListItemButton>
-                </Link>
+                <>
+                  <Link to={`/host/branch/${item?.id}`} key={item?.id}>
+                    <ListItem>
+                      <ListItemButton>
+                        <ListItemIcon>
+                          <TurnedInNotIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={item?.name} />
+                      </ListItemButton>
+                    </ListItem>
+                  </Link>{" "}
+                  <Divider />
+                </>
               ))}
             </List>
           </Collapse>
