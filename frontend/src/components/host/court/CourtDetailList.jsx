@@ -112,19 +112,19 @@ const CourtDetailList = ({
                       variant="contained"
                       onClick={() => toast.info("Vui long chon du court")}
                     >
-                      So sanh
+                      So sánh
                     </Button>
                   ) : (
                     <Link
                       to={`/compare/${courtList[0].court.id}/${courtList[1].court.id}`}
                     >
                       <Button variant="contained" className="w-full">
-                        So sanh
+                        So sánh
                       </Button>
                     </Link>
                   )}
                   <Button variant="contained" color="error">
-                    Huy
+                    Hủy
                   </Button>
                 </div>
               </div>
