@@ -22,7 +22,7 @@ import { useSelector } from "react-redux";
 import LoginModal from "../../auth/LoginModal";
 import haversine from "haversine";
 import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
-const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
+const PostCard = ({ activity, updateStatusInvitation }) => {
   // console.log("🚀 ========= activity:", activity);
   const acceptCount = activity?.post?.invitation?.filter(
     (invite) => invite?.status === "ACCEPT"
@@ -41,9 +41,9 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
     navigate(`/post/${activity?.post?.id}`);
   };
 
-  const handleJoin = () => {
+  const handleJoin = async () => {
     if (user) {
-      join(activity);
+      await join(activity);
     } else {
       toast.error("Bạn chưa đăng nhập!");
       setOpenLoginModal(true);
@@ -54,11 +54,12 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
   };
   const join = async (activity) => {
     try {
-      const response = await CallApi("/api/user/invitation/invite", "post", {
+      await CallApi("/api/user/invitation/invite", "post", {
         postId: activity?.post?.id,
       });
-      SetIsSendRequest(!isSendRequest);
-      toast.success("Gửi lời mời thành công!");
+      updateStatusInvitation();
+      // TODO: Khi xin vaof thanfh coong -> update theme 1 truowngf owr
+      toast.success("Xin tham gia thành công!");
     } catch (error) {
       console.log(error);
       toast.error(error.response?.data?.error);
@@ -224,15 +225,12 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
             onClick={handleJoin}
             disabled={
               acceptCount == activity?.post?.numberMember ||
-              detail?.status == "ACCEPT" ||
-              detail?.status == "NEW"
+              activity?.isInvitation
             }
           >
             {acceptCount == activity?.post?.numberMember
               ? "Sân đã đủ người"
-              : detail?.status == "ACCEPT"
-              ? "Đã tham gia"
-              : detail == null || detail?.status !== "NEW"
+              : !activity?.isInvitation
               ? "Xin tham gia"
               : "Đã xin tham gia"}
           </Button>

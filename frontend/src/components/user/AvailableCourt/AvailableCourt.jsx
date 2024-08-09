@@ -16,7 +16,6 @@ import { format, parseISO } from "date-fns";
 const AvailableCourt = () => {
   const [activities, setActivities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isSendRequest, SetIsSendRequest] = useState(false);
   const [filters, setFilters] = useState({
     province: "",
     district: "",
@@ -28,7 +27,7 @@ const AvailableCourt = () => {
   });
   useEffect(() => {
     fetchData();
-  }, [isSendRequest]);
+  }, []);
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -36,7 +35,11 @@ const AvailableCourt = () => {
       const response = await CallApi("/api/booking/get-booking-post", "get");
       console.log("🚀 ========= response:", response);
       setIsLoading(false);
-      setActivities(response.data.reverse());
+      const data = response.data.reverse();
+      data.forEach((element) => {
+        element.isInvitation = false;
+      });
+      setActivities(data);
     } catch (error) {
       toast.error(error.response?.data?.error);
     }
@@ -99,10 +102,10 @@ const AvailableCourt = () => {
   });
   const pageSize = 6;
   const [currentPage, setCurrentPage] = useState(1);
-  function paginate(array, page_size, page_number) {
+  const paginate = (array, page_size, page_number) => {
     // human-readable page numbers usually start with 1, so we reduce 1 in the first argument
     return array.slice((page_number - 1) * page_size, page_number * page_size);
-  }
+  };
   return isLoading === true ? (
     <Box
       sx={{
@@ -138,15 +141,25 @@ const AvailableCourt = () => {
         </Typography>
       </div>
       <Grid container spacing={2}>
-        {paginate(filteredActivities, pageSize, currentPage).map((activity) => (
-          <Grid item xs={12} md={6} key={activity?.id}>
-            <PostCard
-              activity={activity}
-              isSendRequest={isSendRequest}
-              SetIsSendRequest={SetIsSendRequest}
-            />
-          </Grid>
-        ))}
+        {paginate(filteredActivities, pageSize, currentPage).map(
+          (activity, index) => (
+            <Grid item xs={12} md={6} key={activity?.id}>
+              <PostCard
+                activity={activity}
+                updateStatusInvitation={() => {
+                  setActivities((data) => {
+                    return data.map((element) => {
+                      if (element?.post?.id == activity?.post?.id) {
+                        element.isInvitation = true;
+                      }
+                      return element;
+                    });
+                  });
+                }}
+              />
+            </Grid>
+          )
+        )}
       </Grid>
       <div className="flex justify-center mt-4">
         <Pagination
