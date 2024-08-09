@@ -20,8 +20,6 @@ const getRandomColor = () => {
 };
 
 const PieChartAdmin = ({ data }) => {
-  console.log("pie admin cuc cut", data);
-
   const [dataChart, setDataChart] = useState([]);
   const [isNull, setIsNull] = useState(true);
   useEffect(() => {

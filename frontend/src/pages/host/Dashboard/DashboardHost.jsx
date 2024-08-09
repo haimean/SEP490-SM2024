@@ -186,7 +186,7 @@ const DashboardHost = () => {
     <Box sx={{ my: 16, mx: 10, minHeight: "100vh", height: "full" }}>
       {/* cục trên */}
       <Box className="flex justify-between items-center">
-        <Typography variant="h4" component="h1" gutterBottom>
+        <Typography variant="h4" component="h2" fontWeight={600}>
           Thống kê host
         </Typography>
         <FormControl sx={{ minWidth: 250 }} margin="normal">

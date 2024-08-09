@@ -13,6 +13,8 @@ import BlogDetailModal from "../../../components/player/Blog/BlogDetailModal";
 import BlogItem from "../../../components/player/Blog/BlogItem";
 
 const ListBlog = () => {
+  console.log("haimean dep trai");
+
   const perPage = 5;
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);

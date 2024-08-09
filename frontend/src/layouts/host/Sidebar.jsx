@@ -15,7 +15,6 @@ import SplitscreenIcon from "@mui/icons-material/Splitscreen";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import TurnedInNotIcon from "@mui/icons-material/TurnedInNot";
 export default function Sidebar() {
-  // list sân
   const [listBranch, setListBranch] = useState([]);
   const [open, setOpen] = useState(true);
 
@@ -47,8 +46,6 @@ export default function Sidebar() {
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  {/* // TODO: */}
-
                   <SplitscreenIcon />
                 </ListItemIcon>
                 <ListItemText primary="Danh sách kiểu sân" />
@@ -59,7 +56,6 @@ export default function Sidebar() {
           <ListItem disablePadding>
             <ListItemButton onClick={handleClick}>
               <ListItemIcon>
-                {/* // TODO: */}
                 <FormatListBulletedIcon />
               </ListItemIcon>
               <ListItemText primary="Danh sách cơ sở" />{" "}
