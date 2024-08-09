@@ -10,7 +10,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const genderOptions = [
   { value: "MALE", label: "Nam" },
@@ -35,6 +35,7 @@ const CreatePostModal = ({ bookings }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
+      title: "",
       description: "",
       numberMember: "",
       genderPost: "",
@@ -55,6 +56,7 @@ const CreatePostModal = ({ bookings }) => {
       const requestData = {
         bookingId: bookings?.id,
         description: data.description,
+        title: data.title,
         numberMember: data.numberMember,
         memberPost: [
           {
@@ -119,6 +121,25 @@ const CreatePostModal = ({ bookings }) => {
             Bài đăng tìm người chơi
           </Typography>
           <form onSubmit={handleSubmit(onSubmit)}>
+            <Controller
+              name="title"
+              control={control}
+              rules={{
+                required: "Tiêu đề là bắt buộc",
+              }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="Tiêu đề"
+                  type="text"
+                  fullWidth
+                  rows={4}
+                  margin="normal"
+                  error={!!errors.title}
+                  helperText={errors.title?.message}
+                />
+              )}
+            />
             <Controller
               name="description"
               control={control}

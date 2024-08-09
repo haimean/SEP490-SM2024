@@ -11,7 +11,6 @@ import {
   TableRow,
   TableCell,
 } from "@mui/material";
-import StarIcon from "@mui/icons-material/Star";
 import CallApi from "../../../service/CallAPI.jsx";
 import WaitingListTable2 from "../WaitingList/WaitingListTable2.jsx";
 import RequestListTable2 from "../ResponseToRequest/RequestListTable2.jsx";
@@ -186,16 +185,13 @@ const PostRightCP = ({ user, post, postId }) => {
           <Typography variant="body1" align="center" className="text-gray-600">
             {user?.level}
           </Typography>
-          <div className="flex items-center justify-center mt-2">
-            <StarIcon className="text-yellow-300" />
-            <span className="ml-1 text-gray-600">{user?.friendliness}</span>
-          </div>
+
           <Typography
             variant="body1"
             align="center"
             className="text-gray-600 mt-2"
           >
-            Liên hệ: {user?.numberPhone}
+            Số điện thoại: {user?.numberPhone}
           </Typography>
           <div className="mt-4 flex justify-center space-x-2">
             {isOwner ? (

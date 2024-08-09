@@ -125,10 +125,6 @@ const Checkout = () => {
               <div className="text-2xl font-bold">
                 $119<span className="text-sm font-normal"> / night</span>
               </div>
-              <div className="flex items-center">
-                {/* <StarIcon className="text-orange-400" /> */}
-                <span className="ml-1 text-gray-600">4.5 (112)</span>
-              </div>
             </div>
             <div className="mt-4">
               <div className="border p-2 rounded-lg flex items-center justify-between">

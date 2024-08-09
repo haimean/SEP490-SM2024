@@ -12,6 +12,7 @@ const processData = (data) => {
     id: item?.id,
     fullName: item?.account?.user?.fullName || "",
     level: getRatingDescription(item?.level),
+    numberPhone: item?.account?.user?.numberPhone,
     // Add other fields as needed
   }));
 };
@@ -25,7 +26,7 @@ export default function WaitingListTable2({ open, onClose, postId }) {
     {
       field: "fullName",
       headerName: "Họ tên",
-      width: 200,
+      width: 250,
       sortable: false,
       renderCell: (params) => {
         return (
@@ -41,20 +42,17 @@ export default function WaitingListTable2({ open, onClose, postId }) {
     {
       field: "level",
       headerName: "Trình độ",
-      width: 150,
+      width: 200,
     },
     {
-      field: "rate",
-      headerName: "Đánh giá",
-      width: 150,
+      field: "numberPhone",
+      headerName: "Số điện thoại",
+      width: 200,
       renderCell: (params) => {
-        return (
-          <div className="w-full h-full flex items-center">
-            <Rating value={5} />
-          </div>
-        );
+        return <div>{params?.row?.numberPhone}</div>;
       },
     },
+
     {
       field: "actions",
       headerName: "",
