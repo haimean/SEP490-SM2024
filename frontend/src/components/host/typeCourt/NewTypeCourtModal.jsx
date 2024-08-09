@@ -204,14 +204,14 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
             </Button>
           </Box>
         </form>
+        {isOpenDialogInfo && (
+          <DialogInfo
+            handleClose={handleCloseDialogInfo}
+            open={isOpenDialogInfo}
+            title={titleDialog}
+          />
+        )}
       </Box>
-      {isOpenDialogInfo && (
-        <DialogInfo
-          handleClose={handleCloseDialogInfo}
-          open={isOpenDialogInfo}
-          title={titleDialog}
-        />
-      )}
     </Modal>
   );
 };

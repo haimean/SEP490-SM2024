@@ -22,7 +22,21 @@ const ListBlog = () => {
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const [openDetailModal, setOpenDetailModal] = useState(false);
+  const [profile, setProfile] = useState({});
 
+  const fetchProfile = async () => {
+    try {
+      const response = await CallApi(`/api/user/profile`, "get");
+      setProfile(response?.data);
+    } catch (error) {
+      console.log(
+        "=============== fetch profile ERROR: " + error.response?.data?.error
+      );
+    }
+  };
+  useEffect(() => {
+    fetchProfile();
+  }, []);
   const handleOpenCreateModal = () => setOpenCreateModal(true);
   const handleCloseCreateModal = () => setOpenCreateModal(false);
 
@@ -86,7 +100,12 @@ const ListBlog = () => {
             readOnly: true,
             startAdornment: (
               <InputAdornment position="start">
-                <Avatar sx={{ width: 32, height: 32, mr: 1 }}>{null}</Avatar>
+                <Avatar
+                  sx={{ width: 32, height: 32, mr: 1 }}
+                  src={profile?.user?.avatar}
+                >
+                  {profile?.user?.fullName?.[0] || "U"}
+                </Avatar>
               </InputAdornment>
             ),
           }}
