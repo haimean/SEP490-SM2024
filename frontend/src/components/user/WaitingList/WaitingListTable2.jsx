@@ -4,13 +4,14 @@ import CallApi from "../../../service/CallAPI";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import ModalProfile from "../../common/ModalProfile";
+import { getRatingDescription } from "../../../utils/user/GetRatingDescription";
 
 const processData = (data) => {
-  return data.map((item) => ({
-    id: item.id,
-    avatar: item.account?.user?.avatar || "",
-    fullName: item.account?.user?.fullName || "",
-    level: item?.level,
+  return data.map((item, index) => ({
+    orderNumber: index + 1,
+    id: item?.id,
+    fullName: item?.account?.user?.fullName || "",
+    level: getRatingDescription(item?.level),
     // Add other fields as needed
   }));
 };
@@ -20,22 +21,7 @@ export default function WaitingListTable2({ open, onClose, postId }) {
   const [isModalProfile, setIsModalProfile] = useState(false);
   const [profileId, setProfileId] = useState();
   const columns = [
-    { field: "id", headerName: "ID", width: 70, sortable: false },
-    {
-      field: "avatar",
-      headerName: "Avatar",
-      width: 70,
-      sortable: false,
-      renderCell: (params) => (
-        <div className="w-full h-full flex items-center">
-          <img
-            src={params.value}
-            alt="Avatar"
-            className="w-10 h-10 rounded-full m-auto"
-          />
-        </div>
-      ),
-    },
+    { field: "orderNumber", headerName: "STT", width: 70, sortable: false },
     {
       field: "fullName",
       headerName: "Họ tên",
