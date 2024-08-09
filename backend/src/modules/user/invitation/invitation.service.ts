@@ -89,7 +89,7 @@ const invitationUserService = {
         provinces:
           post?.booking.Court?.Branches?.address?.provinces ?? '',
         accountId,
-        level: post?.memberPost[0].level,
+        level: post?.memberPost[0]?.level,
       },
     });
     return await database.invitation.create({
