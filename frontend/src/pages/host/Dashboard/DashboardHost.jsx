@@ -233,7 +233,7 @@ const DashboardHost = () => {
       <Card sx={{ marginBottom: 4, padding: "2rem" }}>
         <Box className="flex justify-between items-center mb-2">
           <Typography variant="h5" component="h2">
-            Thống kê tỷ lệ doanh thu các sân trong 1 chi nhánh
+            Doanh thu các sân
           </Typography>
           <TextField
             select
@@ -258,7 +258,7 @@ const DashboardHost = () => {
       </Card>
 
       <Card sx={{ marginBottom: 4, padding: "2rem" }}>
-        <Typography variant="h5">Các sân trong chi nhánh</Typography>
+        <Typography variant="h5">Thống kê sân</Typography>
         <Tabs
           value={selectedCourt}
           onChange={handleCourtChange}
@@ -273,7 +273,7 @@ const DashboardHost = () => {
           <Box>
             <Box className="flex justify-between items-center mb-2">
               <Typography variant="h6" component="h2" sx={{ marginBottom: 2 }}>
-                Biểu đồ thể hiện mức độ sử dụng sân theo ngày trong tuần
+                Mức độ sử dụng sân theo ngày trong tuần
               </Typography>
               <TextField
                 select
