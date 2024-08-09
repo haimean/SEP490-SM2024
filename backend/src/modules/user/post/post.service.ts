@@ -4,9 +4,16 @@ import { PostInputCreate } from './post.model';
 
 const postUserService = {
   create: async (data: PostInputCreate): Promise<Post | null> => {
-    const { description, numberMember, bookingId, memberPost } = data;
+    const {
+      title,
+      description,
+      numberMember,
+      bookingId,
+      memberPost,
+    } = data;
     return await database.post.create({
       data: {
+        title,
         description,
         numberMember,
         bookingId,

@@ -5,10 +5,16 @@ import CustomError from '../../../outcomes/customError';
 
 const postUserController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
-    const { bookingId, description, numberMember, memberPost } =
-      req.body;
+    const {
+      bookingId,
+      description,
+      numberMember,
+      memberPost,
+      title,
+    } = req.body;
     try {
       const result = await postUserService.create({
+        title,
         bookingId,
         description,
         numberMember,

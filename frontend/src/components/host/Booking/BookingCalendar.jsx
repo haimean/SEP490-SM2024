@@ -47,11 +47,21 @@ const CalendarModalComponent = ({ courtId }) => {
   const [isNewEvent, setIsNewEvent] = useState(false);
   const [eventData, setEventData] = useState({ title: '', start: '', end: '', price: 0, name: '', numberPhone: '' });
   const [loading, setLoading] = useState(false);
+  const [isOpenDialogInfo, setIsOpenDialogInfo] = useState(false);
+  const [titleDialog, setTitleDialog] = useState("");
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   useEffect(() => {
     fetchData(courtId);
   }, [courtId]);
+
+  const handleCloseDialogInfo = () => {
+    setIsOpenDialogInfo(false);
+  };
+  const handleOpenDialogInfo = (title) => {
+    setTitleDialog(title);
+    setIsOpenDialogInfo(true);
+  };
 
   const parseTime = (timeStr, date = new Date()) => {
     const [hours, minutes] = timeStr.split(':').map(Number);
@@ -113,7 +123,7 @@ const CalendarModalComponent = ({ courtId }) => {
   const handleSelectSlot = ({ start, end }) => {
     const now = new Date();
     if (start < now) {
-      alert("Không thể chọn thời gian trong quá khứ.");
+      handleOpenDialogInfo("Không thể chọn thời gian trong quá khứ.");
       return;
     }
     const isSlotOccupied = events.some(
@@ -128,7 +138,9 @@ const CalendarModalComponent = ({ courtId }) => {
       setIsNewEvent(true);
       setIsModalOpen(true);
     } else {
-      alert("Khoảng thời gian này đã được đặt. Vui lòng chọn khoảng thời gian khác.");
+      handleOpenDialogInfo(
+        "Khoảng thời gian này đã được đặt. Vui lòng chọn khoảng thời gian khác."
+      );
     }
   };
 
@@ -156,11 +168,15 @@ const CalendarModalComponent = ({ courtId }) => {
     const start = new Date(eventData.start).getHours();
     const end = new Date(eventData.end).getHours();
     if (start < openHour.getHours() || end > closeHour.getHours()) {
-      alert("Thời gian sự kiện phải nằm trong giờ mở cửa và đóng cửa.");
+      handleOpenDialogInfo(
+        "Thời gian sự kiện phải nằm trong giờ mở cửa và đóng cửa."
+      );
       return;
     }
     if (start >= end) {
-      alert("Giờ bắt đầu không thể lớn hơn hoặc bằng giờ kết thúc.");
+      handleOpenDialogInfo(
+        "Giờ bắt đầu không thể lớn hơn hoặc bằng giờ kết thúc."
+      );
       return;
     }
     const isSlotOccupied = events.some((event) => {
@@ -172,7 +188,11 @@ const CalendarModalComponent = ({ courtId }) => {
       );
     });
     if (isSlotOccupied) {
-      alert("Khoảng thời gian này đã được đặt. Vui lòng chọn khoảng thời gian khác.");
+      // set title = Khoảng thời gian này đã được đặt. Vui lòng chọn khoảng thời gian khác.
+      // set trạng thái
+      handleOpenDialogInfo(
+        "Khoảng thời gian này đã được đặt. Vui lòng chọn khoảng thời gian khác."
+      );
       return;
     }
     if (isNewEvent) {
@@ -336,6 +356,13 @@ const CalendarModalComponent = ({ courtId }) => {
         onClose={() => setIsDeleteModalOpen(false)}
         onDelete={handleConfirmDelete}
       />
+      {isOpenDialogInfo && (
+        <DialogInfo
+          handleClose={handleCloseDialogInfo}
+          open={isOpenDialogInfo}
+          title={titleDialog}
+        />
+      )}
     </Box>
   );
 };
