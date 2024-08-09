@@ -11,6 +11,7 @@ import {
 import { Close } from "@mui/icons-material";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
+import DialogInfo from "../../common/DialogInfo";
 
 const CreateBlog = ({ open, onClose, onBlogCreated }) => {
   const { control, handleSubmit, reset } = useForm({
@@ -19,7 +20,15 @@ const CreateBlog = ({ open, onClose, onBlogCreated }) => {
     },
   });
   const [selectedImage, setSelectedImage] = useState(null);
-
+  const [isOpenDialogInfo, setIsOpenDialogInfo] = useState(false);
+  const [titleDialog, setTitleDialog] = useState("");
+  const handleCloseDialogInfo = () => {
+    setIsOpenDialogInfo(false);
+  };
+  const handleOpenDialogInfo = (title) => {
+    setTitleDialog(title);
+    setIsOpenDialogInfo(true);
+  };
   const onSubmit = async (data) => {
     try {
       const formData = new FormData();
@@ -145,7 +154,9 @@ const CreateBlog = ({ open, onClose, onBlogCreated }) => {
                   if (file && file.size <= 1024 * 1024) {
                     handleImageChange(event);
                   } else {
-                    alert("Kích thước ảnh phải nhỏ hơn hoặc bằng 1MB.");
+                    handleOpenDialogInfo(
+                      "Kích thước ảnh phải nhỏ hơn hoặc bằng 1MB."
+                    );
                     event.target.value = null;
                   }
                 }}
@@ -167,6 +178,13 @@ const CreateBlog = ({ open, onClose, onBlogCreated }) => {
           </Box>
         </form>
       </Box>
+      {isOpenDialogInfo && (
+        <DialogInfo
+          handleClose={handleCloseDialogInfo}
+          open={isOpenDialogInfo}
+          title={titleDialog}
+        />
+      )}
     </Modal>
   );
 };
