@@ -33,6 +33,9 @@ export default function DialogInfo({
           {title}
         </DialogContentText>
       </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose}>Đóng</Button>
+      </DialogActions>
     </Dialog>
   );
 }
