@@ -1,10 +1,10 @@
+/* eslint-disable react/prop-types */
 import {
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
   Slide,
 } from "@mui/material";
 import React from "react";
@@ -13,7 +13,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-export default function DialogBooking({
+export default function DialogAcepct({
+  // eslint-disable-next-line react/prop-types
   open,
   handleClose,
   title,

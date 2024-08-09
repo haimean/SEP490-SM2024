@@ -1,24 +1,11 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import {
-  Box,
-  Typography,
-  Paper,
-  Grid,
-  Button,
-  Chip,
-  Dialog,
-  Slide,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-} from "@mui/material";
+import { Box, Typography, Paper, Grid, Button, Chip } from "@mui/material";
 import { format } from "date-fns";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
 import Loading from "../../common/Loading";
-import DialogBooking from "../../common/DialogBooking";
+import DialogAcepct from "../../common/DialogAcepct";
 
 const BookingDetail = () => {
   const { id } = useParams();
@@ -151,7 +138,7 @@ const BookingDetail = () => {
         </Box>
       </Paper>
       {open && (
-        <DialogBooking
+        <DialogAcepct
           handleClose={handleClose}
           open={open}
           title={"Bạn có muốn hủy lịch thi đấu này không?"}
