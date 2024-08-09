@@ -13,12 +13,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-export default function DialogAcepct({
+export default function DialogAccept({
   // eslint-disable-next-line react/prop-types
   open,
   handleClose,
   title,
-  handleCancel,
+  handleAccept,
 }) {
   return (
     <Dialog
@@ -36,7 +36,7 @@ export default function DialogAcepct({
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Hủy</Button>
-        <Button onClick={handleCancel}>Đồng ý</Button>
+        <Button onClick={handleAccept}>Đồng ý</Button>
       </DialogActions>
     </Dialog>
   );
