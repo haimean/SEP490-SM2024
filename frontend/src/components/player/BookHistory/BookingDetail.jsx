@@ -1,14 +1,30 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Box, Typography, Paper, Grid, Button, Chip } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Paper,
+  Grid,
+  Button,
+  Chip,
+  Dialog,
+  Slide,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+} from "@mui/material";
 import { format } from "date-fns";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
+import Loading from "../../common/Loading";
+import DialogBooking from "../../common/DialogBooking";
 
 const BookingDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [booking, setBooking] = useState(null);
+  const [open, setOpen] = useState(false);
   const now = new Date().getTime();
   const bookingStartTime = new Date(booking?.startTime).getTime();
   const canCancel = bookingStartTime > now;
@@ -27,12 +43,10 @@ const BookingDetail = () => {
   console.log(booking);
 
   const handleCancel = async () => {
-    const isConfirmed = window.confirm(
-      "Bạn có muốn hủy lịch thi đấu này không?"
-    );
-    if (isConfirmed) {
+    if (open) {
       try {
         await CallApi(`/api/user/booking/${booking?.id}`, "delete");
+        setOpen(false);
         navigate("/player/booking-history");
         toast.success("Hủy thành công trận đã đặt");
       } catch (error) {
@@ -41,8 +55,14 @@ const BookingDetail = () => {
     }
   };
 
-  if (!booking) return <Typography>Loading...</Typography>;
+  if (!booking) return <Loading />;
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <Box
       sx={{
@@ -120,7 +140,7 @@ const BookingDetail = () => {
           </Button>
           {canCancel && (
             <Button
-              onClick={handleCancel}
+              onClick={handleClickOpen}
               variant="contained"
               color="error"
               size="small"
@@ -130,6 +150,14 @@ const BookingDetail = () => {
           )}
         </Box>
       </Paper>
+      {open && (
+        <DialogBooking
+          handleClose={handleClose}
+          open={open}
+          title={"Bạn có muốn hủy lịch thi đấu này không?"}
+          handleCancel={handleCancel}
+        />
+      )}
     </Box>
   );
 };
