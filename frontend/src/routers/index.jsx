@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 // eslint-disable-next-line react-refresh/only-export-components
 const ProtectedRoute = ({ component, roles = [] }) => {
   const { user, role } = useSelector((state) => state.user);
+  console.log("state.user", user);
+
   if (!user && roles.length > 0) {
     // Người dùng chưa đăng nhập và route yêu cầu đăng nhập
     return <Navigate to="/login" replace />;
@@ -74,15 +76,7 @@ export const getRoutes = () => {
           <Route
             key={route.path}
             path={route.path}
-            element={
-              <LayoutAuth>
-                {/* <ProtectedRoute
-                  component={route.component}
-                  roles={route.role}
-                /> */}
-                {route.component}
-              </LayoutAuth>
-            }
+            element={<LayoutAuth>{route.component}</LayoutAuth>}
           />
         );
       default:
