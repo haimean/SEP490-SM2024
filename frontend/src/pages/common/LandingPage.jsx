@@ -44,7 +44,7 @@ const LandingPage = () => {
 
         <TopBranches branches={branches} role={role} />
 
-        <section className="block">
+        {/* <section className="block">
           <div className="container">
             <div className="relative py-12 sm:py-20">
               <h2 className="sm:mb-16 mt-0 text-center text-3xl sm:text-4xl leading-10 sm:leading-[46px] tracking-[-0.1px] sm:tracking-[-0.2px]">
@@ -150,7 +150,7 @@ const LandingPage = () => {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
       </main>
     </>
   );
