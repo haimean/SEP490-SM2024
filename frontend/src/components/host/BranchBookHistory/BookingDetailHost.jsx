@@ -62,7 +62,7 @@ const BookingDetailHost = () => {
     try {
       await CallApi(`/api/host/history-booking/cancel`, "put", requestData);
       navigate(`/host/booking-history/${booking?.Court?.branchesId}`);
-      toast.success("Xóa thành công trận đã đặt");
+      toast.success("Hủy thành công trận đã đặt");
     } catch (error) {
       toast.error("Lỗi khi hủy đặt sân:", error);
     }
