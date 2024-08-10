@@ -45,6 +45,7 @@ import PriceSetupPage from "../components/host/court/PriceSetupPage.jsx";
 import ListReportBlog from "../pages/admin/ListReportBlog/ListReportBlog.jsx";
 import RequestListJoin from "../pages/user/RequestListJoin/RequestListJoin.jsx";
 import TypeCourtTable from "../components/host/typeCourt/TypeCourtTable.jsx";
+import PriceTypeCourtForm from "../components/host/typeCourt/PriceTypeCourtForm.jsx"
 
 const router = [
   {
@@ -401,6 +402,13 @@ const router = [
     path: "/type-court-table",
     name: "Type Court Table",
     component: <TypeCourtTable />,
+    role: ["HOST"],
+    layout: "host",
+  },
+  {
+    path: "/price",
+    name: "Price Type Court Form",
+    component: <PriceTypeCourtForm />,
     role: ["HOST"],
     layout: "host",
   },
