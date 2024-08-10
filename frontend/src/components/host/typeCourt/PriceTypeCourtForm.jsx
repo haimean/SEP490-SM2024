@@ -1,69 +1,72 @@
 import React, { useState } from 'react';
 import { Box, Button, Stepper, Step, StepLabel, Grid, TextField } from '@mui/material';
 import { useForm, Controller } from "react-hook-form";
-import TimePickerCp from "../FormInput/TimePickerCp.jsx";
+import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 
-const PriceTypeCourtForm = ({ listTime = [] }) => {
+const PriceTypeCourtForm = ({ listTime = [], open, onClose  }) => {
   const [activeStep, setActiveStep] = useState(0);
   const [times, setTimes] = useState(listTime.length === 0 ? 1 : '');
-  const [milestones, setMilestones] = useState([]);
+  const defaultStartTime = dayjs().startOf('day');
+  const defaultEndTime = dayjs().endOf('day');
+  const [milestones, setMilestones] = useState([defaultStartTime, defaultEndTime]);
   const [priceDetails, setPriceDetails] = useState([]);
   const {
     control,
-    reset,
     handleSubmit,
-    getValues,
-    setValue,
     formState: { errors },
   } = useForm();
-  const steps = ['Step 1: Number of Times', 'Step 2: Time Milestones', 'Step 3: Price Details'];
 
-  const defaultStartTime = dayjs('05:00', 'HH:mm').format("HH:mm");
-  const defaultEndTime = dayjs('22:00', 'HH:mm').format("HH:mm");
-  console.log(defaultStartTime, defaultEndTime);
-  
-  const onSubmit=(data) => {
-    if(data){
+  const steps = ['Bước 1: Nhập số lần', 'Bước 2: Chọn các mốc thời gian', 'Bước 3: Nhập chi tiết giá'];
 
-      const times = Object.keys(data).map((key) =>    dayjs(data[key]).format("HH:mm") );
-      console.log('gio',data  );
-      console.log('gio',times  );
-    }
-  }
   const handleNext = () => {
     if (activeStep === 1) {
-      console.log('gio');
-      handleSubmit(onSubmit)();
+      // Kiểm tra xem có mốc thời gian nào bị trùng không
+      if (hasDuplicateMilestones(milestones)) {
+        alert('Có mốc thời gian bị trùng. Vui lòng nhập lại!');
+        return;
+      }
 
+      // Sắp xếp các mốc thời gian theo thứ tự từ thấp đến cao (bỏ qua 2 mốc đầu)
+      const sortedMilestones = [...milestones.slice(2)].sort((a, b) => a.isBefore(b) ? -1 : 1);
+
+      // Tạo chi tiết giá dựa trên các mốc thời gian đã sắp xếp
       const calculatedPriceDetails = [];
       let lastTime = defaultStartTime;
-      const formatMilestones = milestones.map((key) =>    dayjs(milestones[key]).format("HH:mm") );
-// console.log(formatMilestones);
-console.log(formatMilestones);
 
-formatMilestones.forEach((milestone, index) => {
+      sortedMilestones.forEach((milestone) => {
         calculatedPriceDetails.push({
-          start: lastTime,
-          end: milestone,
-          // end: milestone.format('HH:mm'),
+          start: lastTime.format('HH:mm'),
+          end: milestone.format('HH:mm'),
           price: '',
         });
         lastTime = milestone;
       });
-console.log(lastTime);
 
       calculatedPriceDetails.push({
-        start: lastTime,
-        // start: lastTime.format('HH:mm'),
-        end: defaultEndTime,
+        start: lastTime.format('HH:mm'),
+        end: defaultEndTime.format('HH:mm'),
         price: '',
       });
 
+      setMilestones([defaultStartTime, defaultEndTime, ...sortedMilestones]);
       setPriceDetails(calculatedPriceDetails);
     }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    let isErrorPrice = false;
+    if (activeStep === 2) {
+      console.log(priceDetails);
+      priceDetails.forEach((priceDetail) => {
+        if (priceDetail.price == '') {
+          isErrorPrice = true;
+        }
+      })
+    }
+    if (!isErrorPrice) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    }else{
+      alert('Bạn phải nhập đầy đủ giá')
+    }
   };
 
   const handleBack = () => {
@@ -78,9 +81,23 @@ console.log(lastTime);
     setMilestones(milestones.filter((_, i) => i !== index));
   };
 
-  const handleMilestoneChange = (value, index) => {
+  const hasDuplicateMilestones = (milestones) => {
+    const uniqueValues = new Set();
+
+    for (let milestone of milestones) {
+      const timeString = milestone.format('HH:mm');
+      if (uniqueValues.has(timeString)) {
+        return true;
+      }
+      uniqueValues.add(timeString);
+    }
+
+    return false;
+  };
+
+  const handleMilestoneChange = (newValue, index) => {
     const newMilestones = [...milestones];
-    newMilestones[index] = dayjs(value);
+    newMilestones[index] = newValue;
     setMilestones(newMilestones);
   };
 
@@ -90,12 +107,12 @@ console.log(lastTime);
         return (
           <div className="flex flex-col items-center">
             <TextField
-              label="Number of Times"
+              label="Số lần"
               type="number"
               value={times}
               onChange={(e) => setTimes(e.target.value)}
               disabled={listTime.length === 0}
-              helperText="Enter the number of times"
+              helperText="Nhập số lần"
               className="w-1/2"
               inputProps={{ className: "text-center" }}
             />
@@ -104,17 +121,36 @@ console.log(lastTime);
       case 1:
         return (
           <div className="flex flex-col items-center">
-              {milestones.map((milestone, index) => (
-                <Box key={index} display="flex" alignItems="center" className="mb-2">
-                  <TimePickerCp
-                    field={{ name: 'Gio ' + index, required: true, label: `Time Milestone ${index + 1}` }}
+            {milestones.map((milestone, index) => (
+              <Box key={index} display="flex" alignItems="center" className="mb-2">
+                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="vi">
+                  <Controller
                     control={control}
-                    errors={errors}
+                    name={`milestone_${index}`}
+                    defaultValue={milestone}
+                    render={({ field }) => (
+                      <TimePicker
+                        label={`Mốc thời gian ${index + 1}`}
+                        value={milestones[index]}
+                        onChange={(newValue) => handleMilestoneChange(newValue, index)}
+                        disabled={index === 0 || index === 1} // Vô hiệu hóa hai mốc thời gian đầu
+                        slots={{ textField: TextField }}
+                        slotProps={{
+                          textField: {
+                            error: !!errors[`milestone_${index}`],
+                            helperText: errors[`milestone_${index}`]?.message,
+                          },
+                        }}
+                      />
+                    )}
                   />
-                  <Button variant="outlined" color="secondary" onClick={() => handleRemoveMilestone(index)}>Remove</Button>
-                </Box>
-              ))}
-            <Button variant="contained" color="primary" onClick={handleAddMilestone}>Add Milestone</Button>
+                </LocalizationProvider>
+                {index > 1 && (
+                  <Button variant="outlined" color="secondary" onClick={() => handleRemoveMilestone(index)}>Xóa</Button>
+                )}
+              </Box>
+            ))}
+            <Button variant="contained" color="primary" onClick={handleAddMilestone}>Thêm mốc thời gian</Button>
           </div>
         );
       case 2:
@@ -124,7 +160,7 @@ console.log(lastTime);
               <Grid container spacing={2} key={index} className="mb-2">
                 <Grid item xs={3}>
                   <TextField
-                    label="Start Time"
+                    label="Giờ bắt đầu"
                     value={detail.start}
                     disabled
                     className="w-full"
@@ -132,7 +168,7 @@ console.log(lastTime);
                 </Grid>
                 <Grid item xs={3}>
                   <TextField
-                    label="End Time"
+                    label="Giờ kết thúc"
                     value={detail.end}
                     disabled
                     className="w-full"
@@ -140,9 +176,10 @@ console.log(lastTime);
                 </Grid>
                 <Grid item xs={3}>
                   <TextField
-                    label="Price"
+                    label="Giá"
                     type="number"
                     value={detail.price}
+                    required={true}
                     onChange={(e) => {
                       const newPriceDetails = [...priceDetails];
                       newPriceDetails[index].price = e.target.value;
@@ -161,8 +198,8 @@ console.log(lastTime);
   };
 
   return (
-    <Box>
-      <Stepper activeStep={activeStep}>
+    <Modal open={open} onClose={onClose}>
+      <Stepper sx={{ mt: '4rem' }} activeStep={activeStep}>
         {steps.map((label) => (
           <Step key={label}>
             <StepLabel>{label}</StepLabel>
@@ -172,13 +209,13 @@ console.log(lastTime);
       <Box>{renderStepContent(activeStep)}</Box>
       <Box mt={2} display="flex" justifyContent="space-between">
         <Button disabled={activeStep === 0} onClick={handleBack}>
-          Back
+          Quay lại
         </Button>
         <Button variant="contained" color="primary" onClick={handleNext}>
-          {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+          {activeStep === steps.length - 1 ? 'Hoàn thành' : 'Tiếp theo'}
         </Button>
       </Box>
-    </Box>
+    </Modal>
   );
 };
 
