@@ -368,7 +368,13 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
               <Controller
                 name="description"
                 control={control}
-                render={({ field }) => (
+                rules={{
+                  required: "Mô tả là bắt buộc",
+                  validate: (value) =>
+                    value.trim().length > 0 ||
+                    "Tên không thể chỉ chứa khoảng trắng",
+                }}
+                render={({ field, fieldState: { error } }) => (
                   <TextField
                     {...field}
                     placeholder="Mô tả"
@@ -376,6 +382,8 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
                     multiline
                     rows={4}
                     sx={{ mt: 2 }}
+                    error={!!error}
+                    helperText={error?.message}
                   />
                 )}
               />
