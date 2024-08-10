@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect, useMemo, useCallback } from "react";
 import {
   Box,
@@ -8,7 +9,6 @@ import {
   TextField,
   Grid,
 } from "@mui/material";
-import PropTypes from "prop-types";
 import { Close } from "@mui/icons-material";
 import { useForm, Controller } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -17,7 +17,9 @@ import AddIcon from "@mui/icons-material/Add";
 import CallApi from "../../../service/CallAPI";
 import CustomSelectCp from "../FormInput/CustomSelectCp";
 import SectionCp from "../FormInput/SectionCp";
-import PriceTypeCourtForm from "./PriceTypeCourtForm";
+import TimeLinePrice from "./TimeLinePrice";
+// import usePriceTypeCourtForm from "../../../hooks/usePriceTypeCourtForm";
+
 const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
   const {
     control,
@@ -34,10 +36,29 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentImage, setCurrentImage] = useState(null);
   const [isOpenDialogInfo, setIsOpenDialogInfo] = useState(false);
-  const [isOpenPriceTypeCourtForm, setIsOpenPriceTypeCourtForm] =
-    useState(false);
   const [titleDialog, setTitleDialog] = useState("");
   const [branchAtbList, setBranchAtbList] = useState([]);
+  //list giá
+  const [priceTypeCourt, setPriceTypeCourt] = useState({});
+  //list times
+  const [getListTime, setGetListTime] = useState([]);
+  // // const { openForm: openCreatePrice, PriceTypeCourtFormComponent } =
+  //   usePriceTypeCourtForm((data) => {
+  //     console.log("usePriceTypeCourtForm", data);
+  //   });
+
+  useEffect(() => {
+    const data = Object.values(priceTypeCourt);
+    console.log("data getListTime", [priceTypeCourt]);
+    if (data.length > 0) {
+      const list = data?.map((item, index) => {
+        if (index !== 0) return index;
+      });
+      setGetListTime(list);
+    } else {
+      setGetListTime([]);
+    }
+  }, [priceTypeCourt]);
 
   const handleCloseDialogInfo = () => {
     setIsOpenDialogInfo(false);
@@ -73,7 +94,22 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
       setSelectedImage(null);
       setCurrentImage(null);
     }
-  }, [typeCourt, reset, setValue]);
+  }, [typeCourt, reset, setValue, branchAtbList]);
+
+  const handelCreatePriceTypeCourt = () => {
+    // openCreatePrice(getListTime, []);
+    // openDialog(getListTime, [], (data) => {
+    //   console.log("data", data);
+    //   if (data) {
+    //     setPriceTypeCourt((prev) => {
+    //       const key = data[0].times;
+    //       prev[key] = data;
+    //       console.log("prev", prev);
+    //       return prev;
+    //     });
+    //   }
+    // });
+  };
 
   const onSubmit = async (data) => {
     try {
@@ -105,6 +141,8 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
     reset();
     setSelectedImage(null);
     setCurrentImage(null);
+    setPriceTypeCourt({});
+    setGetListTime([]);
     onClose();
   };
   const fetchBranchAtbList = async () => {
@@ -396,6 +434,10 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
               )
             )}
           </Grid>
+          <GenTimeLine value={priceTypeCourt} />
+          <Button onClick={handelCreatePriceTypeCourt}>
+            Thêm mới bảng giá
+          </Button>
           <Button
             type="submit"
             variant="contained"
@@ -405,26 +447,6 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
             {typeCourt ? "Cập nhật" : "Tạo"}
           </Button>
         </form>
-        <Button
-          onClick={() => {
-            setIsOpenPriceTypeCourtForm(true);
-          }}
-        >
-          open pritile codsf
-        </Button>
-        {isOpenPriceTypeCourtForm && (
-          <PriceTypeCourtForm
-            listTime={[]}
-            open={isOpenPriceTypeCourtForm}
-            onClose={() => {
-              setIsOpenPriceTypeCourtForm(false);
-            }}
-            onSubmit={(data) => {
-              setIsOpenPriceTypeCourtForm(false);
-              console.log("data giá", data);
-            }}
-          />
-        )}
         {isOpenDialogInfo && (
           <DialogInfo
             handleClose={handleCloseDialogInfo}
@@ -432,16 +454,15 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
             title={titleDialog}
           />
         )}
+        {/* <PriceTypeCourtFormComponent /> */}
       </Box>
     </Modal>
   );
 };
 
-NewTypeCourtModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired,
-  typeCourt: PropTypes.object,
+const GenTimeLine = (value) => {
+  const data = Object.values(value.value);
+  return data?.map((item, index) => <TimeLinePrice step={item} key={index} />);
 };
 
 export default NewTypeCourtModal;
