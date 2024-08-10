@@ -6,6 +6,7 @@ import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
 import Loading from "../../common/Loading";
 import DialogAccept from "../../common/DialogAccept";
+import { subHours } from "date-fns";
 
 const BookingDetail = () => {
   const { id } = useParams();
@@ -66,12 +67,13 @@ const BookingDetail = () => {
             <Typography variant="h6">Thông tin đặt sân</Typography>
             <Typography>
               Ngày:{" "}
-              {format(new Date(booking?.startTime || new Date()), "dd/MM/yyyy")}
+              {format(subHours(new Date(booking?.startTime), 14), "dd/MM/yyyy")}
+              {/* {format(subHours(new Date(booking?.endTime || new Date()), 14), "dd/MM/yyyy")} */}
             </Typography>
             <Typography>
               Thời gian:{" "}
-              {format(new Date(booking?.startTime || new Date()), "HH:mm")} -{" "}
-              {format(new Date(booking?.endTime || new Date()), "HH:mm")}
+              {format(subHours(new Date(booking?.startTime), 14), "HH:mm")} -{" "}
+              {format(subHours(new Date(booking?.endTime), 14), "HH:mm")}
             </Typography>
             <Typography>
               Giá: {booking?.price?.toLocaleString("vi-VN")} VNĐ

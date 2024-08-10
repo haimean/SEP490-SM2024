@@ -82,7 +82,7 @@ const bookingUserService = {
       where: {
         id,
         accountId,
-        isDelete: false,
+        // isDelete: false,
       },
       include: {
         bookingInfo: true,
