@@ -38,10 +38,13 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
   const [isOpenDialogInfo, setIsOpenDialogInfo] = useState(false);
   const [isOpenPriceTypeCourtForm, setIsOpenPriceTypeCourtForm] =
     useState(false);
+  const [isOpenUpdatePriceTypeCourtForm, setIsOpenUpdatePriceTypeCourtForm] =
+    useState(false);
   const [titleDialog, setTitleDialog] = useState("");
   const [branchAtbList, setBranchAtbList] = useState([]);
   //list giá
   const [priceTypeCourt, setPriceTypeCourt] = useState([]);
+  const [priceTypeCourtDetail, setPriceTypeCourtDetail] = useState([]);
   //list
   const [getListTime, setGetListTime] = useState([]);
 
@@ -88,11 +91,24 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
       formData.append("description", data.description.trim());
       if (selectedImage) {
         formData.append("image", selectedImage);
+      } else {
+        alert("Ảnh là bắt buộc");
+        return;
       }
+
       data.attributeCourt.map(
         (item) => item != "" && formData.append("attributeCourtIds", item)
       );
-      await onSave(formData, !!typeCourt, typeCourt?.id);
+
+      // const [priceTypeCourt, setPriceTypeCourt] = useState([]);
+
+      if (priceTypeCourt[1]) {
+        console.log("priceTypeCourt", priceTypeCourt);
+      } else {
+        alert("Giá là bắt buộc");
+        return;
+      }
+      TODO: await onSave(formData, !!typeCourt, typeCourt?.id);
       handleCancel();
     } catch (error) {
       toast.error("Tạo/Cập nhật loại sân thất bại");
@@ -113,6 +129,7 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
     setCurrentImage(null);
     setPriceTypeCourt([]);
     setGetListTime([]);
+    setPriceTypeCourtDetail([]);
     onClose();
   };
   const fetchBranchAtbList = async () => {
@@ -325,8 +342,6 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
                       )}
                     </Button>
                   </label>
-
-                  {/**dang anh copy*/}
                 </Box>
               </Box>
             </Grid>
@@ -421,7 +436,8 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
               </Button>
               <Button
                 onClick={() => {
-                  setIsOpenPriceTypeCourtForm(true);
+                  setPriceTypeCourtDetail(item);
+                  setIsOpenUpdatePriceTypeCourtForm(true);
                 }}
               >
                 Sửa
@@ -433,7 +449,7 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
               setIsOpenPriceTypeCourtForm(true);
             }}
           >
-            open pritile codsf
+            Thêm
           </Button>
           <Button
             type="submit"
@@ -454,6 +470,33 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
             }}
             onSubmit={(data) => {
               setIsOpenPriceTypeCourtForm(false);
+              let prev = priceTypeCourt;
+              if (data[0]?.times) {
+                const key = data[0].times;
+                prev[key] = data;
+                console.log("prev", prev);
+              }
+              if (prev.length > 0) {
+                const list = prev?.map((item, index) => index);
+                setGetListTime(list);
+              } else {
+                setGetListTime([]);
+              }
+              setPriceTypeCourt(prev);
+            }}
+          />
+        )}
+
+        {isOpenPriceTypeCourtForm && (
+          <PriceTypeCourtForm
+            listTime={getListTime}
+            open={isOpenUpdatePriceTypeCourtForm}
+            onClose={() => {
+              setIsOpenUpdatePriceTypeCourtForm(false);
+            }}
+            priceTypeCourt={priceTypeCourtDetail}
+            onSubmit={(data) => {
+              setIsOpenUpdatePriceTypeCourtForm(false);
               let prev = priceTypeCourt;
               if (data[0]?.times) {
                 const key = data[0].times;

@@ -35,15 +35,15 @@ const PriceTypeCourtForm = ({
   ]);
   const [priceDetails, setPriceDetails] = useState([]);
 
-  // useEffect(() => {
-  //   console.log(priceTypeCourt);
+  useEffect(() => {
+    console.log(priceTypeCourt);
 
-  //   // times;
-  //   // milestones;
-  //   // setTimes;
-  //   // setMilestones;
-  //   // setPriceDetails;
-  // }, [priceTypeCourt]);
+    // times;
+    // milestones;
+    // setTimes;
+    // setMilestones;
+    // setPriceDetails;
+  }, [priceTypeCourt]);
   const {
     control,
     formState: { errors },
