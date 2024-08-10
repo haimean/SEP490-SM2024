@@ -339,12 +339,25 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
               />
             </Grid>
           </Grid>
-          <Grid item sm={12} md={12} container spacing={2}>
+          <Grid
+            item
+            sm={12}
+            md={12}
+            container
+            spacing={2}
+            sx={{
+              // width: "300px", // Set the desired width
+              height: "200px", // Set the desired height
+              overflowY: "auto", // Enable vertical scrolling
+              overflowX: "hidden", // Hide horizontal scrolling (if needed)
+              border: "1px solid #ccc", // Optional: Add a border around the grid
+              padding: "8px", // Optional: Add some padding inside the box
+              margin: "8px",
+            }}
+          >
             {additionInfo?.map((business) =>
               business.name == "additionInfo" ? (
                 <Grid
-                  container
-                  item
                   sm={12}
                   md={12}
                   key={`${business.name}-${JSON.stringify(business.options)}`}
