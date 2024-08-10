@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import CallApi from "../../service/CallAPI";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { Collapse } from "@mui/material";
+import { Collapse, Tooltip } from "@mui/material";
 import SplitscreenIcon from "@mui/icons-material/Splitscreen";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import TurnedInNotIcon from "@mui/icons-material/TurnedInNot";
@@ -37,7 +37,12 @@ export default function Sidebar() {
       );
     }
   };
-
+  function truncateString(str) {
+    if (str.length > 16) {
+      return <Tooltip title={str}>{`${str.slice(0, 16)}...`}</Tooltip>;
+    }
+    return str;
+  }
   return (
     <Box sx={{ width: "100%", bgcolor: "background.paper", mt: "9vh" }}>
       <nav aria-label="main mailbox folders">
@@ -95,7 +100,7 @@ export default function Sidebar() {
                         <ListItemIcon>
                           <TurnedInNotIcon />
                         </ListItemIcon>
-                        <ListItemText primary={item?.name} />
+                        <ListItemText primary={truncateString(item?.name)} />
                       </ListItemButton>
                     </ListItem>
                   </Link>{" "}

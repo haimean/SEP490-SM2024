@@ -145,6 +145,9 @@ const UpdateBranch = () => {
 
       await CallApi(`/api/host/branches/${id}`, "put", formData);
       navigate(`/host/branch/${id}`);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
       toast.success(`Cập nhật chi nhánh ${data.branchName} thành công!`);
     } catch (error) {
       toast.error(
