@@ -50,6 +50,7 @@ typeCourtHostRouter.delete(
   validate(typeCourtHostValidator.deletePrice),
   typeCourtHostController.deletePrice
 );
+typeCourtHostRouter.delete('/:id', typeCourtHostController.delete);
 
 typeCourtHostRouter.put(
   '/:typeCourtId/attribute/:oldAttributeCourtId/:newAttributeCourtId',

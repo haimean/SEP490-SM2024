@@ -124,6 +124,21 @@ const typeCourtHostService = {
     });
   },
 
+  delete: async (
+    id: number,
+    accountId: number
+  ): Promise<TypeCourt | null> => {
+    await database.priceTypeCourt.deleteMany({
+      where: { typeCourtId: id },
+    });
+    return await database.typeCourt.delete({
+      where: {
+        accountId,
+        id,
+      },
+    });
+  },
+
   getPrice: async (id: number): Promise<PriceTypeCourt[]> => {
     return await database.priceTypeCourt.findMany({
       where: {

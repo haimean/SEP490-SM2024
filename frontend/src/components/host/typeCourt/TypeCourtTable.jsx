@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -15,6 +15,7 @@ import ImageModal from "./ImageModal";
 import NewTypeCourtModal from "./NewTypeCourtModal";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
+import DialogInfo from "../../common/DialogInfo";
 
 const TypeCourtTable = () => {
   const [typeCourts, setTypeCourts] = useState([]);
@@ -23,6 +24,8 @@ const TypeCourtTable = () => {
   const [currentTypeCourt, setCurrentTypeCourt] = useState(null);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState("");
+  const [isOpenDialogInfo, setIsOpenDialogInfo] = useState(false);
+  const [titleDialog, setTitleDialog] = useState("");
 
   useEffect(() => {
     fetchTypeCourts();
@@ -55,6 +58,13 @@ const TypeCourtTable = () => {
     }
   };
 
+  const handleCloseDialogInfo = () => {
+    setIsOpenDialogInfo(false);
+  };
+  const handleOpenDialogInfo = (title) => {
+    setTitleDialog(title);
+    setIsOpenDialogInfo(true);
+  };
   const fetchAccountAttributes = async () => {
     try {
       const result = await CallApi(
@@ -63,7 +73,7 @@ const TypeCourtTable = () => {
       );
       setAccountAttributes(result.data);
     } catch (error) {
-      console.log("Error fetching account attributes:", error);
+      console.log("Lỗi khi tìm nạp thuộc tính thông tin thêm ", error);
     }
   };
 
@@ -83,19 +93,23 @@ const TypeCourtTable = () => {
     setIsImageModalOpen(false);
     setCurrentImage("");
   };
+  const fetchApiDelete = async (id) => {
+    try {
+      // TODO: call api xóa
+      await CallApi(`/api/host/type-court/${id}`, "delete");
+      await fetchTypeCourts();
+    } catch (error) {
+      console.log("Lỗi khi tìm nạp thuộc tính thông tin thêm ", error);
+    }
+  };
+  const handleDeleteRow = async (typeCourtId, numberCourt) => {
+    if (numberCourt !== 0) {
+      handleOpenDialogInfo("Không thể xóa vì đang có sân đấu");
+    } else {
+      await fetchApiDelete(typeCourtId);
 
-  const handleDeleteRow = (typeCourtId, attrId) => {
-    // TODO: call api xóa
-    setTypeCourts(
-      typeCourts.map((tc) =>
-        tc.id === typeCourtId
-          ? {
-              ...tc,
-              attributes: tc.attributes.filter((attr) => attr.id !== attrId),
-            }
-          : tc
-      )
-    );
+      toast.success("Xóa kiểu sân thành công");
+    }
   };
 
   const handleSaveTypeCourt = async (formData, isEdit, typeCourtId) => {
@@ -152,47 +166,51 @@ const TypeCourtTable = () => {
           </TableHead>
           <TableBody>
             {typeCourts.map((typeCourt, index) => (
-              <React.Fragment key={typeCourt.id}>
-                <TableRow>
-                  <TableCell align="center">{index + 1}</TableCell>
-                  <TableCell align="center">
-                    <img
-                      src={typeCourt.image}
-                      alt={typeCourt.name}
-                      className="h-16 w-16 object-cover cursor-pointer mx-auto"
-                      onClick={() => handleImageClick(typeCourt.image)}
-                    />
-                  </TableCell>
-                  <TableCell align="center">{typeCourt.name}</TableCell>
-                  <TableCell align="center">
-                    {typeCourt?.court.length}
-                  </TableCell>
-                  <TableCell align="center">
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => handleOpenModal(typeCourt)}
-                      sx={{
-                        marginRight: "1rem",
-                      }}
-                    >
-                      Sửa
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      onClick={() => handleDeleteRow(typeCourt.id)}
-                    >
-                      Xóa
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              </React.Fragment>
+              <TableRow key={typeCourt?.id}>
+                <TableCell align="center">{index + 1}</TableCell>
+                <TableCell align="center">
+                  <img
+                    src={typeCourt?.image}
+                    alt={typeCourt?.name}
+                    className="h-16 w-16 object-cover cursor-pointer mx-auto"
+                    onClick={() => handleImageClick(typeCourt?.image)}
+                  />
+                </TableCell>
+                <TableCell align="center">{typeCourt?.name}</TableCell>
+                <TableCell align="center">{typeCourt?.court?.length}</TableCell>
+                <TableCell align="center">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => handleOpenModal(typeCourt)}
+                    sx={{
+                      marginRight: "1rem",
+                    }}
+                  >
+                    Sửa
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={() =>
+                      handleDeleteRow(typeCourt?.id, typeCourt?.court.length)
+                    }
+                  >
+                    Xóa
+                  </Button>
+                </TableCell>
+              </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-
+      {isOpenDialogInfo && (
+        <DialogInfo
+          handleClose={handleCloseDialogInfo}
+          open={isOpenDialogInfo}
+          title={titleDialog}
+        />
+      )}
       <NewTypeCourtModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}

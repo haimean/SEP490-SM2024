@@ -118,6 +118,21 @@ const typeCourtHostController = {
       next(new CustomError(error?.message, 500));
     }
   },
+  delete: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id } = req.params;
+      const accountId = Number(req.headers.authorization);
+      const typeCourt: TypeCourt | null =
+        await typeCourtHostService.delete(Number(id), accountId);
+      if (typeCourt) {
+        ResponseHandler(res, typeCourt);
+      } else {
+        next(new CustomError('Không tìm thấy kiểu sân', 409));
+      }
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
   getAll: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const accountId = Number(req.headers.authorization);
