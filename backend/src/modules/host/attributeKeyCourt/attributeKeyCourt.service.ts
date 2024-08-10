@@ -1,17 +1,18 @@
-import { AttributeCourt, AttributeKeyCourt } from '@prisma/client';
-import database from '../../../lib/db.server';
+import { PrismaClient, AttributeKeyCourt } from '@prisma/client';
 
-const removeIdInObject = (data: any) => {
-  delete data.id;
-  delete data.createdAt;
-  delete data.updatedAt;
-  return data;
-};
+const database = new PrismaClient();
+
+interface CreateAttributeKeyCourtInput {
+  name: string;
+  description?: string;
+  accountId: number;
+  value: string;
+  typeCourtId: number;
+}
 
 const attributeCourtKeyHostService = {
+  // Lấy AttributeKeyCourt cùng với các AttributeCourt của nó
   getAttributeKeyCourtWithAttributes: async (attributeKeyCourtId: number, accountId: number): Promise<any> => {
-    console.log(accountId);
-    
     return await database.attributeKeyCourt.findFirst({
       where: {
         id: attributeKeyCourtId,
@@ -31,6 +32,7 @@ const attributeCourtKeyHostService = {
     });
   },
 
+  // Lấy danh sách AttributeKeyCourts theo AccountId
   getAttributeKeyCourtsByAccountId: async (accountId: number): Promise<AttributeKeyCourt[]> => {
     const attributeCourts = await database.attributeCourt.findMany({
       where: {
@@ -45,9 +47,6 @@ const attributeCourtKeyHostService = {
       }
     });
 
-    console.log(attributeCourts);
-
-    // Lọc bỏ các giá trị null trước khi lọc các attributeKeyCourt trùng nhau
     const nonNullAttributeKeyCourts = attributeCourts
       .map(attrCourt => attrCourt.attributeKeyCourt)
       .filter((attrKeyCourt): attrKeyCourt is AttributeKeyCourt => attrKeyCourt !== null);
@@ -58,6 +57,55 @@ const attributeCourtKeyHostService = {
 
     return uniqueAttributeKeyCourts;
   },
+
+  // Tạo AttributeKeyCourt và AttributeCourt liên kết với TypeCourt
+  createAttributeKeyCourtAndAttributeCourt: async ({
+    name,
+    description,
+    accountId,
+    value,
+    typeCourtId,
+  }: CreateAttributeKeyCourtInput): Promise<AttributeKeyCourt> => {
+    // Tạo AttributeKeyCourt mới
+    const newAttributeKeyCourt = await database.attributeKeyCourt.create({
+      data: {
+        name,
+        description,
+        isActive: true,
+      },
+    });
+
+    // Tạo AttributeCourt mới và liên kết với AttributeKeyCourt và TypeCourt
+    await database.attributeCourt.create({
+      data: {
+        value,
+        isActive: true,
+        account: {
+          connect: { id: accountId },
+        },
+        court: {
+          connect: { id: typeCourtId },
+        },
+        attributeKeyCourt: {
+          connect: { id: newAttributeKeyCourt.id },
+        },
+      },
+    });
+
+    // Trả về AttributeKeyCourt đã được tạo cùng với các AttributeCourt liên quan
+    const result = await database.attributeKeyCourt.findUnique({
+      where: { id: newAttributeKeyCourt.id },
+      include: { attributeCourt: true },
+    });
+
+    if (!result) {
+      throw new Error(`AttributeKeyCourt with id ${newAttributeKeyCourt.id} not found`);
+    }
+
+    return result;
+  },
+
+  
 };
 
 export default attributeCourtKeyHostService;

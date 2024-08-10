@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import {
   Typography,
@@ -12,11 +13,13 @@ import { Comment, Delete } from "@mui/icons-material";
 import CallApi from "../../../service/CallAPI";
 import { getTimeSinceCreation } from "../../../utils/getTimeSinceCreation";
 import { toast } from "react-toastify";
+import useDialogConfirm from "../../../hooks/useDialogConfirm";
 
 const ViewCommentByBlog = ({ blogId, refreshComments }) => {
   const [comments, setComments] = useState([]);
   const [loadMoreComments, setLoadMoreComments] = useState(10);
   const currentAccountId = parseInt(localStorage.getItem("accountId"));
+  const { openDialog, DialogComponent } = useDialogConfirm();
 
   useEffect(() => {
     fetchComments();
@@ -38,11 +41,7 @@ const ViewCommentByBlog = ({ blogId, refreshComments }) => {
   };
 
   const handleDeleteComment = async (id) => {
-    const isConfirmed = window.confirm(
-      "Bạn có chắc chắn muốn xóa bình luận này không?"
-    );
-
-    if (isConfirmed) {
+    openDialog("Bạn có chắc chắn muốn xóa bình luận này không?", async () => {
       try {
         await CallApi(`/api/user/comment/${id}`, "delete");
         fetchComments();
@@ -51,7 +50,7 @@ const ViewCommentByBlog = ({ blogId, refreshComments }) => {
         toast.error("Xóa bình luận thất bại");
         console.error("Error deleting comment:", error);
       }
-    }
+    });
   };
 
   const handleLoadMore = () => {
@@ -104,6 +103,7 @@ const ViewCommentByBlog = ({ blogId, refreshComments }) => {
           />
         </Card>
       ))}
+      <DialogComponent />
       {loadMoreComments < comments.length && (
         <Box display="flex" justifyContent="center" mt={2}>
           <Button onClick={handleLoadMore} variant="outlined">

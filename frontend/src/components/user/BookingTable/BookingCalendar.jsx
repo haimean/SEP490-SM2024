@@ -1,16 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
-import { parse, startOfWeek, getDay, format, setHours, setMinutes, setSeconds, differenceInMinutes } from 'date-fns';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
-import enUS from 'date-fns/locale/en-US';
-import { toast } from 'react-toastify';
-import { CircularProgress, Backdrop, Modal } from '@mui/material';
-import CallApi from '../../../service/CallAPI';
-import PriceListModal from './PriceListModal';
-import ConfirmBookingModal from './ConfirmBookingModal';
+import React, { useState, useEffect } from "react";
+import { Calendar, dateFnsLocalizer } from "react-big-calendar";
+import {
+  parse,
+  startOfWeek,
+  getDay,
+  format,
+  setHours,
+  setMinutes,
+  setSeconds,
+  differenceInMinutes,
+} from "date-fns";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import enUS from "date-fns/locale/en-US";
+import { toast } from "react-toastify";
+import { CircularProgress, Backdrop, Modal } from "@mui/material";
+import CallApi from "../../../service/CallAPI";
+import PriceListModal from "./PriceListModal";
+import ConfirmBookingModal from "./ConfirmBookingModal";
+import DialogInfo from "../../common/DialogInfo";
 
 const locales = {
-  'en-US': enUS,
+  "en-US": enUS,
 };
 
 const localizer = dateFnsLocalizer({
@@ -22,19 +32,19 @@ const localizer = dateFnsLocalizer({
 });
 
 const messages = {
-  allDay: 'Cả ngày',
-  previous: 'Trước',
-  next: 'Sau',
-  today: 'Hôm nay',
-  month: 'Tháng',
-  week: 'Tuần',
-  day: 'Ngày',
-  agenda: 'Chương trình',
-  date: 'Ngày',
-  time: 'Thời gian',
-  event: 'Sự kiện',
-  noEventsInRange: 'Không có sự kiện nào trong khoảng thời gian này.',
-  showMore: total => `+ Xem thêm (${total})`,
+  allDay: "Cả ngày",
+  previous: "Trước",
+  next: "Sau",
+  today: "Hôm nay",
+  month: "Tháng",
+  week: "Tuần",
+  day: "Ngày",
+  agenda: "Chương trình",
+  date: "Ngày",
+  time: "Thời gian",
+  event: "Sự kiện",
+  noEventsInRange: "Không có sự kiện nào trong khoảng thời gian này.",
+  showMore: (total) => `+ Xem thêm (${total})`,
 };
 
 const CreateEventWithNoOverlap = ({ courtId }) => {
@@ -49,13 +59,22 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
   const [closeHour, setCloseHour] = useState(null);
 
   const parseTime = (timeStr, date = new Date()) => {
-    const [hours, minutes] = timeStr.split(':').map(Number);
+    const [hours, minutes] = timeStr.split(":").map(Number);
     const result = new Date(date);
     result.setHours(hours);
     result.setMinutes(minutes);
     result.setSeconds(0);
     result.setMilliseconds(0);
     return result;
+  };
+  const [isOpenDialogInfo, setIsOpenDialogInfo] = useState(false);
+  const [titleDialog, setTitleDialog] = useState("");
+  const handleCloseDialogInfo = () => {
+    setIsOpenDialogInfo(false);
+  };
+  const handleOpenDialogInfo = (title) => {
+    setTitleDialog(title);
+    setIsOpenDialogInfo(true);
   };
 
   useEffect(() => {
@@ -70,30 +89,40 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
       setCloseHour(parseTime(response?.data?.Branches?.closingHours));
 
       const now = new Date();
-      const accountId = localStorage.getItem('accountId');
+      const accountId = localStorage.getItem("accountId");
       const futureBookings = response.data.booking
-        .filter(b => {
-          const startTime = new Date(b.startTime.replace('Z', ''));
-          const endTime = new Date(b.endTime.replace('Z', ''));
-          const openingHour = parseTime(response?.data?.Branches?.openingHours, startTime);
-          const closingHour = parseTime(response?.data?.Branches?.closingHours, endTime);
-          return startTime > now && startTime >= openingHour && endTime <= closingHour;
+        .filter((b) => {
+          const startTime = new Date(b.startTime.replace("Z", ""));
+          const endTime = new Date(b.endTime.replace("Z", ""));
+          const openingHour = parseTime(
+            response?.data?.Branches?.openingHours,
+            startTime
+          );
+          const closingHour = parseTime(
+            response?.data?.Branches?.closingHours,
+            endTime
+          );
+          return (
+            startTime > now &&
+            startTime >= openingHour &&
+            endTime <= closingHour
+          );
         })
-        .map(b => ({
-          start: new Date(b.startTime.replace('Z', '')),
-          end: new Date(b.endTime.replace('Z', '')),
+        .map((b) => ({
+          start: new Date(b.startTime.replace("Z", "")),
+          end: new Date(b.endTime.replace("Z", "")),
           title: `Đã đặt`,
           isBooking: true,
-          isOwnBooking: b.accountId == accountId
+          isOwnBooking: b.accountId == accountId,
         }));
       setBooking1(futureBookings);
 
       const priceLists = {};
-      response.data.TypeCourt.priceTypeCourt.forEach(p => {
+      response.data.TypeCourt.priceTypeCourt.forEach((p) => {
         const priceObject = {
-          start: new Date(p.startTime.replace('Z', '')),
-          end: new Date(p.endTime.replace('Z', '')),
-          price: p.price
+          start: new Date(p.startTime.replace("Z", "")),
+          end: new Date(p.endTime.replace("Z", "")),
+          price: p.price,
         };
         if (!priceLists[p.times]) {
           priceLists[p.times] = [];
@@ -109,31 +138,36 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
   };
 
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(price);
   };
 
   const handleSelectSlot = ({ start, end }) => {
     const now = new Date();
     if (start < now) {
-      alert("Không thể chọn giờ đã qua.");
+      handleOpenDialogInfo("Không thể chọn giờ đã qua.");
       return;
     }
 
     const durationInMinutes = differenceInMinutes(end, start);
     if (durationInMinutes < 60) {
-      alert("Thời lượng đặt sân phải ít nhất 1 giờ.");
+      handleOpenDialogInfo("Thời lượng đặt sân phải ít nhất 1 giờ.");
       return;
     }
 
-    const isOverlapWithBooking = booking1.some(bookedEvent => start < bookedEvent.end && end > bookedEvent.start);
+    const isOverlapWithBooking = booking1.some(
+      (bookedEvent) => start < bookedEvent.end && end > bookedEvent.start
+    );
     if (isOverlapWithBooking) {
-      alert("Không thể chọn giờ này vì đã có booking.");
+      handleOpenDialogInfo("Không thể chọn giờ này vì đã có booking.");
       return;
     }
     const selectedCount = selectedEvents.length + 1;
 
     let applicablePriceList;
-    Object.keys(priceLists).forEach(times => {
+    Object.keys(priceLists).forEach((times) => {
       if (selectedCount >= times) {
         applicablePriceList = priceLists[times];
       }
@@ -145,22 +179,24 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
     const newEvent = {
       start,
       end,
-      title: `Giá: ${formatPrice(calculatePrice(start, end, applicablePriceList))}`,
-      price: calculatePrice(start, end, applicablePriceList)
+      title: `Giá: ${formatPrice(
+        calculatePrice(start, end, applicablePriceList)
+      )}`,
+      price: calculatePrice(start, end, applicablePriceList),
     };
 
-    const updatedSelectedEvents = selectedEvents.filter(event =>
-      !(start < event.end && end > event.start)
+    const updatedSelectedEvents = selectedEvents.filter(
+      (event) => !(start < event.end && end > event.start)
     );
 
     setSelectedEvents([...updatedSelectedEvents, newEvent]);
 
-    const filteredEvents = events.filter(event =>
-      !(start < event.end && end > event.start)
+    const filteredEvents = events.filter(
+      (event) => !(start < event.end && end > event.start)
     );
 
     let newApplicablePriceList;
-    Object.keys(priceLists).forEach(times => {
+    Object.keys(priceLists).forEach((times) => {
       if (selectedCount >= times) {
         newApplicablePriceList = priceLists[times];
       }
@@ -171,10 +207,12 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
 
     let updatedEvents = [...filteredEvents, newEvent];
     if (selectedEvents.length + 1 >= 5) {
-      updatedEvents = updatedEvents.map(event => ({
+      updatedEvents = updatedEvents.map((event) => ({
         ...event,
         price: calculatePrice(event.start, event.end, newApplicablePriceList),
-        title: `Giá: ${formatPrice(calculatePrice(event.start, event.end, newApplicablePriceList))}`
+        title: `Giá: ${formatPrice(
+          calculatePrice(event.start, event.end, newApplicablePriceList)
+        )}`,
       }));
     }
 
@@ -186,12 +224,14 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
     if (eventToDelete.isBooking) {
       return; // Prevent deletion of booking events
     }
-    const updatedSelectedEvents = selectedEvents.filter(event => event !== eventToDelete);
+    const updatedSelectedEvents = selectedEvents.filter(
+      (event) => event !== eventToDelete
+    );
     setSelectedEvents(updatedSelectedEvents);
 
     const selectedCount = selectedEvents.length - 1;
     let applicablePriceList;
-    Object.keys(priceLists).forEach(times => {
+    Object.keys(priceLists).forEach((times) => {
       if (selectedCount >= times) {
         applicablePriceList = priceLists[times];
       }
@@ -200,18 +240,22 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
       applicablePriceList = priceLists[1] || [];
     }
 
-    const updatedEvents = events.filter(event => event !== eventToDelete).map(event => ({
-      ...event,
-      price: calculatePrice(event.start, event.end, applicablePriceList),
-      title: `Giá: ${formatPrice(calculatePrice(event.start, event.end, applicablePriceList))}`
-    }));
+    const updatedEvents = events
+      .filter((event) => event !== eventToDelete)
+      .map((event) => ({
+        ...event,
+        price: calculatePrice(event.start, event.end, applicablePriceList),
+        title: `Giá: ${formatPrice(
+          calculatePrice(event.start, event.end, applicablePriceList)
+        )}`,
+      }));
     setEvents(updatedEvents);
     setSelectedEvents(updatedEvents);
   };
 
   const calculatePrice = (start, end, priceListToUse) => {
     let totalPrice = 0;
-    priceListToUse.forEach(priceRange => {
+    priceListToUse.forEach((priceRange) => {
       const rangeStartHour = priceRange.start.getHours();
       const rangeEndHour = priceRange.end.getHours();
       let eventStart = new Date(start);
@@ -224,7 +268,8 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
         }
         const eventHour = eventStart.getHours();
         if (eventHour >= rangeStartHour && eventHour < rangeEndHour) {
-          const duration = Math.round((nextSlot - eventStart) / (1000 * 60 * 30)) / 2;
+          const duration =
+            Math.round((nextSlot - eventStart) / (1000 * 60 * 30)) / 2;
           totalPrice += priceRange.price * duration;
         }
         eventStart = nextSlot;
@@ -238,19 +283,19 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
     if (hours === 0) {
       return {
         style: {
-          backgroundColor: 'lightgray',
-          pointerEvents: 'none',
-          cursor: 'not-allowed'
-        }
+          backgroundColor: "lightgray",
+          pointerEvents: "none",
+          cursor: "not-allowed",
+        },
       };
     }
     const now = new Date();
     if (date < now) {
       return {
         style: {
-          backgroundColor: 'lightgray',
-          pointerEvents: 'none',
-          borderWidth: '0px'
+          backgroundColor: "lightgray",
+          pointerEvents: "none",
+          borderWidth: "0px",
         },
       };
     }
@@ -260,19 +305,21 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
   const eventStyleGetter = (event, start, end, isSelected) => {
     const style = {
       backgroundColor: event.isBooking
-        ? (event.isOwnBooking ? 'rgb(34, 139, 34)' : 'rgb(255, 99, 71)')
-        : 'rgb(70, 130, 180)',
-      pointerEvents: event.isBooking ? 'none' : 'auto',
-      display: 'flex',
-      flexDirection: 'column',
-      width: '100%',
-      wordWrap: 'break-word',
+        ? event.isOwnBooking
+          ? "rgb(34, 139, 34)"
+          : "rgb(255, 99, 71)"
+        : "rgb(70, 130, 180)",
+      pointerEvents: event.isBooking ? "none" : "auto",
+      display: "flex",
+      flexDirection: "column",
+      width: "100%",
+      wordWrap: "break-word",
       lineHeight: 1,
-      height: '100%',
-      minHeight: '1em',
+      height: "100%",
+      minHeight: "1em",
     };
     return {
-      style: style
+      style: style,
     };
   };
 
@@ -305,16 +352,16 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
 
   const Event = ({ event }) => {
     return (
-      <div className='flex'>
+      <div className="flex">
         {!event.isBooking && (
           <button
             onClick={() => handleEventDelete(event)}
             style={{
-              float: 'left',
-              background: 'none',
-              border: 'none',
-              color: 'red',
-              cursor: 'pointer'
+              float: "left",
+              background: "none",
+              border: "none",
+              color: "red",
+              cursor: "pointer",
             }}
           >
             X
@@ -327,24 +374,38 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
 
   return (
     <div className="">
-      <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading}>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
         <CircularProgress color="inherit" />
       </Backdrop>
       <div className="text-center">
         {openHour && closeHour && (
           <>
-            <h2>Giờ hoạt động: {format(openHour, 'HH:mm')} - {format(closeHour, 'HH:mm')}</h2>
+            <h2>
+              Giờ hoạt động: {format(openHour, "HH:mm")} -{" "}
+              {format(closeHour, "HH:mm")}
+            </h2>
             <div className="text-center my-2">
               <button
                 onClick={handleClearAll}
-                className={`p-2 ml-2 rounded ${selectedEvents.length === 0 ? 'bg-gray-500' : 'bg-red-500 text-white'}`}
+                className={`p-2 ml-2 rounded ${
+                  selectedEvents.length === 0
+                    ? "bg-gray-500"
+                    : "bg-red-500 text-white"
+                }`}
                 disabled={selectedEvents.length === 0}
               >
                 Hủy tất cả
               </button>
               <button
                 onClick={handleOpenBookingModal}
-                className={`p-2 ml-2 rounded ${selectedEvents.length === 0 ? 'bg-gray-500' : 'bg-blue-500 text-white'}`}
+                className={`p-2 ml-2 rounded ${
+                  selectedEvents.length === 0
+                    ? "bg-gray-500"
+                    : "bg-blue-500 text-white"
+                }`}
                 disabled={selectedEvents.length === 0}
               >
                 Đặt sân
@@ -364,7 +425,7 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
               localizer={localizer}
               events={[...events, ...booking1]}
               defaultView="week"
-              views={['week', 'day']}
+              views={["week", "day"]}
               onSelectSlot={handleSelectSlot}
               style={{ height: 500 }}
               className="border p-4"
@@ -391,6 +452,14 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
         refreshData={fetchData}
         resetEvents={resetEvents}
       />
+
+      {isOpenDialogInfo && (
+        <DialogInfo
+          handleClose={handleCloseDialogInfo}
+          open={isOpenDialogInfo}
+          title={titleDialog}
+        />
+      )}
     </div>
   );
 };

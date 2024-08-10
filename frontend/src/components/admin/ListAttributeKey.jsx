@@ -23,17 +23,20 @@ const AttributeTable = ({
       width: 70,
       headerAlign: "center",
       align: "center",
+      renderHeader: () => <div className="font-bold">ID</div>,
     },
     {
       field: "name",
       headerName: "Tên thuộc tính",
       width: 250,
+      renderHeader: () => <div className="font-bold">Tên thuộc tính</div>,
       renderCell: (params) => params.value,
     },
     {
       field: "description",
       headerName: "Mô tả",
       width: 400,
+      renderHeader: () => <div className="font-bold">Mô tả</div>,
       renderCell: (params) => params.value,
     },
     {
@@ -44,6 +47,7 @@ const AttributeTable = ({
       width: 120,
       headerAlign: "center",
       align: "center",
+      renderHeader: () => <div className="font-bold">Trạng thái</div>,
       renderCell: (params) =>
         params.value ? (
           <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -63,6 +67,7 @@ const AttributeTable = ({
       width: 200,
       headerAlign: "center",
       align: "center",
+      renderHeader: () => <div className="font-bold">Hành động</div>,
       renderCell: (params) => (
         <div>
           <Button
@@ -118,6 +123,11 @@ const AttributeTable = ({
             disableColumnMenu
             hideFooter
             autoHeight
+            sx={{
+              "& .MuiDataGrid-cell:focus, & .MuiDataGrid-cell:focus-within": {
+                outline: "none",
+              },
+            }}
           />
         </div>
       </div>

@@ -239,6 +239,15 @@ const userAvailableService = {
                     user: true,
                   },
                 },
+                Court: {
+                  include: {
+                    Branches: {
+                      include: {
+                        address: true,
+                      },
+                    },
+                  },
+                },
               },
             },
           },

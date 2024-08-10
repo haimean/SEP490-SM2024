@@ -8,6 +8,11 @@ const removeIdInObject = (data: any) => {
   return data;
 };
 
+interface LinkAttributeCourtToTypeCourtInput {
+  typeCourtId: number;
+  attributeCourtId: number;
+}
+
 const attributeCourtHostService = {
   findAttributeKeyCourt: async (
     id: number
@@ -53,6 +58,17 @@ const attributeCourtHostService = {
       include: {
         account: true,
         attributeKeyCourt: true,
+      },
+    });
+  },
+
+  linkAttributeCourtToTypeCourt: async ({ typeCourtId, attributeCourtId }: LinkAttributeCourtToTypeCourtInput) => {
+    return await database.attributeCourt.update({
+      where: { id: attributeCourtId },
+      data: {
+        court: {
+          connect: { id: typeCourtId },
+        },
       },
     });
   },

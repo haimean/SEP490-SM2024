@@ -4,11 +4,13 @@ import CallApi from "../../../service/CallAPI";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Button } from "@mui/material";
+import useDialogConfirm from "../../../hooks/useDialogConfirm";
 
 const ListCourt = () => {
   const storedUserRole = localStorage.getItem("userRole");
   console.log("🚀 ========= storedUserRole:", storedUserRole);
   const { id } = useParams();
+  const { openDialog, DialogComponent } = useDialogConfirm();
   const [courtList, setCourtList] = useState([
     {
       id: 1,
@@ -69,20 +71,20 @@ const ListCourt = () => {
     );
   };
   const handleDeleteCourt = async (id) => {
-    try {
-      const confirmBan = window.confirm(`Bạn có muốn xóa sân ${id} không ?`);
-      if (!confirmBan) return;
-      const result = await CallApi(
-        `/api/host/court/delete-court/${id}`,
-        "delete"
-      );
-      if (result) {
-        getAllCourt();
-        toast.success(`Xóa sân ${id} thành công`);
+    openDialog(`Bạn có muốn xóa sân ${id} không ?`, async () => {
+      try {
+        const result = await CallApi(
+          `/api/host/court/delete-court/${id}`,
+          "delete"
+        );
+        if (result) {
+          getAllCourt();
+          toast.success(`Xóa sân ${id} thành công`);
+        }
+      } catch (error) {
+        console.log("🚀 ========= error:", error);
       }
-    } catch (error) {
-      console.log("🚀 ========= error:", error);
-    }
+    });
   };
   return (
     <div className="bg-gray-100 min-h-screen p-4">
@@ -138,6 +140,7 @@ const ListCourt = () => {
           ))}
         </div>
       </div>
+      <DialogComponent />
     </div>
   );
 };

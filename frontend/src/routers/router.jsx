@@ -317,7 +317,7 @@ const router = [
     path: "/user/branch/:id",
     name: "Branch Detail User",
     component: <BranDetailUser />,
-    role: ["HOST"],
+    role: ["HOST", "USER", "ADMIN"],
     layout: "",
   },
   {
@@ -381,7 +381,7 @@ const router = [
     name: "Price set up page",
     component: <PriceSetupPage />,
     role: ["HOST"],
-    layout: "",
+    layout: "host",
   },
   {
     path: "/admin/report-blog",
@@ -401,8 +401,8 @@ const router = [
     path: "/type-court-table",
     name: "Type Court Table",
     component: <TypeCourtTable />,
-    role: ["USER"],
-    layout: "",
+    role: ["HOST"],
+    layout: "host",
   },
 ];
 

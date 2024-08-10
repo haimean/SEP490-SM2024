@@ -84,6 +84,34 @@ export default function ComparePage() {
       }
     ).toFixed(2);
   };
+  const PriceFilter = ({ data }) => {
+    const prices = data?.map((item) => item?.price);
+    const minPrice = Math.min(...prices);
+    const maxPrice = Math.max(...prices);
+
+    return (
+      <>
+        Giá từ {minPrice} đến {maxPrice}
+      </>
+    );
+  };
+
+  const minPrice = (items) => {
+    return items?.reduce((prev, current) => {
+      return prev?.price < current?.price ? prev : current;
+    });
+  };
+  const maxPrice = (items) => {
+    return items?.reduce((prev, current) => {
+      return prev?.price > current?.price ? prev : current;
+    });
+  };
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(value);
+  };
   const rows = [
     {
       id: 1,
@@ -117,6 +145,20 @@ export default function ComparePage() {
     },
     {
       id: 6,
+      title: "Giá",
+      firstValue: `Từ ${formatCurrency(
+        minPrice(firstCourt?.TypeCourt?.priceTypeCourt)?.price
+      )} đến ${formatCurrency(
+        maxPrice(firstCourt?.TypeCourt?.priceTypeCourt)?.price
+      )}`,
+      secondValue: `Từ ${formatCurrency(
+        minPrice(secondCourt?.TypeCourt?.priceTypeCourt)?.price
+      )} đến ${formatCurrency(
+        maxPrice(secondCourt?.TypeCourt?.priceTypeCourt)?.price
+      )}`,
+    },
+    {
+      id: 7,
       title: "Chi tiết sân",
       firstValue: (
         <Link to={`/post/${firstCourt?.id}`}>
@@ -137,6 +179,7 @@ export default function ComparePage() {
       </Tooltip>
     );
   };
+
   return isLoading == true ? (
     <Loading />
   ) : (
@@ -169,14 +212,14 @@ export default function ComparePage() {
                 {row?.title}
               </TableCell>
               <TableCell align="center">
-                {row?.id != 6 ? (
+                {row?.id != 7 ? (
                   <TruncateText text={row?.firstValue} length={50} />
                 ) : (
                   row?.firstValue
                 )}
               </TableCell>
               <TableCell align="center">
-                {row?.id != 6 ? (
+                {row?.id != 7 ? (
                   <TruncateText text={row?.secondValue} length={50} />
                 ) : (
                   row?.secondValue

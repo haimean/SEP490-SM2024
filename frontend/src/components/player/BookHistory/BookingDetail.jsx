@@ -4,11 +4,14 @@ import { Box, Typography, Paper, Grid, Button, Chip } from "@mui/material";
 import { format } from "date-fns";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
+import Loading from "../../common/Loading";
+import DialogAccept from "../../common/DialogAccept";
 
 const BookingDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [booking, setBooking] = useState(null);
+  const [open, setOpen] = useState(false);
   const now = new Date().getTime();
   const bookingStartTime = new Date(booking?.startTime).getTime();
   const canCancel = bookingStartTime > now;
@@ -27,12 +30,10 @@ const BookingDetail = () => {
   console.log(booking);
 
   const handleCancel = async () => {
-    const isConfirmed = window.confirm(
-      "Bạn có muốn hủy lịch thi đấu này không?"
-    );
-    if (isConfirmed) {
+    if (open) {
       try {
         await CallApi(`/api/user/booking/${booking?.id}`, "delete");
+        setOpen(false);
         navigate("/player/booking-history");
         toast.success("Hủy thành công trận đã đặt");
       } catch (error) {
@@ -41,8 +42,14 @@ const BookingDetail = () => {
     }
   };
 
-  if (!booking) return <Typography>Loading...</Typography>;
+  if (!booking) return <Loading />;
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <Box
       sx={{
@@ -58,23 +65,27 @@ const BookingDetail = () => {
           <Grid item xs={12} md={6}>
             <Typography variant="h6">Thông tin đặt sân</Typography>
             <Typography>
-              Ngày: {format(new Date(booking?.startTime), "dd/MM/yyyy")}
+              Ngày:{" "}
+              {format(new Date(booking?.startTime || new Date()), "dd/MM/yyyy")}
             </Typography>
             <Typography>
-              Thời gian: {format(new Date(booking?.startTime), "HH:mm")} -{" "}
-              {format(new Date(booking?.endTime), "HH:mm")}
+              Thời gian:{" "}
+              {format(new Date(booking?.startTime || new Date()), "HH:mm")} -{" "}
+              {format(new Date(booking?.endTime || new Date()), "HH:mm")}
             </Typography>
             <Typography>
-              Giá: {booking?.price.toLocaleString("vi-VN")} VNĐ
+              Giá: {booking?.price?.toLocaleString("vi-VN")} VNĐ
             </Typography>
             <Chip
               label={
-                new Date(booking?.startTime) > new Date()
+                new Date(booking?.startTime || new Date()) > new Date()
                   ? "Sắp diễn ra"
                   : "Đã diễn ra"
               }
               color={
-                new Date(booking.startTime) > new Date() ? "primary" : "default"
+                new Date(booking.startTime || new Date()) > new Date()
+                  ? "primary"
+                  : "default"
               }
               sx={{ mt: 1 }}
             />
@@ -91,10 +102,17 @@ const BookingDetail = () => {
           {booking.Court && (
             <Grid item xs={12}>
               <Typography variant="h6">Thông tin sân</Typography>
-              <Typography>Chi nhánh: {booking?.Court?.Branches?.name}</Typography>
               <Typography>Tên sân: {booking?.Court?.name}</Typography>
-              <Typography>Liên hệ: {booking?.Court?.Branches?.phone}</Typography>
+              <Typography>
+                Chi nhánh: {booking?.Court?.Branches?.name}
+              </Typography>
+              <Typography>
+                Liên hệ: {booking?.Court?.Branches?.phone}
+              </Typography>
               <Typography>Email: {booking?.Court?.Branches?.email}</Typography>
+              <Typography>
+                Địa chỉ: {booking?.Court?.Branches?.address?.detail}
+              </Typography>
             </Grid>
           )}
         </Grid>
@@ -113,7 +131,7 @@ const BookingDetail = () => {
           </Button>
           {canCancel && (
             <Button
-              onClick={handleCancel}
+              onClick={handleClickOpen}
               variant="contained"
               color="error"
               size="small"
@@ -123,6 +141,14 @@ const BookingDetail = () => {
           )}
         </Box>
       </Paper>
+      {open && (
+        <DialogAccept
+          handleClose={handleClose}
+          open={open}
+          title={"Bạn có muốn hủy lịch thi đấu này không?"}
+          handleAccept={handleCancel}
+        />
+      )}
     </Box>
   );
 };

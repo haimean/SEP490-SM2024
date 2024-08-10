@@ -13,7 +13,6 @@ import {
 import { format } from "date-fns";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
-import { useLocation } from "react-router-dom";
 
 const BookingDetailHost = () => {
   const { id } = useParams();
@@ -104,7 +103,7 @@ const BookingDetailHost = () => {
               {format(new Date(booking?.endTime), "HH:mm")}
             </Typography>
             <Typography>
-              Giá: {booking?.price.toLocaleString("vi-VN")} VNĐ
+              Giá: {booking?.price?.toLocaleString("vi-VN")} VNĐ
             </Typography>
             <Chip
               label={
@@ -137,7 +136,9 @@ const BookingDetailHost = () => {
           )}
         </Grid>
 
-        <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end", gap: 1 }}>
+        <Box
+          sx={{ mt: 3, display: "flex", justifyContent: "flex-end", gap: 1 }}
+        >
           <Button
             component={Link}
             to={`/host/booking-history/${branchId}`}

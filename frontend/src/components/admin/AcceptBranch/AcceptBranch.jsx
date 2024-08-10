@@ -3,11 +3,12 @@ import { DataGrid } from "@mui/x-data-grid";
 import { TextField, Checkbox } from "@mui/material";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
+import useDialogConfirm from "../../../hooks/useDialogConfirm";
 
 const AcceptBranch = () => {
   const [filterName, setFilterName] = useState("");
   const [branches, setBranches] = useState([]);
-
+  const { openDialog, DialogComponent } = useDialogConfirm();
   useEffect(() => {
     fetchBranches();
   }, []);
@@ -15,7 +16,11 @@ const AcceptBranch = () => {
   const fetchBranches = async () => {
     try {
       const response = await CallApi("/api/admin/branches", "get");
-      setBranches(response?.data);
+      const data = response?.data.map((item, index) => ({
+        ...item,
+        index: index + 1,
+      }));
+      setBranches(data);
     } catch (error) {
       console.log(
         "=============== fetch list branch attribute ERROR: " +
@@ -30,49 +35,54 @@ const AcceptBranch = () => {
 
   const handleAccept = async (id, isAccepted) => {
     if (isAccepted) {
-      const isConfirmed = window.confirm(
-        "Bạn có chắc chắn muốn chấp thuận chi nhánh này?"
-      );
-      if (isConfirmed) {
-        try {
-          await CallApi(`/api/admin/branches/${id}/set-accept`, "put");
-          toast.success("Chấp thuận thành công");
-          fetchBranches(); // Refresh the list after successful update
-        } catch (error) {
-          toast.error("Có lỗi xảy ra khi chấp thuận");
-          console.error("Error accepting branch:", error);
+      openDialog(
+        "Bạn có chắc chắn muốn chấp thuận chi nhánh này?",
+        async () => {
+          try {
+            await CallApi(`/api/admin/branches/${id}/set-accept`, "put");
+            toast.success("Chấp thuận thành công");
+            fetchBranches(); // Refresh the list after successful update
+          } catch (error) {
+            toast.error("Có lỗi xảy ra khi chấp thuận");
+            console.error("Error accepting branch:", error);
+          }
         }
-      }
+      );
     }
   };
 
   const columns = [
     {
-      field: "id",
-      headerName: "ID",
+      field: "index",
+      headerName: "Stt",
       width: 70,
       headerAlign: "center",
       align: "center",
+      renderHeader: () => <div className="font-bold">STT</div>,
     },
     {
       field: "name",
       headerName: "Tên chi nhánh",
       width: 250,
+      renderHeader: () => <div className="font-bold">Tên chi nhán</div>,
     },
     {
       field: "email",
       headerName: "Email",
       width: 230,
+      renderHeader: () => <div className="font-bold">Email</div>,
     },
     {
       field: "phone",
       headerName: "Số điện thoại",
       width: 180,
+      renderHeader: () => <div className="font-bold">Số điện thoại</div>,
     },
     {
       field: "businessLicense",
       headerName: "Giấy phép kinh doanh",
       width: 230,
+      renderHeader: () => <div className="font-bold">Giấy phép kinh doanh</div>,
     },
     {
       field: "accept",
@@ -80,6 +90,8 @@ const AcceptBranch = () => {
       width: 100,
       headerAlign: "center",
       align: "center",
+      renderHeader: () => <div className="font-bold">Chấp thuận</div>,
+
       renderCell: (params) => (
         <Checkbox
           checked={params.row.isAccept || false}
@@ -91,10 +103,6 @@ const AcceptBranch = () => {
       ),
     },
   ];
-
-  const filteredRows = branches.filter((row) =>
-    row.name.toLowerCase().includes(filterName.toLowerCase())
-  );
 
   return (
     <div className="flex justify-center py-2">
@@ -114,7 +122,7 @@ const AcceptBranch = () => {
         </div>
         <div style={{ height: "auto", width: "100%" }}>
           <DataGrid
-            rows={filteredRows}
+            rows={branches}
             columns={columns}
             disableRowSelectionOnClick
             disableColumnMenu
@@ -123,6 +131,7 @@ const AcceptBranch = () => {
           />
         </div>
       </div>
+      <DialogComponent />
     </div>
   );
 };

@@ -2,6 +2,8 @@ import * as React from "react";
 import CallApi from "../../../../service/CallAPI";
 import { toast } from "react-toastify";
 import {
+  Button,
+  Chip,
   IconButton,
   Paper,
   Table,
@@ -42,7 +44,7 @@ export default function DataTable() {
           accountId: item.accountId,
           id: item.id,
           email: item.account.email,
-          name: item.name,
+          name: item.fullName,
           isVerify: item.account.isVerified,
           isActive: item.account.isActive,
           phoneNumber: item.numberPhone,
@@ -101,6 +103,7 @@ export default function DataTable() {
     setValue("id", id);
     setOpenModalReason(true);
   };
+
   const handleCloseModal = () => setOpenModalReason(false);
   return isLoading ? (
     <Loading />
@@ -110,8 +113,8 @@ export default function DataTable() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>
-                <h1 className="font-bold">ID</h1>
+              <TableCell align="center">
+                <h1 className="font-bold">STT</h1>
               </TableCell>
               <TableCell>
                 <h1 className="font-bold">Email</h1>
@@ -119,59 +122,62 @@ export default function DataTable() {
               <TableCell>
                 <h1 className="font-bold">Họ và tên</h1>
               </TableCell>
-              <TableCell>
+              <TableCell align="center">
                 <h1 className="font-bold">Trạng thái hoạt động</h1>
               </TableCell>
-              <TableCell>
-                <h1 className="font-bold">Trang thái kích hoạt</h1>
-              </TableCell>
-              <TableCell>
+              <TableCell align="center">
                 <h1 className="font-bold">Số điện thoại</h1>
               </TableCell>
-              <TableCell>
+              <TableCell align="center">
                 <h1 className="font-bold">Vai trò</h1>
               </TableCell>
               <TableCell>
-                <h1 className="font-bold">Hành động</h1>
+                <h1 className="font-bold"></h1>
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {rows.map((row, index) => (
               <TableRow
-                key={row.id}
+                key={row?.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
-                  {row.id}
+                <TableCell component="th" scope="row" align="center">
+                  {index + 1}
                 </TableCell>
-                <TableCell>{row.email}</TableCell>
-                <TableCell>{row.name}</TableCell>
-                <TableCell>
-                  {row.isVerify ? "Kích hoạt" : "Chưa kích hoạt"}
-                </TableCell>
-                <TableCell>
-                  {row.isActive ? "Kích hoạt" : "Chưa kích hoạt"}
+                <TableCell>{row?.email}</TableCell>
+                <TableCell>{row?.name}</TableCell>
+                <TableCell align="center">
+                  {row.isActive ? (
+                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      Kích hoạt
+                    </span>
+                  ) : (
+                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                      Chưa kích hoạt
+                    </span>
+                  )}
                 </TableCell>
                 <TableCell>{row.phoneNumber}</TableCell>
-                <TableCell>
+                <TableCell align="center">
                   {row.role == "USER" ? "Người dùng" : "Chủ cơ sở"}
                 </TableCell>
-                <TableCell>
+                <TableCell align="center">
                   {row.isActive === true ? (
-                    <IconButton
-                      aria-label="delete"
+                    <Button
+                      color="error"
                       onClick={() => handleOpenModalReason(row.accountId)}
                     >
-                      <RemoveCircleIcon className="text-red-500" />
-                    </IconButton>
+                      Khóa tài khoản
+                    </Button>
                   ) : (
-                    <IconButton
-                      aria-label="delete"
+                    <Button
+                      color="success"
+                      size="24"
                       onClick={() => handleOpenModalReason(row.accountId)}
                     >
-                      <DoneIcon className="text-green-500" />
-                    </IconButton>
+                      Mở khóa tài khoản
+                    </Button>
                   )}
                 </TableCell>
               </TableRow>
@@ -187,13 +193,17 @@ export default function DataTable() {
         onPageChange={handleChangePage}
         rowsPerPage={pageSize}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        labelRowsPerPage="Số hàng mỗi trang:"
+        labelDisplayedRows={({ from, to, count }) =>
+          `${from}–${to} trong tổng số ${count !== -1 ? count : `hơn ${to}`}`
+        } // Customize the label for displayed rows
       />
       {openModalReason && (
         <ModalReason
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
           open={openModalReason}
-          handleCloseModal={handleCloseModal}
+          onClose={handleCloseModal}
           errors={errors}
           register={register}
         />

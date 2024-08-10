@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import {
@@ -11,6 +12,7 @@ import {
 import { Close } from "@mui/icons-material";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
+import DialogInfo from "../../common/DialogInfo";
 
 const CreateBlog = ({ open, onClose, onBlogCreated }) => {
   const { control, handleSubmit, reset } = useForm({
@@ -19,7 +21,15 @@ const CreateBlog = ({ open, onClose, onBlogCreated }) => {
     },
   });
   const [selectedImage, setSelectedImage] = useState(null);
-
+  const [isOpenDialogInfo, setIsOpenDialogInfo] = useState(false);
+  const [titleDialog, setTitleDialog] = useState("");
+  const handleCloseDialogInfo = () => {
+    setIsOpenDialogInfo(false);
+  };
+  const handleOpenDialogInfo = (title) => {
+    setTitleDialog(title);
+    setIsOpenDialogInfo(true);
+  };
   const onSubmit = async (data) => {
     try {
       const formData = new FormData();
@@ -29,11 +39,11 @@ const CreateBlog = ({ open, onClose, onBlogCreated }) => {
       }
       const response = await CallApi("/api/user/blog", "post", formData);
       onBlogCreated(response?.data);
-      toast.success("Tạo trạng thái thành công");
+      toast.success("Tạo blog thành công");
       handleCancel();
     } catch (error) {
       console.error("Error creating blog:", error);
-      toast.error("Tạo trạng thái thất bại");
+      toast.error("Tạo blog thất bại");
     }
   };
 
@@ -141,11 +151,13 @@ const CreateBlog = ({ open, onClose, onBlogCreated }) => {
                 id="image-upload"
                 style={{ display: "none" }}
                 onChange={(event) => {
-                  const file = event.target.files[0];
+                  const file = event?.target?.files[0];
                   if (file && file.size <= 1024 * 1024) {
                     handleImageChange(event);
                   } else {
-                    alert("Kích thước ảnh phải nhỏ hơn hoặc bằng 1MB.");
+                    handleOpenDialogInfo(
+                      "Kích thước ảnh phải nhỏ hơn hoặc bằng 1MB."
+                    );
                     event.target.value = null;
                   }
                 }}
@@ -166,6 +178,13 @@ const CreateBlog = ({ open, onClose, onBlogCreated }) => {
             </Button>
           </Box>
         </form>
+        {isOpenDialogInfo && (
+          <DialogInfo
+            handleClose={handleCloseDialogInfo}
+            open={isOpenDialogInfo}
+            title={titleDialog}
+          />
+        )}
       </Box>
     </Modal>
   );

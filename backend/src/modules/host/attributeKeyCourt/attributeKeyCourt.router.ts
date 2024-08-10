@@ -17,4 +17,6 @@ attributeKeyCourtHostRouter.get(
   attributeKeyCourtHostController.getAttributeKeyCourtWithAttributes
 );
 
+attributeKeyCourtHostRouter.post('/', attributeKeyCourtHostController.createAttributeKeyCourtAndAttributeCourt);
+
 export default attributeKeyCourtHostRouter;
