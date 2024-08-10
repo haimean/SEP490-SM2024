@@ -224,7 +224,14 @@ export default function NavbarUser() {
               )}
             </Box>
             {/* for mobile */}
-            <Box sx={{ display: { xs: "flex", md: "none" }, ml: "20px" }}>
+            <Box
+              sx={{
+                display: { xs: "flex", md: "none", alignItems: "center" },
+                ml: "20px",
+              }}
+            >
+              <Notification />
+
               <IconButton
                 size="large"
                 aria-label="show more"
