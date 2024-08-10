@@ -13,7 +13,6 @@ import {
 import { format } from "date-fns";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
-import { useLocation } from "react-router-dom";
 
 const BookingDetailHost = () => {
   const { id } = useParams();

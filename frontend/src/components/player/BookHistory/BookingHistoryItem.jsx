@@ -1,4 +1,4 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import { Box, Button, Grid, Paper, Typography } from "@mui/material";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
