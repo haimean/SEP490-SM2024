@@ -120,25 +120,23 @@ const AvailableCourt = () => {
         </Typography>
       </div>
       <Grid container spacing={2}>
-        {paginate(filteredActivities, pageSize, currentPage).map(
-          (activity, index) => (
-            <Grid item xs={12} md={6} key={activity?.id}>
-              <PostCard
-                activity={activity}
-                updateStatusInvitation={() => {
-                  setActivities((data) => {
-                    return data.map((element) => {
-                      if (element?.post?.id == activity?.post?.id) {
-                        element.isInvitation = true;
-                      }
-                      return element;
-                    });
+        {paginate(filteredActivities, pageSize, currentPage).map((activity) => (
+          <Grid item xs={12} md={4} key={activity?.id}>
+            <PostCard
+              activity={activity}
+              updateStatusInvitation={() => {
+                setActivities((data) => {
+                  return data.map((element) => {
+                    if (element?.post?.id == activity?.post?.id) {
+                      element.isInvitation = true;
+                    }
+                    return element;
                   });
-                }}
-              />
-            </Grid>
-          )
-        )}
+                });
+              }}
+            />
+          </Grid>
+        ))}
       </Grid>
       <div className="flex justify-center mt-4">
         <Pagination

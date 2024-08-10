@@ -173,7 +173,7 @@ const PostCard = ({ activity, updateStatusInvitation }) => {
       <CardContent className="">
         <Tooltip title={activity?.bookingInfo?.name}>
           <Typography component="h2" variant="h5" className="truncate">
-            Trận đấu của: {activity?.bookingInfo?.name}
+            {activity?.post?.title}
           </Typography>
         </Tooltip>
         <Stack direction="row" alignItems="center" spacing={1} className="my-1">
