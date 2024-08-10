@@ -121,10 +121,10 @@ const TypeCourtTable = () => {
   };
   const steps = [
     "200.000VND",
-    "200.000VND",
-    "200.000VND",
-    "200.000VND",
-    "200.000VND",
+    "300.000VND",
+    "400.000VND",
+    "500.000VND",
+    "600.000VND",
   ];
   const TimeIcon = () => {
     const currentTime = format(new Date(), "HH:mm");

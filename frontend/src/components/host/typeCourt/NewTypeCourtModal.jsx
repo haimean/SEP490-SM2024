@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import {
   Box,
   Button,
@@ -8,6 +8,7 @@ import {
   TextField,
   Grid,
 } from "@mui/material";
+import PropTypes from "prop-types";
 import { Close } from "@mui/icons-material";
 import { useForm, Controller } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -16,6 +17,7 @@ import AddIcon from "@mui/icons-material/Add";
 import CallApi from "../../../service/CallAPI";
 import CustomSelectCp from "../FormInput/CustomSelectCp";
 import SectionCp from "../FormInput/SectionCp";
+import PriceTypeCourtForm from "./PriceTypeCourtForm";
 const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
   const {
     control,
@@ -32,8 +34,9 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentImage, setCurrentImage] = useState(null);
   const [isOpenDialogInfo, setIsOpenDialogInfo] = useState(false);
+  const [isOpenPriceTypeCourtForm, setIsOpenPriceTypeCourtForm] =
+    useState(false);
   const [titleDialog, setTitleDialog] = useState("");
-  //TODO: atb court
   const [branchAtbList, setBranchAtbList] = useState([]);
 
   const handleCloseDialogInfo = () => {
@@ -73,7 +76,6 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
   }, [typeCourt, reset, setValue]);
 
   const onSubmit = async (data) => {
-    console.log("🚀 ========= data:", data);
     try {
       const formData = new FormData();
       formData.append("name", data.name.trim());
@@ -87,7 +89,6 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
       await onSave(formData, !!typeCourt, typeCourt?.id);
       handleCancel();
     } catch (error) {
-      console.error("Error creating/updating type court:", error);
       toast.error("Tạo/Cập nhật loại sân thất bại");
     }
   };
@@ -113,8 +114,8 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
         "get"
       );
       setBranchAtbList(response?.data);
-      console.log("🚀 ========= response:", response);
     } catch (error) {
+      toast.error("Lỗi khi lấy danh sách thuộc tính cơ sở");
       console.error("Lỗi khi lấy danh sách thuộc tính cơ sở:", error);
     }
   };
@@ -158,8 +159,7 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
 
   const serviceOptions = useMemo(
     () =>
-      branchAtbList?.map((item, index) => {
-        console.log("🚀 ========= item:", item);
+      branchAtbList?.map((item) => {
         return {
           name: `attributeCourt[${item.id}]`,
           key: item.id,
@@ -405,6 +405,26 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
             {typeCourt ? "Cập nhật" : "Tạo"}
           </Button>
         </form>
+        <Button
+          onClick={() => {
+            setIsOpenPriceTypeCourtForm(true);
+          }}
+        >
+          open pritile codsf
+        </Button>
+        {isOpenPriceTypeCourtForm && (
+          <PriceTypeCourtForm
+            listTime={[]}
+            open={isOpenPriceTypeCourtForm}
+            onClose={() => {
+              setIsOpenPriceTypeCourtForm(false);
+            }}
+            onSubmit={(data) => {
+              setIsOpenPriceTypeCourtForm(false);
+              console.log("data giá", data);
+            }}
+          />
+        )}
         {isOpenDialogInfo && (
           <DialogInfo
             handleClose={handleCloseDialogInfo}
@@ -415,6 +435,13 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
       </Box>
     </Modal>
   );
+};
+
+NewTypeCourtModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  typeCourt: PropTypes.object,
 };
 
 export default NewTypeCourtModal;

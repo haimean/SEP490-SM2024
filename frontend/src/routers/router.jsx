@@ -45,7 +45,7 @@ import PriceSetupPage from "../components/host/court/PriceSetupPage.jsx";
 import ListReportBlog from "../pages/admin/ListReportBlog/ListReportBlog.jsx";
 import RequestListJoin from "../pages/user/RequestListJoin/RequestListJoin.jsx";
 import TypeCourtTable from "../components/host/typeCourt/TypeCourtTable.jsx";
-import PriceTypeCourtForm from "../components/host/typeCourt/PriceTypeCourtForm.jsx"
+import PriceTypeCourtForm from "../components/host/typeCourt/PriceTypeCourtForm.jsx";
 
 const router = [
   {
@@ -372,7 +372,7 @@ const router = [
   },
   {
     path: "/host/dashboard",
-    name: "Dashboarad",
+    name: "Dashboard",
     component: <DashboardHost />,
     role: ["HOST"],
     layout: "host",
