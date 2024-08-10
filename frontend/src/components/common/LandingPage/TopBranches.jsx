@@ -84,6 +84,7 @@ const TopBranches = ({ branches, role = "USER" }) => {
                         xl: 10,
                       },
                     }}
+                    className=" flex gap-2 flex-col"
                   >
                     <Typography component="h3" variant="h4" gutterBottom>
                       {branch?.name}
@@ -102,16 +103,17 @@ const TopBranches = ({ branches, role = "USER" }) => {
                       Địa chỉ: {branch?.address?.detail}
                     </Typography>
                     <Typography variant="body2">
-                      Sân cách vị trí của bạn:
+                      Sân cách vị trí của bạn:{" "}
                       {distance(
                         branch?.address?.latitude,
                         branch?.address?.longitude
                       ).toFixed(0) == 0
-                        ? " ~"
+                        ? " ~ "
                         : distance(
                             branch?.address?.latitude,
                             branch?.address?.longitude
-                          ).toFixed(2) + "km"}
+                          ).toFixed(2)}{" "}
+                      km
                     </Typography>
                   </CardContent>
                 </Box>
