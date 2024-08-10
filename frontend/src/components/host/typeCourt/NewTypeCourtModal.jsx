@@ -92,7 +92,7 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
       if (selectedImage) {
         formData.append("image", selectedImage);
       } else {
-        alert("Ảnh là bắt buộc");
+        handleOpenDialogInfo("Ảnh là bắt buộc");
         return;
       }
 
@@ -100,15 +100,19 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
         (item) => item != "" && formData.append("attributeCourtIds", item)
       );
 
-      // const [priceTypeCourt, setPriceTypeCourt] = useState([]);
-
       if (priceTypeCourt[1]) {
-        console.log("priceTypeCourt", priceTypeCourt);
+        const valuePriceTypeCourt = priceTypeCourt
+          .filter((item) => item !== null)
+          .flat();
+        console.log("priceTypeCourt", valuePriceTypeCourt);
+        valuePriceTypeCourt.forEach((item) => {
+          formData.append("priceTypeCourt", JSON.stringify(item));
+        });
       } else {
-        alert("Giá là bắt buộc");
+        handleOpenDialogInfo("Giá là bắt buộc");
         return;
       }
-      TODO: await onSave(formData, !!typeCourt, typeCourt?.id);
+      await onSave(formData, !!typeCourt, typeCourt?.id);
       handleCancel();
     } catch (error) {
       toast.error("Tạo/Cập nhật loại sân thất bại");

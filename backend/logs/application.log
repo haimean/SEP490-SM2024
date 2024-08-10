@@ -36558,3 +36558,853 @@
     attributeBranches: [ [Object], [Object], [Object], [Object], [Object] ]
   }
 ]
+[2024-08-11T05:18:34.136] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:19:15.787] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:20:06.355] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:20:41.703] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:21:04.885] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:21:32.876] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:21:58.762] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:23:36.344] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:24:52.626] [ERROR] default - ERROR LOG  8/11/2024, 5:24:52 AM
+[2024-08-11T05:24:52.628] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:24:52.628] [WARN] default - Params: {}
+[2024-08-11T05:24:52.629] [WARN] default - Body: {"name":"sdf","description":"sdfdsf","attributeCourtIds":["52","97"],"priceTypeCourt":"[object Object]"}
+[2024-08-11T05:24:52.630] [WARN] default - Query: {}
+[2024-08-11T05:24:52.630] [ERROR] default - Error:  {"status":422,"messageObject":"\"priceTypeCourt\" must be an array"}
+[2024-08-11T05:24:52.635] [ERROR] default - Error stack:  Error
+    at D:\fake\SEP490-SM2024\backend\src\utils\validate.ts:34:14
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2024-08-11T05:24:52.636] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:25:41.360] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:25:54.037] [ERROR] default - ERROR LOG  8/11/2024, 5:25:54 AM
+[2024-08-11T05:25:54.038] [WARN] default - Request: "POST" "/api/host/attribute-court"
+[2024-08-11T05:25:54.039] [WARN] default - Params: {}
+[2024-08-11T05:25:54.039] [WARN] default - Body: {"value":"123","attributeKeyCourtId":2}
+[2024-08-11T05:25:54.039] [WARN] default - Query: {}
+[2024-08-11T05:25:54.040] [ERROR] default - Error:  {"status":409,"messageObject":"Value already exists."}
+[2024-08-11T05:25:54.041] [ERROR] default - Error stack:  Error
+    at create (D:\fake\SEP490-SM2024\backend\src\modules\host\attributeCourt\attributeCourt.controller.ts:33:14)
+[2024-08-11T05:25:54.042] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:26:22.608] [ERROR] default - ERROR LOG  8/11/2024, 5:26:22 AM
+[2024-08-11T05:26:22.608] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:26:22.609] [WARN] default - Params: {}
+[2024-08-11T05:26:22.609] [WARN] default - Body: {"name":"sdf","description":"sdfsdf","attributeCourtIds":["52","97","98"],"priceTypeCourt":"[object Object]"}
+[2024-08-11T05:26:22.610] [WARN] default - Query: {}
+[2024-08-11T05:26:22.611] [ERROR] default - Error:  {"status":422,"messageObject":"\"priceTypeCourt\" must be an array"}
+[2024-08-11T05:26:22.613] [ERROR] default - Error stack:  Error
+    at D:\fake\SEP490-SM2024\backend\src\utils\validate.ts:34:14
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2024-08-11T05:26:22.615] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:27:26.762] [ERROR] default - ERROR LOG  8/11/2024, 5:27:26 AM
+[2024-08-11T05:27:26.763] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:27:26.764] [WARN] default - Params: {}
+[2024-08-11T05:27:26.765] [WARN] default - Body: {"name":"sdf","description":"sdfsdf","image":"","attributeCourtIds":["52","97","98"],"priceTypeCourt":"[object Object]"}
+[2024-08-11T05:27:26.765] [WARN] default - Query: {}
+[2024-08-11T05:27:26.766] [ERROR] default - Error:  {"status":422,"messageObject":"\"priceTypeCourt\" must be an array"}
+[2024-08-11T05:27:26.767] [ERROR] default - Error stack:  Error
+    at D:\fake\SEP490-SM2024\backend\src\utils\validate.ts:34:14
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2024-08-11T05:27:26.768] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:28:03.151] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:28:05.707] [ERROR] default - ERROR LOG  8/11/2024, 5:28:05 AM
+[2024-08-11T05:28:05.708] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:28:05.709] [WARN] default - Params: {}
+[2024-08-11T05:28:05.709] [WARN] default - Body: {"name":"sdf","description":"sdfsdf","image":"","attributeCourtIds":["52","97","98"],"priceTypeCourt":"[object Object]"}
+[2024-08-11T05:28:05.710] [WARN] default - Query: {}
+[2024-08-11T05:28:05.711] [ERROR] default - Error:  {"status":422,"messageObject":"\"priceTypeCourt\" must be an array"}
+[2024-08-11T05:28:05.713] [ERROR] default - Error stack:  Error
+    at D:\fake\SEP490-SM2024\backend\src\utils\validate.ts:34:14
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2024-08-11T05:28:05.714] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:28:24.052] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:28:25.586] [ERROR] default - ERROR LOG  8/11/2024, 5:28:25 AM
+[2024-08-11T05:28:25.587] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:28:25.587] [WARN] default - Params: {}
+[2024-08-11T05:28:25.588] [WARN] default - Body: {"name":"sdf","description":"sdfsdf","image":"","attributeCourtIds":["52","97","98"],"priceTypeCourt":"[object Object]","attributeBranches":["[object Object]"]}
+[2024-08-11T05:28:25.589] [WARN] default - Query: {}
+[2024-08-11T05:28:25.589] [ERROR] default - Error:  {"status":422,"messageObject":"\"priceTypeCourt\" must be an array"}
+[2024-08-11T05:28:25.591] [ERROR] default - Error stack:  Error
+    at D:\fake\SEP490-SM2024\backend\src\utils\validate.ts:34:14
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2024-08-11T05:28:25.593] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:28:43.552] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:28:44.959] [ERROR] default - ERROR LOG  8/11/2024, 5:28:44 AM
+[2024-08-11T05:28:44.960] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:28:44.961] [WARN] default - Params: {}
+[2024-08-11T05:28:44.961] [WARN] default - Body: {"name":"sdf","description":"sdfsdf","image":"","attributeCourtIds":["52","97","98"],"priceTypeCourt":["[object Object]"]}
+[2024-08-11T05:28:44.962] [WARN] default - Query: {}
+[2024-08-11T05:28:44.962] [ERROR] default - Error:  {"status":422,"messageObject":"\"priceTypeCourt[0]\" must be of type object"}
+[2024-08-11T05:28:44.964] [ERROR] default - Error stack:  Error
+    at D:\fake\SEP490-SM2024\backend\src\utils\validate.ts:34:14
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2024-08-11T05:28:44.966] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:29:11.217] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:29:12.467] [ERROR] default - ERROR LOG  8/11/2024, 5:29:12 AM
+[2024-08-11T05:29:12.468] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:29:12.469] [WARN] default - Params: {}
+[2024-08-11T05:29:12.470] [WARN] default - Body: {"name":"sdf","description":"sdfsdf","image":"","attributeCourtIds":["52","97","98"],"priceTypeCourt":"[object Object]"}
+[2024-08-11T05:29:12.471] [WARN] default - Query: {}
+[2024-08-11T05:29:12.472] [ERROR] default - Error:  {"status":422,"messageObject":"\"priceTypeCourt\" must be an array"}
+[2024-08-11T05:29:12.475] [ERROR] default - Error stack:  Error
+    at D:\fake\SEP490-SM2024\backend\src\utils\validate.ts:34:14
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2024-08-11T05:29:12.477] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:29:26.469] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:29:36.632] [ERROR] default - ERROR LOG  8/11/2024, 5:29:36 AM
+[2024-08-11T05:29:36.633] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:29:36.635] [WARN] default - Params: {}
+[2024-08-11T05:29:36.636] [WARN] default - Body: {"name":"sdf","description":"sdfsdf","image":"","attributeCourtIds":["52","97","98"],"priceTypeCourt":["[object Object]"]}
+[2024-08-11T05:29:36.637] [WARN] default - Query: {}
+[2024-08-11T05:29:36.637] [ERROR] default - Error:  {"status":422,"messageObject":"\"priceTypeCourt[0]\" must be of type object"}
+[2024-08-11T05:29:36.639] [ERROR] default - Error stack:  Error
+    at D:\fake\SEP490-SM2024\backend\src\utils\validate.ts:34:14
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2024-08-11T05:29:36.640] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:30:52.053] [INFO] default - Response [
+  {
+    id: 1,
+    name: 'Laus quidem quem praeter et docti, voluptas imus seritatque gauderat anest non tuum.',
+    description: 'Uti quod ea albucius allicitias.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:46.042Z,
+    updatedAt: 2020-06-19T00:45:02.000Z,
+    attributeCourt: [ [Object], [Object] ]
+  },
+  {
+    id: 2,
+    name: 'Et sint moratus nobis santur praeterosop maximosop tota, appetension adverum nes inisti es redientiamque.',
+    description: 'Quod etiam profectari solenti sunt omnium quas perant.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:46.093Z,
+    updatedAt: 2020-10-27T04:47:45.000Z,
+    attributeCourt: [ [Object] ]
+  },
+  {
+    id: 3,
+    name: 'Primum aut dolorian praesid inam expleantur ob volunt.',
+    description: 'Es rem desid neglegi eas quae inquit intempus, quae solum rediens causamus quam.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:46.144Z,
+    updatedAt: 2020-03-27T09:52:47.000Z,
+    attributeCourt: [ [Object] ]
+  },
+  {
+    id: 4,
+    name: 'Non ever possimullus dedit aliquamur.',
+    description: 'Si ipse transferamic confidem legamicul requirerit.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:46.196Z,
+    updatedAt: 2020-02-22T20:40:30.000Z,
+    attributeCourt: [ [Object] ]
+  },
+  {
+    id: 5,
+    name: 'Nec rerum quaestionemod es valla, etur corporro probe es provoceriam habeat peranim.',
+    description: 'Tur facienumen novi fugitate tantas litterrogat, ea quae endumve legita interassuev effugiatur confirmater epicula.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:46.248Z,
+    updatedAt: 2020-01-13T07:49:44.000Z,
+    attributeCourt: [ [Object] ]
+  },
+  {
+    id: 6,
+    name: 'Ularum efficiatis confidermit sed is quod pertinere, elem pleriqua et scribere locus vincertatem.',
+    description: 'Negensa quem nec ne nullam.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:46.303Z,
+    updatedAt: 2020-07-28T01:18:27.000Z,
+    attributeCourt: [ [Object] ]
+  },
+  {
+    id: 7,
+    name: 'Muneret cupistim ut quid horum nunc perantur et.',
+    description: 'Tamenimus depravatem quod it possunt eadem.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:46.356Z,
+    updatedAt: 2020-11-15T17:26:47.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 8,
+    name: 'Ullus nullam quo solam scilicarbit causamate vita.',
+    description: 'Sent nihilem est se atus quondam ferre consed.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:46.409Z,
+    updatedAt: 2020-03-11T09:30:16.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 9,
+    name: 'Repudincul ad omnisi bonumque dedoccultar es alest.',
+    description: 'Exis voluptatem et honesticar utilit id praetorat.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:46.462Z,
+    updatedAt: 2020-03-23T09:08:33.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 10,
+    name: 'Expectam non haec missimus ea illa refores appellat.',
+    description: 'Quos non igiterit omitiam modo.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:46.514Z,
+    updatedAt: 2020-04-12T10:18:56.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 11,
+    name: 'Scripta causa semper autem in.',
+    description: 'Ines recta dicunum ferre imis.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:49.524Z,
+    updatedAt: 2020-03-15T09:10:17.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 12,
+    name: 'Viveriunction excruciant omnemore talibus exquisit sapere dicunditas.',
+    description: 'Homin se medium quia inhaeret paranum in moveat, videturam amicitis in cum afflueret.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:49.593Z,
+    updatedAt: 2020-04-08T22:51:49.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 13,
+    name: 'Quod ratio quid afferebim sapienum seiunctum sit.',
+    description: 'Orem vel quicquam al malum modo tamenime.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:49.656Z,
+    updatedAt: 2020-05-01T11:56:06.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 14,
+    name: 'Et qui inis est incorrupis qui.',
+    description: 'Beate hominassen as nos ituri ter quia, reforat quis veniatur eum detere eorum qui probant.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:49.718Z,
+    updatedAt: 2020-06-23T00:55:35.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 15,
+    name: 'Intellegen consequam statuam viris severarbit exorem aliosam, pleriquid facet escanest proptertio vestra in quisquam summum.',
+    description: 'Non quae rationes il omis exoremque, igiterea quae in angusta dolornatur recus iudicra possit.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:49.778Z,
+    updatedAt: 2020-03-19T21:52:45.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 16,
+    name: 'Constitio inum is sapiendam possit, loqui peranimi in consum si deserem ita.',
+    description: 'Fecere foderimad quidque dedocriti tam, er laus necestum ratu verborum sequitate abillam.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:49.831Z,
+    updatedAt: 2020-05-10T00:03:06.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 17,
+    name: 'Laudatque de perantur iis numquam latinpotes andi et.',
+    description: 'In numenimos divintelleg aut exignorat se, sapientia ob quae il tuemur habeo et.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:49.887Z,
+    updatedAt: 2020-02-06T20:51:47.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 18,
+    name: 'Suppetu exquis dam a dolorum philos pugnari verbis.',
+    description: 'In huic efficerab reque defenti esse glorios, medium praetera nec de civium converenim reque numquam.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:49.943Z,
+    updatedAt: 2020-03-03T22:00:32.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 19,
+    name: 'Haec libent conciliantur ad manus et.',
+    description: 'Numer velitas il igit maiorum cruciant, quibus cogitat ad conspiratem fecta.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:50.003Z,
+    updatedAt: 2020-07-08T02:04:50.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 20,
+    name: 'Aut illis consequi requietis nihiliustit autemus nec, gaudeaturi inanim hoc tamenti quibus fruenda.',
+    description: 'Es inquit est ut hocles cum idem praeteri, tantum litteren is eor et voluptas exerne.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:50.058Z,
+    updatedAt: 2020-02-06T20:53:04.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 21,
+    name: 'Et non ratio quod potest, hostis omni scientiam int conclusione posido et.',
+    description: 'Autem voluptatas ad tamendi possimillim habeat ius legum.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:50.121Z,
+    updatedAt: 2020-02-06T20:39:40.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 22,
+    name: 'Nullam litterem semperitur utunt nunc voluptate elli.',
+    description: 'Ne putamicia l qua romant aut hunc.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:50.177Z,
+    updatedAt: 2020-07-07T13:12:31.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 23,
+    name: 'Se ari explicet uto inem sed alit.',
+    description: 'De debil et hae omnem tamendi parta.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:50.238Z,
+    updatedAt: 2020-06-10T12:38:43.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 24,
+    name: 'Scribenimad platonem dolorem nocet vestra excepissim provid.',
+    description: 'Secunt autem si evenimos inesse voluptate fore.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:50.314Z,
+    updatedAt: 2020-10-19T04:35:44.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 25,
+    name: 'Imam in cupid me multa iis.',
+    description: 'Ego metus ut viverrata malorum efficiat est.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:50.380Z,
+    updatedAt: 2020-01-09T19:05:51.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 26,
+    name: 'Numquam non audire et liberet.',
+    description: 'Corporis difficerius functio medium firmissumen.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:50.444Z,
+    updatedAt: 2020-08-20T14:57:54.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 27,
+    name: 'Explicarbit et molest a autem causamicar ret.',
+    description: 'Etur ficit voluptasse es toteloquen dubium.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:50.495Z,
+    updatedAt: 2020-10-11T04:19:39.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 28,
+    name: 'Quam et patetiam esse sed idit.',
+    description: 'Gauderarem arendi concessummum esse nec contur permultamen, formavitiam suo voluptas ipsa voluptas arisse quadamur.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:50.549Z,
+    updatedAt: 2020-07-28T01:09:49.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 29,
+    name: 'Ne fallaranim il sunt non se.',
+    description: 'Quis volupere sic scribi voluptatem et quid voluptatis, expeten quociretiam hoc extremum ent degentiant.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:50.603Z,
+    updatedAt: 2020-04-04T11:05:59.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 30,
+    name: 'Chiều dài',
+    description: 'Video voluptatib omnino alii videm ea cohaeressen.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:50.658Z,
+    updatedAt: 2024-08-07T00:51:09.922Z,
+    attributeCourt: [ [Object], [Object], [Object], [Object], [Object] ]
+  },
+  {
+    id: 31,
+    name: 'Chiều rộng',
+    description: 'Omni et quidem nec tota.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:50.710Z,
+    updatedAt: 2024-08-07T00:51:09.922Z,
+    attributeCourt: []
+  },
+  {
+    id: 32,
+    name: 'Thảm',
+    description: 'Tuemurae levior es omitaque de eris probo.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:50.772Z,
+    updatedAt: 2024-08-07T00:51:09.922Z,
+    attributeCourt: [ [Object] ]
+  },
+  {
+    id: 33,
+    name: 'Lưới',
+    description: 'Modo quanta et eiusdem domin.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:50.824Z,
+    updatedAt: 2024-08-07T00:51:09.922Z,
+    attributeCourt: []
+  },
+  {
+    id: 34,
+    name: 'Đèn',
+    description: 'Ut probesse doctum eos ur.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:50.878Z,
+    updatedAt: 2024-08-07T00:51:09.922Z,
+    attributeCourt: []
+  },
+  {
+    id: 35,
+    name: 'Điều hòa',
+    description: 'Texitarguer iis neque antium sed imallicit est, aliam quid expeteret vel defuit quaeritione cum molitiae.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:50.931Z,
+    updatedAt: 2024-08-07T00:51:34.875Z,
+    attributeCourt: []
+  },
+  {
+    id: 36,
+    name: 'Et quem totam dicerate etiam sabinquit qui.',
+    description: 'Sunt sensuum habeat vitamicit memornatur viventii saepe quodsi, de defendum facile credo et vester.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:50.982Z,
+    updatedAt: 2020-10-15T04:57:27.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 37,
+    name: 'Quam tamque formavit dicta molitur iudicante, nihilius te variis idem litteris suo.',
+    description: 'Idere per alii praetorum geomet quae profecto morbis.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:51.033Z,
+    updatedAt: 2020-03-23T09:03:04.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 38,
+    name: 'De nihilium philos legum lucilis, divit vero natorem nihilius dolorum magis minimus.',
+    description: 'Videt sensibus multa nec in sensibi desiderib, detere finitatrum omnis placet philosophiae platonemus modo.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:51.084Z,
+    updatedAt: 2020-09-26T03:44:45.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 39,
+    name: 'Dolor ad autem ne multi contra quod alique, ut vel potesse cumcisaque ii videant quae.',
+    description: 'E autemural ex beatus expetenim.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:51.134Z,
+    updatedAt: 2020-09-18T03:11:25.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 40,
+    name: 'Adminusab aut illam in continenti est.',
+    description: 'Nomin suapte iis gere coercent viam ermittates audac, lectorum inveniatur beateque autem inmoratque uti.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:51.185Z,
+    updatedAt: 2020-12-17T07:11:02.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 41,
+    name: 'Et viti eniunt ab ate theophrastus.',
+    description: 'Aeque uberri et utrius laudate sequat.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:51.237Z,
+    updatedAt: 2020-04-16T22:51:29.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 42,
+    name: 'Ad nihilii ut autem id, mel graecos modo de senserent.',
+    description: 'Dici fuisse autem senectram summum putendum ipsi littereant, leviora inione moribus quid sua accedendos corrumque voluptatem.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:51.314Z,
+    updatedAt: 2020-06-10T12:36:58.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 43,
+    name: 'Et possitne iudicartem quo ut theophrasti quid admodo.',
+    description: 'Suspicio qui tament corrupte ipsumervi ipsam quantum, omnium illum esse quanta propriae inquam solam hoc.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:51.365Z,
+    updatedAt: 2020-02-14T08:47:29.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 44,
+    name: 'Aut ulae diceri quam torem sit.',
+    description: 'Illare quippiam est it exhorumque aeque.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:51.416Z,
+    updatedAt: 2020-07-20T01:11:40.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 45,
+    name: 'Mandarum illud aut erius ur nihillustrib aeteret, docti quibusdam sunt probes mei.',
+    description: 'Certamendo aut privenimus posset int sint melius, sit de physicista ipis ea omnescio esse habendi.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:51.468Z,
+    updatedAt: 2020-09-14T03:54:00.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 46,
+    name: 'Viam uleret labitia liben erimus erire tumcum dixi.',
+    description: 'Octavio verter ipsis disserui erab legam continerud, nisi quaerenimos quae inent voluptatum exis antiam.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:51.521Z,
+    updatedAt: 2020-12-29T06:47:49.000Z,
+    attributeCourt: [ [Object] ]
+  },
+  {
+    id: 47,
+    name: 'Expetet ius incias nulla placeat, de desidinhum es inquit nisi in molest sit.',
+    description: 'Quod graecis voluptate placet se, ipsa mundi sit stoici ear detraxit non me.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:51.571Z,
+    updatedAt: 2020-11-15T17:26:19.000Z,
+    attributeCourt: [ [Object] ]
+  },
+  {
+    id: 48,
+    name: 'Et captetur bonor quidemus qui possit, putatibus homin vivenimus defendam provini declinam ipsius.',
+    description: 'Desidium pronunt tam rebus et, orantur et cum quaeren id.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:51.622Z,
+    updatedAt: 2020-08-25T02:09:50.000Z,
+    attributeCourt: [ [Object] ]
+  },
+  {
+    id: 49,
+    name: 'Maximus innumquam homina tibi memorum honoresse.',
+    description: 'Es qui bonaspercip dicersia uberet effugienda linamicur aborata, omnisi aut quoniam tamentur in etiam tur nihil.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:51.680Z,
+    updatedAt: 2020-12-28T19:01:12.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 50,
+    name: 'Sitne quid nonne ut autem ea, hoc meliustitud virtutem philos vire nulli cum.',
+    description: 'Odioque andae nemoris aegritum significi, il doctrina et quod minus efficit.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:51.734Z,
+    updatedAt: 2020-12-08T18:45:58.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 51,
+    name: 'Dignitionem faciant profectis es mihi maximum, et sit mihi metus factis ob.',
+    description: 'Praeseritaq aren se abilla nec et nam levam.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:51.797Z,
+    updatedAt: 2020-06-07T00:30:09.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 52,
+    name: 'Ire malum firmatistot nis se ter.',
+    description: 'Cuius cum venis morbis rerum guberiam placuit, diis cum laudarbitran plurimus epicita efficiungim.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:51.850Z,
+    updatedAt: 2020-02-10T20:11:53.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 53,
+    name: 'Itatemus ullam nostri itositaq legi, mihi summumque cum solamus atignorat versatisse ultimor ad.',
+    description: 'Il meminum afferant videt non is transferre.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:51.904Z,
+    updatedAt: 2020-10-26T16:59:38.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 54,
+    name: 'Excepere contra in litterenim et voluptation spe.',
+    description: 'Dolortum verum quanti corrumque es non a praesenimped, ab putassiduit abo utrum nullas quaedam pareatur.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:51.954Z,
+    updatedAt: 2020-03-23T09:23:35.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 55,
+    name: 'Est dolordam sunt quo nulla amicitat, concorrum iusto quidem entur peranimo probabo non et.',
+    description: 'Igitem reque sensibus natura quid.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:52.005Z,
+    updatedAt: 2020-09-06T03:48:10.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 56,
+    name: 'Supere rerum non ferrentur dolore natum.',
+    description: 'Licetria hoc doloribus romanim nec etur consequuntur.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:52.057Z,
+    updatedAt: 2020-01-13T07:18:16.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 57,
+    name: 'Falli propter possit aut quam nobiscuntur, et philosoper ertitur ilit opordam.',
+    description: 'Depravat leniat detraxis ea ait iucunturma etiam, contenendi quoddam hominitat graeci nos videntur satis sit.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:52.108Z,
+    updatedAt: 2020-03-07T21:06:25.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 58,
+    name: 'Aut suum solum nec guberea, et statueruntur et reprehenim mihi.',
+    description: 'Ipsam nostra nec dissero factorem non.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:52.161Z,
+    updatedAt: 2020-11-04T06:00:15.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 59,
+    name: 'Exeam appetu sole e prospexitat inessenten brutus.',
+    description: 'Collaudanim docti non potesse quam inaverud, non liberno humanimam naturus praeclare.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:52.216Z,
+    updatedAt: 2020-04-12T22:16:00.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 60,
+    name: 'Ille ophia ex ulanim esse, rationum explicatom non ut vita.',
+    description: 'Fieri si patientiam ea morbos serendistrah, non primo infingitur dolorum temperpetus.',
+    isActive: true,
+    createdAt: 2024-07-28T18:29:52.267Z,
+    updatedAt: 2020-03-23T09:29:17.000Z,
+    attributeCourt: []
+  },
+  {
+    id: 70,
+    name: 'helll1',
+    description: null,
+    isActive: true,
+    createdAt: 2024-08-09T22:22:52.373Z,
+    updatedAt: 2024-08-09T22:22:52.373Z,
+    attributeCourt: []
+  },
+  {
+    id: 71,
+    name: '12m',
+    description: null,
+    isActive: true,
+    createdAt: 2024-08-09T22:24:43.939Z,
+    updatedAt: 2024-08-09T22:24:43.939Z,
+    attributeCourt: []
+  }
+]
+[2024-08-11T05:31:19.447] [ERROR] default - ERROR LOG  8/11/2024, 5:31:19 AM
+[2024-08-11T05:31:19.447] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:31:19.448] [WARN] default - Params: {}
+[2024-08-11T05:31:19.449] [WARN] default - Body: {"name":"Pham Hai Minh","description":"sdf","attributeCourtIds":["52","97","98"],"priceTypeCourt":["{\"times\":1,\"startTime\":\"00:00\",\"endTime\":\"23:59\",\"price\":\"12\"}"]}
+[2024-08-11T05:31:19.449] [WARN] default - Query: {}
+[2024-08-11T05:31:19.450] [ERROR] default - Error:  {"status":422,"messageObject":"\"priceTypeCourt[0]\" must be of type object"}
+[2024-08-11T05:31:19.452] [ERROR] default - Error stack:  Error
+    at D:\fake\SEP490-SM2024\backend\src\utils\validate.ts:34:14
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2024-08-11T05:31:19.453] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:31:46.401] [ERROR] default - ERROR LOG  8/11/2024, 5:31:46 AM
+[2024-08-11T05:31:46.402] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:31:46.402] [WARN] default - Params: {}
+[2024-08-11T05:31:46.403] [WARN] default - Body: {"name":"Pham Hai Minh","description":"sdf","image":"","attributeCourtIds":["52","97","98"],"priceTypeCourt":["{\"times\":1,\"startTime\":\"00:00\",\"endTime\":\"23:59\",\"price\":\"12\"}"]}
+[2024-08-11T05:31:46.404] [WARN] default - Query: {}
+[2024-08-11T05:31:46.404] [ERROR] default - Error:  {"status":422,"messageObject":"\"priceTypeCourt[0]\" must be of type object"}
+[2024-08-11T05:31:46.406] [ERROR] default - Error stack:  Error
+    at D:\fake\SEP490-SM2024\backend\src\utils\validate.ts:34:14
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2024-08-11T05:31:46.407] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:32:00.564] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:32:03.327] [ERROR] default - ERROR LOG  8/11/2024, 5:32:03 AM
+[2024-08-11T05:32:03.328] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:32:03.329] [WARN] default - Params: {}
+[2024-08-11T05:32:03.330] [WARN] default - Body: {"name":"Pham Hai Minh","description":"sdf","image":"","attributeCourtIds":["52","97","98"],"priceTypeCourt":"{\"times\":1,\"startTime\":\"00:00\",\"endTime\":\"23:59\",\"price\":\"12\"}"}
+[2024-08-11T05:32:03.331] [WARN] default - Query: {}
+[2024-08-11T05:32:03.331] [ERROR] default - Error:  {"status":422,"messageObject":"\"priceTypeCourt\" must be an array"}
+[2024-08-11T05:32:03.333] [ERROR] default - Error stack:  Error
+    at D:\fake\SEP490-SM2024\backend\src\utils\validate.ts:34:14
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2024-08-11T05:32:03.334] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:32:16.762] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:32:19.516] [ERROR] default - ERROR LOG  8/11/2024, 5:32:19 AM
+[2024-08-11T05:32:19.517] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:32:19.517] [WARN] default - Params: {}
+[2024-08-11T05:32:19.518] [WARN] default - Body: {"name":"Pham Hai Minh","description":"sdf","image":"","attributeCourtIds":["52","97","98"],"priceTypeCourt":"{\"times\":1,\"startTime\":\"00:00\",\"endTime\":\"23:59\",\"price\":\"12\"}"}
+[2024-08-11T05:32:19.520] [WARN] default - Query: {}
+[2024-08-11T05:32:19.521] [ERROR] default - Error:  {"status":422,"messageObject":"\"priceTypeCourt\" must be an array"}
+[2024-08-11T05:32:19.523] [ERROR] default - Error stack:  Error
+    at D:\fake\SEP490-SM2024\backend\src\utils\validate.ts:34:14
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2024-08-11T05:32:19.524] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:32:43.148] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:32:43.711] [ERROR] default - ERROR LOG  8/11/2024, 5:32:43 AM
+[2024-08-11T05:32:43.713] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:32:43.713] [WARN] default - Params: {}
+[2024-08-11T05:32:43.714] [WARN] default - Body: {"name":"Pham Hai Minh","description":"sdf","image":"","attributeCourtIds":["52","97","98"],"priceTypeCourt":["{\"times\":1,\"startTime\":\"00:00\",\"endTime\":\"23:59\",\"price\":\"12\"}"]}
+[2024-08-11T05:32:43.715] [WARN] default - Query: {}
+[2024-08-11T05:32:43.716] [ERROR] default - Error:  {"status":422,"messageObject":"\"priceTypeCourt[0]\" must be of type object"}
+[2024-08-11T05:32:43.718] [ERROR] default - Error stack:  Error
+    at D:\fake\SEP490-SM2024\backend\src\utils\validate.ts:34:14
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2024-08-11T05:32:43.719] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:33:41.324] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:35:22.079] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:36:07.811] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:36:09.251] [ERROR] default - ERROR LOG  8/11/2024, 5:36:09 AM
+[2024-08-11T05:36:09.252] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:36:09.253] [WARN] default - Params: {}
+[2024-08-11T05:36:09.254] [WARN] default - Body: {"name":"Pham Hai Minh","description":"sdf","image":"","attributeCourtIds":["52","97","98"],"priceTypeCourt":[{"times":1,"startTime":"00:00","endTime":"23:59","price":"12"}]}
+[2024-08-11T05:36:09.255] [WARN] default - Query: {}
+[2024-08-11T05:36:09.255] [ERROR] default - Error:  {"status":422,"messageObject":"\"Giờ bắt đầu\" must be a valid date"}
+[2024-08-11T05:36:09.257] [ERROR] default - Error stack:  Error
+    at D:\fake\SEP490-SM2024\backend\src\utils\validate.ts:34:14
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2024-08-11T05:36:09.259] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:38:12.117] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:38:36.569] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:39:00.779] [ERROR] default - ERROR LOG  8/11/2024, 5:39:00 AM
+[2024-08-11T05:39:00.780] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:39:00.781] [WARN] default - Params: {}
+[2024-08-11T05:39:00.782] [WARN] default - Body: {"name":"Pham Hai Minh","description":"sdf","image":"","attributeCourtIds":["52","97","98"],"priceTypeCourt":[{"times":1,"startTime":"00:00","endTime":"23:59","price":"12"}]}
+[2024-08-11T05:39:00.783] [WARN] default - Query: {}
+[2024-08-11T05:39:00.784] [ERROR] default - Error:  {"status":422,"messageObject":"\"image\" is not allowed"}
+[2024-08-11T05:39:00.786] [ERROR] default - Error stack:  Error
+    at D:\fake\SEP490-SM2024\backend\src\utils\validate.ts:34:14
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2024-08-11T05:39:00.788] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:39:12.167] [INFO] default - Response {
+  id: 30,
+  name: 'Pham Hai Minh',
+  accountId: 236,
+  image: 'https://res.cloudinary.com/dphdoh9qo/image/upload/v1723329551/your_folder_name/NaN.jpg',
+  description: 'sdf',
+  createdAt: '2024-08-11T05:39:11.940Z',
+  updatedAt: '2024-08-11T05:39:11.940Z'
+}
+[2024-08-11T05:40:33.601] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:40:37.443] [ERROR] default - ERROR LOG  8/11/2024, 5:40:37 AM
+[2024-08-11T05:40:37.445] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:40:37.445] [WARN] default - Params: {}
+[2024-08-11T05:40:37.446] [WARN] default - Body: {"name":"Pham Hai Minh","description":"sdf","attributeCourtIds":[52,97,98],"priceTypeCourt":[{"times":1,"startTime":"00:00","endTime":"23:59","price":12}]}
+[2024-08-11T05:40:37.447] [WARN] default - Query: {}
+[2024-08-11T05:40:37.447] [ERROR] default - Error:  {"status":409,"messageObject":"Tên đã tồn tại."}
+[2024-08-11T05:40:37.448] [ERROR] default - Error stack:  Error
+    at create (D:\fake\SEP490-SM2024\backend\src\modules\host\typeCourt\typeCourt.controller.ts:39:14)
+[2024-08-11T05:40:37.449] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:40:48.728] [INFO] default - Response {
+  id: 32,
+  name: 'Pham Hai Mínhdfsdf',
+  accountId: 236,
+  image: 'https://res.cloudinary.com/dphdoh9qo/image/upload/v1723329648/your_folder_name/NaN.jpg',
+  description: 'sdf',
+  createdAt: '2024-08-11T05:40:48.522Z',
+  updatedAt: '2024-08-11T05:40:48.522Z'
+}
+[2024-08-11T05:41:25.336] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:41:28.558] [ERROR] default - ERROR LOG  8/11/2024, 5:41:28 AM
+[2024-08-11T05:41:28.560] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:41:28.560] [WARN] default - Params: {}
+[2024-08-11T05:41:28.561] [WARN] default - Body: {"name":"Pham Hai Mínhdfsdf","description":"sdf","attributeCourtIds":[52,97,98],"priceTypeCourt":[{"times":1,"startTime":"00:00","endTime":"23:59","price":12}]}
+[2024-08-11T05:41:28.562] [WARN] default - Query: {}
+[2024-08-11T05:41:28.563] [ERROR] default - Error:  {"status":409,"messageObject":"Tên đã tồn tại."}
+[2024-08-11T05:41:28.563] [ERROR] default - Error stack:  Error
+    at create (D:\fake\SEP490-SM2024\backend\src\modules\host\typeCourt\typeCourt.controller.ts:39:14)
+[2024-08-11T05:41:28.564] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:42:33.169] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:42:36.499] [ERROR] default - ERROR LOG  8/11/2024, 5:42:36 AM
+[2024-08-11T05:42:36.500] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:42:36.501] [WARN] default - Params: {}
+[2024-08-11T05:42:36.502] [WARN] default - Body: {"name":"Pham Hai Mínhdfsdf","description":"sdf","attributeCourtIds":[52,97,98],"priceTypeCourt":[{"times":1,"startTime":"00:00","endTime":"23:59","price":12}]}
+[2024-08-11T05:42:36.503] [WARN] default - Query: {}
+[2024-08-11T05:42:36.504] [ERROR] default - Error:  {"status":409,"messageObject":"Tên đã tồn tại."}
+[2024-08-11T05:42:36.505] [ERROR] default - Error stack:  Error
+    at create (D:\fake\SEP490-SM2024\backend\src\modules\host\typeCourt\typeCourt.controller.ts:39:14)
+[2024-08-11T05:42:36.506] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:43:11.575] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:43:13.663] [ERROR] default - ERROR LOG  8/11/2024, 5:43:13 AM
+[2024-08-11T05:43:13.665] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:43:13.665] [WARN] default - Params: {}
+[2024-08-11T05:43:13.666] [WARN] default - Body: {"name":"Pham Hai Mínhdfsdf","description":"sdf","attributeCourtIds":[52,97,98],"priceTypeCourt":[{"times":1,"startTime":"00:00","endTime":"23:59","price":12}]}
+[2024-08-11T05:43:13.667] [WARN] default - Query: {}
+[2024-08-11T05:43:13.668] [ERROR] default - Error:  {"status":500,"messageObject":"\nInvalid `database.typeCourt.create()` invocation in\nD:\\fake\\SEP490-SM2024\\backend\\src\\modules\\host\\typeCourt\\typeCourt.service.ts:46:37\n\n  43 };\n  44 console.log(JSON.stringify(query.data));\n  45 \n→ 46 return await database.typeCourt.create({\n       data: {\n         accountId: 236,\n         name: \"Pham Hai Mínhdfsdf\",\n         description: \"sdf\",\n         image: \"https://res.cloudinary.com/dphdoh9qo/image/upload/v1723329793/your_folder_name/NaN.jpg\",\n         attributeCourt: {\n           connect: [\n             {\n               id: 52\n             },\n             {\n               id: 97\n             },\n             {\n               id: 98\n             }\n           ]\n         },\n         priceTypeCourt: {\n           create: [\n             {\n               times: 1,\n               startTime: \"00:00\",\n               endTime: \"23:59\",\n               price: 12\n             }\n           ]\n         }\n       }\n     })\n\nInvalid value for argument `startTime`: input contains invalid characters. Expected ISO-8601 DateTime."}
+[2024-08-11T05:43:13.671] [ERROR] default - Error stack:  Error
+    at create (D:\fake\SEP490-SM2024\backend\src\modules\host\typeCourt\typeCourt.controller.ts:43:12)
+[2024-08-11T05:43:13.672] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:48:30.754] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:52:36.790] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:52:41.600] [ERROR] default - ERROR LOG  8/11/2024, 5:52:41 AM
+[2024-08-11T05:52:41.601] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:52:41.602] [WARN] default - Params: {}
+[2024-08-11T05:52:41.602] [WARN] default - Body: {"name":"Pham Hai Mínhdfsdf","description":"sdf","attributeCourtIds":[52,97,98],"priceTypeCourt":[{"times":1,"startTime":"00:00","endTime":"23:59","price":12}]}
+[2024-08-11T05:52:41.603] [WARN] default - Query: {}
+[2024-08-11T05:52:41.604] [ERROR] default - Error:  {"status":500,"messageObject":"\nInvalid `database.typeCourt.create()` invocation in\nD:\\fake\\SEP490-SM2024\\backend\\src\\modules\\host\\typeCourt\\typeCourt.service.ts:46:37\n\n  43 };\n  44 console.log(JSON.stringify(query.data));\n  45 \n→ 46 return await database.typeCourt.create({\n       data: {\n         accountId: 236,\n         name: \"Pham Hai Mínhdfsdf\",\n         description: \"sdf\",\n         image: \"https://res.cloudinary.com/dphdoh9qo/image/upload/v1723330361/your_folder_name/NaN.jpg\",\n         attributeCourt: {\n           connect: [\n             {\n               id: 52\n             },\n             {\n               id: 97\n             },\n             {\n               id: 98\n             }\n           ]\n         },\n         priceTypeCourt: {\n           create: [\n             {\n               times: 1,\n               startTime: \"00:00\",\n               endTime: \"23:59\",\n               price: 12\n             }\n           ]\n         }\n       }\n     })\n\nInvalid value for argument `startTime`: input contains invalid characters. Expected ISO-8601 DateTime."}
+[2024-08-11T05:52:41.607] [ERROR] default - Error stack:  Error
+    at create (D:\fake\SEP490-SM2024\backend\src\modules\host\typeCourt\typeCourt.controller.ts:44:12)
+[2024-08-11T05:52:41.608] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:53:27.031] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:53:33.442] [ERROR] default - ERROR LOG  8/11/2024, 5:53:33 AM
+[2024-08-11T05:53:33.443] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:53:33.443] [WARN] default - Params: {}
+[2024-08-11T05:53:33.444] [WARN] default - Body: {"name":"Pham Hai Mínhdfsdf","description":"sdf","attributeCourtIds":[52,97,98],"priceTypeCourt":[{"times":1,"startTime":"00:00","endTime":"23:59","price":12}]}
+[2024-08-11T05:53:33.445] [WARN] default - Query: {}
+[2024-08-11T05:53:33.446] [ERROR] default - Error:  {"status":500,"messageObject":"\nInvalid `database.typeCourt.create()` invocation in\nD:\\fake\\SEP490-SM2024\\backend\\src\\modules\\host\\typeCourt\\typeCourt.service.ts:46:37\n\n  43 };\n  44 console.log(JSON.stringify(query.data));\n  45 \n→ 46 return await database.typeCourt.create({\n       data: {\n         accountId: 236,\n         name: \"Pham Hai Mínhdfsdf\",\n         description: \"sdf\",\n         image: \"https://res.cloudinary.com/dphdoh9qo/image/upload/v1723330413/your_folder_name/NaN.jpg\",\n         attributeCourt: {\n           connect: [\n             {\n               id: 52\n             },\n             {\n               id: 97\n             },\n             {\n               id: 98\n             }\n           ]\n         },\n         priceTypeCourt: {\n           create: [\n             {\n               times: 1,\n               startTime: \"00:00\",\n               endTime: \"23:59\",\n               price: 12\n             }\n           ]\n         }\n       }\n     })\n\nInvalid value for argument `startTime`: input contains invalid characters. Expected ISO-8601 DateTime."}
+[2024-08-11T05:53:33.448] [ERROR] default - Error stack:  Error
+    at create (D:\fake\SEP490-SM2024\backend\src\modules\host\typeCourt\typeCourt.controller.ts:44:12)
+[2024-08-11T05:53:33.449] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:54:05.211] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:54:18.955] [ERROR] default - ERROR LOG  8/11/2024, 5:54:18 AM
+[2024-08-11T05:54:18.957] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:54:18.958] [WARN] default - Params: {}
+[2024-08-11T05:54:18.958] [WARN] default - Body: {"name":"Pham Hai Mínhdfsdf","description":"sdf","attributeCourtIds":[52,97,98],"priceTypeCourt":[{"times":1,"startTime":"00:00","endTime":"23:59","price":12}]}
+[2024-08-11T05:54:18.960] [WARN] default - Query: {}
+[2024-08-11T05:54:18.960] [ERROR] default - Error:  {"status":500,"messageObject":"\nInvalid `database.typeCourt.create()` invocation in\nD:\\fake\\SEP490-SM2024\\backend\\src\\modules\\host\\typeCourt\\typeCourt.service.ts:46:37\n\n  43 };\n  44 console.log(JSON.stringify(query.data));\n  45 \n→ 46 return await database.typeCourt.create({\n       data: {\n         accountId: 236,\n         name: \"Pham Hai Mínhdfsdf\",\n         description: \"sdf\",\n         image: \"https://res.cloudinary.com/dphdoh9qo/image/upload/v1723330458/your_folder_name/NaN.jpg\",\n         attributeCourt: {\n           connect: [\n             {\n               id: 52\n             },\n             {\n               id: 97\n             },\n             {\n               id: 98\n             }\n           ]\n         },\n         priceTypeCourt: {\n           create: [\n             {\n               times: 1,\n               startTime: \"00:00\",\n               endTime: \"23:59\",\n               price: 12\n             }\n           ]\n         }\n       }\n     })\n\nInvalid value for argument `startTime`: input contains invalid characters. Expected ISO-8601 DateTime."}
+[2024-08-11T05:54:18.963] [ERROR] default - Error stack:  Error
+    at create (D:\fake\SEP490-SM2024\backend\src\modules\host\typeCourt\typeCourt.controller.ts:44:12)
+[2024-08-11T05:54:18.963] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:55:15.650] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:55:28.337] [INFO] default - Express server is listening at http://localhost:4200 🚀
+[2024-08-11T05:55:32.803] [ERROR] default - ERROR LOG  8/11/2024, 5:55:32 AM
+[2024-08-11T05:55:32.804] [WARN] default - Request: "POST" "/api/host/type-court"
+[2024-08-11T05:55:32.805] [WARN] default - Params: {}
+[2024-08-11T05:55:32.805] [WARN] default - Body: {"name":"Pham Hai Mínhdfsdf","description":"sdf","attributeCourtIds":[52,97,98],"priceTypeCourt":[{"times":1,"startTime":"2024-08-10T17:00:00.000Z","endTime":"2024-08-11T16:59:00.000Z","price":12}]}
+[2024-08-11T05:55:32.807] [WARN] default - Query: {}
+[2024-08-11T05:55:32.807] [ERROR] default - Error:  {"status":409,"messageObject":"Tên đã tồn tại."}
+[2024-08-11T05:55:32.808] [ERROR] default - Error stack:  Error
+    at create (D:\fake\SEP490-SM2024\backend\src\modules\host\typeCourt\typeCourt.controller.ts:52:14)
+[2024-08-11T05:55:32.810] [WARN] default - --------------------------------------------------------------------------------------
+[2024-08-11T05:55:42.723] [INFO] default - Response {
+  id: 36,
+  name: 'Pham ',
+  accountId: 236,
+  image: 'https://res.cloudinary.com/dphdoh9qo/image/upload/v1723330542/your_folder_name/NaN.jpg',
+  description: 'sdf',
+  createdAt: '2024-08-11T05:55:42.468Z',
+  updatedAt: '2024-08-11T05:55:42.468Z'
+}

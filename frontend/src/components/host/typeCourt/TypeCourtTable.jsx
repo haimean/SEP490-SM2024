@@ -84,7 +84,8 @@ const TypeCourtTable = () => {
     setCurrentImage("");
   };
 
-  const handleDeleteRow = (typeCourtId, attrId) =>
+  const handleDeleteRow = (typeCourtId, attrId) => {
+    // TODO: call api xóa
     setTypeCourts(
       typeCourts.map((tc) =>
         tc.id === typeCourtId
@@ -95,6 +96,7 @@ const TypeCourtTable = () => {
           : tc
       )
     );
+  };
 
   const handleSaveTypeCourt = async (formData, isEdit, typeCourtId) => {
     try {

@@ -8,6 +8,7 @@ import typeCourtHostService from './typeCourt.service';
 import { ResponseHandler } from '../../../outcomes/responseHandler';
 import NotFoundError from '../../../outcomes/notFoundError';
 import { PriceTypeCourt, TypeCourt } from '@prisma/client';
+import dateUtils from '../../../utils/date';
 
 const typeCourtHostController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
@@ -20,14 +21,25 @@ const typeCourtHostController = {
 
     try {
       const accountId = Number(req.headers.authorization);
-      const { name, description, attributeCourtIds } = req.body;
+      const { name, description, attributeCourtIds, priceTypeCourt } =
+        req.body;
 
+      const parsePriceTypeCourt = priceTypeCourt?.map((item: any) => {
+        item.startTime = dateUtils.timeToDate(item?.startTime);
+        item.endTime = dateUtils.timeToDate(item?.endTime);
+        return item;
+      });
+      console.log(
+        'parsePriceTypeCourt',
+        JSON.stringify(parsePriceTypeCourt)
+      );
       const typeCourt: TypeCourt = await typeCourtHostService.create({
         accountId,
         name,
         image: imageName,
         description,
         attributeCourtIds,
+        priceTypeCourt: parsePriceTypeCourt,
       });
       ResponseHandler(res, typeCourt);
     } catch (error: any) {
@@ -55,6 +67,17 @@ const typeCourtHostController = {
         req.body;
       const { id } = req.params;
 
+      const parsePriceTypeCourt = priceTypeCourt?.map((item: any) => {
+        item.startTime = dateUtils.timeToDate(item?.startTime);
+        item.endTime = dateUtils.timeToDate(item?.endTime);
+
+        return item;
+      });
+      console.log(
+        'parsePriceTypeCourt',
+        JSON.stringify(parsePriceTypeCourt)
+      );
+
       const typeCourt: TypeCourt = await typeCourtHostService.update(
         Number(id),
         {
@@ -63,7 +86,7 @@ const typeCourtHostController = {
           image: imageName,
           description,
           attributeCourtIds,
-          priceTypeCourt,
+          priceTypeCourt: parsePriceTypeCourt,
         }
       );
 

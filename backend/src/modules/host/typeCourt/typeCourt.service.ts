@@ -2,13 +2,20 @@ import { PriceTypeCourt, Prisma, TypeCourt } from '@prisma/client';
 import database from '../../../lib/db.server';
 import { TypeCourtHostServiceCreatePayload } from './typeCourt.model';
 import { DefaultArgs } from '@prisma/client/runtime/library';
+import dateUtils from '../../../utils/date';
 
 const typeCourtHostService = {
   create: async (
     data: TypeCourtHostServiceCreatePayload
   ): Promise<TypeCourt> => {
-    const { name, accountId, description, image, attributeCourtIds } =
-      data;
+    const {
+      name,
+      accountId,
+      description,
+      image,
+      attributeCourtIds,
+      priceTypeCourt,
+    } = data;
     const query: Prisma.TypeCourtCreateArgs<DefaultArgs> = {
       data: {
         accountId,
@@ -31,6 +38,10 @@ const typeCourtHostService = {
         connect: attributeCourt,
       };
     }
+    query.data.priceTypeCourt = {
+      create: priceTypeCourt,
+    };
+    console.log(JSON.stringify(query.data));
 
     return await database.typeCourt.create(query);
   },
@@ -76,9 +87,6 @@ const typeCourtHostService = {
       });
       query.data.attributeCourt = {
         connect: attributeCourt,
-      };
-      query.data.priceTypeCourt = {
-        create: priceTypeCourt,
       };
     }
 

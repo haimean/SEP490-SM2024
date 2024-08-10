@@ -18,6 +18,7 @@ import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { Close } from "@mui/icons-material";
+import DialogInfo from "../../common/DialogInfo";
 
 const PriceTypeCourtForm = ({
   listTime = [],
@@ -33,8 +34,17 @@ const PriceTypeCourtForm = ({
     dayjs().startOf("day"),
     dayjs().endOf("day"),
   ]);
-  const [priceDetails, setPriceDetails] = useState([]);
+  const [titleDialog, setTitleDialog] = useState("");
+  const [isOpenDialogInfo, setIsOpenDialogInfo] = useState(false);
 
+  const [priceDetails, setPriceDetails] = useState([]);
+  const handleCloseDialogInfo = () => {
+    setIsOpenDialogInfo(false);
+  };
+  const handleOpenDialogInfo = (title) => {
+    setTitleDialog(title);
+    setIsOpenDialogInfo(true);
+  };
   useEffect(() => {
     console.log(priceTypeCourt);
 
@@ -58,12 +68,12 @@ const PriceTypeCourtForm = ({
   const handleNext = () => {
     if (activeStep === 0) {
       if (!times) {
-        alert("Vui lòng nhập số lần");
+        handleOpenDialogInfo("Vui lòng nhập số lần");
         return;
       }
       if (listTime?.length > 0) {
         if (listTime?.includes(Number(times))) {
-          alert("Vui lòng nhập số lần khác");
+          handleOpenDialogInfo("Vui lòng nhập số lần khác");
           return;
         }
       }
@@ -71,7 +81,7 @@ const PriceTypeCourtForm = ({
     if (activeStep === 1) {
       // Check to see if there are any overlapping timelines
       if (hasDuplicateMilestones(milestones)) {
-        alert("Có mốc thời gian bị trùng. Vui lòng nhập lại!");
+        handleOpenDialogInfo("Có mốc thời gian bị trùng. Vui lòng nhập lại!");
         return;
       }
       // Sắp xếp các mốc thời gian theo thứ tự từ thấp đến cao (bỏ qua 2 mốc đầu)
@@ -102,7 +112,7 @@ const PriceTypeCourtForm = ({
       if (!isErrorPrice) {
         onSubmit(priceDetails);
       } else {
-        alert("Bạn phải nhập đầy đủ giá");
+        handleOpenDialogInfo("Bạn phải nhập đầy đủ giá");
       }
     }
     if (activeStep !== 2) {
@@ -323,6 +333,13 @@ const PriceTypeCourtForm = ({
             {activeStep === steps.length - 1 ? "Hoàn thành" : "Tiếp theo"}
           </Button>
         </Box>
+        {isOpenDialogInfo && (
+          <DialogInfo
+            handleClose={handleCloseDialogInfo}
+            open={isOpenDialogInfo}
+            title={titleDialog}
+          />
+        )}
       </Box>
     </Modal>
   );
