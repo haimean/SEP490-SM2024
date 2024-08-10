@@ -5,7 +5,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import CallApi from "../../service/CallAPI";
 import ExpandLess from "@mui/icons-material/ExpandLess";
@@ -16,15 +16,16 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import TurnedInNotIcon from "@mui/icons-material/TurnedInNot";
 export default function Sidebar() {
   const [listBranch, setListBranch] = useState([]);
+  const { id } = useParams();
+  console.log("🚀 ========= listBranch:", listBranch);
   const [open, setOpen] = useState(true);
-
   const handleClick = () => {
     setOpen(!open);
   };
   useEffect(() => {
     fetchBranchList();
   }, []);
-
+  console.log(window.location.pathname);
   const fetchBranchList = async () => {
     try {
       const apiUrl = "/api/host/branches";
@@ -48,7 +49,12 @@ export default function Sidebar() {
       <nav aria-label="main mailbox folders">
         <List>
           <Link to="/host/dashboard">
-            <ListItem disablePadding>
+            <ListItem
+              disablePadding
+              className={
+                window.location.pathname == "/host/dashboard" && "bg-[#ddd]"
+              }
+            >
               <ListItemButton>
                 <ListItemIcon>
                   <SplitscreenIcon />
@@ -59,7 +65,12 @@ export default function Sidebar() {
           </Link>
           <Divider />
           <Link to="/type-court-table">
-            <ListItem disablePadding>
+            <ListItem
+              disablePadding
+              className={
+                window.location.pathname == "/type-court-table" && "bg-[#ddd]"
+              }
+            >
               <ListItemButton>
                 <ListItemIcon>
                   <SplitscreenIcon />
@@ -69,7 +80,14 @@ export default function Sidebar() {
             </ListItem>
           </Link>
           <Divider />
-          <ListItem disablePadding>
+          <ListItem
+            disablePadding
+            className={
+              window.location.pathname != "/host/dashboard" &&
+              window.location.pathname != "/type-court-table" &&
+              "bg-[#ddd]"
+            }
+          >
             <ListItemButton onClick={handleClick}>
               <ListItemIcon>
                 <FormatListBulletedIcon />
@@ -82,7 +100,12 @@ export default function Sidebar() {
           <Collapse sx={{ pl: 4 }} in={open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <Link to="/host/list-branch">
-                <ListItem>
+                <ListItem
+                  className={
+                    window.location.pathname == "/host/list-branch" &&
+                    "bg-[#ddd]"
+                  }
+                >
                   <ListItemButton>
                     <ListItemIcon>
                       <TurnedInNotIcon />
@@ -95,7 +118,7 @@ export default function Sidebar() {
               {listBranch?.map((item) => (
                 <>
                   <Link to={`/host/branch/${item?.id}`} key={item?.id}>
-                    <ListItem>
+                    <ListItem className={id == item?.id && "bg-[#ddd]"}>
                       <ListItemButton>
                         <ListItemIcon>
                           <TurnedInNotIcon />
