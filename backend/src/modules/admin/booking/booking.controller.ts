@@ -34,6 +34,28 @@ const bookingAdminController = {
       next(new CustomError(error?.message, 500));
     }
   },
+  getListBookingInMonth: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const result =
+        await bookingAdminService.getListBookingInMonth();
+      ResponseHandler(res, {
+        dataInMonth: result.result,
+        percentage:
+          result.resultPreviousMonth.length == 0 ||
+          result.resultPreviousMonth == null
+            ? 0
+            : (result.result.length /
+                result.resultPreviousMonth.length) *
+              100,
+      });
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
 };
 
 export default bookingAdminController;

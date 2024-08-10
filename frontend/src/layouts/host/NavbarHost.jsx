@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { keyframes } from "@mui/system";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -7,31 +7,61 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import { Button } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../../middleware/redux/userSlice.jsx";
-import AccountPopover from "../admin/dashboard/common/account-popover";
-import LoginModal from "../../components/auth/LoginModal";
-import NavbarItemHost from "../host/NavbarItemHost.jsx";
-import NavbarItemUser from "./NavbarItemUser.jsx";
-import NavbarItemAdmin from "../admin/NavbarItemAdmin.jsx";
+import AccountPopover from "../admin/dashboard/common/account-popover.jsx";
+import LoginModal from "../../components/auth/LoginModal.jsx";
+import Notification from "../Notification.jsx";
+import CallApi from "../../service/CallAPI.jsx";
+import NavbarItemHost from "./NavbarItemHost.jsx";
 
-export default function PrimarySearchAppBar() {
+const MENU_OPTIONS_USER = [
+  {
+    label: "Thông tin cá nhân",
+    link: "/profile",
+  },
+  {
+    label: "Lịch sử đặt sân",
+    link: "/player/booking-history",
+  },
+  {
+    label: "Lịch sử xin vào trận",
+    link: "/request-list-join",
+  },
+];
+const MENU_OPTIONS_HOST = [
+  {
+    label: "Thông tin cá nhân",
+    link: "/profile",
+  },
+];
+
+export default function NavbarHost() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
-  const role = localStorage.getItem("userRole");
-
+  const { accountId } = useSelector((state) => state.user);
+  const [account, setAccount] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
-
+  const getProfile = async () => {
+    try {
+      const result = await CallApi(`/api/user/profile/${accountId}`);
+      setAccount(result?.data);
+    } catch (error) {
+      console.log("🚀 ========= error:", error);
+    }
+  };
+  useEffect(() => {
+    getProfile();
+  }, []);
   const gentleShakeAnimation = keyframes`
   0% { transform: translateX(0); }
   25% { transform: translateX(-5px); }
@@ -39,10 +69,6 @@ export default function PrimarySearchAppBar() {
   75% { transform: translateX(-5px); }
   100% { transform: translateX(0); }
 `;
-
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -63,7 +89,9 @@ export default function PrimarySearchAppBar() {
     localStorage.removeItem("userRole");
     navigate("/");
   };
-
+  const handleMenuItemClick = (link) => {
+    navigate(link);
+  };
   const openLoginModal = () => {
     setLoginModalOpen(true);
   };
@@ -71,11 +99,6 @@ export default function PrimarySearchAppBar() {
   const closeLoginModal = () => {
     setLoginModalOpen(false);
   };
-
-  // const handleSelectChange = (event) => {
-  //   setSelectedOption(event.target.value);
-  //   navigate(event.target.value);
-  // };
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -94,7 +117,6 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleProfileMenuOpen}>Profile</MenuItem>
       <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </Menu>
   );
@@ -117,18 +139,31 @@ export default function PrimarySearchAppBar() {
       onClose={handleMobileMenuClose}
     >
       {user ? (
-        <MenuItem onClick={handleProfileMenuOpen}>
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls={menuId}
-            aria-haspopup="true"
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
-          <p>Profile</p>
-        </MenuItem>
+        account?.role === "HOST" ? (
+          <>
+            {MENU_OPTIONS_HOST.map((option) => (
+              <MenuItem
+                key={option.label}
+                onClick={() => handleMenuItemClick(option.link)}
+              >
+                {option.label}
+              </MenuItem>
+            ))}
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </>
+        ) : (
+          <>
+            {MENU_OPTIONS_USER.map((option) => (
+              <MenuItem
+                key={option.label}
+                onClick={() => handleMenuItemClick(option.link)}
+              >
+                {option.label}
+              </MenuItem>
+            ))}
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </>
+        )
       ) : (
         <MenuItem onClick={openLoginModal}>
           <p>Login</p>
@@ -145,7 +180,7 @@ export default function PrimarySearchAppBar() {
             variant="h6"
             noWrap
             component={Link}
-            to="/"
+            to="/host/dashboard"
             sx={{
               display: { xs: "none", sm: "block" },
               marginRight: 2,
@@ -157,50 +192,17 @@ export default function PrimarySearchAppBar() {
           >
             Court Connect
           </Typography>
+          <NavbarItemHost />
           <Box sx={{ flexGrow: 1 }} />
-
-          {role === "HOST" && <NavbarItemHost />}
-          {role === "USER" && <NavbarItemUser />}
-          {role === "ADMIN" && <NavbarItemAdmin />}
-
-
+          {/* notification and login */}
           <Box sx={{ display: { xs: "none", md: "flex" }, ml: "20px" }}>
             {user ? (
-              <AccountPopover />
+              <div>
+                <Notification />
+                <AccountPopover />
+              </div>
             ) : (
               <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Button
-                  color="inherit"
-                  component={Link}
-                  to="/"
-                  sx={{ textTransform: "none" }}
-                >
-                  Trang chủ
-                </Button>
-                <Button
-                  color="inherit"
-                  component={Link}
-                  to="/list-blog"
-                  sx={{ textTransform: "none" }}
-                >
-                  Bài đăng
-                </Button>
-                <Button
-                  color="inherit"
-                  component={Link}
-                  to="/available-post"
-                  sx={{ textTransform: "none" }}
-                >
-                  Trận đấu đang tìm người
-                </Button>
-                <Button
-                  color="inherit"
-                  component={Link}
-                  to="/search-courts"
-                  sx={{ textTransform: "none", marginRight: "2px" }}
-                >
-                  Tìm sân đấu
-                </Button>
                 <Button
                   onClick={openLoginModal}
                   sx={{
@@ -220,7 +222,7 @@ export default function PrimarySearchAppBar() {
               </Box>
             )}
           </Box>
-
+          {/* for mobile */}
           <Box sx={{ display: { xs: "flex", md: "none" }, ml: "20px" }}>
             <IconButton
               size="large"

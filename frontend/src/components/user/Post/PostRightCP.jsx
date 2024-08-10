@@ -11,11 +11,9 @@ import {
   TableRow,
   TableCell,
 } from "@mui/material";
-import StarIcon from "@mui/icons-material/Star";
 import CallApi from "../../../service/CallAPI.jsx";
 import WaitingListTable2 from "../WaitingList/WaitingListTable2.jsx";
 import RequestListTable2 from "../ResponseToRequest/RequestListTable2.jsx";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { toast } from "react-toastify";
 import ModalProfile from "../../common/ModalProfile.jsx";
 import ModalReason from "../../common/ModalReason.jsx";
@@ -23,6 +21,8 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import LoginModal from "../../auth/LoginModal.jsx";
 const PostRightCP = ({ user, post, postId }) => {
+  console.log("🚀 ========= post:", post);
+  console.log("🚀 ========= user:", user);
   const [accountId, setAccountId] = useState(null);
   const [listJoin, setListJoin] = useState([]);
   const [openWaitingList, setOpenWaitingList] = useState(false);
@@ -31,6 +31,7 @@ const PostRightCP = ({ user, post, postId }) => {
   const [openModalReason, setOpenModalReason] = useState(false);
   const [profileId, setProfileId] = useState();
   const [openLoginModal, setOpenLoginModal] = useState(false);
+  const [isModal, setIsModal] = useState(false); //nguoi choi xin vao tran roi muon huy tran khi da tham gia
   const isLogin = useSelector((state) => state.user.user);
   const {
     register,
@@ -60,7 +61,6 @@ const PostRightCP = ({ user, post, postId }) => {
         `/api/user/user-available/${postId}/get-user-accept`,
         "post"
       );
-      console.log("🚀 ========= resultaaaaaaaaa:", result);
       setListJoin(result.data);
     } catch (error) {
       console.log("🚀 ========= error:", error);
@@ -103,6 +103,7 @@ const PostRightCP = ({ user, post, postId }) => {
       });
       toast.success("Hủy thành công");
       getListInvitation();
+      detailUser();
       console.log("🚀 ========= result:", result);
     } catch (error) {
       console.log("🚀 ========= error:", error);
@@ -112,6 +113,7 @@ const PostRightCP = ({ user, post, postId }) => {
   const onSubmit = (data) => {
     deletePlayer(data.id, "CANCEL", data.reason);
     setOpenModalReason(false);
+    setIsModal(false);
     // Thực hiện gửi dữ liệu hoặc các hành động khác ở đây
   };
   const handleCloseModalReason = () => setOpenModalReason(false);
@@ -120,6 +122,11 @@ const PostRightCP = ({ user, post, postId }) => {
     setOpenModalReason(true);
   };
 
+  const handleCloseModal = () => setIsModal(false);
+  const handleOpenModal = (id) => {
+    setValue("id", id);
+    setIsModal(true);
+  };
   const [detail, setDetail] = useState(false);
   const detailUser = async () => {
     try {
@@ -130,7 +137,7 @@ const PostRightCP = ({ user, post, postId }) => {
           postId: postId,
         }
       );
-      console.log("🚀 ========= result:", result.data);
+      console.log("🚀 ========= resultabcd:", result.data);
       setDetail(result?.data);
     } catch (error) {
       console.log("🚀 ========= error:", error);
@@ -141,7 +148,7 @@ const PostRightCP = ({ user, post, postId }) => {
   }, [postId]);
   const handleAccept = async (id, status, reason) => {
     try {
-      const result = await CallApi("/api/user/invitation/update", "put", {
+      const result = await CallApi("/api/user/invitation/update", "post", {
         invitationId: id,
         status: status,
         reasonCancel: reason,
@@ -152,6 +159,8 @@ const PostRightCP = ({ user, post, postId }) => {
         getListInvitation();
       } else {
         toast.info("Từ chối thành công");
+        detailUser();
+        getListInvitation();
       }
       console.log("🚀 ========= result:", result);
     } catch (error) {
@@ -176,16 +185,13 @@ const PostRightCP = ({ user, post, postId }) => {
           <Typography variant="body1" align="center" className="text-gray-600">
             {user?.level}
           </Typography>
-          <div className="flex items-center justify-center mt-2">
-            <StarIcon className="text-yellow-300" />
-            <span className="ml-1 text-gray-600">{user?.friendliness}</span>
-          </div>
+
           <Typography
             variant="body1"
             align="center"
             className="text-gray-600 mt-2"
           >
-            Liên hệ: {user?.numberPhone}
+            Số điện thoại: {user?.numberPhone}
           </Typography>
           <div className="mt-4 flex justify-center space-x-2">
             {isOwner ? (
@@ -243,6 +249,14 @@ const PostRightCP = ({ user, post, postId }) => {
                       Từ Chối
                     </Button>
                   </div>
+                ) : detail?.status == "ACCEPT" ? (
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={() => handleOpenModal(detail?.id)}
+                  >
+                    Hủy tham gia trận đấu
+                  </Button>
                 ) : (
                   <Button
                     variant="contained"
@@ -251,7 +265,9 @@ const PostRightCP = ({ user, post, postId }) => {
                     disabled={
                       listJoin?.length == post?.numberMember ||
                       detail?.status == "ACCEPT" ||
-                      detail?.status == "NEW"
+                      detail?.status == "NEW" ||
+                      detail?.status == "CANCEL" ||
+                      detail?.status == "NOACCEPT"
                     }
                   >
                     {detail?.status == "ACCEPT"
@@ -260,6 +276,10 @@ const PostRightCP = ({ user, post, postId }) => {
                       ? "Sẫn đã đủ người"
                       : detail?.status == "NEW"
                       ? "Đã yêu cầu tham gia trận đấu"
+                      : detail?.status == "CANCEL"
+                      ? "Hủy trận đấu"
+                      : detail?.status == "NOACCEPT"
+                      ? "Từ chối trận đấu"
                       : "Gửi lời mời tham gia"}
                   </Button>
                 )}
@@ -272,6 +292,16 @@ const PostRightCP = ({ user, post, postId }) => {
             Có {listJoin?.length} / {post?.numberMember} người chơi
           </Typography>
         </div>
+        {isModal && (
+          <ModalReason
+            handleSubmit={handleSubmit}
+            onSubmit={onSubmit}
+            register={register}
+            errors={errors}
+            open={isModal}
+            onClose={handleCloseModal}
+          />
+        )}
         {isOwner && (
           <div className="max-w-sm p-4 border rounded-lg shadow-lg mx-auto mt-4">
             <Typography className="mt-2">Danh sách người tham gia</Typography>
@@ -287,7 +317,7 @@ const PostRightCP = ({ user, post, postId }) => {
                         onClick={() => handleOpenDetail(item?.accountId)}
                         className="hover:underline hover:cursor-pointer"
                       >
-                        {item?.account?.user?.fullName}
+                        {item?.userAvailability?.account?.user?.fullName}
                       </TableCell>
                       {isOwner && (
                         <TableCell>
@@ -296,7 +326,7 @@ const PostRightCP = ({ user, post, postId }) => {
                             color="error"
                             onClick={() => handleOpenModalReason(item?.id)}
                           >
-                            <DeleteIcon />
+                            Xóa người chơi
                           </Button>
                         </TableCell>
                       )}

@@ -10,6 +10,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const genderOptions = [
   { value: "MALE", label: "Nam" },
@@ -34,6 +35,7 @@ const CreatePostModal = ({ bookings }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
+      title: "",
       description: "",
       numberMember: "",
       genderPost: "",
@@ -41,6 +43,7 @@ const CreatePostModal = ({ bookings }) => {
       price: bookings?.price,
     },
   });
+  const navigate = useNavigate();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -53,6 +56,7 @@ const CreatePostModal = ({ bookings }) => {
       const requestData = {
         bookingId: bookings?.id,
         description: data.description,
+        title: data.title,
         numberMember: data.numberMember,
         memberPost: [
           {
@@ -62,8 +66,9 @@ const CreatePostModal = ({ bookings }) => {
           },
         ],
       };
-      await CallApi("/api/user/post", "post", requestData);
+      const result = await CallApi("/api/user/post", "post", requestData);
       handleClose();
+      navigate(`/post/${result?.data?.id}`);
       toast.success("Tạo bài đăng mời chơi thành công");
     } catch (error) {
       console.error("Error posting data:", error);
@@ -116,6 +121,25 @@ const CreatePostModal = ({ bookings }) => {
             Bài đăng tìm người chơi
           </Typography>
           <form onSubmit={handleSubmit(onSubmit)}>
+            <Controller
+              name="title"
+              control={control}
+              rules={{
+                required: "Tiêu đề là bắt buộc",
+              }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="Tiêu đề"
+                  type="text"
+                  fullWidth
+                  rows={4}
+                  margin="normal"
+                  error={!!errors.title}
+                  helperText={errors.title?.message}
+                />
+              )}
+            />
             <Controller
               name="description"
               control={control}
@@ -225,7 +249,7 @@ const CreatePostModal = ({ bookings }) => {
                 Xóa
               </Button>
               <Button type="submit" variant="contained">
-                Tạo Post
+                Tạo bài đăng
               </Button>
             </Box>
           </form>

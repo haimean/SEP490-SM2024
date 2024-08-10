@@ -23,7 +23,19 @@ const invitationUserService = {
       },
     });
   },
-
+  getInvitation: async (accountId: number, postId: number) => {
+    return await database.invitation.findMany({
+      where: {
+        postId,
+        status: {
+          not: 'CANCEL',
+        },
+        userAvailability: {
+          accountId,
+        },
+      },
+    });
+  },
   getUserAvailability: async (
     userAvailabilityId: number
   ): Promise<any> => {
@@ -65,17 +77,19 @@ const invitationUserService = {
             },
           },
         },
+        memberPost: true,
       },
     });
     const userAvailability = await database.userAvailability.create({
       data: {
         districts:
           post?.booking.Court?.Branches?.address?.districts ?? '',
-        endTime: post?.booking.startTime as Date,
+        endTime: post?.booking.endTime as Date,
         startTime: post?.booking.startTime as Date,
         provinces:
           post?.booking.Court?.Branches?.address?.provinces ?? '',
         accountId,
+        level: post?.memberPost[0]?.level,
       },
     });
     return await database.invitation.create({
@@ -87,6 +101,11 @@ const invitationUserService = {
       },
       include: {
         userAvailability: true,
+        Post: {
+          include: {
+            booking: true,
+          },
+        },
       },
     });
   },
@@ -250,6 +269,7 @@ const invitationUserService = {
                     user: true,
                   },
                 },
+                bookingInfo: true,
               },
             },
           },

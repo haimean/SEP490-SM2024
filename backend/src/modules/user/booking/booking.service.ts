@@ -39,14 +39,12 @@ const bookingUserService = {
     const result = await database.booking.findMany({
       where: {
         accountId,
-        isDelete: false,
       },
     });
     console.log('🚀 ========= result:', result.length);
     const response = await database.booking.findMany({
       where: {
         accountId,
-        isDelete: false,
       },
       orderBy: {
         createdAt: 'desc',
@@ -58,6 +56,11 @@ const bookingUserService = {
           include: {
             Branches: {
               include: {
+                account: {
+                  include: {
+                    user: true,
+                  },
+                },
                 address: true,
                 attributeBranches: {
                   include: {

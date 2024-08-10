@@ -67,10 +67,10 @@ const invitationUserController = {
       createNotifications([
         {
           id: 1,
-          accountId: Number(invitation?.userAvailability?.accountId),
+          accountId: Number(invitation?.Post?.booking?.accountId),
           createdAt: new Date(),
           message: `Có người muốn xin vào trận đấu của bạn`,
-          url: `post/${postId}`,
+          url: `/post/${postId}`,
           status: 'SEED',
         },
       ]);
@@ -134,22 +134,23 @@ const invitationUserController = {
   update: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { invitationId, status, reasonCancel } = req.body;
-
+      const accId = Number(req.headers.authorization);
       const invitation = await invitationUserService.update({
         invitationId,
         status,
         reasonCancel,
       });
       const postId = invitation.Post.id;
-      // người không có sân
-      if ((invitation.type = 'AVAILABLE')) {
-        //id người có sân
-        const accountId: number = invitation.Post.booking.accountId;
-        // tên người không có sân
-        const name =
-          invitation.userAvailability.account.user?.fullName;
-        // id bài post
-        // Thông báo
+      // people without anger
+      if (accId === invitation.Post.booking.accountId) {
+        //person id has yard
+        const accountId: number =
+          invitation.userAvailability.accountId;
+
+        // name of person without anger
+        const name = invitation.Post.booking?.bookingInfo?.name;
+
+        // Notification
         switch (status) {
           case 'ACCEPT':
             // đã accept
@@ -159,7 +160,7 @@ const invitationUserController = {
                 accountId,
                 createdAt: new Date(),
                 message: `${name} đã đồng ý lời mời vào trận đấu của bạn`,
-                url: `post/${postId}`,
+                url: `/post/${postId}`,
                 status: 'SEED',
               },
             ]);
@@ -172,22 +173,21 @@ const invitationUserController = {
                 accountId,
                 createdAt: new Date(),
                 message: `${name} đã từ chối lời mời vào trận đấu của bạn`,
-                url: `post/${postId}`,
+                url: `/post/${postId}`,
                 status: 'SEED',
               },
             ]);
-            // đã accept
             break;
 
           case 'CANCEL':
-            // đã accept
+            // accepted
             createNotifications([
               {
                 id: 1,
                 accountId,
                 createdAt: new Date(),
-                message: `${name} đã đồng hủy lời mời vào trận đấu của bạn với lý do: ${reasonCancel}`,
-                url: `post/${postId}`,
+                message: `${name} đã hủy lời mời vào trận đấu của bạn với lý do: ${reasonCancel}`,
+                url: `/post/${postId}`,
                 status: 'SEED',
               },
             ]);
@@ -197,11 +197,11 @@ const invitationUserController = {
             break;
         }
       } else {
-        // gửi thông báo cho người rảnh
-        // account người rảnh
-        const accountId: number =
-          invitation.userAvailability.accountId;
-        const name = invitation.Post.booking.account.user?.fullName;
+        // send notification to free person
+        // account of free person
+        const accountId: number = invitation.Post.booking.accountId;
+        const name =
+          invitation.userAvailability.account.user?.fullName;
         switch (status) {
           case 'ACCEPT':
             // đã accept
@@ -211,7 +211,7 @@ const invitationUserController = {
                 accountId,
                 createdAt: new Date(),
                 message: `${name} đã đồng ý lời xin vào trận đấu của bạn`,
-                url: `post/${postId}`,
+                url: `/post/${postId}`,
                 status: 'SEED',
               },
             ]);
@@ -225,7 +225,7 @@ const invitationUserController = {
                 accountId,
                 createdAt: new Date(),
                 message: `${name} đã từ chối lời xin vào trận đấu của bạn`,
-                url: `post/${postId}`,
+                url: `/post/${postId}`,
                 status: 'SEED',
               },
             ]);
@@ -239,7 +239,7 @@ const invitationUserController = {
                 accountId,
                 createdAt: new Date(),
                 message: `${name} đã đồng hủy lời xin vào trận đấu của bạn với lý do: ${reasonCancel}`,
-                url: `post/${postId}`,
+                url: `/post/${postId}`,
                 status: 'SEED',
               },
             ]);

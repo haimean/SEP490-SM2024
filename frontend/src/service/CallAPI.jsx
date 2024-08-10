@@ -17,6 +17,8 @@ const CallApi = async (endpoint, method, body, headers = {}) => {
   };
   try {
     const response = await axios(config);
+    const logString = "API🚀" + endpoint + ":";
+    console.info(logString, response?.data);
     return response.data;
   } catch (error) {
     throw error; // Ném lỗi sang bên component tự xử lý

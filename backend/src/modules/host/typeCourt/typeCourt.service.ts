@@ -100,7 +100,7 @@ const typeCourtHostService = {
         attributeCourt: {
           include: {
             attributeKeyCourt: true,
-          }
+          },
         },
         priceTypeCourt: true,
       },
@@ -126,9 +126,10 @@ const typeCourtHostService = {
         attributeCourt: {
           include: {
             attributeKeyCourt: true,
-          }
+          },
         },
         priceTypeCourt: true,
+        court: true,
       },
     });
   },

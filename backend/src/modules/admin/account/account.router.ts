@@ -20,4 +20,8 @@ accountRouter.post(
   '/get-all-account-with-date',
   accountController.getListAccountWithDate
 );
+accountRouter.post(
+  '/get-all-account-in-month',
+  accountController.getListAccountInMonth
+);
 export default accountRouter;

@@ -13,14 +13,18 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import EventIcon from "@mui/icons-material/Event";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
-import PersonIcon from "@mui/icons-material/Person";
 import { format, parseISO } from "date-fns";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import LoginModal from "../../auth/LoginModal";
-const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
+import haversine from "haversine";
+import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
+import { Group } from "@mui/icons-material";
+
+const PostCard = ({ activity, updateStatusInvitation }) => {
+  // console.log("🚀 ========= activity:", activity);
   const acceptCount = activity?.post?.invitation?.filter(
     (invite) => invite?.status === "ACCEPT"
   ).length;
@@ -38,9 +42,9 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
     navigate(`/post/${activity?.post?.id}`);
   };
 
-  const handleJoin = () => {
+  const handleJoin = async () => {
     if (user) {
-      join(activity);
+      await join(activity);
     } else {
       toast.error("Bạn chưa đăng nhập!");
       setOpenLoginModal(true);
@@ -51,11 +55,12 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
   };
   const join = async (activity) => {
     try {
-      const response = await CallApi("/api/user/invitation/invite", "post", {
+      await CallApi("/api/user/invitation/invite", "post", {
         postId: activity?.post?.id,
       });
-      SetIsSendRequest(!isSendRequest);
-      toast.success("Gửi lời mời thành công!");
+      updateStatusInvitation();
+      // TODO: Khi xin vaof thanfh coong -> update theme 1 truowngf owr
+      toast.success("Xin tham gia thành công!");
     } catch (error) {
       console.log(error);
       toast.error(error.response?.data?.error);
@@ -94,6 +99,9 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
     });
   };
   const [detail, setDetail] = useState(false);
+  const [error, setError] = useState(null);
+  const [location, setLocation] = useState(null);
+
   const detailUser = async () => {
     try {
       const result = await CallApi(
@@ -103,7 +111,6 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
           postId: activity?.post?.id,
         }
       );
-      console.log("🚀 ========= result:", result.data);
       setDetail(result?.data);
     } catch (error) {
       console.log("🚀 ========= error:", error);
@@ -123,6 +130,38 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
     // Ghép ngày, tháng, và năm thành chuỗi định dạng "dd/MM/yyyy"
     return `${day}/${month}/${year}`;
   };
+  const distance = haversine(
+    {
+      latitude:
+        activity?.Court?.Branches?.address?.latitude || "21.013393218627524",
+      longitude:
+        activity?.Court?.Branches?.address?.longitude || "105.52526950492785",
+    },
+    {
+      latitude: location?.latitude || "21.013393218627524",
+      longitude: location?.longitude || "105.52526950492785",
+    }
+  );
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            latitude: position?.coords?.latitude,
+            longitude: position?.coords?.longitude,
+          });
+        },
+        (error) => {
+          setError(error.message);
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by this browser.");
+    }
+  };
+  useEffect(() => {
+    getLocation();
+  }, []);
   return (
     <Card>
       <CardMedia
@@ -137,12 +176,18 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
             Trận đấu của: {activity?.bookingInfo?.name}
           </Typography>
         </Tooltip>
+        <Stack direction="row" alignItems="center" spacing={1} className="my-1">
+          <DirectionsRunIcon className="text-red-600" />
+          <Typography component="h6" variant="h6">
+            Vị trí cách bạn {distance.toFixed(2)} km
+          </Typography>
+        </Stack>
         <Tooltip title={activity?.Court?.Branches?.address?.detail}>
           <Stack
             direction="row"
             alignItems="center"
             spacing={1}
-            className="truncate"
+            className="truncate mb-1"
           >
             <LocationOnOutlinedIcon className="text-red-600" />
             <Typography>
@@ -150,45 +195,45 @@ const PostCard = ({ activity, isSendRequest, SetIsSendRequest }) => {
             </Typography>
           </Stack>
         </Tooltip>
-        <Stack direction="row" alignItems="center" spacing={1}>
+        <Stack direction="row" alignItems="center" spacing={1} className="mb-1">
           <EventIcon className="text-red-600" />
-          <Typography>{parseDate(activity?.startTime)}</Typography>
+          {/* <Typography>{parseDate(activity?.startTime)}</Typography> */}
+          <Typography>
+            {format(parseISO(activity?.startTime), "yyyy-MM-dd")}
+          </Typography>
         </Stack>
-        <Stack direction="row" alignItems="center" spacing={1}>
+        <Stack direction="row" alignItems="center" spacing={1} className="mb-1">
           <AccessTimeIcon className="text-red-600" />
           <Typography>
             {formattedStartTime} - {formattedEndTime}
           </Typography>
         </Stack>
-        <Stack direction="row" alignItems="center" spacing={1}>
+        <Stack direction="row" alignItems="center" spacing={1} className="mb-1">
           <PaidOutlinedIcon className="text-red-600" />
           <Typography>{formattedPrice}</Typography>
         </Stack>
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <PersonIcon className="text-red-600" />
+        <Stack direction="row" alignItems="center" spacing={1} className="mb-1">
+          <Group className="text-red-600" />
           <Typography>
             Tuyển {activity?.post?.numberMember} người (Hiện có: {acceptCount}/
             {activity?.post?.numberMember})
           </Typography>
         </Stack>
-        <div className="space-x-4 flex justify-center">
+        <div className="space-x-4 flex justify-center mt-2">
           <Button
             variant="contained"
             className="bg-blue-500 hover:bg-blue-700 text-white rounded"
             onClick={handleJoin}
             disabled={
               acceptCount == activity?.post?.numberMember ||
-              detail?.status == "ACCEPT" ||
-              detail?.status == "NEW"
+              activity?.isInvitation
             }
           >
             {acceptCount == activity?.post?.numberMember
               ? "Sân đã đủ người"
-              : detail?.status == "ACCEPT"
-              ? "Đã tham gia"
-              : detail == null || detail?.status !== "NEW"
-              ? "Gửi lời mời tham gia"
-              : "Đã gửi lời mời"}
+              : !activity?.isInvitation
+              ? "Xin tham gia"
+              : "Đã xin tham gia"}
           </Button>
           <Button
             variant="contained"

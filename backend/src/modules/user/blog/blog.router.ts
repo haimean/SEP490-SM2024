@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import validate from '../../../utils/validate';
+import { upload } from '../../../lib/upload';
 import blogUserValidator from './blog.validator';
-import upload from '../../../lib/uploadImage';
 import blogUserController from './blog.controller';
 
 const blogUserRouter = Router();

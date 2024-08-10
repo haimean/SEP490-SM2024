@@ -4,15 +4,15 @@ import { LineChart } from "@mui/x-charts";
 
 export default function LineChartForAccountAdmin({
   optionMonth,
-  optionWeek,
+  optionMonthChange,
   optionChartPlayer,
+  optionYear,
 }) {
-  console.log("🚀 ========= optionWeek:", optionWeek);
   const [seriesData, setSeriesData] = useState({
     series: [],
     labels: [],
   });
-  const [seriesWeekData, setSeriesWeekData] = useState({
+  const [seriesDataInMonth, setSeriesDataInMonth] = useState({
     series: [],
     labels: [],
   });
@@ -28,17 +28,17 @@ export default function LineChartForAccountAdmin({
       console.log("🚀 ========= error:", error);
     }
   };
-  const getWeekData = async () => {
+  const getDataMonth = async () => {
     try {
       const result = await CallApi(
-        "/api/admin/account/get-all-account-with-date",
+        "/api/admin/account/get-all-account-in-month",
         "post",
         {
-          dateFilter: optionWeek,
+          dateFilter: `${optionYear}-${optionMonthChange}`,
         }
       );
       console.log("🚀 ========= result:", result);
-      processWeekData(result.data);
+      processDataMonth(result.data);
     } catch (error) {
       console.log("🚀 ========= error:", error);
     }
@@ -55,11 +55,11 @@ export default function LineChartForAccountAdmin({
       labels: labels.slice(-optionMonth),
     });
   };
-  const processWeekData = (data) => {
+  const processDataMonth = (data) => {
     const hostData = data.map((item) => item.host);
     const playerData = data.map((item) => item.player);
     const labels = data.map((item) => item.label);
-    setSeriesWeekData({
+    setSeriesDataInMonth({
       series: [
         { data: hostData, label: "Chủ cơ sở" },
         { data: playerData, label: "Người chơi" },
@@ -68,19 +68,19 @@ export default function LineChartForAccountAdmin({
     });
   };
   useEffect(() => {
+    getDataMonth();
+  }, [optionMonthChange, optionYear]);
+  useEffect(() => {
     getData();
   }, [optionMonth]);
 
-  useEffect(() => {
-    getWeekData();
-  }, [optionWeek]);
   return optionChartPlayer == "week" ? (
     <LineChart
-      series={seriesWeekData.series}
+      series={seriesDataInMonth.series}
       height={290}
       xAxis={[
         {
-          data: seriesWeekData.labels,
+          data: seriesDataInMonth.labels,
           scaleType: "band",
         },
       ]}

@@ -28,8 +28,8 @@ export default function BarChartForBookingAndPostAdmin() {
 
     setSeriesData({
       series: [
-        { data: booking, label: "Đặt sân" },
-        { data: post, label: "Bài post" },
+        { data: booking, label: "Đặt sân không tuyển người" },
+        { data: post, label: "Đặt sân có tuyển người" },
       ],
       labels: labels,
     });

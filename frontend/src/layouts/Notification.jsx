@@ -100,6 +100,7 @@ const Notification = () => {
       }
       off(userQuery);
     });
+    setAnchorEl(null);
   };
   const fetchProfile = async () => {
     const response = await CallApi("/api/user/profile", "get");
@@ -107,7 +108,9 @@ const Notification = () => {
   };
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    if (records.length !== 0) {
+      setAnchorEl(event.currentTarget);
+    }
   };
   const open = Boolean(anchorEl);
   const handleClose = () => {
@@ -125,7 +128,7 @@ const Notification = () => {
         color="warning"
         badgeContent={seenNumber}
         classes="h-3"
-        className="mr-3"
+        className="mx-2 cursor-pointer"
       >
         <NotificationsIcon />
       </Badge>
@@ -152,15 +155,17 @@ const Notification = () => {
                 : "text-black "
             }
           >
-            <Link to={record.url} className="underline-none" color="inherit">
+            <Link
+              to={`${record.url}`}
+              className="underline-none"
+              color="inherit"
+            >
               {record.createAt}
               {record.message}
             </Link>
           </ListItem>
         ))}
-        {records.length === 0 ? (
-          <div>Không có thông báo nào</div>
-        ) : (
+        {records.length !== 0 && (
           <Button onClick={deleteNotifications}>Xóa Hết</Button>
         )}
       </Popover>

@@ -2,18 +2,21 @@ import { Router } from 'express';
 import validate from '../../../utils/validate';
 import invitationUserValidator from './invitation.validator';
 import invitationUserController from './invitation.controller';
+import invitationUserMiddleware from './invitation.middleware';
 
 const invitationUserRouter = Router();
 
 invitationUserRouter.post(
   '/requests-to-match',
   validate(invitationUserValidator.create),
+  invitationUserMiddleware.requestsToTheMatch,
   invitationUserController.requestsToTheMatch
 );
 
 invitationUserRouter.post(
   '/invite',
   validate(invitationUserValidator.createInvitePlayer),
+  invitationUserMiddleware.createInvitePlayer,
   invitationUserController.createInvitePlayer
 );
 

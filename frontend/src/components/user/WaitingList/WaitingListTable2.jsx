@@ -4,13 +4,15 @@ import CallApi from "../../../service/CallAPI";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import ModalProfile from "../../common/ModalProfile";
+import { getRatingDescription } from "../../../utils/user/GetRatingDescription";
 
 const processData = (data) => {
-  return data.map((item) => ({
-    id: item.id,
-    avatar: item.account?.user?.avatar || "",
-    fullName: item.account?.user?.fullName || "",
-    level: item?.level,
+  return data.map((item, index) => ({
+    orderNumber: index + 1,
+    id: item?.id,
+    fullName: item?.account?.user?.fullName || "",
+    level: getRatingDescription(item?.level),
+    numberPhone: item?.account?.user?.numberPhone,
     // Add other fields as needed
   }));
 };
@@ -20,26 +22,11 @@ export default function WaitingListTable2({ open, onClose, postId }) {
   const [isModalProfile, setIsModalProfile] = useState(false);
   const [profileId, setProfileId] = useState();
   const columns = [
-    { field: "id", headerName: "ID", width: 70, sortable: false },
-    {
-      field: "avatar",
-      headerName: "Avatar",
-      width: 70,
-      sortable: false,
-      renderCell: (params) => (
-        <div className="w-full h-full flex items-center">
-          <img
-            src={params.value}
-            alt="Avatar"
-            className="w-10 h-10 rounded-full m-auto"
-          />
-        </div>
-      ),
-    },
+    { field: "orderNumber", headerName: "STT", width: 70, sortable: false },
     {
       field: "fullName",
       headerName: "Họ tên",
-      width: 200,
+      width: 250,
       sortable: false,
       renderCell: (params) => {
         return (
@@ -55,20 +42,17 @@ export default function WaitingListTable2({ open, onClose, postId }) {
     {
       field: "level",
       headerName: "Trình độ",
-      width: 150,
+      width: 200,
     },
     {
-      field: "rate",
-      headerName: "Đánh giá",
-      width: 150,
+      field: "numberPhone",
+      headerName: "Số điện thoại",
+      width: 200,
       renderCell: (params) => {
-        return (
-          <div className="w-full h-full flex items-center">
-            <Rating value={5} />
-          </div>
-        );
+        return <div>{params?.row?.numberPhone}</div>;
       },
     },
+
     {
       field: "actions",
       headerName: "",
@@ -132,6 +116,16 @@ export default function WaitingListTable2({ open, onClose, postId }) {
   const handleCloseModalProfile = () => {
     setIsModalProfile(false);
   };
+  const localeText = {
+    // Add other localized text as needed
+    noRowsLabel: "Không có dữ liệu",
+    footerTotalRows: "Tổng số hàng:",
+    MuiTablePagination: {
+      labelRowsPerPage: "Số hàng mỗi trang:",
+      labelDisplayedRows: ({ from, to, count }) =>
+        `${from} - ${to} trên ${count !== -1 ? count : `hơn ${to}`}`,
+    },
+  };
   return (
     <Dialog
       open={open}
@@ -157,6 +151,7 @@ export default function WaitingListTable2({ open, onClose, postId }) {
             },
           }}
           loading={isLoading}
+          localeText={localeText}
         />
       </div>
       {isModalProfile && (

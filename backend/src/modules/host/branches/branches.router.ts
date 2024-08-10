@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import validate from '../../../utils/validate';
-import upload from '../../../lib/uploadImage';
 import branchesHostController from './branches.controller';
 import branchesHostValidator from './branches.validator';
 import branchesHostMiddleware from './branches.middleware';
+import { upload } from '../../../lib/upload';
 
 const branchesHostRouter = Router();
 branchesHostRouter.get('/total', branchesHostController.totalBranch);

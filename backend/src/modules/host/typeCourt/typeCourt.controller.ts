@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import {
   deleteFile,
-  getObjectSignedUrl,
   uploadFile,
-} from '../../../lib/s3';
+} from '../../../lib/upLoadImageService';
 import CustomError from '../../../outcomes/customError';
 import typeCourtHostService from './typeCourt.service';
 import { ResponseHandler } from '../../../outcomes/responseHandler';
@@ -85,12 +84,7 @@ const typeCourtHostController = {
       const typeCourt: TypeCourt | null =
         await typeCourtHostService.get(Number(id), accountId);
       if (typeCourt) {
-        if (typeCourt.image) {
-          const image = getObjectSignedUrl(typeCourt.image);
-          ResponseHandler(res, { ...typeCourt, image });
-        } else {
-          ResponseHandler(res, { ...typeCourt });
-        }
+        ResponseHandler(res, typeCourt);
       } else {
         next(new NotFoundError('Không tìm được kiểu sân.'));
       }
@@ -103,13 +97,6 @@ const typeCourtHostController = {
       const accountId = Number(req.headers.authorization);
       const typeCourts: TypeCourt[] =
         await typeCourtHostService.getAll(accountId);
-      typeCourts.forEach(async (element, index) => {
-        if (element.image) {
-          typeCourts[index].image = await getObjectSignedUrl(
-            element.image
-          );
-        }
-      });
       ResponseHandler(res, typeCourts);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));

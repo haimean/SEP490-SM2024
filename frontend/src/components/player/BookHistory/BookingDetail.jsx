@@ -4,11 +4,14 @@ import { Box, Typography, Paper, Grid, Button, Chip } from "@mui/material";
 import { format } from "date-fns";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
+import Loading from "../../common/Loading";
+import DialogAccept from "../../common/DialogAccept";
 
 const BookingDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [booking, setBooking] = useState(null);
+  const [open, setOpen] = useState(false);
   const now = new Date().getTime();
   const bookingStartTime = new Date(booking?.startTime).getTime();
   const canCancel = bookingStartTime > now;
@@ -27,22 +30,26 @@ const BookingDetail = () => {
   console.log(booking);
 
   const handleCancel = async () => {
-    const isConfirmed = window.confirm(
-      "Bạn có muốn hủy lịch thi đấu này không?"
-    );
-    if (isConfirmed) {
+    if (open) {
       try {
         await CallApi(`/api/user/booking/${booking?.id}`, "delete");
+        setOpen(false);
         navigate("/player/booking-history");
-        toast.success("Xóa thành công trận đã đặt");
+        toast.success("Hủy thành công trận đã đặt");
       } catch (error) {
         toast.error("Lỗi khi hủy đặt sân:", error);
       }
     }
   };
 
-  if (!booking) return <Typography>Loading...</Typography>;
+  if (!booking) return <Loading />;
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <Box
       sx={{
@@ -82,7 +89,7 @@ const BookingDetail = () => {
 
           <Grid item xs={12} md={6}>
             <Typography variant="h6">Thông tin người đặt</Typography>
-            <Typography>Tên: {booking?.bookingInfo?.name}</Typography>
+            <Typography>Họ và tên: {booking?.bookingInfo?.name}</Typography>
             <Typography>
               Số điện thoại: {booking?.bookingInfo?.numberPhone}
             </Typography>
@@ -91,8 +98,17 @@ const BookingDetail = () => {
           {booking.Court && (
             <Grid item xs={12}>
               <Typography variant="h6">Thông tin sân</Typography>
-              <Typography>Tên sân: {booking?.Court.name}</Typography>
-              {/* Thêm các thông tin khác về sân nếu có */}
+              <Typography>Tên sân: {booking?.Court?.name}</Typography>
+              <Typography>
+                Chi nhánh: {booking?.Court?.Branches?.name}
+              </Typography>
+              <Typography>
+                Liên hệ: {booking?.Court?.Branches?.phone}
+              </Typography>
+              <Typography>Email: {booking?.Court?.Branches?.email}</Typography>
+              <Typography>
+                Địa chỉ: {booking?.Court?.Branches?.address?.detail}
+              </Typography>
             </Grid>
           )}
         </Grid>
@@ -111,7 +127,7 @@ const BookingDetail = () => {
           </Button>
           {canCancel && (
             <Button
-              onClick={handleCancel}
+              onClick={handleClickOpen}
               variant="contained"
               color="error"
               size="small"
@@ -121,6 +137,14 @@ const BookingDetail = () => {
           )}
         </Box>
       </Paper>
+      {open && (
+        <DialogAccept
+          handleClose={handleClose}
+          open={open}
+          title={"Bạn có muốn hủy lịch thi đấu này không?"}
+          handleAccept={handleCancel}
+        />
+      )}
     </Box>
   );
 };

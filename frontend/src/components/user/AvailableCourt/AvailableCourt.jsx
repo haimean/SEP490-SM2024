@@ -4,6 +4,7 @@ import {
   CircularProgress,
   Container,
   Grid,
+  Pagination,
   Typography,
 } from "@mui/material";
 import PostCard from "../Post/PostCard";
@@ -11,11 +12,11 @@ import LocationFilter from "./LocationFilter";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
 import { format, parseISO } from "date-fns";
+import Loading from "../../common/Loading";
 
 const AvailableCourt = () => {
   const [activities, setActivities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isSendRequest, SetIsSendRequest] = useState(false);
   const [filters, setFilters] = useState({
     province: "",
     district: "",
@@ -25,10 +26,9 @@ const AvailableCourt = () => {
     level: "",
     price: "",
   });
-
   useEffect(() => {
     fetchData();
-  }, [isSendRequest]);
+  }, []);
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -36,7 +36,11 @@ const AvailableCourt = () => {
       const response = await CallApi("/api/booking/get-booking-post", "get");
       console.log("🚀 ========= response:", response);
       setIsLoading(false);
-      setActivities(response.data);
+      const data = response.data.reverse();
+      data.forEach((element) => {
+        element.isInvitation = false;
+      });
+      setActivities(data);
     } catch (error) {
       toast.error(error.response?.data?.error);
     }
@@ -52,7 +56,7 @@ const AvailableCourt = () => {
     price
   ) => {
     setFilters({ province, district, ward, date, time, level, price });
-    console.log(date);
+    console.log("a", date);
   };
 
   const isTimeInRange = (start, end, selectedTime) => {
@@ -61,7 +65,7 @@ const AvailableCourt = () => {
   };
 
   const filteredActivities = activities?.filter((activity) => {
-    // const formattedDate = format(parseISO(activity.dateTime), "yyyy-MM-dd");
+    const formattedDate = format(parseISO(activity?.startTime), "yyyy-MM-dd");
     const formattedStartTime = format(parseISO(activity?.startTime), "HH:mm");
     const formattedEndTime = format(parseISO(activity?.endTime), "HH:mm");
     if (
@@ -79,12 +83,13 @@ const AvailableCourt = () => {
       activity?.Court?.Branches?.address?.wards !== filters.ward
     )
       return false;
-    // if (filters.date && formattedDate !== filters.date) return false;
+    if (filters.date && formattedDate !== filters.date) return false;
     if (
       filters.time &&
       !isTimeInRange(formattedStartTime, formattedEndTime, filters.time)
     )
       return false;
+
     if (filters.level && activity.level !== filters.level) return false;
     if (
       filters.price &&
@@ -96,31 +101,14 @@ const AvailableCourt = () => {
       return false;
     return true;
   });
-
+  const pageSize = 6;
+  const [currentPage, setCurrentPage] = useState(1);
+  const paginate = (array, page_size, page_number) => {
+    // human-readable page numbers usually start with 1, so we reduce 1 in the first argument
+    return array.slice((page_number - 1) * page_size, page_number * page_size);
+  };
   return isLoading === true ? (
-    <Box
-      sx={{
-        width: "100%",
-        height: "100vh", // Chiều cao toàn màn hình
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <svg width={0} height={0}>
-        <defs>
-          <linearGradient id="my_gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#e01cd5" />
-            <stop offset="100%" stopColor="#1CB5E0" />
-          </linearGradient>
-        </defs>
-      </svg>
-      <CircularProgress
-        sx={{ "svg circle": { stroke: "url(#my_gradient)" } }}
-        size={100}
-        thickness={2.5}
-      />
-    </Box>
+    <Loading />
   ) : (
     <Container className="my-32">
       <LocationFilter onFilterChange={handleFilterChange} />
@@ -132,16 +120,38 @@ const AvailableCourt = () => {
         </Typography>
       </div>
       <Grid container spacing={2}>
-        {filteredActivities.map((activity) => (
-          <Grid item xs={12} md={6} key={activity?.id}>
-            <PostCard
-              activity={activity}
-              isSendRequest={isSendRequest}
-              SetIsSendRequest={SetIsSendRequest}
-            />
-          </Grid>
-        ))}
+        {paginate(filteredActivities, pageSize, currentPage).map(
+          (activity, index) => (
+            <Grid item xs={12} md={6} key={activity?.id}>
+              <PostCard
+                activity={activity}
+                updateStatusInvitation={() => {
+                  setActivities((data) => {
+                    return data.map((element) => {
+                      if (element?.post?.id == activity?.post?.id) {
+                        element.isInvitation = true;
+                      }
+                      return element;
+                    });
+                  });
+                }}
+              />
+            </Grid>
+          )
+        )}
       </Grid>
+      <div className="flex justify-center mt-4">
+        <Pagination
+          count={Math.ceil(filteredActivities.length / pageSize)}
+          variant="outlined"
+          color="primary"
+          page={currentPage}
+          onChange={(event, index) => {
+            setCurrentPage(index);
+            console.log("data", index);
+          }}
+        />
+      </div>
     </Container>
   );
 };

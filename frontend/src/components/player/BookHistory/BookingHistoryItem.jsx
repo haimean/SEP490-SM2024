@@ -18,8 +18,8 @@ const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
     if (isConfirmed) {
       try {
         await CallApi(`/api/user/booking/${bookings?.id}`, "delete");
-        onCancelSuccess(bookings?.id);
-        toast.success("Xóa thành công trận đã đặt");
+        onCancelSuccess();
+        toast.success("Hủy thành công trận đã đặt");
       } catch (error) {
         toast.error("Lỗi khi hủy đặt sân:", error);
       }
@@ -28,17 +28,40 @@ const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
 
   return (
     <Paper elevation={3} sx={{ mb: 2, p: 2, width: "100%" }}>
-      <Grid container spacing={2}>
+      <Grid container spacing={1}>
         <Grid item xs={12}>
           <Typography variant="subtitle1" color="primary">
-            Đặt sân {bookings?.id} - {format(bookingStartTime, "dd/MM/yyyy")}
+            Sân {bookings?.Court?.name} - Cở sở{" "}
+            {bookings?.Court?.Branches?.name} -{" "}
+            {format(bookingStartTime, "dd-MM-yyyy")}
           </Typography>
+          <Grid container>
+            <Grid item xs={6}>
+              <Typography variant="body2" color="text.secondary">
+                Thời gian: {format(bookingStartTime, "HH:mm")} -{" "}
+                {format(new Date(bookings?.endTime), "HH:mm")}
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant="body2" color="text.secondary">
+                Quản lý sân:{" "}
+                {bookings?.Court?.Branches?.account?.user?.fullName}
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant="body2" color="text.secondary">
+                Giá: {bookings?.price.toLocaleString("vi-VN")} VND
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant="body2" color="text.secondary">
+                Số điện thoại: {bookings?.Court?.Branches?.phone}
+              </Typography>
+            </Grid>
+          </Grid>
+
           <Typography variant="body2" color="text.secondary">
-            Thời gian thuê: {format(bookingStartTime, "HH:mm")} -{" "}
-            {format(new Date(bookings?.endTime), "HH:mm")}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Giá: {bookings?.price}
+            Địa chỉ: {bookings?.Court?.Branches?.address?.detail}
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -59,10 +82,10 @@ const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
             >
               Chi tiết
             </Button>
-            {canCancel && !bookings?.post && (
+            {canCancel && !bookings.isDelete && !bookings?.post && (
               <CreatePostModal bookings={bookings} />
             )}
-            {bookings?.post && (
+            {bookings?.post && !bookings.isDelete && (
               <Button
                 component={Link}
                 to={`/post/${bookings?.post?.id}`}
@@ -74,14 +97,20 @@ const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
                 Xem bài đăng
               </Button>
             )}
-            {canCancel && (
+            {canCancel && !bookings.isDelete && (
               <Button
                 onClick={handleCancel}
                 variant="contained"
                 color="error"
                 size="small"
+                sx={{ mr: 1 }}
               >
                 Hủy đặt sân
+              </Button>
+            )}
+            {bookings.isDelete && (
+              <Button variant="contained" color="error" size="small" disabled>
+                Đã hủy đặt sân
               </Button>
             )}
           </Box>

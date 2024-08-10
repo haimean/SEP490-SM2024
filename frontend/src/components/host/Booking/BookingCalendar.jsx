@@ -1,16 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
-import { parse, startOfWeek, getDay, format, addHours } from 'date-fns';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
-import enUS from 'date-fns/locale/en-US';
-import { Box, CircularProgress, Backdrop, Button, TextField } from '@mui/material';
-import EventModal from './EventModal';
-import DeleteConfirmationModal from './DeleteConfirmationModal';
-import CallApi from '../../../service/CallAPI';
-import { toast } from 'react-toastify';
+import React, { useState, useEffect } from "react";
+import { Calendar, dateFnsLocalizer } from "react-big-calendar";
+import { parse, startOfWeek, getDay, format, addHours } from "date-fns";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import enUS from "date-fns/locale/en-US";
+import {
+  Box,
+  CircularProgress,
+  Backdrop,
+  Button,
+  TextField,
+} from "@mui/material";
+import EventModal from "./EventModal";
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
+import CallApi from "../../../service/CallAPI";
+import { toast } from "react-toastify";
+import DialogInfo from "../../common/DialogInfo";
 
 const locales = {
-  'en-US': enUS,
+  "en-US": enUS,
 };
 
 const localizer = dateFnsLocalizer({
@@ -22,19 +29,19 @@ const localizer = dateFnsLocalizer({
 });
 
 const messages = {
-  allDay: 'Cả ngày',
-  previous: 'Trước',
-  next: 'Sau',
-  today: 'Hôm nay',
-  month: 'Tháng',
-  week: 'Tuần',
-  day: 'Ngày',
-  agenda: 'Chương trình',
-  date: 'Ngày',
-  time: 'Thời gian',
-  event: 'Sự kiện',
-  noEventsInRange: 'Không có sự kiện nào trong khoảng thời gian này.',
-  showMore: total => `+ Xem thêm (${total})`,
+  allDay: "Cả ngày",
+  previous: "Trước",
+  next: "Sau",
+  today: "Hôm nay",
+  month: "Tháng",
+  week: "Tuần",
+  day: "Ngày",
+  agenda: "Chương trình",
+  date: "Ngày",
+  time: "Thời gian",
+  event: "Sự kiện",
+  noEventsInRange: "Không có sự kiện nào trong khoảng thời gian này.",
+  showMore: (total) => `+ Xem thêm (${total})`,
 };
 
 const CalendarModalComponent = ({ courtId }) => {
@@ -45,16 +52,33 @@ const CalendarModalComponent = ({ courtId }) => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isNewEvent, setIsNewEvent] = useState(false);
-  const [eventData, setEventData] = useState({ title: '', start: '', end: '', price: 0, name: '', numberPhone: '' });
+  const [eventData, setEventData] = useState({
+    title: "",
+    start: "",
+    end: "",
+    price: 0,
+    name: "",
+    numberPhone: "",
+  });
   const [loading, setLoading] = useState(false);
+  const [isOpenDialogInfo, setIsOpenDialogInfo] = useState(false);
+  const [titleDialog, setTitleDialog] = useState("");
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   useEffect(() => {
     fetchData(courtId);
   }, [courtId]);
 
+  const handleCloseDialogInfo = () => {
+    setIsOpenDialogInfo(false);
+  };
+  const handleOpenDialogInfo = (title) => {
+    setTitleDialog(title);
+    setIsOpenDialogInfo(true);
+  };
+
   const parseTime = (timeStr, date = new Date()) => {
-    const [hours, minutes] = timeStr.split(':').map(Number);
+    const [hours, minutes] = timeStr.split(":").map(Number);
     const result = new Date(date);
     result.setHours(hours);
     result.setMinutes(minutes);
@@ -69,32 +93,41 @@ const CalendarModalComponent = ({ courtId }) => {
       const response = await CallApi(`/api/court/${courtId}`, "get", {}, {});
       setOpenHour(parseTime(response?.data?.Branches?.openingHours));
       setCloseHour(parseTime(response?.data?.Branches?.closingHours));
-      const accountId = localStorage.getItem('accountId');
+      const accountId = localStorage.getItem("accountId");
       const eventsData = response?.data?.booking
-        .filter(b => {
-          const startTime = new Date(b.startTime.replace('Z', ''));
-          const endTime = new Date(b.endTime.replace('Z', ''));
-          const openingHour = parseTime(response?.data?.Branches?.openingHours, startTime);
-          const closingHour = parseTime(response?.data?.Branches?.closingHours, endTime);
+        .filter((b) => {
+          const startTime = new Date(b.startTime.replace("Z", ""));
+          const endTime = new Date(b.endTime.replace("Z", ""));
+          const openingHour = parseTime(
+            response?.data?.Branches?.openingHours,
+            startTime
+          );
+          const closingHour = parseTime(
+            response?.data?.Branches?.closingHours,
+            endTime
+          );
           return startTime >= openingHour && endTime <= closingHour;
         })
-        .map(event => ({
+        .map((event) => ({
           id: event.id,
-          title: `${event.bookingInfo.name} - ${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(event.price)}`,
-          start: new Date(event.startTime.replace('Z', '')),
-          end: new Date(event.endTime.replace('Z', '')),
+          title: `${event.bookingInfo.name} - ${new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND",
+          }).format(event.price)}`,
+          start: new Date(event.startTime.replace("Z", "")),
+          end: new Date(event.endTime.replace("Z", "")),
           bookingInfo: event.bookingInfo,
           price: event.price,
-          isOwnBooking: event.accountId == accountId
+          isOwnBooking: event.accountId == accountId,
         }));
       setEvents(eventsData);
 
       const priceLists = {};
-      response.data.TypeCourt.priceTypeCourt.forEach(p => {
+      response.data.TypeCourt.priceTypeCourt.forEach((p) => {
         const priceObject = {
-          start: new Date(p.startTime.replace('Z', '')),
-          end: new Date(p.endTime.replace('Z', '')),
-          price: p.price
+          start: new Date(p.startTime.replace("Z", "")),
+          end: new Date(p.endTime.replace("Z", "")),
+          price: p.price,
         };
         if (!priceLists[p.times]) {
           priceLists[p.times] = [];
@@ -102,7 +135,6 @@ const CalendarModalComponent = ({ courtId }) => {
         priceLists[p.times].push(priceObject);
       });
       setPriceLists(priceLists);
-
     } catch (error) {
       toast.error(error.response?.data?.error);
     } finally {
@@ -113,7 +145,7 @@ const CalendarModalComponent = ({ courtId }) => {
   const handleSelectSlot = ({ start, end }) => {
     const now = new Date();
     if (start < now) {
-      alert("Không thể chọn thời gian trong quá khứ.");
+      handleOpenDialogInfo("Không thể chọn thời gian trong quá khứ.");
       return;
     }
     const isSlotOccupied = events.some(
@@ -124,11 +156,13 @@ const CalendarModalComponent = ({ courtId }) => {
     );
     if (!isSlotOccupied) {
       const price = calculatePrice(start, end, priceLists[1]);
-      setEventData({ title: '', start, end, price, name: '', numberPhone: '' });
+      setEventData({ title: "", start, end, price, name: "", numberPhone: "" });
       setIsNewEvent(true);
       setIsModalOpen(true);
     } else {
-      alert("Khoảng thời gian này đã được đặt. Vui lòng chọn khoảng thời gian khác.");
+      handleOpenDialogInfo(
+        "Khoảng thời gian này đã được đặt. Vui lòng chọn khoảng thời gian khác."
+      );
     }
   };
 
@@ -140,7 +174,7 @@ const CalendarModalComponent = ({ courtId }) => {
       end: event.end,
       price: event.price,
       name: event.bookingInfo.name,
-      numberPhone: event.bookingInfo.numberPhone
+      numberPhone: event.bookingInfo.numberPhone,
     });
     setIsNewEvent(false);
     setIsModalOpen(true);
@@ -149,18 +183,29 @@ const CalendarModalComponent = ({ courtId }) => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedEvent(null);
-    setEventData({ title: '', start: '', end: '', price: 0, name: '', numberPhone: '' });
+    setEventData({
+      title: "",
+      start: "",
+      end: "",
+      price: 0,
+      name: "",
+      numberPhone: "",
+    });
   };
 
   const handleSaveEvent = async () => {
     const start = new Date(eventData.start).getHours();
     const end = new Date(eventData.end).getHours();
     if (start < openHour.getHours() || end > closeHour.getHours()) {
-      alert("Thời gian sự kiện phải nằm trong giờ mở cửa và đóng cửa.");
+      handleOpenDialogInfo(
+        "Thời gian sự kiện phải nằm trong giờ mở cửa và đóng cửa."
+      );
       return;
     }
     if (start >= end) {
-      alert("Giờ bắt đầu không thể lớn hơn hoặc bằng giờ kết thúc.");
+      handleOpenDialogInfo(
+        "Giờ bắt đầu không thể lớn hơn hoặc bằng giờ kết thúc."
+      );
       return;
     }
     const isSlotOccupied = events.some((event) => {
@@ -168,11 +213,16 @@ const CalendarModalComponent = ({ courtId }) => {
         return false;
       }
       return (
-        (new Date(eventData.start) < new Date(event.end) && new Date(eventData.end) > new Date(event.start))
+        new Date(eventData.start) < new Date(event.end) &&
+        new Date(eventData.end) > new Date(event.start)
       );
     });
     if (isSlotOccupied) {
-      alert("Khoảng thời gian này đã được đặt. Vui lòng chọn khoảng thời gian khác.");
+      // set title = Khoảng thời gian này đã được đặt. Vui lòng chọn khoảng thời gian khác.
+      // set trạng thái
+      handleOpenDialogInfo(
+        "Khoảng thời gian này đã được đặt. Vui lòng chọn khoảng thời gian khác."
+      );
       return;
     }
     if (isNewEvent) {
@@ -187,7 +237,7 @@ const CalendarModalComponent = ({ courtId }) => {
             endTime: addHours(new Date(eventData.end), 14),
             price: eventData.price,
             name: eventData.name,
-            numberPhone: eventData.numberPhone
+            numberPhone: eventData.numberPhone,
           },
           {}
         );
@@ -216,7 +266,7 @@ const CalendarModalComponent = ({ courtId }) => {
         "put",
         {
           reasonCancell,
-          bookingId: selectedEvent.id
+          bookingId: selectedEvent.id,
         },
         {}
       );
@@ -241,15 +291,17 @@ const CalendarModalComponent = ({ courtId }) => {
 
   const eventStyleGetter = (event, start, end, isSelected) => {
     const style = {
-      backgroundColor: event.isOwnBooking ? 'rgb(34, 139, 34)' : 'rgb(70, 130, 180)',
-      pointerEvents: 'auto',
-      display: 'flex',
-      flexDirection: 'column',
-      width: '100%',
-      wordWrap: 'break-word',
+      backgroundColor: event.isOwnBooking
+        ? "rgb(34, 139, 34)"
+        : "rgb(70, 130, 180)",
+      pointerEvents: "auto",
+      display: "flex",
+      flexDirection: "column",
+      width: "100%",
+      wordWrap: "break-word",
       lineHeight: 1,
-      height: '100%',
-      minHeight: '1em',
+      height: "100%",
+      minHeight: "1em",
     };
     return {
       style: style,
@@ -257,7 +309,12 @@ const CalendarModalComponent = ({ courtId }) => {
   };
 
   const eventTooltipAccessor = (event) => {
-    return `${event.bookingInfo.name} - ${event.bookingInfo.numberPhone} - ${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(event.price)}`;
+    return `${event.bookingInfo.name} - ${
+      event.bookingInfo.numberPhone
+    } - ${new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(event.price)}`;
   };
 
   const slotPropGetter = (date) => {
@@ -265,9 +322,9 @@ const CalendarModalComponent = ({ courtId }) => {
     if (hours === 0) {
       return {
         style: {
-          backgroundColor: 'lightgray',
-          pointerEvents: 'none',
-          cursor: 'not-allowed',
+          backgroundColor: "lightgray",
+          pointerEvents: "none",
+          cursor: "not-allowed",
         },
       };
     }
@@ -276,7 +333,7 @@ const CalendarModalComponent = ({ courtId }) => {
 
   const calculatePrice = (start, end, priceListToUse) => {
     let totalPrice = 0;
-    priceListToUse.forEach(priceRange => {
+    priceListToUse.forEach((priceRange) => {
       const rangeStartHour = priceRange.start.getHours();
       const rangeEndHour = priceRange.end.getHours();
       let eventStart = new Date(start);
@@ -289,7 +346,8 @@ const CalendarModalComponent = ({ courtId }) => {
         }
         const eventHour = eventStart.getHours();
         if (eventHour >= rangeStartHour && eventHour < rangeEndHour) {
-          const duration = Math.round((nextSlot - eventStart) / (1000 * 60 * 30)) / 2;
+          const duration =
+            Math.round((nextSlot - eventStart) / (1000 * 60 * 30)) / 2;
           totalPrice += priceRange.price * duration;
         }
         eventStart = nextSlot;
@@ -300,7 +358,10 @@ const CalendarModalComponent = ({ courtId }) => {
 
   return (
     <Box>
-      <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading}>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
         <CircularProgress color="inherit" />
       </Backdrop>
       {openHour && closeHour && (
@@ -314,7 +375,7 @@ const CalendarModalComponent = ({ courtId }) => {
           selectable
           onSelectSlot={handleSelectSlot}
           onSelectEvent={handleSelectEvent}
-          style={{ height: '70vh' }}
+          style={{ height: "70vh" }}
           min={new Date(openHour)}
           max={new Date(closeHour)}
           eventPropGetter={eventStyleGetter}
@@ -336,6 +397,13 @@ const CalendarModalComponent = ({ courtId }) => {
         onClose={() => setIsDeleteModalOpen(false)}
         onDelete={handleConfirmDelete}
       />
+      {isOpenDialogInfo && (
+        <DialogInfo
+          handleClose={handleCloseDialogInfo}
+          open={isOpenDialogInfo}
+          title={titleDialog}
+        />
+      )}
     </Box>
   );
 };

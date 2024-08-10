@@ -7,6 +7,7 @@ import bcrypt from 'bcrypt';
 import userService from './user.service';
 import { ProfileUpdatePayload } from './user.model';
 import { ResponseHandler } from '../../outcomes/responseHandler';
+import { uploadFile } from '../../lib/upLoadImageService';
 
 const secret: string = process.env.SECRET_JWT_KEY ?? '';
 
@@ -31,7 +32,7 @@ const userController = {
       );
 
       if (!isPasswordValid) {
-        return next(new CustomError('Password not correct', 500));
+        return next(new CustomError('Sai mật khẩu', 400));
       } else {
         // hash password
         const hashPassword = await bcrypt.hash(
@@ -40,11 +41,12 @@ const userController = {
         );
 
         account.password = hashPassword;
+        console.log(account);
 
         // save new password
-        await accountServiceBase.update(account.id, account);
+        await accountServiceBase.updatePass(account.id, hashPassword);
 
-        ResponseHandler(res, 'Update Password successful.');
+        ResponseHandler(res, 'Cập nhật mât khẩu thành công.');
       }
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
@@ -90,6 +92,12 @@ const userController = {
   ) => {
     try {
       const data: ProfileUpdatePayload = req.body;
+
+      const file = req.file;
+      //check file
+      if (file) {
+        data.image = await uploadFile(file);
+      }
       // get information account
       const accountId = Number(req.headers.authorization);
       const account: User = await userService.updateProfile(

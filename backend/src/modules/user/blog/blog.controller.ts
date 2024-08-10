@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import {
   deleteFile,
-  getObjectSignedUrl,
   uploadFile,
-} from '../../../lib/s3';
+} from '../../../lib/upLoadImageService';
 import { ResponseHandler } from '../../../outcomes/responseHandler';
 import CustomError from '../../../outcomes/customError';
 import { Blog } from '@prisma/client';
@@ -42,12 +41,6 @@ const blogUserController = {
       const { pagination } = req.body;
       const data: { total: number; blogs: Blog[] } =
         await blogUserService.getAll(pagination);
-
-      for (const element of data.blogs) {
-        if (element?.image) {
-          element.image = await getObjectSignedUrl(element?.image);
-        }
-      }
       ResponseHandler(res, data);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
@@ -68,9 +61,6 @@ const blogUserController = {
     try {
       const { id } = req.params;
       const blog: Blog | null = await blogUserService.get(Number(id));
-      if (blog?.image) {
-        blog.image = await getObjectSignedUrl(blog?.image);
-      }
       if (blog) {
         ResponseHandler(res, blog);
       } else {

@@ -20,12 +20,14 @@ const ListReportBlog = () => {
       headerName: "Lý do báo cáo",
       width: 150,
       sortable: false,
+      renderHeader: () => <div className="font-bold">Lý do báo cáo</div>,
     },
     {
       field: "account",
       headerName: "Email người tố cáo",
       width: 180,
       sortable: false,
+      renderHeader: () => <div className="font-bold">Email người tố cáo</div>,
       renderCell: (params) => params?.row?.account?.email,
     },
     {
@@ -33,6 +35,7 @@ const ListReportBlog = () => {
       headerName: "Bài đăng",
       width: 250,
       sortable: false,
+      renderHeader: () => <div className="font-bold">Bài đăng</div>,
       renderCell: (params) => (
         <div
           style={{ cursor: "pointer" }}
@@ -48,6 +51,7 @@ const ListReportBlog = () => {
       headerName: "Email chủ bài đăng",
       width: 200,
       sortable: false,
+      renderHeader: () => <div className="font-bold">Email chủ bài đăng</div>,
       renderCell: (params) => params?.row?.blog?.account?.email,
     },
     {
@@ -57,6 +61,7 @@ const ListReportBlog = () => {
       sortable: false,
       headerAlign: "center",
       align: "center",
+      renderHeader: () => <div className="font-bold">Hành động</div>,
       renderCell: (params) => {
         const handleApprove = async () => {
           const isConfirmed = window.confirm(
@@ -88,7 +93,10 @@ const ListReportBlog = () => {
 
           if (isConfirmed) {
             try {
-              await CallApi(`/api/admin/blog/report/${params.row.id}`, "delete");
+              await CallApi(
+                `/api/admin/blog/report/${params.row.id}`,
+                "delete"
+              );
               toast.success("Hủy tố cáo thành công");
               fetchReports();
             } catch (error) {
@@ -179,7 +187,16 @@ const ListReportBlog = () => {
     fetchReports();
   }, [page, pageSize]);
   console.log(reports);
-
+  const localeText = {
+    // Add other localized text as needed
+    noRowsLabel: "Không có dữ liệu",
+    footerTotalRows: "Tổng số hàng:",
+    MuiTablePagination: {
+      labelRowsPerPage: "Số hàng mỗi trang:",
+      labelDisplayedRows: ({ from, to, count }) =>
+        `${from} - ${to} trên ${count !== -1 ? count : `hơn ${to}`}`,
+    },
+  };
   return (
     <div className="flex justify-center py-2">
       <div className="max-w-6xl w-full p-10 border rounded-lg shadow bg-white">
@@ -212,6 +229,12 @@ const ListReportBlog = () => {
               setPageSize(newModel.pageSize);
             }}
             pageSizeOptions={[5, 10, 25]}
+            localeText={localeText}
+            sx={{
+              "& .MuiDataGrid-cell:focus, & .MuiDataGrid-cell:focus-within": {
+                outline: "none",
+              },
+            }}
           />
         </div>
       </div>

@@ -5,10 +5,12 @@ import { jwtDecode } from "jwt-decode";
 import InputLabel from "../common/InputLabel.jsx";
 import { toast } from "react-toastify";
 import CallApi from "../../service/CallAPI.jsx";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import VerifyAccountModal from "../auth/VerifyAccountModal.jsx";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../middleware/redux/userSlice.jsx";
+import { Button, TextField } from "@mui/material";
+import PasswordInput from "../common/PasswordInput.jsx";
 
 const SignInForm = ({ isModal, onSuccess }) => {
   const {
@@ -32,23 +34,29 @@ const SignInForm = ({ isModal, onSuccess }) => {
     console.log(response);
     if (!isModal) {
       // Kiểm tra nếu không phải modal thì mới chuyển hướng
+      console.log(role);
       switch (role) {
         case "HOST":
-          navigate("/host");
-          return;
+          navigate("/host/dashboard");
+          break;
         case "ADMIN":
           navigate("/admin/dashboard");
-          return;
+          break;
         case "USER":
           navigate("/");
-          return;
+          break;
       }
-    }
-    if (isModal && onSuccess) {
-      if (role === "ADMIN") {
-        navigate("/admin/dashboard");
+    } else {
+      switch (role) {
+        case "HOST":
+          navigate("/host/dashboard");
+          break;
+        case "ADMIN":
+          navigate("/admin/dashboard");
+          break;
+        default:
+          onSuccess();
       }
-      onSuccess();
     }
   };
 
@@ -117,43 +125,53 @@ const SignInForm = ({ isModal, onSuccess }) => {
 
   return (
     <div>
-      <div className="border-t-8 rounded-md border-indigo-600 bg-white p-12 shadow-2xl w-96">
+      <div className="rounded-md bg-white p-12 pt-6 shadow-2xl w-96">
         <h1 className="font-bold text-center block text-2xl">Đăng nhập</h1>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <InputLabel
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-2 h-52">
+          <TextField
             label="Email"
             id="email"
-            register={register}
-            pattern={{
-              value:
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-              message: "Vui lòng nhập email hợp lệ.",
-            }}
-            errors={errors}
-            required="Không được bỏ trống trường này."
+            fullWidth
+            margin="normal"
+            {...register("email", {
+              required: "Không được bỏ trống trường này.",
+              pattern: {
+                value:
+                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                message: "Vui lòng nhập email hợp lệ.",
+              },
+            })}
+            error={!!errors.email}
+            helperText={errors.email?.message}
           />
-          <InputLabel
+          <PasswordInput
             label="Mật khẩu"
             id="password"
             register={register}
             errors={errors}
+            pattern={{
+              value:
+                /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/,
+              message:
+                "Mật khẩu ít nhất phải chứa một chữ hoa, một chữ thường, một số và một ký tự đặc biệt",
+            }}
             required="Không được bỏ trống trường này."
             type="password"
           />
-          <button
-            type="submit"
-            className="mt-6 transition block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg"
-          >
-            Đăng nhập
-          </button>
+          <div className="mt-2">
+            <Button
+              variant="contained"
+              type="submit"
+              className="mt-6 transition block py-3 px-4 w-full"
+            >
+              Đăng nhập
+            </Button>
+          </div>
         </form>
-        <div className="mt-4 text-center">
-          <a
-            href="/forgot-password"
-            className="text-indigo-600 hover:text-indigo-800"
-          >
+        <div className="mt-1 text-center flex justify-end">
+          <Link to="/forgot-password" className="text-[#1976d2]">
             Quên mật khẩu?
-          </a>
+          </Link>
         </div>
         <div className="mt-4 text-center flex justify-center w-full">
           <GoogleLogin
@@ -163,20 +181,14 @@ const SignInForm = ({ isModal, onSuccess }) => {
           />
         </div>
         <div className="mt-4 text-center">
-          <a
-            href="/sign-up-player"
-            className="text-indigo-600 hover:text-indigo-800"
-          >
+          <Link to="/sign-up-player" className="text-[#1976d2]">
             Chưa có tài khoản? Đăng kí
-          </a>
+          </Link>
         </div>
         <div className="mt-4 text-center">
-          <a
-            href="/sign-up-host"
-            className="text-indigo-600 hover:text-indigo-800"
-          >
+          <Link to="/sign-up-host" className="text-[#1976d2]">
             Đăng ký tài khoản cho chủ sân
-          </a>
+          </Link>
         </div>
       </div>
       <VerifyAccountModal show={showVerifyModal} onClose={handleCloseModal}>

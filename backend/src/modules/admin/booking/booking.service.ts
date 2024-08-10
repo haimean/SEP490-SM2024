@@ -21,6 +21,39 @@ const bookingAdminService = {
     });
     return result;
   },
+  getListBookingInMonth: async () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    if (month == 0) {
+      const startDate = new Date(year, month - 1, 2);
+      console.log('🚀 ========= startDate1:', startDate);
+      const endDate = new Date(year, month, 2);
+      console.log('🚀 ========= endDate1:', endDate);
+    } else {
+      const startDate = new Date(year - 1, 12, 2);
+      console.log('🚀 ========= startDate2:', startDate);
+      const endDate = new Date(year, month, 2);
+      console.log('🚀 ========= endDate2:', endDate);
+    }
+    const result = await database.post.findMany({
+      where: {
+        createdAt: {
+          gte: new Date(year, month - 1, 1),
+          lt: new Date(year, month, 1),
+        },
+      },
+    });
+    const resultPreviousMonth = await database.post.findMany({
+      where: {
+        createdAt: {
+          gte: new Date(year, month - 2, 1),
+          lt: new Date(year, month - 1, 1),
+        },
+      },
+    });
+    return { result, resultPreviousMonth };
+  },
 };
 
 export default bookingAdminService;

@@ -10,10 +10,11 @@ export const createNotifications = async (
 ): Promise<void> => {
   for (let notification of notifications) {
     const { accountId, message, url }: Notification = notification;
-    set(ref(databaseFirebase, 'users/' + randomUUID()), {
+    const time = new Date().getTime();
+    set(ref(databaseFirebase, 'users/' + time), {
       accountId,
       message,
-      createdAt: new Date(),
+      createdAt: time,
       status: 'SEED',
       url,
     });

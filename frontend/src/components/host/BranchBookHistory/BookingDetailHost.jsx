@@ -137,7 +137,9 @@ const BookingDetailHost = () => {
           )}
         </Grid>
 
-        <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end", gap: 1 }}>
+        <Box
+          sx={{ mt: 3, display: "flex", justifyContent: "flex-end", gap: 1 }}
+        >
           <Button
             component={Link}
             to={`/host/booking-history/${branchId}`}

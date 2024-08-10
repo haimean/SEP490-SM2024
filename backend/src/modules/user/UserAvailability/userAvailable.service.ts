@@ -1,4 +1,10 @@
-import { AddressBranch, Booking, Post, Prisma } from '@prisma/client';
+import {
+  AddressBranch,
+  Booking,
+  Level,
+  Post,
+  Prisma,
+} from '@prisma/client';
 import database from '../../../lib/db.server';
 
 const userAvailableService = {
@@ -31,25 +37,22 @@ const userAvailableService = {
       where: filters,
     });
   },
-  getUserFree: async (postId: number) => {
-    // GET  booking -> start time end time
-    const booking: any = database.booking.findFirst({
+
+  // get detail post with id
+  getPost: async (id: number) => {
+    return await database.post.findUnique({
       where: {
-        post: {
-          id: postId,
-        },
+        id,
       },
-    });
-    // get branche
-    const address: any = database.addressBranch.findFirst({
-      where: {
-        branches: {
-          court: {
-            every: {
-              booking: {
-                every: {
-                  post: {
-                    id: postId,
+      include: {
+        memberPost: true,
+        booking: {
+          include: {
+            Court: {
+              include: {
+                Branches: {
+                  include: {
+                    address: true,
                   },
                 },
               },
@@ -58,17 +61,30 @@ const userAvailableService = {
         },
       },
     });
-    // TODO: check giờ trùng
-    const user = database.userAvailability.findMany({
+  },
+
+  // get userAvailable with same level, districts, provinces and same day
+  getUserAvailableSamePost: async (data: {
+    level: Level;
+    provinces: string;
+    districts: string;
+    date: Date;
+  }) => {
+    const { level, provinces, districts, date } = data;
+    const year = date.getFullYear();
+    const month = date.getMonth(); // Note: Months in JavaScript start at 0
+    const day = date.getDate();
+    // Create beginning of day and end of day
+    const startOfDay = new Date(year, month, day, 0, 0, 0);
+    const endOfDay = new Date(year, month, day, 23, 59, 59);
+    return await database.userAvailability.findMany({
       where: {
-        startTime: { gte: booking.startTime },
-        endTime: { lte: booking.startTime },
-        districts: address.districts,
-        provinces: address.provinces,
-        Invitation: {
-          none: {
-            postId,
-          },
+        districts,
+        level,
+        provinces,
+        startTime: {
+          gte: startOfDay,
+          lte: endOfDay,
         },
       },
       include: {
@@ -79,9 +95,78 @@ const userAvailableService = {
         },
       },
     });
-    return user;
   },
-
+  getInvitation: async (accountId: number, postId: number) => {
+    return await database.invitation.findMany({
+      where: {
+        postId,
+        status: {
+          not: 'CANCEL',
+        },
+        userAvailability: {
+          accountId,
+        },
+      },
+    });
+  },
+  getBookingFindByTime: async (
+    accountId: number,
+    startTime: Date,
+    endTime: Date
+  ) => {
+    return await database.booking.findMany({
+      where: {
+        accountId,
+        isDelete: false,
+        OR: [
+          {
+            startTime: {
+              gte: startTime,
+              lte: endTime,
+            },
+          },
+          {
+            endTime: {
+              gte: startTime,
+              lte: endTime,
+            },
+          },
+        ],
+      },
+    });
+  },
+  getInvitationFindByTime: async (
+    accountId: number,
+    startTime: Date,
+    endTime: Date
+  ) => {
+    return await database.invitation.findMany({
+      where: {
+        userAvailability: {
+          accountId,
+        },
+        status: 'ACCEPT',
+        Post: {
+          booking: {
+            OR: [
+              {
+                startTime: {
+                  gte: startTime,
+                  lte: endTime,
+                },
+              },
+              {
+                endTime: {
+                  gte: startTime,
+                  lte: endTime,
+                },
+              },
+            ],
+          },
+        },
+      },
+    });
+  },
   getUserMatch: async (postId: number) => {
     const invitation: any = await database.invitation.findMany({
       where: {
@@ -120,12 +205,6 @@ const userAvailableService = {
       include: {
         userAvailability: {
           include: {
-            Invitation: {
-              where: {
-                status: 'ACCEPT',
-                postId,
-              },
-            },
             account: {
               include: {
                 user: true,
@@ -138,7 +217,7 @@ const userAvailableService = {
         updatedAt: 'desc',
       },
     });
-    return invitation.map((item: any) => item.userAvailability);
+    return invitation;
   },
   getRequestListJoin: async (accountId: number) => {
     const requestList: any = await database.invitation.findMany({
@@ -158,6 +237,15 @@ const userAvailableService = {
                 account: {
                   include: {
                     user: true,
+                  },
+                },
+                Court: {
+                  include: {
+                    Branches: {
+                      include: {
+                        address: true,
+                      },
+                    },
                   },
                 },
               },

@@ -17,7 +17,6 @@ import Checkout from "../pages/player/Court/Checkout.jsx";
 import RegisterCourt from "../pages/host/Court/RegisterCourt.jsx";
 import UpdateCourt from "../pages/host/Court/UpdateCourt.jsx";
 import ComparePage from "../components/host/court/ComparePage.jsx";
-import Notification from "../pages/notification.jsx";
 import BookingHistory from "../pages/player/BookHistory/BookingHistory.jsx";
 import BookingDetail from "../components/player/BookHistory/BookingDetail.jsx";
 import ListBranch from "../pages/guest/Branch/ListBranch.jsx";
@@ -40,7 +39,6 @@ import RegisterTypeCourt from "../pages/host/TypeCourt/CreateTypeCourt.jsx";
 import BookingHistoryHost from "../pages/host/BranchBookHistory/BookingHistoryHost.jsx";
 import BookingDetailHost from "../components/host/BranchBookHistory/BookingDetailHost.jsx";
 import ListBranchAdmin from "../pages/admin/Branch/ListBranchAdmin.jsx";
-import RequestList from "../pages/user/requestList/requestList.jsx";
 import ListBlog from "../pages/player/Blog/ListBlog.jsx";
 import DashboardHost from "../pages/host/Dashboard/DashboardHost.jsx";
 import PriceSetupPage from "../components/host/court/PriceSetupPage.jsx";
@@ -53,182 +51,189 @@ const router = [
     path: "/",
     name: "Landing Page",
     component: <LandingPage />,
-    role: [], // Không yêu cầu đăng nhập
+    role: [],
     layout: "",
   },
   {
     path: "/profile",
     name: "Profile",
     component: <Profile />,
-    role: ["USER", "HOST", "ADMIN"], // Cho phép cả USER, HOST và ADMIN truy cập
+    role: ["USER", "HOST", "ADMIN"],
     layout: "",
+  },
+  {
+    path: "/host/profile",
+    name: "Profile",
+    component: <Profile />,
+    role: ["USER", "HOST", "ADMIN"],
+    layout: "host",
   },
   {
     path: "/login",
     name: "Login",
     component: <Login />,
-    role: [], // Không yêu cầu đăng nhập
+    role: [],
     layout: "auth",
   },
   {
     path: "/sign-up-player",
     name: "Sign Up Player",
     component: <SignUpFormPlayer />,
-    role: [], // Không yêu cầu đăng nhập
+    role: [],
     layout: "auth",
   },
   {
     path: "/sign-up-host",
     name: "Sign Up Host",
     component: <SignUpFormHost />,
-    role: [], // Không yêu cầu đăng nhập
+    role: [],
     layout: "auth",
   },
   {
     path: "/forgot-password",
     name: "Forgot Password",
     component: <ForgotPassword />,
-    role: [], // Không yêu cầu đăng nhập
+    role: [],
     layout: "auth",
   },
   {
     path: "/admin/branch-attribute",
     name: "Branch Attribute",
     component: <ListAttributeBranch />,
-    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
+    role: ["ADMIN"],
     layout: "admin",
   },
   {
     path: "/admin/detail-branch-attribute/:id",
     name: "Detail Branch Attribute",
     component: <DetailAttributeBranch />,
-    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
+    role: ["ADMIN"],
     layout: "admin",
   },
   {
     path: "/admin/court-attribute",
     name: "Court Attribute",
     component: <ListAttributeCourt />,
-    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
+    role: ["ADMIN"],
     layout: "admin",
   },
   {
     path: "/admin/detail-court-attribute/:id",
     name: "Detail Court Attribute",
     component: <DetailAttributeCourt />,
-    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
+    role: ["ADMIN"],
     layout: "admin",
   },
   {
     path: "/change-password",
     name: "Change Password",
     component: <ChangePasswordPage />,
-    role: ["USER", "HOST", "ADMIN"], // Cho phép cả USER, HOST và ADMIN truy cập
+    role: ["USER", "HOST", "ADMIN"],
     layout: "auth",
   },
   {
     path: "/admin/list-account",
     name: "List Account",
     component: <ListAccount />,
-    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
+    role: ["ADMIN"],
     layout: "admin",
   },
   {
     path: "/admin/accept-branch",
     name: "Accept Branch",
     component: <AcceptBranch />,
-    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
+    role: ["ADMIN"],
     layout: "admin",
   },
   {
     path: "/admin/dashboard",
     name: "Dashboard",
     component: <Dashboard />,
-    role: ["ADMIN"], // Chỉ cho phép ADMIN truy cập
+    role: ["ADMIN"],
     layout: "admin",
   },
   {
     path: "/host/list-branch",
     name: "List Branch",
     component: <ListBranch />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    role: ["HOST"],
     layout: "host",
   },
   {
     path: "/host/branch/:id",
     name: "Branch Detail",
     component: <BranchDetail />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    role: ["HOST"],
     layout: "host",
   },
   {
     path: "/host/update-branch/:id",
     name: "Update Branch",
     component: <UpdateBranch />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    role: ["HOST"],
     layout: "host",
   },
   {
     path: "/player/list-branch",
     name: "List Branch",
     component: <ListBranch />,
-    // role: ["USER"], // Chỉ cho phép USER truy cập
+    role: ["USER"],
     layout: "",
   },
   {
     path: "/player/branch/:id",
     name: "Branch Detail",
     component: <BranchDetail />,
-    // role: ["USER"], // Chỉ cho phép USER truy cập
+    role: ["USER"],
     layout: "",
   },
   {
     path: "/host/create-branch",
     name: "Create Branch",
     component: <CreateBranch />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    role: ["HOST"],
     layout: "host",
   },
   {
     path: "/court/:id",
     name: "Court List",
     component: <ListCourt />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    role: ["HOST"],
     layout: "host",
   },
   {
     path: "/branch/:idBranch/court/:idCourt",
     name: "Court Detail",
     component: <CourtDetail />,
-    // role: ["USER"], // Chỉ cho phép HOST truy cập
+    role: ["USER"],
     layout: "",
   },
   {
     path: "/player/checkout",
     name: "Checkout",
     component: <Checkout />,
-    // role: ["USER"], // Chỉ cho phép HOST truy cập
+    role: ["USER"],
     layout: "",
   },
   {
     path: "/host/register-court",
     name: "Register Court",
     component: <RegisterCourt />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    role: ["HOST"],
     layout: "host",
   },
   {
     path: "/host/update-court/:id",
     name: "Update Court",
     component: <UpdateCourt />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    role: ["HOST"],
     layout: "host",
   },
   {
     path: "/compare/:court1/:court2",
     name: "Compare Court",
     component: <ComparePage />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    role: ["HOST"],
     layout: "",
   },
   {
@@ -263,105 +268,92 @@ const router = [
     path: "/404",
     name: "Not Found",
     component: <NotFound />,
-    role: [], // Không yêu cầu đăng nhập
-    layout: "",
-  },
-  {
-    path: "/notification",
-    name: "Notification",
-    component: <Notification />,
+    role: [],
     layout: "",
   },
   {
     path: "/waiting-list",
     name: "Waiting List",
     component: <WaitingList />,
-    // role: ["USER"],
+    role: ["USER"],
     layout: "",
   },
   {
     path: "/booking-table",
     name: "Booking Table",
     component: <BookingTablePage />,
-    // role: ["USER"],
+    role: ["USER"],
     layout: "",
   },
   {
     path: "/available-post",
     name: "Available Post",
     component: <AvailableCourtPage />,
-    // role: ["USER"],
+    role: ["USER"],
     layout: "",
   },
   {
     path: "/post/:id",
     name: "Post Detail",
     component: <PostDetail />,
-    // role: ["USER"],
+    role: ["USER"],
     layout: "",
   },
   {
     path: "/booked-courts",
     name: "Booked Courts",
     component: <BookedCourts />,
-    // role: ["USER"],
+    role: ["USER"],
     layout: "",
   },
   {
     path: "/search-courts",
     name: "Search Courts",
     component: <BranchListPage />,
-    // role: ["USER"],
+    role: ["USER"],
     layout: "",
   },
   {
     path: "/user/branch/:id",
     name: "Branch Detail User",
     component: <BranDetailUser />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    role: ["HOST", "USER", "ADMIN"],
     layout: "",
   },
   {
     path: "/booking-page",
     name: "Booking Page",
     component: <BookingPage />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    role: ["HOST"],
     layout: "",
   },
   {
     path: "/host/create-type-court",
     name: "Create Type Court",
     component: <RegisterTypeCourt />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    role: ["HOST"],
     layout: "host",
   },
   {
     path: "/booking-test",
     name: "Booking Page",
     component: <TestBookingPage />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    role: ["HOST"],
     layout: "",
   },
   {
     path: "/booking-calendar",
     name: "Booking Page",
     component: <BookingCalendar />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    role: ["HOST"],
     layout: "",
   },
   {
     path: "/admin/list-branch",
     name: "List Branch Admin",
     component: <ListBranchAdmin />,
-    role: ["ADMIN"], // Chỉ cho phép HOST truy cập
+    role: ["ADMIN"],
     layout: "admin",
-  },
-  {
-    path: "/player/request-list",
-    name: "Request List",
-    component: <RequestList />,
-    role: ["USER"],
-    layout: "",
   },
   {
     path: "/list-blog",
@@ -371,10 +363,17 @@ const router = [
     layout: "",
   },
   {
+    path: "/host/list-blog",
+    name: "List Blog",
+    component: <ListBlog />,
+    role: ["USER", "HOST"],
+    layout: "host",
+  },
+  {
     path: "/host/dashboard",
     name: "Dashboarad",
     component: <DashboardHost />,
-    // role: ["HOST"], // Chỉ cho phép HOST truy cập
+    role: ["HOST"],
     layout: "host",
   },
   {
@@ -382,7 +381,7 @@ const router = [
     name: "Price set up page",
     component: <PriceSetupPage />,
     role: ["HOST"],
-    layout: "",
+    layout: "host",
   },
   {
     path: "/admin/report-blog",
@@ -402,8 +401,8 @@ const router = [
     path: "/type-court-table",
     name: "Type Court Table",
     component: <TypeCourtTable />,
-    // role: ["USER"],
-    layout: "",
+    role: ["HOST"],
+    layout: "host",
   },
 ];
 

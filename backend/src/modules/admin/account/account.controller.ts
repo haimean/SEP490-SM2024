@@ -133,10 +133,6 @@ const accountController = {
             item.getMonth() === 0 ? 12 : item.getMonth()
           }/${item.getFullYear()}`,
         });
-        //  TODO:   - truyền ngày vào
-        //  TODO:   - lấy mùng 1 tháng này và 1 tháng sau
-        //  TODO:   - lấy được số lượng host và player {host: 123, player:123,month: }
-        // TODO: push return vào result
       }
       ResponseHandler(res, result);
     } catch (error: any) {
@@ -162,6 +158,44 @@ const accountController = {
         const resultPlayer =
           await accountService.getListAccountWithDate(
             new Date(year, month, index),
+            'USER'
+          );
+        result.push({
+          host: resultHost.length,
+          player: resultPlayer.length,
+          label: `${index + 1}/${month}`,
+        });
+      }
+      ResponseHandler(res, result);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
+  getListAccountInMonth: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { dateFilter } = req.body;
+      const [year, month] = dateFilter.split('-').map(Number);
+
+      // Xác định số ngày trong tháng
+      const daysInMonth = new Date(year, month, 0).getDate();
+
+      const result = [];
+      for (let index = 0; index < daysInMonth; index++) {
+        const resultHost = await accountService.getListAccountInMonth(
+          year,
+          month,
+          index,
+          'HOST'
+        );
+        const resultPlayer =
+          await accountService.getListAccountInMonth(
+            year,
+            month,
+            index,
             'USER'
           );
         result.push({
