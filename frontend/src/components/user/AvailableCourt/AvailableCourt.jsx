@@ -122,7 +122,7 @@ const AvailableCourt = () => {
       <Grid container spacing={2}>
         {paginate(filteredActivities, pageSize, currentPage).map(
           (activity, index) => (
-            <Grid item xs={12} md={6} key={activity?.id}>
+            <Grid item xs={12} md={4} key={activity?.id}>
               <PostCard
                 activity={activity}
                 updateStatusInvitation={() => {
