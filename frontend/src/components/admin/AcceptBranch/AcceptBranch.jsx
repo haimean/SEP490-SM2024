@@ -15,7 +15,11 @@ const AcceptBranch = () => {
   const fetchBranches = async () => {
     try {
       const response = await CallApi("/api/admin/branches", "get");
-      setBranches(response?.data);
+      const data = response?.data.map((item, index) => ({
+        ...item,
+        index: index + 1,
+      }));
+      setBranches(data);
     } catch (error) {
       console.log(
         "=============== fetch list branch attribute ERROR: " +
@@ -48,8 +52,8 @@ const AcceptBranch = () => {
 
   const columns = [
     {
-      field: "id",
-      headerName: "ID",
+      field: "index",
+      headerName: "Stt",
       width: 70,
       headerAlign: "center",
       align: "center",
@@ -92,10 +96,6 @@ const AcceptBranch = () => {
     },
   ];
 
-  const filteredRows = branches.filter((row) =>
-    row.name.toLowerCase().includes(filterName.toLowerCase())
-  );
-
   return (
     <div className="flex justify-center py-2">
       <div className="max-w-6xl w-full p-10 border rounded-lg shadow bg-white">
@@ -114,7 +114,7 @@ const AcceptBranch = () => {
         </div>
         <div style={{ height: "auto", width: "100%" }}>
           <DataGrid
-            rows={filteredRows}
+            rows={branches}
             columns={columns}
             disableRowSelectionOnClick
             disableColumnMenu
