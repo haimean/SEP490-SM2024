@@ -27,6 +27,8 @@ const BookingHistory = () => {
         requestData
       );
       setBookings(result?.data?.response);
+      console.log(result?.data?.response);
+      
       setTotalPages(Math.max(1, Math.ceil(result?.data?.total / perPage) || 1));
     } catch (error) {
       console.log("🚀 ========= error:", error);
