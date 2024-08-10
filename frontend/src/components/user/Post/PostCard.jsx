@@ -210,7 +210,7 @@ const PostCard = ({ activity, updateStatusInvitation }) => {
         </Stack>
         <Stack direction="row" alignItems="center" spacing={1} className="mb-1">
           <PaidOutlinedIcon className="text-red-600" />
-          <Typography>{formattedPrice}</Typography>
+          <Typography>{`Phí giao lưu: ${formattedPrice}`}</Typography>
         </Stack>
         <Stack direction="row" alignItems="center" spacing={1} className="mb-1">
           <Group className="text-red-600" />
