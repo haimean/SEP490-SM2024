@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import {
   Box,
   Button,
@@ -6,14 +6,24 @@ import {
   Typography,
   IconButton,
   TextField,
+  Grid,
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { useForm, Controller } from "react-hook-form";
 import { toast } from "react-toastify";
 import DialogInfo from "../../common/DialogInfo";
-
+import AddIcon from "@mui/icons-material/Add";
+import CallApi from "../../../service/CallAPI";
+import CustomSelectCp from "../FormInput/CustomSelectCp";
+import SectionCp from "../FormInput/SectionCp";
 const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
-  const { control, handleSubmit, reset, setValue } = useForm({
+  const {
+    control,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       name: "",
       description: "",
@@ -23,6 +33,9 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
   const [currentImage, setCurrentImage] = useState(null);
   const [isOpenDialogInfo, setIsOpenDialogInfo] = useState(false);
   const [titleDialog, setTitleDialog] = useState("");
+  //TODO: atb court
+  const [branchAtbList, setBranchAtbList] = useState([]);
+
   const handleCloseDialogInfo = () => {
     setIsOpenDialogInfo(false);
   };
@@ -44,6 +57,7 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
   }, [typeCourt, reset, setValue]);
 
   const onSubmit = async (data) => {
+    console.log("🚀 ========= data:", data);
     try {
       const formData = new FormData();
       formData.append("name", data.name.trim());
@@ -73,7 +87,104 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
     setCurrentImage(null);
     onClose();
   };
+  const fetchBranchAtbList = async () => {
+    try {
+      const response = await CallApi(
+        `/api/host/attribute-key-court/account`,
+        "get"
+      );
+      setBranchAtbList(response?.data);
+      console.log("🚀 ========= response:", response);
+    } catch (error) {
+      console.error("Lỗi khi lấy danh sách thuộc tính cơ sở:", error);
+    }
+  };
+  useEffect(() => {
+    fetchBranchAtbList();
+  }, []);
 
+  const addNewAttributeValue = useCallback(async (data) => {
+    const requestData = {
+      value: data.value,
+      attributeKeyCourtId: data.id,
+    };
+    try {
+      const response = await CallApi(
+        "/api/host/attribute-court",
+        "post",
+        requestData
+      );
+      toast.success(`Tạo ${response?.data?.value} thành công!`);
+
+      setBranchAtbList((prevList) =>
+        prevList?.map((item) =>
+          item.id === data.id
+            ? {
+                ...item,
+                attributeCourt: [
+                  ...item.attributeCourt,
+                  { id: response.data.id, value: response.data.value },
+                ],
+              }
+            : item
+        )
+      );
+
+      return { id: response.data.id, value: response.data.value };
+    } catch (error) {
+      toast.error(error.response?.data?.error);
+      return null;
+    }
+  }, []);
+
+  const serviceOptions = useMemo(
+    () =>
+      branchAtbList?.map((item, index) => {
+        console.log("🚀 ========= branchAtbList:", branchAtbList);
+        return {
+          name: `attributeCourt[${index}]`,
+          key: item.id,
+          label: item.name,
+          type: "select-custom",
+          required: false,
+          options: item?.attributeCourt?.map((itemChildren) => ({
+            key: itemChildren.id,
+            label: itemChildren.value,
+          })),
+          gridWidth: 6,
+          onCustomInput: (data) =>
+            addNewAttributeValue({ ...data, id: item.id }),
+          multiple: true,
+        };
+      }),
+    [branchAtbList, addNewAttributeValue]
+  );
+  const additionInfo = [
+    {
+      name: "additionInfo",
+      label: "Thông tin thêm",
+      type: "section",
+      required: true,
+    },
+    ...serviceOptions,
+  ];
+  const renderField = (field) => {
+    switch (field.type) {
+      case "section":
+        return <SectionCp field={field} />;
+      case "select-custom":
+        return (
+          <CustomSelectCp
+            field={field}
+            control={control}
+            errors={errors}
+            setValue={setValue}
+          />
+        );
+      default:
+        return null;
+    }
+  };
   return (
     <Modal open={isOpen} onClose={handleCancel}>
       <Box
@@ -87,7 +198,7 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
             sm: "75%",
             md: "60%",
           },
-          maxWidth: 600,
+          maxWidth: 1200,
           bgcolor: "background.paper",
           boxShadow: 24,
           pt: 2,
@@ -120,89 +231,147 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
           </IconButton>
         </Box>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Controller
-            name="name"
-            control={control}
-            rules={{
-              required: "Tên loại sân không được để trống",
-              validate: (value) =>
-                value.trim().length > 0 ||
-                "Tên không thể chỉ chứa khoảng trắng",
-            }}
-            render={({ field, fieldState: { error } }) => (
-              <TextField
-                {...field}
-                placeholder="Tên loại sân"
-                fullWidth
-                error={!!error}
-                helperText={error?.message}
-              />
-            )}
-          />
-          <Controller
-            name="description"
-            control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                placeholder="Mô tả"
-                fullWidth
-                multiline
-                rows={4}
-                sx={{ mt: 2 }}
-              />
-            )}
-          />
-          {currentImage && (
-            <Box sx={{ mt: 2 }}>
-              <img
-                src={currentImage}
-                alt="Selected"
-                style={{ maxWidth: "100%", maxHeight: "200px" }}
-              />
-            </Box>
-          )}
-          <Box
-            sx={{
-              mt: 2,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <Box>
-              <input
-                type="file"
-                accept="image/*"
-                id="image-upload"
-                style={{ display: "none" }}
-                onChange={(event) => {
-                  const file = event.target.files[0];
-                  if (file && file.size <= 10 * 1024 * 1024) {
-                    handleImageChange(event);
-                  } else {
-                    handleOpenDialogInfo(
-                      "Kích thước ảnh phải nhỏ hơn hoặc bằng 10MB."
-                    );
-                    event.target.value = null;
-                  }
+          <Grid container item justifyItems={"center"}>
+            <Grid item xs={6}>
+              {currentImage && (
+                <Box>
+                  <img
+                    src={currentImage}
+                    alt="Selected"
+                    style={{ maxWidth: "100%", maxHeight: "200px" }}
+                  />
+                </Box>
+              )}
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
                 }}
+              >
+                {/**dang anh */}
+                <Box>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    id="image-upload"
+                    style={{ display: "none" }}
+                    onChange={(event) => {
+                      const file = event.target.files[0];
+                      if (file && file.size <= 10 * 1024 * 1024) {
+                        handleImageChange(event);
+                      } else {
+                        handleOpenDialogInfo(
+                          "Kích thước ảnh phải nhỏ hơn hoặc bằng 10MB."
+                        );
+                        event.target.value = null;
+                      }
+                    }}
+                  />
+                  <label htmlFor="image-upload">
+                    <Button variant="text" component="span">
+                      {selectedImage || currentImage ? (
+                        "Thay đổi ảnh"
+                      ) : (
+                        <Box
+                          sx={{
+                            width: "200px", // Adjust the width as needed
+                            height: "200px", // Ensures the box is square
+                            border: "1px dashed #ccc", // Dashed border to match the design
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            cursor: "pointer",
+                            "&:hover": {
+                              backgroundColor: "#f9f9f9", // Optional: subtle hover effect
+                            },
+                          }}
+                        >
+                          <IconButton>
+                            <AddIcon fontSize="large" sx={{ color: "#aaa" }} />
+                          </IconButton>
+                          <Typography variant="body2" sx={{ color: "#aaa" }}>
+                            Ảnh cơ sở
+                          </Typography>
+                        </Box>
+                      )}
+                    </Button>
+                  </label>
+
+                  {/**dang anh copy*/}
+                </Box>
+              </Box>
+            </Grid>
+            <Grid item xs={6}>
+              <Controller
+                name="name"
+                control={control}
+                rules={{
+                  required: "Tên loại sân không được để trống",
+                  validate: (value) =>
+                    value.trim().length > 0 ||
+                    "Tên không thể chỉ chứa khoảng trắng",
+                }}
+                render={({ field, fieldState: { error } }) => (
+                  <TextField
+                    {...field}
+                    placeholder="Tên loại sân"
+                    fullWidth
+                    error={!!error}
+                    helperText={error?.message}
+                  />
+                )}
               />
-              <label htmlFor="image-upload">
-                <Button variant="text" component="span">
-                  {selectedImage || currentImage ? "Thay đổi ảnh" : "Thêm ảnh"}
-                </Button>
-              </label>
-            </Box>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              sx={{ textTransform: "none" }}
-            >
-              {typeCourt ? "Cập nhật" : "Tạo"}
-            </Button>
-          </Box>
+              <Controller
+                name="description"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    placeholder="Mô tả"
+                    fullWidth
+                    multiline
+                    rows={4}
+                    sx={{ mt: 2 }}
+                  />
+                )}
+              />
+            </Grid>
+          </Grid>
+          <Grid item sm={12} md={12} container spacing={2}>
+            {additionInfo?.map((business) =>
+              business.name == "additionInfo" ? (
+                <Grid
+                  container
+                  item
+                  sm={12}
+                  md={12}
+                  key={`${business.name}-${JSON.stringify(business.options)}`}
+                >
+                  {renderField(business)}
+                </Grid>
+              ) : (
+                <Grid
+                  container
+                  item
+                  sm={4}
+                  md={4}
+                  key={`${business.name}-${JSON.stringify(business.options)}`}
+                >
+                  {renderField(business)}
+                </Grid>
+              )
+            )}
+          </Grid>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            sx={{ textTransform: "none" }}
+          >
+            {typeCourt ? "Cập nhật" : "Tạo"}
+          </Button>
         </form>
         {isOpenDialogInfo && (
           <DialogInfo

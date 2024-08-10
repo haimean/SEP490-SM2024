@@ -72,7 +72,7 @@ const CustomSelectCp = ({ field, control, errors, setValue }) => {
             onChange={handleSelectChange(onChange)}
             label={field.label}
           >
-            {options.map((option) => (
+            {options?.map((option) => (
               <MenuItem key={option.key} value={option.key}>
                 {option.label}
               </MenuItem>
