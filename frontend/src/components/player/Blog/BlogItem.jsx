@@ -116,7 +116,7 @@ const BlogItem = ({ blog, onOpenDetail, onDelete }) => {
             <img
               src={blog?.image}
               alt="Blog image"
-              style={{ width: "100%", height: "auto" }}
+              style={{ width: "500px", height: "auto", margin: "auto" }}
             />
           </Box>
         )}

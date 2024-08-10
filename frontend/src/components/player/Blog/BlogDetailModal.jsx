@@ -10,7 +10,7 @@ import {
   Divider,
   DialogActions,
 } from "@mui/material";
-import {Close} from "@mui/icons-material";
+import { Close } from "@mui/icons-material";
 import { getTimeSinceCreation } from "../../../utils/getTimeSinceCreation";
 import ViewCommentByBlog from "../../../components/player/Blog/ViewCommentByBlog";
 import CreateComment from "./CreateComment";
@@ -76,7 +76,12 @@ const BlogDetailModal = ({ open, onClose, blog }) => {
             <img
               src={blog.image}
               alt="Blog image"
-              style={{ width: "100%", height: "auto", borderRadius: "4px" }}
+              style={{
+                width: "500px",
+                height: "auto",
+                margin: "auto",
+                borderRadius: "4px",
+              }}
             />
           </Box>
         )}
