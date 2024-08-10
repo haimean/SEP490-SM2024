@@ -46,6 +46,7 @@ const TypeCourtTable = () => {
         name: item.name,
         description: item.description,
         image: item.image,
+        court: item.court,
         attributes: item.attributeCourt.map((attr) => ({
           id: attr.id,
           attributeKey: {
@@ -282,26 +283,27 @@ const TypeCourtTable = () => {
         <Table className="table-fixed">
           <TableHead>
             <TableRow>
-              <TableCell align="center" className="w-1/4">
-                Tên
+              <TableCell align="center" className="w-auto">
+                Stt
               </TableCell>
-              <TableCell align="center" className="w-1/4">
-                Mô Tả
-              </TableCell>
-              <TableCell align="center" className="w-1/4">
+              <TableCell align="center" className="w-auto">
                 Ảnh
               </TableCell>
-              <TableCell align="center" className="w-1/4">
-                Hành Động
+              <TableCell align="center" className="w-auto">
+                Tên
               </TableCell>
+              <TableCell align="center" className="w-auto">
+                Số sân
+              </TableCell>
+
+              <TableCell align="center" className="w-auto"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {typeCourts.map((typeCourt) => (
+            {typeCourts.map((typeCourt, index) => (
               <React.Fragment key={typeCourt.id}>
                 <TableRow>
-                  <TableCell align="center">{typeCourt.name}</TableCell>
-                  <TableCell align="center">{typeCourt.description}</TableCell>
+                  <TableCell align="center">{index + 1}</TableCell>
                   <TableCell align="center">
                     <img
                       src={typeCourt.image}
@@ -310,11 +312,18 @@ const TypeCourtTable = () => {
                       onClick={() => handleImageClick(typeCourt.image)}
                     />
                   </TableCell>
+                  <TableCell align="center">{typeCourt.name}</TableCell>
+                  <TableCell align="center">
+                    {typeCourt?.court.length}
+                  </TableCell>
                   <TableCell align="center">
                     <Button
                       variant="contained"
                       color="primary"
                       onClick={() => handleOpenModal(typeCourt)}
+                      sx={{
+                        marginRight: "1rem",
+                      }}
                     >
                       Sửa
                     </Button>
