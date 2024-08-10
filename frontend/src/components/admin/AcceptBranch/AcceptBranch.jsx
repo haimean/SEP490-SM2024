@@ -57,26 +57,31 @@ const AcceptBranch = () => {
       width: 70,
       headerAlign: "center",
       align: "center",
+      renderHeader: () => <div className="font-bold">STT</div>,
     },
     {
       field: "name",
       headerName: "Tên chi nhánh",
       width: 250,
+      renderHeader: () => <div className="font-bold">Tên chi nhán</div>,
     },
     {
       field: "email",
       headerName: "Email",
       width: 230,
+      renderHeader: () => <div className="font-bold">Email</div>,
     },
     {
       field: "phone",
       headerName: "Số điện thoại",
       width: 180,
+      renderHeader: () => <div className="font-bold">Số điện thoại</div>,
     },
     {
       field: "businessLicense",
       headerName: "Giấy phép kinh doanh",
       width: 230,
+      renderHeader: () => <div className="font-bold">Giấy phép kinh doanh</div>,
     },
     {
       field: "accept",
@@ -84,6 +89,8 @@ const AcceptBranch = () => {
       width: 100,
       headerAlign: "center",
       align: "center",
+      renderHeader: () => <div className="font-bold">Chấp thuận</div>,
+
       renderCell: (params) => (
         <Checkbox
           checked={params.row.isAccept || false}
