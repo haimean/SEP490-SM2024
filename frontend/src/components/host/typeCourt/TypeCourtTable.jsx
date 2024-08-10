@@ -10,16 +10,11 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Stepper,
-  Step,
-  StepLabel,
-  StepIcon,
 } from "@mui/material";
 import ImageModal from "./ImageModal";
 import NewTypeCourtModal from "./NewTypeCourtModal";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
-import { format } from "date-fns";
 
 const TypeCourtTable = () => {
   const [typeCourts, setTypeCourts] = useState([]);
@@ -119,17 +114,6 @@ const TypeCourtTable = () => {
       );
     }
   };
-  const steps = [
-    "200.000VND",
-    "300.000VND",
-    "400.000VND",
-    "500.000VND",
-    "600.000VND",
-  ];
-  const TimeIcon = () => {
-    const currentTime = format(new Date(), "HH:mm");
-    return <span>{currentTime}</span>;
-  };
   return (
     <Box sx={{ my: 16, mx: 10, minHeight: "100vh", height: "full" }}>
       <Box className="flex justify-between items-center">
@@ -206,35 +190,6 @@ const TypeCourtTable = () => {
           </TableBody>
         </Table>
       </TableContainer>
-
-      <Typography variant="h" component="h2" fontWeight={600} className="mt-5">
-        Giá cho dưới 3 lần đặt
-      </Typography>
-      <Box sx={{ width: "100%" }}>
-        <Stepper alternativeLabel>
-          {steps.map((label, index) => {
-            if (index % 2 === 0) {
-              return (
-                <Step key={label}>
-                  <StepLabel StepIconComponent={TimeIcon}></StepLabel>
-                </Step>
-              );
-            } else {
-              return (
-                <Step key={label}>
-                  <StepLabel
-                    StepIconComponent={() => {
-                      return <span>Giá</span>;
-                    }}
-                  >
-                    {label}
-                  </StepLabel>
-                </Step>
-              );
-            }
-          })}
-        </Stepper>
-      </Box>
 
       <NewTypeCourtModal
         isOpen={isModalOpen}

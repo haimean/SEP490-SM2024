@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -10,20 +10,40 @@ import {
   Grid,
   TextField,
   Modal,
+  Typography,
+  IconButton,
 } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+import { Close } from "@mui/icons-material";
 
-const PriceTypeCourtForm = ({ listTime = [], open, onClose, onSubmit }) => {
+const PriceTypeCourtForm = ({
+  listTime = [],
+  open,
+  onClose,
+  onSubmit,
+  priceTypeCourt,
+}) => {
   const [activeStep, setActiveStep] = useState(0);
+
   const [times, setTimes] = useState(listTime.length === 0 ? 1 : "");
   const [milestones, setMilestones] = useState([
     dayjs().startOf("day"),
     dayjs().endOf("day"),
   ]);
   const [priceDetails, setPriceDetails] = useState([]);
+
+  // useEffect(() => {
+  //   console.log(priceTypeCourt);
+
+  //   // times;
+  //   // milestones;
+  //   // setTimes;
+  //   // setMilestones;
+  //   // setPriceDetails;
+  // }, [priceTypeCourt]);
   const {
     control,
     formState: { errors },
@@ -36,6 +56,18 @@ const PriceTypeCourtForm = ({ listTime = [], open, onClose, onSubmit }) => {
   ];
 
   const handleNext = () => {
+    if (activeStep === 0) {
+      if (!times) {
+        alert("Vui lòng nhập số lần");
+        return;
+      }
+      if (listTime?.length > 0) {
+        if (listTime?.includes(Number(times))) {
+          alert("Vui lòng nhập số lần khác");
+          return;
+        }
+      }
+    }
     if (activeStep === 1) {
       // Check to see if there are any overlapping timelines
       if (hasDuplicateMilestones(milestones)) {
@@ -53,8 +85,8 @@ const PriceTypeCourtForm = ({ listTime = [], open, onClose, onSubmit }) => {
       for (let index = 0; index < sortedMilestones.length - 1; index++) {
         calculatedPriceDetails.push({
           times,
-          start: sortedMilestones[index].format("HH:mm"),
-          end: sortedMilestones[index + 1].format("HH:mm"),
+          startTime: sortedMilestones[index].format("HH:mm"),
+          endTime: sortedMilestones[index + 1].format("HH:mm"),
           price: "",
         });
       }
@@ -68,8 +100,6 @@ const PriceTypeCourtForm = ({ listTime = [], open, onClose, onSubmit }) => {
         }
       });
       if (!isErrorPrice) {
-        console.log("sdf");
-
         onSubmit(priceDetails);
       } else {
         alert("Bạn phải nhập đầy đủ giá");
@@ -118,12 +148,11 @@ const PriceTypeCourtForm = ({ listTime = [], open, onClose, onSubmit }) => {
         return (
           <div className="flex flex-col items-center">
             <TextField
-              label="Số lần"
+              label="Nhập số lần"
               type="number"
               value={times}
               onChange={(e) => setTimes(e.target.value)}
               disabled={listTime.length === 0}
-              helperText="Nhập số lần"
               className="w-1/2"
               inputProps={{ className: "text-center" }}
             />
@@ -137,7 +166,7 @@ const PriceTypeCourtForm = ({ listTime = [], open, onClose, onSubmit }) => {
                 key={index}
                 display="flex"
                 alignItems="center"
-                className="mb-2"
+                className="mb-2 mt-3"
               >
                 <LocalizationProvider
                   dateAdapter={AdapterDayjs}
@@ -170,6 +199,9 @@ const PriceTypeCourtForm = ({ listTime = [], open, onClose, onSubmit }) => {
                   <Button
                     variant="outlined"
                     color="secondary"
+                    sx={{
+                      marginLeft: "1rem",
+                    }}
                     onClick={() => handleRemoveMilestone(index)}
                   >
                     Xóa
@@ -194,7 +226,7 @@ const PriceTypeCourtForm = ({ listTime = [], open, onClose, onSubmit }) => {
                 <Grid item xs={3}>
                   <TextField
                     label="Giờ bắt đầu"
-                    value={detail.start}
+                    value={detail.startTime}
                     disabled
                     className="w-full"
                   />
@@ -202,7 +234,7 @@ const PriceTypeCourtForm = ({ listTime = [], open, onClose, onSubmit }) => {
                 <Grid item xs={3}>
                   <TextField
                     label="Giờ kết thúc"
-                    value={detail.end}
+                    value={detail.endTime}
                     disabled
                     className="w-full"
                   />
@@ -243,7 +275,7 @@ const PriceTypeCourtForm = ({ listTime = [], open, onClose, onSubmit }) => {
             sm: "75%",
             md: "60%",
           },
-          maxWidth: 1200,
+          maxWidth: 800,
           bgcolor: "background.paper",
           boxShadow: 24,
           pt: 2,
@@ -252,14 +284,37 @@ const PriceTypeCourtForm = ({ listTime = [], open, onClose, onSubmit }) => {
           borderRadius: 2,
         }}
       >
-        <Stepper sx={{ mt: "4rem" }} activeStep={activeStep}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            mb: 2,
+          }}
+        >
+          <Typography variant="h6" component="h6">
+            Kiểu giá
+          </Typography>
+          <IconButton
+            onClick={onClose}
+            sx={{
+              color: "text.secondary",
+              "&:hover": {
+                color: "text.primary",
+              },
+            }}
+          >
+            <Close />
+          </IconButton>
+        </Box>
+        <Stepper activeStep={activeStep}>
           {steps.map((label) => (
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
             </Step>
           ))}
         </Stepper>
-        <Box>{renderStepContent(activeStep)}</Box>
+        <Box className="mt-3">{renderStepContent(activeStep)}</Box>
         <Box mt={2} display="flex" justifyContent="space-between">
           <Button disabled={activeStep === 0} onClick={handleBack}>
             Quay lại
