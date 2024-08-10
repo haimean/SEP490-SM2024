@@ -9,23 +9,24 @@ import router from "./router";
 // eslint-disable-next-line react-refresh/only-export-components
 const ProtectedRoute = ({ component, roles = [] }) => {
   const { user, role } = useSelector((state) => state.user);
-  const navigate = useNavigate();
   if (!user && roles.length > 0) {
     // Người dùng chưa đăng nhập và route yêu cầu đăng nhập
     return <Navigate to="/login" replace />;
   }
   if (roles.length > 0 && !roles.includes(role)) {
+    let url = "";
     switch (role) {
       case "HOST":
-        navigate("/host/dashboard");
+        url = "/host/dashboard";
         break;
       case "ADMIN":
-        navigate("/admin/dashboard");
+        url = "/admin/dashboard";
         break;
       case "USER":
-        navigate("/");
+        url = "/";
         break;
     }
+    return <Navigate to={url} replace />;
   }
   return component;
 };
