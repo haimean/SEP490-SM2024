@@ -122,7 +122,7 @@ const BookingDetailHost = () => {
 
           <Grid item xs={12} md={6}>
             <Typography variant="h6">Thông tin người đặt</Typography>
-            <Typography>Tên: {booking?.bookingInfo?.name}</Typography>
+            <Typography>Họ và tên: {booking?.bookingInfo?.name}</Typography>
             <Typography>
               Số điện thoại: {booking?.bookingInfo?.numberPhone}
             </Typography>
@@ -132,6 +132,9 @@ const BookingDetailHost = () => {
             <Grid item xs={12}>
               <Typography variant="h6">Thông tin sân</Typography>
               <Typography>Tên sân: {booking?.Court?.name}</Typography>
+              <Typography>
+                Chi nhánh: {booking?.Court?.Branches?.name}
+              </Typography>
             </Grid>
           )}
         </Grid>
