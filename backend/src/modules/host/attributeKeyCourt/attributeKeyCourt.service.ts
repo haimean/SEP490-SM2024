@@ -12,7 +12,10 @@ interface CreateAttributeKeyCourtInput {
 
 const attributeCourtKeyHostService = {
   // Lấy AttributeKeyCourt cùng với các AttributeCourt của nó
-  getAttributeKeyCourtWithAttributes: async (attributeKeyCourtId: number, accountId: number): Promise<any> => {
+  getAttributeKeyCourtWithAttributes: async (
+    attributeKeyCourtId: number,
+    accountId: number
+  ): Promise<any> => {
     return await database.attributeKeyCourt.findFirst({
       where: {
         id: attributeKeyCourtId,
@@ -22,10 +25,7 @@ const attributeCourtKeyHostService = {
         attributeCourt: {
           where: {
             isActive: true,
-            OR: [
-              { isPublic: true },
-              { accountId },
-            ],
+            OR: [{ isPublic: true }, { accountId }],
           },
         },
       },
@@ -33,29 +33,25 @@ const attributeCourtKeyHostService = {
   },
 
   // Lấy danh sách AttributeKeyCourts theo AccountId
-  getAttributeKeyCourtsByAccountId: async (accountId: number): Promise<AttributeKeyCourt[]> => {
-    const attributeCourts = await database.attributeCourt.findMany({
+  getAttributeKeyCourtsByAccountId: async (
+    accountId: number
+  ): Promise<AttributeKeyCourt[]> => {
+    return await database.attributeKeyCourt.findMany({
       where: {
         isActive: true,
-        OR: [
-          { isPublic: true },
-          { accountId }
-        ],
       },
-      select: {
-        attributeKeyCourt: true
-      }
+      include: {
+        attributeCourt: {
+          where: {
+            isActive: true,
+            OR: [
+              { isPublic: true },
+              { isPublic: false, accountId: accountId },
+            ],
+          },
+        },
+      },
     });
-
-    const nonNullAttributeKeyCourts = attributeCourts
-      .map(attrCourt => attrCourt.attributeKeyCourt)
-      .filter((attrKeyCourt): attrKeyCourt is AttributeKeyCourt => attrKeyCourt !== null);
-
-    const uniqueAttributeKeyCourts = nonNullAttributeKeyCourts.filter((attrKeyCourt, index, self) =>
-      index === self.findIndex((t) => t.id === attrKeyCourt.id)
-    );
-
-    return uniqueAttributeKeyCourts;
   },
 
   // Tạo AttributeKeyCourt và AttributeCourt liên kết với TypeCourt
@@ -67,13 +63,14 @@ const attributeCourtKeyHostService = {
     typeCourtId,
   }: CreateAttributeKeyCourtInput): Promise<AttributeKeyCourt> => {
     // Tạo AttributeKeyCourt mới
-    const newAttributeKeyCourt = await database.attributeKeyCourt.create({
-      data: {
-        name,
-        description,
-        isActive: true,
-      },
-    });
+    const newAttributeKeyCourt =
+      await database.attributeKeyCourt.create({
+        data: {
+          name,
+          description,
+          isActive: true,
+        },
+      });
 
     // Tạo AttributeCourt mới và liên kết với AttributeKeyCourt và TypeCourt
     await database.attributeCourt.create({
@@ -99,13 +96,13 @@ const attributeCourtKeyHostService = {
     });
 
     if (!result) {
-      throw new Error(`AttributeKeyCourt with id ${newAttributeKeyCourt.id} not found`);
+      throw new Error(
+        `AttributeKeyCourt with id ${newAttributeKeyCourt.id} not found`
+      );
     }
 
     return result;
   },
-
-  
 };
 
 export default attributeCourtKeyHostService;

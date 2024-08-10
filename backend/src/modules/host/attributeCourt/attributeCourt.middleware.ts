@@ -20,7 +20,9 @@ const attributeCourtHostMiddleware = {
       if (attributeKeyCourt) {
         next();
       } else {
-        next(new CustomError('Attribute Court does not exist.', 409));
+        next(
+          new CustomError('Thuộc tính kiểu sân không tồn tại.', 409)
+        );
       }
     } catch (error: any) {
       next(new CustomError(error?.message, 500));

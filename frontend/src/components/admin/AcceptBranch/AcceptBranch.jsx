@@ -54,7 +54,7 @@ const AcceptBranch = () => {
   const columns = [
     {
       field: "index",
-      headerName: "Stt",
+      headerName: "STT",
       width: 70,
       headerAlign: "center",
       align: "center",
