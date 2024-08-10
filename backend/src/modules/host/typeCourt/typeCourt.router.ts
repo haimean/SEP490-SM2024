@@ -49,4 +49,9 @@ typeCourtHostRouter.delete(
   typeCourtHostController.deletePrice
 );
 
+typeCourtHostRouter.put(
+  '/:typeCourtId/attribute/:oldAttributeCourtId/:newAttributeCourtId',
+  typeCourtHostController.replaceAttributeCourt
+);
+
 export default typeCourtHostRouter;

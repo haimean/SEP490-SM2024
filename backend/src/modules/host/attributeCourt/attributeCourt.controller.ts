@@ -54,6 +54,16 @@ const attributeCourtHostController = {
       next(new CustomError(error?.message, 500));
     }
   },
+
+  linkAttributeCourtToTypeCourt: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { typeCourtId, attributeCourtId } = req.body;
+      const data = await attributeCourtHostService.linkAttributeCourtToTypeCourt({ typeCourtId, attributeCourtId });
+      res.json(data);
+    } catch (error) {
+      next(error);
+    }
+  },
 };
 
 export default attributeCourtHostController;

@@ -27,6 +27,27 @@ const attributeKeyCourtHostController = {
       next(new CustomError(error?.message, 500));
     }
   },
+  
+  createAttributeKeyCourtAndAttributeCourt: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { name, description, value, typeCourtId } = req.body;
+      const accountId = Number(req.headers.authorization);
+
+      const newAttributeKeyCourt = await attributeCourtKeyHostService.createAttributeKeyCourtAndAttributeCourt({
+        name,
+        description,
+        accountId,
+        value,
+        typeCourtId,
+      });
+
+      ResponseHandler(res, newAttributeKeyCourt);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
+
+  
 };
 
 export default attributeKeyCourtHostController;

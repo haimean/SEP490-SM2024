@@ -1,22 +1,14 @@
 import React, { useState, useEffect } from "react";
 import {
-  Box,
-  Button,
-  IconButton,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
-import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
-import ImageModal from "./ImageModal";
-import AttributeTable from "./AttributeTable";
-import NewTypeCourtModal from "./NewTypeCourtModal";
-import CallApi from "../../../service/CallAPI";
+  Box, Button, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
+} from '@mui/material';
+import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
+import ImageModal from './ImageModal';
+import AttributeTable from './AttributeTable';
+import NewTypeCourtModal from './NewTypeCourtModal';
+import CallApi from '../../../service/CallAPI';
+import { toast } from 'react-toastify';
+
 
 const TypeCourtTable = () => {
   const [typeCourts, setTypeCourts] = useState([]);
@@ -128,6 +120,7 @@ const TypeCourtTable = () => {
       )
     );
   };
+  
 
   const handleEditRow = async (typeCourtId, attribute) => {
     setEditRows((prev) => ({
@@ -137,8 +130,12 @@ const TypeCourtTable = () => {
     await fetchTypeCourtAttributes(attribute.attributeKey.id);
   };
 
-  const handleSaveRow = (typeCourtId, attrId) =>
-    setEditRows((prev) => ({ ...prev, [`${typeCourtId}-${attrId}`]: false }));
+  const handleSaveRow = async (typeCourtId, attrId) => {
+    const attribute = typeCourts.find(tc => tc.id === typeCourtId).attributes.find(attr => attr.id === attrId);
+    await CallApi(`/api/host/type-court/${typeCourtId}/attribute/${attrId}/${attribute.value.id}`, 'put');
+    setEditRows(prev => ({ ...prev, [`${typeCourtId}-${attrId}`]: false }));
+    toast.success('Cập nhật thuộc tính sân thành công');
+  };
 
   const handleCancelEdit = (typeCourtId, attrId) => {
     setEditRows((prev) => ({ ...prev, [`${typeCourtId}-${attrId}`]: false }));
@@ -149,76 +146,81 @@ const TypeCourtTable = () => {
   const handleCreateValue = (attrId) =>
     setIsCreatingValue((prev) => ({ ...prev, [attrId]: true }));
 
-  const handleSaveNewValue = (typeCourtId, attrId, attributeKeyId) => {
-    const newValueId =
-      Math.max(
-        ...accountAttributes.flatMap((attr) => attr.values).map((v) => v.id)
-      ) + 1;
-    setAccountAttributes(
-      accountAttributes.map((attr) =>
-        attr.id === attributeKeyId
-          ? {
-              ...attr,
-              values: [...attr.values, { id: newValueId, name: newValue }],
-            }
-          : attr
-      )
-    );
-    setTypeCourts(
-      typeCourts.map((tc) =>
-        tc.id === typeCourtId
-          ? {
-              ...tc,
-              attributes: tc.attributes.map((attr) =>
-                attr.id === attrId
-                  ? { ...attr, value: { id: newValueId, name: newValue } }
-                  : attr
-              ),
-            }
-          : tc
-      )
-    );
-    setNewValue("");
-    setIsCreatingValue((prev) => ({ ...prev, [attrId]: false }));
+  const handleSaveNewValue = async (typeCourtId, attrId, attributeKeyId) => {
+    const data = {
+      attributeKeyCourtId: attributeKeyId,
+      value: newValue
+    };
+    try {
+      const response = await CallApi('/api/host/attribute-court', 'post', data);
+      const newValueId = response.data.id; // Assuming the response contains the new attribute's ID
+      handleAttributeChange(typeCourtId, attrId, 'value', { id: newValueId, name: newValue });
+      setNewValue('');
+      setIsCreatingValue(prev => ({ ...prev, [attrId]: false }));
+      toast.success('Tạo giá trị mới thành công');
+    } catch (error) {
+      console.log('Error creating new value:', error);
+      toast.error('Tạo giá trị mới thất bại');
+    }
   };
 
   const handleCreateAttribute = () => setIsCreatingAttribute(true);
 
-  const handleSaveNewAttribute = (typeCourtId) => {
-    const newAttributeId =
-      Math.max(...accountAttributes.map((attr) => attr.id)) + 1;
-    const newValueId =
-      Math.max(
-        ...accountAttributes.flatMap((attr) => attr.values).map((v) => v.id)
-      ) + 1;
-    setAccountAttributes([
-      ...accountAttributes,
-      {
-        id: newAttributeId,
+  const handleSaveNewAttribute = async (typeCourtId) => {
+    try {
+      const data = {
         name: newAttribute.name,
-        values: [{ id: newValueId, name: newAttribute.value }],
-      },
-    ]);
-    setTypeCourts(
-      typeCourts.map((tc) =>
-        tc.id === typeCourtId
-          ? {
-              ...tc,
-              attributes: [
-                ...tc.attributes,
-                {
-                  id: newAttributeId,
-                  attributeKey: { id: newAttributeId, name: newAttribute.name },
-                  value: { id: newValueId, name: newAttribute.value },
-                },
-              ],
-            }
-          : tc
-      )
-    );
-    setNewAttribute({ name: "", value: "" });
-    setIsCreatingAttribute(false);
+        description: null,
+        value: newAttribute.value,
+        typeCourtId: typeCourtId,
+      };
+  
+      const response = await CallApi('/api/host/attribute-key-court', 'post', data);
+      const createdAttributeKeyCourt = response.data;
+  
+      setTypeCourtAttributes(prev => ({
+        ...prev,
+        [createdAttributeKeyCourt.id]: [
+          createdAttributeKeyCourt.attributeCourt[0], // Thuộc tính mới sẽ được thêm lên đầu
+          ...(prev[createdAttributeKeyCourt.id] || []),
+        ],
+      }));
+  
+      setTypeCourts(prevTypeCourts =>
+        prevTypeCourts.map(tc =>
+          tc.id === typeCourtId
+            ? {
+                ...tc,
+                attributes: [
+                  {
+                    id: createdAttributeKeyCourt.attributeCourt[0].id,
+                    attributeKey: {
+                      id: createdAttributeKeyCourt.id,
+                      name: createdAttributeKeyCourt.name,
+                    },
+                    value: {
+                      id: createdAttributeKeyCourt.attributeCourt[0].id,
+                      name: createdAttributeKeyCourt.attributeCourt[0].value,
+                    },
+                  },
+                  ...tc.attributes, // Thuộc tính mới sẽ được thêm lên đầu
+                ],
+              }
+            : tc
+        )
+      );
+  
+      setNewAttribute({ name: '', value: '' });
+      setIsCreatingAttribute(false);
+      toast.success('Tạo thuộc tính mới thành công');
+    } catch (error) {
+      console.log('Error creating new attribute key court:', error);
+      toast.error('Tạo thuộc tính mới thất bại');
+    }
   };
+  
+  
+  
 
   const handleCancelNewAttribute = () => {
     setIsCreatingAttribute(false);
@@ -241,11 +243,16 @@ const TypeCourtTable = () => {
     accountAttributes.find((attr) => attr.name === attributeKeyName)?.values ||
     [];
 
-  const getDefaultAttributeValue = (typeCourtId, attrId, field) =>
-    typeCourts
-      .find((tc) => tc.id === typeCourtId)
-      ?.attributes.find((attr) => attr.id === attrId)?.[field]?.id || "";
-
+  const getDefaultAttributeValue = (typeCourtId, attrId, field) => {
+    const typeCourt = typeCourts.find(tc => tc.id === typeCourtId);
+    if (!typeCourt) return '';
+    
+    const attribute = typeCourt.attributes.find(attr => attr.id === attrId);
+    if (!attribute) return '';
+    
+    return attribute[field]?.id || ''; // Đảm bảo rằng `attribute[field]` là đúng kiểu và tồn tại
+  };
+  
   const handleSaveTypeCourt = async (formData, isEdit, typeCourtId) => {
     try {
       if (isEdit) {
@@ -367,6 +374,11 @@ const TypeCourtTable = () => {
                   newAttribute={newAttribute}
                   setNewAttribute={setNewAttribute}
                   typeCourtAttributes={typeCourtAttributes}
+                  setIsCreatingValue={setIsCreatingValue}
+                  setTypeCourtAttributes={setTypeCourtAttributes}
+                  setTypeCourts={setTypeCourts}
+                  setEditRows={setEditRows}
+                  typeCourts={typeCourts}
                 />
               </React.Fragment>
             ))}
