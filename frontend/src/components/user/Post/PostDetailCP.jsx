@@ -130,7 +130,8 @@ const PostDetailCP = ({ post, postId }) => {
             )}
             {renderInfoItem(
               PaidOutlinedIcon,
-              `${post?.memberPost[0]?.price} đồng` || "Không có thông tin"
+              `Phí giao lưu: ${post?.memberPost[0]?.price} đồng` ||
+                "Không có thông tin"
             )}
             {renderInfoItem(
               DirectionsRunIcon,
