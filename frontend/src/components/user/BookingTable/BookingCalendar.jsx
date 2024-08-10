@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import {
   parse,
   startOfWeek,
   getDay,
   format,
-  setHours,
-  setMinutes,
-  setSeconds,
   differenceInMinutes,
 } from "date-fns";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import enUS from "date-fns/locale/en-US";
 import { toast } from "react-toastify";
-import { CircularProgress, Backdrop, Modal } from "@mui/material";
+import { CircularProgress, Backdrop } from "@mui/material";
 import CallApi from "../../../service/CallAPI";
 import PriceListModal from "./PriceListModal";
 import ConfirmBookingModal from "./ConfirmBookingModal";
