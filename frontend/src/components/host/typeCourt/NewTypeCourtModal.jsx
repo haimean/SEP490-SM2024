@@ -47,6 +47,22 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
     if (typeCourt) {
       setValue("name", typeCourt.name);
       setValue("description", typeCourt.description);
+      typeCourt?.attributes?.forEach((atb) => {
+        const matchingAttribute = branchAtbList.find(
+          (item) => item.id === atb.attributeKey.id
+        );
+        if (matchingAttribute) {
+          const matchingValue = matchingAttribute.attributeCourt.find(
+            (attr) => attr.value === atb.value
+          );
+          if (matchingValue) {
+            setValue(
+              `attributeCourt[${atb.atb.attributeKey.id}]`,
+              matchingValue.id
+            );
+          }
+        }
+      });
       setCurrentImage(typeCourt.image || null);
       setSelectedImage(null);
     } else {
@@ -65,6 +81,9 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
       if (selectedImage) {
         formData.append("image", selectedImage);
       }
+      data.attributeCourt.map(
+        (item) => item != "" && formData.append("attributeCourtIds", item)
+      );
       await onSave(formData, !!typeCourt, typeCourt?.id);
       handleCancel();
     } catch (error) {
@@ -140,9 +159,9 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
   const serviceOptions = useMemo(
     () =>
       branchAtbList?.map((item, index) => {
-        console.log("🚀 ========= branchAtbList:", branchAtbList);
+        console.log("🚀 ========= item:", item);
         return {
-          name: `attributeCourt[${index}]`,
+          name: `attributeCourt[${item.id}]`,
           key: item.id,
           label: item.name,
           type: "select-custom",
