@@ -53,11 +53,11 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
         );
         if (matchingAttribute) {
           const matchingValue = matchingAttribute.attributeCourt.find(
-            (attr) => attr.value === atb.value
+            (attr) => attr.value === atb.value.name
           );
           if (matchingValue) {
             setValue(
-              `attributeCourt[${atb.atb.attributeKey.id}]`,
+              `attributeCourt[${matchingValue.attributeKeyCourtId}]`,
               matchingValue.id
             );
           }
