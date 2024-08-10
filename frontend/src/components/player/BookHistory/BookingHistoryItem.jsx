@@ -50,7 +50,7 @@ const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
             </Grid>
             <Grid item xs={6}>
               <Typography variant="body2" color="text.secondary">
-                Giá: {bookings?.price.toLocaleString("vi-VN")} VND
+                Giá: {bookings?.price?.toLocaleString("vi-VN")} VND
               </Typography>
             </Grid>
             <Grid item xs={6}>

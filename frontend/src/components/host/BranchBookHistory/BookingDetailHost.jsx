@@ -104,7 +104,7 @@ const BookingDetailHost = () => {
               {format(new Date(booking?.endTime), "HH:mm")}
             </Typography>
             <Typography>
-              Giá: {booking?.price.toLocaleString("vi-VN")} VNĐ
+              Giá: {booking?.price?.toLocaleString("vi-VN")} VNĐ
             </Typography>
             <Chip
               label={

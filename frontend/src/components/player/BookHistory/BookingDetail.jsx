@@ -65,23 +65,27 @@ const BookingDetail = () => {
           <Grid item xs={12} md={6}>
             <Typography variant="h6">Thông tin đặt sân</Typography>
             <Typography>
-              Ngày: {format(new Date(booking?.startTime), "dd/MM/yyyy")}
+              Ngày:{" "}
+              {format(new Date(booking?.startTime || new Date()), "dd/MM/yyyy")}
             </Typography>
             <Typography>
-              Thời gian: {format(new Date(booking?.startTime), "HH:mm")} -{" "}
-              {format(new Date(booking?.endTime), "HH:mm")}
+              Thời gian:{" "}
+              {format(new Date(booking?.startTime || new Date()), "HH:mm")} -{" "}
+              {format(new Date(booking?.endTime || new Date()), "HH:mm")}
             </Typography>
             <Typography>
-              Giá: {booking?.price.toLocaleString("vi-VN")} VNĐ
+              Giá: {booking?.price?.toLocaleString("vi-VN")} VNĐ
             </Typography>
             <Chip
               label={
-                new Date(booking?.startTime) > new Date()
+                new Date(booking?.startTime || new Date()) > new Date()
                   ? "Sắp diễn ra"
                   : "Đã diễn ra"
               }
               color={
-                new Date(booking.startTime) > new Date() ? "primary" : "default"
+                new Date(booking.startTime || new Date()) > new Date()
+                  ? "primary"
+                  : "default"
               }
               sx={{ mt: 1 }}
             />
