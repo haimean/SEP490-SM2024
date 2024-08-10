@@ -4,6 +4,7 @@ import { Button, Stack, TextField } from "@mui/material";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
 import ModalBlogAdmin from "../../../components/admin/ReportBlog/ModalBlogAdmin";
+import useDialogConfirm from "../../../hooks/useDialogConfirm";
 
 const ListReportBlog = () => {
   const [filterName, setFilterName] = useState("");
@@ -13,6 +14,7 @@ const ListReportBlog = () => {
   const [totalRows, setTotalRows] = useState(0);
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { openDialog, DialogComponent } = useDialogConfirm();
 
   const columns = [
     {
@@ -64,49 +66,47 @@ const ListReportBlog = () => {
       renderHeader: () => <div className="font-bold">Hành động</div>,
       renderCell: (params) => {
         const handleApprove = async () => {
-          const isConfirmed = window.confirm(
-            "Bạn có chắc chắn muốn duyệt tố cáo này không?"
-          );
-
-          if (isConfirmed) {
-            try {
-              await CallApi(
-                `/api/admin/blog/report-ban/${params.row.id}`,
-                "post"
-              );
-              toast.success("Duyệt tố cáo thành công");
-              fetchReports();
-            } catch (error) {
-              toast.error("Duyệt tố cáo thất bại");
-              console.log(
-                "=============== approve report ERROR: " +
-                  error.response?.data?.error
-              );
+          openDialog(
+            "Bạn có chắc chắn muốn duyệt tố cáo này không?",
+            async () => {
+              try {
+                await CallApi(
+                  `/api/admin/blog/report-ban/${params.row.id}`,
+                  "post"
+                );
+                toast.success("Duyệt tố cáo thành công");
+                fetchReports();
+              } catch (error) {
+                toast.error("Duyệt tố cáo thất bại");
+                console.log(
+                  "=============== approve report ERROR: " +
+                    error.response?.data?.error
+                );
+              }
             }
-          }
+          );
         };
 
         const handleReject = async () => {
-          const isConfirmed = window.confirm(
-            "Bạn có chắc chắn muốn hủy tố cáo này không?"
-          );
-
-          if (isConfirmed) {
-            try {
-              await CallApi(
-                `/api/admin/blog/report/${params.row.id}`,
-                "delete"
-              );
-              toast.success("Hủy tố cáo thành công");
-              fetchReports();
-            } catch (error) {
-              toast.error("Hủy tố cáo thất bại");
-              console.log(
-                "=============== reject report ERROR: " +
-                  error.response?.data?.error
-              );
+          openDialog(
+            "Bạn có chắc chắn muốn hủy tố cáo này không?",
+            async () => {
+              try {
+                await CallApi(
+                  `/api/admin/blog/report/${params.row.id}`,
+                  "delete"
+                );
+                toast.success("Hủy tố cáo thành công");
+                fetchReports();
+              } catch (error) {
+                toast.error("Hủy tố cáo thất bại");
+                console.log(
+                  "=============== reject report ERROR: " +
+                    error.response?.data?.error
+                );
+              }
             }
-          }
+          );
         };
 
         return (
@@ -238,6 +238,7 @@ const ListReportBlog = () => {
           />
         </div>
       </div>
+      <DialogComponent />
       <ModalBlogAdmin
         open={isModalOpen}
         onClose={handleCloseModal}

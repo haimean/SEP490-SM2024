@@ -5,17 +5,16 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import CallApi from "../../../service/CallAPI";
 import CreatePostModal from "../../../components/player/Post/CreatePostModal";
+import useDialogConfirm from "../../../hooks/useDialogConfirm";
 
 const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
   const now = new Date().getTime();
   const bookingStartTime = new Date(bookings?.startTime).getTime();
   const canCancel = bookingStartTime > now;
+  const { openDialog, DialogComponent } = useDialogConfirm();
 
   const handleCancel = async () => {
-    const isConfirmed = window.confirm(
-      "Bạn có muốn hủy lịch thi đấu này không?"
-    );
-    if (isConfirmed) {
+    openDialog("Bạn có muốn hủy lịch thi đấu này không?", async () => {
       try {
         await CallApi(`/api/user/booking/${bookings?.id}`, "delete");
         onCancelSuccess();
@@ -23,7 +22,7 @@ const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
       } catch (error) {
         toast.error("Lỗi khi hủy đặt sân:", error);
       }
-    }
+    });
   };
 
   return (
@@ -116,6 +115,7 @@ const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
           </Box>
         </Grid>
       </Grid>
+      <DialogComponent />
     </Paper>
   );
 };

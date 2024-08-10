@@ -5,6 +5,7 @@ import FilterCp from "../../../components/host/FilterCp";
 import CallApi from "../../../service/CallAPI";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import useDialogConfirm from "../../../hooks/useDialogConfirm";
 
 const ListBranch = () => {
   const [listBranch, setListBranch] = useState([]);
@@ -13,6 +14,8 @@ const ListBranch = () => {
     time: "",
   });
   const role = localStorage.getItem("userRole");
+  const { openDialog, DialogComponent } = useDialogConfirm();
+
   const fetchBranchList = async () => {
     try {
       const apiUrl = role === "HOST" ? "/api/host/branches" : "/api/branches";
@@ -70,11 +73,7 @@ const ListBranch = () => {
     return filters.area !== "" || filters.time !== "";
   };
   const handleDeleteBranch = async (id) => {
-    const isConfirmed = window.confirm(
-      "Bạn có chắc chắn muốn xóa chi nhánh này không?"
-    );
-
-    if (isConfirmed) {
+    openDialog("Bạn có chắc chắn muốn xóa chi nhánh này không?", async () => {
       try {
         await CallApi(`/api/host/branches/branch-delete/${id}`, "put");
         fetchBranchList();
@@ -85,7 +84,7 @@ const ListBranch = () => {
         );
         toast.error("Có lỗi xảy ra khi xóa chi nhánh");
       }
-    }
+    });
   };
 
   const branchesDisplay = isFilterApplied()
@@ -137,6 +136,7 @@ const ListBranch = () => {
           </Grid>
         ))}
       </Grid>
+      <DialogComponent />
     </Box>
   );
 };

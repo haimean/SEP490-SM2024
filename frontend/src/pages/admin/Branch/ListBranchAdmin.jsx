@@ -27,7 +27,11 @@ const ListBranchAdmin = () => {
         "post",
         requestData
       );
-      setBranches(response?.data?.data);
+      const data = response?.data.map((item, index) => ({
+        ...item,
+        index: index + 1,
+      }));
+      setBranches(data);
       setTotalRows(response?.data?.total || 0);
     } catch (error) {
       console.log(
@@ -43,8 +47,8 @@ const ListBranchAdmin = () => {
 
   const columns = [
     {
-      field: "id",
-      headerName: "ID",
+      field: "index",
+      headerName: "STT",
       width: 70,
       headerAlign: "center",
       align: "center",
@@ -82,10 +86,6 @@ const ListBranchAdmin = () => {
     },
   ];
 
-  const filteredRows = branches.filter((row) =>
-    row.name.toLowerCase().includes(filterName.toLowerCase())
-  );
-
   return (
     <div className="flex justify-center py-2">
       <div className="max-w-6xl w-full p-10 border rounded-lg shadow bg-white">
@@ -104,7 +104,7 @@ const ListBranchAdmin = () => {
         </div>
         <div style={{ height: "auto", width: "100%" }}>
           <DataGrid
-            rows={filteredRows}
+            rows={branches}
             columns={columns}
             disableRowSelectionOnClick
             disableColumnMenu

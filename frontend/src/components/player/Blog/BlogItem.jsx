@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, Fragment } from "react";
 import {
   Box,
@@ -18,12 +19,14 @@ import CreateComment from "./CreateComment";
 import NewestComments from "./NewestComments";
 import ReportModal from "./ReportModal";
 import { toast } from "react-toastify";
+import useDialogConfirm from "../../../hooks/useDialogConfirm";
 
 const BlogItem = ({ blog, onOpenDetail, onDelete }) => {
   const [commentingBlogId, setCommentingBlogId] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const [reportModalOpen, setReportModalOpen] = useState(false);
   const currentAccountId = parseInt(localStorage.getItem("accountId"));
+  const { openDialog, DialogComponent } = useDialogConfirm();
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -42,17 +45,14 @@ const BlogItem = ({ blog, onOpenDetail, onDelete }) => {
   };
 
   const handleDelete = async () => {
-    const isConfirmed = window.confirm(
-      "Bạn có chắc chắn muốn xóa trạng thái này không?"
-    );
-    if (isConfirmed) {
+    openDialog("Bạn có chắc chắn muốn xóa trạng thái này không?", async () => {
       try {
         await onDelete(blog?.id);
         toast.success("Xóa trạng thái thành công");
       } catch (error) {
         toast.error("Xóa trạng thái thất bại");
       }
-    }
+    });
     handleMenuClose();
   };
 
@@ -154,6 +154,7 @@ const BlogItem = ({ blog, onOpenDetail, onDelete }) => {
         onClose={handleReportClose}
         blogId={blog?.id}
       />
+      <DialogComponent />
     </Card>
   );
 };

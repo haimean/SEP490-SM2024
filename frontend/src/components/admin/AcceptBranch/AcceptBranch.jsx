@@ -3,11 +3,12 @@ import { DataGrid } from "@mui/x-data-grid";
 import { TextField, Checkbox } from "@mui/material";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
+import useDialogConfirm from "../../../hooks/useDialogConfirm";
 
 const AcceptBranch = () => {
   const [filterName, setFilterName] = useState("");
   const [branches, setBranches] = useState([]);
-
+  const { openDialog, DialogComponent } = useDialogConfirm();
   useEffect(() => {
     fetchBranches();
   }, []);
@@ -34,19 +35,19 @@ const AcceptBranch = () => {
 
   const handleAccept = async (id, isAccepted) => {
     if (isAccepted) {
-      const isConfirmed = window.confirm(
-        "Bạn có chắc chắn muốn chấp thuận chi nhánh này?"
-      );
-      if (isConfirmed) {
-        try {
-          await CallApi(`/api/admin/branches/${id}/set-accept`, "put");
-          toast.success("Chấp thuận thành công");
-          fetchBranches(); // Refresh the list after successful update
-        } catch (error) {
-          toast.error("Có lỗi xảy ra khi chấp thuận");
-          console.error("Error accepting branch:", error);
+      openDialog(
+        "Bạn có chắc chắn muốn chấp thuận chi nhánh này?",
+        async () => {
+          try {
+            await CallApi(`/api/admin/branches/${id}/set-accept`, "put");
+            toast.success("Chấp thuận thành công");
+            fetchBranches(); // Refresh the list after successful update
+          } catch (error) {
+            toast.error("Có lỗi xảy ra khi chấp thuận");
+            console.error("Error accepting branch:", error);
+          }
         }
-      }
+      );
     }
   };
 
@@ -130,6 +131,7 @@ const AcceptBranch = () => {
           />
         </div>
       </div>
+      <DialogComponent />
     </div>
   );
 };
