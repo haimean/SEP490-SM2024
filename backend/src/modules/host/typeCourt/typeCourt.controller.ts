@@ -193,6 +193,22 @@ const typeCourtHostController = {
       next(new CustomError(error?.message, 500));
     }
   },
+
+  replaceAttributeCourt: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { typeCourtId, oldAttributeCourtId, newAttributeCourtId } = req.params;
+
+      const updatedTypeCourt = await typeCourtHostService.replaceAttributeCourt(
+        Number(typeCourtId),
+        Number(oldAttributeCourtId),
+        Number(newAttributeCourtId)
+      );
+
+      ResponseHandler(res, updatedTypeCourt);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
 };
 
 export default typeCourtHostController;

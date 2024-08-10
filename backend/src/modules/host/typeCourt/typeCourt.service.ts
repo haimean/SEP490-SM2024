@@ -169,6 +169,25 @@ const typeCourtHostService = {
       where: { id, typeCourtId },
     });
   },
+
+  replaceAttributeCourt: async (
+    typeCourtId: number,
+    oldAttributeCourtId: number,
+    newAttributeCourtId: number
+  ): Promise<TypeCourt> => {
+    return await database.typeCourt.update({
+      where: { id: typeCourtId },
+      data: {
+        attributeCourt: {
+          disconnect: { id: oldAttributeCourtId },
+          connect: { id: newAttributeCourtId }
+        }
+      },
+      include: {
+        attributeCourt: true,
+      }
+    });
+  }
 };
 
 export default typeCourtHostService;

@@ -26,4 +26,6 @@ attributeCourtHostRouter.get(
   attributeCourtHostController.get
 );
 
+attributeCourtHostRouter.post('/link-attribute-court', attributeCourtHostController.linkAttributeCourtToTypeCourt);
+
 export default attributeCourtHostRouter;
