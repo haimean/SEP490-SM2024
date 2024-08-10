@@ -51,7 +51,8 @@ const typeCourtHostController = {
 
     try {
       const accountId = Number(req.headers.authorization);
-      const { name, description, attributeCourtIds } = req.body;
+      const { name, description, attributeCourtIds, priceTypeCourt } =
+        req.body;
       const { id } = req.params;
 
       const typeCourt: TypeCourt = await typeCourtHostService.update(
@@ -62,8 +63,10 @@ const typeCourtHostController = {
           image: imageName,
           description,
           attributeCourtIds,
+          priceTypeCourt,
         }
       );
+
       ResponseHandler(res, typeCourt);
     } catch (error: any) {
       if (imageName) deleteFile(imageName);
@@ -181,15 +184,24 @@ const typeCourtHostController = {
     }
   },
 
-  replaceAttributeCourt: async (req: Request, res: Response, next: NextFunction) => {
+  replaceAttributeCourt: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
     try {
-      const { typeCourtId, oldAttributeCourtId, newAttributeCourtId } = req.params;
+      const {
+        typeCourtId,
+        oldAttributeCourtId,
+        newAttributeCourtId,
+      } = req.params;
 
-      const updatedTypeCourt = await typeCourtHostService.replaceAttributeCourt(
-        Number(typeCourtId),
-        Number(oldAttributeCourtId),
-        Number(newAttributeCourtId)
-      );
+      const updatedTypeCourt =
+        await typeCourtHostService.replaceAttributeCourt(
+          Number(typeCourtId),
+          Number(oldAttributeCourtId),
+          Number(newAttributeCourtId)
+        );
 
       ResponseHandler(res, updatedTypeCourt);
     } catch (error: any) {

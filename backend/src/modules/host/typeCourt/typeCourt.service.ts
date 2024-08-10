@@ -39,8 +39,14 @@ const typeCourtHostService = {
     id: number,
     data: TypeCourtHostServiceCreatePayload
   ): Promise<TypeCourt> => {
-    const { name, accountId, description, image, attributeCourtIds } =
-      data;
+    const {
+      name,
+      accountId,
+      description,
+      image,
+      attributeCourtIds,
+      priceTypeCourt,
+    } = data;
     database.typeCourt.update({
       where: { id: 1 },
       data: {
@@ -70,6 +76,9 @@ const typeCourtHostService = {
       });
       query.data.attributeCourt = {
         connect: attributeCourt,
+      };
+      query.data.priceTypeCourt = {
+        create: priceTypeCourt,
       };
     }
 
@@ -181,14 +190,14 @@ const typeCourtHostService = {
       data: {
         attributeCourt: {
           disconnect: { id: oldAttributeCourtId },
-          connect: { id: newAttributeCourtId }
-        }
+          connect: { id: newAttributeCourtId },
+        },
       },
       include: {
         attributeCourt: true,
-      }
+      },
     });
-  }
+  },
 };
 
 export default typeCourtHostService;
