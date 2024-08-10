@@ -151,7 +151,7 @@ export default function AccountPopover() {
               {option.label}
             </MenuItem>
           ))}
-        {account?.role === "ADMIN" ?? (
+        {account?.role !== "ADMIN" && (
           <Divider sx={{ borderStyle: "dashed", m: 0 }} />
         )}
 
