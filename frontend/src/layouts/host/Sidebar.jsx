@@ -42,6 +42,17 @@ export default function Sidebar() {
     <Box sx={{ width: "100%", bgcolor: "background.paper", mt: "9vh" }}>
       <nav aria-label="main mailbox folders">
         <List>
+          <Link to="/host/dashboard">
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <SplitscreenIcon />
+                </ListItemIcon>
+                <ListItemText primary="Thống kê" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+          <Divider />
           <Link to="/type-court-table">
             <ListItem disablePadding>
               <ListItemButton>
