@@ -9,25 +9,17 @@ import {
 import haversine from "haversine";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 
 const TopBranches = ({ branches, role = "USER" }) => {
   const [location, setLocation] = useState(null);
   const getLocation = () => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setLocation({
-            latitude: position?.coords?.latitude,
-            longitude: position?.coords?.longitude,
-          });
-        },
-        (error) => {
-          toast.warning(error.message);
-        }
-      );
-    } else {
-      toast.warning("Không lấy được vị trí hiện tại");
+      navigator.geolocation.getCurrentPosition((position) => {
+        setLocation({
+          latitude: position?.coords?.latitude,
+          longitude: position?.coords?.longitude,
+        });
+      });
     }
   };
   const distance = (latitude, longitude) => {
@@ -110,7 +102,7 @@ const TopBranches = ({ branches, role = "USER" }) => {
                       Địa chỉ: {branch?.address?.detail}
                     </Typography>
                     <Typography variant="body2">
-                      Cách vị trí cách bạn:
+                      Sân cách vị trí của bạn:
                       {distance(
                         branch?.address?.latitude,
                         branch?.address?.longitude

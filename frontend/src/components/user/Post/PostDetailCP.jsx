@@ -135,7 +135,7 @@ const PostDetailCP = ({ post, postId }) => {
             )}
             {renderInfoItem(
               DirectionsRunIcon,
-              `Vị trí cách bạn ${distance.toFixed(2)} km` ||
+              `Vị trí cách bạn ${distance ? distance.toFixed(2) : "~"} km` ||
                 "Không có thông tin"
             )}
           </CardContent>
