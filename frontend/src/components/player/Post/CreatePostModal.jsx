@@ -226,13 +226,13 @@ const CreatePostModal = ({ bookings }) => {
               name="price"
               control={control}
               rules={{
-                required: "Giá là bắt buộc",
-                min: { value: 0, message: "Giá không thể âm" },
+                required: "Phí giao lưu là bắt buộc",
+                min: { value: 0, message: "Phí giao lưu không thể âm" },
               }}
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="Giá"
+                  label="Phí giao lưu"
                   type="number"
                   fullWidth
                   margin="normal"

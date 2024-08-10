@@ -8,10 +8,19 @@ import useDialogConfirm from "../../../hooks/useDialogConfirm";
 const AcceptBranch = () => {
   const [filterName, setFilterName] = useState("");
   const [branches, setBranches] = useState([]);
+  const [viewImage, setViewImage] = useState(null);
   const { openDialog, DialogComponent } = useDialogConfirm();
   useEffect(() => {
     fetchBranches();
   }, []);
+
+  const handleOpenImage = (imageUrl) => {
+    setViewImage(imageUrl);
+  };
+
+  const handleCloseImage = () => {
+    setViewImage(null);
+  };
 
   const fetchBranches = async () => {
     try {
@@ -41,7 +50,7 @@ const AcceptBranch = () => {
           try {
             await CallApi(`/api/admin/branches/${id}/set-accept`, "put");
             toast.success("Chấp thuận thành công");
-            fetchBranches(); // Refresh the list after successful update
+            fetchBranches();
           } catch (error) {
             toast.error("Có lỗi xảy ra khi chấp thuận");
             console.error("Error accepting branch:", error);
@@ -64,7 +73,7 @@ const AcceptBranch = () => {
       field: "name",
       headerName: "Tên chi nhánh",
       width: 250,
-      renderHeader: () => <div className="font-bold">Tên chi nhán</div>,
+      renderHeader: () => <div className="font-bold">Tên chi nhánh</div>,
     },
     {
       field: "email",
@@ -83,6 +92,23 @@ const AcceptBranch = () => {
       headerName: "Giấy phép kinh doanh",
       width: 230,
       renderHeader: () => <div className="font-bold">Giấy phép kinh doanh</div>,
+      renderCell: (params) => (
+        <div
+          onClick={() => handleOpenImage(params.value)}
+          style={{ cursor: "pointer" }}
+        >
+          <img
+            src={params.value}
+            alt="Giấy phép kinh doanh"
+            style={{
+              width: "100%",
+              height: "auto",
+              maxHeight: "100px",
+              objectFit: "contain",
+            }}
+          />
+        </div>
+      ),
     },
     {
       field: "accept",
@@ -132,6 +158,33 @@ const AcceptBranch = () => {
         </div>
       </div>
       <DialogComponent />
+      {viewImage && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0,0,0,0.7)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 10000,
+          }}
+          onClick={handleCloseImage}
+        >
+          <img
+            src={viewImage}
+            alt="Business license"
+            style={{
+              maxWidth: "90%",
+              maxHeight: "90%",
+              objectFit: "contain",
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 };
