@@ -35,6 +35,7 @@ const DashboardHost = () => {
   const [selectedBranch, setSelectedBranch] = useState(null);
   const [selectedCourtForDay, setSelectedCourtForDay] = useState(null);
   const [selectedCourtForHour, setSelectedCourtForHour] = useState(null);
+  const [dayCounts, setDayCounts] = useState([]);
 
   // Separate state for "Mức độ sử dụng sân theo ngày trong tuần"
   const [selectedYearForDay, setSelectedYearForDay] = useState(
@@ -226,22 +227,17 @@ const DashboardHost = () => {
     return new Date(year, month, 0).getDate();
   };
 
-  const getDayCountsInMonth = (month, year) => {
-    const dayCounts = Array(7).fill(0);
+  useEffect(() => {
+    const month = selectedMonthForDay;
+    const year = selectedYearForDay;
+    const dayCountList = Array(7).fill(0);
     const daysInMonth = getDaysInMonth(month, year);
-
     for (let day = 1; day <= daysInMonth; day++) {
       const dayOfWeek = new Date(year, month - 1, day).getDay();
-      dayCounts[dayOfWeek]++;
+      dayCountList[dayOfWeek]++;
     }
-
-    return dayCounts;
-  };
-
-  const dayCounts = getDayCountsInMonth(
-    selectedMonthForDay,
-    selectedYearForDay
-  );
+    setDayCounts(dayCountList);
+  }, [dayCounts, selectedMonthForDay, selectedYearForDay]);
 
   const labels = daysOfWeek.map(
     (day, index) => `${day} \n (${dayCounts[index]} ngày/tháng)`
