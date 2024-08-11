@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { Button } from "@mui/material";
 import useDialogConfirm from "../../../hooks/useDialogConfirm";
 import RegisterCourt from "../../host/Court/RegisterCourt";
+import BaseBox from "../../common/BaseBox";
 
 const ListCourt = () => {
   const storedUserRole = localStorage.getItem("userRole");
@@ -93,39 +94,39 @@ const ListCourt = () => {
     });
   };
   return (
-    <div className="bg-gray-100 min-h-screen p-4">
-      <div className="container mx-auto p-4 mt-16">
-        <div className="flex justify-between">
-          <h1 className="text-2xl font-bold mb-4">{data.length} sân đấu</h1>
-          <div className="flex gap-4">
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              sx={{ mb: 2 }}
-              onClick={handleOpenModalRegisterCourt}
-            >
-              Thêm sân đấu
-            </Button>
-          </div>
+    <BaseBox title="Danh sách sân đấu ">
+      <div className="flex justify-between">
+        <h1 className="text-xl font-bold mb-4">
+          Hiện có {data.length} sân đấu
+        </h1>
+        <div className="flex gap-4">
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            sx={{ mb: 2 }}
+            onClick={handleOpenModalRegisterCourt}
+          >
+            Thêm sân đấu
+          </Button>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {data.map((activity, index) => (
-            <CourtDetailList
-              key={index}
-              activity={activity}
-              courtList={courtList}
-              handleCompare={handleCompare}
-              isCompare={isCompare}
-              setIsCompare={setIsCompare}
-              handleRemoveCompare={handleRemoveCompare}
-              onDeleteCourt={handleDeleteCourt}
-              role={storedUserRole}
-              branchId={id}
-            />
-          ))}
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {data.map((activity, index) => (
+          <CourtDetailList
+            key={index}
+            activity={activity}
+            courtList={courtList}
+            handleCompare={handleCompare}
+            isCompare={isCompare}
+            setIsCompare={setIsCompare}
+            handleRemoveCompare={handleRemoveCompare}
+            onDeleteCourt={handleDeleteCourt}
+            role={storedUserRole}
+            branchId={id}
+          />
+        ))}
       </div>
       {registerCourtModal && (
         <RegisterCourt
@@ -135,7 +136,7 @@ const ListCourt = () => {
         />
       )}
       <DialogComponent />
-    </div>
+    </BaseBox>
   );
 };
 

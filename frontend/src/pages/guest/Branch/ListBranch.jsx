@@ -74,16 +74,16 @@ const ListBranch = () => {
     return filters.area !== "" || filters.time !== "";
   };
   const handleDeleteBranch = async (id) => {
-    openDialog("Bạn có chắc chắn muốn xóa chi nhánh này không?", async () => {
+    openDialog("Bạn có chắc chắn muốn xóa cơ sở này không?", async () => {
       try {
         await CallApi(`/api/host/branches/branch-delete/${id}`, "put");
         fetchBranchList();
-        toast.success("Đã xóa chi nhánh thành công");
+        toast.success("Đã xóa cơ sở thành công");
       } catch (error) {
         console.log(
           "=============== delete branch ERROR: " + error.response?.data?.error
         );
-        toast.error("Có lỗi xảy ra khi xóa chi nhánh");
+        toast.error("Có lỗi xảy ra khi xóa cơ sở");
       }
     });
   };

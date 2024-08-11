@@ -81,7 +81,7 @@ const NavbarItemAdmin = () => {
           }}
         >
           <MenuItem value="" disabled>
-            Chi nhánh
+            Cơ sở
           </MenuItem>
           <MenuItem value="/admin/accept-branch">Duyệt cơ sở</MenuItem>
           <MenuItem value="/admin/list-branch">Danh sách cơ sở</MenuItem>

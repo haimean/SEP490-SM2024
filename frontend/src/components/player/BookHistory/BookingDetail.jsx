@@ -105,9 +105,7 @@ const BookingDetail = () => {
             <Grid item xs={12}>
               <Typography variant="h6">Thông tin sân</Typography>
               <Typography>Tên sân: {booking?.Court?.name}</Typography>
-              <Typography>
-                Chi nhánh: {booking?.Court?.Branches?.name}
-              </Typography>
+              <Typography>Cơ sở: {booking?.Court?.Branches?.name}</Typography>
               <Typography>
                 Liên hệ: {booking?.Court?.Branches?.phone}
               </Typography>

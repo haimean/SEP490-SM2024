@@ -15,6 +15,7 @@ import TimePickerCp from "../../../components/host/FormInput/TimePickerCp";
 import TimePickerPreviewCp from "./../../../components/host/FormInput/TimePickerPreviewCp";
 import TelCp from "../../../components/host/FormInput/TelCp";
 import EmailCp from "../../../components/host/FormInput/EmailCp";
+import BaseBox from "../../common/BaseBox";
 
 const UpdateBranch = () => {
   const navigate = useNavigate();
@@ -181,12 +182,6 @@ const UpdateBranch = () => {
   const formConfig = useMemo(
     () => [
       {
-        name: "branchInfo",
-        label: "Thông tin cơ sở",
-        type: "section",
-        required: true,
-      },
-      {
         name: "image",
         type: "image",
         label: "Ảnh cơ sở",
@@ -277,49 +272,35 @@ const UpdateBranch = () => {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "100vh",
-      }}
-    >
-      <Box
-        sx={{
-          my: 12,
-          mx: 10,
-          flexGrow: 1,
-        }}
-      >
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid container spacing={2}>
-            {formConfig.map((field) => (
-              <Grid
-                item
-                sm={12}
-                md={field.type === "section" ? 12 : field.gridWidth || 6}
-                key={`${field.name}-${JSON.stringify(field.options)}`}
-              >
-                {renderField(field)}
-              </Grid>
-            ))}
-          </Grid>
-          <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end" }}>
-            <Button
-              onClick={handleCancel}
-              type="button"
-              variant="outlined"
-              sx={{ mr: 1 }}
+    <BaseBox title="Sửa thông tin cơ sở">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Grid container spacing={2}>
+          {formConfig.map((field) => (
+            <Grid
+              item
+              sm={12}
+              md={field.type === "section" ? 12 : field.gridWidth || 6}
+              key={`${field.name}-${JSON.stringify(field.options)}`}
             >
-              Hủy
-            </Button>
-            <Button type="submit" variant="contained" color="primary">
-              Xác nhận
-            </Button>
-          </Box>
-        </form>
-      </Box>
-    </Box>
+              {renderField(field)}
+            </Grid>
+          ))}
+        </Grid>
+        <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            onClick={handleCancel}
+            type="button"
+            variant="outlined"
+            sx={{ mr: 1 }}
+          >
+            Hủy
+          </Button>
+          <Button type="submit" variant="contained" color="primary">
+            Xác nhận
+          </Button>
+        </Box>
+      </form>
+    </BaseBox>
   );
 };
 

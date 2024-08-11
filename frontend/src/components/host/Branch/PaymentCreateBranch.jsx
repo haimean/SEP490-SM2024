@@ -60,8 +60,8 @@ const PaymentCreateBranch = ({
           sx={{ mt: 2, color: "red" }}
           textAlign="center"
         >
-          Admin sẽ duyệt cơ sở khi nhận được số tiền đã thanh toán và chi nhánh
-          đủ điều kiện kinh doanh
+          Admin sẽ duyệt cơ sở khi nhận được số tiền đã thanh toán và cơ sở đủ
+          điều kiện kinh doanh
         </Typography>
         <Box sx={{ my: 2 }}>
           <QRCode value={qrValue} size={200} />

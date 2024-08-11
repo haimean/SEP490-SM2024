@@ -1,8 +1,19 @@
-import { Box, List, ListItem, Typography, Pagination, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import {
+  Box,
+  List,
+  ListItem,
+  Typography,
+  Pagination,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 import BookingHistoryItemHost from "../../../components/host/BranchBookHistory/BookingHistoryItemHost";
 import { useEffect, useState } from "react";
 import CallApi from "../../../service/CallAPI";
 import { useParams } from "react-router-dom";
+import BaseBox from "../../common/BaseBox";
 
 const BookingHistoryHost = () => {
   const { id } = useParams();
@@ -55,37 +66,19 @@ const BookingHistoryHost = () => {
   };
 
   return (
-    <Box
-      sx={{
-        margin: "auto",
-        mt: 12,
-        maxWidth: {
-          sm: "540px",
-          md: "720px",
-          xl: "1000px",
-        },
-        minWidth: {
-          sm: "540px",
-          md: "720px",
-          xl: "1000px",
-        },
-      }}
-    >
-      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
-        <Typography variant="h5">Lịch sử đặt sân</Typography>
-        <FormControl sx={{ minWidth: 120 }}>
-          <InputLabel id="sort-order-label">Ngày đặt</InputLabel>
-          <Select
-            labelId="sort-order-label"
-            value={sortOrder}
-            label="Ngày đặt"
-            onChange={handleSortChange}
-          >
-            <MenuItem value="desc">Mới nhất</MenuItem>
-            <MenuItem value="asc">Cũ nhất</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
+    <BaseBox title="Lịch sử đặt sân">
+      <FormControl sx={{ minWidth: 120, marginBottom: 3 }}>
+        <InputLabel id="sort-order-label">Ngày đặt</InputLabel>
+        <Select
+          labelId="sort-order-label"
+          value={sortOrder}
+          label="Ngày đặt"
+          onChange={handleSortChange}
+        >
+          <MenuItem value="desc">Mới nhất</MenuItem>
+          <MenuItem value="asc">Cũ nhất</MenuItem>
+        </Select>
+      </FormControl>
       <List>
         {bookings.map((booking) => (
           <ListItem key={booking?.id} disablePadding>
@@ -105,7 +98,7 @@ const BookingHistoryHost = () => {
           color="primary"
         />
       </Box>
-    </Box>
+    </BaseBox>
   );
 };
 
