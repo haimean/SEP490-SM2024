@@ -25,7 +25,7 @@ const RightSectionHost = ({ id, type, court1 }) => {
         const result = await CallApi(
           type === "Branch"
             ? `/api/host/court/branch/${id}`
-            : `/api/host/court/${court1.id}`,
+            : `/api/host/court/${court1?.id}`,
           "get"
         );
         setCourt(result?.data);
