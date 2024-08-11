@@ -28,7 +28,7 @@ const RightSectionHost = ({ id, type, court1 }) => {
             : `/api/host/court/${court1.id}`,
           "get"
         );
-        setCourt(result.data);
+        setCourt(result?.data);
       } catch (error) {
         console.log("🚀 ========= error:", error);
       }
@@ -139,17 +139,17 @@ const RightSectionHost = ({ id, type, court1 }) => {
           }
         >
           {type === "Branch"
-            ? court.map((item) => (
-                <Link key={item.id} to={`/branch/${id}/court/${item.id}`}>
+            ? court?.map((item) => (
+                <Link key={item?.id} to={`/branch/${id}/court/${item?.id}`}>
                   <CustomTooltip title={longText}>
                     <ListItemButton>
                       <img
                         src="https://bizweb.dktcdn.net/100/352/498/products/sancaulong105langha1.jpg?v=1716193376243"
                         width={50}
                         height={50}
-                        alt={item.name}
+                        alt={item?.name}
                       />
-                      <ListItemText primary={item.name} />
+                      <ListItemText primary={item?.name} />
                     </ListItemButton>
                   </CustomTooltip>
                 </Link>
