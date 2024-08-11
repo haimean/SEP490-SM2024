@@ -51,7 +51,7 @@ const ListAttributeBranchCp = () => {
   return (
     <>
       <ListAttributeKey
-        title="Thuộc tính chi nhánh"
+        title="Thuộc tính cơ sở"
         urlDetail="/admin/detail-branch-attribute"
         attributeList={branchAtbKeyList}
         openCreateModal={openCreateModal}

@@ -55,7 +55,7 @@ const ListBranchAdmin = () => {
     },
     {
       field: "name",
-      headerName: "Tên chi nhánh",
+      headerName: "Tên cơ sở",
       width: 250,
     },
     {
@@ -90,13 +90,13 @@ const ListBranchAdmin = () => {
     <div className="flex justify-center py-2">
       <div className="max-w-6xl w-full p-10 border rounded-lg shadow bg-white">
         <h1 className="text-center mb-4 text-2xl font-bold">
-          Danh sách chi nhánh đã duyệt
+          Danh sách cơ sở đã duyệt
         </h1>
         <div className="flex justify-between mb-4">
           <TextField
             value={filterName}
             onChange={handleFilterByName}
-            placeholder="Tìm kiếm theo tên chi nhánh"
+            placeholder="Tìm kiếm theo tên cơ sở"
             variant="outlined"
             size="small"
             className="w-1/3"
