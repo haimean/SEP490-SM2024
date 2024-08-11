@@ -44,7 +44,7 @@ const CreateAttributeBranchCp = ({ closeModal }) => {
       register={register}
       errors={errors}
       fields={{
-        title: "Thêm thuộc tính chi nhánh",
+        title: "Thêm thuộc tính cơ sở",
         inputs: [
           {
             id: "name",

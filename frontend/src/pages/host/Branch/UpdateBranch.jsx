@@ -148,10 +148,10 @@ const UpdateBranch = () => {
       setTimeout(() => {
         window.location.reload();
       }, 2000);
-      toast.success(`Cập nhật chi nhánh ${data.branchName} thành công!`);
+      toast.success(`Cập nhật cơ sở ${data.branchName} thành công!`);
     } catch (error) {
       toast.error(
-        error.response?.data?.error || "Có lỗi xảy ra khi cập nhật chi nhánh"
+        error.response?.data?.error || "Có lỗi xảy ra khi cập nhật cơ sở"
       );
     }
   };
@@ -182,7 +182,7 @@ const UpdateBranch = () => {
     () => [
       {
         name: "branchInfo",
-        label: "Thông tin chi nhánh",
+        label: "Thông tin cơ sở",
         type: "section",
         required: true,
       },
@@ -195,7 +195,7 @@ const UpdateBranch = () => {
       },
       {
         name: "branchName",
-        label: "Tên chi nhánh",
+        label: "Tên cơ sở",
         type: "text",
         required: true,
         gridWidth: 6,

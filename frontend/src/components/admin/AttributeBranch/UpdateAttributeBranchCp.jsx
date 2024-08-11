@@ -46,7 +46,7 @@ const UpdateAttributeBranchCp = ({ id, closeModal }) => {
         },
         {}
       );
-      toast.success(`Sửa thuộc tính chi nhánh thành công`);
+      toast.success(`Sửa thuộc tính cơ sở thành công`);
       closeModal();
     } catch (error) {
       toast.error(error.response?.data?.error);
@@ -66,7 +66,7 @@ const UpdateAttributeBranchCp = ({ id, closeModal }) => {
       register={register}
       errors={errors}
       fields={{
-        title: "Sửa thuộc tính chi nhánh",
+        title: "Sửa thuộc tính cơ sở",
         inputs: [
           {
             id: "name",

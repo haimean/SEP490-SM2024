@@ -44,19 +44,16 @@ const AcceptBranch = () => {
 
   const handleAccept = async (id, isAccepted) => {
     if (isAccepted) {
-      openDialog(
-        "Bạn có chắc chắn muốn chấp thuận chi nhánh này?",
-        async () => {
-          try {
-            await CallApi(`/api/admin/branches/${id}/set-accept`, "put");
-            toast.success("Chấp thuận thành công");
-            fetchBranches();
-          } catch (error) {
-            toast.error("Có lỗi xảy ra khi chấp thuận");
-            console.error("Error accepting branch:", error);
-          }
+      openDialog("Bạn có chắc chắn muốn chấp thuận cơ sở này?", async () => {
+        try {
+          await CallApi(`/api/admin/branches/${id}/set-accept`, "put");
+          toast.success("Chấp thuận thành công");
+          fetchBranches();
+        } catch (error) {
+          toast.error("Có lỗi xảy ra khi chấp thuận");
+          console.error("Error accepting branch:", error);
         }
-      );
+      });
     }
   };
 
@@ -71,9 +68,9 @@ const AcceptBranch = () => {
     },
     {
       field: "name",
-      headerName: "Tên chi nhánh",
+      headerName: "Tên cơ sở",
       width: 250,
-      renderHeader: () => <div className="font-bold">Tên chi nhánh</div>,
+      renderHeader: () => <div className="font-bold">Tên cơ sở</div>,
     },
     {
       field: "email",
@@ -134,13 +131,13 @@ const AcceptBranch = () => {
     <div className="flex justify-center py-2">
       <div className="max-w-6xl w-full p-10 border rounded-lg shadow bg-white">
         <h1 className="text-center mb-4 text-2xl font-bold">
-          Danh sách chi nhánh cần duyệt
+          Danh sách cơ sở cần duyệt
         </h1>
         <div className="flex justify-between mb-4">
           <TextField
             value={filterName}
             onChange={handleFilterByName}
-            placeholder="Tìm kiếm theo tên chi nhánh"
+            placeholder="Tìm kiếm theo tên cơ sở"
             variant="outlined"
             size="small"
             className="w-1/3"
