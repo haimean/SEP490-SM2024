@@ -7,6 +7,7 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Tooltip,
 } from "@mui/material";
 import clsx from "clsx";
 
@@ -20,7 +21,7 @@ const getColorClass = (value) => {
   return "bg-blue-600";
 };
 
-const UsageTable = ({ data }) => {
+const UsageTable = ({ data, dayCounts }) => {
   const hours = Array.from({ length: 24 }, (_, i) => i);
   const days = [
     "Chủ Nhật",
@@ -34,36 +35,58 @@ const UsageTable = ({ data }) => {
 
   return (
     <TableContainer component={Paper} className="overflow-auto">
-      <Table className="table-auto w-full">
+      <Table className="w-full table-fixed border-collapse border border-gray-300">
         <TableHead>
           <TableRow>
-            <TableCell className="border p-1"></TableCell>
+            <TableCell
+              className="border border-gray-300 !text-center bg-gray-100"
+              style={{ width: "80px" }}
+            ></TableCell>
             {hours.map((hour, index) => (
-              <TableCell key={index} className="border p-1 text-center text-xs">
-                {hour}
-              </TableCell>
+              <Tooltip
+                key={index}
+                title={`${hour}:00 giờ đến ${hour + 1}:00 giờ`}
+                placement="top"
+                arrow
+              >
+                <TableCell
+                  key={index}
+                  className="border border-gray-300 !text-center text-xs !p-2 bg-gray-100"
+                  style={{ width: "30px" }} // Đặt chiều rộng cố định cho các ô giờ
+                >
+                  {hour}
+                </TableCell>
+              </Tooltip>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
-          {days.map((_, dayIndex) => (
-            // {hours.map((hour) => (
+          {days.map((day, dayIndex) => (
             <TableRow key={dayIndex}>
-              <TableCell className="border p-1 text-center text-xs">
-                {days[dayIndex]}
-              </TableCell>
+              <Tooltip
+                title={`(${dayCounts[dayIndex]} ngày/tháng)`}
+                placement="top"
+                arrow
+              >
+                <TableCell
+                  className="border border-gray-300 !text-center text-xs whitespace-nowrap bg-gray-50"
+                  style={{ width: "80px" }}
+                >
+                  {day}
+                </TableCell>
+              </Tooltip>
               {hours.map((hour) => {
-                // {days.map((_, dayIndex) => {
                 const value =
                   data.find((item) => item.x === hour && item.y === dayIndex)
                     ?.v || 0;
                 return (
                   <TableCell
-                    key={dayIndex}
+                    key={hour}
                     className={clsx(
-                      "border p-1 text-center text-xs",
+                      "border border-gray-300 !text-center !items-center text-xs",
                       getColorClass(value)
                     )}
+                    style={{ width: "30px", height: "30px" }}
                   >
                     {value}
                   </TableCell>

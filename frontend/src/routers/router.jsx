@@ -204,7 +204,7 @@ const router = [
     path: "/branch/:idBranch/court/:idCourt",
     name: "Court Detail",
     component: <CourtDetail />,
-    role: ["USER"],
+    role: [],
     layout: "",
   },
   {
@@ -281,14 +281,14 @@ const router = [
     path: "/available-post",
     name: "Available Post",
     component: <AvailableCourtPage />,
-    role: ["USER"],
+    role: [],
     layout: "",
   },
   {
     path: "/post/:id",
     name: "Post Detail",
     component: <PostDetail />,
-    role: ["USER"],
+    role: [],
     layout: "",
   },
   {
@@ -302,14 +302,14 @@ const router = [
     path: "/search-courts",
     name: "Search Courts",
     component: <BranchListPage />,
-    role: ["USER"],
+    role: [],
     layout: "",
   },
   {
     path: "/user/branch/:id",
     name: "Branch Detail User",
     component: <BranDetailUser />,
-    role: ["HOST", "USER", "ADMIN"],
+    // role: ["HOST", "USER", "ADMIN"],
     layout: "",
   },
   {

@@ -31,7 +31,7 @@ const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <Typography variant="subtitle1" color="primary">
-            Sân {bookings?.Court?.name} - Cở sở{" "}
+            Sân {bookings?.Court?.name} - Cơ sở{" "}
             {bookings?.Court?.Branches?.name} -{" "}
             {format(bookingStartTime, "dd-MM-yyyy")}
           </Typography>
@@ -73,15 +73,17 @@ const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
             }}
           >
             <Box sx={{ flex: 1 }} /> {/* Spacer */}
-            <Button
-              component={Link}
-              to={`/player/booking-history/${bookings?.id}`}
-              variant="contained"
-              size="small"
-              sx={{ mr: canCancel || bookings?.post ? 1 : 0 }}
-            >
-              Chi tiết
-            </Button>
+            {!bookings.isDelete && (
+              <Button
+                component={Link}
+                to={`/player/booking-history/${bookings?.id}`}
+                variant="contained"
+                size="small"
+                sx={{ mr: canCancel || bookings?.post ? 1 : 0 }}
+              >
+                Chi tiết
+              </Button>
+            )}
             {canCancel && !bookings.isDelete && !bookings?.post && (
               <CreatePostModal bookings={bookings} />
             )}

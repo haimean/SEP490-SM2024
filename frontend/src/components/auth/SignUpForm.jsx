@@ -104,7 +104,7 @@ const SignUpForm = ({ role }) => {
   return (
     <div className="border-t-8 rounded-sm border-indigo-600 bg-white p-12 shadow-2xl w-96">
       <h1 className="font-bold text-center block text-2xl mb-2">
-        Đăng Kí {roleName}
+        Đăng Kí Tài Khoản Cho {roleName}
       </h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <InputLabel
