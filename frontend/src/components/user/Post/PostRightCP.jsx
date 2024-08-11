@@ -327,7 +327,7 @@ const PostRightCP = ({ user, post, postId }) => {
                             color="error"
                             onClick={() => handleOpenModalReason(item?.id)}
                           >
-                            Xóa người chơi
+                            Loại người chơi
                           </Button>
                         </TableCell>
                       )}
