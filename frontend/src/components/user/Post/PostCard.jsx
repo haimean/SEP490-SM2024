@@ -171,7 +171,7 @@ const PostCard = ({ activity, updateStatusInvitation }) => {
         alt={activity?.bookingInfo?.name}
       />
       <CardContent className="">
-        <Tooltip title={activity?.bookingInfo?.name}>
+        <Tooltip title={activity?.post?.title}>
           <Typography component="h2" variant="h5" className="truncate">
             {activity?.post?.title}
           </Typography>
