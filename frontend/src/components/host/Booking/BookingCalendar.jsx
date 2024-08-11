@@ -39,8 +39,8 @@ const messages = {
   agenda: "Chương trình",
   date: "Ngày",
   time: "Thời gian",
-  event: "Sự kiện",
-  noEventsInRange: "Không có sự kiện nào trong khoảng thời gian này.",
+  event: "Ca đặt",
+  noEventsInRange: "Không có ca đặt nào trong khoảng thời gian này.",
   showMore: (total) => `+ Xem thêm (${total})`,
 };
 
@@ -198,7 +198,7 @@ const CalendarModalComponent = ({ courtId }) => {
     const end = new Date(eventData.end).getHours();
     if (start < openHour.getHours() || end > closeHour.getHours()) {
       handleOpenDialogInfo(
-        "Thời gian sự kiện phải nằm trong giờ mở cửa và đóng cửa."
+        "Thời gian của ca đặt phải nằm trong giờ mở cửa và đóng cửa."
       );
       return;
     }
@@ -241,7 +241,7 @@ const CalendarModalComponent = ({ courtId }) => {
           },
           {}
         );
-        toast.success("Thêm sự kiện thành công");
+        toast.success("Thêm ca đặt thành công");
         handleCloseModal();
         await fetchData(courtId);
       } catch (error) {
@@ -270,7 +270,7 @@ const CalendarModalComponent = ({ courtId }) => {
         },
         {}
       );
-      toast.success("Hủy sự kiện thành công");
+      toast.success("Hủy ca đặt thành công");
       handleCloseModal();
       setIsDeleteModalOpen(false);
       await fetchData(courtId);
