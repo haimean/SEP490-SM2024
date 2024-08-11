@@ -89,9 +89,9 @@ const authService = {
         data: {
           accountId: account.id,
           fullName: name,
-          gender: 'FEMALE',
+          gender: 'OTHER',
           identifierCode: '',
-          dob: null,
+          dob: '',
           numberPhone: '',
         },
       });
