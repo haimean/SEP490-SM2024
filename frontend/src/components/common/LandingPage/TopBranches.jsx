@@ -90,20 +90,25 @@ const TopBranches = ({ branches, role = "USER" }) => {
                       {branch?.name}
                     </Typography>
                     <Typography variant="body2">
-                      Email: {branch?.email}
+                      <span className="font-bold">Email: </span>
+                      {branch?.email}
                     </Typography>
                     <Typography variant="body2">
-                      Số điện thoại: {branch?.phone}
+                      <span className="font-bold">Số điện thoại: </span>
+                      {branch?.phone}
                     </Typography>
                     <Typography variant="body2">
-                      Giờ hoạt động: {branch?.openingHours} -{" "}
-                      {branch?.closingHours}
+                      <span className="font-bold">Giờ hoạt động: </span>
+                      {branch?.openingHours} - {branch?.closingHours}
                     </Typography>
                     <Typography variant="body2">
-                      Địa chỉ: {branch?.address?.detail}
+                      <span className="font-bold">Địa chỉ: </span>
+                      {branch?.address?.detail}
                     </Typography>
                     <Typography variant="body2">
-                      Sân cách vị trí của bạn:{" "}
+                      <span className="font-bold">
+                        Sân cách vị trí của bạn:{" "}
+                      </span>
                       {distance(
                         branch?.address?.latitude,
                         branch?.address?.longitude

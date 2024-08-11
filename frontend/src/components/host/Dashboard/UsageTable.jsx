@@ -1,4 +1,4 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import {
   Table,
   TableBody,
@@ -64,7 +64,7 @@ const UsageTable = ({ data, dayCounts }) => {
           {days.map((day, dayIndex) => (
             <TableRow key={dayIndex}>
               <Tooltip
-                title={`(${dayCounts[dayIndex]} ngày/tháng)`}
+                title={`(${dayCounts[dayIndex] ?? "0"} ngày/tháng)`}
                 placement="top"
                 arrow
               >
@@ -77,7 +77,7 @@ const UsageTable = ({ data, dayCounts }) => {
               </Tooltip>
               {hours.map((hour) => {
                 const value =
-                  data.find((item) => item.x === hour && item.y === dayIndex)
+                  data?.find((item) => item.x === hour && item.y === dayIndex)
                     ?.v || 0;
                 return (
                   <TableCell

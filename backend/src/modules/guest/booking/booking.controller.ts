@@ -13,8 +13,6 @@ const bookingGuestController = {
     next: NextFunction
   ) => {
     try {
-      console.log('what');
-
       let result: any = [];
       if (req.headers?.authorization) {
         const token = req.headers?.authorization?.split(' ')[1] ?? '';

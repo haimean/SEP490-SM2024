@@ -25,13 +25,6 @@ const bookingAdminService = {
     const date = new Date();
     const year = date.getFullYear();
     const month = date.getMonth();
-    if (month == 0) {
-      const startDate = new Date(year, month - 1, 2);
-      const endDate = new Date(year, month, 2);
-    } else {
-      const startDate = new Date(year - 1, 12, 2);
-      const endDate = new Date(year, month, 2);
-    }
     const result = await database.post.findMany({
       where: {
         createdAt: {

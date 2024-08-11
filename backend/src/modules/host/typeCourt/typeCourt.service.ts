@@ -2,7 +2,6 @@ import { PriceTypeCourt, Prisma, TypeCourt } from '@prisma/client';
 import database from '../../../lib/db.server';
 import { TypeCourtHostServiceCreatePayload } from './typeCourt.model';
 import { DefaultArgs } from '@prisma/client/runtime/library';
-import dateUtils from '../../../utils/date';
 
 const typeCourtHostService = {
   create: async (
@@ -57,12 +56,6 @@ const typeCourtHostService = {
       attributeCourtIds,
       priceTypeCourt,
     } = data;
-    database.typeCourt.update({
-      where: { id: 1 },
-      data: {
-        priceTypeCourt: {},
-      },
-    });
     const query: Prisma.TypeCourtUpdateArgs<DefaultArgs> = {
       where: { id, accountId },
       data: {
@@ -85,9 +78,23 @@ const typeCourtHostService = {
         };
       });
       query.data.attributeCourt = {
+        set: [],
         connect: attributeCourt,
       };
     }
+    console.log();
+
+    if (priceTypeCourt) {
+      query.data.priceTypeCourt = {
+        set: [],
+        create: priceTypeCourt,
+      };
+    }
+    database.priceTypeCourt.deleteMany({
+      where: {
+        typeCourtId: id,
+      },
+    });
 
     return await database.typeCourt.update(query);
   },

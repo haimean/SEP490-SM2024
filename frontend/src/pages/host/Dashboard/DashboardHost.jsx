@@ -35,14 +35,23 @@ const DashboardHost = () => {
   const [selectedBranch, setSelectedBranch] = useState(null);
   const [selectedCourtForDay, setSelectedCourtForDay] = useState(null);
   const [selectedCourtForHour, setSelectedCourtForHour] = useState(null);
+  const [dayCounts, setDayCounts] = useState([]);
 
   // Separate state for "Mức độ sử dụng sân theo ngày trong tuần"
-  const [selectedYearForDay, setSelectedYearForDay] = useState(new Date().getFullYear());
-  const [selectedMonthForDay, setSelectedMonthForDay] = useState(new Date().getMonth() + 1);
+  const [selectedYearForDay, setSelectedYearForDay] = useState(
+    new Date().getFullYear()
+  );
+  const [selectedMonthForDay, setSelectedMonthForDay] = useState(
+    new Date().getMonth() + 1
+  );
 
   // Separate state for "Bảng thể hiện mức độ sử dụng sân theo giờ"
-  const [selectedYearForHour, setSelectedYearForHour] = useState(new Date().getFullYear());
-  const [selectedMonthForHour, setSelectedMonthForHour] = useState(new Date().getMonth() + 1);
+  const [selectedYearForHour, setSelectedYearForHour] = useState(
+    new Date().getFullYear()
+  );
+  const [selectedMonthForHour, setSelectedMonthForHour] = useState(
+    new Date().getMonth() + 1
+  );
 
   const [stats, setStats] = useState({
     currentMonthTotalRevenue: 0,
@@ -99,7 +108,9 @@ const DashboardHost = () => {
         try {
           const response = await CallApi("/api/host/stats/monthly", "post", {
             branchId: selectedBranch,
-            month: `${selectedYearForDay}-${String(selectedMonthForDay).padStart(2, "0")}`,
+            month: `${selectedYearForDay}-${String(
+              selectedMonthForDay
+            ).padStart(2, "0")}`,
           });
           setStats(response.data);
         } catch (error) {
@@ -120,7 +131,9 @@ const DashboardHost = () => {
             "post",
             {
               branchId: selectedBranch,
-              month: `${selectedYearForDay}-${String(selectedMonthForDay).padStart(2, "0")}`,
+              month: `${selectedYearForDay}-${String(
+                selectedMonthForDay
+              ).padStart(2, "0")}`,
             }
           );
           setUsageRevenue(response.data);
@@ -142,7 +155,9 @@ const DashboardHost = () => {
             "post",
             {
               courtId: selectedCourtForDay,
-              month: `${selectedYearForDay}-${String(selectedMonthForDay).padStart(2, "0")}`,
+              month: `${selectedYearForDay}-${String(
+                selectedMonthForDay
+              ).padStart(2, "0")}`,
             }
           );
           setCourtUsage(response.data);
@@ -164,7 +179,9 @@ const DashboardHost = () => {
             "post",
             {
               courtId: selectedCourtForHour,
-              month: `${selectedYearForHour}-${String(selectedMonthForHour).padStart(2, "0")}`,
+              month: `${selectedYearForHour}-${String(
+                selectedMonthForHour
+              ).padStart(2, "0")}`,
             }
           );
           const formattedData = response.data.map((value, index) => ({
@@ -210,21 +227,21 @@ const DashboardHost = () => {
     return new Date(year, month, 0).getDate();
   };
 
-  const getDayCountsInMonth = (month, year) => {
-    const dayCounts = Array(7).fill(0);
+  useEffect(() => {
+    const month = selectedMonthForDay;
+    const year = selectedYearForDay;
+    const dayCountList = Array(7).fill(0);
     const daysInMonth = getDaysInMonth(month, year);
-
     for (let day = 1; day <= daysInMonth; day++) {
       const dayOfWeek = new Date(year, month - 1, day).getDay();
-      dayCounts[dayOfWeek]++;
+      dayCountList[dayOfWeek]++;
     }
+    setDayCounts(dayCountList);
+  }, [dayCounts, selectedMonthForDay, selectedYearForDay]);
 
-    return dayCounts;
-  };
-
-  const dayCounts = getDayCountsInMonth(selectedMonthForDay, selectedYearForDay);
-
-  const labels = daysOfWeek.map((day, index) => `${day} \n (${dayCounts[index]} ngày/tháng)`);
+  const labels = daysOfWeek.map(
+    (day, index) => `${day} \n (${dayCounts[index]} ngày/tháng)`
+  );
 
   if (loading) {
     return (
@@ -318,7 +335,7 @@ const DashboardHost = () => {
           <Typography variant="h5" component="h2">
             Doanh thu các sân
           </Typography>
-          <Box sx={{ display: "flex", gap: 2 }}>
+          <Box sx={{ display: "flex", gap: 2, marginTop: "2rem" }}>
             <TextField
               select
               label="Chọn năm"
@@ -347,28 +364,34 @@ const DashboardHost = () => {
         </Box>
         <PieChartAdmin data={usageRevenue} />
       </Card>
-      {!selectedCourtForDay || !selectedCourtForHour ?
-        (
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              minHeight: "100vh",
-            }}
-          >
-            <Typography>Không có sân nào trong cơ sở này.</Typography>
-          </Box>
-        ) : <Card sx={{ marginBottom: 4, padding: "2rem" }}>
+      {!selectedCourtForDay || !selectedCourtForHour ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            minHeight: "100vh",
+          }}
+        >
+          <Typography>Không có sân nào trong cơ sở này.</Typography>
+        </Box>
+      ) : (
+        <Card sx={{ marginBottom: 4, padding: "2rem" }}>
           <Typography variant="h5">Thống kê sân</Typography>
           <Box className="mx- mt-3">
             <Box>
               <Box className="flex flex-col items-center mt-4">
-                <Typography variant="h6" component="h2" sx={{ marginBottom: 2 }}>
+                <Typography
+                  variant="h6"
+                  component="h2"
+                  sx={{ marginBottom: 2 }}
+                >
                   Mức độ sử dụng sân theo ngày trong tuần
                 </Typography>
                 <Box sx={{ display: "flex", gap: 2 }}>
                   <FormControl sx={{ minWidth: 150 }} margin="normal">
-                    <InputLabel id="select-court-label-day">Chọn Sân</InputLabel>
+                    <InputLabel id="select-court-label-day">
+                      Chọn Sân
+                    </InputLabel>
                     <Select
                       labelId="select-court-label-day"
                       value={selectedCourtForDay}
@@ -427,7 +450,9 @@ const DashboardHost = () => {
               <Box className="flex justify-between items-center mb-2">
                 <Box sx={{ display: "flex", gap: 2 }}>
                   <FormControl sx={{ minWidth: 150 }} margin="normal">
-                    <InputLabel id="select-court-label-hour">Chọn Sân</InputLabel>
+                    <InputLabel id="select-court-label-hour">
+                      Chọn Sân
+                    </InputLabel>
                     <Select
                       labelId="select-court-label-hour"
                       value={selectedCourtForHour}
@@ -475,8 +500,7 @@ const DashboardHost = () => {
             </Box>
           </Box>
         </Card>
-      }
-
+      )}
     </Box>
   );
 };

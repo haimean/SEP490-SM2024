@@ -19,6 +19,7 @@ import CustomSelectCp from "../FormInput/CustomSelectCp";
 import SectionCp from "../FormInput/SectionCp";
 import PriceTypeCourtForm from "./PriceTypeCourtForm";
 import TimeLinePrice from "./TimeLinePrice";
+import dayjs from "dayjs";
 const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
   const {
     control,
@@ -72,20 +73,28 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
           }
         }
       });
-      console.log("typeCourt", typeCourt);
-      const result = typeCourt?.priceTypeCourt?.reduce((acc, item) => {
+      const dataSet = Object.values(typeCourt?.priceTypeCourt);
+      const result = dataSet?.reduce((acc, item) => {
         const key = item.times;
         if (!acc[key]) {
           acc[key] = [];
         }
-        acc[key].push(item);
+        if (item) {
+          console.log(typeof dayjs(new Date(item?.startTime)).format("HH:mm"));
+          console.log(dayjs(new Date(item?.startTime)).format("HH:mm"));
+          // acc[key].push(item);
+          acc[key].push({
+            price: item.price,
+            times: item.times,
+            startTime: dayjs(new Date(item?.startTime)).format("HH:mm"),
+            endTime: dayjs(new Date(item?.endTime)).format("HH:mm"),
+          });
+        }
         return acc;
-      }, {});
-      console.log("result", result);
-      setPriceTypeCourt(Object.values(result));
-
-      // TODO: update pricetyppriceTypeCourtecourt
-
+      }, []);
+      const list = result?.map((item, index) => index);
+      setGetListTime(list);
+      setPriceTypeCourt(result);
       setCurrentImage(typeCourt.image || null);
       setSelectedImage(null);
     } else {
@@ -103,13 +112,16 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
       if (selectedImage) {
         formData.append("image", selectedImage);
       } else {
-        handleOpenDialogInfo("Ảnh là bắt buộc");
-        return;
+        if (!typeCourt) {
+          handleOpenDialogInfo("Ảnh là bắt buộc");
+          return;
+        }
       }
 
       data.attributeCourt.map(
         (item) => item != "" && formData.append("attributeCourtIds", item)
       );
+      console.log("priceTypeCourt", priceTypeCourt);
 
       if (priceTypeCourt[1]) {
         const valuePriceTypeCourt = priceTypeCourt
@@ -217,15 +229,14 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
       }),
     [branchAtbList, addNewAttributeValue]
   );
-  const additionInfo = [
-    {
-      name: "additionInfo",
-      label: "Thông tin thêm",
-      type: "section",
-      required: true,
-    },
-    ...serviceOptions,
-  ];
+  const additionInfoSection = {
+    name: "additionInfo",
+    label: "Thông tin thêm",
+    type: "section",
+    required: true,
+  };
+
+  const additionInfo = [...serviceOptions];
   const renderField = (field) => {
     switch (field.type) {
       case "section":
@@ -263,6 +274,9 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
           pb: 3,
           px: 4,
           borderRadius: 2,
+          height: "600px", // Set the desired height
+          overflowY: "auto", // Enable vertical scrolling
+          overflowX: "hidden", // Hide horizontal scrolling (if needed)
         }}
       >
         <Box
@@ -405,30 +419,37 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
           </Grid>
           <Grid
             item
-            sm={12}
-            md={12}
             container
-            spacing={2}
             sx={{
-              // width: "300px", // Set the desired width
-              height: "200px", // Set the desired height
-              overflowY: "auto", // Enable vertical scrolling
-              overflowX: "hidden", // Hide horizontal scrolling (if needed)
               border: "1px solid #ccc", // Optional: Add a border around the grid
-              padding: "8px", // Optional: Add some padding inside the box
-              margin: "8px",
             }}
           >
-            {additionInfo?.map((business) =>
-              business.name == "additionInfo" ? (
-                <Grid
-                  sm={12}
-                  md={12}
-                  key={`${business.name}-${JSON.stringify(business.options)}`}
-                >
-                  {renderField(business)}
-                </Grid>
-              ) : (
+            <Grid
+              sx={{
+                marginLeft: "2rem",
+                marginTop: "1rem",
+              }}
+              sm={12}
+              md={12}
+            >
+              {renderField(additionInfoSection)}
+            </Grid>
+            <Grid
+              item
+              sm={12}
+              md={12}
+              container
+              spacing={2}
+              sx={{
+                width: "auto", // Set the desired width
+                height: "200px", // Set the desired height
+                overflowY: "auto", // Enable vertical scrolling
+                overflowX: "hidden", // Hide horizontal scrolling (if needed)
+                padding: "8px", // Optional: Add some padding inside the box
+                margin: "8px",
+              }}
+            >
+              {additionInfo?.map((business) => (
                 <Grid
                   container
                   item
@@ -438,41 +459,103 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
                 >
                   {renderField(business)}
                 </Grid>
-              )
-            )}
+              ))}
+            </Grid>
           </Grid>
-          {priceTypeCourt?.map((item, indexItem) => (
-            <Box key={indexItem}>
-              <TimeLinePrice step={item} />
-              <Button
-                onClick={() => {
-                  setPriceTypeCourt((prev) =>
-                    prev.filter((item, index) => index !== indexItem)
-                  );
-                  setGetListTime((prev) =>
-                    prev.filter((item) => item !== indexItem)
-                  );
-                }}
-              >
-                xóa
-              </Button>
-            </Box>
-          ))}
-          <Button
-            onClick={() => {
-              setIsOpenPriceTypeCourtForm(true);
+          <Grid
+            item
+            container
+            sx={{
+              border: "1px solid #ccc",
+              marginTop: "1rem", // Optional: Add a border around the grid
             }}
           >
-            Thêm
-          </Button>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            sx={{ textTransform: "none" }}
+            <Grid
+              sx={{
+                marginLeft: "2rem",
+                marginTop: "1rem",
+              }}
+              sm={12}
+              md={12}
+            >
+              {renderField({
+                name: "price",
+                label: "Giá cho kiểu sân",
+                type: "section",
+                required: true,
+              })}
+            </Grid>
+            <Grid
+              item
+              sm={12}
+              md={12}
+              container
+              spacing={2}
+              sx={{
+                width: "auto", // Set the desired width
+                overflowY: "auto", // Enable vertical scrolling
+                overflowX: "hidden", // Hide horizontal scrolling (if needed)
+                padding: "8px", // Optional: Add some padding inside the box
+                margin: "8px",
+              }}
+            >
+              {priceTypeCourt?.map((item, indexItem) => (
+                <Grid
+                  item
+                  sm={12}
+                  md={12}
+                  key={indexItem}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "end",
+                    margin: "0 12px",
+                    border: "1px solid #ccc",
+                    padding: "1rem",
+                  }}
+                >
+                  <TimeLinePrice step={item} />
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={() => {
+                      setPriceTypeCourt((prev) => {
+                        const data = prev.filter(
+                          (item, index) => index !== indexItem
+                        );
+                        const list = data?.map((item, index) => index);
+                        setGetListTime(list);
+                      });
+                    }}
+                  >
+                    Xóa khoảng giá
+                  </Button>
+                </Grid>
+              ))}
+            </Grid>
+            <Grid
+              item
+              sm={12}
+              md={12}
+              sx={{ display: "flex", justifyContent: "end", margin: "1rem" }}
+            >
+              <Button
+                variant="contained"
+                onClick={() => {
+                  setIsOpenPriceTypeCourtForm(true);
+                }}
+              >
+                Thêm mới khoảng giá
+              </Button>
+            </Grid>
+          </Grid>
+          <Box
+            sx={{ display: "flex", justifyContent: "end", marginTop: "1rem" }}
           >
-            {typeCourt ? "Cập nhật" : "Tạo"}
-          </Button>
+            <Button type="submit" variant="contained" color="primary">
+              {typeCourt ? "Cập nhật" : "Tạo"}
+            </Button>
+          </Box>
         </form>
 
         {isOpenPriceTypeCourtForm && (

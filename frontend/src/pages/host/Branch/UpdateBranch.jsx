@@ -163,14 +163,13 @@ const UpdateBranch = () => {
         key: item.id,
         label: item.name,
         type: "select-custom",
-        required: true,
+        required: false,
         options: [
           { key: "", label: "Chọn giá trị" },
           ...item.attributeBranches.map((itemChildren) => ({
             key: itemChildren.id,
             label: itemChildren.value,
           })),
-          { key: "custom", label: "Thêm mới" },
         ],
         gridWidth: 6,
         onCustomInput: (data) => addNewAttributeValue({ ...data, id: item.id }),

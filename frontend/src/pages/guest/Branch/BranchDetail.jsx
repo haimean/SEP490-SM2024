@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
 import DetailPageCp from "../../../components/host/DetailPageCp";
@@ -51,10 +50,11 @@ const BranchDetail = () => {
       <DetailPageCp
         name={branchDetail?.name}
         image={branchDetail?.image}
-        location={branchDetail?.address?.districts}
+        locations={branchDetail?.address?.districts}
         openingHours={branchDetail?.openingHours}
         description={branchDetail?.description}
         closingHours={branchDetail?.closingHours}
+        branch={branchDetail}
         id={id}
         role={userRole}
         map={map}
