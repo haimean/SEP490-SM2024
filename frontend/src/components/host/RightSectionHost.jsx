@@ -14,8 +14,8 @@ import { Link, useParams } from "react-router-dom";
 import CallApi from "../../service/CallAPI";
 import BookingModal from "./Booking/BookingModal";
 
-const RightSectionHost = ({ id, type }) => {
-  const { idCourt } = useParams();
+const RightSectionHost = ({ id, type, court1 }) => {
+  // const { idCourt } = useParams();
   const [court, setCourt] = useState([]);
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
 
@@ -25,7 +25,7 @@ const RightSectionHost = ({ id, type }) => {
         const result = await CallApi(
           type === "Branch"
             ? `/api/host/court/branch/${id}`
-            : `/api/host/court/${idCourt}`,
+            : `/api/host/court/${court1.id}`,
           "get"
         );
         setCourt(result.data);
@@ -34,7 +34,7 @@ const RightSectionHost = ({ id, type }) => {
       }
     };
     getAllCourt();
-  }, [id, idCourt, type]);
+  }, [id, court1, type]);
 
   const longText = "Sàn: Gỗ<br/>Chất lượng: Tốt<br/>Số lượng: 4 người";
 
@@ -105,7 +105,7 @@ const RightSectionHost = ({ id, type }) => {
         {type === "courtDetail" && (
           <>
             <Link
-              to={`/host/update-court/${idCourt}`}
+              to={`/host/update-court/${court1.id}`}
               style={{ textDecoration: "none" }}
             >
               <Button
@@ -160,7 +160,7 @@ const RightSectionHost = ({ id, type }) => {
       <BookingModal
         open={isCalendarModalOpen}
         onClose={handleCloseCalendarModal}
-        courtId={idCourt}
+        courtId={court1.id}
         court={court}
       />
     </Grid>

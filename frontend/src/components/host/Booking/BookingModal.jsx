@@ -42,7 +42,7 @@ const BookingModal = ({ open, onClose, courtId, court }) => {
             </Box>
           </Box>
         </Box>
-        <CalendarModalComponent courtId={courtId} />
+        <CalendarModalComponent courtId={court.id} />
       </Box>
     </Modal>
   );
