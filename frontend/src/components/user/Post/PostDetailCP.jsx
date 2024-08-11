@@ -29,6 +29,7 @@ import haversine from "haversine";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { format } from "date-fns";
+import { getRatingDescription } from "../../../utils/user/GetRatingDescription";
 
 const PostDetailCP = ({ post, postId }) => {
   console.log("🚀 ========= post:", post);
@@ -108,6 +109,11 @@ const PostDetailCP = ({ post, postId }) => {
             <Typography variant="h4" gutterBottom>
               {Court?.name}
             </Typography>
+            {renderInfoItem(
+              DirectionsRunIcon,
+              `Vị trí cách bạn ${distance ? distance.toFixed(2) : "~"} km` ||
+                "Không có thông tin"
+            )}
             {renderInfoItem(LocationOnOutlinedIcon, locations)}
             {renderInfoItem(
               EventIcon,
@@ -126,16 +132,12 @@ const PostDetailCP = ({ post, postId }) => {
             )}
             {renderInfoItem(
               School,
-              `Trình độ: ${post?.memberPost[0]?.level}` || "Không có thông tin"
+              `Trình độ: ${getRatingDescription(post?.memberPost[0]?.level)}` ||
+                "Không có thông tin"
             )}
             {renderInfoItem(
               PaidOutlinedIcon,
               `Phí giao lưu: ${post?.memberPost[0]?.price} đồng` ||
-                "Không có thông tin"
-            )}
-            {renderInfoItem(
-              DirectionsRunIcon,
-              `Vị trí cách bạn ${distance ? distance.toFixed(2) : "~"} km` ||
                 "Không có thông tin"
             )}
           </CardContent>
