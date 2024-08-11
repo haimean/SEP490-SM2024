@@ -47,7 +47,6 @@ const userAvailableController = {
       // Get userAvailable with same level, districts, provinces and same day
       const userVariables =
         await userAvailableService.getUserAvailableSamePost({
-          level: post?.memberPost[0].level as Level,
           provinces: post?.booking.Court.Branches?.address
             ?.provinces as string,
           districts: post?.booking.Court.Branches?.address
