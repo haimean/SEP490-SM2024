@@ -133,7 +133,7 @@ const CardComponent = ({
         </Stack>
         <Stack direction="row" alignItems="center" spacing={1} className="mb-1">
           <StadiumIcon className="text-red-600" />
-          <Typography>Số sân: {branch?.court.length} sân</Typography>
+          <Typography>Số sân: {branch?.court?.length} sân</Typography>
         </Stack>
         <Stack direction="row" alignItems="center" spacing={1} className="mb-1">
           <LocalPhoneIcon className="text-red-600" />
