@@ -107,13 +107,13 @@ export default function RequestListTable({ open, onClose, postId }) {
               onRequestSort={handleSort}
               headLabel={[
                 { id: "name", label: "Tên", width: "25%" },
-                { id: "level", label: "Trình độ", width: "20%" },
-                {
-                  id: "friendliness",
-                  label: "Thân thiện",
-                  align: "center",
-                  width: "20%",
-                },
+                // { id: "level", label: "Trình độ", width: "20%" },
+                // {
+                //   id: "friendliness",
+                //   label: "Thân thiện",
+                //   align: "center",
+                //   width: "20%",
+                // },
                 { id: "", align: "center", width: "30%" },
               ]}
             />

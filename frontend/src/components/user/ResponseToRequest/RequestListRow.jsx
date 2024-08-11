@@ -63,14 +63,14 @@ export default function RequestListRow({ row, handleContinue }) {
               </Tooltip>
             </Stack>
           </TableCell>
-          <TableCell align="center">
+          {/* <TableCell align="center">
             <Typography variant="subtitle2" className="font-bold" noWrap>
               {level}
             </Typography>
-          </TableCell>
-          <TableCell align="center">
+          </TableCell> */}
+          {/* <TableCell align="center">
             <Rating value={friendliness} readOnly />
-          </TableCell>
+          </TableCell> */}
           <TableCell align="center">
             {isAccepted || isRejected ? (
               <Button

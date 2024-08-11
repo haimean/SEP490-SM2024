@@ -288,7 +288,7 @@ const DashboardHost = () => {
     >
       <Box className="flex justify-between items-center">
         <Typography variant="h4" component="h2" fontWeight={600}>
-          Thống kê host
+          Thống kê
         </Typography>
         <FormControl sx={{ minWidth: 250 }} margin="normal">
           <InputLabel id="demo-simple-select-label">Chọn cơ sở</InputLabel>
