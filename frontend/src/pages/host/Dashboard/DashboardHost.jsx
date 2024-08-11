@@ -205,17 +205,24 @@ const DashboardHost = () => {
   );
 
   return (
-    <Box sx={{ my: 16, mx: 10, minHeight: "100vh", height: "full" }}>
+    <Box
+      sx={{
+        my: 12,
+        mx: 10,
+        minHeight: "100vh",
+        height: "full",
+      }}
+    >
       <Box className="flex justify-between items-center">
         <Typography variant="h4" component="h2" fontWeight={600}>
           Thống kê host
         </Typography>
         <FormControl sx={{ minWidth: 250 }} margin="normal">
-          <InputLabel id="demo-simple-select-label">Chọn Chi Nhánh</InputLabel>
+          <InputLabel id="demo-simple-select-label">Chọn cơ sở</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             value={selectedBranch}
-            label="Chọn Chi Nhánh"
+            label="Chọn cơ sở"
             onChange={handleBranchChange}
           >
             {branchesData.map((branch) => (

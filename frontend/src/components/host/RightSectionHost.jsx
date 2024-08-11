@@ -74,7 +74,7 @@ const RightSectionHost = ({ id, type }) => {
                 fullWidth
                 sx={{ mb: 2 }}
               >
-                Sửa Chi Nhánh
+                Sửa cơ sở
               </Button>
             </Link>
             <Link to={`/court/${id}`} style={{ textDecoration: "none" }}>

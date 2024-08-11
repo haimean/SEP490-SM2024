@@ -17,6 +17,16 @@ const dateUtils = {
     return { lastSaturday, lastSunday };
   },
 
+  timeToDate(time: string): Date {
+    // Tạo đối tượng Date mới với ngày hiện tại
+    const currentDate = new Date();
+    // Tách giờ và phút từ chuỗi
+    const [hours, minutes] = time.split(':').map(Number);
+    // Cập nhật giờ và phút cho đối tượng Date
+    currentDate.setHours(hours, minutes, 0, 0); // giờ, phút, giây, milliseconds
+    return currentDate;
+  },
+
   getDateStartAndEndOfMonth(date: Date): {
     gte: Date;
     lt: Date;

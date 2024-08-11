@@ -36,9 +36,6 @@ const invitationUserController = {
       ]);
       ResponseHandler(res, invitation);
     } catch (error: any) {
-      console.log(error.code);
-      console.log(error.meta?.target);
-
       if (
         error.code === 'P2002' &&
         error.meta?.target.includes('userAvailabilityId')

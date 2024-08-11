@@ -33,7 +33,6 @@ export default function UpdateCourt() {
     const getListTypeCourt = async () => {
       try {
         const listTypeCourt = await CallApi("/api/host/type-court", "get");
-        console.log("🚀 ========= listTypeCourt:", listTypeCourt);
         setTypeCourtList(listTypeCourt.data);
       } catch (error) {
         console.log("🚀 ========= error:", error);

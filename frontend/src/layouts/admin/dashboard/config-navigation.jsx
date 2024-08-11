@@ -26,7 +26,7 @@ const navConfig = [
     icon: icon("ic_report"),
   },
   {
-    title: "Thuộc tính chi nhánh",
+    title: "Thuộc tính cơ sở",
     path: "/admin/branch-attribute",
     icon: icon("ic_cart"),
   },
@@ -36,12 +36,12 @@ const navConfig = [
     icon: icon("ic_blog"),
   },
   {
-    title: "Duyệt chi nhánh",
+    title: "Duyệt cơ sở",
     path: "/admin/accept-branch",
     icon: icon("ic_approve"),
   },
   {
-    title: "Danh sách chi nhánh",
+    title: "Danh sách cơ sở",
     path: "/admin/list-branch",
     icon: icon("ic_court"),
   },

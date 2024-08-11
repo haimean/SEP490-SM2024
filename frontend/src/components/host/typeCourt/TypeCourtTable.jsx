@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
-  Typography,
   Button,
   Paper,
   Table,
@@ -10,16 +9,13 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Stepper,
-  Step,
-  StepLabel,
-  StepIcon,
 } from "@mui/material";
 import ImageModal from "./ImageModal";
 import NewTypeCourtModal from "./NewTypeCourtModal";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
-import { format } from "date-fns";
+import DialogInfo from "../../common/DialogInfo";
+import BaseBox from "../../../pages/common/BaseBox";
 
 const TypeCourtTable = () => {
   const [typeCourts, setTypeCourts] = useState([]);
@@ -28,6 +24,8 @@ const TypeCourtTable = () => {
   const [currentTypeCourt, setCurrentTypeCourt] = useState(null);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState("");
+  const [isOpenDialogInfo, setIsOpenDialogInfo] = useState(false);
+  const [titleDialog, setTitleDialog] = useState("");
 
   useEffect(() => {
     fetchTypeCourts();
@@ -53,6 +51,7 @@ const TypeCourtTable = () => {
             name: attr.value,
           },
         })),
+        priceTypeCourt: item.priceTypeCourt,
       }));
       setTypeCourts(transformedData);
     } catch (error) {
@@ -60,6 +59,13 @@ const TypeCourtTable = () => {
     }
   };
 
+  const handleCloseDialogInfo = () => {
+    setIsOpenDialogInfo(false);
+  };
+  const handleOpenDialogInfo = (title) => {
+    setTitleDialog(title);
+    setIsOpenDialogInfo(true);
+  };
   const fetchAccountAttributes = async () => {
     try {
       const result = await CallApi(
@@ -68,7 +74,7 @@ const TypeCourtTable = () => {
       );
       setAccountAttributes(result.data);
     } catch (error) {
-      console.log("Error fetching account attributes:", error);
+      console.log("Lỗi khi tìm nạp thuộc tính thông tin thêm ", error);
     }
   };
 
@@ -88,18 +94,23 @@ const TypeCourtTable = () => {
     setIsImageModalOpen(false);
     setCurrentImage("");
   };
+  const fetchApiDelete = async (id) => {
+    try {
+      await CallApi(`/api/host/type-court/${id}`, "delete");
+      await fetchTypeCourts();
+    } catch (error) {
+      console.log("Lỗi khi tìm nạp thuộc tính thông tin thêm ", error);
+    }
+  };
+  const handleDeleteRow = async (typeCourtId, numberCourt) => {
+    if (numberCourt !== 0) {
+      handleOpenDialogInfo("Không thể xóa vì đang có sân đấu");
+    } else {
+      await fetchApiDelete(typeCourtId);
 
-  const handleDeleteRow = (typeCourtId, attrId) =>
-    setTypeCourts(
-      typeCourts.map((tc) =>
-        tc.id === typeCourtId
-          ? {
-              ...tc,
-              attributes: tc.attributes.filter((attr) => attr.id !== attrId),
-            }
-          : tc
-      )
-    );
+      toast.success("Xóa kiểu sân thành công");
+    }
+  };
 
   const handleSaveTypeCourt = async (formData, isEdit, typeCourtId) => {
     try {
@@ -110,38 +121,24 @@ const TypeCourtTable = () => {
       }
       await fetchTypeCourts();
       toast.success(
-        isEdit ? "Cập nhật loại sân thành công" : "Tạo loại sân thành công"
+        isEdit ? "Cập nhật kiểu sân thành công" : "Tạo kiểu sân thành công"
       );
     } catch (error) {
       console.log("Error saving type court:", error);
       toast.error(
-        isEdit ? "Cập nhật loại sân thất bại" : "Tạo loại sân thất bại"
+        isEdit ? "Cập nhật kiểu sân thất bại" : "Tạo kiểu sân thất bại"
       );
     }
   };
-  const steps = [
-    "200.000VND",
-    "300.000VND",
-    "400.000VND",
-    "500.000VND",
-    "600.000VND",
-  ];
-  const TimeIcon = () => {
-    const currentTime = format(new Date(), "HH:mm");
-    return <span>{currentTime}</span>;
-  };
   return (
-    <Box sx={{ my: 16, mx: 10, minHeight: "100vh", height: "full" }}>
-      <Box className="flex justify-between items-center">
-        <Typography variant="h4" component="h2" fontWeight={600}>
-          Quản Lý Loại Sân
-        </Typography>
+    <BaseBox title="Quản Lý kiểu sân">
+      <Box className="flex justify-end items-center">
         <Button
           variant="contained"
           color="primary"
           onClick={() => setIsModalOpen(true)}
         >
-          Thêm Loại Sân
+          Thêm kiểu sân
         </Button>
       </Box>
       <TableContainer component={Paper} className="mt-4">
@@ -166,76 +163,51 @@ const TypeCourtTable = () => {
           </TableHead>
           <TableBody>
             {typeCourts.map((typeCourt, index) => (
-              <React.Fragment key={typeCourt.id}>
-                <TableRow>
-                  <TableCell align="center">{index + 1}</TableCell>
-                  <TableCell align="center">
-                    <img
-                      src={typeCourt.image}
-                      alt={typeCourt.name}
-                      className="h-16 w-16 object-cover cursor-pointer mx-auto"
-                      onClick={() => handleImageClick(typeCourt.image)}
-                    />
-                  </TableCell>
-                  <TableCell align="center">{typeCourt.name}</TableCell>
-                  <TableCell align="center">
-                    {typeCourt?.court.length}
-                  </TableCell>
-                  <TableCell align="center">
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => handleOpenModal(typeCourt)}
-                      sx={{
-                        marginRight: "1rem",
-                      }}
-                    >
-                      Sửa
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      onClick={() => handleDeleteRow(typeCourt.id)}
-                    >
-                      Xóa
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              </React.Fragment>
+              <TableRow key={typeCourt?.id}>
+                <TableCell align="center">{index + 1}</TableCell>
+                <TableCell align="center">
+                  <img
+                    src={typeCourt?.image}
+                    alt={typeCourt?.name}
+                    className="h-16 w-16 object-cover cursor-pointer mx-auto"
+                    onClick={() => handleImageClick(typeCourt?.image)}
+                  />
+                </TableCell>
+                <TableCell align="center">{typeCourt?.name}</TableCell>
+                <TableCell align="center">{typeCourt?.court?.length}</TableCell>
+                <TableCell align="center">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => handleOpenModal(typeCourt)}
+                    sx={{
+                      marginRight: "1rem",
+                    }}
+                  >
+                    Sửa
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={() =>
+                      handleDeleteRow(typeCourt?.id, typeCourt?.court.length)
+                    }
+                  >
+                    Xóa
+                  </Button>
+                </TableCell>
+              </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-
-      <Typography variant="h" component="h2" fontWeight={600} className="mt-5">
-        Giá cho dưới 3 lần đặt
-      </Typography>
-      <Box sx={{ width: "100%" }}>
-        <Stepper alternativeLabel>
-          {steps.map((label, index) => {
-            if (index % 2 === 0) {
-              return (
-                <Step key={label}>
-                  <StepLabel StepIconComponent={TimeIcon}></StepLabel>
-                </Step>
-              );
-            } else {
-              return (
-                <Step key={label}>
-                  <StepLabel
-                    StepIconComponent={() => {
-                      return <span>Giá</span>;
-                    }}
-                  >
-                    {label}
-                  </StepLabel>
-                </Step>
-              );
-            }
-          })}
-        </Stepper>
-      </Box>
-
+      {isOpenDialogInfo && (
+        <DialogInfo
+          handleClose={handleCloseDialogInfo}
+          open={isOpenDialogInfo}
+          title={titleDialog}
+        />
+      )}
       <NewTypeCourtModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
@@ -248,7 +220,7 @@ const TypeCourtTable = () => {
         onClose={handleCloseImageModal}
         image={currentImage}
       />
-    </Box>
+    </BaseBox>
   );
 };
 

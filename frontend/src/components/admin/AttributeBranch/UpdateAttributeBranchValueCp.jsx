@@ -52,7 +52,7 @@ const UpdateAtbBranchValueCp = ({ id, closeModal, attributeKeyBranchesId }) => {
         requestData,
         {}
       );
-      toast.success(`Sửa đặc điểm chi nhánh thành công`);
+      toast.success(`Sửa đặc điểm cơ sở thành công`);
       closeModal();
     } catch (error) {
       toast.error(error.response?.data?.error);

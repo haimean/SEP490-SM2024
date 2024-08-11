@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect, useMemo, useCallback } from "react";
 import {
   Box,
@@ -8,7 +9,6 @@ import {
   TextField,
   Grid,
 } from "@mui/material";
-import PropTypes from "prop-types";
 import { Close } from "@mui/icons-material";
 import { useForm, Controller } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -18,6 +18,7 @@ import CallApi from "../../../service/CallAPI";
 import CustomSelectCp from "../FormInput/CustomSelectCp";
 import SectionCp from "../FormInput/SectionCp";
 import PriceTypeCourtForm from "./PriceTypeCourtForm";
+import TimeLinePrice from "./TimeLinePrice";
 const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
   const {
     control,
@@ -31,6 +32,7 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
       description: "",
     },
   });
+
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentImage, setCurrentImage] = useState(null);
   const [isOpenDialogInfo, setIsOpenDialogInfo] = useState(false);
@@ -38,6 +40,10 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
     useState(false);
   const [titleDialog, setTitleDialog] = useState("");
   const [branchAtbList, setBranchAtbList] = useState([]);
+  //list giá
+  const [priceTypeCourt, setPriceTypeCourt] = useState([]);
+  //list
+  const [getListTime, setGetListTime] = useState([]);
 
   const handleCloseDialogInfo = () => {
     setIsOpenDialogInfo(false);
@@ -66,6 +72,20 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
           }
         }
       });
+      console.log("typeCourt", typeCourt);
+      const result = typeCourt?.priceTypeCourt?.reduce((acc, item) => {
+        const key = item.times;
+        if (!acc[key]) {
+          acc[key] = [];
+        }
+        acc[key].push(item);
+        return acc;
+      }, {});
+      console.log("result", result);
+      setPriceTypeCourt(Object.values(result));
+
+      // TODO: update pricetyppriceTypeCourtecourt
+
       setCurrentImage(typeCourt.image || null);
       setSelectedImage(null);
     } else {
@@ -73,7 +93,7 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
       setSelectedImage(null);
       setCurrentImage(null);
     }
-  }, [typeCourt, reset, setValue]);
+  }, [typeCourt, reset, setValue, branchAtbList]);
 
   const onSubmit = async (data) => {
     try {
@@ -82,14 +102,31 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
       formData.append("description", data.description.trim());
       if (selectedImage) {
         formData.append("image", selectedImage);
+      } else {
+        handleOpenDialogInfo("Ảnh là bắt buộc");
+        return;
       }
+
       data.attributeCourt.map(
         (item) => item != "" && formData.append("attributeCourtIds", item)
       );
+
+      if (priceTypeCourt[1]) {
+        const valuePriceTypeCourt = priceTypeCourt
+          .filter((item) => item !== null)
+          .flat();
+        console.log("priceTypeCourt", valuePriceTypeCourt);
+        valuePriceTypeCourt.forEach((item) => {
+          formData.append("priceTypeCourt", JSON.stringify(item));
+        });
+      } else {
+        handleOpenDialogInfo("Giá là bắt buộc");
+        return;
+      }
       await onSave(formData, !!typeCourt, typeCourt?.id);
       handleCancel();
     } catch (error) {
-      toast.error("Tạo/Cập nhật loại sân thất bại");
+      toast.error("Tạo/Cập nhật kiểu sân thất bại");
     }
   };
 
@@ -105,6 +142,8 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
     reset();
     setSelectedImage(null);
     setCurrentImage(null);
+    setPriceTypeCourt([]);
+    setGetListTime([]);
     onClose();
   };
   const fetchBranchAtbList = async () => {
@@ -235,7 +274,7 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
           }}
         >
           <Typography variant="h6" component="h6">
-            {typeCourt ? "Cập nhật loại sân" : "Tạo loại sân"}
+            {typeCourt ? "Cập nhật kiểu sân" : "Tạo kiểu sân"}
           </Typography>
           <IconButton
             onClick={handleCancel}
@@ -317,8 +356,6 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
                       )}
                     </Button>
                   </label>
-
-                  {/**dang anh copy*/}
                 </Box>
               </Box>
             </Grid>
@@ -327,7 +364,7 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
                 name="name"
                 control={control}
                 rules={{
-                  required: "Tên loại sân không được để trống",
+                  required: "Tên kiểu sân không được để trống",
                   validate: (value) =>
                     value.trim().length > 0 ||
                     "Tên không thể chỉ chứa khoảng trắng",
@@ -335,7 +372,7 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
                 render={({ field, fieldState: { error } }) => (
                   <TextField
                     {...field}
-                    placeholder="Tên loại sân"
+                    label="Tên kiểu sân"
                     fullWidth
                     error={!!error}
                     helperText={error?.message}
@@ -345,14 +382,22 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
               <Controller
                 name="description"
                 control={control}
-                render={({ field }) => (
+                rules={{
+                  required: "Mô tả là bắt buộc",
+                  validate: (value) =>
+                    value.trim().length > 0 ||
+                    "Tên không thể chỉ chứa khoảng trắng",
+                }}
+                render={({ field, fieldState: { error } }) => (
                   <TextField
                     {...field}
-                    placeholder="Mô tả"
+                    label="Mô tả"
                     fullWidth
                     multiline
                     rows={4}
                     sx={{ mt: 2 }}
+                    error={!!error}
+                    helperText={error?.message}
                   />
                 )}
               />
@@ -396,6 +441,30 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
               )
             )}
           </Grid>
+          {priceTypeCourt?.map((item, indexItem) => (
+            <Box key={indexItem}>
+              <TimeLinePrice step={item} />
+              <Button
+                onClick={() => {
+                  setPriceTypeCourt((prev) =>
+                    prev.filter((item, index) => index !== indexItem)
+                  );
+                  setGetListTime((prev) =>
+                    prev.filter((item) => item !== indexItem)
+                  );
+                }}
+              >
+                xóa
+              </Button>
+            </Box>
+          ))}
+          <Button
+            onClick={() => {
+              setIsOpenPriceTypeCourtForm(true);
+            }}
+          >
+            Thêm
+          </Button>
           <Button
             type="submit"
             variant="contained"
@@ -405,26 +474,33 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
             {typeCourt ? "Cập nhật" : "Tạo"}
           </Button>
         </form>
-        <Button
-          onClick={() => {
-            setIsOpenPriceTypeCourtForm(true);
-          }}
-        >
-          open pritile codsf
-        </Button>
+
         {isOpenPriceTypeCourtForm && (
           <PriceTypeCourtForm
-            listTime={[]}
+            listTime={getListTime}
             open={isOpenPriceTypeCourtForm}
             onClose={() => {
               setIsOpenPriceTypeCourtForm(false);
             }}
             onSubmit={(data) => {
               setIsOpenPriceTypeCourtForm(false);
-              console.log("data giá", data);
+              let prev = priceTypeCourt;
+              if (data[0]?.times) {
+                const key = data[0].times;
+                prev[key] = data;
+                console.log("prev", prev);
+              }
+              if (prev.length > 0) {
+                const list = prev?.map((item, index) => index);
+                setGetListTime(list);
+              } else {
+                setGetListTime([]);
+              }
+              setPriceTypeCourt(prev);
             }}
           />
         )}
+
         {isOpenDialogInfo && (
           <DialogInfo
             handleClose={handleCloseDialogInfo}
@@ -435,13 +511,6 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
       </Box>
     </Modal>
   );
-};
-
-NewTypeCourtModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired,
-  typeCourt: PropTypes.object,
 };
 
 export default NewTypeCourtModal;

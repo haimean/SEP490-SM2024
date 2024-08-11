@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, useCallback } from "react";
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button, Card, Grid } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -15,6 +15,8 @@ import TimePickerCp from "../../../components/host/FormInput/TimePickerCp";
 import TimePickerPreviewCp from "./../../../components/host/FormInput/TimePickerPreviewCp";
 import TelCp from "../../../components/host/FormInput/TelCp";
 import EmailCp from "../../../components/host/FormInput/EmailCp";
+import BaseBox from "../../common/BaseBox";
+import EditorInput from "../../../components/host/FormInput/Editor";
 
 const UpdateBranch = () => {
   const navigate = useNavigate();
@@ -28,7 +30,6 @@ const UpdateBranch = () => {
   } = useForm();
 
   const [branchAtbList, setBranchAtbList] = useState([]);
-  const [branch, setBranch] = useState({});
 
   useEffect(() => {
     const fetchBranchAtbList = async () => {
@@ -50,7 +51,6 @@ const UpdateBranch = () => {
     const fetchBranch = async () => {
       try {
         const response = await CallApi(`/api/host/branches/${id}`, "get");
-        setBranch(response?.data);
         setValue("branchName", response?.data?.name);
         setValue("description", response?.data?.description);
         setValue("phone", response?.data?.phone);
@@ -133,7 +133,7 @@ const UpdateBranch = () => {
       formData.append("openingHours", data.openingHours);
       formData.append("closingHours", data.closingHours);
 
-      data.attributeBranches.forEach((item, index) => {
+      data.attributeBranches.forEach((item) => {
         if (item !== "") {
           formData.append(`attributeBranches`, item);
         }
@@ -145,10 +145,13 @@ const UpdateBranch = () => {
 
       await CallApi(`/api/host/branches/${id}`, "put", formData);
       navigate(`/host/branch/${id}`);
-      toast.success(`Cập nhật chi nhánh ${data.branchName} thành công!`);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+      toast.success(`Cập nhật cơ sở ${data.branchName} thành công!`);
     } catch (error) {
       toast.error(
-        error.response?.data?.error || "Có lỗi xảy ra khi cập nhật chi nhánh"
+        error.response?.data?.error || "Có lỗi xảy ra khi cập nhật cơ sở"
       );
     }
   };
@@ -175,61 +178,91 @@ const UpdateBranch = () => {
     [branchAtbList, addNewAttributeValue]
   );
 
-  const formConfig = useMemo(
-    () => [
-      {
-        name: "branchInfo",
-        label: "Thông tin chi nhánh",
-        type: "section",
-        required: true,
-      },
-      {
-        name: "image",
-        type: "image",
-        label: "Ảnh cơ sở",
-        required: true,
-        gridWidth: 12,
-      },
-      {
-        name: "branchName",
-        label: "Tên chi nhánh",
-        type: "text",
-        required: true,
-        gridWidth: 6,
-      },
-      {
-        name: "phone",
-        label: "Số điện thoại liên hệ",
-        type: "tel",
-        required: true,
-        gridWidth: 6,
-      },
-      {
-        name: "description",
-        label: "Mô tả",
-        type: "text",
-        required: true,
-        gridWidth: 12,
-      },
-      {
-        name: "openingHours",
-        label: "Giờ mở cửa",
-        type: "timepickerpreview",
-        required: true,
-        gridWidth: 6,
-      },
-      {
-        name: "closingHours",
-        label: "Giờ đóng cửa",
-        type: "timepickerpreview",
-        required: true,
-        gridWidth: 6,
-      },
-      ...serviceOptions,
-    ],
-    [serviceOptions]
-  );
+  const contactInfo = [
+    {
+      name: "branchContact",
+      label: "Thông tin liên hệ cơ sở",
+      type: "section",
+      required: true,
+    },
+    {
+      name: "phone",
+      label: "Số điện thoại liên hệ",
+      type: "tel",
+      required: true,
+      gridWidth: 6,
+    },
+    {
+      name: "email",
+      label: "Địa chỉ email liên hệ",
+      type: "email",
+      required: true,
+      gridWidth: 6,
+    },
+  ];
 
+  const avt = {
+    name: "image",
+    type: "image",
+    label: "Ảnh cơ sở",
+    required: true,
+    gridWidth: 12,
+  };
+
+  const branchName = {
+    name: "branchName",
+    label: "Tên cơ sở",
+    type: "text",
+    required: true,
+    gridWidth: 12,
+  };
+  const activityInfo = [
+    {
+      name: "branchWork",
+      label: "Giờ hoạt động",
+      type: "section",
+      required: true,
+    },
+    {
+      name: "openingHours",
+      label: "Giờ mở cửa",
+      type: "timepickerpreview",
+      required: true,
+      gridWidth: 6,
+    },
+    {
+      name: "closingHours",
+      label: "Giờ đóng cửa",
+      type: "timepickerpreview",
+      required: true,
+      gridWidth: 6,
+    },
+  ];
+
+  //Thông tin thêm
+  const additionInfo = [
+    {
+      name: "additionInfo",
+      label: "Thông tin thêm",
+      type: "section",
+      required: true,
+    },
+    ...serviceOptions,
+  ];
+  const description = {
+    name: "description",
+    label: "Mô tả",
+    type: "editor",
+    required: true,
+    gridWidth: 12,
+  };
+  const descriptionTitle = {
+    name: "descriptionTitle",
+    label: "Mô tả thêm",
+    type: "section",
+    required: true,
+    gridWidth: 12,
+  };
   const renderField = (field) => {
     switch (field.type) {
       case "text":
@@ -264,59 +297,165 @@ const UpdateBranch = () => {
             errors={errors}
           />
         );
+      case "editor":
+        return <EditorInput field={field} control={control} errors={errors} />;
       default:
         return null;
     }
   };
 
-  const handleCancel = () => {
-    reset();
-  };
-
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "100vh",
-      }}
-    >
-      <Box
-        sx={{
-          my: 12,
-          mx: 10,
-          flexGrow: 1,
-        }}
-      >
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid container spacing={2}>
-            {formConfig.map((field) => (
-              <Grid
-                item
-                sm={12}
-                md={field.type === "section" ? 12 : field.gridWidth || 6}
-                key={`${field.name}-${JSON.stringify(field.options)}`}
-              >
-                {renderField(field)}
-              </Grid>
-            ))}
-          </Grid>
-          <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end" }}>
-            <Button
-              onClick={handleCancel}
-              type="button"
-              variant="outlined"
-              sx={{ mr: 1 }}
+    <BaseBox title="Sửa thông tin cơ sở">
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
+        {/* ảnh và thông tin chung */}
+        <Grid container spacing={2} alignItems={"center"}>
+          <Grid item xs={6} justifyContent={"center"}>
+            <Grid
+              item
+              sm={12}
+              md={12}
+              key={`${avt.name}-${JSON.stringify(avt.options)}`}
             >
-              Hủy
-            </Button>
-            <Button type="submit" variant="contained" color="primary">
-              Xác nhận
-            </Button>
-          </Box>
-        </form>
-      </Box>
-    </Box>
+              {renderField(avt)}
+            </Grid>
+          </Grid>
+          <Grid container item xs={6} spacing={2}>
+            <Grid
+              item
+              sm={12}
+              md={12}
+              key={`${branchName.name}-${JSON.stringify(branchName.options)}`}
+            >
+              {renderField(branchName)}
+            </Grid>
+            <Grid item>
+              <Card variant="outlined" className="w-full p-3 pt-0">
+                <Grid
+                  container
+                  item
+                  sm={12}
+                  md={12}
+                  spacing={2}
+                  className="p-2"
+                >
+                  {contactInfo.map((contact) => (
+                    <Grid
+                      container
+                      item
+                      sm={12}
+                      md={12}
+                      key={`${contact.name}-${JSON.stringify(contact.options)}`}
+                    >
+                      {renderField(contact)}
+                    </Grid>
+                  ))}
+                </Grid>
+              </Card>
+            </Grid>
+            <Grid item>
+              <Card variant="outlined" className="w-full p-3 pt-0">
+                <Grid
+                  container
+                  item
+                  sm={12}
+                  md={12}
+                  spacing={2}
+                  className="p-2"
+                >
+                  {activityInfo.map((activity) =>
+                    activity.name == "branchWork" ? (
+                      <Grid
+                        container
+                        item
+                        sm={12}
+                        md={12}
+                        key={`${activity.name}-${JSON.stringify(
+                          activity.options
+                        )}`}
+                      >
+                        {renderField(activity)}
+                      </Grid>
+                    ) : (
+                      <Grid
+                        container
+                        item
+                        sm={6}
+                        md={6}
+                        key={`${activity.name}-${JSON.stringify(
+                          activity.options
+                        )}`}
+                      >
+                        {renderField(activity)}
+                      </Grid>
+                    )
+                  )}
+                </Grid>
+              </Card>
+            </Grid>
+          </Grid>
+        </Grid>
+
+        {/* thông tin thêm  */}
+        <Grid item container className="w-full pt-3">
+          <Card variant="outlined" className="w-full p-3 pt-1">
+            <Grid item sm={12} md={12} container spacing={2}>
+              {additionInfo.map((business) =>
+                business.name == "additionInfo" ? (
+                  <Grid
+                    container
+                    item
+                    sm={12}
+                    md={12}
+                    key={`${business.name}-${JSON.stringify(business.options)}`}
+                  >
+                    {renderField(business)}
+                  </Grid>
+                ) : (
+                  <Grid
+                    container
+                    item
+                    sm={4}
+                    md={4}
+                    key={`${business.name}-${JSON.stringify(business.options)}`}
+                  >
+                    {renderField(business)}
+                  </Grid>
+                )
+              )}
+            </Grid>
+          </Card>
+        </Grid>
+
+        {/* mô tả thêm  */}
+        <Grid item container spacing={2}>
+          <Grid
+            container
+            item
+            sm={12}
+            md={12}
+            key={`${descriptionTitle.name}-${JSON.stringify(
+              descriptionTitle.options
+            )}`}
+          >
+            {renderField(descriptionTitle)}
+          </Grid>
+          <Grid
+            container
+            item
+            sm={12}
+            md={12}
+            key={`${description.name}-${JSON.stringify(description.options)}`}
+          >
+            {renderField(description)}
+          </Grid>
+        </Grid>
+        <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end" }}>
+          <Button type="submit" variant="contained" color="primary">
+            Lưu thông tin
+          </Button>
+        </Box>
+      </form>
+    </BaseBox>
   );
 };
 

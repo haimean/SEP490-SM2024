@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import CourtDetailList from "../../../components/host/court/CourtDetailList";
 import CallApi from "../../../service/CallAPI";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Button } from "@mui/material";
 import useDialogConfirm from "../../../hooks/useDialogConfirm";
+import RegisterCourt from "../../host/Court/RegisterCourt";
+import BaseBox from "../../common/BaseBox";
 
 const ListCourt = () => {
   const storedUserRole = localStorage.getItem("userRole");
@@ -23,11 +25,17 @@ const ListCourt = () => {
   ]);
   const [isCompare, setIsCompare] = useState(false);
   const [data, setData] = useState([]);
+  const [registerCourtModal, setRegisterCourtModal] = useState(false);
+  const handleOpenModalRegisterCourt = () => {
+    setRegisterCourtModal(true);
+  };
+  const handleCloseModalRegisterCourt = async () => {
+    setRegisterCourtModal(false);
+    await getAllCourt();
+  };
   const handleCompare = (court) => {
-    console.log("🚀 ========= court:", court);
     setIsCompare(true);
     setCourtList((prev) => {
-      console.log("🚀 ========= prev:", prev);
       if (prev[0].court == null) {
         return [
           {
@@ -54,7 +62,6 @@ const ListCourt = () => {
     try {
       const result = await CallApi(`/api/court/branch/${id}`, "get");
       setData(result.data);
-      console.log("🚀 ========= result:", result.data);
     } catch (error) {
       console.log("🚀 ========= error:", error);
     }
@@ -87,61 +94,49 @@ const ListCourt = () => {
     });
   };
   return (
-    <div className="bg-gray-100 min-h-screen p-4">
-      <div className="container mx-auto p-4 mt-16">
-        <div className="flex justify-between">
-          <h1 className="text-2xl font-bold mb-4">
-            Tìm thấy {data.length} sân đấu
-          </h1>
-          <div className="flex gap-4">
-            <Link
-              to={`/host/register-court`}
-              style={{ textDecoration: "none" }}
-            >
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                sx={{ mb: 2 }}
-              >
-                Thêm thuộc tính sân đấu
-              </Button>
-            </Link>
-            <Link
-              to={`/host/register-court`}
-              style={{ textDecoration: "none" }}
-            >
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                sx={{ mb: 2 }}
-              >
-                Thêm sân đấu
-              </Button>
-            </Link>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {data.map((activity, index) => (
-            <CourtDetailList
-              key={index}
-              activity={activity}
-              courtList={courtList}
-              handleCompare={handleCompare}
-              isCompare={isCompare}
-              setIsCompare={setIsCompare}
-              handleRemoveCompare={handleRemoveCompare}
-              onDeleteCourt={handleDeleteCourt}
-              role={storedUserRole}
-              branchId={id}
-            />
-          ))}
+    <BaseBox title="Danh sách sân đấu ">
+      <div className="flex justify-between">
+        <h1 className="text-xl font-bold mb-4">
+          Hiện có {data.length} sân đấu
+        </h1>
+        <div className="flex gap-4">
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            sx={{ mb: 2 }}
+            onClick={handleOpenModalRegisterCourt}
+          >
+            Thêm sân đấu
+          </Button>
         </div>
       </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {data.map((activity, index) => (
+          <CourtDetailList
+            key={index}
+            activity={activity}
+            courtList={courtList}
+            handleCompare={handleCompare}
+            isCompare={isCompare}
+            setIsCompare={setIsCompare}
+            handleRemoveCompare={handleRemoveCompare}
+            onDeleteCourt={handleDeleteCourt}
+            role={storedUserRole}
+            branchId={id}
+          />
+        ))}
+      </div>
+      {registerCourtModal && (
+        <RegisterCourt
+          branchesId={id}
+          open={registerCourtModal}
+          handleClose={handleCloseModalRegisterCourt}
+        />
+      )}
       <DialogComponent />
-    </div>
+    </BaseBox>
   );
 };
 

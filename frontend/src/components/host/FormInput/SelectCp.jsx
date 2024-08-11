@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import React from "react";
 import { Controller } from "react-hook-form";
 
 const SelectCp = ({ field, control, errors }) => (

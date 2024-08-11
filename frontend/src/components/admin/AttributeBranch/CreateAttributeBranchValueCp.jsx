@@ -45,7 +45,7 @@ const CreateAtbBranchValueCp = ({ attributeKeyBranchesId, closeModal }) => {
       register={register}
       errors={errors}
       fields={{
-        title: "Tạo mới đặc điểm chi nhánh",
+        title: "Tạo mới đặc điểm cơ sở",
         inputs: [
           {
             id: "value",

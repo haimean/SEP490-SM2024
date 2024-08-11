@@ -78,6 +78,11 @@ const bookingUserController = {
           name,
           numberPhone,
         } = element;
+        //  !59: check người đăt sân đã đặt ở sân nào khác ở thời điểm này chưa
+
+        // !59: check người chơi đã xin vào 1 trận đấu và được acccept ở khoảng thời gian này chưas
+
+        // !59: check thời gian của sân
 
         const booking = await bookingUserService.create({
           accountId,

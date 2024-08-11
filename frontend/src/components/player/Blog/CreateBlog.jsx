@@ -124,6 +124,7 @@ const CreateBlog = ({ open, onClose, onBlogCreated }) => {
                 rows={4}
                 error={!!error}
                 helperText={error?.message}
+                inputProps={{ maxLength: 180 }}
               />
             )}
           />

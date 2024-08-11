@@ -77,7 +77,7 @@ const BlogDetailModal = ({ open, onClose, blog }) => {
               src={blog.image}
               alt="Blog image"
               style={{
-                width: "500px",
+                width: "200px",
                 height: "auto",
                 margin: "auto",
                 borderRadius: "4px",

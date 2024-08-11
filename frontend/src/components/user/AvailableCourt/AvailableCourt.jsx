@@ -1,12 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  Box,
-  CircularProgress,
-  Container,
-  Grid,
-  Pagination,
-  Typography,
-} from "@mui/material";
+import { Container, Grid, Pagination, Typography } from "@mui/material";
 import PostCard from "../Post/PostCard";
 import LocationFilter from "./LocationFilter";
 import CallApi from "../../../service/CallAPI";

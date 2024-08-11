@@ -98,7 +98,9 @@ export default function RequestListJoin() {
         <Loading />
       ) : (
         <Grid container spacing={1}>
-          <Typography variant="subtitle1">Lịch sử xin vào trận</Typography>
+          <Typography variant="h5" component="h6">
+            Lịch sử xin vào trận
+          </Typography>
           {requestList?.map((item) => (
             <Grid key={item?.id} item xs={12}>
               <Card variant="outlined" className="p-4 pb-2">
