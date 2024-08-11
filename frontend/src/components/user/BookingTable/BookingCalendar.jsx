@@ -253,27 +253,23 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
   const calculatePrice = (start, end, priceListToUse) => {
     let totalPrice = 0;
     priceListToUse.forEach((priceRange) => {
-      const rangeStartHour = priceRange.start.getHours();
-      const rangeEndHour = priceRange.end.getHours();
-      let eventStart = new Date(start);
-      let eventEnd = new Date(end);
-      while (eventStart < eventEnd) {
-        let nextSlot = new Date(eventStart);
-        nextSlot.setMinutes(eventStart.getMinutes() + 30);
-        if (nextSlot > eventEnd) {
-          nextSlot = eventEnd;
+        const rangeStart = new Date(start);
+        rangeStart.setHours(priceRange.start.getHours(), priceRange.start.getMinutes());
+        const rangeEnd = new Date(start);
+        rangeEnd.setHours(priceRange.end.getHours(), priceRange.end.getMinutes());
+
+        const effectiveStart = start > rangeStart ? start : rangeStart;
+        const effectiveEnd = end < rangeEnd ? end : rangeEnd;
+
+        if (effectiveStart < effectiveEnd) {
+            const duration = (effectiveEnd - effectiveStart) / (1000 * 60 * 60); // thời gian theo giờ
+            totalPrice += priceRange.price * duration;
         }
-        const eventHour = eventStart.getHours();
-        if (eventHour >= rangeStartHour && eventHour < rangeEndHour) {
-          const duration =
-            Math.round((nextSlot - eventStart) / (1000 * 60 * 30)) / 2;
-          totalPrice += priceRange.price * duration;
-        }
-        eventStart = nextSlot;
-      }
     });
+
     return totalPrice;
-  };
+};
+
 
   const slotPropGetter = (date) => {
     const hours = date.getHours();

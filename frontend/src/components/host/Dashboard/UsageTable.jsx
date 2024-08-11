@@ -51,7 +51,7 @@ const UsageTable = ({ data, dayCounts }) => {
               >
                 <TableCell
                   key={index}
-                  className="border border-gray-300 !text-center text-xs !p-2 bg-gray-100"
+                  className="border border-gray-300 !text-center !p-0 text-xs bg-gray-100"
                   style={{ width: "30px" }} // Đặt chiều rộng cố định cho các ô giờ
                 >
                   {hour}
@@ -83,7 +83,7 @@ const UsageTable = ({ data, dayCounts }) => {
                   <TableCell
                     key={hour}
                     className={clsx(
-                      "border border-gray-300 !text-center !items-center text-xs",
+                      "border border-gray-300 !text-center !p-0 !items-center text-xs",
                       getColorClass(value)
                     )}
                     style={{ width: "30px", height: "30px" }}
