@@ -51,7 +51,7 @@ const ConfirmBookingModal = ({ isOpen, onRequestClose, courtId, selectedEvents, 
     try {
       const response = await CallApi("/api/user/booking", "post", data, {});
       console.log(response);
-      toast.success("Booking successful!");
+      toast.success("Đặt sân thành công!");
       onRequestClose();
       setTimeout(async () => {
         resetEvents(); 
@@ -61,7 +61,7 @@ const ConfirmBookingModal = ({ isOpen, onRequestClose, courtId, selectedEvents, 
       setPhone(''); 
       setIsRedirectConfirmOpen(true);
     } catch (error) {
-      toast.error(error.response?.data?.error || "An error occurred during booking");
+      toast.error(error.response?.data?.error || "Đã có lỗi xảy ra khi đặt sân");
     } finally {
       setLoading(false); 
     }
