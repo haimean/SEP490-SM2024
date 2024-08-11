@@ -96,9 +96,7 @@ const ListCourt = () => {
     <div className="bg-gray-100 min-h-screen p-4">
       <div className="container mx-auto p-4 mt-16">
         <div className="flex justify-between">
-          <h1 className="text-2xl font-bold mb-4">
-            Tìm thấy {data.length} sân đấu
-          </h1>
+          <h1 className="text-2xl font-bold mb-4">{data.length} sân đấu</h1>
           <div className="flex gap-4">
             <Button
               variant="contained"

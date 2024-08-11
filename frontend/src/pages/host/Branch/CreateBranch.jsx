@@ -20,11 +20,11 @@ import DistrictSelect from "../../../components/host/FormInput/DistrictSelect";
 import WardSelect from "../../../components/host/FormInput/WardSelect";
 
 import CallApi from "../../../service/CallAPI";
-import PaymentCreateBranch from "../../../components/host/Branch/PaymentCreateBranch";
 import axios from "axios";
 import TelCp from "../../../components/host/FormInput/TelCp";
 import EmailCp from "../../../components/host/FormInput/EmailCp";
 import EditorInput from "../../../components/host/FormInput/Editor";
+import BaseBox from "../../common/BaseBox";
 const CreateBranch = () => {
   const navigate = useNavigate();
   const {
@@ -37,8 +37,6 @@ const CreateBranch = () => {
   } = useForm();
 
   const [branchAtbList, setBranchAtbList] = useState([]);
-  const [openPaymentModal, setOpenPaymentModal] = useState(false);
-  const [formData, setFormData] = useState(null);
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
@@ -63,9 +61,6 @@ const CreateBranch = () => {
       fetchWards(getValues().districts.id);
     }
   }, [getValues().districts]);
-
-  const handleOpenPaymentModal = () => setOpenPaymentModal(true);
-  const handleClosePaymentModal = () => setOpenPaymentModal(false);
 
   const fetchProvinces = async () => {
     try {
@@ -149,29 +144,7 @@ const CreateBranch = () => {
     }
   }, []);
 
-  const checkBranchCount = async () => {
-    try {
-      const response = await CallApi("/api/host/branches/total", "get");
-      return response.data.total;
-    } catch (error) {
-      console.error("Error fetching branch count:", error);
-      return 0;
-    }
-  };
-
   const onSubmit = async (data) => {
-    const branchCount = await checkBranchCount();
-
-    if (branchCount >= 2) {
-      setFormData(data);
-      handleOpenPaymentModal();
-      return;
-    }
-
-    await createBranch(data);
-  };
-
-  const createBranch = async (data) => {
     console.log("🚀 ========= data:", data);
     const formData = new FormData();
     formData.append("name", data?.branchName);
@@ -223,11 +196,11 @@ const CreateBranch = () => {
     }
   };
 
-  const handleConfirmPayment = () => {
-    if (formData) {
-      createBranch(formData);
-    }
-  };
+  // const handleConfirmPayment = () => {
+  //   if (formData) {
+  //     createBranch(formData);
+  //   }
+  // };
 
   const serviceOptions = useMemo(
     () =>
@@ -448,235 +421,192 @@ const CreateBranch = () => {
     reset();
   };
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "100vh",
-      }}
-    >
-      <Box
-        sx={{
-          my: 12,
-          mx: 10,
-          flexGrow: 1,
-        }}
-      >
-        <Box
-          component={Link}
-          to="/host/list-branch"
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            textDecoration: "none",
-            cursor: "pointer",
-            color: "gray",
-          }}
-        >
-          <ArrowBack fontSize="small" sx={{ mr: 0.5 }} />
-          <Typography variant="h6">QUAY LẠI</Typography>
-        </Box>
-        <Typography variant="h4" component="h3" className="text-center">
-          Tạo cơ sở mới
-        </Typography>
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
-          <Grid container spacing={2} alignItems={"center"}>
-            <Grid item xs={6} justifyContent={"center"}>
-              <Grid
-                item
-                sm={12}
-                md={12}
-                key={`${avt.name}-${JSON.stringify(avt.options)}`}
-              >
-                {renderField(avt)}
-              </Grid>
-            </Grid>
-            <Grid container item xs={6} spacing={2}>
-              <Grid
-                item
-                sm={12}
-                md={12}
-                key={`${branchName.name}-${JSON.stringify(branchName.options)}`}
-              >
-                {renderField(branchName)}
-              </Grid>
-              <Grid item>
-                <Card variant="outlined" className="w-full p-3 pt-0">
-                  <Grid
-                    container
-                    item
-                    sm={12}
-                    md={12}
-                    spacing={2}
-                    className="p-2"
-                  >
-                    {contactInfo.map((contact) => (
-                      <Grid
-                        container
-                        item
-                        sm={12}
-                        md={12}
-                        key={`${contact.name}-${JSON.stringify(
-                          contact.options
-                        )}`}
-                      >
-                        {renderField(contact)}
-                      </Grid>
-                    ))}
-                  </Grid>
-                </Card>
-              </Grid>
-              <Grid item>
-                <Card variant="outlined" className="w-full p-3 pt-0">
-                  <Grid
-                    container
-                    item
-                    sm={12}
-                    md={12}
-                    spacing={2}
-                    className="p-2"
-                  >
-                    {activityInfo.map((activity) =>
-                      activity.name == "branchWork" ? (
-                        <Grid
-                          container
-                          item
-                          sm={12}
-                          md={12}
-                          key={`${activity.name}-${JSON.stringify(
-                            activity.options
-                          )}`}
-                        >
-                          {renderField(activity)}
-                        </Grid>
-                      ) : (
-                        <Grid
-                          container
-                          item
-                          sm={6}
-                          md={6}
-                          key={`${activity.name}-${JSON.stringify(
-                            activity.options
-                          )}`}
-                        >
-                          {renderField(activity)}
-                        </Grid>
-                      )
-                    )}
-                  </Grid>
-                </Card>
-              </Grid>
+    <BaseBox title="Tạo cơ sở mới">
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
+        <Grid container spacing={2} alignItems={"center"}>
+          <Grid item xs={6} justifyContent={"center"}>
+            <Grid
+              item
+              sm={12}
+              md={12}
+              key={`${avt.name}-${JSON.stringify(avt.options)}`}
+            >
+              {renderField(avt)}
             </Grid>
           </Grid>
-          <Grid item container spacing={2} className="w-full pt-3">
-            <Grid item sm={6} md={6} container>
-              <Card variant="outlined" className="w-full p-3 pt-1">
-                {businessLicense.map((business) => (
-                  <Grid
-                    container
-                    item
-                    sm={12}
-                    md={12}
-                    key={`${business.name}-${JSON.stringify(business.options)}`}
-                  >
-                    {renderField(business)}
-                  </Grid>
-                ))}
-              </Card>
+          <Grid container item xs={6} spacing={2}>
+            <Grid
+              item
+              sm={12}
+              md={12}
+              key={`${branchName.name}-${JSON.stringify(branchName.options)}`}
+            >
+              {renderField(branchName)}
             </Grid>
-            <Grid item sm={6} md={6} container>
+            <Grid item>
               <Card variant="outlined" className="w-full p-3 pt-0">
-                {branchAddress.map((business) => (
-                  <Grid
-                    container
-                    item
-                    sm={12}
-                    md={12}
-                    key={`${business.name}-${JSON.stringify(business.options)}`}
-                  >
-                    {renderField(business)}
-                  </Grid>
-                ))}
-              </Card>
-            </Grid>
-          </Grid>
-          <Grid item container className="w-full pt-3">
-            <Card variant="outlined" className="w-full p-3 pt-1">
-              <Grid item sm={12} md={12} container spacing={2}>
-                {additionInfo.map((business) =>
-                  business.name == "additionInfo" ? (
+                <Grid
+                  container
+                  item
+                  sm={12}
+                  md={12}
+                  spacing={2}
+                  className="p-2"
+                >
+                  {contactInfo.map((contact) => (
                     <Grid
                       container
                       item
                       sm={12}
                       md={12}
-                      key={`${business.name}-${JSON.stringify(
-                        business.options
-                      )}`}
+                      key={`${contact.name}-${JSON.stringify(contact.options)}`}
                     >
-                      {renderField(business)}
+                      {renderField(contact)}
                     </Grid>
-                  ) : (
-                    <Grid
-                      container
-                      item
-                      sm={4}
-                      md={4}
-                      key={`${business.name}-${JSON.stringify(
-                        business.options
-                      )}`}
-                    >
-                      {renderField(business)}
-                    </Grid>
-                  )
-                )}
-              </Grid>
+                  ))}
+                </Grid>
+              </Card>
+            </Grid>
+            <Grid item>
+              <Card variant="outlined" className="w-full p-3 pt-0">
+                <Grid
+                  container
+                  item
+                  sm={12}
+                  md={12}
+                  spacing={2}
+                  className="p-2"
+                >
+                  {activityInfo.map((activity) =>
+                    activity.name == "branchWork" ? (
+                      <Grid
+                        container
+                        item
+                        sm={12}
+                        md={12}
+                        key={`${activity.name}-${JSON.stringify(
+                          activity.options
+                        )}`}
+                      >
+                        {renderField(activity)}
+                      </Grid>
+                    ) : (
+                      <Grid
+                        container
+                        item
+                        sm={6}
+                        md={6}
+                        key={`${activity.name}-${JSON.stringify(
+                          activity.options
+                        )}`}
+                      >
+                        {renderField(activity)}
+                      </Grid>
+                    )
+                  )}
+                </Grid>
+              </Card>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item container spacing={2} className="w-full pt-3">
+          <Grid item sm={6} md={6} container>
+            <Card variant="outlined" className="w-full p-3 pt-1">
+              {businessLicense.map((business) => (
+                <Grid
+                  container
+                  item
+                  sm={12}
+                  md={12}
+                  key={`${business.name}-${JSON.stringify(business.options)}`}
+                >
+                  {renderField(business)}
+                </Grid>
+              ))}
             </Card>
           </Grid>
-          <Grid item container spacing={2}>
-            <Grid
-              container
-              item
-              sm={12}
-              md={12}
-              key={`${descriptionTitle.name}-${JSON.stringify(
-                descriptionTitle.options
-              )}`}
-            >
-              {renderField(descriptionTitle)}
-            </Grid>
-            <Grid
-              container
-              item
-              sm={12}
-              md={12}
-              key={`${description.name}-${JSON.stringify(description.options)}`}
-            >
-              {renderField(description)}
-            </Grid>
+          <Grid item sm={6} md={6} container>
+            <Card variant="outlined" className="w-full p-3 pt-0">
+              {branchAddress.map((business) => (
+                <Grid
+                  container
+                  item
+                  sm={12}
+                  md={12}
+                  key={`${business.name}-${JSON.stringify(business.options)}`}
+                >
+                  {renderField(business)}
+                </Grid>
+              ))}
+            </Card>
           </Grid>
-          <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end" }}>
-            <Button
-              onClick={handleCancel}
-              type="button"
-              variant="outlined"
-              sx={{ mr: 1 }}
-            >
-              Hủy
-            </Button>
-            <Button type="submit" variant="contained" color="primary">
-              Tạo cơ sở
-            </Button>
-          </Box>
-        </form>
-        <PaymentCreateBranch
-          open={openPaymentModal}
-          handleClose={handleClosePaymentModal}
-          branchName={getValues().branchName || "mới"}
-          onConfirmPayment={handleConfirmPayment}
-        />
-      </Box>
-    </Box>
+        </Grid>
+        <Grid item container className="w-full pt-3">
+          <Card variant="outlined" className="w-full p-3 pt-1">
+            <Grid item sm={12} md={12} container spacing={2}>
+              {additionInfo.map((business) =>
+                business.name == "additionInfo" ? (
+                  <Grid
+                    container
+                    item
+                    sm={12}
+                    md={12}
+                    key={`${business.name}-${JSON.stringify(business.options)}`}
+                  >
+                    {renderField(business)}
+                  </Grid>
+                ) : (
+                  <Grid
+                    container
+                    item
+                    sm={4}
+                    md={4}
+                    key={`${business.name}-${JSON.stringify(business.options)}`}
+                  >
+                    {renderField(business)}
+                  </Grid>
+                )
+              )}
+            </Grid>
+          </Card>
+        </Grid>
+        <Grid item container spacing={2}>
+          <Grid
+            container
+            item
+            sm={12}
+            md={12}
+            key={`${descriptionTitle.name}-${JSON.stringify(
+              descriptionTitle.options
+            )}`}
+          >
+            {renderField(descriptionTitle)}
+          </Grid>
+          <Grid
+            container
+            item
+            sm={12}
+            md={12}
+            key={`${description.name}-${JSON.stringify(description.options)}`}
+          >
+            {renderField(description)}
+          </Grid>
+        </Grid>
+        <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            onClick={handleCancel}
+            type="button"
+            variant="outlined"
+            sx={{ mr: 1 }}
+          >
+            Hủy
+          </Button>
+          <Button type="submit" variant="contained" color="primary">
+            Tạo cơ sở
+          </Button>
+        </Box>
+      </form>
+    </BaseBox>
   );
 };
 
