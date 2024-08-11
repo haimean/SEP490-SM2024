@@ -41,7 +41,6 @@ const typeCourtHostService = {
     query.data.priceTypeCourt = {
       create: priceTypeCourt,
     };
-    console.log(JSON.stringify(query.data));
 
     return await database.typeCourt.create(query);
   },

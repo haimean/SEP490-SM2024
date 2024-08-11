@@ -166,15 +166,11 @@ const accountService = {
     date: number,
     role: 'USER' | 'HOST'
   ) => {
-    console.log('🚀 ========= year month date', year, month, date);
-
     // Create the start date of the specified day
     const startDate = new Date(Date.UTC(year, month - 1, date + 1));
 
     // Create the start date of the next day in UTC
     const endDate = new Date(Date.UTC(year, month - 1, date + 2));
-    console.log('🚀 ========= startDate', startDate.toISOString());
-    console.log('🚀 ========= endDate', endDate.toISOString());
     const result = await database.account.findMany({
       where: {
         role: role,

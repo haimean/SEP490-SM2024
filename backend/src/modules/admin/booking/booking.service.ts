@@ -27,14 +27,10 @@ const bookingAdminService = {
     const month = date.getMonth();
     if (month == 0) {
       const startDate = new Date(year, month - 1, 2);
-      console.log('🚀 ========= startDate1:', startDate);
       const endDate = new Date(year, month, 2);
-      console.log('🚀 ========= endDate1:', endDate);
     } else {
       const startDate = new Date(year - 1, 12, 2);
-      console.log('🚀 ========= startDate2:', startDate);
       const endDate = new Date(year, month, 2);
-      console.log('🚀 ========= endDate2:', endDate);
     }
     const result = await database.post.findMany({
       where: {

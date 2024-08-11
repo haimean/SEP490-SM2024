@@ -29,10 +29,6 @@ const typeCourtHostController = {
         item.endTime = dateUtils.timeToDate(item?.endTime);
         return item;
       });
-      console.log(
-        'parsePriceTypeCourt',
-        JSON.stringify(parsePriceTypeCourt)
-      );
       const typeCourt: TypeCourt = await typeCourtHostService.create({
         accountId,
         name,
@@ -73,10 +69,6 @@ const typeCourtHostController = {
 
         return item;
       });
-      console.log(
-        'parsePriceTypeCourt',
-        JSON.stringify(parsePriceTypeCourt)
-      );
 
       const typeCourt: TypeCourt = await typeCourtHostService.update(
         Number(id),

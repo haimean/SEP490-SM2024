@@ -41,7 +41,6 @@ const userController = {
         );
 
         account.password = hashPassword;
-        console.log(account);
 
         // save new password
         await accountServiceBase.updatePass(account.id, hashPassword);

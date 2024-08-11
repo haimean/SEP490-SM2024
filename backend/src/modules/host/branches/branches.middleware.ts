@@ -115,9 +115,6 @@ const branchesHostMiddleware: BranchesHostMiddleware = {
       const bookings = await branchesHostService.getBookingNotStart(
         Number(id)
       );
-      console.log('openingHours', openingHours);
-      console.log('closingHours', closingHours);
-      console.log('bookings', bookings);
       for (const booking of bookings) {
         if (
           !dateUtils.areHoursWithinOpeningClosingHours(

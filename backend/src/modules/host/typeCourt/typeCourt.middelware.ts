@@ -16,8 +16,6 @@ const typeCourtHostMiddleware: TypeCourtHostMiddleware = {
       if (typeof attributeCourtIds === 'string') {
         req.body.attributeCourtIds = [attributeCourtIds];
       }
-      console.log(priceTypeCourt);
-      console.log(typeof priceTypeCourt);
 
       if (typeof priceTypeCourt === 'string') {
         req.body.priceTypeCourt = [JSON.parse(priceTypeCourt)];

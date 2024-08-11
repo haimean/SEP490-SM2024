@@ -28,7 +28,6 @@ const RegisterCourt = () => {
     const getListTypeCourt = async () => {
       try {
         const listTypeCourt = await CallApi("/api/host/type-court", "get");
-        console.log("🚀 ========= listTypeCourt:", listTypeCourt);
         setTypeCourtList(listTypeCourt.data);
       } catch (error) {
         console.log("🚀 ========= error:", error);
@@ -37,7 +36,6 @@ const RegisterCourt = () => {
     const getListBranch = async () => {
       try {
         const listListBranch = await CallApi("/api/host/branches", "get");
-        console.log("🚀 ========= listListBranch:", listListBranch);
         setBranchList(listListBranch.data);
       } catch (error) {
         console.log("🚀 ========= error:", error);

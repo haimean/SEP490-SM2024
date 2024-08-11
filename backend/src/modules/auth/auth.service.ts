@@ -43,7 +43,6 @@ const authService = {
       password,
       existingUser.password
     );
-    console.log('isPasswordValid: ', isPasswordValid);
 
     if (!isPasswordValid) {
       throw new Error('Password not correct');

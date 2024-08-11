@@ -41,7 +41,6 @@ const bookingUserService = {
         accountId,
       },
     });
-    console.log('🚀 ========= result:', result.length);
     const response = await database.booking.findMany({
       where: {
         accountId,

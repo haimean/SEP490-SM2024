@@ -146,7 +146,6 @@ const accountController = {
   ) => {
     try {
       const { dateFilter } = req.body;
-      console.log('🚀 ========= dateFilter:', dateFilter);
       const [year, month, day] = dateFilter.split('-').map(Number);
       const result = [];
       for (let index = day < 7 ? 0 : day - 7; index < day; index++) {
