@@ -59,7 +59,7 @@ const CourtDetailComponent = ({
                 <Stack direction="row" alignItems="center" spacing={1} key={att.id}>
                   <Checklist className="text-red-600" />
                   <Typography>
-                    {att.value}: {att?.attributeKeyCourt.name}
+                  {att?.attributeKeyCourt.name} : {att.value}
                   </Typography>
                 </Stack>
               ))
@@ -77,10 +77,11 @@ const CourtDetailComponent = ({
           </CardContent>
         </Card>
       </Grid>
-      {role == "USER" ? (
-        <RightSectionDetailPage court={court} branch={court?.Branches}/>
-      ) : (
+      {role == "HOST" ? (
         <RightSectionHost id={id} type={type} court1={court}/>
+        
+      ) : (
+        <RightSectionDetailPage court={court} branch={court?.Branches}/>
       )}
     </Grid>
   );

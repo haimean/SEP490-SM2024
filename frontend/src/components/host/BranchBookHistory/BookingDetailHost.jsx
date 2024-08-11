@@ -13,6 +13,7 @@ import {
 import { format } from "date-fns";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
+import { subHours } from "date-fns";
 
 const BookingDetailHost = () => {
   const { id } = useParams();
@@ -96,11 +97,11 @@ const BookingDetailHost = () => {
           <Grid item xs={12} md={6}>
             <Typography variant="h6">Thông tin đặt sân</Typography>
             <Typography>
-              Ngày: {format(new Date(booking?.startTime), "dd/MM/yyyy")}
+              Ngày: {format(subHours(new Date(booking?.startTime), 14), "dd/MM/yyyy")}
             </Typography>
             <Typography>
-              Thời gian: {format(new Date(booking?.startTime), "HH:mm")} -{" "}
-              {format(new Date(booking?.endTime), "HH:mm")}
+              Thời gian: {format(subHours(new Date(booking?.startTime), 14), "HH:mm")} -{" "}
+              {format(subHours(new Date(booking?.endTime), 14), "HH:mm")}
             </Typography>
             <Typography>
               Giá: {booking?.price?.toLocaleString("vi-VN")} VNĐ
