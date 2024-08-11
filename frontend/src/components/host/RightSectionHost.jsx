@@ -105,7 +105,7 @@ const RightSectionHost = ({ id, type, court1 }) => {
         {type === "courtDetail" && (
           <>
             <Link
-              to={`/host/update-court/${court1.id}`}
+              to={`/host/update-court/${court1?.id}`}
               style={{ textDecoration: "none" }}
             >
               <Button
@@ -160,7 +160,7 @@ const RightSectionHost = ({ id, type, court1 }) => {
       <BookingModal
         open={isCalendarModalOpen}
         onClose={handleCloseCalendarModal}
-        courtId={court1.id}
+        courtId={court1?.id}
         court={court}
       />
     </Grid>
