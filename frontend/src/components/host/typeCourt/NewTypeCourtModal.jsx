@@ -528,7 +528,7 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
                       });
                     }}
                   >
-                    Xóa khoảng giá
+                    Xóa bảng giá
                   </Button>
                 </Grid>
               ))}
@@ -545,7 +545,7 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
                   setIsOpenPriceTypeCourtForm(true);
                 }}
               >
-                Thêm mới khoảng giá
+                Thêm mới bảng giá
               </Button>
             </Grid>
           </Grid>
