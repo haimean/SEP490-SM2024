@@ -224,14 +224,14 @@ const EventModal = ({
             {isNewEvent ? "Hủy" : "Đóng"}
           </Button>
         </Box>
-      </Box>
-      {isOpenDialogInfo && (
+        {isOpenDialogInfo && (
         <DialogInfo
           handleClose={handleCloseDialogInfo}
           open={isOpenDialogInfo}
           title={titleDialog}
         />
       )}
+      </Box>
     </Modal>
   );
 };

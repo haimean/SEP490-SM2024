@@ -128,6 +128,7 @@ export default function CourtDetail() {
                     type={"courtDetail"}
                     role={userRole}
                     court={data}
+                    courtId={id}
                   />
                 )}
               </Box>
