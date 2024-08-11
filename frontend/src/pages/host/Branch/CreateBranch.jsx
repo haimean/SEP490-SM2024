@@ -332,13 +332,6 @@ const CreateBranch = () => {
       required: true,
     },
     {
-      name: "managerName",
-      label: "Tên quản lý cơ sở",
-      type: "text",
-      required: true,
-      gridWidth: 12,
-    },
-    {
       name: "phone",
       label: "Số điện thoại liên hệ",
       type: "tel",
