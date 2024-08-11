@@ -49,7 +49,7 @@ export default function UpdateCourt() {
     getListTypeCourt();
     getListBranch();
     getDetailCourt();
-  }, []);
+  }, [id]);
   return (
     <FormDetailCourt
       onSubmit={onSubmit}

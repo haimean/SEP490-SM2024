@@ -183,7 +183,14 @@ const DashboardHost = () => {
   );
 
   return (
-    <Box sx={{ my: 16, mx: 10, minHeight: "100vh", height: "full" }}>
+    <Box
+      sx={{
+        my: 12,
+        mx: 10,
+        minHeight: "100vh",
+        height: "full",
+      }}
+    >
       {/* cục trên */}
       <Box className="flex justify-between items-center">
         <Typography variant="h4" component="h2" fontWeight={600}>

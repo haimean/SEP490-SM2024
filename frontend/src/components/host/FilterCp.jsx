@@ -15,7 +15,7 @@ const filters = [
   },
 */
   return (
-    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2, mb: 3 }}>
+    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
       {filters.map((filter) => (
         <Select
           key={filter.name}

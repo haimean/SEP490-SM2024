@@ -14,7 +14,6 @@ import NotFound from "../pages/common/NotFound/NotFound.jsx";
 import Dashboard from "../pages/admin/Dashboard/Dashboard.jsx";
 import CreateBranch from "../pages/host/Branch/CreateBranch.jsx";
 import Checkout from "../pages/player/Court/Checkout.jsx";
-import RegisterCourt from "../pages/host/Court/RegisterCourt.jsx";
 import UpdateCourt from "../pages/host/Court/UpdateCourt.jsx";
 import ComparePage from "../components/host/court/ComparePage.jsx";
 import BookingHistory from "../pages/player/BookHistory/BookingHistory.jsx";
@@ -35,7 +34,6 @@ import BranDetailUser from "../pages/user/BranchDetail/BranDetailUser.jsx";
 import BookingPage from "../pages/user/Booking/BookingPage.jsx";
 import TestBookingPage from "../pages/user/Booking/TestBookingPage.jsx";
 import BookingCalendar from "../components/user/BookingTable/BookingCalendar.jsx";
-import RegisterTypeCourt from "../pages/host/TypeCourt/CreateTypeCourt.jsx";
 import BookingHistoryHost from "../pages/host/BranchBookHistory/BookingHistoryHost.jsx";
 import BookingDetailHost from "../components/host/BranchBookHistory/BookingDetailHost.jsx";
 import ListBranchAdmin from "../pages/admin/Branch/ListBranchAdmin.jsx";
@@ -320,13 +318,6 @@ const router = [
     component: <BookingPage />,
     role: ["HOST"],
     layout: "",
-  },
-  {
-    path: "/host/create-type-court",
-    name: "Create Type Court",
-    component: <RegisterTypeCourt />,
-    role: ["HOST"],
-    layout: "host",
   },
   {
     path: "/booking-test",

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import {
   Box,
-  Typography,
   Button,
   Paper,
   Table,
@@ -16,6 +15,7 @@ import NewTypeCourtModal from "./NewTypeCourtModal";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
 import DialogInfo from "../../common/DialogInfo";
+import BaseBox from "../../../pages/common/BaseBox";
 
 const TypeCourtTable = () => {
   const [typeCourts, setTypeCourts] = useState([]);
@@ -131,11 +131,8 @@ const TypeCourtTable = () => {
     }
   };
   return (
-    <Box sx={{ my: 16, mx: 10, minHeight: "100vh", height: "full" }}>
-      <Box className="flex justify-between items-center">
-        <Typography variant="h4" component="h2" fontWeight={600}>
-          Quản Lý Loại Sân
-        </Typography>
+    <BaseBox title="Quản Lý Loại Sân">
+      <Box className="flex justify-end items-center">
         <Button
           variant="contained"
           color="primary"
@@ -223,7 +220,7 @@ const TypeCourtTable = () => {
         onClose={handleCloseImageModal}
         image={currentImage}
       />
-    </Box>
+    </BaseBox>
   );
 };
 

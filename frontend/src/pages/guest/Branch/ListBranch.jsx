@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import CardComponent from "../../../components/host/CardComponent";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import FilterCp from "../../../components/host/FilterCp";
 import CallApi from "../../../service/CallAPI";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import useDialogConfirm from "../../../hooks/useDialogConfirm";
+import BaseBox from "../../common/BaseBox";
 
 const ListBranch = () => {
   const [listBranch, setListBranch] = useState([]);
@@ -73,16 +74,16 @@ const ListBranch = () => {
     return filters.area !== "" || filters.time !== "";
   };
   const handleDeleteBranch = async (id) => {
-    openDialog("Bạn có chắc chắn muốn xóa cơ sở này không?", async () => {
+    openDialog("Bạn có chắc chắn muốn xóa chi nhánh này không?", async () => {
       try {
         await CallApi(`/api/host/branches/branch-delete/${id}`, "put");
         fetchBranchList();
-        toast.success("Đã xóa cơ sở thành công");
+        toast.success("Đã xóa chi nhánh thành công");
       } catch (error) {
         console.log(
           "=============== delete branch ERROR: " + error.response?.data?.error
         );
-        toast.error("Có lỗi xảy ra khi xóa cơ sở");
+        toast.error("Có lỗi xảy ra khi xóa chi nhánh");
       }
     });
   };
@@ -92,25 +93,16 @@ const ListBranch = () => {
     : listBranch;
 
   return (
-    <Box
-      sx={{
-        my: 16,
-        mx: 10,
-        minHeight: "100vh",
-        height: "full",
-      }}
-    >
+    <BaseBox title="Danh sách cơ sở">
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          mb: 6,
+          marginBottom: 2,
         }}
       >
-        <Typography variant="h4" component="h2" fontWeight={600}>
-          Danh sách cơ sở
-        </Typography>
+        <FilterCp filters={filterOptions} />
         {role == "HOST" && (
           <Link to="/host/create-branch" style={{ textDecoration: "none" }}>
             <Button variant="contained" color="primary">
@@ -119,7 +111,7 @@ const ListBranch = () => {
           </Link>
         )}
       </Box>
-      <FilterCp filters={filterOptions} />
+
       <Grid container spacing={3}>
         {branchesDisplay.map((item) => (
           <Grid item xs={12} md={6} key={item?.id}>
@@ -137,7 +129,7 @@ const ListBranch = () => {
         ))}
       </Grid>
       <DialogComponent />
-    </Box>
+    </BaseBox>
   );
 };
 

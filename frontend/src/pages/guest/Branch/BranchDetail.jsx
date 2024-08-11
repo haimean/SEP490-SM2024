@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import DetailPageCp from "../../../components/host/DetailPageCp";
 import { useParams } from "react-router-dom";
 import CallApi from "../../../service/CallAPI";
+import BaseBox from "../../common/BaseBox";
 
 const BranchDetail = () => {
   const [userRole, setUserRole] = useState("");
@@ -46,12 +47,7 @@ const BranchDetail = () => {
     />
   );
   return (
-    <Box
-      sx={{
-        my: 12,
-        mx: 10,
-      }}
-    >
+    <BaseBox title="Thông tin cơ sở">
       <DetailPageCp
         name={branchDetail?.name}
         image={branchDetail?.image}
@@ -64,7 +60,7 @@ const BranchDetail = () => {
         map={map}
         type={"Branch"}
       />
-    </Box>
+    </BaseBox>
   );
 };
 
