@@ -106,7 +106,7 @@ const ListBranch = () => {
         {role == "HOST" && (
           <Link to="/host/create-branch" style={{ textDecoration: "none" }}>
             <Button variant="contained" color="primary">
-              Tạo Chi Nhánh
+              Tạo cơ sở
             </Button>
           </Link>
         )}

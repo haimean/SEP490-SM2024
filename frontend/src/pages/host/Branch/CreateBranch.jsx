@@ -423,6 +423,7 @@ const CreateBranch = () => {
   return (
     <BaseBox title="Tạo cơ sở mới">
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
+        {/* ảnh và thông tin chung */}
         <Grid container spacing={2} alignItems={"center"}>
           <Grid item xs={6} justifyContent={"center"}>
             <Grid
@@ -509,6 +510,7 @@ const CreateBranch = () => {
             </Grid>
           </Grid>
         </Grid>
+        {/* giấy phép kinh doanh và địa chỉ */}
         <Grid item container spacing={2} className="w-full pt-3">
           <Grid item sm={6} md={6} container>
             <Card variant="outlined" className="w-full p-3 pt-1">
@@ -526,7 +528,7 @@ const CreateBranch = () => {
             </Card>
           </Grid>
           <Grid item sm={6} md={6} container>
-            <Card variant="outlined" className="w-full p-3 pt-0">
+            <Card variant="outlined" className="w-full p-3 pt-1">
               {branchAddress.map((business) => (
                 <Grid
                   container
@@ -541,6 +543,7 @@ const CreateBranch = () => {
             </Card>
           </Grid>
         </Grid>
+        {/* thông tin thêm  */}
         <Grid item container className="w-full pt-3">
           <Card variant="outlined" className="w-full p-3 pt-1">
             <Grid item sm={12} md={12} container spacing={2}>
@@ -570,6 +573,8 @@ const CreateBranch = () => {
             </Grid>
           </Card>
         </Grid>
+
+        {/* mô tả thêm  */}
         <Grid item container spacing={2}>
           <Grid
             container
@@ -599,7 +604,7 @@ const CreateBranch = () => {
             variant="outlined"
             sx={{ mr: 1 }}
           >
-            Hủy
+            Đặt lại
           </Button>
           <Button type="submit" variant="contained" color="primary">
             Tạo cơ sở
