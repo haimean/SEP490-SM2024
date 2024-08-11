@@ -52,29 +52,32 @@ const ListBranchAdmin = () => {
       width: 70,
       headerAlign: "center",
       align: "center",
+      renderHeader: () => <div className="font-bold">STT</div>,
     },
     {
       field: "name",
       headerName: "Tên cơ sở",
       width: 250,
+      renderHeader: () => <div className="font-bold">Tên cơ sở</div>,
     },
     {
       field: "email",
       headerName: "Email",
-      width: 200,
-      sortable: false,
+      width: 230,
+      renderHeader: () => <div className="font-bold">Email</div>,
     },
     {
       field: "phone",
       headerName: "Số điện thoại",
-      width: 120,
-      sortable: false,
+      width: 180,
+      renderHeader: () => <div className="font-bold">Số điện thoại</div>,
     },
     {
       field: "address",
       headerName: "Địa chỉ",
       width: 400,
       sortable: false,
+      renderHeader: () => <div className="font-bold">Địa chỉ</div>,
       renderCell: (params) => {
         const address = params?.row?.address;
         return `${address?.detail ?? ""}${
@@ -90,13 +93,13 @@ const ListBranchAdmin = () => {
     <div className="flex justify-center py-2">
       <div className="max-w-6xl w-full p-10 border rounded-lg shadow bg-white">
         <h1 className="text-center mb-4 text-2xl font-bold">
-          Danh sách cơ sở đã duyệt
+          Danh sách chi nhánh đã duyệt
         </h1>
         <div className="flex justify-between mb-4">
           <TextField
             value={filterName}
             onChange={handleFilterByName}
-            placeholder="Tìm kiếm theo tên cơ sở"
+            placeholder="Tìm kiếm theo tên chi nhánh"
             variant="outlined"
             size="small"
             className="w-1/3"
