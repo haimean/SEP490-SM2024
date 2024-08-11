@@ -121,6 +121,7 @@ const ListBranch = () => {
               time={item?.openingHours}
               image={item?.image}
               role={role}
+              branch={item}
               id={item?.id}
               isAccept={item?.isAccept}
               onDeleteBranch={handleDeleteBranch}
