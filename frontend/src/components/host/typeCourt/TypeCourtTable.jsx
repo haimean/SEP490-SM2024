@@ -146,7 +146,7 @@ const TypeCourtTable = () => {
           <TableHead>
             <TableRow>
               <TableCell align="center" className="w-auto">
-                Stt
+                STT
               </TableCell>
               <TableCell align="center" className="w-auto">
                 Ảnh

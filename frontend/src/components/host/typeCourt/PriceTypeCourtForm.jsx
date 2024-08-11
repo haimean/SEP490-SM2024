@@ -288,7 +288,7 @@ const PriceTypeCourtForm = ({ listTime = [], open, onClose, onSubmit }) => {
           }}
         >
           <Typography variant="h6" component="h6">
-            Kiểu giá
+            Thiết lập bảng giá
           </Typography>
           <IconButton
             onClick={onClose}
