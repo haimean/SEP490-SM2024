@@ -17,7 +17,7 @@ import BarHostChart from "../../../components/host/Dashboard/BarHostChart";
 
 // Các giá trị tháng và năm có sẵn
 const months = Array.from({ length: 12 }, (_, i) => i + 1); // 1 đến 12
-const years = Array.from({ length: 4 }, (_, i) => new Date().getFullYear() - i); // 20 năm trở lại
+const years = Array.from({ length: 4 }, (_, i) => new Date().getFullYear() - i); // 4 năm trở lại
 
 const daysOfWeek = [
   "Chủ Nhật",
@@ -30,6 +30,7 @@ const daysOfWeek = [
 ];
 
 const DashboardHost = () => {
+  const [loading, setLoading] = useState(true); // Thêm trạng thái loading
   const [branchesData, setBranchesData] = useState([]);
   const [selectedBranch, setSelectedBranch] = useState(null);
   const [selectedCourtForDay, setSelectedCourtForDay] = useState(null);
@@ -61,12 +62,31 @@ const DashboardHost = () => {
       try {
         const response = await CallApi("/api/host/branches", "get");
         const branches = response.data;
-        setBranchesData(branches);
-        setSelectedBranch(branches[0].id);
-        setSelectedCourtForDay(branches[0].court[0].id);
-        setSelectedCourtForHour(branches[0].court[0].id);
+
+        if (branches.length > 0) {
+          setBranchesData(branches);
+          setSelectedBranch(branches[0].id);
+
+          // Kiểm tra nếu có court trong branch
+          if (branches[0].court && branches[0].court.length > 0) {
+            setSelectedCourtForDay(branches[0].court[0].id);
+            setSelectedCourtForHour(branches[0].court[0].id);
+          } else {
+            console.warn("Không có sân nào trong cơ sở.");
+            setSelectedCourtForDay(null);
+            setSelectedCourtForHour(null);
+          }
+        } else {
+          console.warn("Không có cơ sở nào.");
+          setBranchesData([]);
+          setSelectedBranch(null);
+        }
       } catch (error) {
         console.error("Error fetching branches:", error);
+        setBranchesData([]);
+        setSelectedBranch(null);
+      } finally {
+        setLoading(false); // Kết thúc quá trình tải
       }
     };
 
@@ -165,9 +185,17 @@ const DashboardHost = () => {
   const handleBranchChange = (event) => {
     const branchId = event.target.value;
     const branch = branchesData.find((branch) => branch.id === branchId);
+
     setSelectedBranch(branchId);
-    setSelectedCourtForDay(branch.court[0].id);
-    setSelectedCourtForHour(branch.court[0].id);
+
+    if (branch && branch.court && branch.court.length > 0) {
+      setSelectedCourtForDay(branch.court[0].id);
+      setSelectedCourtForHour(branch.court[0].id);
+    } else {
+      console.warn("Không có sân nào trong cơ sở.");
+      setSelectedCourtForDay(null);
+      setSelectedCourtForHour(null);
+    }
   };
 
   const handleCourtChangeForDay = (event) => {
@@ -198,7 +226,35 @@ const DashboardHost = () => {
 
   const labels = daysOfWeek.map((day, index) => `${day} \n (${dayCounts[index]} ngày/tháng)`);
 
-  if (!selectedBranch || !selectedCourtForDay || !selectedCourtForHour) return null;
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+        }}
+      >
+        <Typography>Đang tải dữ liệu...</Typography>
+      </Box>
+    );
+  }
+
+  if (!selectedBranch) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+        }}
+      >
+        <Typography>Không có cơ sở nào.</Typography>
+      </Box>
+    );
+  }
 
   const selectedBranchData = branchesData.find(
     (branch) => branch.id === selectedBranch
@@ -258,7 +314,7 @@ const DashboardHost = () => {
       </Box>
 
       <Card sx={{ marginBottom: 4, padding: "2rem" }}>
-      <Box className="flex flex-col items-center mt-4">
+        <Box className="flex flex-col items-center mt-4">
           <Typography variant="h5" component="h2">
             Doanh thu các sân
           </Typography>
@@ -291,125 +347,136 @@ const DashboardHost = () => {
         </Box>
         <PieChartAdmin data={usageRevenue} />
       </Card>
-
-      <Card sx={{ marginBottom: 4, padding: "2rem" }}>
-        <Typography variant="h5">Thống kê sân</Typography>
-        <Box className="mx- mt-3">
-          <Box>
-          <Box className="flex flex-col items-center mt-4">
+      {!selectedCourtForDay || !selectedCourtForHour ?
+        (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              minHeight: "100vh",
+            }}
+          >
+            <Typography>Không có sân nào trong cơ sở này.</Typography>
+          </Box>
+        ) : <Card sx={{ marginBottom: 4, padding: "2rem" }}>
+          <Typography variant="h5">Thống kê sân</Typography>
+          <Box className="mx- mt-3">
+            <Box>
+              <Box className="flex flex-col items-center mt-4">
+                <Typography variant="h6" component="h2" sx={{ marginBottom: 2 }}>
+                  Mức độ sử dụng sân theo ngày trong tuần
+                </Typography>
+                <Box sx={{ display: "flex", gap: 2 }}>
+                  <FormControl sx={{ minWidth: 150 }} margin="normal">
+                    <InputLabel id="select-court-label-day">Chọn Sân</InputLabel>
+                    <Select
+                      labelId="select-court-label-day"
+                      value={selectedCourtForDay}
+                      label="Chọn Sân"
+                      onChange={handleCourtChangeForDay}
+                    >
+                      {selectedBranchData?.court?.map((court) => (
+                        <MenuItem key={court.id} value={court.id}>
+                          {court.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl sx={{ minWidth: 150 }} margin="normal">
+                    <TextField
+                      select
+                      label="Chọn năm"
+                      value={selectedYearForDay}
+                      onChange={(e) => setSelectedYearForDay(e.target.value)}
+                    >
+                      {years.map((year) => (
+                        <MenuItem key={year} value={year}>
+                          {year}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </FormControl>
+                  <FormControl sx={{ minWidth: 150 }} margin="normal">
+                    <TextField
+                      select
+                      label="Chọn tháng"
+                      value={selectedMonthForDay}
+                      onChange={(e) => setSelectedMonthForDay(e.target.value)}
+                    >
+                      {months.map((month) => (
+                        <MenuItem key={month} value={month}>
+                          Tháng {month}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </FormControl>
+                </Box>
+              </Box>
+              <BarHostChart
+                data={{
+                  labels: labels,
+                  usage: courtUsage.usageByDay,
+                  bookings: courtUsage.bookingsByDay,
+                }}
+              />
+            </Box>
+            <Box className="flex flex-col items-center mt-4">
               <Typography variant="h6" component="h2" sx={{ marginBottom: 2 }}>
-                Mức độ sử dụng sân theo ngày trong tuần
+                Bảng thể hiện mức độ sử dụng sân theo giờ
               </Typography>
-              <Box sx={{ display: "flex", gap: 2 }}>
-                <FormControl sx={{ minWidth: 150 }} margin="normal">
-                  <InputLabel id="select-court-label-day">Chọn Sân</InputLabel>
-                  <Select
-                    labelId="select-court-label-day"
-                    value={selectedCourtForDay}
-                    label="Chọn Sân"
-                    onChange={handleCourtChangeForDay}
-                  >
-                    {selectedBranchData.court.map((court) => (
-                      <MenuItem key={court.id} value={court.id}>
-                        {court.name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                <FormControl sx={{ minWidth: 150 }} margin="normal">
-                <TextField
-                  select
-                  label="Chọn năm"
-                  value={selectedYearForDay}
-                  onChange={(e) => setSelectedYearForDay(e.target.value)}
-                >
-                  {years.map((year) => (
-                    <MenuItem key={year} value={year}>
-                      {year}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                </FormControl>
-                <FormControl sx={{ minWidth: 150 }} margin="normal">
-                <TextField
-                  select
-                  label="Chọn tháng"
-                  value={selectedMonthForDay}
-                  onChange={(e) => setSelectedMonthForDay(e.target.value)}
-                >
-                  {months.map((month) => (
-                    <MenuItem key={month} value={month}>
-                      Tháng {month}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                </FormControl>
+              <Box className="flex justify-between items-center mb-2">
+                <Box sx={{ display: "flex", gap: 2 }}>
+                  <FormControl sx={{ minWidth: 150 }} margin="normal">
+                    <InputLabel id="select-court-label-hour">Chọn Sân</InputLabel>
+                    <Select
+                      labelId="select-court-label-hour"
+                      value={selectedCourtForHour}
+                      label="Chọn Sân"
+                      onChange={handleCourtChangeForHour}
+                    >
+                      {selectedBranchData?.court?.map((court) => (
+                        <MenuItem key={court.id} value={court.id}>
+                          {court.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl sx={{ minWidth: 150 }} margin="normal">
+                    <TextField
+                      select
+                      label="Chọn năm"
+                      value={selectedYearForHour}
+                      onChange={(e) => setSelectedYearForHour(e.target.value)}
+                    >
+                      {years.map((year) => (
+                        <MenuItem key={year} value={year}>
+                          {year}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </FormControl>
+                  <FormControl sx={{ minWidth: 150 }} margin="normal">
+                    <TextField
+                      select
+                      label="Chọn tháng"
+                      value={selectedMonthForHour}
+                      onChange={(e) => setSelectedMonthForHour(e.target.value)}
+                    >
+                      {months.map((month) => (
+                        <MenuItem key={month} value={month}>
+                          Tháng {month}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </FormControl>
+                </Box>
               </Box>
+              <UsageTable data={usageByHour} dayCounts={dayCounts} />
             </Box>
-            <BarHostChart
-              data={{
-                labels: labels,
-                usage: courtUsage.usageByDay,
-                bookings: courtUsage.bookingsByDay,
-              }}
-            />
           </Box>
-          <Box className="flex flex-col items-center mt-4">
-            <Typography variant="h6" component="h2" sx={{ marginBottom: 2 }}>
-              Bảng thể hiện mức độ sử dụng sân theo giờ
-            </Typography>
-            <Box className="flex justify-between items-center mb-2">
-              <Box sx={{ display: "flex", gap: 2 }}>
-                <FormControl sx={{ minWidth: 150 }} margin="normal">
-                  <InputLabel id="select-court-label-hour">Chọn Sân</InputLabel>
-                  <Select
-                    labelId="select-court-label-hour"
-                    value={selectedCourtForHour}
-                    label="Chọn Sân"
-                    onChange={handleCourtChangeForHour}
-                  >
-                    {selectedBranchData.court.map((court) => (
-                      <MenuItem key={court.id} value={court.id}>
-                        {court.name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                <FormControl sx={{ minWidth: 150 }} margin="normal">
-                  <TextField
-                    select
-                    label="Chọn năm"
-                    value={selectedYearForHour}
-                    onChange={(e) => setSelectedYearForHour(e.target.value)}
+        </Card>
+      }
 
-                  >
-                    {years.map((year) => (
-                      <MenuItem key={year} value={year}>
-                        {year}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </FormControl>
-                <FormControl sx={{ minWidth: 150 }} margin="normal">
-                  <TextField
-                    select
-                    label="Chọn tháng"
-                    value={selectedMonthForHour}
-                    onChange={(e) => setSelectedMonthForHour(e.target.value)}
-                  >
-                    {months.map((month) => (
-                      <MenuItem key={month} value={month}>
-                        Tháng {month}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </FormControl>
-              </Box>
-            </Box>
-            <UsageTable data={usageByHour} dayCounts={dayCounts} />
-          </Box>
-        </Box>
-      </Card>
     </Box>
   );
 };
