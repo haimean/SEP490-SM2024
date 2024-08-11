@@ -196,11 +196,11 @@ const DashboardHost = () => {
           Thống kê host
         </Typography>
         <FormControl sx={{ minWidth: 250 }} margin="normal">
-          <InputLabel id="demo-simple-select-label">Chọn Chi Nhánh</InputLabel>
+          <InputLabel id="demo-simple-select-label">Chọn cơ sở</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             value={selectedBranch}
-            label="Chọn Chi Nhánh"
+            label="Chọn cơ sở"
             onChange={handleBranchChange}
           >
             {branchesData.map((branch) => (

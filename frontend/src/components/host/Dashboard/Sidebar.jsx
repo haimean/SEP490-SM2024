@@ -1,5 +1,12 @@
 import React from "react";
-import { Select, MenuItem, FormControl, InputLabel, Tabs, Tab } from "@mui/material";
+import {
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Tabs,
+  Tab,
+} from "@mui/material";
 
 const branchesData = [
   {
@@ -19,7 +26,12 @@ const branchesData = [
   },
 ];
 
-const Sidebar = ({ selectedBranch, setSelectedBranch, selectedCourt, setSelectedCourt }) => {
+const Sidebar = ({
+  selectedBranch,
+  setSelectedBranch,
+  selectedCourt,
+  setSelectedCourt,
+}) => {
   const handleBranchChange = (event) => {
     const branchName = event.target.value;
     setSelectedBranch(branchName);
@@ -31,12 +43,14 @@ const Sidebar = ({ selectedBranch, setSelectedBranch, selectedCourt, setSelected
     setSelectedCourt(newValue);
   };
 
-  const selectedBranchData = branchesData.find((branch) => branch.name === selectedBranch);
+  const selectedBranchData = branchesData.find(
+    (branch) => branch.name === selectedBranch
+  );
 
   return (
     <div>
       <FormControl fullWidth margin="normal">
-        <InputLabel>Chọn Chi Nhánh</InputLabel>
+        <InputLabel>Chọn cơ sở</InputLabel>
         <Select value={selectedBranch} onChange={handleBranchChange}>
           {branchesData.map((branch) => (
             <MenuItem key={branch.name} value={branch.name}>
@@ -46,7 +60,12 @@ const Sidebar = ({ selectedBranch, setSelectedBranch, selectedCourt, setSelected
         </Select>
       </FormControl>
       {selectedBranchData && (
-        <Tabs value={selectedCourt} onChange={handleCourtChange} variant="scrollable" scrollButtons="auto">
+        <Tabs
+          value={selectedCourt}
+          onChange={handleCourtChange}
+          variant="scrollable"
+          scrollButtons="auto"
+        >
           {selectedBranchData.courts.map((court) => (
             <Tab key={court.name} label={court.name} value={court.name} />
           ))}
