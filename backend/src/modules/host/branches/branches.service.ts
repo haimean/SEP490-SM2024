@@ -15,6 +15,11 @@ const branchesHostService = {
       },
       include: {
         address: true,
+        account: {
+          include: {
+            user: true,
+          },
+        },
         court: { include: { TypeCourt: true } },
         attributeBranches: {
           include: {

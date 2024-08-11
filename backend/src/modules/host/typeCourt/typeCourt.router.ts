@@ -19,6 +19,7 @@ typeCourtHostRouter.post(
 typeCourtHostRouter.put(
   '/:id',
   upload.single('image'),
+  typeCourtHostMiddleware.isBeforeCreate,
   validate(typeCourtHostValidator.create),
   typeCourtHostController.update
 );

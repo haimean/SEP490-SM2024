@@ -16,6 +16,8 @@ const DashboardCp = () => {
   const [totalMonthAccount, setTotalMonthAccount] = useState(0);
   const [optionChartPlayer, setOptionChartPlayer] = useState("month");
   const [optionMonth, setOptionMonth] = useState(3);
+  const [totalMonthBooking, setTotalMonthBooking] = useState(0);
+  const [percentageBooking, setPercentageBooking] = useState(0);
   const [optionMonthChange, setOptionMonthChange] = useState(
     new Date().getMonth()
   );
@@ -53,9 +55,23 @@ const DashboardCp = () => {
     }
   };
 
+  const getListBookingMonth = async () => {
+    try {
+      const result = await CallApi(
+        "/api/admin/booking/get-all-booking-in-month",
+        "get"
+      );
+      setTotalMonthBooking(result?.data?.dataInMonth);
+      setPercentageBooking(result?.data?.percentage);
+    } catch (error) {
+      console.error("Error fetching account list:", error);
+    }
+  };
+
   useEffect(() => {
     getListAccountMonth();
     getDataAccount();
+    getListBookingMonth();
   }, []);
 
   return (
@@ -69,16 +85,22 @@ const DashboardCp = () => {
           direction={percentage >= 0}
           percentage={
             percentage !== 3
-              ? `${(percentage * 100).toFixed(2)} % so với tháng trước`
+              ? `${(percentage * 100 * -1).toFixed(2)} % so với tháng trước`
               : "Không có dữ liệu tháng trước"
           }
           subTitle={`Đăng ký mới : ${totalMonthAccount} người/ tháng`}
         />
         <SectionDashboard
           title={"Số lượng bài đăng tìm người chơi: 28 người"}
-          direction={true}
-          percentage={"-12.4%"}
-          subTitle={"Đăng ký mới : 13 bài/ trong tháng"}
+          direction={percentageBooking >= 0}
+          percentage={
+            percentageBooking !== 3
+              ? `${(percentageBooking * 100 * -1).toFixed(
+                  2
+                )} % so với tháng trước`
+              : "Không có dữ liệu tháng trước"
+          }
+          subTitle={`Bài đăng mới : ${totalMonthBooking} bài/ trong tháng`}
         />
       </div>
       <div className="mt-5 grid grid-cols-2">

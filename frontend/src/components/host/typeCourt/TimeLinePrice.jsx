@@ -41,7 +41,10 @@ const TimeLinePrice = ({ step = [] }) => {
                       return <span>Giá</span>;
                     }}
                   >
-                    {data.price}
+                    {new Intl.NumberFormat("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                    }).format(data.price)}
                   </StepLabel>
                 </Step>
               );
