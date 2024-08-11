@@ -51,6 +51,7 @@ const TypeCourtTable = () => {
             name: attr.value,
           },
         })),
+        priceTypeCourt: item.priceTypeCourt,
       }));
       setTypeCourts(transformedData);
     } catch (error) {
@@ -95,7 +96,6 @@ const TypeCourtTable = () => {
   };
   const fetchApiDelete = async (id) => {
     try {
-      // TODO: call api xóa
       await CallApi(`/api/host/type-court/${id}`, "delete");
       await fetchTypeCourts();
     } catch (error) {
@@ -121,24 +121,24 @@ const TypeCourtTable = () => {
       }
       await fetchTypeCourts();
       toast.success(
-        isEdit ? "Cập nhật loại sân thành công" : "Tạo loại sân thành công"
+        isEdit ? "Cập nhật kiểu sân thành công" : "Tạo kiểu sân thành công"
       );
     } catch (error) {
       console.log("Error saving type court:", error);
       toast.error(
-        isEdit ? "Cập nhật loại sân thất bại" : "Tạo loại sân thất bại"
+        isEdit ? "Cập nhật kiểu sân thất bại" : "Tạo kiểu sân thất bại"
       );
     }
   };
   return (
-    <BaseBox title="Quản Lý Loại Sân">
+    <BaseBox title="Quản Lý kiểu sân">
       <Box className="flex justify-end items-center">
         <Button
           variant="contained"
           color="primary"
           onClick={() => setIsModalOpen(true)}
         >
-          Thêm Loại Sân
+          Thêm kiểu sân
         </Button>
       </Box>
       <TableContainer component={Paper} className="mt-4">

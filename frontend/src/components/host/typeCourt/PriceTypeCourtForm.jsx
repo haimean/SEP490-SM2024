@@ -20,13 +20,7 @@ import dayjs from "dayjs";
 import { Close } from "@mui/icons-material";
 import DialogInfo from "../../common/DialogInfo";
 
-const PriceTypeCourtForm = ({
-  listTime = [],
-  open,
-  onClose,
-  onSubmit,
-  priceTypeCourt,
-}) => {
+const PriceTypeCourtForm = ({ listTime = [], open, onClose, onSubmit }) => {
   const [activeStep, setActiveStep] = useState(0);
 
   const [times, setTimes] = useState(listTime.length === 0 ? 1 : "");
@@ -45,15 +39,6 @@ const PriceTypeCourtForm = ({
     setTitleDialog(title);
     setIsOpenDialogInfo(true);
   };
-  useEffect(() => {
-    console.log(priceTypeCourt);
-
-    // times;
-    // milestones;
-    // setTimes;
-    // setMilestones;
-    // setPriceDetails;
-  }, [priceTypeCourt]);
   const {
     control,
     formState: { errors },

@@ -1,32 +1,62 @@
-import React, { useState, useEffect } from 'react';
-import { Modal, Box, Button, TextField, Typography, Select, MenuItem, FormControl, InputLabel, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import React, { useState, useEffect } from "react";
+import {
+  Modal,
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from "@mui/material";
 
 const sampleAttributes = [
-  { id: 1, name: 'Chiều dài' },
-  { id: 2, name: 'Chiều rộng' },
-  { id: 3, name: 'Thảm' },
-  { id: 4, name: 'Lưới' },
-  { id: 5, name: 'Đèn' }
+  { id: 1, name: "Chiều dài" },
+  { id: 2, name: "Chiều rộng" },
+  { id: 3, name: "Thảm" },
+  { id: 4, name: "Lưới" },
+  { id: 5, name: "Đèn" },
 ];
 
 const attributeKeys = {
-  'Chiều dài': [{ id: 30, name: '13.4m' }, { id: 31, name: '14m' }],
-  'Chiều rộng': [{ id: 32, name: '6.1m' }, { id: 33, name: '7m' }],
-  'Thảm': [{ id: 34, name: 'Thảm Enlio A-23150' }, { id: 35, name: 'Thảm Zeno' }],
-  'Lưới': [{ id: 36, name: 'Lưới cầu lông Hải Yến' }, { id: 37, name: 'Lưới cầu lông Yonex' }],
-  'Đèn': [{ id: 38, name: 'Đèn pha LED' }, { id: 39, name: 'Đèn cao áp' }]
+  "Chiều dài": [
+    { id: 30, name: "13.4m" },
+    { id: 31, name: "14m" },
+  ],
+  "Chiều rộng": [
+    { id: 32, name: "6.1m" },
+    { id: 33, name: "7m" },
+  ],
+  Thảm: [
+    { id: 34, name: "Thảm Enlio A-23150" },
+    { id: 35, name: "Thảm Zeno" },
+  ],
+  Lưới: [
+    { id: 36, name: "Lưới cầu lông Hải Yến" },
+    { id: 37, name: "Lưới cầu lông Yonex" },
+  ],
+  Đèn: [
+    { id: 38, name: "Đèn pha LED" },
+    { id: 39, name: "Đèn cao áp" },
+  ],
 };
 
 const TypeCourtForm = ({ open, onClose, typeCourt }) => {
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    image: '',
-    attributes: []
+    name: "",
+    description: "",
+    image: "",
+    attributes: [],
   });
   const [imageFile, setImageFile] = useState(null);
-  const [selectedAttribute, setSelectedAttribute] = useState('');
-  const [selectedAttributeKey, setSelectedAttributeKey] = useState('');
+  const [selectedAttribute, setSelectedAttribute] = useState("");
+  const [selectedAttributeKey, setSelectedAttributeKey] = useState("");
 
   useEffect(() => {
     if (typeCourt) {
@@ -34,7 +64,7 @@ const TypeCourtForm = ({ open, onClose, typeCourt }) => {
         name: typeCourt.name,
         description: typeCourt.description,
         image: typeCourt.image,
-        attributes: typeCourt.attributes
+        attributes: typeCourt.attributes,
       });
     }
   }, [typeCourt]);
@@ -57,19 +87,21 @@ const TypeCourtForm = ({ open, onClose, typeCourt }) => {
   const handleAddAttribute = () => {
     const newAttribute = {
       id: Date.now(),
-      attributeKey: sampleAttributes.find((attr) => attr.name === selectedAttribute),
-      value: selectedAttributeKey
+      attributeKey: sampleAttributes.find(
+        (attr) => attr.name === selectedAttribute
+      ),
+      value: selectedAttributeKey,
     };
     setFormData((prev) => ({
       ...prev,
-      attributes: [...prev.attributes, newAttribute]
+      attributes: [...prev.attributes, newAttribute],
     }));
-    setSelectedAttribute('');
-    setSelectedAttributeKey('');
+    setSelectedAttribute("");
+    setSelectedAttributeKey("");
   };
 
   const handleSubmit = () => {
-    console.log('Form Data:', formData);
+    console.log("Form Data:", formData);
     onClose();
   };
 
@@ -77,7 +109,7 @@ const TypeCourtForm = ({ open, onClose, typeCourt }) => {
     <Modal open={open} onClose={onClose}>
       <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white border border-gray-300 shadow-lg p-4 rounded-lg">
         <Typography variant="h6" component="h2">
-          {typeCourt ? 'Sửa Loại Sân' : 'Thêm Loại Sân'}
+          {typeCourt ? "Sửa kiểu sân" : "Thêm kiểu sân"}
         </Typography>
         <form className="space-y-4 mt-4">
           <TextField
@@ -97,7 +129,11 @@ const TypeCourtForm = ({ open, onClose, typeCourt }) => {
           <Box className="space-y-4">
             <input type="file" accept="image/*" onChange={handleImageChange} />
             {formData.image && (
-              <img src={formData.image} alt="Preview" className="h-32 w-32 object-cover" />
+              <img
+                src={formData.image}
+                alt="Preview"
+                className="h-32 w-32 object-cover"
+              />
             )}
           </Box>
           <Box className="flex space-x-4">
@@ -128,7 +164,11 @@ const TypeCourtForm = ({ open, onClose, typeCourt }) => {
                 ))}
               </Select>
             </FormControl>
-            <Button variant="contained" onClick={handleAddAttribute} disabled={!selectedAttributeKey}>
+            <Button
+              variant="contained"
+              onClick={handleAddAttribute}
+              disabled={!selectedAttributeKey}
+            >
               Thêm
             </Button>
           </Box>
@@ -154,7 +194,12 @@ const TypeCourtForm = ({ open, onClose, typeCourt }) => {
             <Button variant="contained" color="primary" onClick={handleSubmit}>
               Lưu
             </Button>
-            <Button variant="outlined" color="secondary" onClick={onClose} className="ml-2">
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={onClose}
+              className="ml-2"
+            >
               Hủy
             </Button>
           </Box>
