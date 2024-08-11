@@ -64,7 +64,7 @@ const UsageTable = ({ data, dayCounts }) => {
           {days.map((day, dayIndex) => (
             <TableRow key={dayIndex}>
               <Tooltip
-                title={`(${dayCounts[dayIndex]} ngày/tháng)`}
+                title={`(${dayCounts[dayIndex] ?? "0"} ngày/tháng)`}
                 placement="top"
                 arrow
               >
