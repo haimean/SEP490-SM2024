@@ -317,13 +317,13 @@ const DashboardHost = () => {
       >
         <SectionDashboard
           key="booking-count"
-          title="Lượt đặt"
+          title="Lượt đặt trong tháng"
           currentValue={stats.currentMonthTotalBookings}
           previousValue={stats.prevMonthTotalBookings}
           isCurrency={false}
         />
         <SectionDashboard
-          title="Doanh thu"
+          title="Doanh thu trong tháng"
           currentValue={stats.currentMonthTotalRevenue}
           previousValue={stats.prevMonthTotalRevenue}
           isCurrency={true}
