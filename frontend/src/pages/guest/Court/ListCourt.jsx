@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import CourtDetailList from "../../../components/host/court/CourtDetailList";
 import CallApi from "../../../service/CallAPI";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Button } from "@mui/material";
 import useDialogConfirm from "../../../hooks/useDialogConfirm";
+import RegisterCourt from "../../host/Court/RegisterCourt";
 
 const ListCourt = () => {
   const storedUserRole = localStorage.getItem("userRole");
@@ -23,11 +24,17 @@ const ListCourt = () => {
   ]);
   const [isCompare, setIsCompare] = useState(false);
   const [data, setData] = useState([]);
+  const [registerCourtModal, setRegisterCourtModal] = useState(false);
+  const handleOpenModalRegisterCourt = () => {
+    setRegisterCourtModal(true);
+  };
+  const handleCloseModalRegisterCourt = async () => {
+    setRegisterCourtModal(false);
+    await getAllCourt();
+  };
   const handleCompare = (court) => {
-    console.log("🚀 ========= court:", court);
     setIsCompare(true);
     setCourtList((prev) => {
-      console.log("🚀 ========= prev:", prev);
       if (prev[0].court == null) {
         return [
           {
@@ -54,7 +61,6 @@ const ListCourt = () => {
     try {
       const result = await CallApi(`/api/court/branch/${id}`, "get");
       setData(result.data);
-      console.log("🚀 ========= result:", result.data);
     } catch (error) {
       console.log("🚀 ========= error:", error);
     }
@@ -94,32 +100,15 @@ const ListCourt = () => {
             Tìm thấy {data.length} sân đấu
           </h1>
           <div className="flex gap-4">
-            <Link
-              to={`/host/register-court`}
-              style={{ textDecoration: "none" }}
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              sx={{ mb: 2 }}
+              onClick={handleOpenModalRegisterCourt}
             >
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                sx={{ mb: 2 }}
-              >
-                Thêm thuộc tính sân đấu
-              </Button>
-            </Link>
-            <Link
-              to={`/host/register-court`}
-              style={{ textDecoration: "none" }}
-            >
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                sx={{ mb: 2 }}
-              >
-                Thêm sân đấu
-              </Button>
-            </Link>
+              Thêm sân đấu
+            </Button>
           </div>
         </div>
 
@@ -140,6 +129,13 @@ const ListCourt = () => {
           ))}
         </div>
       </div>
+      {registerCourtModal && (
+        <RegisterCourt
+          branchesId={id}
+          open={registerCourtModal}
+          handleClose={handleCloseModalRegisterCourt}
+        />
+      )}
       <DialogComponent />
     </div>
   );

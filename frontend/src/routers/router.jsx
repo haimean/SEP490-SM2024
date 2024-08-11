@@ -217,13 +217,6 @@ const router = [
     layout: "",
   },
   {
-    path: "/host/register-court",
-    name: "Register Court",
-    component: <RegisterCourt />,
-    role: ["HOST"],
-    layout: "host",
-  },
-  {
     path: "/host/update-court/:id",
     name: "Update Court",
     component: <UpdateCourt />,

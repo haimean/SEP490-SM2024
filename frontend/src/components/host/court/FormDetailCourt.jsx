@@ -1,17 +1,26 @@
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 export default function FormDetailCourt({
   onSubmit,
-  branchList,
   typeCourtList,
   court,
+  branchesId,
 }) {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
-    trigger,
     reset,
   } = useForm();
 
@@ -27,97 +36,72 @@ export default function FormDetailCourt({
   }, [court, reset]);
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-md">
-      <h2 className="text-2xl font-bold mb-4">Form</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="p-6 bg-white shadow-md rounded-md">
+      <Typography variant="h6" component="h6">
+        Tạo sân mới
+      </Typography>
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
         {/* Name Field */}
+        <input
+          id="branchesId"
+          {...register("branchesId")}
+          value={branchesId}
+          className="hidden"
+        />
         <div className="mb-4">
-          <label
-            className="block text-sm font-medium text-gray-700"
-            htmlFor="name"
-          >
-            Name
-          </label>
-          <input
-            id="name"
-            {...register("name", {
-              required: "Name is required",
-              onBlur: () => trigger("name"),
-            })}
-            className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          <Controller
+            name="name"
+            control={control}
+            rules={{
+              required: "Tên là bắt buộc",
+              validate: (value) =>
+                value.trim() !== "" || `Tên không thể chỉ chứa khoảng trắng`,
+            }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <TextField
+                fullWidth
+                label="Tên sân"
+                type="text"
+                value={value}
+                required={true}
+                onChange={(e) => {
+                  onChange(e);
+                }}
+                error={!!error}
+                helperText={error ? error.message : null}
+              />
+            )}
           />
-          {errors.name && (
-            <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
-          )}
         </div>
-
-        {/* BranchId Select Field */}
-        <div className="mb-4">
-          <label
-            className="block text-sm font-medium text-gray-700"
-            htmlFor="branchesId"
-          >
-            Branch
-          </label>
-          <select
-            id="branchesId"
-            {...register("branchesId", {
-              required: "Branch is required",
-              onBlur: () => trigger("branchesId"),
-            })}
-            className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          >
-            <option value="">Select Branch</option>
-            {branchList.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.name}
-              </option>
-            ))}
-          </select>
-          {errors.branchesId && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.branchesId.message}
-            </p>
-          )}
-        </div>
-
         {/* TypeCourtId Select Field */}
         <div className="mb-4">
-          <label
-            className="block text-sm font-medium text-gray-700"
-            htmlFor="typeCourtId"
-          >
-            Type Court
-          </label>
-          <select
-            id="typeCourtId"
-            {...register("typeCourtId", {
-              required: "Type Court is required",
-              onBlur: () => trigger("typeCourtId"),
-            })}
-            className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          >
-            <option value="">Select Type Court</option>
-            {typeCourtList.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.name}
-              </option>
-            ))}
-            <option value={"other"}>Thêm mới</option>
-          </select>
-          {errors.typeCourtId && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.typeCourtId.message}
-            </p>
-          )}
+          <FormControl fullWidth>
+            <InputLabel>Chọn kiểu sân</InputLabel>
+            <Controller
+              id="typeCourtId"
+              name="typeCourtId"
+              control={control}
+              errors={errors}
+              rules={{ required: true }}
+              render={({ field: { onChange, value } }) => (
+                <Select value={value} onChange={onChange} label="Chọn kiểu sân">
+                  {typeCourtList?.map((option) => (
+                    <MenuItem key={option?.id} value={option?.id}>
+                      {option?.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              )}
+            />
+          </FormControl>
         </div>
-
-        <button
+        <Button
           type="submit"
+          variant="contained"
           className="w-full bg-indigo-600 text-white p-2 rounded-md hover:bg-indigo-700"
         >
           Submit
-        </button>
+        </Button>
       </form>
     </div>
   );
