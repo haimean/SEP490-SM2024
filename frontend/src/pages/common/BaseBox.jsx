@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Box, Typography } from "@mui/material";
 
 const BaseBox = ({ title, children }) => {
