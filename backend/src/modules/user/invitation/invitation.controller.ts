@@ -66,7 +66,7 @@ const invitationUserController = {
           id: 1,
           accountId: Number(invitation?.Post?.booking?.accountId),
           createdAt: new Date(),
-          message: `Có người muốn xin vào trận đấu của bạn`,
+          message: `Có người xin tham gia vào trận đấu của bạn`,
           url: `/post/${postId}`,
           status: 'SEED',
         },
