@@ -16,9 +16,6 @@ const CourtDetailList = ({ activity, onDeleteCourt, role, branchId }) => {
 
       <div className="p-4 flex flex-col justify-between w-2/3">
         <div>
-          <div className="bg-red-500 text-white px-2 py-1 rounded-full inline-block mb-2">
-            {activity?.price}
-          </div>
           <Link to={`/branch/${branchId}/court/${activity?.id}`}>
             <h2 className="text-lg font-bold mb-2">{activity?.name}</h2>
           </Link>
