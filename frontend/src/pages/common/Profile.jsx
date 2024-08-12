@@ -8,7 +8,7 @@ import {
   PHONE_REGEX,
   WHITE_SPACE_REGEX,
 } from "../../utils/regex/index.js";
-import { Button, Container, Grid } from "@mui/material";
+import { Button, Container, Grid, TextField } from "@mui/material";
 import ChangePassword from "../../components/auth/ChangePassword.jsx";
 
 const Profile = () => {
@@ -170,35 +170,47 @@ const Profile = () => {
             <h2 className="text-2xl font-bold mb-4">Thông tin cá nhân</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <InputLabel
+                <TextField
                   label="Họ tên"
                   id="fullName"
                   placeholder="Họ và tên"
-                  register={register}
+                  {...register("fullName", {
+                    pattern: {
+                      value: WHITE_SPACE_REGEX,
+                      message: "Vui lòng nhập tên hợp lệ",
+                    },
+                  })}
+                  error={!!errors.fullName}
+                  helperText={errors.fullName?.message}
+                  fullWidth
+                  margin="normal"
                   defaultValue={profile?.user?.fullName}
-                  pattern={{
-                    value: WHITE_SPACE_REGEX,
-                    message: "Vui lòng nhập tên hợp lệ",
+                  required
+                  InputLabelProps={{
+                    shrink: true, // Đảm bảo label luôn di chuyển lên trên
                   }}
-                  errors={errors}
-                  required={true}
-                  type="text"
                 />
-                <InputLabel
+                <TextField
                   label="Số điện thoại"
                   id="numberPhone"
                   placeholder="+84 888 888 888"
-                  register={register}
+                  {...register("numberPhone", {
+                    pattern: {
+                      value: PHONE_REGEX,
+                      message: "Vui lòng nhập số điện thoại hợp lệ",
+                    },
+                  })}
+                  error={!!errors.numberPhone}
+                  helperText={errors.numberPhone?.message}
+                  fullWidth
+                  margin="normal"
                   defaultValue={profile?.user?.numberPhone}
-                  pattern={{
-                    value: PHONE_REGEX,
-                    message: "Vui lòng nhập số điện thoại hợp lệ",
+                  required
+                  InputLabelProps={{
+                    shrink: true, // Đảm bảo label luôn di chuyển lên trên
                   }}
-                  errors={errors}
-                  required={true}
-                  type="tel"
                 />
-                <InputLabel
+                {/* <InputLabel
                   label="Ngày sinh"
                   id="dob"
                   placeholder="01-01-2000"
@@ -213,6 +225,30 @@ const Profile = () => {
                   errors={errors}
                   required={true}
                   type="date"
+                /> */}
+
+                <TextField
+                  label="Ngày sinh"
+                  id="dob"
+                  placeholder="01-01-2000"
+                  {...register("dob", {
+                    pattern: {
+                      value: WHITE_SPACE_REGEX,
+                      message: "Vui lòng chọn ngày tháng năm hợp lệ",
+                    },
+                  })}
+                  error={!!errors.dob}
+                  helperText={errors.dob?.message}
+                  fullWidth
+                  margin="normal"
+                  type="date"
+                  defaultValue={
+                    profile?.user?.dob && formatDate(profile?.user?.dob)
+                  }
+                  required
+                  InputLabelProps={{
+                    shrink: true, // Đảm bảo label luôn di chuyển lên trên
+                  }}
                 />
                 <div className="mb-4">
                   <label
@@ -250,7 +286,7 @@ const Profile = () => {
                     </p>
                   )}
                 </div>
-                <InputLabel
+                {/* <InputLabel
                   label="Email"
                   id="email"
                   placeholder="email@example.com"
@@ -262,6 +298,23 @@ const Profile = () => {
                     message: "Vui lòng nhập email hợp lệ",
                   }}
                   errors={errors}
+                /> */}
+                <TextField
+                  label="Email"
+                  id="email"
+                  placeholder="email@example.com"
+                  {...register("email", {
+                    pattern: {
+                      value: EMAIL_REGEX,
+                      message: "Vui lòng nhập email hợp lệ",
+                    },
+                  })}
+                  error={!!errors.email}
+                  helperText={errors.email?.message}
+                  fullWidth
+                  margin="normal"
+                  defaultValue={profile?.email}
+                  disabled
                 />
               </div>
               <Button
