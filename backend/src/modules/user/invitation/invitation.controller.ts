@@ -132,6 +132,11 @@ const invitationUserController = {
     try {
       const { invitationId, status, reasonCancel } = req.body;
       const accId = Number(req.headers.authorization);
+
+      //! check nếu status bằng accpet
+      //! thì check cái này xem có trận booking ở đâu chưa
+      //! check cái này xem dã accpect ở  bài post nào  chưa
+
       const invitation = await invitationUserService.update({
         invitationId,
         status,

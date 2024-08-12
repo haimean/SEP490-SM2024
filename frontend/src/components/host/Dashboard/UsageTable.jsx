@@ -1,4 +1,4 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import {
   Table,
   TableBody,
@@ -51,7 +51,7 @@ const UsageTable = ({ data, dayCounts }) => {
               >
                 <TableCell
                   key={index}
-                  className="border border-gray-300 !text-center text-xs !p-2 bg-gray-100"
+                  className="border border-gray-300 !text-center !p-0 text-xs bg-gray-100"
                   style={{ width: "30px" }} // Đặt chiều rộng cố định cho các ô giờ
                 >
                   {hour}
@@ -64,7 +64,7 @@ const UsageTable = ({ data, dayCounts }) => {
           {days.map((day, dayIndex) => (
             <TableRow key={dayIndex}>
               <Tooltip
-                title={`(${dayCounts[dayIndex]} ngày/tháng)`}
+                title={`(${dayCounts[dayIndex] ?? "0"} ngày/tháng)`}
                 placement="top"
                 arrow
               >
@@ -77,13 +77,13 @@ const UsageTable = ({ data, dayCounts }) => {
               </Tooltip>
               {hours.map((hour) => {
                 const value =
-                  data.find((item) => item.x === hour && item.y === dayIndex)
+                  data?.find((item) => item.x === hour && item.y === dayIndex)
                     ?.v || 0;
                 return (
                   <TableCell
                     key={hour}
                     className={clsx(
-                      "border border-gray-300 !text-center !items-center text-xs",
+                      "border border-gray-300 !text-center !p-0 !items-center text-xs",
                       getColorClass(value)
                     )}
                     style={{ width: "30px", height: "30px" }}

@@ -43,14 +43,14 @@ const bookingAdminController = {
       const result =
         await bookingAdminService.getListBookingInMonth();
       ResponseHandler(res, {
-        dataInMonth: result.result,
+        dataInMonth: result.result.length,
         percentage:
           result.resultPreviousMonth.length == 0 ||
           result.resultPreviousMonth == null
             ? 0
-            : (result.result.length /
-                result.resultPreviousMonth.length) *
-              100,
+            : result.result.length /
+                result.resultPreviousMonth.length -
+              1,
       });
     } catch (error: any) {
       next(new CustomError(error?.message, 500));

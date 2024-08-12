@@ -39,8 +39,8 @@ const messages = {
   agenda: "Chương trình",
   date: "Ngày",
   time: "Thời gian",
-  event: "Sự kiện",
-  noEventsInRange: "Không có sự kiện nào trong khoảng thời gian này.",
+  event: "Ca đặt",
+  noEventsInRange: "Không có ca đặt nào trong khoảng thời gian này.",
   showMore: (total) => `+ Xem thêm (${total})`,
 };
 
@@ -198,7 +198,7 @@ const CalendarModalComponent = ({ courtId }) => {
     const end = new Date(eventData.end).getHours();
     if (start < openHour.getHours() || end > closeHour.getHours()) {
       handleOpenDialogInfo(
-        "Thời gian sự kiện phải nằm trong giờ mở cửa và đóng cửa."
+        "Thời gian của ca đặt phải nằm trong giờ mở cửa và đóng cửa."
       );
       return;
     }
@@ -241,7 +241,7 @@ const CalendarModalComponent = ({ courtId }) => {
           },
           {}
         );
-        toast.success("Thêm sự kiện thành công");
+        toast.success("Thêm ca đặt thành công");
         handleCloseModal();
         await fetchData(courtId);
       } catch (error) {
@@ -270,7 +270,7 @@ const CalendarModalComponent = ({ courtId }) => {
         },
         {}
       );
-      toast.success("Hủy sự kiện thành công");
+      toast.success("Hủy ca đặt thành công");
       handleCloseModal();
       setIsDeleteModalOpen(false);
       await fetchData(courtId);
@@ -334,27 +334,23 @@ const CalendarModalComponent = ({ courtId }) => {
   const calculatePrice = (start, end, priceListToUse) => {
     let totalPrice = 0;
     priceListToUse.forEach((priceRange) => {
-      const rangeStartHour = priceRange.start.getHours();
-      const rangeEndHour = priceRange.end.getHours();
-      let eventStart = new Date(start);
-      let eventEnd = new Date(end);
-      while (eventStart < eventEnd) {
-        let nextSlot = new Date(eventStart);
-        nextSlot.setMinutes(eventStart.getMinutes() + 30);
-        if (nextSlot > eventEnd) {
-          nextSlot = eventEnd;
+        const rangeStart = new Date(start);
+        rangeStart.setHours(priceRange.start.getHours(), priceRange.start.getMinutes());
+        const rangeEnd = new Date(start);
+        rangeEnd.setHours(priceRange.end.getHours(), priceRange.end.getMinutes());
+
+        const effectiveStart = start > rangeStart ? start : rangeStart;
+        const effectiveEnd = end < rangeEnd ? end : rangeEnd;
+
+        if (effectiveStart < effectiveEnd) {
+            const duration = (effectiveEnd - effectiveStart) / (1000 * 60 * 60); // thời gian theo giờ
+            totalPrice += priceRange.price * duration;
         }
-        const eventHour = eventStart.getHours();
-        if (eventHour >= rangeStartHour && eventHour < rangeEndHour) {
-          const duration =
-            Math.round((nextSlot - eventStart) / (1000 * 60 * 30)) / 2;
-          totalPrice += priceRange.price * duration;
-        }
-        eventStart = nextSlot;
-      }
     });
+
     return totalPrice;
-  };
+};
+
 
   return (
     <Box>

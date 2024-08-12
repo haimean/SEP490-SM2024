@@ -18,7 +18,7 @@ const TimeLinePrice = ({ step = [] }) => {
   return (
     <Box>
       <Typography variant="h" component="h2" fontWeight={600} className="mt-5">
-        Giá cho {times} lần trở lên đặt
+        Giá cho {times} đặt lần trở lên
       </Typography>
       <Box sx={{ width: "100%" }}>
         <Stepper alternativeLabel>
@@ -41,7 +41,10 @@ const TimeLinePrice = ({ step = [] }) => {
                       return <span>Giá</span>;
                     }}
                   >
-                    {data.price}
+                    {new Intl.NumberFormat("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                    }).format(data.price)}
                   </StepLabel>
                 </Step>
               );

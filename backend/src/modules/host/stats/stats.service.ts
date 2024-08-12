@@ -105,7 +105,7 @@ const statsService = {
   getCourtUsageByDay: async (courtId: number, month: Date) => {
     const startOfMonth = new Date(month.getFullYear(), month.getMonth(), 1);
     const endOfMonth = new Date(month.getFullYear(), month.getMonth() + 1, 0);
-
+  
     const bookings = await prisma.booking.findMany({
       where: {
         courtId: courtId,
@@ -120,19 +120,27 @@ const statsService = {
         endTime: true,
       },
     });
-
+  
     const usageByDay = Array(7).fill(0); // Khởi tạo mảng chứa số giờ sử dụng theo từng ngày trong tuần
     const bookingsByDay = Array(7).fill(0); // Khởi tạo mảng chứa số lượt đặt theo từng ngày trong tuần
-
+  
     bookings.forEach((booking) => {
-      const dayOfWeek = booking.startTime.getDay();
-      const usageHours = (booking.endTime.getTime() - booking.startTime.getTime()) / (1000 * 60 * 60); // Chuyển đổi thời gian sử dụng sang giờ
+      // Điều chỉnh múi giờ bằng cách trừ đi 7 giờ
+      const adjustedStartTime = new Date(booking.startTime.getTime() - 7 * 60 * 60 * 1000);
+      const adjustedEndTime = new Date(booking.endTime.getTime() - 7 * 60 * 60 * 1000);
+  
+      // Lấy ngày trong tuần sau khi đã điều chỉnh múi giờ
+      const dayOfWeek = adjustedStartTime.getDay();
+      // Chuyển đổi thời gian sử dụng sang giờ sau khi đã điều chỉnh múi giờ
+      const usageHours = (adjustedEndTime.getTime() - adjustedStartTime.getTime()) / (1000 * 60 * 60);
+  
       usageByDay[dayOfWeek] += usageHours;
       bookingsByDay[dayOfWeek] += 1;
     });
-
+  
     return { usageByDay, bookingsByDay };
   },
+  
 
   getCourtUsageByHour: async (courtId: number, month: Date) => {
     const startOfMonth = new Date(month.getFullYear(), month.getMonth(), 1);
@@ -152,14 +160,22 @@ const statsService = {
     const usageByHour = Array(24 * 7).fill(0); // Tạo mảng 7 ngày, mỗi ngày 24 giờ
 
     bookings.forEach((booking) => {
-      const startDay = booking.startTime.getDay();
-      const startHour = new Date(booking.startTime).getHours();
-      const endHour = new Date(booking.endTime).getHours();
-
+      // Chuyển đổi thời gian sang mili giây, trừ đi 7 giờ
+      const adjustedStartTime = new Date(booking.startTime.getTime() - 7 * 60 * 60 * 1000);
+      const adjustedEndTime = new Date(booking.endTime.getTime() - 7 * 60 * 60 * 1000);
+    
+      // Lấy ngày và giờ sau khi điều chỉnh múi giờ
+      const startDay = adjustedStartTime.getDay();
+      const startHour = adjustedStartTime.getHours();
+      const endHour = adjustedEndTime.getHours();
+    
+      console.log(startDay, adjustedStartTime, startHour);
+    
       for (let hour = startHour; hour <= endHour; hour++) {
         usageByHour[startDay * 24 + hour]++;
       }
     });
+    
 
     return usageByHour;
   },

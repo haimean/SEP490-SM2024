@@ -25,6 +25,7 @@ const PostRightCP = ({ user, post, postId }) => {
   console.log("🚀 ========= user:", user);
   const [accountId, setAccountId] = useState(null);
   const [listJoin, setListJoin] = useState([]);
+  console.log("🚀 ========= listJoin:", listJoin);
   const [openWaitingList, setOpenWaitingList] = useState(false);
   const [openRequestList, setOpenRequestList] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
@@ -308,13 +309,13 @@ const PostRightCP = ({ user, post, postId }) => {
             <TableContainer component={Paper}>
               <Table aria-label="simple table">
                 <TableBody>
-                  {listJoin.map((item, index) => (
-                    <TableRow key={item.id}>
+                  {listJoin?.map((item, index) => (
+                    <TableRow key={item?.id}>
                       <TableCell component="th" scope="row">
                         {index + 1}
                       </TableCell>
                       <TableCell
-                        onClick={() => handleOpenDetail(item?.accountId)}
+                        onClick={() => handleOpenDetail(item?.id)}
                         className="hover:underline hover:cursor-pointer"
                       >
                         {item?.userAvailability?.account?.user?.fullName}
@@ -326,7 +327,7 @@ const PostRightCP = ({ user, post, postId }) => {
                             color="error"
                             onClick={() => handleOpenModalReason(item?.id)}
                           >
-                            Xóa người chơi
+                            Loại người chơi
                           </Button>
                         </TableCell>
                       )}

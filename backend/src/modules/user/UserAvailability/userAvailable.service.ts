@@ -65,12 +65,11 @@ const userAvailableService = {
 
   // get userAvailable with same level, districts, provinces and same day
   getUserAvailableSamePost: async (data: {
-    level: Level;
     provinces: string;
     districts: string;
     date: Date;
   }) => {
-    const { level, provinces, districts, date } = data;
+    const { provinces, districts, date } = data;
     const year = date.getFullYear();
     const month = date.getMonth(); // Note: Months in JavaScript start at 0
     const day = date.getDate();
@@ -80,7 +79,6 @@ const userAvailableService = {
     return await database.userAvailability.findMany({
       where: {
         districts,
-        level,
         provinces,
         startTime: {
           gte: startOfDay,

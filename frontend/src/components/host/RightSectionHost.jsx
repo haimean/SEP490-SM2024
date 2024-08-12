@@ -14,8 +14,8 @@ import { Link, useParams } from "react-router-dom";
 import CallApi from "../../service/CallAPI";
 import BookingModal from "./Booking/BookingModal";
 
-const RightSectionHost = ({ id, type }) => {
-  const { idCourt } = useParams();
+const RightSectionHost = ({ id, type, court1 }) => {
+  // const { idCourt } = useParams();
   const [court, setCourt] = useState([]);
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
 
@@ -25,16 +25,16 @@ const RightSectionHost = ({ id, type }) => {
         const result = await CallApi(
           type === "Branch"
             ? `/api/host/court/branch/${id}`
-            : `/api/host/court/${idCourt}`,
+            : `/api/host/court/${court1?.id}`,
           "get"
         );
-        setCourt(result.data);
+        setCourt(result?.data);
       } catch (error) {
         console.log("🚀 ========= error:", error);
       }
     };
     getAllCourt();
-  }, [id, idCourt, type]);
+  }, [id, court1, type]);
 
   const longText = "Sàn: Gỗ<br/>Chất lượng: Tốt<br/>Số lượng: 4 người";
 
@@ -105,7 +105,7 @@ const RightSectionHost = ({ id, type }) => {
         {type === "courtDetail" && (
           <>
             <Link
-              to={`/host/update-court/${idCourt}`}
+              to={`/host/update-court/${court1?.id}`}
               style={{ textDecoration: "none" }}
             >
               <Button
@@ -139,17 +139,17 @@ const RightSectionHost = ({ id, type }) => {
           }
         >
           {type === "Branch"
-            ? court.map((item) => (
-                <Link key={item.id} to={`/branch/${id}/court/${item.id}`}>
+            ? court?.map((item) => (
+                <Link key={item?.id} to={`/branch/${id}/court/${item?.id}`}>
                   <CustomTooltip title={longText}>
                     <ListItemButton>
                       <img
                         src="https://bizweb.dktcdn.net/100/352/498/products/sancaulong105langha1.jpg?v=1716193376243"
                         width={50}
                         height={50}
-                        alt={item.name}
+                        alt={item?.name}
                       />
-                      <ListItemText primary={item.name} />
+                      <ListItemText primary={item?.name} />
                     </ListItemButton>
                   </CustomTooltip>
                 </Link>
@@ -160,7 +160,7 @@ const RightSectionHost = ({ id, type }) => {
       <BookingModal
         open={isCalendarModalOpen}
         onClose={handleCloseCalendarModal}
-        courtId={idCourt}
+        courtId={court1?.id}
         court={court}
       />
     </Grid>
