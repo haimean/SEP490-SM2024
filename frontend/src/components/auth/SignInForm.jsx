@@ -1,8 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { useForm } from "react-hook-form";
 import { jwtDecode } from "jwt-decode";
-import InputLabel from "../common/InputLabel.jsx";
 import { toast } from "react-toastify";
 import CallApi from "../../service/CallAPI.jsx";
 import { Link, useNavigate } from "react-router-dom";
