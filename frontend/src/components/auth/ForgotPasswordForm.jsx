@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import InputLabel from "../common/InputLabel.jsx";
 import CallApi from "../../service/CallAPI.jsx";
 import { toast } from "react-toastify";
+import { TextField } from "@mui/material";
 
 // EmailForm Component
 const EmailForm = ({ onSubmit }) => {
@@ -14,17 +15,21 @@ const EmailForm = ({ onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="mt-3">
-      <InputLabel
+      <TextField
         label="Email"
         id="email"
-        register={register}
-        pattern={{
-          value:
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-          message: "Vui lòng nhập email hợp lệ.",
-        }}
-        errors={errors}
-        required="Không được bỏ trống trường này."
+        fullWidth
+        margin="normal"
+        {...register("email", {
+          required: "Không được bỏ trống trường này.",
+          pattern: {
+            value:
+              /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+            message: "Vui lòng nhập email hợp lệ.",
+          },
+        })}
+        error={!!errors.email}
+        helperText={errors.email?.message}
       />
       <button
         disabled={isSubmitting}
@@ -47,13 +52,20 @@ const OTPForm = ({ onSubmit, otpTimer, otpExpired, handleResendOTP }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="mt-3">
-      <InputLabel
+      <TextField
         label="OTP"
         id="otp"
-        register={register}
-        errors={errors}
-        required="Không được bỏ trống trường này."
-        minLength={6}
+        fullWidth
+        margin="normal"
+        {...register("otp", {
+          required: "Không được bỏ trống trường này.",
+          minLength: {
+            value: 6,
+            message: "OTP phải có ít nhất 6 kí tự.",
+          },
+        })}
+        error={!!errors.otp}
+        helperText={errors.otp?.message}
       />
       <div className="mt-3 flex flex-col text-center">
         {otpExpired ? (
