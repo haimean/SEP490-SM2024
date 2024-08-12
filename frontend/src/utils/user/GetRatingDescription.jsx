@@ -1,5 +1,4 @@
 export const getRatingDescription = (rating) => {
-  console.log("🚀 ========= rating:", rating);
   switch (rating) {
     case "Y":
       return "Yếu";

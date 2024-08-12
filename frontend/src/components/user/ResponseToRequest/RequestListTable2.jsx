@@ -8,12 +8,13 @@ import ModalProfile from "../../common/ModalProfile";
 import { getRatingDescription } from "../../../utils/user/GetRatingDescription";
 import ModalVote from "./ModalVote";
 const processData = (data) => {
-  return data.map((item, index) => ({
+  return data?.map((item, index) => ({
     orderNumber: index + 1,
     id: item?.id,
     fullName: item?.account?.user?.fullName || "",
     level: getRatingDescription(item?.level),
     invitation: item?.Invitation,
+    vote: item?.Invitation,
     // Add other fields as needed
   }));
 };
@@ -23,7 +24,6 @@ export default function RequestListTable2({ open, onClose, postId }) {
   const [isModalProfile, setIsModalProfile] = useState(false);
   const [profileId, setProfileId] = useState();
   const [isModalVote, setIsModalVote] = useState(false);
-  console.log("🚀 ========= isModalVote:", isModalVote);
   const [idSend, setIsSend] = useState();
   const [idReceive, setIsReceive] = useState();
 
@@ -115,13 +115,14 @@ export default function RequestListTable2({ open, onClose, postId }) {
       field: "vote",
       headerName: "Đánh giá",
       width: 140,
-      renderCell: () => {
+      renderCell: (params) => {
         return (
           <Button
             variant="contained"
             color="success"
-            onClick={(event) => {
-              handleOpenModalVote(1, 2);
+            onClick={() => {
+              console.log("🚀 ========= params:", params.row);
+              handleOpenModalVote(params?.row?.id);
             }}
           >
             Đánh giá
@@ -173,8 +174,7 @@ export default function RequestListTable2({ open, onClose, postId }) {
   const handleCloseModalProfile = () => {
     setIsModalProfile(false);
   };
-  const handleOpenModalVote = (idSend, idReceive) => {
-    setIsSend(idSend);
+  const handleOpenModalVote = (idReceive) => {
     setIsReceive(idReceive);
     setIsModalVote(true);
   };
