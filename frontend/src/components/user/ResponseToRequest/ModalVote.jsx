@@ -1,16 +1,32 @@
 import { Button, Dialog, Rating, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
+import CallApi from "../../../service/CallAPI";
+import { toast } from "react-toastify";
 
-export default function ModalVote({ idSend, idReceive, open, handleClose }) {
+export default function ModalVote({ idReceive, open, handleClose }) {
   const {
     register,
     handleSubmit,
     control,
     formState: { errors },
   } = useForm();
-
+  const Vote = async (rating, comment) => {
+    try {
+      const result = await CallApi("/api/user/review/", "post", {
+        accountRecipientId: idReceive,
+        rating,
+        comment,
+      });
+      console.log("🚀 ========= result:", result);
+      toast.success("Đánh giá thành công");
+      handleClose();
+    } catch (error) {
+      console.log("🚀 ========= error:", error);
+    }
+  };
   const onSubmit = (data) => {
     console.log("Feedback Data:", data); // Xử lý dữ liệu ở đây
+    Vote(data.rating, data.comment);
   };
   return (
     <Dialog
@@ -49,15 +65,15 @@ export default function ModalVote({ idSend, idReceive, open, handleClose }) {
         {/* Lý do đánh giá */}
         <TextField
           label="Lý do đánh giá"
-          name="reason"
-          {...register("reason", { required: "Vui lòng nhập lý do đánh giá" })}
+          name="comment"
+          {...register("comment", { required: "Vui lòng nhập lý do đánh giá" })}
           multiline
           rows={4}
           variant="outlined"
           fullWidth
           margin="normal"
-          error={!!errors.reason}
-          helperText={errors.reason?.message}
+          error={!!errors.comment}
+          helperText={errors.comment?.message}
         />
 
         <Button
