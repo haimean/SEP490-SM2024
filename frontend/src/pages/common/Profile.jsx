@@ -313,8 +313,11 @@ const Profile = () => {
                   helperText={errors.email?.message}
                   fullWidth
                   margin="normal"
-                  defaultValue={profile?.email}
+                  value={profile?.email}
                   disabled
+                  InputLabelProps={{
+                    shrink: true, // Đảm bảo label luôn di chuyển lên trên
+                  }}
                 />
               </div>
               <Button
