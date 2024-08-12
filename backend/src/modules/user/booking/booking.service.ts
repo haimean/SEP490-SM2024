@@ -143,6 +143,42 @@ const bookingUserService = {
       },
     });
   },
+  // check Booking có trùng lịch không
+  checkBookingConflict: async (
+    accountId: number,
+    startTime: Date,
+    endTime: Date
+  ) => {
+    const conflictingBooking = await database.booking.findFirst({
+      where: {
+        isDelete: false,
+        OR: [
+          {
+            accountId: accountId,
+            startTime: {
+              lte: endTime,
+            },
+            endTime: {
+              gte: startTime,
+            },
+          },
+          {
+            post: {
+              invitation: {
+                every: {
+                  status: 'ACCEPT',
+                  userAvailability: {
+                    accountId: accountId,
+                  },
+                },
+              },
+            },
+          },
+        ],
+      },
+    });
+    return conflictingBooking !== null;
+  },
 };
 
 export default bookingUserService;
