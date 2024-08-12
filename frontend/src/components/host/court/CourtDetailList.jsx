@@ -37,30 +37,22 @@ const CourtDetailList = ({
             <h2 className="text-lg font-bold mb-2">{activity?.name}</h2>
           </Link>
           <p className="text-sm text-gray-600 mb-2">{activity?.description}</p>
-          <div className="flex items-center text-sm text-gray-600 mb-2">
-            <LocationOnIcon className="mr-1" />
-            {activity?.Branches?.addressLatitude}
-          </div>
-          <div className="flex items-center text-sm text-gray-600 mb-2">
-            <EventIcon className="mr-1" />
-            {activity?.updatedAt}
-          </div>
           <div className="flex items-center text-sm text-gray-600">
             <CalendarTodayIcon className="mr-1" />
             {activity?.TypeCourt?.name}
           </div>
         </div>
         <div>
-          <p className="text-sm text-gray-600 mt-2">
+          <p className="text-sm text-gray-600 my-2">
             {activity?.Branches?.name}
           </p>
         </div>
         <div className="grid grid-cols-2 gap-3">
-          <div onClick={() => handleCompare(activity)}>
+          {/* <div onClick={() => handleCompare(activity)}>
             <Button variant="contained" className="w-full">
               So sánh
             </Button>
-          </div>
+          </div> */}
 
           {role === "HOST" && (
             <Button
