@@ -1,5 +1,4 @@
-// MapComponent.jsx
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { OpenStreetMapProvider, GeoSearchControl } from "leaflet-geosearch";
@@ -42,10 +41,7 @@ const MapAutoComplete = ({ onSubmit }) => {
   const [address, setAddress] = useState("");
   const [details, setDetails] = useState({});
   const updatePosition = (newPosition) => {
-    console.log("newPosition", newPosition);
-
     setPosition(newPosition);
-    console.log("newPosition", newPosition);
 
     const provider = new OpenStreetMapProvider({
       params: {
@@ -65,7 +61,6 @@ const MapAutoComplete = ({ onSubmit }) => {
           )
           .then((response) => {
             if (response.data && response.data.address) {
-              console.log(response.data);
               setDetails({
                 address: response.data.address,
                 latitude: newPosition[0],
@@ -86,28 +81,12 @@ const MapAutoComplete = ({ onSubmit }) => {
   };
 
   const handleMapClick = (e) => {
-    console.log("handleMapClick");
-
     updatePosition([e.latlng.lat, e.latlng.lng]);
   };
-
-  const markerRef = useRef(null);
-
-  useEffect(() => {
-    const map = markerRef.current?.leafletElement?.getMap();
-    if (map) {
-      map.on("click", handleMapClick);
-      return () => {
-        map.off("click", handleMapClick);
-      };
-    }
-  }, [markerRef]);
 
   const handleMarkerDragEnd = (e) => {
     const marker = e.target;
     const newPosition = marker.getLatLng();
-    console.log("handleMarkerDragEnd");
-
     updatePosition([newPosition.lat, newPosition.lng]);
   };
 
@@ -119,7 +98,7 @@ const MapAutoComplete = ({ onSubmit }) => {
         zoom={20}
         style={{ height: "55vh", width: "100%" }}
         whenCreated={(map) => {
-          map.on("click", x);
+          map.on("click", handleMapClick);
         }}
       >
         <TileLayer
@@ -128,8 +107,6 @@ const MapAutoComplete = ({ onSubmit }) => {
         />
         <SearchControl
           onResultSelect={(location) => {
-            console.log("SearchControl");
-
             updatePosition([location.y, location.x]);
           }}
         />
@@ -145,7 +122,9 @@ const MapAutoComplete = ({ onSubmit }) => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {details}
+                {details.address
+                  ? `${details.address.road}, ${details.address.city}`
+                  : "No details"}
               </a>
             </Popup>
           </Marker>
