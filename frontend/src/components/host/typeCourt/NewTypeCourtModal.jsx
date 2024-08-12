@@ -153,8 +153,6 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
         );
         await onSave();
       } catch (error) {
-        console.log("Error saving type court:", error);
-        console.log("Error saving type court:", error.response.data.error);
         toast.error(error.response.data.error);
       }
     } catch (error) {
