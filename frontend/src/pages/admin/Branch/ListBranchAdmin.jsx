@@ -27,7 +27,7 @@ const ListBranchAdmin = () => {
         "post",
         requestData
       );
-      const data = response?.data.map((item, index) => ({
+      const data = response?.data?.data?.map((item, index) => ({
         ...item,
         index: index + 1,
       }));
