@@ -24,7 +24,6 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
   const {
     control,
     handleSubmit,
-    reset,
     setValue,
     formState: { errors },
   } = useForm({
@@ -53,10 +52,23 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
     setTitleDialog(title);
     setIsOpenDialogInfo(true);
   };
+  const fetchBranchAtbList = async () => {
+    try {
+      const response = await CallApi(
+        `/api/host/attribute-key-court/account`,
+        "get"
+      );
+      setBranchAtbList(response?.data);
+    } catch (error) {
+      toast.error("Lỗi khi lấy danh sách thuộc tính cơ sở");
+      console.error("Lỗi khi lấy danh sách thuộc tính cơ sở:", error);
+    }
+  };
+  useEffect(() => {
+    fetchBranchAtbList();
+  }, []);
   useEffect(() => {
     if (typeCourt) {
-      setValue("name", typeCourt.name);
-      setValue("description", typeCourt.description);
       typeCourt?.attributes?.forEach((atb) => {
         const matchingAttribute = branchAtbList.find(
           (item) => item.id === atb.attributeKey.id
@@ -73,6 +85,13 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
           }
         }
       });
+    }
+  }, [branchAtbList]);
+
+  useEffect(() => {
+    if (typeCourt) {
+      setValue("name", typeCourt.name);
+      setValue("description", typeCourt.description);
       const dataSet = Object.values(typeCourt?.priceTypeCourt);
       const result = dataSet?.reduce((acc, item) => {
         const key = item.times;
@@ -98,11 +117,10 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
       setCurrentImage(typeCourt.image || null);
       setSelectedImage(null);
     } else {
-      reset();
       setSelectedImage(null);
       setCurrentImage(null);
     }
-  }, [typeCourt, reset, setValue, branchAtbList]);
+  }, []);
 
   const onSubmit = async (data) => {
     try {
@@ -169,28 +187,12 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
   };
 
   const handleCancel = () => {
-    reset();
     setSelectedImage(null);
     setCurrentImage(null);
     setPriceTypeCourt([]);
     setGetListTime([]);
     onClose();
   };
-  const fetchBranchAtbList = async () => {
-    try {
-      const response = await CallApi(
-        `/api/host/attribute-key-court/account`,
-        "get"
-      );
-      setBranchAtbList(response?.data);
-    } catch (error) {
-      toast.error("Lỗi khi lấy danh sách thuộc tính cơ sở");
-      console.error("Lỗi khi lấy danh sách thuộc tính cơ sở:", error);
-    }
-  };
-  useEffect(() => {
-    fetchBranchAtbList();
-  }, []);
 
   const addNewAttributeValue = useCallback(async (data) => {
     const requestData = {
