@@ -117,7 +117,7 @@ export default function NavbarHost() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
     </Menu>
   );
 
@@ -149,7 +149,7 @@ export default function NavbarHost() {
                 {option.label}
               </MenuItem>
             ))}
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
           </>
         ) : (
           <>
@@ -161,7 +161,7 @@ export default function NavbarHost() {
                 {option.label}
               </MenuItem>
             ))}
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
           </>
         )
       ) : (
