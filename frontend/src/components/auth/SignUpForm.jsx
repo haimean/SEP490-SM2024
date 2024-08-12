@@ -1,14 +1,16 @@
-import React from "react";
+import { useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { useForm } from "react-hook-form";
-import InputLabel from "../common/InputLabel.jsx";
 import CallApi from "../../service/CallAPI.jsx";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../middleware/redux/userSlice.jsx";
-
+import { Button, IconButton, InputAdornment, TextField } from "@mui/material";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+// eslint-disable-next-line react/prop-types
 const SignUpForm = ({ role }) => {
   const {
     register,
@@ -18,6 +20,8 @@ const SignUpForm = ({ role }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   let roleName;
   if (role === "HOST") {
     roleName = "Chủ Sân";
@@ -101,61 +105,109 @@ const SignUpForm = ({ role }) => {
     toast.error("Google login failed. Please try again.");
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
   return (
-    <div className="border-t-8 rounded-sm border-indigo-600 bg-white p-12 shadow-2xl w-96">
+    <div className="border-t-8 rounded-sm bg-white p-12 shadow-2xl w-96">
       <h1 className="font-bold text-center block text-2xl mb-2">
         Đăng Kí Tài Khoản Cho {roleName}
       </h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <InputLabel
+        <TextField
           label="Họ và tên"
-          id="name"
-          register={register}
-          errors={errors}
-          required="Không được bỏ trống trường này."
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          {...register("name", { required: "Không được bỏ trống trường này." })}
+          error={!!errors.name}
+          helperText={errors.name?.message}
         />
-        <InputLabel
+        <TextField
           label="Email"
-          id="email"
-          register={register}
-          pattern={{
-            value:
-              /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-            message: "Vui lòng nhập email hợp lệ.",
-          }}
-          errors={errors}
-          required="Không được bỏ trống trường này."
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          {...register("email", {
+            required: "Không được bỏ trống trường này.",
+            pattern: {
+              value:
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              message: "Vui lòng nhập email hợp lệ.",
+            },
+          })}
+          error={!!errors.email}
+          helperText={errors.email?.message}
         />
-        <InputLabel
+        <TextField
           label="Mật Khẩu"
-          id="password"
-          register={register}
-          pattern={{
-            value:
-              /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/,
-            message:
-              "Mật khẩu phải chứa ít nhất " +
-              "một chữ viết hoa, một chữ viết thương, một số, một kí tự đặc biêt và không được chứa khoảng trống.",
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          type={showPassword ? "text" : "password"}
+          {...register("password", {
+            required: "Không được bỏ trống trường này.",
+            minLength: {
+              value: 8,
+              message: "Mật khẩu phải có nhiều hơn 8 kí tự.",
+            },
+            pattern: {
+              value:
+                /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/,
+              message:
+                "Mật khẩu phải chứa ít nhất một chữ viết hoa, một chữ viết thường, một số, một kí tự đặc biệt và không được chứa khoảng trống.",
+            },
+          })}
+          error={!!errors.password}
+          helperText={errors.password?.message}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={togglePasswordVisibility} edge="end">
+                  {showPassword ? <RemoveRedEyeIcon /> : <VisibilityOffIcon />}
+                </IconButton>
+              </InputAdornment>
+            ),
           }}
-          minLength={8}
-          errors={errors}
-          required="Không được bỏ trống trường này."
-          type="password"
         />
-        <InputLabel
+        <TextField
           label="Nhập lại mật khẩu"
-          id="confirmPassword"
-          register={register}
-          errors={errors}
-          required="Không được bỏ trống trường này."
-          type="password"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          type={showConfirmPassword ? "text" : "password"}
+          {...register("confirmPassword", {
+            required: "Không được bỏ trống trường này.",
+          })}
+          error={!!errors.confirmPassword}
+          helperText={errors.confirmPassword?.message}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={toggleConfirmPasswordVisibility}
+                  edge="end"
+                >
+                  {showConfirmPassword ? (
+                    <RemoveRedEyeIcon />
+                  ) : (
+                    <VisibilityOffIcon />
+                  )}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
         />
-        <button
+        <Button
+          variant="contained"
           type="submit"
-          className="mt-6 transition block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg"
+          className="mt-6 transition block py-3 px-4 w-full"
         >
           Đăng kí
-        </button>
+        </Button>
       </form>
       {role === "USER" && (
         <div className="mt-4 text-center flex justify-center w-full">
@@ -173,9 +225,9 @@ const SignUpForm = ({ role }) => {
         }
       `}</style>
       <div className="mt-4 text-center">
-        <a href="/login" className="text-indigo-600 hover:text-indigo-800">
+        <Link to="/login" className="text-[#1976d2]">
           Đã có tài khoản? Đăng nhập
-        </a>
+        </Link>
       </div>
     </div>
   );
