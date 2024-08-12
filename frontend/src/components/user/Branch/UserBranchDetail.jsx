@@ -1,4 +1,4 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import {
   Box,
   Typography,
@@ -11,15 +11,14 @@ import {
 
 import {
   LocationOn,
-  Phone, Email,
+  Phone,
+  Email,
   SportsBasketball,
   AccountBox,
-  Checklist
+  Checklist,
 } from "@mui/icons-material";
 import CourtCard from "../Court/CourtCard";
 // import testImg from "D:/1_2024-05-SEM9/DOAN/scl.jpg"
-
-const testImg = "https://via.placeholder.com/200"
 
 const UserBranchDetail = ({
   title,
@@ -27,7 +26,7 @@ const UserBranchDetail = ({
   description,
   map,
   courts,
-  branch
+  branch,
 }) => {
   const renderInfoItem = (Icon, text) => (
     <Box display="flex" alignItems="center" mb={1}>
@@ -55,16 +54,19 @@ const UserBranchDetail = ({
             <Typography variant="h6" gutterBottom>
               Mở cửa từ: {branch.openingHours} - {branch.closingHours}
             </Typography>
-            {
-              branch?.attributeBranches.map((att) => (
-                <Stack direction="row" alignItems="center" spacing={1} key={att.id}>
-                  <Checklist className="text-red-600" />
-                  <Typography>
-                    {att.value}: {att?.attributeKeyBranches.name}
-                  </Typography>
-                </Stack>
-              ))
-            }
+            {branch?.attributeBranches.map((att) => (
+              <Stack
+                direction="row"
+                alignItems="center"
+                spacing={1}
+                key={att.id}
+              >
+                <Checklist className="text-red-600" />
+                <Typography>
+                  {att.value}: {att?.attributeKeyBranches.name}
+                </Typography>
+              </Stack>
+            ))}
             <Typography variant="h6" gutterBottom>
               Mô tả thêm
             </Typography>
@@ -75,18 +77,19 @@ const UserBranchDetail = ({
       <Grid item xs={12} md={4}>
         <CardContent>
           <Typography variant="h6" component="div" gutterBottom>
-            <AccountBox style={{ marginRight: '8px' }} />{branch?.account?.user?.fullName}
+            <AccountBox style={{ marginRight: "8px" }} />
+            {branch?.account?.user?.fullName}
           </Typography>
           <Typography variant="body2" gutterBottom>
-            <Phone style={{ marginRight: '8px' }} />
+            <Phone style={{ marginRight: "8px" }} />
             {branch?.phone}
           </Typography>
           <Typography variant="body2" gutterBottom>
-            <Email style={{ marginRight: '8px' }} />
+            <Email style={{ marginRight: "8px" }} />
             {branch?.email}
           </Typography>
           <Typography variant="body2" gutterBottom>
-            <LocationOn style={{ marginRight: '8px' }} />
+            <LocationOn style={{ marginRight: "8px" }} />
             {branch?.address?.detail}
           </Typography>
           {map}
@@ -94,7 +97,7 @@ const UserBranchDetail = ({
       </Grid>
       <Grid item xs={12}>
         <Typography variant="h5" gutterBottom>
-          Các sân có sẵn
+          Danh sách sân trong cơ sở
         </Typography>
         <Grid container spacing={3}>
           {courts.map((court) => (
