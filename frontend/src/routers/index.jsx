@@ -45,7 +45,6 @@ export const getRoutes = () => {
                   component={route.component}
                   roles={route.role}
                 />
-                <DialogInfoComponent />
               </LayoutPlayer>
             }
           />
