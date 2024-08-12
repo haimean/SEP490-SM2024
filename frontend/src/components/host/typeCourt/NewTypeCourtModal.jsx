@@ -135,8 +135,28 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
         handleOpenDialogInfo("Giá là bắt buộc");
         return;
       }
-      await onSave(formData, !!typeCourt, typeCourt?.id);
-      handleCancel();
+
+      // await onSave(formData, !!typeCourt, typeCourt?.id);
+
+      try {
+        if (typeCourt) {
+          await CallApi(
+            `/api/host/type-court/${typeCourt?.id}`,
+            "put",
+            formData
+          );
+        } else {
+          await CallApi("/api/host/type-court", "post", formData);
+        }
+        toast.success(
+          typeCourt ? "Cập nhật kiểu sân thành công" : "Tạo kiểu sân thành công"
+        );
+        await onSave();
+      } catch (error) {
+        console.log("Error saving type court:", error);
+        console.log("Error saving type court:", error.response.data.error);
+        toast.error(error.response.data.error);
+      }
     } catch (error) {
       toast.error("Tạo/Cập nhật kiểu sân thất bại");
     }

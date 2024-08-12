@@ -112,23 +112,9 @@ const TypeCourtTable = () => {
     }
   };
 
-  const handleSaveTypeCourt = async (formData, isEdit, typeCourtId) => {
-    try {
-      if (isEdit) {
-        await CallApi(`/api/host/type-court/${typeCourtId}`, "put", formData);
-      } else {
-        await CallApi("/api/host/type-court", "post", formData);
-      }
-      await fetchTypeCourts();
-      toast.success(
-        isEdit ? "Cập nhật kiểu sân thành công" : "Tạo kiểu sân thành công"
-      );
-    } catch (error) {
-      console.log("Error saving type court:", error);
-      toast.error(
-        isEdit ? "Cập nhật kiểu sân thất bại" : "Tạo kiểu sân thất bại"
-      );
-    }
+  const handleSaveTypeCourt = async () => {
+    handleCloseModal();
+    await fetchTypeCourts();
   };
   return (
     <BaseBox title="Quản Lý kiểu sân">
