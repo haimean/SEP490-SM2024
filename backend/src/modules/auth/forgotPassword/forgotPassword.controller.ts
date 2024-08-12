@@ -66,7 +66,7 @@ const forgotPasswordController = {
     } else {
       let date2: Date = new Date();
       if (account.otpExpired !== null) {
-        date2 = account.otpExpired;
+        date2 = new Date(account.otpExpired);
         const differenceInMilliseconds = Math.abs(
           new Date().getTime() - date2.getTime()
         );
