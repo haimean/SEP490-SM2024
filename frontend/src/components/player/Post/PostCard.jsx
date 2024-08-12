@@ -1,10 +1,83 @@
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Stack,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { format, parseISO } from "date-fns";
 import { vi } from "date-fns/locale";
 import { Link } from "react-router-dom";
 
-const PostCard = ({ postId, owner, court, price, time, image, isLarge }) => {
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import EventIcon from "@mui/icons-material/Event";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
+import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
+
+import { useEffect, useState } from "react";
+import haversine from "haversine";
+import { Group } from "@mui/icons-material";
+const PostCard = ({
+  post,
+  postId,
+  owner,
+  court,
+  price,
+  time,
+  image,
+  isLarge,
+}) => {
+  console.log("🚀 ========= post:", post);
+  const [location, setLocation] = useState(null);
+  const [error, setError] = useState(null);
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            latitude: position?.coords?.latitude,
+            longitude: position?.coords?.longitude,
+          });
+        },
+        (error) => {
+          setError(error.message);
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by this browser.");
+    }
+  };
+  useEffect(() => {
+    getLocation();
+  }, []);
+  const distance = haversine(
+    {
+      latitude: post?.address?.latitude || "21.013393218627524",
+      longitude: post?.address?.longitude || "105.52526950492785",
+    },
+    {
+      latitude: location?.latitude || "21.013393218627524",
+      longitude: location?.longitude || "105.52526950492785",
+    }
+  );
   //isLarge true thì hiển thị ảnh to
+  const parseDate = (isoString) => {
+    const date = new Date(isoString);
+
+    // Lấy ngày, tháng, và năm từ đối tượng Date
+    const day = date.getUTCDate().toString().padStart(2, "0"); // Thêm số 0 vào trước nếu day có 1 chữ số
+    const month = (date.getUTCMonth() + 1).toString().padStart(2, "0"); // Thêm 1 vào tháng vì getUTCMonth() trả về giá trị từ 0-11
+    const year = date.getUTCFullYear();
+
+    // Ghép ngày, tháng, và năm thành chuỗi định dạng "dd/MM/yyyy"
+    return `${day}/${month}/${year}`;
+  };
+  const formattedPrice = new Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  }).format(post?.booking?.price || 0);
   return (
     <Link to={`post/${postId}`}>
       <Card
@@ -36,22 +109,77 @@ const PostCard = ({ postId, owner, court, price, time, image, isLarge }) => {
           >
             {owner}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Sân: {court}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Phí giao lưu:{" "}
-            {new Intl.NumberFormat("vi-VN", {
-              style: "currency",
-              currency: "VND",
-            }).format(price)}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Giờ bắt đầu:{" "}
-            {time
-              ? format(parseISO(time), "HH:mm - dd/MM/yyyy", { locale: vi })
-              : ""}
-          </Typography>
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={1}
+            className="my-1"
+          >
+            <DirectionsRunIcon className="text-red-600" />
+            <Typography component="h6" variant="h6">
+              Vị trí cách bạn {distance ? distance?.toFixed(2) : "~"} km
+            </Typography>
+          </Stack>
+          <Tooltip title={post?.booking?.Court?.Branches?.address?.detail}>
+            <Stack
+              direction="row"
+              alignItems="center"
+              spacing={1}
+              className="truncate mb-1"
+            >
+              <LocationOnOutlinedIcon className="text-red-600" />
+              <Typography>
+                {post?.booking?.Court?.Branches?.address?.detail ||
+                  "Chưa có thông tin"}
+              </Typography>
+            </Stack>
+          </Tooltip>
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={1}
+            className="mb-1"
+          >
+            <EventIcon className="text-red-600" />
+            <Typography>
+              {parseDate(post?.booking?.startTime || new Date())}
+            </Typography>
+          </Stack>
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={1}
+            className="mb-1"
+          >
+            <AccessTimeIcon className="text-red-600" />
+            <Typography>
+              Giờ bắt đầu:{" "}
+              {time
+                ? format(parseISO(time), "HH:mm - dd/MM/yyyy", { locale: vi })
+                : ""}
+            </Typography>
+          </Stack>
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={1}
+            className="mb-1"
+          >
+            <PaidOutlinedIcon className="text-red-600" />
+            <Typography>{`Phí giao lưu: ${formattedPrice}`}</Typography>
+          </Stack>
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={1}
+            className="mb-1"
+          >
+            <Group className="text-red-600" />
+            <Typography>
+              Tuyển {post?.numberMember || 1} người (Hiện có:{" "}
+              {post?.invitation?.length || 0}/{post?.numberMember || 1})
+            </Typography>
+          </Stack>
         </CardContent>
       </Card>
     </Link>
