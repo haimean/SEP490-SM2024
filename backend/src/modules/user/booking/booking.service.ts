@@ -147,7 +147,8 @@ const bookingUserService = {
   checkBookingConflict: async (
     accountId: number,
     startTime: Date,
-    endTime: Date
+    endTime: Date,
+    courtId: number
   ) => {
     const conflictingBooking = await database.booking.findFirst({
       where: {
@@ -155,6 +156,15 @@ const bookingUserService = {
         OR: [
           {
             accountId: accountId,
+            startTime: {
+              lte: endTime,
+            },
+            endTime: {
+              gte: startTime,
+            },
+          },
+          {
+            courtId,
             startTime: {
               lte: endTime,
             },

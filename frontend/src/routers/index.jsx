@@ -1,4 +1,4 @@
-import { Navigate, Route, useNavigate } from "react-router-dom";
+import { Navigate, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import LayoutPlayer from "../layouts/player/LayoutPlayer";
 import LayoutHost from "../layouts/host/LayoutHost";
@@ -6,7 +6,7 @@ import LayoutAdmin from "../layouts/admin/dashboard/LayoutAdmin";
 import LayoutAuth from "../layouts/auth/LayoutAuth";
 import router from "./router";
 
-// eslint-disable-next-line react-refresh/only-export-components
+// eslint-disable-next-line react-refresh/only-export-components, react/prop-types
 const ProtectedRoute = ({ component, roles = [] }) => {
   const { user, role } = useSelector((state) => state.user);
   if (!user && roles.length > 0) {
@@ -45,6 +45,7 @@ export const getRoutes = () => {
                   component={route.component}
                   roles={route.role}
                 />
+                <DialogInfoComponent />
               </LayoutPlayer>
             }
           />

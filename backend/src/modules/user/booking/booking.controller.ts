@@ -86,7 +86,8 @@ const bookingUserController = {
           await bookingUserService.checkBookingConflict(
             accountId,
             startTime,
-            endTime
+            endTime,
+            courtId
           )
         ) {
           next(new CustomError('Bạn đã tham gia ở trận đấu', 400));
