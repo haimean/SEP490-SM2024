@@ -350,11 +350,11 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
                     style={{ display: "none" }}
                     onChange={(event) => {
                       const file = event.target.files[0];
-                      if (file && file.size <= 10 * 1024 * 1024) {
+                      if (file && file.size <= 1 * 1024 * 1024) {
                         handleImageChange(event);
                       } else {
                         handleOpenDialogInfo(
-                          "Kích thước ảnh phải nhỏ hơn hoặc bằng 10MB."
+                          "Kích thước ảnh phải nhỏ hơn hoặc bằng 1MB."
                         );
                         event.target.value = null;
                       }
