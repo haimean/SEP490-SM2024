@@ -39,9 +39,20 @@ const messages = {
   agenda: "Chương trình",
   date: "Ngày",
   time: "Thời gian",
-  event: "Sự kiện",
-  noEventsInRange: "Không có sự kiện nào trong khoảng thời gian này.",
+  event: "Ca đặt",
+  noEventsInRange: "Không có ca đặt nào trong khoảng thời gian này.",
   showMore: (total) => `+ Xem thêm (${total})`,
+};
+
+const formats = {
+  timeGutterFormat: 'HH:mm', // Time shown on the left side gutter
+  eventTimeRangeFormat: ({ start, end }, culture, local) =>
+    `${local.format(start, 'HH:mm', culture)} - ${local.format(end, 'HH:mm', culture)}`,
+  dayHeaderFormat: 'dddd, MMMM d',  // Format for day headers
+  dayRangeHeaderFormat: ({ start, end }, culture, local) =>
+    `${local.format(start, 'MMMM d', culture)} - ${local.format(end, 'MMMM d', culture)}`,
+  agendaTimeRangeFormat: ({ start, end }, culture, local) =>
+    `${local.format(start, 'HH:mm', culture)} - ${local.format(end, 'HH:mm', culture)}`,
 };
 
 const CreateEventWithNoOverlap = ({ courtId }) => {
@@ -147,7 +158,12 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
       handleOpenDialogInfo("Không thể chọn giờ đã qua.");
       return;
     }
+    const timeDifference = end - start;
+    const hoursDifference = timeDifference / (1000 * 60 * 60);
 
+    if (hoursDifference >= 24) {
+        return;
+    }
     const durationInMinutes = differenceInMinutes(end, start);
     if (durationInMinutes < 60) {
       handleOpenDialogInfo("Thời lượng đặt sân phải ít nhất 1 giờ.");
@@ -428,6 +444,7 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
               min={openHour}
               max={closeHour}
               messages={messages}
+              formats={formats} 
             />
           </>
         )}

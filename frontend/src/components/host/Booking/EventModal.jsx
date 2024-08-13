@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Box, Button, TextField, Typography } from "@mui/material";
+import { Modal, Box, Button, Typography, TextField } from "@mui/material";
+import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { format, parse, isValid } from "date-fns";
+import dayjs from "dayjs";
 import DialogInfo from "../../common/DialogInfo";
 
 const EventModal = ({
@@ -75,14 +78,12 @@ const EventModal = ({
   };
 
   const handleTimeChange = (field, value) => {
-    const datePart = format(new Date(eventData.start), "yyyy-MM-dd");
-    const newTime = parse(
-      `${datePart}T${value}`,
-      "yyyy-MM-dd'T'HH:mm",
-      new Date()
-    );
-    setEventData({ ...eventData, [field]: newTime.toISOString() });
-    setSaveDisabled(false);
+    if (value) {
+      const datePart = format(new Date(eventData.start), "yyyy-MM-dd");
+      const newTime = dayjs(`${datePart}T${value.format("HH:mm")}`);
+      setEventData({ ...eventData, [field]: newTime.toISOString() });
+      setSaveDisabled(false);
+    }
   };
 
   const formatDate = (date) => {
@@ -90,7 +91,7 @@ const EventModal = ({
   };
 
   const formatTime = (date) => {
-    return isValid(new Date(date)) ? format(new Date(date), "HH:mm") : "";
+    return isValid(new Date(date)) ? dayjs(date).format("HH:mm") : "";
   };
 
   const formatNumber = (value) => {
@@ -136,7 +137,7 @@ const EventModal = ({
         <TextField
           margin="normal"
           fullWidth
-          label="Tên người đặt"
+          label="Tên người đặt *"
           name="name"
           value={eventData.name}
           onChange={handleChange}
@@ -147,7 +148,7 @@ const EventModal = ({
         <TextField
           margin="normal"
           fullWidth
-          label="Số điện thoại"
+          label="Số điện thoại *"
           name="numberPhone"
           value={eventData.numberPhone}
           onChange={handleChange}
@@ -162,36 +163,54 @@ const EventModal = ({
           value={date}
           onChange={(e) => handleDateChange("date", e.target.value)}
           InputProps={{
-            readOnly: fieldsDisabled || isPastEvent,
+            // readOnly: fieldsDisabled || isPastEvent,
+            readOnly: true,
           }}
           className="!mt-2"
         />
-        <TextField
-          label="Giờ bắt đầu"
-          type="time"
-          fullWidth
-          value={formatTime(eventData.start)}
-          onChange={(e) => handleTimeChange("start", e.target.value)}
-          InputProps={{
-            readOnly: fieldsDisabled || isPastEvent,
-          }}
-          className="!mt-4"
-        />
-        <TextField
-          label="Giờ kết thúc"
-          type="time"
-          fullWidth
-          value={formatTime(eventData.end)}
-          onChange={(e) => handleTimeChange("end", e.target.value)}
-          InputProps={{
-            readOnly: fieldsDisabled || isPastEvent,
-          }}
-          className="!mt-4"
-        />
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="vi">
+          <TimePicker
+            label="Giờ bắt đầu"
+            value={dayjs(eventData.start)}
+            onChange={(newValue) => handleTimeChange("start", newValue)}
+            slotProps={{ textField: { fullWidth: true }, }}
+            readOnly
+            className="!mt-4"
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                fullWidth
+                InputProps={{
+                  // readOnly: fieldsDisabled || isPastEvent,
+                  readOnly: true,
+                }}
+              />
+            )}
+          />
+          <TimePicker
+            label="Giờ kết thúc"
+            value={dayjs(eventData.end)}
+            onChange={(newValue) => handleTimeChange("end", newValue)}
+            slotProps={{ textField: { fullWidth: true } }}
+            readOnly
+            className="!mt-4"
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                fullWidth
+                className="!mt-4"
+                InputProps={{
+                  // readOnly: fieldsDisabled || isPastEvent,
+                  readOnly: true,
+                }}
+              />
+            )}
+          />
+        </LocalizationProvider>
         <TextField
           margin="normal"
           fullWidth
-          label="Giá"
+          label="Giá *"
           name="price"
           value={formatNumber(eventData.price)}
           onChange={handleChange}

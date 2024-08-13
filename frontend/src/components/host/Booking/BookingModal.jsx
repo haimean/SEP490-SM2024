@@ -38,7 +38,7 @@ const BookingModal = ({ open, onClose, courtId, court }) => {
             </Box>
             <Box display="flex" alignItems="center">
               <Box width={16} height={16} bgcolor="rgb(34, 139, 34)" mr={1} />
-              <Typography variant="body2">Ca tự đặt</Typography>
+              <Typography variant="body2">Ca chủ sân tự đặt trên hệ thống</Typography>
             </Box>
           </Box>
         </Box>

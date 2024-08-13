@@ -77,16 +77,18 @@ const ListCourt = () => {
       )
     );
   };
-  const handleDeleteCourt = async (id) => {
-    openDialog(`Bạn có muốn xóa sân ${id} không ?`, async () => {
+  const handleDeleteCourt = async (id, name) => {
+    openDialog(`Bạn có muốn xóa ${name} không ?`, async () => {
       try {
+        console.log(id, name);
+        
         const result = await CallApi(
           `/api/host/court/delete-court/${id}`,
           "delete"
         );
         if (result) {
           getAllCourt();
-          toast.success(`Xóa sân ${id} thành công`);
+          toast.success(`Xóa ${name} thành công`);
         }
       } catch (error) {
         console.log("🚀 ========= error:", error);
