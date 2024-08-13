@@ -171,9 +171,9 @@ export default function NavbarUser() {
       )}
     </Menu>
   );
-
+  //sx={{ flexGrow: 1 }} nếu cần cho vào box
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box>
       <AppBar position="fixed">
         <Container>
           <Toolbar sx={{ justifyContent: "flex-start" }}>
