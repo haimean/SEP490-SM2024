@@ -66,7 +66,7 @@ const invitationUserController = {
           id: 1,
           accountId: Number(invitation?.Post?.booking?.accountId),
           createdAt: new Date(),
-          message: `Có người muốn xin vào trận đấu của bạn`,
+          message: `Có người xin tham gia vào trận đấu của bạn`,
           url: `/post/${postId}`,
           status: 'SEED',
         },
@@ -131,12 +131,36 @@ const invitationUserController = {
   update: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { invitationId, status, reasonCancel } = req.body;
-      const accId = Number(req.headers.authorization);
-
-      //! check nếu status bằng accpet
-      //! thì check cái này xem có trận booking ở đâu chưa
-      //! check cái này xem dã accpect ở  bài post nào  chưa
-
+      const accountId = Number(req.headers.authorization);
+      // check nếu status bằng accpet
+      if (status === 'ACCEPT') {
+        const invitation =
+          await invitationUserService.getInvitationById(invitationId);
+        const accountIdInvitation = invitation?.userAvailability
+          .accountId as number;
+        const startTime = invitation?.Post.booking.startTime as Date;
+        const endTime = invitation?.Post.booking.endTime as Date;
+        if (
+          await invitationUserService.checkBookingConflict(
+            accountIdInvitation,
+            startTime,
+            endTime
+          )
+        ) {
+          if (accountId === accountIdInvitation) {
+            next(
+              new CustomError('Bạn đã chơi ở 1 trận đấu khác', 500)
+            );
+          } else {
+            next(
+              new CustomError(
+                'Người bạn mời đã chơi ở 1 trận đấu khác',
+                500
+              )
+            );
+          }
+        }
+      }
       const invitation = await invitationUserService.update({
         invitationId,
         status,
@@ -144,14 +168,12 @@ const invitationUserController = {
       });
       const postId = invitation.Post.id;
       // people without anger
-      if (accId === invitation.Post.booking.accountId) {
+      if (accountId === invitation.Post.booking.accountId) {
         //person id has yard
         const accountId: number =
           invitation.userAvailability.accountId;
-
         // name of person without anger
         const name = invitation.Post.booking?.bookingInfo?.name;
-
         // Notification
         switch (status) {
           case 'ACCEPT':

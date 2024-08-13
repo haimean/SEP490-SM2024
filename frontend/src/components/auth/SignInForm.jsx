@@ -1,8 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { useForm } from "react-hook-form";
 import { jwtDecode } from "jwt-decode";
-import InputLabel from "../common/InputLabel.jsx";
 import { toast } from "react-toastify";
 import CallApi from "../../service/CallAPI.jsx";
 import { Link, useNavigate } from "react-router-dom";
@@ -31,7 +31,6 @@ const SignInForm = ({ isModal, onSuccess }) => {
     localStorage.setItem("accountId", accountId);
     dispatch(setUser({ user: email, role, accountId })); // Cập nhật thông tin người dùng vào Redux
     toast.success(`Đăng nhập thành công!`);
-    console.log(response);
     if (!isModal) {
       // Kiểm tra nếu không phải modal thì mới chuyển hướng
       console.log(role);

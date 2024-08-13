@@ -114,7 +114,7 @@ const RightSectionHost = ({ id, type, court1 }) => {
                 fullWidth
                 sx={{ mb: 2 }}
               >
-                Cập nhật chi tiết sân đấu
+                Sửa thông tin sân
               </Button>
             </Link>
             <Button

@@ -20,7 +20,7 @@ const reviewUserController = {
       next(new CustomError(error?.message, 500));
     }
   },
-  getReviewUser: async (
+  getAllReviewUser: async (
     req: Request,
     res: Response,
     next: NextFunction
@@ -28,7 +28,25 @@ const reviewUserController = {
     try {
       const { accountId } = req.params;
       const invitation: Review[] =
-        await reviewUserService.getReviewUser(Number(accountId));
+        await reviewUserService.getAllReviewOfUser(Number(accountId));
+      ResponseHandler(res, invitation);
+    } catch (error: any) {
+      next(new CustomError(error?.message, 500));
+    }
+  },
+  getReviewUser: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { accountRecipientId } = req.params;
+      const accountId = Number(req.headers.authorization);
+      const invitation: Review[] =
+        await reviewUserService.getReviewOfUser(
+          Number(accountRecipientId),
+          Number(accountId)
+        );
       ResponseHandler(res, invitation);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
@@ -42,7 +60,7 @@ const reviewUserController = {
     try {
       const accountId = Number(req.headers.authorization);
       const invitation: Review[] =
-        await reviewUserService.getReviewUser(accountId);
+        await reviewUserService.getAllReviewOfUser(accountId);
       ResponseHandler(res, invitation);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));

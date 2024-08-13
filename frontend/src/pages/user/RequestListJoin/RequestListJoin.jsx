@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import FormatTime from "../../../utils/user/formatTime";
 import haversine from "haversine";
+import useDialogConfirm from "../../../hooks/useDialogConfirm";
 
 export default function RequestListJoin() {
   const [requestList, setRequestList] = React.useState([]);
@@ -46,18 +47,23 @@ export default function RequestListJoin() {
       console.log("🚀 ========= error:", error);
     }
   };
+  const { openDialog, DialogComponent } = useDialogConfirm();
 
   const changeStatusInvitation = async (id, status, reason) => {
     console.log("🚀 ========= id, status, reason:", id, status, reason);
     try {
-      const result = await CallApi(apiInvitation, "post", {
-        invitationId: id,
-        status: status,
-        reasonCancel: reason,
-      });
-      console.log("🚀 ========= result:", result);
-      getRequestList();
-      toast.success("Hủy thành công");
+      await openDialog(
+        "Bạn có chắc chắn chắn hủy trận đấu không?",
+        async () => {
+          await CallApi(apiInvitation, "post", {
+            invitationId: id,
+            status: status,
+            reasonCancel: reason,
+          });
+          getRequestList();
+          toast.success("Hủy thành công");
+        }
+      );
     } catch (error) {
       console.log("🚀 ========= error:", error);
     }
@@ -223,6 +229,7 @@ export default function RequestListJoin() {
               </Card>
             </Grid>
           ))}
+          <DialogComponent />
         </Grid>
       )}
     </List>

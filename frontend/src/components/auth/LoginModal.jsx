@@ -1,4 +1,3 @@
-import React from "react";
 import { Modal, Box } from "@mui/material";
 import SignInForm from "./SignInForm.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -6,7 +5,6 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 const LoginModal = ({ open, onClose }) => {
   const handleSuccess = () => {
     onClose();
-    window.location.reload();
   };
 
   return (

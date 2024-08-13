@@ -33,9 +33,10 @@ const PostLandingPage = ({ post }) => {
         </Grid>
         <Grid item xs={12} md={4}>
           <Grid container spacing={3}>
-            {post.slice(1, 3).map((post, index) => (
+            {post?.slice(1, 3)?.map((post, index) => (
               <Grid item xs={12} key={index}>
                 <PostCard
+                  post={post}
                   postId={post?.id}
                   owner={post?.booking?.bookingInfo?.name}
                   court={post?.booking?.Court?.TypeCourt?.name}

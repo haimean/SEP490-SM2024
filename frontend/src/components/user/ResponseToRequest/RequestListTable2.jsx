@@ -6,13 +6,15 @@ import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import ModalProfile from "../../common/ModalProfile";
 import { getRatingDescription } from "../../../utils/user/GetRatingDescription";
+import ModalVote from "./ModalVote";
 const processData = (data) => {
-  return data.map((item, index) => ({
+  return data?.map((item, index) => ({
     orderNumber: index + 1,
     id: item?.id,
     fullName: item?.account?.user?.fullName || "",
     level: getRatingDescription(item?.level),
     invitation: item?.Invitation,
+    vote: item?.Invitation,
     // Add other fields as needed
   }));
 };
@@ -21,9 +23,12 @@ export default function RequestListTable2({ open, onClose, postId }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isModalProfile, setIsModalProfile] = useState(false);
   const [profileId, setProfileId] = useState();
+  const [isModalVote, setIsModalVote] = useState(false);
+  const [idSend, setIsSend] = useState();
+  const [idReceive, setIsReceive] = useState();
 
   const columns = [
-    { field: "orderNumber", headerName: "STT", width: 70, sortable: false },
+    { field: "orderNumber", headerName: "STT", width: 50, sortable: false },
     {
       field: "fullName",
       headerName: "Họ tên",
@@ -43,7 +48,7 @@ export default function RequestListTable2({ open, onClose, postId }) {
     {
       field: "level",
       headerName: "Trình độ",
-      width: 150,
+      width: 100,
     },
     {
       field: "rate",
@@ -106,6 +111,25 @@ export default function RequestListTable2({ open, onClose, postId }) {
         }
       },
     },
+    {
+      field: "vote",
+      headerName: "Đánh giá",
+      width: 140,
+      renderCell: (params) => {
+        return (
+          <Button
+            variant="contained"
+            color="success"
+            onClick={() => {
+              console.log("🚀 ========= params:", params.row);
+              handleOpenModalVote(params?.row?.id);
+            }}
+          >
+            Đánh giá
+          </Button>
+        );
+      },
+    },
   ];
   const getListAccept = async () => {
     setIsLoading(true);
@@ -150,6 +174,13 @@ export default function RequestListTable2({ open, onClose, postId }) {
   const handleCloseModalProfile = () => {
     setIsModalProfile(false);
   };
+  const handleOpenModalVote = (idReceive) => {
+    setIsReceive(idReceive);
+    setIsModalVote(true);
+  };
+  const handleCloseModalVote = () => {
+    setIsModalVote(false);
+  };
   const localeText = {
     // Add other localized text as needed
     noRowsLabel: "Không có dữ liệu",
@@ -193,6 +224,14 @@ export default function RequestListTable2({ open, onClose, postId }) {
           open={isModalProfile}
           onClose={handleCloseModalProfile}
           id={profileId}
+        />
+      )}
+      {isModalVote && (
+        <ModalVote
+          open={isModalVote}
+          handleClose={handleCloseModalVote}
+          idReceive={idReceive}
+          idSend={idSend}
         />
       )}
     </Dialog>

@@ -78,34 +78,43 @@ const bookingUserController = {
           name,
           numberPhone,
         } = element;
-        //  !59: check người đăt sân đã đặt ở sân nào khác ở thời điểm này chưa
 
-        // !59: check người chơi đã xin vào 1 trận đấu và được acccept ở khoảng thời gian này chưas
-
-        // !59: check thời gian của sân
-
-        const booking = await bookingUserService.create({
-          accountId,
-          courtId,
-          startTime,
-          endTime,
-          price,
-          name,
-          numberPhone,
-        });
-        // Thông báo thành công cho host booking thành công _> thông báo về host
-        // get court
-        const court = await bookingUserService.getCourt(courtId);
-        createNotifications([
-          {
-            id: 1,
-            accountId: Number(court?.Branches?.accountId),
-            createdAt: new Date(),
-            message: `Người chơi đã đắng ký trận của bạn`,
-            url: `/host/booking-history/detail/${booking.id}`,
-            status: 'SEED',
-          },
-        ]);
+        if (
+          // check người đăt sân đã đặt ở sân nào khác ở thời điểm này chưa
+          //  check người chơi đã xin vào 1 trận đấu và được acccept ở khoảng thời gian này chưas
+          // !59: check thời gian của sân
+          await bookingUserService.checkBookingConflict(
+            accountId,
+            startTime,
+            endTime,
+            courtId
+          )
+        ) {
+          next(new CustomError('Bạn đã tham gia ở trận đấu', 400));
+        } else {
+          const booking = await bookingUserService.create({
+            accountId,
+            courtId,
+            startTime,
+            endTime,
+            price,
+            name,
+            numberPhone,
+          });
+          // Thông báo thành công cho host booking thành công _> thông báo về host
+          // get court
+          const court = await bookingUserService.getCourt(courtId);
+          createNotifications([
+            {
+              id: 1,
+              accountId: Number(court?.Branches?.accountId),
+              createdAt: new Date(),
+              message: `Người chơi đã đắng ký trận của bạn`,
+              url: `/host/booking-history/detail/${booking.id}`,
+              status: 'SEED',
+            },
+          ]);
+        }
       }
       // check giờ đặt có người đặt chưa
       ResponseHandler(res, 'success');
