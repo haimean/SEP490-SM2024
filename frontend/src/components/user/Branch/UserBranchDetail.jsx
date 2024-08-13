@@ -54,6 +54,9 @@ const UserBranchDetail = ({
             <Typography variant="h6" gutterBottom>
               Mở cửa từ: {branch.openingHours} - {branch.closingHours}
             </Typography>
+            <Typography variant="h6" gutterBottom>
+              Tiện ích:
+            </Typography>
             {branch?.attributeBranches.map((att) => (
               <Stack
                 direction="row"
@@ -61,7 +64,7 @@ const UserBranchDetail = ({
                 spacing={1}
                 key={att.id}
               >
-                <Checklist className="text-red-600" />
+                <Typography>-&nbsp;</Typography>
                 <Typography>
                   {att.value}: {att?.attributeKeyBranches.name}
                 </Typography>

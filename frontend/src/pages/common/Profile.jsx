@@ -67,15 +67,18 @@ const Profile = () => {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
+    date.setHours(date.getHours() + 14);
     return date.toISOString().split("T")[0];
   };
+  
 
   const onSubmit = async (data) => {
     const formData = new FormData();
     console.log(formData.dob);
-
+    console.log(formatDate(data.dob));
+    
     formData.append("name", data.fullName || profile?.user?.fullName);
-    formData.append("dob", data.dob || formatDate(profile?.user?.dob));
+    formData.append("dob", formatDate(data.dob) || formatDate(profile?.user?.dob));
     formData.append(
       "numberPhone",
       data.numberPhone || profile?.user?.numberPhone
