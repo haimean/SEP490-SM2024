@@ -9,8 +9,6 @@ import { LocationOn } from "@mui/icons-material";
 import Map from "../../../components/common/Map";
 import Loading from "../../../components/common/Loading";
 
-const testImg = "https://via.placeholder.com/200";
-
 const BranDetailUser = () => {
   const { id } = useParams();
   const [branch, setBranch] = useState(null); // Khởi tạo branch là null

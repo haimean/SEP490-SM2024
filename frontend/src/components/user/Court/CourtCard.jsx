@@ -43,9 +43,8 @@ const CourtCard = ({ court, image }) => {
                     </Typography>
                 </Tooltip>
                 <Stack direction="row" alignItems="center" spacing={1}>
-                    <ChecklistIcon className="text-red-600" />
                     <Tooltip title={court?.TypeCourt?.description}>
-                        <Typography className="truncate">{court?.TypeCourt?.description}</Typography>
+                        <Typography className="truncate">Mô tả: {court?.TypeCourt?.description}</Typography>
                     </Tooltip>
                 </Stack>
                 <div className="mt-4 space-x-4">
