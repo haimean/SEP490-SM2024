@@ -312,15 +312,15 @@ const invitationUserService = {
     const conflictingBooking = await database.booking.findFirst({
       where: {
         isDelete: false,
+        startTime: {
+          lte: endTime,
+        },
+        endTime: {
+          gte: startTime,
+        },
         OR: [
           {
             accountId: accountId,
-            startTime: {
-              lte: endTime,
-            },
-            endTime: {
-              gte: startTime,
-            },
           },
           {
             post: {
