@@ -20,6 +20,7 @@ import SectionCp from "../FormInput/SectionCp";
 import PriceTypeCourtForm from "./PriceTypeCourtForm";
 import TimeLinePrice from "./TimeLinePrice";
 import dayjs from "dayjs";
+import TutorialUsing from "./TutorialUsing";
 const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
   const {
     control,
@@ -44,7 +45,7 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
   const [priceTypeCourt, setPriceTypeCourt] = useState([]);
   //list
   const [getListTime, setGetListTime] = useState([]);
-
+  const [isTutorial, setIsTutorial] = useState(true);
   const handleCloseDialogInfo = () => {
     setIsOpenDialogInfo(false);
   };
@@ -272,6 +273,12 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
       default:
         return null;
     }
+  };
+  const handleOpenTutorial = () => {
+    setIsTutorial(true);
+  };
+  const handleCloseTutorial = () => {
+    setIsTutorial(false);
   };
   return (
     <Modal open={isOpen} onClose={handleCancel}>
@@ -556,8 +563,15 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
               item
               sm={12}
               md={12}
-              sx={{ display: "flex", justifyContent: "end", margin: "1rem" }}
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                margin: "1rem",
+              }}
             >
+              <Button variant="contained" onClick={handleOpenTutorial}>
+                Hướng dẫn sử dụng
+              </Button>
               <Button
                 variant="contained"
                 onClick={() => {
@@ -609,6 +623,9 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
             open={isOpenDialogInfo}
             title={titleDialog}
           />
+        )}
+        {isTutorial && (
+          <TutorialUsing open={isTutorial} handleClose={handleCloseTutorial} />
         )}
       </Box>
     </Modal>
