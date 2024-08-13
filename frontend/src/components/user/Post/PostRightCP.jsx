@@ -20,6 +20,7 @@ import ModalReason from "../../common/ModalReason.jsx";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import LoginModal from "../../auth/LoginModal.jsx";
+import ModalVote from "../ResponseToRequest/ModalVote.jsx";
 const PostRightCP = ({ user, post, postId }) => {
   console.log("🚀 ========= post:", post);
   console.log("🚀 ========= user:", user);
@@ -168,6 +169,25 @@ const PostRightCP = ({ user, post, postId }) => {
       console.log("🚀 ========= error:", error);
       toast.error(error.response?.data?.error);
     }
+  };
+  function hasTimePassed(dateString) {
+    const inputDate = new Date(dateString);
+    const currentDate = new Date();
+
+    if (currentDate > inputDate) {
+      return true; //đã qua
+    } else {
+      return false; //chưa qua
+    }
+  }
+  const [isModalVote, setIsModalVote] = useState(false);
+  const [idReceive, setIsReceive] = useState();
+  const handleOpenModalVote = (idReceive) => {
+    setIsReceive(idReceive);
+    setIsModalVote(true);
+  };
+  const handleCloseModalVote = () => {
+    setIsModalVote(false);
   };
   return (
     <Grid item xs={12} md={4}>
@@ -320,16 +340,32 @@ const PostRightCP = ({ user, post, postId }) => {
                       >
                         {item?.userAvailability?.account?.user?.fullName}
                       </TableCell>
-                      {isOwner && (
+                      {hasTimePassed(post?.booking?.startTime) ? (
                         <TableCell>
                           <Button
                             variant="contained"
                             color="error"
-                            onClick={() => handleOpenModalReason(item?.id)}
+                            onClick={() =>
+                              handleOpenModalVote(
+                                item?.userAvailability?.accountId
+                              )
+                            }
                           >
-                            Loại người chơi
+                            Đánh giá
                           </Button>
                         </TableCell>
+                      ) : (
+                        isOwner && (
+                          <TableCell>
+                            <Button
+                              variant="contained"
+                              color="error"
+                              onClick={() => handleOpenModalReason(item?.id)}
+                            >
+                              Loại người chơi
+                            </Button>
+                          </TableCell>
+                        )
                       )}
                     </TableRow>
                   ))}
@@ -351,6 +387,13 @@ const PostRightCP = ({ user, post, postId }) => {
                 open={openProfile}
                 onClose={handleCloseProfile}
                 id={profileId}
+              />
+            )}
+            {isModalVote && (
+              <ModalVote
+                open={isModalVote}
+                handleClose={handleCloseModalVote}
+                idReceive={idReceive}
               />
             )}
           </div>

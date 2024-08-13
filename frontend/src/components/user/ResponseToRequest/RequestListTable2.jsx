@@ -7,25 +7,31 @@ import PropTypes from "prop-types";
 import ModalProfile from "../../common/ModalProfile";
 import { getRatingDescription } from "../../../utils/user/GetRatingDescription";
 import ModalVote from "./ModalVote";
-const processData = (data) => {
-  return data?.map((item, index) => ({
-    orderNumber: index + 1,
-    id: item?.id,
-    fullName: item?.account?.user?.fullName || "",
-    level: getRatingDescription(item?.level),
-    invitation: item?.Invitation,
-    vote: item?.Invitation,
-    // Add other fields as needed
-  }));
-};
+
 export default function RequestListTable2({ open, onClose, postId }) {
   const [listAccept, setListAccept] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isModalProfile, setIsModalProfile] = useState(false);
   const [profileId, setProfileId] = useState();
-  const [isModalVote, setIsModalVote] = useState(false);
-  const [idSend, setIsSend] = useState();
-  const [idReceive, setIsReceive] = useState();
+  const processData = async (data) => {
+    console.log("🚀 ========= data:", data);
+    const processedData = await Promise.all(
+      data?.map(async (item, index) => {
+        const rate = await getRating(item?.accountId);
+        return {
+          orderNumber: index + 1,
+          id: item?.id,
+          fullName: item?.account?.user?.fullName || "",
+          level: getRatingDescription(item?.level),
+          invitation: item?.Invitation,
+          vote: item?.Invitation,
+          rate: rate?.rating || 0,
+          // Add other fields as needed
+        };
+      })
+    );
+    return processedData;
+  };
 
   const columns = [
     { field: "orderNumber", headerName: "STT", width: 50, sortable: false },
@@ -54,10 +60,11 @@ export default function RequestListTable2({ open, onClose, postId }) {
       field: "rate",
       headerName: "Đánh giá",
       width: 150,
-      renderCell: () => {
+      renderCell: (params) => {
+        console.log("🚀 ========= params:", params?.row);
         return (
           <div className="w-full h-full flex items-center">
-            <Rating value={5} />
+            <Rating value={params?.row?.rate} />
           </div>
         );
       },
@@ -111,26 +118,37 @@ export default function RequestListTable2({ open, onClose, postId }) {
         }
       },
     },
-    {
-      field: "vote",
-      headerName: "Đánh giá",
-      width: 140,
-      renderCell: (params) => {
-        return (
-          <Button
-            variant="contained"
-            color="success"
-            onClick={() => {
-              console.log("🚀 ========= params:", params.row);
-              handleOpenModalVote(params?.row?.id);
-            }}
-          >
-            Đánh giá
-          </Button>
-        );
-      },
-    },
+    // {
+    //   field: "vote",
+    //   headerName: "Đánh giá",
+    //   width: 140,
+    //   renderCell: (params) => {
+    //     return (
+    //       <Button
+    //         variant="contained"
+    //         color="success"
+    //         onClick={() => {
+    //           console.log("🚀 ========= params:", params.row);
+    //           handleOpenModalVote(params?.row?.id);
+    //         }}
+    //       >
+    //         Đánh giá
+    //       </Button>
+    //     );
+    //   },
+    // },
   ];
+  //   const getListAccept = async () => {
+  //     setIsLoading(true);
+  //     try {
+  //         const result = await CallApi(`/api/user/user-available/${postId}/get-user-match`, "post");
+  //         const processedList = await processData(result?.data || []);
+  //         setListAccept(processedList);
+  //         setIsLoading(false);
+  //     } catch (error) {
+  //         console.log("🚀 ========= error:", error);
+  //     }
+  // };
   const getListAccept = async () => {
     setIsLoading(true);
     try {
@@ -138,12 +156,15 @@ export default function RequestListTable2({ open, onClose, postId }) {
         `/api/user/user-available/${postId}/get-user-match`,
         "post"
       );
+      const processedList = await processData(result?.data || []);
+      console.log("🚀 ========= processedList:", processedList);
+      setListAccept(processedList);
       setIsLoading(false);
-      setListAccept(processData(result?.data || []));
     } catch (error) {
       console.log("🚀 ========= error:", error);
     }
   };
+
   useEffect(() => {
     getListAccept();
   }, [open]);
@@ -174,13 +195,7 @@ export default function RequestListTable2({ open, onClose, postId }) {
   const handleCloseModalProfile = () => {
     setIsModalProfile(false);
   };
-  const handleOpenModalVote = (idReceive) => {
-    setIsReceive(idReceive);
-    setIsModalVote(true);
-  };
-  const handleCloseModalVote = () => {
-    setIsModalVote(false);
-  };
+
   const localeText = {
     // Add other localized text as needed
     noRowsLabel: "Không có dữ liệu",
@@ -191,6 +206,16 @@ export default function RequestListTable2({ open, onClose, postId }) {
         `${from} - ${to} trên ${count !== -1 ? count : `hơn ${to}`}`,
     },
   };
+  const getRating = async (id) => {
+    try {
+      const result = await CallApi(`/api/user/review/get-review/${id}`);
+      console.log("🚀 ========= rate:", result?.data[0]);
+      return result?.data[0];
+    } catch (error) {
+      console.log("🚀 ========= error:", error);
+    }
+  };
+
   return (
     <Dialog
       open={open}
@@ -224,14 +249,6 @@ export default function RequestListTable2({ open, onClose, postId }) {
           open={isModalProfile}
           onClose={handleCloseModalProfile}
           id={profileId}
-        />
-      )}
-      {isModalVote && (
-        <ModalVote
-          open={isModalVote}
-          handleClose={handleCloseModalVote}
-          idReceive={idReceive}
-          idSend={idSend}
         />
       )}
     </Dialog>

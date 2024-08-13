@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Button, Dialog, Rating, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import CallApi from "../../../service/CallAPI";
@@ -17,8 +18,8 @@ export default function ModalVote({ idReceive, open, handleClose }) {
         rating,
         comment,
       });
-      console.log("🚀 ========= result:", result);
       toast.success("Đánh giá thành công");
+      console.log("🚀 ========= result:", result);
       handleClose();
     } catch (error) {
       console.log("🚀 ========= error:", error);
