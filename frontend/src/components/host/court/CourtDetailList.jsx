@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 
 const CourtDetailList = ({ activity, onDeleteCourt, role, branchId }) => {
@@ -17,23 +18,22 @@ const CourtDetailList = ({ activity, onDeleteCourt, role, branchId }) => {
       <div className="p-4 flex flex-col justify-between w-2/3">
         <div>
           <Link to={`/branch/${branchId}/court/${activity?.id}`}>
-            <h2 className="text-lg font-bold mb-2">{activity?.name}</h2>
+            <Typography variant="h5" className="text-lg font-bold mb-2">Tên sân: {activity?.name}</Typography>
           </Link>
-          <p className="text-sm text-gray-600 mb-2">{activity?.description}</p>
-          <div className="flex items-center text-sm text-gray-600">
-            <CalendarTodayIcon className="mr-1" />
-            {activity?.TypeCourt?.name}
-          </div>
+          <div>
+          <Typography className="text-sm text-gray-600 mt-2">
+            Cơ sở: {activity?.Branches?.name}
+          </Typography>
         </div>
-        <div>
-          <p className="text-sm text-gray-600 my-2">
-            {activity?.Branches?.name}
-          </p>
+          <Typography className="flex items-center text-sm text-gray-600">
+            Kiểu sân: {activity?.TypeCourt?.name}
+          </Typography>
         </div>
         <div className="grid grid-cols-2 gap-3">
           {role === "HOST" && (
             <Button
               variant="contained"
+              color="error"
               onClick={() => onDeleteCourt(activity?.id, activity?.name)}
             >
               Xóa sân

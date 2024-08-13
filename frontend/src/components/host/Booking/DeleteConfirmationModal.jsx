@@ -9,8 +9,13 @@ const DeleteConfirmationModal = ({ isOpen, onClose, onDelete }) => {
     setReasonCancell('');
   };
 
+  const handleClose = () => {
+    setReasonCancell('');
+    onClose();
+  };
+
   return (
-    <Modal open={isOpen} onClose={onClose}>
+    <Modal open={isOpen} onClose={handleClose}>
       <Box
         sx={{
           position: 'absolute',
@@ -25,7 +30,7 @@ const DeleteConfirmationModal = ({ isOpen, onClose, onDelete }) => {
         }}
       >
         <Typography variant="h6" component="h2">
-          Xác nhận xóa sự kiện
+          Xác nhận xóa ca đặt
         </Typography>
         <TextField
           margin="normal"

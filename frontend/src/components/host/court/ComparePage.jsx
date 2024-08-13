@@ -161,12 +161,12 @@ export default function ComparePage() {
       id: 7,
       title: "Chi tiết sân",
       firstValue: (
-        <Link to={`/post/${firstCourt?.id}`}>
+        <Link to={`/branch/${firstCourt?.Branches?.id}/court/${firstCourt?.id}`}>
           <Button>Xem chi tiết</Button>
         </Link>
       ),
       secondValue: (
-        <Link to={`/post/${secondCourt?.id}`}>
+        <Link to={`/branch/${secondCourt?.Branches?.id}/court/${secondCourt?.id}`}>
           <Button>Xem chi tiết</Button>
         </Link>
       ),

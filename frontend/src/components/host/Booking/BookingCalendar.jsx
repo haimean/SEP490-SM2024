@@ -23,10 +23,37 @@ const locales = {
 const localizer = dateFnsLocalizer({
   format,
   parse,
-  startOfWeek: () => startOfWeek(new Date(), { weekStartsOn: 1 }),
+  startOfWeek: () => startOfWeek(new Date(), { weekStartsOn: 0 }),
   getDay,
   locales,
 });
+
+const CustomHeader = ({ label }) => {
+  const handleClick = (e) => {
+    console.log("hello");
+    e.preventDefault();
+    e.stopPropagation();
+
+  };
+
+  return (
+    <div onClick={handleClick} style={{ pointerEvents: 'none' }}>
+      {label}
+    </div>
+  );
+};
+
+const formats = {
+  timeGutterFormat: 'HH:mm', // Time shown on the left side gutter
+  eventTimeRangeFormat: ({ start, end }, culture, local) =>
+    `${local.format(start, 'HH:mm', culture)} - ${local.format(end, 'HH:mm', culture)}`,
+  dayHeaderFormat: 'dddd, MMMM d',  // Format for day headers
+  dayRangeHeaderFormat: ({ start, end }, culture, local) =>
+    `${local.format(start, 'MMMM d', culture)} - ${local.format(end, 'MMMM d', culture)}`,
+  agendaTimeRangeFormat: ({ start, end }, culture, local) =>
+    `${local.format(start, 'HH:mm', culture)} - ${local.format(end, 'HH:mm', culture)}`,
+};
+
 
 const messages = {
   allDay: "Cả ngày",
@@ -36,7 +63,7 @@ const messages = {
   month: "Tháng",
   week: "Tuần",
   day: "Ngày",
-  agenda: "Chương trình",
+  agenda: "Lịch trình",
   date: "Ngày",
   time: "Thời gian",
   event: "Ca đặt",
@@ -68,6 +95,7 @@ const CalendarModalComponent = ({ courtId }) => {
   useEffect(() => {
     fetchData(courtId);
   }, [courtId]);
+
 
   const handleCloseDialogInfo = () => {
     setIsOpenDialogInfo(false);
@@ -144,8 +172,14 @@ const CalendarModalComponent = ({ courtId }) => {
 
   const handleSelectSlot = ({ start, end }) => {
     const now = new Date();
-    if (start < now) {
-      handleOpenDialogInfo("Không thể chọn thời gian trong quá khứ.");
+    // if (start < now) {
+    //   handleOpenDialogInfo("Không thể chọn thời gian trong quá khứ.");
+    //   return;
+    // }
+    const timeDifference = end - start;
+    const hoursDifference = timeDifference / (1000 * 60 * 60);
+
+    if (hoursDifference >= 24) {
       return;
     }
     const isSlotOccupied = events.some(
@@ -196,6 +230,24 @@ const CalendarModalComponent = ({ courtId }) => {
   const handleSaveEvent = async () => {
     const start = new Date(eventData.start).getHours();
     const end = new Date(eventData.end).getHours();
+    if (!eventData.name) {
+      handleOpenDialogInfo(
+        "Tên người đặt không được để trống."
+      );
+      return;
+    }
+    if (!eventData.numberPhone) {
+      handleOpenDialogInfo(
+        "Số điện thoại người đặt không được để trống."
+      );
+      return;
+    }
+    if (eventData.price == 0) {
+      handleOpenDialogInfo(
+        "Giá tiền phải lớn hơn 0."
+      );
+      return;
+    }
     if (start < openHour.getHours() || end > closeHour.getHours()) {
       handleOpenDialogInfo(
         "Thời gian của ca đặt phải nằm trong giờ mở cửa và đóng cửa."
@@ -309,12 +361,11 @@ const CalendarModalComponent = ({ courtId }) => {
   };
 
   const eventTooltipAccessor = (event) => {
-    return `${event.bookingInfo.name} - ${
-      event.bookingInfo.numberPhone
-    } - ${new Intl.NumberFormat("vi-VN", {
-      style: "currency",
-      currency: "VND",
-    }).format(event.price)}`;
+    return `${event.bookingInfo.name} - ${event.bookingInfo.numberPhone
+      } - ${new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+      }).format(event.price)}`;
   };
 
   const slotPropGetter = (date) => {
@@ -334,23 +385,50 @@ const CalendarModalComponent = ({ courtId }) => {
   const calculatePrice = (start, end, priceListToUse) => {
     let totalPrice = 0;
     priceListToUse.forEach((priceRange) => {
-        const rangeStart = new Date(start);
-        rangeStart.setHours(priceRange.start.getHours(), priceRange.start.getMinutes());
-        const rangeEnd = new Date(start);
-        rangeEnd.setHours(priceRange.end.getHours(), priceRange.end.getMinutes());
+      const rangeStart = new Date(start);
+      rangeStart.setHours(priceRange.start.getHours(), priceRange.start.getMinutes());
+      const rangeEnd = new Date(start);
+      rangeEnd.setHours(priceRange.end.getHours(), priceRange.end.getMinutes());
 
-        const effectiveStart = start > rangeStart ? start : rangeStart;
-        const effectiveEnd = end < rangeEnd ? end : rangeEnd;
+      const effectiveStart = start > rangeStart ? start : rangeStart;
+      const effectiveEnd = end < rangeEnd ? end : rangeEnd;
 
-        if (effectiveStart < effectiveEnd) {
-            const duration = (effectiveEnd - effectiveStart) / (1000 * 60 * 60); // thời gian theo giờ
-            totalPrice += priceRange.price * duration;
-        }
+      if (effectiveStart < effectiveEnd) {
+        const duration = (effectiveEnd - effectiveStart) / (1000 * 60 * 60); // thời gian theo giờ
+        totalPrice += priceRange.price * duration;
+      }
     });
 
     return totalPrice;
-};
+  };
 
+
+  const handleEventDelete = (event, e) => {
+    e.stopPropagation(); // Ngăn chặn sự kiện click lan truyền lên
+    setSelectedEvent(event);
+    handleDeleteEvent();
+  }
+
+  const Event = ({ event }) => {
+    return (
+      <div className="flex">
+        <button
+          onClick={(e) => handleEventDelete(event, e)}
+          style={{
+            float: "left",
+            background: "none",
+            border: "none",
+            color: "red",
+            cursor: "pointer",
+            marginRight: "4px"
+          }}
+        >
+          X
+        </button>
+        <strong>{event.title}</strong>
+      </div>
+    );
+  };
 
   return (
     <Box>
@@ -377,6 +455,19 @@ const CalendarModalComponent = ({ courtId }) => {
           eventPropGetter={eventStyleGetter}
           slotPropGetter={slotPropGetter}
           messages={messages}
+          formats={formats}
+          components={{
+            week: {
+              header: CustomHeader,
+            },
+            day: {
+              header: CustomHeader,
+            },
+            month: {
+              header: CustomHeader,
+            },
+            event: Event,
+          }}
         />
       )}
       <EventModal
