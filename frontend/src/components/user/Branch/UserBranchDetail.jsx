@@ -73,7 +73,10 @@ const UserBranchDetail = ({
             <Typography variant="h6" gutterBottom>
               Mô tả thêm
             </Typography>
-            {renderInfoItem(SportsBasketball, description)}
+            {renderInfoItem(
+              SportsBasketball,
+              <div dangerouslySetInnerHTML={{ __html: description }} />
+            )}
           </CardContent>
         </Card>
       </Grid>

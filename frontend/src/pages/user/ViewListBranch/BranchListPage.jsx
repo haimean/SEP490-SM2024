@@ -9,17 +9,14 @@ import CallApi from "../../../service/CallAPI";
 const BranchListPage = () => {
   const navigate = useNavigate();
   const [branches, setBranches] = useState([]);
-
   const [filters, setFilters] = useState({
     province: "",
     district: "",
     ward: "",
     search: "",
   });
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const pageSize = 6;
+  const [currentPage, setCurrentPage] = useState(1);
 
   const fetchData = async () => {
     try {
@@ -29,6 +26,10 @@ const BranchListPage = () => {
       toast.error(error.response?.data?.error);
     }
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleFilterChange = (province, district, ward, search) => {
     setFilters({ province, district, ward, search });
@@ -51,8 +52,7 @@ const BranchListPage = () => {
       return false;
     return true;
   });
-  const pageSize = 6;
-  const [currentPage, setCurrentPage] = useState(1);
+
   function paginate(array, page_size, page_number) {
     // human-readable page numbers usually start with 1, so we reduce 1 in the first argument
     return array.slice((page_number - 1) * page_size, page_number * page_size);
@@ -74,6 +74,7 @@ const BranchListPage = () => {
               name={branch?.name}
               location={branch?.address?.detail}
               image={branch?.image}
+              branch={branch}
               onClick={() => handleClick(branch?.id)}
             />
           </Grid>
