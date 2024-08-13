@@ -154,12 +154,9 @@ const CreateBranch = () => {
     formData.append("closingHours", dayjs(data?.closingHours).format("HH:mm"));
     formData.append("longitude", mapData?.longitude || "107.09848786676099");
     formData.append("latitude", mapData?.latitude || "20.962297338909874");
-    formData.append("provinces", mapData?.address?.city || "");
-    formData.append(
-      "districts",
-      mapData?.address?.city_district.replace("Huyện ", "") || ""
-    );
-    formData.append("wards", mapData?.address.suburb || "");
+    formData.append("provinces", mapData?.address?.province || "");
+    formData.append("districts", mapData?.address?.district || "");
+    formData.append("wards", mapData?.address.commune || "");
     formData.append("detail", mapData?.addressDetail || "");
     formData.append("email", data?.email);
     Object.keys(data?.attributeBranches || {}).forEach((key) => {

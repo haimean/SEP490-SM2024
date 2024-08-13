@@ -6,6 +6,13 @@ import "leaflet-geosearch/dist/geosearch.css";
 import axios from "axios";
 import { Box } from "@mui/material";
 
+const removeAdministrativeTerms = (input) => {
+  if (!input) return "";
+  return input
+    .replace(/(?:quận|huyện|xã|tỉnh|phường|thị trấn|thành phố)\s*/gi, "")
+    .trim();
+};
+
 // eslint-disable-next-line react/prop-types
 const SearchControl = ({ onResultSelect }) => {
   const map = useMap();
@@ -18,7 +25,7 @@ const SearchControl = ({ onResultSelect }) => {
       autoComplete: true,
       retainZoomLevel: false,
       autoClose: true,
-      keepResult: true,
+      keepResult: false,
     });
 
     map.addControl(searchControl);
@@ -57,10 +64,31 @@ const MapAutoComplete = ({ onSubmit }) => {
 
         axios
           .get(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${newPosition[0]}&lon=${newPosition[1]}&addressdetails=1&accept-language=vi`
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${newPosition[0]}&lon=${newPosition[1]}&addressdetails=1&accept-language=vi&`
           )
           .then((response) => {
             if (response.data && response.data.address) {
+              const normalized = {
+                commune: removeAdministrativeTerms(
+                  response.data.address.village ||
+                    response.data.address.residential ||
+                    response.data.address.quarter ||
+                    ""
+                ), // Xã/Phường/Thị trấn
+                district: removeAdministrativeTerms(
+                  response.data.address.county ||
+                    response.data.address.city_district ||
+                    response.data.address.suburb ||
+                    ""
+                ), // Huyện/Quận
+                province: removeAdministrativeTerms(
+                  response.data.address.state ||
+                    response.data.address.city ||
+                    ""
+                ), // Tỉnh/Thành phố
+              };
+              console.log("normalized'", normalized);
+
               setDetails({
                 address: response.data.address,
                 latitude: newPosition[0],
@@ -68,7 +96,7 @@ const MapAutoComplete = ({ onSubmit }) => {
               });
               onSubmit({
                 addressDetail: results[0].label,
-                address: response.data.address,
+                address: normalized,
                 latitude: newPosition[0],
                 longitude: newPosition[1],
               });
