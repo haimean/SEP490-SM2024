@@ -9,6 +9,14 @@ const PriceListModal = ({ isOpen, onRequestClose, priceLists }) => {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
   };
 
+  const sortPriceListsByTime = (list) => {
+    return list.sort((a, b) => {
+      const timeA = new Date(a.start).getHours() * 60 + new Date(a.start).getMinutes();
+      const timeB = new Date(b.start).getHours() * 60 + new Date(b.start).getMinutes();
+      return timeA - timeB;
+    });
+  };
+
   return (
     <Modal open={isOpen} onClose={onRequestClose} aria-labelledby="price-list-modal-title" aria-describedby="price-list-modal-description">
       <Box sx={{ bgcolor: 'background.paper', p: 4, borderRadius: 1, maxWidth: 700, mx: 'auto', mt: 10, position: 'relative' }}>
@@ -22,33 +30,38 @@ const PriceListModal = ({ isOpen, onRequestClose, priceLists }) => {
           <CloseIcon />
         </IconButton>
 
-        {Object.keys(priceLists).map(times => (
-          <div key={times} className="mb-4">
-            <Typography variant="subtitle1" component="h3" className="mb-2">
-              {times === '1' ? `Giá cho ${times} ca:` : `Giá khi đặt từ ${times} ca trở lên`}
-            </Typography>
-            <TableContainer component={Paper} className="mb-4">
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Bắt đầu</TableCell>
-                    <TableCell>Kết thúc</TableCell>
-                    <TableCell>Giá (VND)</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {priceLists[times].map((item, index) => (
-                    <TableRow key={index}>
-                      <TableCell>{format(new Date(item.start), 'HH:mm')}</TableCell>
-                      <TableCell>{format(new Date(item.end), 'HH:mm')}</TableCell>
-                      <TableCell>{formatPrice(item.price)}/1h</TableCell>
+        {Object.keys(priceLists).map(times =>
+        {
+          const sortedList = sortPriceListsByTime(priceLists[times]);
+          return (
+            <div key={times} className="mb-4">
+              <Typography variant="subtitle1" component="h3" className="mb-2">
+                {times === '1' ? `Giá cho ${times} ca:` : `Giá khi đặt từ ${times} ca trở lên`}
+              </Typography>
+              <TableContainer component={Paper} className="mb-4">
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Bắt đầu</TableCell>
+                      <TableCell>Kết thúc</TableCell>
+                      <TableCell>Giá (VND)</TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </div>
-        ))}
+                  </TableHead>
+                  <TableBody>
+                    {sortedList.map((item, index) => (
+                      <TableRow key={index}>
+                        <TableCell>{format(new Date(item.start), 'HH:mm')}</TableCell>
+                        <TableCell>{format(new Date(item.end), 'HH:mm')}</TableCell>
+                        <TableCell>{formatPrice(item.price)}/1h</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </div>
+          )
+        }
+        )}
       </Box>
     </Modal>
   );

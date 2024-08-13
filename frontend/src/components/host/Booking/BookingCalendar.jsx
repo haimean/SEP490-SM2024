@@ -7,14 +7,13 @@ import {
   Box,
   CircularProgress,
   Backdrop,
-  Button,
-  TextField,
 } from "@mui/material";
 import EventModal from "./EventModal";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
 import DialogInfo from "../../common/DialogInfo";
+import PriceListModal from "../../user/BookingTable/PriceListModal";
 
 const locales = {
   "en-US": enUS,
@@ -79,6 +78,7 @@ const CalendarModalComponent = ({ courtId }) => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isNewEvent, setIsNewEvent] = useState(false);
+  const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [eventData, setEventData] = useState({
     title: "",
     start: "",
@@ -103,6 +103,14 @@ const CalendarModalComponent = ({ courtId }) => {
   const handleOpenDialogInfo = (title) => {
     setTitleDialog(title);
     setIsOpenDialogInfo(true);
+  };
+
+  const handleOpenPriceModal = () => {
+    setIsPriceModalOpen(true);
+  };
+
+  const handleClosePriceModal = () => {
+    setIsPriceModalOpen(false);
   };
 
   const parseTime = (timeStr, date = new Date()) => {
@@ -439,36 +447,51 @@ const CalendarModalComponent = ({ courtId }) => {
         <CircularProgress color="inherit" />
       </Backdrop>
       {openHour && closeHour && (
-        <Calendar
-          localizer={localizer}
-          events={events}
-          startAccessor="start"
-          endAccessor="end"
-          titleAccessor="title"
-          tooltipAccessor={eventTooltipAccessor}
-          selectable
-          onSelectSlot={handleSelectSlot}
-          onSelectEvent={handleSelectEvent}
-          style={{ height: "70vh" }}
-          min={new Date(openHour)}
-          max={new Date(closeHour)}
-          eventPropGetter={eventStyleGetter}
-          slotPropGetter={slotPropGetter}
-          messages={messages}
-          formats={formats}
-          components={{
-            week: {
-              header: CustomHeader,
-            },
-            day: {
-              header: CustomHeader,
-            },
-            month: {
-              header: CustomHeader,
-            },
-            event: Event,
-          }}
-        />
+        <div className="text-center">
+          <h2>
+            Giờ hoạt động: {format(openHour, "HH:mm")} -{" "}
+            {format(closeHour, "HH:mm")}
+          </h2>
+          <div className="text-center my-2">
+            <button
+              onClick={handleOpenPriceModal}
+              className="p-2 ml-2 bg-green-500 text-white rounded"
+            >
+              Xem Bảng Giá
+            </button>
+          </div>
+          <Calendar
+            localizer={localizer}
+            events={events}
+            startAccessor="start"
+            endAccessor="end"
+            titleAccessor="title"
+            tooltipAccessor={eventTooltipAccessor}
+            selectable
+            onSelectSlot={handleSelectSlot}
+            onSelectEvent={handleSelectEvent}
+            style={{ height: "70vh" }}
+            min={new Date(openHour)}
+            max={new Date(closeHour)}
+            eventPropGetter={eventStyleGetter}
+            slotPropGetter={slotPropGetter}
+            messages={messages}
+            formats={formats}
+            components={{
+              week: {
+                header: CustomHeader,
+              },
+              day: {
+                header: CustomHeader,
+              },
+              month: {
+                header: CustomHeader,
+              },
+              event: Event,
+            }}
+          />
+        </div>
+
       )}
       <EventModal
         isOpen={isModalOpen}
@@ -478,6 +501,11 @@ const CalendarModalComponent = ({ courtId }) => {
         isNewEvent={isNewEvent}
         onSave={handleSaveEvent}
         onDelete={handleDeleteEvent}
+      />
+      <PriceListModal
+        isOpen={isPriceModalOpen}
+        onRequestClose={handleClosePriceModal}
+        priceLists={priceLists}
       />
       <DeleteConfirmationModal
         isOpen={isDeleteModalOpen}

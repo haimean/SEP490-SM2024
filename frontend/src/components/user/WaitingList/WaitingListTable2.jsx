@@ -6,21 +6,39 @@ import { toast } from "react-toastify";
 import ModalProfile from "../../common/ModalProfile";
 import { getRatingDescription } from "../../../utils/user/GetRatingDescription";
 
-const processData = (data) => {
-  return data.map((item, index) => ({
-    orderNumber: index + 1,
-    id: item?.id,
-    fullName: item?.account?.user?.fullName || "",
-    level: getRatingDescription(item?.level),
-    numberPhone: item?.account?.user?.numberPhone,
-    // Add other fields as needed
-  }));
-};
-
 export default function WaitingListTable2({ open, onClose, postId }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isModalProfile, setIsModalProfile] = useState(false);
   const [profileId, setProfileId] = useState();
+  const processData = async (data) => {
+    console.log("🚀 ========= data:", data);
+    const processedData = await Promise.all(
+      data?.map(async (item, index) => {
+        const rate = await getRating(item?.accountId);
+        console.log("🚀 ========= rating:", rate);
+        return {
+          orderNumber: index + 1,
+          id: item?.id,
+          fullName: item?.account?.user?.fullName || "",
+          level: getRatingDescription(item?.level),
+          invitation: item?.Invitation,
+          vote: item?.Invitation,
+          rate: rate?.rating || 0,
+          // Add other fields as needed
+        };
+      })
+    );
+    return processedData;
+  };
+  const getRating = async (id) => {
+    try {
+      const result = await CallApi(`/api/user/review/get-review/${id}`);
+      console.log("🚀 ========= rate:", result?.data[0]);
+      return result?.data[0];
+    } catch (error) {
+      console.log("🚀 ========= error:", error);
+    }
+  };
   const columns = [
     { field: "orderNumber", headerName: "STT", width: 70, sortable: false },
     {
@@ -45,14 +63,26 @@ export default function WaitingListTable2({ open, onClose, postId }) {
       width: 200,
     },
     {
-      field: "numberPhone",
-      headerName: "Số điện thoại",
-      width: 200,
+      field: "rate",
+      headerName: "Đánh giá",
+      width: 150,
       renderCell: (params) => {
-        return <div>{params?.row?.numberPhone}</div>;
+        console.log("🚀 ========= params:", params?.row);
+        return (
+          <div className="w-full h-full flex items-center">
+            <Rating value={params?.row?.rate} />
+          </div>
+        );
       },
     },
-
+    // {
+    //   field: "numberPhone",
+    //   headerName: "Số điện thoại",
+    //   width: 200,
+    //   renderCell: (params) => {
+    //     return <div>{params?.row?.numberPhone}</div>;
+    //   },
+    // },
     {
       field: "actions",
       headerName: "",
@@ -83,7 +113,8 @@ export default function WaitingListTable2({ open, onClose, postId }) {
       );
       setIsLoading(false);
       console.log("🚀 ========= result:", result);
-      setListInvitation(processData(result?.data || []));
+      const processedList = await processData(result?.data || []);
+      setListInvitation(processedList);
     } catch (error) {
       console.log("🚀 ========= error:", error);
     }

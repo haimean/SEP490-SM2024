@@ -54,10 +54,13 @@ const CourtDetailComponent = ({
             <Typography variant="h4" gutterBottom>
               {title}
             </Typography>
+            <Typography variant="h6" gutterBottom>
+              Tiện ích:
+            </Typography>
             {
               court?.TypeCourt?.attributeCourt?.map((att) => (
                 <Stack direction="row" alignItems="center" spacing={1} key={att.id}>
-                  <Checklist className="text-red-600" />
+                  <Typography>-&nbsp;</Typography>
                   <Typography>
                   {att?.attributeKeyCourt.name} : {att.value}
                   </Typography>
@@ -73,7 +76,6 @@ const CourtDetailComponent = ({
               Mô tả thêm
             </Typography>
             {description && renderInfoItem(SportsBasketball, description)}
-            <Typography variant="body2">{description}</Typography>
           </CardContent>
         </Card>
       </Grid>
