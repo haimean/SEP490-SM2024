@@ -154,6 +154,7 @@ const bookingUserService = {
       where: {
         isDelete: false,
         OR: [
+          // booking của account
           {
             accountId: accountId,
             startTime: {
@@ -163,6 +164,7 @@ const bookingUserService = {
               gte: startTime,
             },
           },
+          // check lịch sân
           {
             courtId,
             startTime: {
@@ -172,7 +174,14 @@ const bookingUserService = {
               gte: startTime,
             },
           },
+
           {
+            startTime: {
+              lte: endTime,
+            },
+            endTime: {
+              gte: startTime,
+            },
             post: {
               invitation: {
                 every: {
