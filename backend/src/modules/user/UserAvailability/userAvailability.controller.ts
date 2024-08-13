@@ -135,8 +135,13 @@ const userAvailableController = {
   ) => {
     try {
       const accountId = Number(req.headers.authorization);
+      const { status } = req.body;
+
       const requestList =
-        await userAvailableService.getRequestListJoin(accountId);
+        await userAvailableService.getRequestListJoin(
+          accountId,
+          status
+        );
       ResponseHandler(res, requestList);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));

@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import userAvailableController from './userAvailability.controller';
+import validate from '../../../utils/validate';
+import userAvailableValidator from './userAvailable.validator';
 
 const userAvailableRouter = Router();
 userAvailableRouter.post('/', userAvailableController.listAvailable);
@@ -19,8 +21,9 @@ userAvailableRouter.post(
   '/:postId/get-user-accept',
   userAvailableController.getUserAccept
 );
-userAvailableRouter.get(
+userAvailableRouter.post(
   '/request-list-join',
+  validate(userAvailableValidator.getRequestListJoin),
   userAvailableController.getRequestListJoin
 );
 export default userAvailableRouter;

@@ -4,6 +4,7 @@ import {
   Level,
   Post,
   Prisma,
+  StatusInvitation,
 } from '@prisma/client';
 import database from '../../../lib/db.server';
 
@@ -217,11 +218,14 @@ const userAvailableService = {
     });
     return invitation;
   },
-  getRequestListJoin: async (accountId: number) => {
+  getRequestListJoin: async (
+    accountId: number,
+    status: StatusInvitation
+  ) => {
     const requestList: any = await database.invitation.findMany({
       where: {
         type: 'UNAVAILABLE',
-        status: 'NEW',
+        status,
         userAvailability: {
           accountId,
         },
