@@ -65,9 +65,6 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
     }
   };
   useEffect(() => {
-    fetchBranchAtbList();
-  }, []);
-  useEffect(() => {
     if (typeCourt) {
       typeCourt?.attributes?.forEach((atb) => {
         const matchingAttribute = branchAtbList.find(
@@ -89,6 +86,7 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
   }, [branchAtbList]);
 
   useEffect(() => {
+    fetchBranchAtbList();
     if (typeCourt) {
       setValue("name", typeCourt.name);
       setValue("description", typeCourt.description);
@@ -114,13 +112,14 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
       const list = result?.map((item, index) => index);
       setGetListTime(list);
       setPriceTypeCourt(result);
-      setCurrentImage(typeCourt.image || null);
-      setSelectedImage(null);
+      console.log("typeCourt?.image", typeCourt?.image);
+      setCurrentImage(typeCourt?.image);
+      // setSelectedImage(typeCourt?.image);
     } else {
       setSelectedImage(null);
       setCurrentImage(null);
     }
-  }, []);
+  }, [typeCourt]);
 
   const onSubmit = async (data) => {
     try {
