@@ -18,7 +18,9 @@ const PieChartAdmin = React.memo(() => {
     getDataAccount();
   }, []);
 
-  return (
+  return dataAccount?.totalPlayer == null ? (
+    <p>Không có dữ liệu</p>
+  ) : (
     <div>
       <PieChart
         series={[
