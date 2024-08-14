@@ -1,6 +1,4 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
-
+/* eslint-disable react/prop-types */
 import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 import TableRow from "@mui/material/TableRow";
@@ -12,24 +10,17 @@ import Tooltip from "@mui/material/Tooltip"; // Thêm Tooltip từ Material-UI
 import { toast } from "react-toastify";
 import CallApi from "../../../service/CallAPI";
 
-export default function WaitingListRow({ row, handleInvite, postId }) {
+export default function WaitingListRow({ row, postId }) {
   console.log("🚀 ========= row:", row);
   if (!row?.account) {
     return "Không có dữ liệu";
   }
-  const { email, avatarUrl, friendliness } = row.account;
+  const { avatarUrl, friendliness } = row.account;
   // const { fullName, gender } = row?.userAvailability?.account?.user;
   const { id } = row;
 
   // console.log("🚀 ========= fullName:", fullName);
-  const [isInvited, setIsInvited] = useState(false);
 
-  const handleInviteClick = () => {
-    setIsInvited(true);
-    setTimeout((id) => {
-      handleInvite(id);
-    }, 1000); // Thời gian mờ dần là 1 giây
-  };
   const sendInvitation = async (id) => {
     try {
       const result = await CallApi(
@@ -108,28 +99,18 @@ export default function WaitingListRow({ row, handleInvite, postId }) {
             </Typography>
           </Tooltip>
         </TableCell>
-        {/* <TableCell align="center">
-            <Typography variant="subtitle2" className="font-bold" noWrap>
-              {gender == "FEMALE" ? "Nữ" : "Nam"}
-            </Typography>
-          </TableCell> */}
+
         <TableCell align="center">
           <Rating value={friendliness} readOnly />
         </TableCell>
         <TableCell align="center">
-          {isInvited ? (
-            <Button variant="contained" disabled>
-              Đã mời
-            </Button>
-          ) : (
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => sendInvitation(id)}
-            >
-              Mời
-            </Button>
-          )}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => sendInvitation(id)}
+          >
+            Mời
+          </Button>
         </TableCell>
       </TableRow>
     </>

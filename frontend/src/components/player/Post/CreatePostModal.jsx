@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import {
   Button,
@@ -11,19 +12,12 @@ import { useForm, Controller } from "react-hook-form";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { levelOptions } from "../../../utils/user/GetRatingDescription";
 
 const genderOptions = [
   { value: "MALE", label: "Nam" },
   { value: "FEMALE", label: "Nữ" },
   { value: "OTHER", label: "Cả hai" },
-];
-
-const levelOptions = [
-  { value: "Y", label: "Yếu" },
-  { value: "TB", label: "Trung bình" },
-  { value: "K", label: "Khá" },
-  { value: "T", label: "Tốt" },
-  { value: "CN", label: "Chuyên nghiệp" },
 ];
 
 const CreatePostModal = ({ bookings }) => {
@@ -245,7 +239,12 @@ const CreatePostModal = ({ bookings }) => {
               )}
             />
             <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
-              <Button onClick={handleResetForm} sx={{ mr: 1 }}>
+              <Button
+                variant="outlined"
+                color="error"
+                onClick={handleResetForm}
+                sx={{ mr: 1 }}
+              >
                 Xóa
               </Button>
               <Button type="submit" variant="contained">

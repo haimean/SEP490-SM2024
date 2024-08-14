@@ -193,7 +193,7 @@ const PriceTypeCourtForm = ({ listTime = [], open, onClose, onSubmit }) => {
                 {index > 1 && (
                   <Button
                     variant="outlined"
-                    color="secondary"
+                    color="error"
                     sx={{
                       marginLeft: "1rem",
                     }}

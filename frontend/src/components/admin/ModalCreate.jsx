@@ -1,5 +1,6 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import InputLabel from "../common/InputLabel.jsx";
+import { Button } from "@mui/material";
 
 const ModalCreate = ({
   closeModal,
@@ -40,19 +41,17 @@ const ModalCreate = ({
               />
             ))}
             <div className="flex justify-end p-2">
-              <button
-                type="button"
-                className="p-2 border hover:bg-red-600 hover:text-white rounded-md"
+              <Button
+                variant="contained"
+                color="error"
+                className="p-2"
                 onClick={handleClear}
               >
                 Xóa
-              </button>
-              <button
-                type="submit"
-                className="p-2 bg-blue-500 text-white rounded-md ml-2"
-              >
+              </Button>
+              <Button variant="contained" type="submit" className="p-2 ml-2">
                 {fields.submitText}
-              </button>
+              </Button>
             </div>
           </form>
         </div>

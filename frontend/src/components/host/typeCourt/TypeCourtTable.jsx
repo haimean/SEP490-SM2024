@@ -174,7 +174,7 @@ const TypeCourtTable = () => {
                   </Button>
                   <Button
                     variant="contained"
-                    color="secondary"
+                    color="error"
                     onClick={() =>
                       handleDeleteRow(typeCourt?.id, typeCourt?.court.length)
                     }

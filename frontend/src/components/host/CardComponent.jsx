@@ -147,6 +147,7 @@ const CardComponent = ({
         {role === "HOST" && (
           <Button
             variant="contained"
+            color="error"
             onClick={(e) => {
               e.preventDefault();
               onDeleteBranch(id);

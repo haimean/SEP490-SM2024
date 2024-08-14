@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import ModalProfile from "../../common/ModalProfile";
 import { getRatingDescription } from "../../../utils/user/GetRatingDescription";
-import ModalVote from "./ModalVote";
 
 export default function RequestListTable2({ open, onClose, postId }) {
   const [listAccept, setListAccept] = useState([]);

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable react/prop-types */
+import { useEffect, useState } from "react";
 import {
   Grid,
   Paper,
@@ -10,12 +11,12 @@ import {
   Zoom,
   Button,
 } from "@mui/material";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CallApi from "../../service/CallAPI";
 import BookingModal from "./Booking/BookingModal";
+import UpdateCourt from "../../pages/host/Court/UpdateCourt";
 
 const RightSectionHost = ({ id, type, court1 }) => {
-  // const { idCourt } = useParams();
   const [court, setCourt] = useState([]);
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
 
@@ -37,6 +38,14 @@ const RightSectionHost = ({ id, type, court1 }) => {
   }, [id, court1, type]);
 
   const longText = "Sàn: Gỗ<br/>Chất lượng: Tốt<br/>Số lượng: 4 người";
+
+  const [updateCourtModal, setUpdateCourtModal] = useState(false);
+  const handleOpenModalUpdateCourt = () => {
+    setUpdateCourtModal(true);
+  };
+  const handleCloseModalUpdateCourt = async () => {
+    setUpdateCourtModal(false);
+  };
 
   const CustomTooltip = ({ title, children }) => {
     return (
@@ -100,23 +109,20 @@ const RightSectionHost = ({ id, type, court1 }) => {
                 Lịch sử đặt sân
               </Button>
             </Link>
+            s
           </>
         )}
         {type === "courtDetail" && (
           <>
-            <Link
-              to={`/host/update-court/${court1?.id}`}
-              style={{ textDecoration: "none" }}
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={handleOpenModalUpdateCourt}
+              sx={{ mb: 2 }}
             >
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                sx={{ mb: 2 }}
-              >
-                Sửa thông tin sân
-              </Button>
-            </Link>
+              Sửa thông tin sân
+            </Button>
             <Button
               variant="contained"
               color="primary"
@@ -163,6 +169,13 @@ const RightSectionHost = ({ id, type, court1 }) => {
         courtId={court1?.id}
         court={court}
       />
+      {updateCourtModal && (
+        <UpdateCourt
+          id={court1?.id}
+          open={updateCourtModal}
+          handleClose={handleCloseModalUpdateCourt}
+        />
+      )}
     </Grid>
   );
 };

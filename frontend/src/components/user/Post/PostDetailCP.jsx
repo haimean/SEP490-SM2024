@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   Box,
   Typography,
@@ -10,10 +11,8 @@ import {
 } from "@mui/material";
 import {
   LocationOn,
-  CalendarToday,
   Group,
   School,
-  AttachMoney,
   SportsBasketball,
 } from "@mui/icons-material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -124,10 +123,10 @@ const PostDetailCP = ({ post, postId }) => {
               Group,
               `Cần tuyển ${post?.numberMember} ${
                 post?.memberPost[0]?.genderPost == "MALE"
-                  ? "nam"
+                  ? "Nam"
                   : post?.memberPost[0]?.genderPost == "FEMALE"
-                  ? "nữ"
-                  : "giới tính khác"
+                  ? "Nữ"
+                  : "Khác"
               }` || "Không có thông tin"
             )}
             {renderInfoItem(

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   Button,
   FormControl,
@@ -28,17 +29,20 @@ export default function FormDetailCourt({
     // Reset form values when `court` changes
     if (court) {
       reset({
-        name: court.name || "",
-        branchesId: court.branchesId || "",
-        typeCourtId: court.typeCourtId || "",
+        id: court?.id,
+        branchesId: court?.branchesId,
+        name: court?.name,
+        typeCourtId: court?.typeCourtId,
       });
+    } else {
+      reset();
     }
   }, [court, reset]);
 
   return (
     <div className="p-6 bg-white shadow-md rounded-md">
       <Typography variant="h6" component="h6">
-        Tạo sân mới
+        {!court ? "Tạo sân mới" : "Cập nhật sân"}
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
         {/* Name Field */}
@@ -48,6 +52,14 @@ export default function FormDetailCourt({
           value={branchesId}
           className="hidden"
         />
+        {court && (
+          <input
+            id="id"
+            {...register("id")}
+            value={branchesId}
+            className="hidden"
+          />
+        )}
         <div className="mb-4">
           <Controller
             name="name"
@@ -100,7 +112,7 @@ export default function FormDetailCourt({
           variant="contained"
           className="w-full bg-indigo-600 text-white p-2 rounded-md hover:bg-indigo-700"
         >
-          Submit
+          {!court ? "Tạo mới" : "Cập nhật"}
         </Button>
       </form>
     </div>

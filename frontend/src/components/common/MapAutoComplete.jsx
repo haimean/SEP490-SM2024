@@ -64,7 +64,7 @@ const MapAutoComplete = ({ onSubmit }) => {
 
         axios
           .get(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${newPosition[0]}&lon=${newPosition[1]}&addressdetails=1&accept-language=vi&`
+            `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${newPosition[0]}&lon=${newPosition[1]}&addressdetails=1&accept-language=vi&`
           )
           .then((response) => {
             if (response.data && response.data.address) {

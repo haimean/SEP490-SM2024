@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
 import FormDetailCourt from "../../../components/host/court/FormDetailCourt";
-import { Dialog } from "@mui/material";
+import { Box, Dialog } from "@mui/material";
 
 const RegisterCourt = ({ branchesId, open, handleClose }) => {
   const [typeCourtList, setTypeCourtList] = useState([]);
@@ -37,13 +38,13 @@ const RegisterCourt = ({ branchesId, open, handleClose }) => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <div style={{ width: "500px" }}>
+      <Box style={{ width: "500px" }}>
         <FormDetailCourt
           onSubmit={onSubmit}
           typeCourtList={typeCourtList}
           branchesId={branchesId}
         />
-      </div>
+      </Box>
     </Dialog>
   );
 };

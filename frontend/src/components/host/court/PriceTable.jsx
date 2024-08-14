@@ -1,14 +1,43 @@
-import React from 'react';
-import { Box, TextField, Button,Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+/* eslint-disable react/prop-types */
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  IconButton,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 
-const PriceTable = ({ times, priceLists, editingRows, handleInputChange, handleConfirmEditPrice, handleCancelEditRow, handleEditPrice, handleDeletePrice, handleDeleteAllPrices, newRows, handleAddPrice, handleCancelNewRow, setNewRows }) => {
+const PriceTable = ({
+  times,
+  priceLists,
+  editingRows,
+  handleInputChange,
+  handleConfirmEditPrice,
+  handleCancelEditRow,
+  handleEditPrice,
+  handleDeletePrice,
+  handleDeleteAllPrices,
+  newRows,
+  handleAddPrice,
+  handleCancelNewRow,
+  setNewRows,
+}) => {
   return (
     <Box key={times} sx={{ mb: 4 }}>
       <Typography variant="h6" component="h2">
-        {times === '1' ? `Giá cho ${times} lần:` : `Giá cho ${times} lần trở lên`}
+        {times === "1"
+          ? `Giá cho ${times} lần:`
+          : `Giá cho ${times} lần trở lên`}
       </Typography>
       <TableContainer component={Paper}>
         <Table>
@@ -27,7 +56,11 @@ const PriceTable = ({ times, priceLists, editingRows, handleInputChange, handleC
                   <TimePicker
                     type="time"
                     name="start"
-                    value={editingRows[times] && editingRows[times][index] ? editingRows[times][index].start : item.start}
+                    value={
+                      editingRows[times] && editingRows[times][index]
+                        ? editingRows[times][index].start
+                        : item.start
+                    }
                     onChange={(e) => handleInputChange(e, times, index)}
                     disabled={!editingRows[times] || !editingRows[times][index]}
                     ampm={false}
@@ -37,7 +70,11 @@ const PriceTable = ({ times, priceLists, editingRows, handleInputChange, handleC
                   <TimePicker
                     type="time"
                     name="end"
-                    value={editingRows[times] && editingRows[times][index] ? editingRows[times][index].end : item.end}
+                    value={
+                      editingRows[times] && editingRows[times][index]
+                        ? editingRows[times][index].end
+                        : item.end
+                    }
                     onChange={(e) => handleInputChange(e, times, index)}
                     disabled={!editingRows[times] || !editingRows[times][index]}
                     ampm={false}
@@ -47,7 +84,11 @@ const PriceTable = ({ times, priceLists, editingRows, handleInputChange, handleC
                   <TextField
                     type="number"
                     name="price"
-                    value={editingRows[times] && editingRows[times][index] ? editingRows[times][index].price : item.price}
+                    value={
+                      editingRows[times] && editingRows[times][index]
+                        ? editingRows[times][index].price
+                        : item.price
+                    }
                     onChange={(e) => handleInputChange(e, times, index)}
                     disabled={!editingRows[times] || !editingRows[times][index]}
                   />
@@ -55,10 +96,19 @@ const PriceTable = ({ times, priceLists, editingRows, handleInputChange, handleC
                 <TableCell align="right">
                   {editingRows[times] && editingRows[times][index] ? (
                     <>
-                      <Button variant="contained" color="primary" onClick={() => handleConfirmEditPrice(times, index)}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => handleConfirmEditPrice(times, index)}
+                      >
                         Xác nhận
                       </Button>
-                      <Button variant="outlined" color="secondary" onClick={() => handleCancelEditRow(times, index)} sx={{ ml: 2 }}>
+                      <Button
+                        variant="outlined"
+                        color="secondary"
+                        onClick={() => handleCancelEditRow(times, index)}
+                        sx={{ ml: 2 }}
+                      >
                         Hủy
                       </Button>
                     </>
@@ -67,7 +117,9 @@ const PriceTable = ({ times, priceLists, editingRows, handleInputChange, handleC
                       <IconButton onClick={() => handleEditPrice(times, index)}>
                         <EditIcon />
                       </IconButton>
-                      <IconButton onClick={() => handleDeletePrice(times, index)}>
+                      <IconButton
+                        onClick={() => handleDeletePrice(times, index)}
+                      >
                         <DeleteIcon />
                       </IconButton>
                     </>
@@ -104,10 +156,19 @@ const PriceTable = ({ times, priceLists, editingRows, handleInputChange, handleC
                   />
                 </TableCell>
                 <TableCell align="right">
-                  <Button variant="contained" color="primary" onClick={() => handleAddPrice(times)}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => handleAddPrice(times)}
+                  >
                     Xác nhận
                   </Button>
-                  <Button variant="outlined" color="secondary" onClick={() => handleCancelNewRow(times)} sx={{ ml: 2 }}>
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    onClick={() => handleCancelNewRow(times)}
+                    sx={{ ml: 2 }}
+                  >
                     Hủy
                   </Button>
                 </TableCell>
@@ -117,11 +178,26 @@ const PriceTable = ({ times, priceLists, editingRows, handleInputChange, handleC
         </Table>
       </TableContainer>
       {!newRows[times] && (
-        <Button variant="contained" color="primary" onClick={() => setNewRows({ ...newRows, [times]: { start: '', end: '', price: '' } })} sx={{ mt: 2 }}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() =>
+            setNewRows({
+              ...newRows,
+              [times]: { start: "", end: "", price: "" },
+            })
+          }
+          sx={{ mt: 2 }}
+        >
           Thêm
         </Button>
       )}
-      <Button variant="contained" color="secondary" onClick={() => handleDeleteAllPrices(times)} sx={{ mt: 2, ml: 2 }}>
+      <Button
+        variant="contained"
+        color="error"
+        onClick={() => handleDeleteAllPrices(times)}
+        sx={{ mt: 2, ml: 2 }}
+      >
         Xóa tất cả
       </Button>
     </Box>
