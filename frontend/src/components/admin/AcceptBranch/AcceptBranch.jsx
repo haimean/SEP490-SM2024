@@ -126,7 +126,11 @@ const AcceptBranch = () => {
       ),
     },
   ];
-
+  const filteredRows = branches.filter(
+    (row) =>
+      row?.name?.toLowerCase().includes(filterName.toLowerCase()) ||
+      row?.description?.toLowerCase().includes(filterName.toLowerCase())
+  );
   return (
     <div className="flex justify-center py-2">
       <div className="max-w-6xl w-full p-10 border rounded-lg shadow bg-white">
@@ -145,7 +149,7 @@ const AcceptBranch = () => {
         </div>
         <div style={{ height: "auto", width: "100%" }}>
           <DataGrid
-            rows={branches}
+            rows={filteredRows}
             columns={columns}
             disableRowSelectionOnClick
             disableColumnMenu

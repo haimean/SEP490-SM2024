@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CallApi from "../../../service/CallAPI.jsx";
 import CreateAttributeCourtCp from "./CreateAttributeCourtCp.jsx";
 import UpdateAttributeCourtCp from "./UpdateAttributeCourtCp.jsx";

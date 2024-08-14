@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
-import CardMembershipIcon from "@mui/icons-material/CardMembership";
 import BadgeIcon from "@mui/icons-material/Badge";
 import DescriptionIcon from "@mui/icons-material/Description";
 
@@ -28,7 +28,7 @@ const DetailAttributeKey = ({
     {
       field: "value",
       headerName: "Giá trị",
-      width: 500,
+      width: 300,
       renderCell: (params) => params.value,
     },
     {
@@ -108,23 +108,6 @@ const DetailAttributeKey = ({
             Thông tin chi tiết
           </Typography>
           <Paper sx={{ p: 2, mt: 2 }}>
-            <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-              <CardMembershipIcon sx={{ color: "primary.main", mr: 1 }} />
-              <Typography variant="body1">
-                <Box
-                  component="span"
-                  sx={{
-                    fontWeight: "medium",
-                    color: "text.secondary",
-                    textTransform: "uppercase",
-                    mr: 1,
-                  }}
-                >
-                  ID:
-                </Box>
-                {detailItem.id}
-              </Typography>
-            </Box>
             <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
               <BadgeIcon sx={{ color: "primary.main", mr: 1 }} />
               <Typography variant="body1">

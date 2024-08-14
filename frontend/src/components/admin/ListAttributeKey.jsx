@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button, TextField } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -91,8 +92,8 @@ const AttributeTable = ({
 
   const filteredRows = attributeList.filter(
     (row) =>
-      row.name.toLowerCase().includes(filterName.toLowerCase()) ||
-      row.description.toLowerCase().includes(filterName.toLowerCase())
+      row?.name?.toLowerCase().includes(filterName.toLowerCase()) ||
+      row?.description?.toLowerCase().includes(filterName.toLowerCase())
   );
 
   return (
