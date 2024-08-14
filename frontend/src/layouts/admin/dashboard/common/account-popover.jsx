@@ -13,6 +13,7 @@ import IconButton from "@mui/material/IconButton";
 
 import { toast } from "react-toastify";
 import CallApi from "../../../../service/CallAPI.jsx";
+import ChangePassword from "../../../../components/auth/ChangePassword.jsx";
 
 // ----------------------------------------------------------------------
 
@@ -44,6 +45,7 @@ export default function AccountPopover() {
   const dispatch = useDispatch();
   const { accountId } = useSelector((state) => state.user);
   const [account, setAccount] = useState(null);
+  const [isChangePassword, setIsChangePassword] = useState(false);
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
   };
@@ -151,6 +153,11 @@ export default function AccountPopover() {
               {option.label}
             </MenuItem>
           ))}
+        {account?.role === "ADMIN" && (
+          <MenuItem onClick={() => setIsChangePassword(true)}>
+            Đổi mật khẩu
+          </MenuItem>
+        )}
         {account?.role !== "ADMIN" && (
           <Divider sx={{ borderStyle: "dashed", m: 0 }} />
         )}
@@ -163,6 +170,12 @@ export default function AccountPopover() {
         >
           Đăng xuất
         </MenuItem>
+        {isChangePassword && (
+          <ChangePassword
+            open={isChangePassword}
+            handleClose={() => setIsChangePassword(false)}
+          />
+        )}
       </Popover>
     </>
   );
