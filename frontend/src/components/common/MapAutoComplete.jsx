@@ -68,17 +68,20 @@ const MapAutoComplete = ({ onSubmit }) => {
           )
           .then((response) => {
             if (response.data && response.data.address) {
+              console.log("response.data.address", response.data.address);
+
               const normalized = {
                 commune: removeAdministrativeTerms(
                   response.data.address.village ||
                     response.data.address.residential ||
                     response.data.address.quarter ||
+                    response.data.address.quarter ||
+                    response.data.address.suburb ||
                     ""
                 ), // Xã/Phường/Thị trấn
                 district: removeAdministrativeTerms(
                   response.data.address.county ||
                     response.data.address.city_district ||
-                    response.data.address.suburb ||
                     ""
                 ), // Huyện/Quận
                 province: removeAdministrativeTerms(
