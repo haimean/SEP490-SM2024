@@ -12,7 +12,7 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import StadiumIcon from "@mui/icons-material/Stadium";
-
+import PersonIcon from "@mui/icons-material/Person";
 const BranchCard = ({ name, location, image, branch, onClick }) => {
   return (
     <Card
@@ -44,6 +44,14 @@ const BranchCard = ({ name, location, image, branch, onClick }) => {
           </Typography>
         </Tooltip>
         <Stack direction="row" alignItems="center" spacing={1} className="mt-2">
+          <PersonIcon className="text-red-600" />
+          <Tooltip title={branch?.account?.user?.fullName || "Chưa có tên"}>
+            <Typography className="truncate">
+              {branch?.account?.user?.fullName || "Chưa có tên"}
+            </Typography>
+          </Tooltip>
+        </Stack>
+        <Stack direction="row" alignItems="center" spacing={1} className="mt-1">
           <LocationOnOutlinedIcon className="text-red-600" />
           <Tooltip title={location}>
             <Typography className="truncate">{location}</Typography>
