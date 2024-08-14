@@ -8,6 +8,8 @@ export default function LineChartForAccountAdmin({
   optionChartPlayer,
   optionYear,
 }) {
+  const [data, setData] = useState(false);
+  const [dataMonth, setDataMonth] = useState(false);
   const [seriesData, setSeriesData] = useState({
     series: [],
     labels: [],
@@ -22,9 +24,10 @@ export default function LineChartForAccountAdmin({
         "/api/admin/account/get-all-account-12-month-latest",
         "get"
       );
-      console.log("🚀 ========= result:", result);
+      setData(false);
       processData(result.data);
     } catch (error) {
+      setData(true);
       console.log("🚀 ========= error:", error);
     }
   };
@@ -37,9 +40,10 @@ export default function LineChartForAccountAdmin({
           dateFilter: `${optionYear}-${optionMonthChange}`,
         }
       );
-      console.log("🚀 ========= result:", result);
+      setDataMonth(false);
       processDataMonth(result.data);
     } catch (error) {
+      setDataMonth(true);
       console.log("🚀 ========= error:", error);
     }
   };
@@ -75,17 +79,23 @@ export default function LineChartForAccountAdmin({
   }, [optionMonth]);
 
   return optionChartPlayer == "week" ? (
-    <LineChart
-      series={seriesDataInMonth.series}
-      height={290}
-      xAxis={[
-        {
-          data: seriesDataInMonth.labels,
-          scaleType: "band",
-        },
-      ]}
-      margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
-    />
+    dataMonth ? (
+      <p>Không có dữ liệu</p>
+    ) : (
+      <LineChart
+        series={seriesDataInMonth.series}
+        height={290}
+        xAxis={[
+          {
+            data: seriesDataInMonth.labels,
+            scaleType: "band",
+          },
+        ]}
+        margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
+      />
+    )
+  ) : data ? (
+    <p>Không có dữ liệu</p>
   ) : (
     <LineChart
       series={seriesData.series}
