@@ -1,17 +1,15 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import CourtDetailList from "../../../components/host/court/CourtDetailList";
 import CallApi from "../../../service/CallAPI";
-import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import useDialogConfirm from "../../../hooks/useDialogConfirm";
 import RegisterCourt from "../../host/Court/RegisterCourt";
-import BaseBox from "../../common/BaseBox";
 
-const ListCourt = () => {
+const ListCourt = ({ id }) => {
   const storedUserRole = localStorage.getItem("userRole");
   console.log("🚀 ========= storedUserRole:", storedUserRole);
-  const { id } = useParams();
   const { openDialog, DialogComponent } = useDialogConfirm();
   const [data, setData] = useState([]);
   const [registerCourtModal, setRegisterCourtModal] = useState(false);
@@ -32,12 +30,12 @@ const ListCourt = () => {
   };
   useEffect(() => {
     getAllCourt();
-  }, []);
+  }, [id]);
   const handleDeleteCourt = async (id, name) => {
     openDialog(`Bạn có muốn xóa sân ${name} không ?`, async () => {
       try {
         console.log(id, name);
-        
+
         const result = await CallApi(
           `/api/host/court/delete-court/${id}`,
           "delete"
@@ -52,7 +50,7 @@ const ListCourt = () => {
     });
   };
   return (
-    <BaseBox title="Danh sách sân đấu ">
+    <Box>
       <div className="flex justify-between">
         <h1 className="text-xl font-bold mb-4">
           Hiện có {data.length} sân đấu
@@ -76,7 +74,6 @@ const ListCourt = () => {
             key={index}
             activity={activity}
             onDeleteCourt={handleDeleteCourt}
-            role={storedUserRole}
             branchId={id}
           />
         ))}
@@ -89,7 +86,7 @@ const ListCourt = () => {
         />
       )}
       <DialogComponent />
-    </BaseBox>
+    </Box>
   );
 };
 

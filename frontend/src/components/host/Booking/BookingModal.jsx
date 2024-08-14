@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import { Modal, Box, Typography, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import CalendarModalComponent from "./BookingCalendar";
@@ -38,7 +39,9 @@ const BookingModal = ({ open, onClose, courtId, court }) => {
             </Box>
             <Box display="flex" alignItems="center">
               <Box width={16} height={16} bgcolor="rgb(34, 139, 34)" mr={1} />
-              <Typography variant="body2">Ca chủ sân tự đặt trên hệ thống</Typography>
+              <Typography variant="body2">
+                Ca chủ sân tự đặt trên hệ thống
+              </Typography>
             </Box>
           </Box>
         </Box>

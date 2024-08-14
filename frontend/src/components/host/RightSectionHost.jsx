@@ -109,7 +109,6 @@ const RightSectionHost = ({ id, type, court1 }) => {
                 Lịch sử đặt sân
               </Button>
             </Link>
-            s
           </>
         )}
         {type === "courtDetail" && (

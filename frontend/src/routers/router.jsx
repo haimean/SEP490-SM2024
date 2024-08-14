@@ -44,6 +44,7 @@ import ListReportBlog from "../pages/admin/ListReportBlog/ListReportBlog.jsx";
 import RequestListJoin from "../pages/user/RequestListJoin/RequestListJoin.jsx";
 import TypeCourtTable from "../components/host/typeCourt/TypeCourtTable.jsx";
 import PriceTypeCourtForm from "../components/host/typeCourt/PriceTypeCourtForm.jsx";
+import HostBranchDetail from "../pages/guest/Branch/HostBranchDetail.jsx";
 
 const router = [
   {
@@ -161,7 +162,7 @@ const router = [
   {
     path: "/host/branch/:id",
     name: "Branch Detail",
-    component: <BranchDetail />,
+    component: <HostBranchDetail />,
     role: ["HOST"],
     layout: "host",
   },

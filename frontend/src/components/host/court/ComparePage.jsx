@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
 import CallApi from "../../../service/CallAPI";
@@ -15,6 +16,7 @@ import {
 } from "@mui/material";
 import haversine from "haversine";
 import Loading from "../../common/Loading";
+import { toast } from "react-toastify";
 
 export default function ComparePage() {
   const { court1, court2 } = useParams();
@@ -22,7 +24,6 @@ export default function ComparePage() {
   console.log("🚀 ========= firstCourt:", firstCourt);
   const [secondCourt, setSecondCourt] = useState({});
   console.log("🚀 ========= secondCourt:", secondCourt);
-  const [error, setError] = useState(null);
   const [location, setLocation] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const getDetailCourt = async () => {
@@ -62,11 +63,11 @@ export default function ComparePage() {
           });
         },
         (error) => {
-          setError(error.message);
+          toast.error(error.message);
         }
       );
     } else {
-      setError("Geolocation is not supported by this browser.");
+      toast.error("Geolocation is not supported by this browser.");
     }
   };
   useEffect(() => {
@@ -84,18 +85,6 @@ export default function ComparePage() {
       }
     ).toFixed(2);
   };
-  const PriceFilter = ({ data }) => {
-    const prices = data?.map((item) => item?.price);
-    const minPrice = Math.min(...prices);
-    const maxPrice = Math.max(...prices);
-
-    return (
-      <>
-        Giá từ {minPrice} đến {maxPrice}
-      </>
-    );
-  };
-
   const minPrice = (items) => {
     return items?.reduce((prev, current) => {
       return prev?.price < current?.price ? prev : current;
@@ -161,12 +150,16 @@ export default function ComparePage() {
       id: 7,
       title: "Chi tiết sân",
       firstValue: (
-        <Link to={`/branch/${firstCourt?.Branches?.id}/court/${firstCourt?.id}`}>
+        <Link
+          to={`/branch/${firstCourt?.Branches?.id}/court/${firstCourt?.id}`}
+        >
           <Button>Xem chi tiết</Button>
         </Link>
       ),
       secondValue: (
-        <Link to={`/branch/${secondCourt?.Branches?.id}/court/${secondCourt?.id}`}>
+        <Link
+          to={`/branch/${secondCourt?.Branches?.id}/court/${secondCourt?.id}`}
+        >
           <Button>Xem chi tiết</Button>
         </Link>
       ),

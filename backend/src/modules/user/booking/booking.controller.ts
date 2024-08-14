@@ -90,7 +90,9 @@ const bookingUserController = {
             courtId
           )
         ) {
-          next(new CustomError('Bạn đã tham gia ở trận đấu', 400));
+          next(
+            new CustomError('Bạn đã tham gia ở trận đấu khác', 400)
+          );
         } else {
           const booking = await bookingUserService.create({
             accountId,

@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import { useState, useEffect } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import { parse, startOfWeek, getDay, format, addHours } from "date-fns";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import enUS from "date-fns/locale/en-US";
-import {
-  Box,
-  CircularProgress,
-  Backdrop,
-} from "@mui/material";
+import { Box, Button } from "@mui/material";
 import EventModal from "./EventModal";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
 import DialogInfo from "../../common/DialogInfo";
 import PriceListModal from "../../user/BookingTable/PriceListModal";
+import Loading from "../../common/Loading";
 
 const locales = {
   "en-US": enUS,
@@ -32,27 +31,37 @@ const CustomHeader = ({ label }) => {
     console.log("hello");
     e.preventDefault();
     e.stopPropagation();
-
   };
 
   return (
-    <div onClick={handleClick} style={{ pointerEvents: 'none' }}>
+    <div onClick={handleClick} style={{ pointerEvents: "none" }}>
       {label}
     </div>
   );
 };
 
 const formats = {
-  timeGutterFormat: 'HH:mm', // Time shown on the left side gutter
+  timeGutterFormat: "HH:mm", // Time shown on the left side gutter
   eventTimeRangeFormat: ({ start, end }, culture, local) =>
-    `${local.format(start, 'HH:mm', culture)} - ${local.format(end, 'HH:mm', culture)}`,
-  dayHeaderFormat: 'dddd, MMMM d',  // Format for day headers
+    `${local.format(start, "HH:mm", culture)} - ${local.format(
+      end,
+      "HH:mm",
+      culture
+    )}`,
+  dayHeaderFormat: "dddd, MMMM d", // Format for day headers
   dayRangeHeaderFormat: ({ start, end }, culture, local) =>
-    `${local.format(start, 'MMMM d', culture)} - ${local.format(end, 'MMMM d', culture)}`,
+    `${local.format(start, "MMMM d", culture)} - ${local.format(
+      end,
+      "MMMM d",
+      culture
+    )}`,
   agendaTimeRangeFormat: ({ start, end }, culture, local) =>
-    `${local.format(start, 'HH:mm', culture)} - ${local.format(end, 'HH:mm', culture)}`,
+    `${local.format(start, "HH:mm", culture)} - ${local.format(
+      end,
+      "HH:mm",
+      culture
+    )}`,
 };
-
 
 const messages = {
   allDay: "Cả ngày",
@@ -95,7 +104,6 @@ const CalendarModalComponent = ({ courtId }) => {
   useEffect(() => {
     fetchData(courtId);
   }, [courtId]);
-
 
   const handleCloseDialogInfo = () => {
     setIsOpenDialogInfo(false);
@@ -179,11 +187,6 @@ const CalendarModalComponent = ({ courtId }) => {
   };
 
   const handleSelectSlot = ({ start, end }) => {
-    const now = new Date();
-    // if (start < now) {
-    //   handleOpenDialogInfo("Không thể chọn thời gian trong quá khứ.");
-    //   return;
-    // }
     const timeDifference = end - start;
     const hoursDifference = timeDifference / (1000 * 60 * 60);
 
@@ -239,21 +242,15 @@ const CalendarModalComponent = ({ courtId }) => {
     const start = new Date(eventData.start).getHours();
     const end = new Date(eventData.end).getHours();
     if (!eventData.name) {
-      handleOpenDialogInfo(
-        "Tên người đặt không được để trống."
-      );
+      handleOpenDialogInfo("Tên người đặt không được để trống.");
       return;
     }
     if (!eventData.numberPhone) {
-      handleOpenDialogInfo(
-        "Số điện thoại người đặt không được để trống."
-      );
+      handleOpenDialogInfo("Số điện thoại người đặt không được để trống.");
       return;
     }
     if (eventData.price == 0) {
-      handleOpenDialogInfo(
-        "Giá tiền phải lớn hơn 0."
-      );
+      handleOpenDialogInfo("Giá tiền phải lớn hơn 0.");
       return;
     }
     if (start < openHour.getHours() || end > closeHour.getHours()) {
@@ -369,11 +366,12 @@ const CalendarModalComponent = ({ courtId }) => {
   };
 
   const eventTooltipAccessor = (event) => {
-    return `${event.bookingInfo.name} - ${event.bookingInfo.numberPhone
-      } - ${new Intl.NumberFormat("vi-VN", {
-        style: "currency",
-        currency: "VND",
-      }).format(event.price)}`;
+    return `${event.bookingInfo.name} - ${
+      event.bookingInfo.numberPhone
+    } - ${new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(event.price)}`;
   };
 
   const slotPropGetter = (date) => {
@@ -394,7 +392,10 @@ const CalendarModalComponent = ({ courtId }) => {
     let totalPrice = 0;
     priceListToUse.forEach((priceRange) => {
       const rangeStart = new Date(start);
-      rangeStart.setHours(priceRange.start.getHours(), priceRange.start.getMinutes());
+      rangeStart.setHours(
+        priceRange.start.getHours(),
+        priceRange.start.getMinutes()
+      );
       const rangeEnd = new Date(start);
       rangeEnd.setHours(priceRange.end.getHours(), priceRange.end.getMinutes());
 
@@ -410,12 +411,11 @@ const CalendarModalComponent = ({ courtId }) => {
     return totalPrice;
   };
 
-
   const handleEventDelete = (event, e) => {
     e.stopPropagation(); // Ngăn chặn sự kiện click lan truyền lên
     setSelectedEvent(event);
     handleDeleteEvent();
-  }
+  };
 
   const Event = ({ event }) => {
     return (
@@ -428,7 +428,7 @@ const CalendarModalComponent = ({ courtId }) => {
             border: "none",
             color: "red",
             cursor: "pointer",
-            marginRight: "4px"
+            marginRight: "4px",
           }}
         >
           X
@@ -438,88 +438,87 @@ const CalendarModalComponent = ({ courtId }) => {
     );
   };
 
-  return (
-    <Box>
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={loading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-      {openHour && closeHour && (
-        <div className="text-center">
-          <h2>
-            Giờ hoạt động: {format(openHour, "HH:mm")} -{" "}
-            {format(closeHour, "HH:mm")}
-          </h2>
-          <div className="text-center my-2">
-            <button
-              onClick={handleOpenPriceModal}
-              className="p-2 ml-2 bg-green-500 text-white rounded"
-            >
-              Xem Bảng Giá
-            </button>
+  return loading == true ? (
+    <Loading />
+  ) : (
+    <>
+      {" "}
+      <Box>
+        {openHour && closeHour && (
+          <div className="text-center">
+            <Box className="flex justify-center items-center">
+              <h2>
+                Giờ hoạt động: {format(openHour, "HH:mm")} -{" "}
+                {format(closeHour, "HH:mm")}
+              </h2>
+              <Button
+                onClick={handleOpenPriceModal}
+                color="info"
+                className="p-2 ml-2 "
+              >
+                Xem Bảng Giá
+              </Button>
+            </Box>
+            <Calendar
+              localizer={localizer}
+              events={events}
+              startAccessor="start"
+              endAccessor="end"
+              titleAccessor="title"
+              tooltipAccessor={eventTooltipAccessor}
+              selectable
+              onSelectSlot={handleSelectSlot}
+              onSelectEvent={handleSelectEvent}
+              style={{ height: "70vh" }}
+              min={new Date(openHour)}
+              max={new Date(closeHour)}
+              eventPropGetter={eventStyleGetter}
+              slotPropGetter={slotPropGetter}
+              messages={messages}
+              formats={formats}
+              components={{
+                week: {
+                  header: CustomHeader,
+                },
+                day: {
+                  header: CustomHeader,
+                },
+                month: {
+                  header: CustomHeader,
+                },
+                event: Event,
+              }}
+            />
           </div>
-          <Calendar
-            localizer={localizer}
-            events={events}
-            startAccessor="start"
-            endAccessor="end"
-            titleAccessor="title"
-            tooltipAccessor={eventTooltipAccessor}
-            selectable
-            onSelectSlot={handleSelectSlot}
-            onSelectEvent={handleSelectEvent}
-            style={{ height: "70vh" }}
-            min={new Date(openHour)}
-            max={new Date(closeHour)}
-            eventPropGetter={eventStyleGetter}
-            slotPropGetter={slotPropGetter}
-            messages={messages}
-            formats={formats}
-            components={{
-              week: {
-                header: CustomHeader,
-              },
-              day: {
-                header: CustomHeader,
-              },
-              month: {
-                header: CustomHeader,
-              },
-              event: Event,
-            }}
-          />
-        </div>
-
-      )}
-      <EventModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        eventData={eventData}
-        setEventData={setEventData}
-        isNewEvent={isNewEvent}
-        onSave={handleSaveEvent}
-        onDelete={handleDeleteEvent}
-      />
-      <PriceListModal
-        isOpen={isPriceModalOpen}
-        onRequestClose={handleClosePriceModal}
-        priceLists={priceLists}
-      />
-      <DeleteConfirmationModal
-        isOpen={isDeleteModalOpen}
-        onClose={() => setIsDeleteModalOpen(false)}
-        onDelete={handleConfirmDelete}
-      />
-      {isOpenDialogInfo && (
-        <DialogInfo
-          handleClose={handleCloseDialogInfo}
-          open={isOpenDialogInfo}
-          title={titleDialog}
+        )}
+        <EventModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          eventData={eventData}
+          setEventData={setEventData}
+          isNewEvent={isNewEvent}
+          onSave={handleSaveEvent}
+          onDelete={handleDeleteEvent}
         />
-      )}
-    </Box>
+        <PriceListModal
+          isOpen={isPriceModalOpen}
+          onRequestClose={handleClosePriceModal}
+          priceLists={priceLists}
+        />
+        <DeleteConfirmationModal
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+          onDelete={handleConfirmDelete}
+        />
+        {isOpenDialogInfo && (
+          <DialogInfo
+            handleClose={handleCloseDialogInfo}
+            open={isOpenDialogInfo}
+            title={titleDialog}
+          />
+        )}
+      </Box>
+    </>
   );
 };
 
