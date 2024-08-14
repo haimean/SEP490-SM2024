@@ -3,6 +3,7 @@ import CallApi from "../../../service/CallAPI";
 import { useEffect, useState } from "react";
 
 export default function BarChartForBookingAndPostAdmin() {
+  const [data, setData] = useState(false);
   const [seriesData, setSeriesData] = useState({
     series: [],
     labels: [],
@@ -14,9 +15,10 @@ export default function BarChartForBookingAndPostAdmin() {
         "/api/admin/booking/get-all-booking-and-post-12-month-latest",
         "get"
       );
-      console.log("🚀 ========= result:", result);
       processData(result.data);
+      setData(false);
     } catch (error) {
+      setData(true);
       console.log("🚀 ========= error:", error);
     }
   };
@@ -39,7 +41,9 @@ export default function BarChartForBookingAndPostAdmin() {
     getData();
   }, []);
 
-  return (
+  return data ? (
+    <p>Không có dữ liệu</p>
+  ) : (
     <BarChart
       series={seriesData.series}
       height={290}
