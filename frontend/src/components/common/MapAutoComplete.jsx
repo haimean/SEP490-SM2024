@@ -77,17 +77,17 @@ const MapAutoComplete = ({ onSubmit }) => {
                     response.data.address.quarter ||
                     response.data.address.quarter ||
                     response.data.address.suburb ||
-                    ""
+                    "xã"
                 ), // Xã/Phường/Thị trấn
                 district: removeAdministrativeTerms(
                   response.data.address.county ||
                     response.data.address.city_district ||
-                    ""
+                    "huyện"
                 ), // Huyện/Quận
                 province: removeAdministrativeTerms(
                   response.data.address.state ||
                     response.data.address.city ||
-                    ""
+                    "tỉnh"
                 ), // Tỉnh/Thành phố
               };
               console.log("normalized'", normalized);
