@@ -124,7 +124,7 @@ const DashboardCp = () => {
           <TableAccount />
         </div>
       </div>
-      <div className="mt-5 flex items-center justify-between">
+      <div className="mt-12 flex items-center justify-between">
         <Typography variant="h6" component="h2">
           Biểu đồ số lượng người đăng ký
         </Typography>
@@ -149,7 +149,7 @@ const DashboardCp = () => {
           />
         </React.Suspense>
       </div>
-      <div className="mt-5">
+      <div className="mt-12">
         <Typography variant="h6" component="h2">
           Biểu đồ số lượng người đặt sân mới theo 12 tháng gần nhất
         </Typography>
