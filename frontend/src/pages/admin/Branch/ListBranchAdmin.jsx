@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { TextField } from "@mui/material";
 import CallApi from "../../../service/CallAPI";
 
 const ListBranchAdmin = () => {
-  const [filterName, setFilterName] = useState("");
   const [branches, setBranches] = useState([]);
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(5);
@@ -39,10 +37,6 @@ const ListBranchAdmin = () => {
           error.response?.data?.error
       );
     }
-  };
-
-  const handleFilterByName = (event) => {
-    setFilterName(event.target.value);
   };
 
   const columns = [
@@ -88,30 +82,15 @@ const ListBranchAdmin = () => {
       },
     },
   ];
-  const filteredRows = branches.filter(
-    (row) =>
-      row?.name?.toLowerCase().includes(filterName.toLowerCase()) ||
-      row?.description?.toLowerCase().includes(filterName.toLowerCase())
-  );
   return (
     <div className="flex justify-center py-2">
       <div className="max-w-6xl w-full p-10 border rounded-lg shadow bg-white">
         <h1 className="text-center mb-4 text-2xl font-bold">
           Danh sách chi nhánh đã duyệt
         </h1>
-        <div className="flex justify-between mb-4">
-          <TextField
-            value={filterName}
-            onChange={handleFilterByName}
-            placeholder="Tìm kiếm theo tên chi nhánh"
-            variant="outlined"
-            size="small"
-            className="w-1/3"
-          />
-        </div>
         <div style={{ height: "auto", width: "100%" }}>
           <DataGrid
-            rows={filteredRows}
+            rows={branches}
             columns={columns}
             disableRowSelectionOnClick
             disableColumnMenu

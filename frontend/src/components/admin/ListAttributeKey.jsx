@@ -19,14 +19,6 @@ const AttributeTable = ({
 
   const columns = [
     {
-      field: "id",
-      headerName: "ID",
-      width: 70,
-      headerAlign: "center",
-      align: "center",
-      renderHeader: () => <div className="font-bold">ID</div>,
-    },
-    {
       field: "name",
       headerName: "Tên thuộc tính",
       width: 250,
