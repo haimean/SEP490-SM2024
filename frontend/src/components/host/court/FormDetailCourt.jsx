@@ -81,6 +81,9 @@ export default function FormDetailCourt({
                 }}
                 error={!!error}
                 helperText={error ? error.message : null}
+                InputLabelProps={{
+                  shrink: true, // Đảm bảo label luôn di chuyển lên trên
+                }}
               />
             )}
           />
