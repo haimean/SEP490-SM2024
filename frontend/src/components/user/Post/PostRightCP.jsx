@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import {
   Typography,
@@ -20,13 +21,9 @@ import ModalReason from "../../common/ModalReason.jsx";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import LoginModal from "../../auth/LoginModal.jsx";
-import ModalVote from "../ResponseToRequest/ModalVote.jsx";
 const PostRightCP = ({ user, post, postId }) => {
-  console.log("🚀 ========= post:", post);
-  console.log("🚀 ========= user:", user);
   const [accountId, setAccountId] = useState(null);
   const [listJoin, setListJoin] = useState([]);
-  console.log("🚀 ========= listJoin:", listJoin);
   const [openWaitingList, setOpenWaitingList] = useState(false);
   const [openRequestList, setOpenRequestList] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
@@ -180,15 +177,6 @@ const PostRightCP = ({ user, post, postId }) => {
       return false; //chưa qua
     }
   }
-  const [isModalVote, setIsModalVote] = useState(false);
-  const [idReceive, setIsReceive] = useState();
-  const handleOpenModalVote = (idReceive) => {
-    setIsReceive(idReceive);
-    setIsModalVote(true);
-  };
-  const handleCloseModalVote = () => {
-    setIsModalVote(false);
-  };
   return (
     <Grid item xs={12} md={4}>
       <Paper sx={{ position: "sticky", top: 100, p: 2 }}>
@@ -340,32 +328,16 @@ const PostRightCP = ({ user, post, postId }) => {
                       >
                         {item?.userAvailability?.account?.user?.fullName}
                       </TableCell>
-                      {hasTimePassed(post?.booking?.startTime) ? (
+                      {!hasTimePassed(post?.booking?.startTime) && isOwner && (
                         <TableCell>
                           <Button
                             variant="contained"
                             color="error"
-                            onClick={() =>
-                              handleOpenModalVote(
-                                item?.userAvailability?.accountId
-                              )
-                            }
+                            onClick={() => handleOpenModalReason(item?.id)}
                           >
-                            Đánh giá
+                            Loại người chơi
                           </Button>
                         </TableCell>
-                      ) : (
-                        isOwner && (
-                          <TableCell>
-                            <Button
-                              variant="contained"
-                              color="error"
-                              onClick={() => handleOpenModalReason(item?.id)}
-                            >
-                              Loại người chơi
-                            </Button>
-                          </TableCell>
-                        )
                       )}
                     </TableRow>
                   ))}
@@ -387,13 +359,6 @@ const PostRightCP = ({ user, post, postId }) => {
                 open={openProfile}
                 onClose={handleCloseProfile}
                 id={profileId}
-              />
-            )}
-            {isModalVote && (
-              <ModalVote
-                open={isModalVote}
-                handleClose={handleCloseModalVote}
-                idReceive={idReceive}
               />
             )}
           </div>
