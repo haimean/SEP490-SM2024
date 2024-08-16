@@ -75,7 +75,6 @@ const MapAutoComplete = ({ onSubmit }) => {
                   response.data.address.village ||
                     response.data.address.residential ||
                     response.data.address.quarter ||
-                    response.data.address.quarter ||
                     response.data.address.suburb ||
                     "xã"
                 ), // Xã/Phường/Thị trấn
