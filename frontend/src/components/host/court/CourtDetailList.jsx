@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+
 import { Button, Typography } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+
 import { Link } from "react-router-dom";
 
 const CourtDetailList = ({ activity, onDeleteCourt, role, branchId }) => {
@@ -17,7 +17,7 @@ const CourtDetailList = ({ activity, onDeleteCourt, role, branchId }) => {
 
       <div className="p-4 flex flex-col justify-between w-2/3">
         <div>
-          <Link to={`/branch/${branchId}/court/${activity?.id}`}>
+          <Link to={`/host/branch/${branchId}/court/${activity?.id}`}>
             <Typography variant="h5" className="text-lg font-bold mb-2">Tên sân: {activity?.name}</Typography>
           </Link>
           <div>
