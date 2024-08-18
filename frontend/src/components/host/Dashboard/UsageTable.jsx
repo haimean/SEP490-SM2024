@@ -13,12 +13,12 @@ import clsx from "clsx";
 
 const getColorClass = (value) => {
   if (value === 0) return "bg-white";
-  if (value <= 1) return "bg-blue-100";
-  if (value <= 2) return "bg-blue-200";
-  if (value <= 3) return "bg-blue-300";
-  if (value <= 4) return "bg-blue-400";
-  if (value <= 5) return "bg-blue-500";
-  return "bg-blue-600";
+  if (value <= 1) return "bg-red-100";
+  if (value <= 5) return "bg-red-200";
+  if (value <= 10) return "bg-red-300";
+  if (value <= 15) return "bg-red-400";
+  if (value <= 20) return "bg-red-500";
+  return "bg-red-600";
 };
 
 const UsageTable = ({ data, dayCounts }) => {
@@ -52,7 +52,7 @@ const UsageTable = ({ data, dayCounts }) => {
                 <TableCell
                   key={index}
                   className="border border-gray-300 !text-center !p-0 text-xs bg-gray-100"
-                  style={{ width: "30px" }} // Đặt chiều rộng cố định cho các ô giờ
+                  style={{ width: "30px" }} 
                 >
                   {hour}
                 </TableCell>

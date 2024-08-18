@@ -37,7 +37,14 @@ const DashboardHost = () => {
   const [selectedCourtForHour, setSelectedCourtForHour] = useState(null);
   const [dayCounts, setDayCounts] = useState([]);
 
-  // Separate state for "Mức độ sử dụng sân theo ngày trong tuần"
+  const [selectedYearForBranch, setSelectedYearForBranch] = useState(
+    new Date().getFullYear()
+  );
+  const [selectedMonthForBranch, setSelectedMonthForBranch] = useState(
+    new Date().getMonth() + 1
+  );
+
+
   const [selectedYearForDay, setSelectedYearForDay] = useState(
     new Date().getFullYear()
   );
@@ -45,7 +52,7 @@ const DashboardHost = () => {
     new Date().getMonth() + 1
   );
 
-  // Separate state for "Bảng thể hiện mức độ sử dụng sân theo giờ"
+
   const [selectedYearForHour, setSelectedYearForHour] = useState(
     new Date().getFullYear()
   );
@@ -78,8 +85,10 @@ const DashboardHost = () => {
 
           // Kiểm tra nếu có court trong branch
           if (branches[0].court && branches[0].court.length > 0) {
-            setSelectedCourtForDay(branches[0].court[0].id);
-            setSelectedCourtForHour(branches[0].court[0].id);
+            // setSelectedCourtForDay(branches[0].court[0].id);
+            // setSelectedCourtForHour(branches[0].court[0].id);
+            setSelectedCourtForDay("all");
+            setSelectedCourtForHour("all");
           } else {
             console.warn("Không có sân nào trong cơ sở.");
             setSelectedCourtForDay(null);
@@ -108,8 +117,8 @@ const DashboardHost = () => {
         try {
           const response = await CallApi("/api/host/stats/monthly", "post", {
             branchId: selectedBranch,
-            month: `${selectedYearForDay}-${String(
-              selectedMonthForDay
+            month: `${selectedYearForBranch}-${String(
+              selectedMonthForBranch
             ).padStart(2, "0")}`,
           });
           setStats(response.data);
@@ -120,7 +129,7 @@ const DashboardHost = () => {
 
       fetchStatsData();
     }
-  }, [selectedBranch, selectedYearForDay, selectedMonthForDay]);
+  }, [selectedBranch, selectedYearForBranch, selectedMonthForBranch]);
 
   useEffect(() => {
     if (selectedBranch) {
@@ -131,8 +140,8 @@ const DashboardHost = () => {
             "post",
             {
               branchId: selectedBranch,
-              month: `${selectedYearForDay}-${String(
-                selectedMonthForDay
+              month: `${selectedYearForBranch}-${String(
+                selectedMonthForBranch
               ).padStart(2, "0")}`,
             }
           );
@@ -144,7 +153,7 @@ const DashboardHost = () => {
 
       fetchUsageRevenue();
     }
-  }, [selectedYearForDay, selectedMonthForDay, selectedBranch]);
+  }, [selectedYearForBranch, selectedMonthForBranch, selectedBranch]);
 
   useEffect(() => {
     if (selectedCourtForDay) {
@@ -155,6 +164,7 @@ const DashboardHost = () => {
             "post",
             {
               courtId: selectedCourtForDay,
+              branchId: selectedBranch,
               month: `${selectedYearForDay}-${String(
                 selectedMonthForDay
               ).padStart(2, "0")}`,
@@ -179,6 +189,7 @@ const DashboardHost = () => {
             "post",
             {
               courtId: selectedCourtForHour,
+              branchId: selectedBranch,
               month: `${selectedYearForHour}-${String(
                 selectedMonthForHour
               ).padStart(2, "0")}`,
@@ -216,10 +227,12 @@ const DashboardHost = () => {
   };
 
   const handleCourtChangeForDay = (event) => {
+    console.log(event.target.value);
     setSelectedCourtForDay(event.target.value);
   };
 
   const handleCourtChangeForHour = (event) => {
+    console.log(event.target.value);
     setSelectedCourtForHour(event.target.value);
   };
 
@@ -306,41 +319,17 @@ const DashboardHost = () => {
           </Select>
         </FormControl>
       </Box>
-
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-around",
-          marginBottom: 4,
-          marginTop: 4,
-        }}
-      >
-        <SectionDashboard
-          key="booking-count"
-          title="Lượt đặt trong tháng"
-          currentValue={stats.currentMonthTotalBookings}
-          previousValue={stats.prevMonthTotalBookings}
-          isCurrency={false}
-        />
-        <SectionDashboard
-          title="Doanh thu trong tháng"
-          currentValue={stats.currentMonthTotalRevenue}
-          previousValue={stats.prevMonthTotalRevenue}
-          isCurrency={true}
-        />
-      </Box>
-
       <Card sx={{ marginBottom: 4, padding: "2rem" }}>
         <Box className="flex flex-col items-center mt-4">
           <Typography variant="h5" component="h2">
-            Doanh thu các sân
+            Doanh thu và lượt đặt của cơ sở
           </Typography>
           <Box sx={{ display: "flex", gap: 2, marginTop: "2rem" }}>
             <TextField
               select
               label="Chọn năm"
-              value={selectedYearForDay}
-              onChange={(e) => setSelectedYearForDay(e.target.value)}
+              value={selectedYearForBranch}
+              onChange={(e) => setSelectedYearForBranch(e.target.value)}
             >
               {years.map((year) => (
                 <MenuItem key={year} value={year}>
@@ -351,8 +340,64 @@ const DashboardHost = () => {
             <TextField
               select
               label="Chọn tháng"
-              value={selectedMonthForDay}
-              onChange={(e) => setSelectedMonthForDay(e.target.value)}
+              value={selectedMonthForBranch}
+              onChange={(e) => setSelectedMonthForBranch(e.target.value)}
+            >
+              {months.map((month) => (
+                <MenuItem key={month} value={month}>
+                  Tháng {month}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-around",
+            marginBottom: 4,
+            marginTop: 4,
+          }}
+        >
+          <SectionDashboard
+            title="Doanh thu trong tháng"
+            currentValue={stats.currentMonthTotalRevenue}
+            previousValue={stats.prevMonthTotalRevenue}
+            isCurrency={true}
+          />
+          <SectionDashboard
+            key="booking-count"
+            title="Lượt đặt trong tháng"
+            currentValue={stats.currentMonthTotalBookings}
+            previousValue={stats.prevMonthTotalBookings}
+            isCurrency={false}
+          />
+        </Box>
+      </Card>
+
+      <Card sx={{ marginBottom: 4, padding: "2rem" }}>
+        <Box className="flex flex-col items-center mt-4">
+          <Typography variant="h5" component="h2">
+            Doanh thu các sân trong cơ sở
+          </Typography>
+          <Box sx={{ display: "flex", gap: 2, marginTop: "2rem" }}>
+            <TextField
+              select
+              label="Chọn năm"
+              value={selectedYearForBranch}
+              onChange={(e) => setSelectedYearForBranch(e.target.value)}
+            >
+              {years.map((year) => (
+                <MenuItem key={year} value={year}>
+                  {year}
+                </MenuItem>
+              ))}
+            </TextField>
+            <TextField
+              select
+              label="Chọn tháng"
+              value={selectedMonthForBranch}
+              onChange={(e) => setSelectedMonthForBranch(e.target.value)}
             >
               {months.map((month) => (
                 <MenuItem key={month} value={month}>
@@ -398,6 +443,7 @@ const DashboardHost = () => {
                       label="Chọn Sân"
                       onChange={handleCourtChangeForDay}
                     >
+                      <MenuItem value="all">Tất cả</MenuItem>
                       {selectedBranchData?.court?.map((court) => (
                         <MenuItem key={court.id} value={court.id}>
                           {court.name}
@@ -459,6 +505,7 @@ const DashboardHost = () => {
                       label="Chọn Sân"
                       onChange={handleCourtChangeForHour}
                     >
+                      <MenuItem value="all">Tất cả</MenuItem>
                       {selectedBranchData?.court?.map((court) => (
                         <MenuItem key={court.id} value={court.id}>
                           {court.name}

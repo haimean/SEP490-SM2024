@@ -24,11 +24,11 @@ const SectionDashboard = ({ title, currentValue, previousValue, isCurrency }) =>
         borderRadius: 2,
       }}
     >
-      <CardContent>
+      <CardContent className="flex justify-center w-96">
         <Typography variant="h6" component="div">
           {title}: {displayValue}
         </Typography>
-        <Typography
+        {/* <Typography
           variant="body2"
           sx={{ display: "flex", alignItems: "center", mb: 1 }}
         >
@@ -38,12 +38,12 @@ const SectionDashboard = ({ title, currentValue, previousValue, isCurrency }) =>
               marginRight: 4,
             }}
           >
-            {isIncrease ? `Tăng` : `Giảm`}{` ${percentageChange.toFixed(2)}% (so với tháng trước)`}
+            {isIncrease ? `Tăng` : `Giảm`}{` ${percentageChange.toFixed(2)}% (so với cùng kì tháng trước)`}
           </span>
           <span>
             {isIncrease ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
           </span>
-        </Typography>
+        </Typography> */}
       </CardContent>
     </Card>
   );

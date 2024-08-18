@@ -13,7 +13,7 @@ import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
 import DialogInfo from "../../common/DialogInfo";
-import PriceListModal from "../../user/BookingTable/PriceListModal";
+import PriceListModal from "../../common/PriceListModal";
 
 const locales = {
   "en-US": enUS,
@@ -378,15 +378,15 @@ const CalendarModalComponent = ({ courtId }) => {
 
   const slotPropGetter = (date) => {
     const hours = date.getHours();
-    if (hours === 0) {
-      return {
-        style: {
-          backgroundColor: "lightgray",
-          pointerEvents: "none",
-          cursor: "not-allowed",
-        },
-      };
-    }
+    // if (hours === 0) {
+    //   return {
+    //     style: {
+    //       backgroundColor: "lightgray",
+    //       pointerEvents: "none",
+    //       cursor: "not-allowed",
+    //     },
+    //   };
+    // }
     return {};
   };
 
@@ -506,6 +506,8 @@ const CalendarModalComponent = ({ courtId }) => {
         isOpen={isPriceModalOpen}
         onRequestClose={handleClosePriceModal}
         priceLists={priceLists}
+        openHour={openHour}
+        closeHour={closeHour}
       />
       <DeleteConfirmationModal
         isOpen={isDeleteModalOpen}

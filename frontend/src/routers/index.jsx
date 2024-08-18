@@ -9,13 +9,18 @@ import router from "./router";
 // eslint-disable-next-line react-refresh/only-export-components, react/prop-types
 const ProtectedRoute = ({ component, roles = [] }) => {
   const { user, role } = useSelector((state) => state.user);
+  const userRole = user ? role : "GUEST"; // Nếu chưa đăng nhập, role sẽ là "GUEST"
+  // Nếu người dùng chưa đăng nhập và role là GUEST hoặc role có GUEST trong mảng roles
+  if (!user && roles.includes("GUEST")) {
+    return component; // Cho phép GUEST truy cập nếu role có GUEST
+  }
   if (!user && roles.length > 0) {
     // Người dùng chưa đăng nhập và route yêu cầu đăng nhập
     return <Navigate to="/login" replace />;
   }
-  if (roles.length > 0 && !roles.includes(role)) {
+  if (roles.length > 0 && !roles.includes(userRole)) {
     let url = "";
-    switch (role) {
+    switch (userRole) {
       case "HOST":
         url = "/host/dashboard";
         break;

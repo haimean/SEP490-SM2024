@@ -12,7 +12,7 @@ import enUS from "date-fns/locale/en-US";
 import { toast } from "react-toastify";
 import { CircularProgress, Backdrop } from "@mui/material";
 import CallApi from "../../../service/CallAPI";
-import PriceListModal from "./PriceListModal";
+import PriceListModal from "../../common/PriceListModal";
 import ConfirmBookingModal from "./ConfirmBookingModal";
 import DialogInfo from "../../common/DialogInfo";
 
@@ -289,15 +289,15 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
 
   const slotPropGetter = (date) => {
     const hours = date.getHours();
-    if (hours === 0) {
-      return {
-        style: {
-          backgroundColor: "lightgray",
-          pointerEvents: "none",
-          cursor: "not-allowed",
-        },
-      };
-    }
+    // if (hours === 0) {
+    //   return {
+    //     style: {
+    //       backgroundColor: "lightgray",
+    //       pointerEvents: "none",
+    //       cursor: "not-allowed",
+    //     },
+    //   };
+    // }
     const now = new Date();
     if (date < now) {
       return {
@@ -444,7 +444,7 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
               min={openHour}
               max={closeHour}
               messages={messages}
-              formats={formats} 
+              formats={formats}
             />
           </>
         )}

@@ -36,13 +36,14 @@ const statsController = {
 
   getCourtUsageByDay: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { courtId, month } = req.body;
+      const { courtId, month, branchId } = req.body;
 
-      if (!courtId || !month) {
-        throw new CustomError('CourtId and month are required', 400);
+      if (!courtId || !month || !branchId) {
+        throw new CustomError('CourtId, month and branchId are required', 400);
       }
 
-      const usageByDay = await statsService.getCourtUsageByDay(Number(courtId), new Date(month));
+      const usageByDay = await statsService.
+      getCourtUsageByDay(courtId === 'all' ? courtId : Number(courtId), new Date(month), branchId);
       ResponseHandler(res, usageByDay);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
@@ -51,13 +52,14 @@ const statsController = {
 
   getCourtUsageByHour: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { courtId, month } = req.body;
+      const { courtId, month, branchId } = req.body;
 
-      if (!courtId || !month) {
-        throw new CustomError('CourtId and month are required', 400);
+      if (!courtId || !month || !branchId) {
+        throw new CustomError('CourtId, month and branchId are required', 400);
       }
 
-      const usageByHour = await statsService.getCourtUsageByHour(Number(courtId), new Date(month));
+      const usageByHour = await statsService.
+      getCourtUsageByHour(courtId === 'all' ? courtId : Number(courtId), new Date(month), branchId);
       ResponseHandler(res, usageByHour);
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
