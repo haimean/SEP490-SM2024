@@ -1,19 +1,21 @@
+import { Collapse, Tooltip } from "@mui/material";
+import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 import Box from "@mui/material/Box";
+import CallApi from "../../service/CallAPI";
+import Divider from "@mui/material/Divider";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
-import { Link, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import CallApi from "../../service/CallAPI";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
-import { Collapse, Tooltip } from "@mui/material";
 import SplitscreenIcon from "@mui/icons-material/Splitscreen";
-import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import TurnedInNotIcon from "@mui/icons-material/TurnedInNot";
+
 export default function Sidebar() {
   const [listBranch, setListBranch] = useState([]);
   const { id } = useParams();
@@ -64,11 +66,11 @@ export default function Sidebar() {
             </ListItem>
           </Link>
           <Divider />
-          <Link to="/type-court-table">
+          <Link to="/host/type-court-table">
             <ListItem
               disablePadding
               className={
-                window.location.pathname == "/type-court-table" && "bg-[#ddd]"
+                window.location.pathname == "/host/type-court-table" && "bg-[#ddd]"
               }
             >
               <ListItemButton>
@@ -84,7 +86,7 @@ export default function Sidebar() {
             disablePadding
             className={
               window.location.pathname != "/host/dashboard" &&
-              window.location.pathname != "/type-court-table" &&
+              window.location.pathname != "/host/type-court-table" &&
               "bg-[#ddd]"
             }
           >

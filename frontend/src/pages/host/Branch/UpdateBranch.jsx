@@ -1,29 +1,27 @@
-import React, { useEffect, useState, useMemo, useCallback } from "react";
-import { Box, Button, Card, Grid } from "@mui/material";
-import { useForm } from "react-hook-form";
-import { useParams, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { Box, Button, Card, Grid } from '@mui/material';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import TextFieldCp from "../../../components/host/FormInput/TextFieldCp";
-import SelectCp from "../../../components/host/FormInput/SelectCp";
-import CustomSelectCp from "../../../components/host/FormInput/CustomSelectCp";
-import FileUploadCp from "../../../components/host/FormInput/FileUploadCp";
-import SectionCp from "../../../components/host/FormInput/SectionCp";
-
-import CallApi from "../../../service/CallAPI";
-import TimePickerCp from "../../../components/host/FormInput/TimePickerCp";
-import TimePickerPreviewCp from "./../../../components/host/FormInput/TimePickerPreviewCp";
-import TelCp from "../../../components/host/FormInput/TelCp";
-import EmailCp from "../../../components/host/FormInput/EmailCp";
-import BaseBox from "../../common/BaseBox";
-import EditorInput from "../../../components/host/FormInput/Editor";
+import BaseBox from '../../common/BaseBox';
+import CallApi from '../../../service/CallAPI';
+import CustomSelectCp from '../../../components/host/FormInput/CustomSelectCp';
+import EditorInput from '../../../components/host/FormInput/Editor';
+import EmailCp from '../../../components/host/FormInput/EmailCp';
+import FileUploadCp from '../../../components/host/FormInput/FileUploadCp';
+import SectionCp from '../../../components/host/FormInput/SectionCp';
+import SelectCp from '../../../components/host/FormInput/SelectCp';
+import TelCp from '../../../components/host/FormInput/TelCp';
+import TextFieldCp from '../../../components/host/FormInput/TextFieldCp';
+import TimePickerCp from '../../../components/host/FormInput/TimePickerCp';
+import TimePickerPreviewCp from './../../../components/host/FormInput/TimePickerPreviewCp';
+import { toast } from 'react-toastify';
+import { useForm } from 'react-hook-form';
 
 const UpdateBranch = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const {
     control,
-    reset,
     handleSubmit,
     setValue,
     formState: { errors },
@@ -34,12 +32,12 @@ const UpdateBranch = () => {
   useEffect(() => {
     const fetchBranchAtbList = async () => {
       try {
-        const response = await CallApi(`/api/host/attribute-branches`, "get");
+        const response = await CallApi(`/api/host/attribute-branches`, 'get');
         setBranchAtbList(response?.data);
       } catch (error) {
         console.log(
-          "=============== fetch branch attribute ERROR: " +
-            error.response?.data?.error
+          '=============== fetch branch attribute ERROR: ' +
+            error.response?.data?.error,
         );
       }
     };
@@ -50,40 +48,40 @@ const UpdateBranch = () => {
   useEffect(() => {
     const fetchBranch = async () => {
       try {
-        const response = await CallApi(`/api/host/branches/${id}`, "get");
-        setValue("branchName", response?.data?.name);
-        setValue("description", response?.data?.description);
-        setValue("phone", response?.data?.phone);
-        setValue("email", response?.data?.email);
-        setValue("image", response?.data?.image);
-        setValue("managerName", response?.data?.account?.user?.fullName);
-        setValue("provinces", response?.data?.address?.provinces);
-        setValue("districts", response?.data?.address?.districts);
-        setValue("wards", response?.data?.address?.wards);
-        setValue("detail", response?.data?.address?.detail);
-        setValue("businessLicense", response?.data?.businessLicense);
-        setValue("openingHours", response?.data?.openingHours);
-        setValue("closingHours", response?.data?.closingHours);
+        const response = await CallApi(`/api/host/branches/${id}`, 'get');
+        setValue('branchName', response?.data?.name);
+        setValue('description', response?.data?.description);
+        setValue('phone', response?.data?.phone);
+        setValue('email', response?.data?.email);
+        setValue('image', response?.data?.image);
+        setValue('managerName', response?.data?.account?.user?.fullName);
+        setValue('provinces', response?.data?.address?.provinces);
+        setValue('districts', response?.data?.address?.districts);
+        setValue('wards', response?.data?.address?.wards);
+        setValue('detail', response?.data?.address?.detail);
+        setValue('businessLicense', response?.data?.businessLicense);
+        setValue('openingHours', response?.data?.openingHours);
+        setValue('closingHours', response?.data?.closingHours);
         response?.data?.attributeBranches.forEach((atb) => {
           const matchingAttribute = branchAtbList.find(
-            (item) => item.id === atb.attributeKeyBranchesId
+            (item) => item.id === atb.attributeKeyBranchesId,
           );
           if (matchingAttribute) {
             const matchingValue = matchingAttribute.attributeBranches.find(
-              (attr) => attr.value === atb.value
+              (attr) => attr.value === atb.value,
             );
             if (matchingValue) {
               setValue(
                 `attributeBranches[${atb.attributeKeyBranchesId}]`,
-                matchingValue.id
+                matchingValue.id,
               );
             }
           }
         });
       } catch (error) {
         console.log(
-          "=============== fetch branch attribute ERROR: " +
-            error.response?.data?.error
+          '=============== fetch branch attribute ERROR: ' +
+            error.response?.data?.error,
         );
       }
     };
@@ -97,9 +95,9 @@ const UpdateBranch = () => {
     };
     try {
       const response = await CallApi(
-        "/api/host/attribute-branches",
-        "post",
-        requestData
+        '/api/host/attribute-branches',
+        'post',
+        requestData,
       );
       toast.success(`Tạo ${response?.data?.value} thành công!`);
 
@@ -113,8 +111,8 @@ const UpdateBranch = () => {
                   { id: response.data.id, value: response.data.value },
                 ],
               }
-            : item
-        )
+            : item,
+        ),
       );
 
       return { id: response.data.id, value: response.data.value };
@@ -127,23 +125,23 @@ const UpdateBranch = () => {
   const onSubmit = async (data) => {
     const formData = new FormData();
     try {
-      formData.append("name", data.branchName);
-      formData.append("description", data.description);
-      formData.append("phone", data.phone);
-      formData.append("openingHours", data.openingHours);
-      formData.append("closingHours", data.closingHours);
+      formData.append('name', data.branchName);
+      formData.append('description', data.description);
+      formData.append('phone', data.phone);
+      formData.append('openingHours', data.openingHours);
+      formData.append('closingHours', data.closingHours);
 
       data.attributeBranches.forEach((item) => {
-        if (item !== "") {
+        if (item !== '') {
           formData.append(`attributeBranches`, item);
         }
       });
 
-      if (typeof data.image !== "string") {
-        formData.append("image", data.image);
+      if (typeof data.image !== 'string') {
+        formData.append('image', data.image);
       }
 
-      await CallApi(`/api/host/branches/${id}`, "put", formData);
+      await CallApi(`/api/host/branches/${id}`, 'put', formData);
       navigate(`/host/branch/${id}`);
       setTimeout(() => {
         window.location.reload();
@@ -151,7 +149,7 @@ const UpdateBranch = () => {
       toast.success(`Cập nhật cơ sở ${data.branchName} thành công!`);
     } catch (error) {
       toast.error(
-        error.response?.data?.error || "Có lỗi xảy ra khi cập nhật cơ sở"
+        error.response?.data?.error || 'Có lỗi xảy ra khi cập nhật cơ sở',
       );
     }
   };
@@ -162,10 +160,10 @@ const UpdateBranch = () => {
         name: `attributeBranches[${item.id}]`,
         key: item.id,
         label: item.name,
-        type: "select-custom",
+        type: 'select-custom',
         required: false,
         options: [
-          { key: "", label: "Chọn giá trị" },
+          { key: '', label: 'Chọn giá trị' },
           ...item.attributeBranches.map((itemChildren) => ({
             key: itemChildren.id,
             label: itemChildren.value,
@@ -174,65 +172,65 @@ const UpdateBranch = () => {
         gridWidth: 6,
         onCustomInput: (data) => addNewAttributeValue({ ...data, id: item.id }),
       })),
-    [branchAtbList, addNewAttributeValue]
+    [branchAtbList, addNewAttributeValue],
   );
 
   const contactInfo = [
     {
-      name: "branchContact",
-      label: "Thông tin liên hệ cơ sở",
-      type: "section",
+      name: 'branchContact',
+      label: 'Thông tin liên hệ cơ sở',
+      type: 'section',
       required: true,
     },
     {
-      name: "phone",
-      label: "Số điện thoại liên hệ",
-      type: "tel",
+      name: 'phone',
+      label: 'Số điện thoại liên hệ',
+      type: 'tel',
       required: true,
       gridWidth: 6,
     },
     {
-      name: "email",
-      label: "Địa chỉ email liên hệ",
-      type: "email",
+      name: 'email',
+      label: 'Địa chỉ email liên hệ',
+      type: 'email',
       required: true,
       gridWidth: 6,
     },
   ];
 
   const avt = {
-    name: "image",
-    type: "image",
-    label: "Ảnh cơ sở",
+    name: 'image',
+    type: 'image',
+    label: 'Ảnh cơ sở',
     required: true,
     gridWidth: 12,
   };
 
   const branchName = {
-    name: "branchName",
-    label: "Tên cơ sở",
-    type: "text",
+    name: 'branchName',
+    label: 'Tên cơ sở',
+    type: 'text',
     required: true,
     gridWidth: 12,
   };
   const activityInfo = [
     {
-      name: "branchWork",
-      label: "Giờ hoạt động",
-      type: "section",
+      name: 'branchWork',
+      label: 'Giờ hoạt động',
+      type: 'section',
       required: true,
     },
     {
-      name: "openingHours",
-      label: "Giờ mở cửa",
-      type: "timepickerpreview",
+      name: 'openingHours',
+      label: 'Giờ mở cửa',
+      type: 'timepickerpreview',
       required: true,
       gridWidth: 6,
     },
     {
-      name: "closingHours",
-      label: "Giờ đóng cửa",
-      type: "timepickerpreview",
+      name: 'closingHours',
+      label: 'Giờ đóng cửa',
+      type: 'timepickerpreview',
       required: true,
       gridWidth: 6,
     },
@@ -241,39 +239,39 @@ const UpdateBranch = () => {
   //Thông tin thêm
   const additionInfo = [
     {
-      name: "additionInfo",
-      label: "Thông tin thêm",
-      type: "section",
+      name: 'additionInfo',
+      label: 'Thông tin thêm',
+      type: 'section',
       required: true,
     },
     ...serviceOptions,
   ];
   const description = {
-    name: "description",
-    label: "Mô tả",
-    type: "editor",
+    name: 'description',
+    label: 'Mô tả',
+    type: 'editor',
     required: true,
     gridWidth: 12,
   };
   const descriptionTitle = {
-    name: "descriptionTitle",
-    label: "Mô tả thêm",
-    type: "section",
+    name: 'descriptionTitle',
+    label: 'Mô tả thêm',
+    type: 'section',
     required: true,
     gridWidth: 12,
   };
   const renderField = (field) => {
     switch (field.type) {
-      case "text":
-      case "number":
+      case 'text':
+      case 'number':
         return <TextFieldCp field={field} control={control} errors={errors} />;
-      case "tel":
+      case 'tel':
         return <TelCp field={field} control={control} errors={errors} />;
-      case "email":
+      case 'email':
         return <EmailCp field={field} control={control} errors={errors} />;
-      case "select":
+      case 'select':
         return <SelectCp field={field} control={control} errors={errors} />;
-      case "select-custom":
+      case 'select-custom':
         return (
           <CustomSelectCp
             field={field}
@@ -282,13 +280,13 @@ const UpdateBranch = () => {
             setValue={setValue}
           />
         );
-      case "image":
+      case 'image':
         return <FileUploadCp field={field} control={control} errors={errors} />;
-      case "section":
+      case 'section':
         return <SectionCp field={field} />;
-      case "timepicker":
+      case 'timepicker':
         return <TimePickerCp field={field} control={control} errors={errors} />;
-      case "timepickerpreview":
+      case 'timepickerpreview':
         return (
           <TimePickerPreviewCp
             field={field}
@@ -296,7 +294,7 @@ const UpdateBranch = () => {
             errors={errors}
           />
         );
-      case "editor":
+      case 'editor':
         return <EditorInput field={field} control={control} errors={errors} />;
       default:
         return null;
@@ -307,8 +305,8 @@ const UpdateBranch = () => {
     <BaseBox title="Sửa thông tin cơ sở">
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
         {/* ảnh và thông tin chung */}
-        <Grid container spacing={2} alignItems={"center"}>
-          <Grid item xs={6} justifyContent={"center"}>
+        <Grid container spacing={2} alignItems={'center'}>
+          <Grid item xs={6} justifyContent={'center'}>
             <Grid
               item
               sm={12}
@@ -362,14 +360,14 @@ const UpdateBranch = () => {
                   className="p-2"
                 >
                   {activityInfo.map((activity) =>
-                    activity.name == "branchWork" ? (
+                    activity.name == 'branchWork' ? (
                       <Grid
                         container
                         item
                         sm={12}
                         md={12}
                         key={`${activity.name}-${JSON.stringify(
-                          activity.options
+                          activity.options,
                         )}`}
                       >
                         {renderField(activity)}
@@ -381,12 +379,12 @@ const UpdateBranch = () => {
                         sm={6}
                         md={6}
                         key={`${activity.name}-${JSON.stringify(
-                          activity.options
+                          activity.options,
                         )}`}
                       >
                         {renderField(activity)}
                       </Grid>
-                    )
+                    ),
                   )}
                 </Grid>
               </Card>
@@ -399,7 +397,7 @@ const UpdateBranch = () => {
           <Card variant="outlined" className="w-full p-3 pt-1">
             <Grid item sm={12} md={12} container spacing={2}>
               {additionInfo.map((business) =>
-                business.name == "additionInfo" ? (
+                business.name == 'additionInfo' ? (
                   <Grid
                     container
                     item
@@ -419,7 +417,7 @@ const UpdateBranch = () => {
                   >
                     {renderField(business)}
                   </Grid>
-                )
+                ),
               )}
             </Grid>
           </Card>
@@ -433,7 +431,7 @@ const UpdateBranch = () => {
             sm={12}
             md={12}
             key={`${descriptionTitle.name}-${JSON.stringify(
-              descriptionTitle.options
+              descriptionTitle.options,
             )}`}
           >
             {renderField(descriptionTitle)}
@@ -448,7 +446,7 @@ const UpdateBranch = () => {
             {renderField(description)}
           </Grid>
         </Grid>
-        <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end" }}>
+        <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
           <Button type="submit" variant="contained" color="primary">
             Lưu thông tin
           </Button>

@@ -1,4 +1,4 @@
-import Navbar from "../player/NavbarUser";
+/* eslint-disable react/prop-types */
 import Sidebar from "./Sidebar";
 import Footer from "../player/Footer";
 import { Box } from "@mui/material";

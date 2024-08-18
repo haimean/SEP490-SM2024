@@ -1,35 +1,39 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+
 import {
+  Button,
   Grid,
-  Paper,
   List,
-  ListSubheader,
   ListItemButton,
   ListItemText,
+  ListSubheader,
+  Paper,
   Tooltip,
   Zoom,
-  Button,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+import BookingHostModal from "./Booking/BookingHostModal";
 import CallApi from "../../service/CallAPI";
-import BookingModal from "./Booking/BookingModal";
+import { Link } from "react-router-dom";
 import UpdateCourt from "../../pages/host/Court/UpdateCourt";
 
 const RightSectionHost = ({ id, type, court1 }) => {
   const [court, setCourt] = useState([]);
+  const [courts, setCourts] = useState([]);
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
 
   useEffect(() => {
     const getAllCourt = async () => {
       try {
-        const result = await CallApi(
-          type === "Branch"
-            ? `/api/host/court/branch/${id}`
-            : `/api/host/court/${court1?.id}`,
-          "get"
-        );
-        setCourt(result?.data);
+        if (type === "Branch") {
+          const result = await CallApi(`/api/host/court/branch/${id}`, "get");
+          setCourts(result?.data);
+          setCourt(result?.data[0]);
+        } else {
+          const result = await CallApi(`/api/host/court/${court1?.id}`, "get");
+          setCourt(result?.data);
+        }
       } catch (error) {
         console.log("🚀 ========= error:", error);
       }
@@ -61,6 +65,7 @@ const RightSectionHost = ({ id, type, court1 }) => {
   };
 
   const handleOpenCalendarModal = () => {
+    // TODO: check xem là type nào nếu branch thì sửa
     setIsCalendarModalOpen(true);
   };
 
@@ -86,7 +91,7 @@ const RightSectionHost = ({ id, type, court1 }) => {
                 Sửa cơ sở
               </Button>
             </Link>
-            <Link to={`/court/${id}`} style={{ textDecoration: "none" }}>
+            <Link to={`/host/court/${id}`} style={{ textDecoration: "none" }}>
               <Button
                 variant="contained"
                 color="primary"
@@ -96,20 +101,15 @@ const RightSectionHost = ({ id, type, court1 }) => {
                 Danh sách sân đấu
               </Button>
             </Link>
-            <Link
-              to={`/host/booking-history/${id}`}
-              style={{ textDecoration: "none" }}
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={handleOpenCalendarModal}
+              sx={{ mb: 2 }}
             >
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                sx={{ mb: 2 }}
-              >
-                Lịch sử đặt sân
-              </Button>
-            </Link>
-            s
+              Lịch sử đặt sân
+            </Button>
           </>
         )}
         {type === "courtDetail" && (
@@ -134,39 +134,40 @@ const RightSectionHost = ({ id, type, court1 }) => {
             </Button>
           </>
         )}
-        <List
-          sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-          component="nav"
-          aria-labelledby="nested-list-subheader"
-          subheader={
-            <ListSubheader component="div" id="nested-list-subheader">
-              Danh sách sân
-            </ListSubheader>
-          }
-        >
-          {type === "Branch"
-            ? court?.map((item) => (
-                <Link key={item?.id} to={`/branch/${id}/court/${item?.id}`}>
-                  <CustomTooltip title={longText}>
-                    <ListItemButton>
-                      <img
-                        src="https://bizweb.dktcdn.net/100/352/498/products/sancaulong105langha1.jpg?v=1716193376243"
-                        width={50}
-                        height={50}
-                        alt={item?.name}
-                      />
-                      <ListItemText primary={item?.name} />
-                    </ListItemButton>
-                  </CustomTooltip>
-                </Link>
-              ))
-            : ""}
-        </List>
+        {type === "Branch" ? (
+          <List
+            sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+            component="nav"
+            aria-labelledby="nested-list-subheader"
+            subheader={
+              <ListSubheader component="div" id="nested-list-subheader">
+                Danh sách sân
+              </ListSubheader>
+            }
+          >
+            {courts?.map((item) => (
+              <Link key={item?.id} to={`/host/branch/${id}/court/${item?.id}`}>
+                <CustomTooltip title={longText}>
+                  <ListItemButton>
+                    <img
+                      src="https://bizweb.dktcdn.net/100/352/498/products/sancaulong105langha1.jpg?v=1716193376243"
+                      width={50}
+                      height={50}
+                      alt={item?.name}
+                    />
+                    <ListItemText primary={item?.name} />
+                  </ListItemButton>
+                </CustomTooltip>
+              </Link>
+            ))}
+          </List>
+        ) : (
+          ""
+        )}
       </Paper>
-      <BookingModal
+      <BookingHostModal
         open={isCalendarModalOpen}
         onClose={handleCloseCalendarModal}
-        courtId={court1?.id}
         court={court}
       />
       {updateCourtModal && (

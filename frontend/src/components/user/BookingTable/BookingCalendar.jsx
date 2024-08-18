@@ -453,6 +453,8 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
         isOpen={isPriceModalOpen}
         onRequestClose={handleClosePriceModal}
         priceLists={priceLists}
+        openHour={openHour}
+        closeHour={closeHour}
       />
       <ConfirmBookingModal
         isOpen={isBookingModalOpen}

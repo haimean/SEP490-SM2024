@@ -1,22 +1,23 @@
-import { useEffect, useState } from "react";
-import { keyframes } from "@mui/system";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import MoreIcon from "@mui/icons-material/MoreVert";
-import { Button, Container } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clearUser } from "../../middleware/redux/userSlice.jsx";
+import { useEffect, useState } from "react";
+
 import AccountPopover from "../admin/dashboard/common/account-popover.jsx";
-import LoginModal from "../../components/auth/LoginModal.jsx";
-import Notification from "../Notification.jsx";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import { Button } from "@mui/material";
 import CallApi from "../../service/CallAPI.jsx";
+import IconButton from "@mui/material/IconButton";
+import LoginModal from "../../components/auth/LoginModal.jsx";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import MoreIcon from "@mui/icons-material/MoreVert";
 import NavbarItemHost from "./NavbarItemHost.jsx";
+import Notification from "../Notification.jsx";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { clearUser } from "../../middleware/redux/userSlice.jsx";
+import { keyframes } from "@mui/system";
 
 const MENU_OPTIONS_USER = [
   {
@@ -87,6 +88,7 @@ export default function NavbarHost() {
     dispatch(clearUser());
     localStorage.removeItem("accessToken");
     localStorage.removeItem("userRole");
+    console.log("chet mia");
     navigate("/");
   };
   const handleMenuItemClick = (link) => {

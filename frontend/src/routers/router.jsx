@@ -1,45 +1,46 @@
-import ForgotPassword from "../pages/auth/ForgotPassword/ForgotPassword.jsx";
-import Login from "../pages/auth/Login/Login.jsx";
-import SignUpFormPlayer from "../pages/auth/RegisterUser/SignUp.jsx";
-import SignUpFormHost from "../pages/auth/RegisterHost/SignUp.jsx";
-import ListAttributeBranch from "../pages/admin/AttributeBranch/ListAttributeBranch.jsx";
-import DetailAttributeBranch from "../pages/admin/AttributeBranch/DetailAttributeBranch.jsx";
-import ListAttributeCourt from "../pages/admin/AttributeCourt/ListAttributeCourt.jsx";
-import DetailAttributeCourt from "../pages/admin/AttributeCourt/DetailAttributeCourt.jsx";
-import LandingPage from "../pages/common/LandingPage.jsx";
-import Profile from "../pages/common/Profile.jsx";
-import ChangePasswordPage from "../pages/auth/changePassword/ChangePasswordPage.jsx";
-import ListAccount from "../pages/admin/ListAccount/ListAccount.jsx";
-import NotFound from "../pages/common/NotFound/NotFound.jsx";
-import Dashboard from "../pages/admin/Dashboard/Dashboard.jsx";
-import CreateBranch from "../pages/host/Branch/CreateBranch.jsx";
-import Checkout from "../pages/player/Court/Checkout.jsx";
-import UpdateCourt from "../pages/host/Court/UpdateCourt.jsx";
-import ComparePage from "../components/host/court/ComparePage.jsx";
-import BookingHistory from "../pages/player/BookHistory/BookingHistory.jsx";
-import BookingDetail from "../components/player/BookHistory/BookingDetail.jsx";
-import ListBranch from "../pages/guest/Branch/ListBranch.jsx";
-import BranchDetail from "../pages/guest/Branch/BranchDetail.jsx";
-import ListCourt from "../pages/guest/Court/ListCourt.jsx";
-import CourtDetail from "../pages/guest/Court/CourtDetail.jsx";
-import UpdateBranch from "../pages/host/Branch/UpdateBranch.jsx";
-import BookingTablePage from "../pages/user/BookingTable/BookingTable.jsx";
-import AvailableCourtPage from "../pages/user/AvailableCourt/AvailableCourt.jsx";
 import AcceptBranch from "../components/admin/AcceptBranch/AcceptBranch.jsx";
-import PostDetail from "../pages/user/PostDetail/PostDetail.jsx";
+import AvailableCourtPage from "../pages/user/AvailableCourt/AvailableCourt.jsx";
 import BookedCourts from "../pages/user/ViewListBooked/BookedCourtsTable.jsx";
-import BranchListPage from "../pages/user/ViewListBranch/BranchListPage.jsx";
-import BranDetailUser from "../pages/user/BranchDetail/BranDetailUser.jsx";
-import BookingHistoryHost from "../pages/host/BranchBookHistory/BookingHistoryHost.jsx";
+import BookingDetail from "../components/player/BookHistory/BookingDetail.jsx";
 import BookingDetailHost from "../components/host/BranchBookHistory/BookingDetailHost.jsx";
-import ListBranchAdmin from "../pages/admin/Branch/ListBranchAdmin.jsx";
-import ListBlog from "../pages/player/Blog/ListBlog.jsx";
+import BookingHistory from "../pages/player/BookHistory/BookingHistory.jsx";
+import BookingHistoryHost from "../pages/host/BranchBookHistory/BookingHistoryHost.jsx";
+import BookingTablePage from "../pages/user/BookingTable/BookingTable.jsx";
+import BranDetailUser from "../pages/user/BranchDetail/BranDetailUser.jsx";
+import BranchDetail from "../pages/guest/Branch/BranchDetail.jsx";
+import BranchListPage from "../pages/user/ViewListBranch/BranchListPage.jsx";
+import ChangePasswordPage from "../pages/auth/changePassword/ChangePasswordPage.jsx";
+import Checkout from "../pages/player/Court/Checkout.jsx";
+import ComparePage from "../components/host/court/ComparePage.jsx";
+import CourtDetail from "../pages/guest/Court/CourtDetail.jsx";
+import CourtDetailHost from "../pages/host/Court/CourtDetailHost.jsx";
+import CreateBranch from "../pages/host/Branch/CreateBranch.jsx";
+import Dashboard from "../pages/admin/Dashboard/Dashboard.jsx";
 import DashboardHost from "../pages/host/Dashboard/DashboardHost.jsx";
-import PriceSetupPage from "../components/host/court/PriceSetupPage.jsx";
+import DetailAttributeBranch from "../pages/admin/AttributeBranch/DetailAttributeBranch.jsx";
+import DetailAttributeCourt from "../pages/admin/AttributeCourt/DetailAttributeCourt.jsx";
+import ForgotPassword from "../pages/auth/ForgotPassword/ForgotPassword.jsx";
+import LandingPage from "../pages/common/LandingPage.jsx";
+import ListAccount from "../pages/admin/ListAccount/ListAccount.jsx";
+import ListAttributeBranch from "../pages/admin/AttributeBranch/ListAttributeBranch.jsx";
+import ListAttributeCourt from "../pages/admin/AttributeCourt/ListAttributeCourt.jsx";
+import ListBlog from "../pages/player/Blog/ListBlog.jsx";
+import ListBranch from "../pages/guest/Branch/ListBranch.jsx";
+import ListBranchAdmin from "../pages/admin/Branch/ListBranchAdmin.jsx";
+import ListCourt from "../pages/guest/Court/ListCourt.jsx";
 import ListReportBlog from "../pages/admin/ListReportBlog/ListReportBlog.jsx";
-import RequestListJoin from "../pages/user/RequestListJoin/RequestListJoin.jsx";
-import TypeCourtTable from "../components/host/typeCourt/TypeCourtTable.jsx";
+import Login from "../pages/auth/Login/Login.jsx";
+import NotFound from "../pages/common/NotFound/NotFound.jsx";
+import PostDetail from "../pages/user/PostDetail/PostDetail.jsx";
+import PriceSetupPage from "../components/host/court/PriceSetupPage.jsx";
 import PriceTypeCourtForm from "../components/host/typeCourt/PriceTypeCourtForm.jsx";
+import Profile from "../pages/common/Profile.jsx";
+import RequestListJoin from "../pages/user/RequestListJoin/RequestListJoin.jsx";
+import SignUpFormHost from "../pages/auth/RegisterHost/SignUp.jsx";
+import SignUpFormPlayer from "../pages/auth/RegisterUser/SignUp.jsx";
+import TypeCourtTable from "../components/host/typeCourt/TypeCourtTable.jsx";
+import UpdateBranch from "../pages/host/Branch/UpdateBranch.jsx";
+import UpdateCourt from "../pages/host/Court/UpdateCourt.jsx";
 
 const router = [
   {
@@ -197,11 +198,25 @@ const router = [
     layout: "host",
   },
   {
+    path: "/host/court/:id",
+    name: "Court List",
+    component: <ListCourt />,
+    role: ["HOST"],
+    layout: "host",
+  },
+  {
     path: "/branch/:idBranch/court/:idCourt",
     name: "Court Detail",
     component: <CourtDetail />,
-    role: [],
+    role: ["GUEST", "HOST", "USER"],
     layout: "",
+  },
+  {
+    path: "/host/branch/:idBranch/court/:idCourt",
+    name: "Court Detail",
+    component: <CourtDetailHost />,
+    role: ["HOST"],
+    layout: "host",
   },
   {
     path: "/player/checkout",
@@ -351,7 +366,7 @@ const router = [
     layout: "",
   },
   {
-    path: "/type-court-table",
+    path: "/host/type-court-table",
     name: "Type Court Table",
     component: <TypeCourtTable />,
     role: ["HOST"],

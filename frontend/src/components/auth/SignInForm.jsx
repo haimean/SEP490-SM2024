@@ -1,16 +1,18 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
-import { GoogleLogin } from "@react-oauth/google";
-import { useForm } from "react-hook-form";
-import { jwtDecode } from "jwt-decode";
-import { toast } from "react-toastify";
-import CallApi from "../../service/CallAPI.jsx";
-import { Link, useNavigate } from "react-router-dom";
-import VerifyAccountModal from "../auth/VerifyAccountModal.jsx";
-import { useDispatch } from "react-redux";
-import { setUser } from "../../middleware/redux/userSlice.jsx";
-import { Button, TextField } from "@mui/material";
-import PasswordInput from "../common/PasswordInput.jsx";
+
+import { Button, TextField } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+
+import CallApi from '../../service/CallAPI.jsx';
+import { GoogleLogin } from '@react-oauth/google';
+import PasswordInput from '../common/PasswordInput.jsx';
+import VerifyAccountModal from '../auth/VerifyAccountModal.jsx';
+import { jwtDecode } from 'jwt-decode';
+import { setUser } from '../../middleware/redux/userSlice.jsx';
+import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 
 const SignInForm = ({ isModal, onSuccess }) => {
   const {
@@ -20,38 +22,39 @@ const SignInForm = ({ isModal, onSuccess }) => {
   } = useForm();
   const navigate = useNavigate();
   const [showVerifyModal, setShowVerifyModal] = useState(false);
-  const [modalContent, setModalContent] = useState("");
+  const [modalContent, setModalContent] = useState('');
   const dispatch = useDispatch();
 
   const manageResponse = (response, email) => {
     const { token, role } = response.data;
     const accountId = response.data.id;
-    localStorage.setItem("accessToken", token);
-    localStorage.setItem("userRole", role); // Lưu vai trò người dùng
-    localStorage.setItem("accountId", accountId);
+    localStorage.setItem('accessToken', token);
+    localStorage.setItem('userRole', role); // Lưu vai trò người dùng
+    localStorage.setItem('accountId', accountId);
     dispatch(setUser({ user: email, role, accountId })); // Cập nhật thông tin người dùng vào Redux
     toast.success(`Đăng nhập thành công!`);
     if (!isModal) {
       // Kiểm tra nếu không phải modal thì mới chuyển hướng
-      console.log(role);
       switch (role) {
-        case "HOST":
-          navigate("/host/dashboard");
-          break;
-        case "ADMIN":
-          navigate("/admin/dashboard");
-          break;
-        case "USER":
-          navigate("/");
-          break;
+        case 'HOST':
+          navigate('/host/dashboard');
+          return;
+        // break;
+        case 'ADMIN':
+          navigate('/admin/dashboard');
+          return;
+        case 'USER':
+          console.log('chet mia');
+          navigate('/');
+          return;
       }
     } else {
       switch (role) {
-        case "HOST":
-          navigate("/host/dashboard");
+        case 'HOST':
+          navigate('/host/dashboard');
           break;
-        case "ADMIN":
-          navigate("/admin/dashboard");
+        case 'ADMIN':
+          navigate('/admin/dashboard');
           break;
         default:
           onSuccess();
@@ -63,17 +66,17 @@ const SignInForm = ({ isModal, onSuccess }) => {
     const { email, password } = data;
     try {
       const response = await CallApi(
-        "/api/auth/login",
-        "post",
+        '/api/auth/login',
+        'post',
         {
           email,
           password,
         },
-        {}
+        {},
       );
       if (!response.data.isVerified) {
         setModalContent(
-          "Tài khoản của bạn chưa được xác minh. Vui lòng kiểm tra email để xác minh tài khoản."
+          'Tài khoản của bạn chưa được xác minh. Vui lòng kiểm tra email để xác minh tài khoản.',
         );
         setShowVerifyModal(true);
         return;
@@ -87,39 +90,39 @@ const SignInForm = ({ isModal, onSuccess }) => {
   const handleGoogleLogin = async (credentialResponse) => {
     if (credentialResponse.credential) {
       const decodedToken = jwtDecode(credentialResponse.credential);
-      console.log("Google Login:", decodedToken);
+      console.log('Google Login:', decodedToken);
       const { email, name, picture } = decodedToken;
-      console.log("Email:", email);
-      console.log("Name:", name);
-      console.log("Avatar:", picture);
+      console.log('Email:', email);
+      console.log('Name:', name);
+      console.log('Avatar:', picture);
       try {
         const response = await CallApi(
-          "/api/auth/login-google",
-          "post",
+          '/api/auth/login-google',
+          'post',
           {
             email,
             name,
-            role: "USER",
+            role: 'USER',
           },
-          {}
+          {},
         );
         manageResponse(response, email);
       } catch (error) {
         toast.error(error.response?.data?.error);
       }
     } else {
-      console.log("No credential response");
+      console.log('No credential response');
     }
   };
 
   const handleGoogleLoginFailure = (error) => {
-    console.log("Đăng nhập bằng Google thất bại:", error);
-    toast.error("Đăng nhập bằng Google thất bại. Vui lòng thử lại.");
+    console.log('Đăng nhập bằng Google thất bại:', error);
+    toast.error('Đăng nhập bằng Google thất bại. Vui lòng thử lại.');
   };
 
   const handleCloseModal = () => {
     setShowVerifyModal(false);
-    setModalContent("");
+    setModalContent('');
   };
 
   return (
@@ -132,12 +135,12 @@ const SignInForm = ({ isModal, onSuccess }) => {
             id="email"
             fullWidth
             margin="normal"
-            {...register("email", {
-              required: "Không được bỏ trống trường này.",
+            {...register('email', {
+              required: 'Không được bỏ trống trường này.',
               pattern: {
                 value:
                   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                message: "Vui lòng nhập email hợp lệ.",
+                message: 'Vui lòng nhập email hợp lệ.',
               },
             })}
             error={!!errors.email}
@@ -152,7 +155,7 @@ const SignInForm = ({ isModal, onSuccess }) => {
               value:
                 /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/,
               message:
-                "Mật khẩu ít nhất phải chứa một chữ hoa, một chữ thường, một số và một ký tự đặc biệt",
+                'Mật khẩu ít nhất phải chứa một chữ hoa, một chữ thường, một số và một ký tự đặc biệt',
             }}
             required="Không được bỏ trống trường này."
             type="password"
