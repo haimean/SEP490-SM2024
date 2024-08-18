@@ -11,7 +11,7 @@ import CallApi from "../../../service/CallAPI";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import DialogInfo from "../../common/DialogInfo";
 import EventModal from "./EventModal";
-import PriceListModal from "../../user/BookingTable/PriceListModal";
+import PriceListModal from "../../common/PriceListModal";
 import enUS from "date-fns/locale/en-US";
 import { toast } from "react-toastify";
 
@@ -509,6 +509,8 @@ const CalendarModalComponent = ({ courtId }) => {
         isOpen={isPriceModalOpen}
         onRequestClose={handleClosePriceModal}
         priceLists={priceLists}
+        openHour={openHour}
+        closeHour={closeHour}
       />
       <DeleteConfirmationModal
         isOpen={isDeleteModalOpen}

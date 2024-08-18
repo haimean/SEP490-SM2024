@@ -1,12 +1,10 @@
 import AcceptBranch from "../components/admin/AcceptBranch/AcceptBranch.jsx";
 import AvailableCourtPage from "../pages/user/AvailableCourt/AvailableCourt.jsx";
 import BookedCourts from "../pages/user/ViewListBooked/BookedCourtsTable.jsx";
-import BookingCalendar from "../components/user/BookingTable/BookingCalendar.jsx";
 import BookingDetail from "../components/player/BookHistory/BookingDetail.jsx";
 import BookingDetailHost from "../components/host/BranchBookHistory/BookingDetailHost.jsx";
 import BookingHistory from "../pages/player/BookHistory/BookingHistory.jsx";
 import BookingHistoryHost from "../pages/host/BranchBookHistory/BookingHistoryHost.jsx";
-import BookingPage from "../pages/user/Booking/BookingPage.jsx";
 import BookingTablePage from "../pages/user/BookingTable/BookingTable.jsx";
 import BranDetailUser from "../pages/user/BranchDetail/BranDetailUser.jsx";
 import BranchDetail from "../pages/guest/Branch/BranchDetail.jsx";
@@ -40,7 +38,6 @@ import Profile from "../pages/common/Profile.jsx";
 import RequestListJoin from "../pages/user/RequestListJoin/RequestListJoin.jsx";
 import SignUpFormHost from "../pages/auth/RegisterHost/SignUp.jsx";
 import SignUpFormPlayer from "../pages/auth/RegisterUser/SignUp.jsx";
-import TestBookingPage from "../pages/user/Booking/TestBookingPage.jsx";
 import TypeCourtTable from "../components/host/typeCourt/TypeCourtTable.jsx";
 import UpdateBranch from "../pages/host/Branch/UpdateBranch.jsx";
 import UpdateCourt from "../pages/host/Court/UpdateCourt.jsx";
@@ -50,7 +47,7 @@ const router = [
     path: "/",
     name: "Landing Page",
     component: <LandingPage />,
-    role: [],
+    role: ["GUEST", "USER"],
     layout: "",
   },
   {
@@ -211,7 +208,7 @@ const router = [
     path: "/branch/:idBranch/court/:idCourt",
     name: "Court Detail",
     component: <CourtDetail />,
-    role: [],
+    role: ["GUEST", "HOST", "USER"],
     layout: "",
   },
   {
@@ -288,14 +285,14 @@ const router = [
     path: "/available-post",
     name: "Available Post",
     component: <AvailableCourtPage />,
-    role: [],
+    role: ["GUEST", "USER"],
     layout: "",
   },
   {
     path: "/post/:id",
     name: "Post Detail",
     component: <PostDetail />,
-    role: [],
+    role: ["GUEST", "USER"],
     layout: "",
   },
   {
@@ -309,35 +306,14 @@ const router = [
     path: "/search-courts",
     name: "Search Courts",
     component: <BranchListPage />,
-    role: [],
+    role: ["GUEST", "USER"],
     layout: "",
   },
   {
     path: "/user/branch/:id",
     name: "Branch Detail User",
     component: <BranDetailUser />,
-    // role: ["HOST", "USER", "ADMIN"],
-    layout: "",
-  },
-  {
-    path: "/booking-page",
-    name: "Booking Page",
-    component: <BookingPage />,
-    role: ["HOST"],
-    layout: "",
-  },
-  {
-    path: "/booking-test",
-    name: "Booking Page",
-    component: <TestBookingPage />,
-    role: ["HOST"],
-    layout: "",
-  },
-  {
-    path: "/booking-calendar",
-    name: "Booking Page",
-    component: <BookingCalendar />,
-    role: ["HOST"],
+    role: ["GUEST", "HOST", "USER", "ADMIN"],
     layout: "",
   },
   {
@@ -351,7 +327,7 @@ const router = [
     path: "/list-blog",
     name: "List Blog",
     component: <ListBlog />,
-    role: ["USER", "HOST"],
+    role: ["GUEST", "USER", "HOST"],
     layout: "",
   },
   {
