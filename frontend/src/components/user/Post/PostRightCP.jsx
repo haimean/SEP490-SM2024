@@ -73,6 +73,7 @@ const PostRightCP = ({ user, post, postId }) => {
   useEffect(() => {
     getListInvitation();
   }, [openWaitingList, openRequestList]);
+  //check xem ai la chu bai post
   const isOwner = Number(accountId) === post?.booking?.accountId;
   const requestJoin = async (id) => {
     if (isLogin) {
@@ -202,99 +203,111 @@ const PostRightCP = ({ user, post, postId }) => {
           >
             Số điện thoại: {user?.numberPhone}
           </Typography>
-          <div className="mt-4 flex justify-center space-x-2">
-            {isOwner ? (
-              <>
-                <Button
-                  variant="contained"
-                  onClick={handleOpenWaitingList}
-                  disabled={listJoin?.length == post?.numberMember}
-                >
-                  Mời người chơi
-                </Button>
-                {openWaitingList && (
-                  <WaitingListTable2
-                    open={openWaitingList}
-                    onClose={handleCloseWaitingList}
+          {hasTimePassed(post?.booking?.startTime) == true ? (
+            <div className="w-full flex justify-center">
+              <Button variant="contained" disabled>
+                Trận đấu đã và đang diễn ra
+              </Button>
+            </div>
+          ) : (
+            <div className="mt-4 flex justify-center space-x-2">
+              {isOwner ? (
+                <>
+                  <Button
+                    variant="contained"
+                    onClick={handleOpenWaitingList}
+                    disabled={listJoin?.length == post?.numberMember}
+                  >
+                    Mời người chơi
+                  </Button>
+                  {openWaitingList && (
+                    <WaitingListTable2
+                      open={openWaitingList}
+                      onClose={handleCloseWaitingList}
+                      postId={postId}
+                    />
+                  )}
+                  <Button
+                    variant="contained"
+                    onClick={handleOpenRequestList}
+                    disabled={listJoin?.length == post?.numberMember}
+                  >
+                    Xem danh sách chờ
+                  </Button>
+                  <RequestListTable2
+                    open={openRequestList}
+                    onClose={handleCloseRequestList}
                     postId={postId}
                   />
-                )}
-                <Button
-                  variant="contained"
-                  onClick={handleOpenRequestList}
-                  disabled={listJoin?.length == post?.numberMember}
-                >
-                  Xem danh sách chờ
-                </Button>
-                <RequestListTable2
-                  open={openRequestList}
-                  onClose={handleCloseRequestList}
-                  postId={postId}
-                />
-              </>
-            ) : (
-              <div className="w-full flex justify-center">
-                {detail?.status === "NEW" && detail?.type === "AVAILABLE" ? (
-                  <div className="w-full h-full flex justify-between items-center">
-                    <Button
-                      variant="contained"
-                      color="success"
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        handleAccept(detail?.id, "ACCEPT", "Chấp nhận");
-                      }}
-                    >
-                      Chấp nhận
-                    </Button>
+                </>
+              ) : (
+                <div className="w-full flex justify-center">
+                  {detail?.status === "NEW" && detail?.type === "AVAILABLE" ? (
+                    <div className="w-full h-full flex justify-between items-center">
+                      <Button
+                        variant="contained"
+                        color="success"
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          handleAccept(detail?.id, "ACCEPT", "Chấp nhận");
+                        }}
+                      >
+                        Chấp nhận
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="error"
+                        onClick={(event) => {
+                          console.log("🚀 ========= event:", event);
+                          event.stopPropagation();
+                          handleAccept(
+                            detail?.id,
+                            "NOACCEPT",
+                            "Không chấp nhận"
+                          );
+                        }}
+                      >
+                        Từ Chối
+                      </Button>
+                    </div>
+                  ) : detail?.status == "ACCEPT" ? (
                     <Button
                       variant="contained"
                       color="error"
-                      onClick={(event) => {
-                        console.log("🚀 ========= event:", event);
-                        event.stopPropagation();
-                        handleAccept(detail?.id, "NOACCEPT", "Không chấp nhận");
-                      }}
+                      onClick={() => handleOpenModal(detail?.id)}
                     >
-                      Từ Chối
+                      Hủy tham gia trận đấu
                     </Button>
-                  </div>
-                ) : detail?.status == "ACCEPT" ? (
-                  <Button
-                    variant="contained"
-                    color="error"
-                    onClick={() => handleOpenModal(detail?.id)}
-                  >
-                    Hủy tham gia trận đấu
-                  </Button>
-                ) : (
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => requestJoin(postId)}
-                    disabled={
-                      listJoin?.length == post?.numberMember ||
-                      detail?.status == "ACCEPT" ||
-                      detail?.status == "NEW" ||
-                      detail?.status == "CANCEL" ||
-                      detail?.status == "NOACCEPT"
-                    }
-                  >
-                    {detail?.status == "ACCEPT"
-                      ? "Đã tham gia trận đấu"
-                      : listJoin?.length == post?.numberMember
-                      ? "Sẫn đã đủ người"
-                      : detail?.status == "NEW"
-                      ? "Đã yêu cầu tham gia trận đấu"
-                      : detail?.status == "CANCEL"
-                      ? "Hủy trận đấu"
-                      : detail?.status == "NOACCEPT"
-                      ? "Từ chối trận đấu"
-                      : "Gửi lời mời tham gia"}
-                  </Button>
-                )}
-              </div>
-            )}
-          </div>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => requestJoin(postId)}
+                      disabled={
+                        listJoin?.length == post?.numberMember ||
+                        detail?.status == "ACCEPT" ||
+                        detail?.status == "NEW" ||
+                        detail?.status == "CANCEL" ||
+                        detail?.status == "NOACCEPT"
+                      }
+                    >
+                      {detail?.status == "ACCEPT"
+                        ? "Đã tham gia trận đấu"
+                        : listJoin?.length == post?.numberMember
+                        ? "Sẫn đã đủ người"
+                        : detail?.status == "NEW"
+                        ? "Đã yêu cầu tham gia trận đấu"
+                        : detail?.status == "CANCEL"
+                        ? "Hủy trận đấu"
+                        : detail?.status == "NOACCEPT"
+                        ? "Từ chối trận đấu"
+                        : "Gửi lời mời tham gia"}
+                    </Button>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
         </div>
         <div className="max-w-sm p-4 border rounded-lg shadow-lg mx-auto mt-4">
           <Typography className="mt-2">
