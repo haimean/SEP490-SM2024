@@ -123,10 +123,10 @@ const PostDetailCP = ({ post, postId }) => {
               Group,
               `Cần tuyển ${post?.numberMember} ${
                 post?.memberPost[0]?.genderPost == "MALE"
-                  ? "Nam"
+                  ? "nam"
                   : post?.memberPost[0]?.genderPost == "FEMALE"
-                  ? "Nữ"
-                  : "Khác"
+                  ? "nữ"
+                  : "người"
               }` || "Không có thông tin"
             )}
             {renderInfoItem(

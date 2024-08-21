@@ -313,7 +313,7 @@ const router = [
     path: "/user/branch/:id",
     name: "Branch Detail User",
     component: <BranDetailUser />,
-    role: ["GUEST", "HOST", "USER", "ADMIN"],
+    role: ["GUEST", "USER"],
     layout: "",
   },
   {
