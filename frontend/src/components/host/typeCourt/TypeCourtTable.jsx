@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -10,12 +9,14 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { useEffect, useState } from "react";
+
+import BaseBox from "../../../pages/common/BaseBox";
+import CallApi from "../../../service/CallAPI";
+import DialogInfo from "../../common/DialogInfo";
 import ImageModal from "./ImageModal";
 import NewTypeCourtModal from "./NewTypeCourtModal";
-import CallApi from "../../../service/CallAPI";
 import { toast } from "react-toastify";
-import DialogInfo from "../../common/DialogInfo";
-import BaseBox from "../../../pages/common/BaseBox";
 
 const TypeCourtTable = () => {
   const [typeCourts, setTypeCourts] = useState([]);
@@ -117,7 +118,7 @@ const TypeCourtTable = () => {
     await fetchTypeCourts();
   };
   return (
-    <BaseBox title="Quản Lý kiểu sân">
+    <BaseBox title="Quản lý kiểu sân">
       <Box className="flex justify-end items-center">
         <Button
           variant="contained"

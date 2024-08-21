@@ -1,10 +1,11 @@
 import { Button, Dialog, Rating } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
-import CallApi from "../../../service/CallAPI";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+
+import CallApi from "../../../service/CallAPI";
+import { DataGrid } from "@mui/x-data-grid";
 import ModalProfile from "../../common/ModalProfile";
 import { getRatingDescription } from "../../../utils/user/GetRatingDescription";
+import { toast } from "react-toastify";
 
 export default function WaitingListTable2({ open, onClose, postId }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,6 +21,7 @@ export default function WaitingListTable2({ open, onClose, postId }) {
           orderNumber: index + 1,
           id: item?.id,
           fullName: item?.account?.user?.fullName || "",
+          numberPhone: item?.account?.user?.numberPhone || "",
           level: getRatingDescription(item?.level),
           invitation: item?.Invitation,
           vote: item?.Invitation,
@@ -58,31 +60,13 @@ export default function WaitingListTable2({ open, onClose, postId }) {
       },
     },
     {
-      field: "level",
-      headerName: "Trình độ",
+      field: "numberPhone",
+      headerName: "Số điện thoại",
       width: 200,
-    },
-    {
-      field: "rate",
-      headerName: "Đánh giá",
-      width: 150,
       renderCell: (params) => {
-        console.log("🚀 ========= params:", params?.row);
-        return (
-          <div className="w-full h-full flex items-center">
-            <Rating value={params?.row?.rate} />
-          </div>
-        );
+        return <div>{params?.row?.numberPhone}</div>;
       },
     },
-    // {
-    //   field: "numberPhone",
-    //   headerName: "Số điện thoại",
-    //   width: 200,
-    //   renderCell: (params) => {
-    //     return <div>{params?.row?.numberPhone}</div>;
-    //   },
-    // },
     {
       field: "actions",
       headerName: "",
@@ -93,7 +77,6 @@ export default function WaitingListTable2({ open, onClose, postId }) {
           variant="contained"
           color="primary"
           onClick={(event) => {
-            console.log("🚀 ========= event:", event);
             event.stopPropagation();
             return sendInvitation(params.row.id);
           }}

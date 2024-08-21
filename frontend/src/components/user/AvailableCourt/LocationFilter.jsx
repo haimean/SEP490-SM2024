@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
-import { FormControl, Select, MenuItem, Box, TextField } from "@mui/material";
-import axios from "axios";
+import { Box, FormControl, MenuItem, Select, TextField } from "@mui/material";
+import { useEffect, useState } from "react";
+
 import PropTypes from "prop-types";
+import axios from "axios";
 
 const LocationFilter = ({ onFilterChange }) => {
   const [provinces, setProvinces] = useState([]);
@@ -241,7 +242,7 @@ const LocationFilter = ({ onFilterChange }) => {
       <FormControl className="w-48">
         <Select value={price} onChange={handlePriceChange} displayEmpty>
           <MenuItem value="">
-            <span>Giá</span>
+            <span>Phí giao lưu</span>
           </MenuItem>
           <MenuItem value="deal">Thỏa thuận</MenuItem>
           <MenuItem value="50000">Dưới 50,000</MenuItem>
