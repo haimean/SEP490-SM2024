@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Modal, Box, Button, Typography, TextField } from "@mui/material";
+import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
+import React, { useEffect, useState } from "react";
+import { format, isValid, parse } from "date-fns";
+
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { format, parse, isValid } from "date-fns";
-import dayjs from "dayjs";
 import DialogInfo from "../../common/DialogInfo";
+import dayjs from "dayjs";
 
 const EventModal = ({
   isOpen,
@@ -173,7 +174,7 @@ const EventModal = ({
             label="Giờ bắt đầu"
             value={dayjs(eventData.start)}
             onChange={(newValue) => handleTimeChange("start", newValue)}
-            slotProps={{ textField: { fullWidth: true }, }}
+            slotProps={{ textField: { fullWidth: true } }}
             readOnly
             className="!mt-4"
             renderInput={(params) => (
@@ -210,7 +211,7 @@ const EventModal = ({
         <TextField
           margin="normal"
           fullWidth
-          label="Giá *"
+          label="Thành tiền *"
           name="price"
           value={formatNumber(eventData.price)}
           onChange={handleChange}
@@ -244,12 +245,12 @@ const EventModal = ({
           </Button>
         </Box>
         {isOpenDialogInfo && (
-        <DialogInfo
-          handleClose={handleCloseDialogInfo}
-          open={isOpenDialogInfo}
-          title={titleDialog}
-        />
-      )}
+          <DialogInfo
+            handleClose={handleCloseDialogInfo}
+            open={isOpenDialogInfo}
+            title={titleDialog}
+          />
+        )}
       </Box>
     </Modal>
   );
