@@ -157,7 +157,7 @@ const Notification = () => {
           >
             <Link
               to={`${record.url}`}
-              className="underline-none"
+              className="underline-none mb-3"
               color="inherit"
             >
               {record.createAt}
