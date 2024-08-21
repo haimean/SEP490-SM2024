@@ -1,21 +1,19 @@
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
-import React, { useEffect, useState } from "react";
-import FormDetailCourt from "../../../components/host/court/FormDetailCourt";
-import CallApi from "../../../service/CallAPI";
-import { toast } from "react-toastify";
+
 import { Box, Dialog } from "@mui/material";
+import { useEffect, useState } from "react";
+
+import CallApi from "../../../service/CallAPI";
+import FormDetailCourt from "../../../components/host/court/FormDetailCourt";
+import { toast } from "react-toastify";
 
 export default function UpdateCourt({ id, open, handleClose }) {
   const [typeCourtList, setTypeCourtList] = useState([]);
   const [court, setCourt] = useState([]);
   const updateCourt = async (data) => {
     try {
-      const result = await CallApi(
-        "/api/host/court/create-court",
-        "post",
-        data
-      );
+      const result = await CallApi("/api/host/court/update-court", "put", data);
       toast.success("Cập nhật thành công !");
       console.log("🚀 ========= result:", result);
     } catch (error) {
