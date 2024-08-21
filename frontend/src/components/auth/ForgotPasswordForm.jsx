@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useForm } from "react-hook-form";
-import InputLabel from "../common/InputLabel.jsx";
+import { Button, TextField } from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
+
 import CallApi from "../../service/CallAPI.jsx";
+import InputLabel from "../common/InputLabel.jsx";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { TextField } from "@mui/material";
+import { useForm } from "react-hook-form";
 
 // EmailForm Component
 const EmailForm = ({ onSubmit }) => {
@@ -31,13 +33,14 @@ const EmailForm = ({ onSubmit }) => {
         error={!!errors.email}
         helperText={errors.email?.message}
       />
-      <button
+      <Button
         disabled={isSubmitting}
+        fullWidth
         type="submit"
-        className="mt-6 transition block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg"
+        variant="contained"
       >
         Kiểm tra email
-      </button>
+      </Button>
     </form>
   );
 };
@@ -79,22 +82,20 @@ const OTPForm = ({ onSubmit, otpTimer, otpExpired, handleResendOTP }) => {
             giây
           </span>
         )}
-        <button
-          type="button"
-          // className="text-indigo-600 hover:text-indigo-800"
-          className="text-black underline mt-2 hover:text-indigo-800"
-          onClick={handleResendOTP}
-        >
+
+        <Button variant="text" onClick={handleResendOTP}>
           Gửi lại OTP
-        </button>
+        </Button>
       </div>
-      <button
+      <Button
+        className="mt-6 transition block py-3 px-4 w-full "
+        variant="contained"
+        fullWidth
         disabled={isSubmitting}
         type="submit"
-        className="mt-6 transition block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg"
       >
         Xác nhận OTP
-      </button>
+      </Button>
     </form>
   );
 };
@@ -133,12 +134,9 @@ const ResetPasswordForm = ({ onSubmit }) => {
         required="Không được bỏ trống trường này."
         type="password"
       />
-      <button
-        type="submit"
-        className="mt-6 transition block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg"
-      >
+      <Button type="submit" variant="contained">
         Đặt lại mật khẩu
-      </button>
+      </Button>
     </form>
   );
 };
@@ -246,7 +244,7 @@ const ForgotPasswordForm = () => {
   }, []);
 
   return (
-    <div className="border-t-8 rounded-sm border-indigo-600 bg-white p-12 shadow-2xl w-96">
+    <div className="border-t-8 rounded-sm p-12 shadow-2xl w-96">
       <h1 className="font-bold text-center block text-2xl">Quên mật khẩu</h1>
       {!showOTPSection && !showResetPasswordSection && (
         <EmailForm onSubmit={handleSubmit} />
@@ -268,9 +266,7 @@ const ForgotPasswordForm = () => {
         }
       `}</style>
       <div className="mt-4 text-center">
-        <a href="/login" className="text-indigo-600 hover:text-indigo-800">
-          Quay về đăng nhập
-        </a>
+        <Link to="/login">Quay về đăng nhập</Link>
       </div>
     </div>
   );
