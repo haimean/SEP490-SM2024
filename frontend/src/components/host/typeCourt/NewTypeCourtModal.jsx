@@ -1,26 +1,29 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect, useMemo, useCallback } from "react";
+
 import {
   Box,
   Button,
-  Modal,
-  Typography,
-  IconButton,
-  TextField,
   Grid,
+  IconButton,
+  Modal,
+  TextField,
+  Typography,
 } from "@mui/material";
-import { Close } from "@mui/icons-material";
-import { useForm, Controller } from "react-hook-form";
-import { toast } from "react-toastify";
-import DialogInfo from "../../common/DialogInfo";
+import { Controller, useForm } from "react-hook-form";
+import { useCallback, useEffect, useMemo, useState } from "react";
+
 import AddIcon from "@mui/icons-material/Add";
 import CallApi from "../../../service/CallAPI";
+import { Close } from "@mui/icons-material";
 import CustomSelectCp from "../FormInput/CustomSelectCp";
-import SectionCp from "../FormInput/SectionCp";
+import DialogInfo from "../../common/DialogInfo";
 import PriceTypeCourtForm from "./PriceTypeCourtForm";
+import SectionCp from "../FormInput/SectionCp";
 import TimeLinePrice from "./TimeLinePrice";
-import dayjs from "dayjs";
 import TutorialUsing from "./TutorialUsing";
+import dayjs from "dayjs";
+import { toast } from "react-toastify";
+
 const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
   const {
     control,
@@ -565,13 +568,11 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
               md={12}
               sx={{
                 display: "flex",
-                justifyContent: "space-between",
+                justifyContent: "flex-end",
                 margin: "1rem",
               }}
             >
-              <Button variant="contained" onClick={handleOpenTutorial}>
-                Hướng dẫn sử dụng
-              </Button>
+              <Button onClick={handleOpenTutorial}>Hướng dẫn</Button>
               <Button
                 variant="contained"
                 onClick={() => {

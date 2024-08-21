@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+
 import {
   Button,
   Dialog,
@@ -16,34 +17,21 @@ export default function TutorialUsing({ open, handleClose }) {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">Bước 1</DialogTitle>
+      <DialogTitle id="alert-dialog-title">Thiết lập giá</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Số lần ở đây là số lần người chơi trong 1 lần đặt để nhận giá giao lưu
-          tưởng ứng với số lần chơi (Mạc định của kiểu sân là 1 vì tối thiểu đặt
-          sân chơi luôn là 1 lần, còn lần sau trở đi, bạn có thể đặt số lần mới
-          khác 1 để có thể cho người chơi có giá giao lưu khác khi không vượt
-          quá số lần cho phép)
-        </DialogContentText>
-      </DialogContent>
-      <DialogTitle id="alert-dialog-title">Bước 2</DialogTitle>
-      <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          Mốc thời gian 1 và 2 là mốc thời gian trong 1 ngày mốc thời gian từ
-          lần sau trờ đi sẽ tình từ mốc đầu tiên (0h tới môc tương khi nhâp lần
-          đầu) VD: bạn nhập 7h thì ta sẽ có mốc thời gian là 0 - 7h và 7h-24h
-          khi chọn thêm mốc thời gian thì chúng ta có thể tạo thêm mốc thời gian
-          cho việc tạo giá giao lưu
-        </DialogContentText>
-      </DialogContent>
-      <DialogTitle id="alert-dialog-title">Bước 3</DialogTitle>
-      <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          Tạo giá cho từng khoảng giờ
+          Hãy nhấn <span className="font-bold">Thêm mới bảng giá</span> để thiết
+          lập giá
+          <br />- Bạn có thể tạo ra chính sách giá cho người chơi dựa theo số ca
+          họ đặt trong 1 lần bằng cách nhập số ca ở{" "}
+          <span className="font-bold">bước 1</span> sau đó thiết lập thời gian
+          và giá tương ứng (thiệt lập giá cho số ca bằng 1 là bắt buộc)
+          <br />- Nếu sân bạn có mức giá theo các mốc thời gian hãy nhập mốc
+          thời gian này tại <span className="font-bold">bước 2</span>
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Xong</Button>
+        <Button onClick={handleClose}>Đã hiểu</Button>
       </DialogActions>
     </Dialog>
   );
