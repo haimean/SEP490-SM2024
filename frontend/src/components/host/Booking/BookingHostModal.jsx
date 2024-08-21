@@ -18,13 +18,12 @@ import CloseIcon from "@mui/icons-material/Close";
 
 const BookingHostModal = ({ open, onClose, court }) => {
   // Nhận được court
-  console.log(court?.branchesId);
   const [courts, setCourts] = useState([]);
   const [courtId, setCourtId] = useState([]);
 
   // call lấy list data court của beanch
   useEffect(() => {
-    setCourtId(court.id);
+    setCourtId(court?.id);
     const getAllCourt = async () => {
       try {
         const result = await CallApi(

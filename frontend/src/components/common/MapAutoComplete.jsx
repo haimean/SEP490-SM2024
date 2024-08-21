@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { OpenStreetMapProvider, GeoSearchControl } from "leaflet-geosearch";
 import "leaflet-geosearch/dist/geosearch.css";
-import axios from "axios";
+
+import { GeoSearchControl, OpenStreetMapProvider } from "leaflet-geosearch";
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import { useEffect, useState } from "react";
+
 import { Box } from "@mui/material";
+import axios from "axios";
 
 const removeAdministrativeTerms = (input) => {
-  if (!input) return "";
+  if (!input) return null;
   return input
     .replace(/(?:quận|huyện|xã|tỉnh|phường|thị trấn|thành phố)\s*/gi, "")
     .trim();
@@ -71,24 +73,25 @@ const MapAutoComplete = ({ onSubmit }) => {
               console.log("response.data.address", response.data.address);
 
               const normalized = {
-                commune: removeAdministrativeTerms(
-                  response.data.address.village ||
-                    response.data.address.residential ||
-                    response.data.address.quarter ||
-                    response.data.address.suburb ||
-                    "xã"
-                ), // Xã/Phường/Thị trấn
-                district: removeAdministrativeTerms(
-                  response.data.address.county ||
-                    response.data.address.city_district ||
-                    "huyện"
-                ), // Huyện/Quận
-                province: removeAdministrativeTerms(
-                  response.data.address.state ||
-                    response.data.address.city ||
-                    "tỉnh"
-                ), // Tỉnh/Thành phố
+                commune:
+                  removeAdministrativeTerms(
+                    response.data.address.village ||
+                      response.data.address.residential ||
+                      response.data.address.quarter ||
+                      response.data.address.neighbourhood
+                  ) || "Xã", // Xã/Phường/Thị trấn
+                district:
+                  removeAdministrativeTerms(
+                    response.data.address.county ||
+                      response.data.address.city_district ||
+                      response.data.address.suburb
+                  ) || "Huyện", // Huyện/Quận
+                province:
+                  removeAdministrativeTerms(
+                    response.data.address.state || response.data.address.city
+                  ) || "Tỉnh", // Tỉnh/Thành phố
               };
+
               console.log("normalized'", normalized);
 
               setDetails({
