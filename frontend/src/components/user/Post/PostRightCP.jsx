@@ -301,7 +301,7 @@ const PostRightCP = ({ user, post, postId }) => {
                         ? "Hủy trận đấu"
                         : detail?.status == "NOACCEPT"
                         ? "Từ chối trận đấu"
-                        : "Gửi lời mời tham gia"}
+                        : "Xin tham gia"}
                     </Button>
                   )}
                 </div>

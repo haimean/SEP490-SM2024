@@ -40,7 +40,6 @@ const BranchCard = ({ name, branchLocation, image, branch, onClick }) => {
   useEffect(() => {
     getLocation();
   }, []);
-  console.log("🚀 ========= branch:", branch);
   const distance = haversine(
     {
       latitude: branch?.address.latitude || "21.013393218627524",
@@ -80,7 +79,7 @@ const BranchCard = ({ name, branchLocation, image, branch, onClick }) => {
             {name}
           </Typography>
         </Tooltip>
-        <Stack direction="row" alignItems="center" spacing={1} className="my-1">
+        <Stack direction="row" alignItems="center" spacing={1}>
           <DirectionsRunIcon className="text-red-600" />
           <Typography component="h6" variant="h6">
             Vị trí cách bạn {distance ? distance.toFixed(2) : "~"} km
