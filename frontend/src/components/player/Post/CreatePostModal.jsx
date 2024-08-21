@@ -1,18 +1,20 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+
 import {
-  Button,
-  Modal,
   Box,
+  Button,
+  MenuItem,
+  Modal,
   TextField,
   Typography,
-  MenuItem,
 } from "@mui/material";
-import { useForm, Controller } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
+
 import CallApi from "../../../service/CallAPI";
+import { levelOptions } from "../../../utils/user/GetRatingDescription";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { levelOptions } from "../../../utils/user/GetRatingDescription";
+import { useState } from "react";
 
 const genderOptions = [
   { value: "MALE", label: "Nam" },
@@ -34,7 +36,7 @@ const CreatePostModal = ({ bookings }) => {
       numberMember: "",
       genderPost: "",
       level: "",
-      price: bookings?.price,
+      price: "",
     },
   });
   const navigate = useNavigate();
@@ -231,9 +233,6 @@ const CreatePostModal = ({ bookings }) => {
                   fullWidth
                   margin="normal"
                   error={!!errors.price}
-                  InputProps={{
-                    readOnly: true,
-                  }}
                   helperText={errors.price?.message}
                 />
               )}

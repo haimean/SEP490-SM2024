@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+
 import {
   Button,
   FormControl,
@@ -8,8 +9,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
+
+import { useEffect } from "react";
 
 export default function FormDetailCourt({
   onSubmit,
@@ -27,6 +29,7 @@ export default function FormDetailCourt({
 
   useEffect(() => {
     // Reset form values when `court` changes
+    console.log("typeCourtId", court?.typeCourtId);
     if (court) {
       reset({
         id: court?.id,
