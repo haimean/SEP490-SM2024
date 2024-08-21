@@ -24,7 +24,7 @@ export default function ModalReason({
     >
       <CardContent>
         <Typography variant="h6" color="text.secondary" gutterBottom>
-          Lý do từ chối (TODO)
+          Lý do từ chối
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <TextareaAutosize minRows={12} {...register("id")} hidden />
