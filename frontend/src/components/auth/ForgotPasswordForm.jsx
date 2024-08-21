@@ -39,7 +39,7 @@ const EmailForm = ({ onSubmit }) => {
         type="submit"
         variant="contained"
       >
-        Kiểm tra email
+        Xác nhận
       </Button>
     </form>
   );
