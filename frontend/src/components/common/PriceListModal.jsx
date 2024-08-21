@@ -117,7 +117,7 @@ const PriceListModal = ({ isOpen, onRequestClose, priceLists, openHour, closeHou
                       <TableRow key={index}>
                         <TableCell>{format(new Date(item.start), 'HH:mm')}</TableCell>
                         <TableCell>{format(new Date(item.end), 'HH:mm')}</TableCell>
-                        <TableCell>{formatPrice(item.price)}/1h</TableCell>
+                        <TableCell>{formatPrice(item.price)}/h</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
