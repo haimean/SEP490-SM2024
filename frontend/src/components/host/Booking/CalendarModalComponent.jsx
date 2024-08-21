@@ -379,15 +379,6 @@ const CalendarModalComponent = ({ courtId }) => {
 
   const slotPropGetter = (date) => {
     const hours = date.getHours();
-    if (hours === 0) {
-      return {
-        style: {
-          backgroundColor: "lightgray",
-          pointerEvents: "none",
-          cursor: "not-allowed",
-        },
-      };
-    }
     return {};
   };
 

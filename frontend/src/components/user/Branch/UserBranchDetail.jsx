@@ -82,6 +82,9 @@ const UserBranchDetail = ({
       </Grid>
       <Grid item xs={12} md={4}>
         <CardContent>
+        <Typography variant="h6" component="div" gutterBottom>
+            Thông tin liên hệ:
+          </Typography>
           <Typography variant="h6" component="div" gutterBottom>
             <AccountBox style={{ marginRight: "8px" }} />
             {branch?.account?.user?.fullName}
