@@ -86,14 +86,44 @@ const BookingDetailHost = () => {
     <Box
       sx={{
         margin: "auto",
-        mt: { xs: 1, sm: 2, md: 2 },
+        mt: { xs: 8, sm: 8, md: 16 },
         px: { xs: 2, sm: 3, md: 4 },
         maxWidth: { sm: "720px", md: "1170px" },
       }}
     >
-      <Typography variant="h6">Chi tiết đặt sân {booking?.id}</Typography>
+      <Typography variant="h6">Chi tiết đặt sân</Typography>
       <Paper elevation={3} sx={{ p: 3 }}>
         <Grid container spacing={3}>
+        {booking?.Court && (
+            <Grid item xs={12} md={6}>
+              <Typography variant="h6">Thông tin sân</Typography>
+              <Typography>Tên sân: {""}
+                <Link
+                  to={`/host/branch/${booking?.Court?.Branches?.id}/court/${booking?.Court?.id}`}
+                  style={{ textDecoration: "underline", color: "#1976d2", fontWeight: "bold" }}
+                >
+                  {booking?.Court?.name}
+                </Link>
+              </Typography>
+              <Typography>Cơ sở: {""}
+                <Link
+                  to={`/host/branch/${booking?.Court?.Branches?.id}`}
+                  style={{ textDecoration: "underline", color: "#1976d2", fontWeight: "bold" }}
+                >
+                  {booking?.Court?.Branches?.name}
+                </Link>
+              </Typography>
+            </Grid>
+          )}
+
+
+          <Grid item xs={12} md={6}>
+            <Typography variant="h6">Thông tin người đặt</Typography>
+            <Typography>Họ và tên: {booking?.bookingInfo?.name}</Typography>
+            <Typography>
+              Số điện thoại: {booking?.bookingInfo?.numberPhone}
+            </Typography>
+          </Grid>
           <Grid item xs={12} md={6}>
             <Typography variant="h6">Thông tin đặt sân</Typography>
             <Typography>
@@ -121,27 +151,12 @@ const BookingDetailHost = () => {
             />
           </Grid>
 
-          <Grid item xs={12} md={6}>
-            <Typography variant="h6">Thông tin người đặt</Typography>
-            <Typography>Họ và tên: {booking?.bookingInfo?.name}</Typography>
-            <Typography>
-              Số điện thoại: {booking?.bookingInfo?.numberPhone}
-            </Typography>
-          </Grid>
-
-          {booking?.Court && (
-            <Grid item xs={12}>
-              <Typography variant="h6">Thông tin sân</Typography>
-              <Typography>Tên sân: {booking?.Court?.name}</Typography>
-              <Typography>Cơ sở: {booking?.Court?.Branches?.name}</Typography>
-            </Grid>
-          )}
         </Grid>
 
         <Box
           sx={{ mt: 3, display: "flex", justifyContent: "flex-end", gap: 1 }}
         >
-          <Button
+          {/* <Button
             component={Link}
             to={`/host/booking-history/${branchId}`}
             variant="contained"
@@ -149,7 +164,7 @@ const BookingDetailHost = () => {
             size="small"
           >
             Quay lại
-          </Button>
+          </Button> */}
           {canCancel && (
             <Button
               onClick={handleOpenModal}

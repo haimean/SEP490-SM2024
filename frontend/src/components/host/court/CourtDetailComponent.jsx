@@ -11,13 +11,7 @@ import {
   Stack,
 } from "@mui/material";
 import {
-  LocationOn,
-  CalendarToday,
-  Repeat,
-  Group,
-  School,
-  AttachMoney,
-  Checklist,
+
   SportsBasketball,
 } from "@mui/icons-material";
 import RightSectionDetailPage from "../RightSectionDetailPage";
@@ -54,6 +48,13 @@ const CourtDetailComponent = ({
             <Typography variant="h4" gutterBottom>
               {title}
             </Typography>
+            <Typography variant="h5" gutterBottom>
+              Cơ sở: {court?.Branches?.name}
+            </Typography>
+            <Typography variant="h6" gutterBottom>
+              Mô tả
+            </Typography>
+            {description && renderInfoItem(SportsBasketball, description)}
             <Typography variant="h6" gutterBottom>
               Tiện ích:
             </Typography>
@@ -70,14 +71,14 @@ const CourtDetailComponent = ({
           </CardContent>
         </Card>
 
-        <Card sx={{ mb: 3 }}>
+        {/* <Card sx={{ mb: 3 }}>
           <CardContent>
             <Typography variant="h6" gutterBottom>
-              Mô tả thêm
+              Mô tả
             </Typography>
             {description && renderInfoItem(SportsBasketball, description)}
           </CardContent>
-        </Card>
+        </Card> */}
       </Grid>
       {role == "HOST" ? (
         <RightSectionHost id={id} type={type} court1={court}/>

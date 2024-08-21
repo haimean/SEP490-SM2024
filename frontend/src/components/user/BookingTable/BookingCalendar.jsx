@@ -427,7 +427,7 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
               </button>
             </div>
             <div className="text-center mb-2">
-              <p>Số lượng ca đã chọn: {selectedEvents.length}</p>
+              <p>Số ca đã chọn: {selectedEvents.length}</p>
             </div>
             <Calendar
               selectable
