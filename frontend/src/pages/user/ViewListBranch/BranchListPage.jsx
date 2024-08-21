@@ -72,7 +72,7 @@ const BranchListPage = () => {
           <Grid item xs={12} md={6} key={branch.id}>
             <BranchCard
               name={branch?.name}
-              location={branch?.address?.detail}
+              branchLocation={branch?.address?.detail}
               image={branch?.image}
               branch={branch}
               onClick={() => handleClick(branch?.id)}
