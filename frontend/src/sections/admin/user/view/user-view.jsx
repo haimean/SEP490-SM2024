@@ -13,6 +13,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  Typography,
 } from "@mui/material";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import DoneIcon from "@mui/icons-material/Done";
@@ -109,6 +110,9 @@ export default function DataTable() {
     <Loading />
   ) : (
     <div style={{ height: 500, width: "100%" }}>
+      <h1 className="text-center mb-4 text-2xl font-bold">
+        Danh sách tài khoản
+      </h1>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>

@@ -120,20 +120,10 @@ const ListReportBlog = () => {
               alignItems: "center",
             }}
           >
-            <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              onClick={handleApprove}
-            >
+            <Button variant="contained" color="primary" onClick={handleApprove}>
               Duyệt
             </Button>
-            <Button
-              variant="contained"
-              color="error"
-              size="small"
-              onClick={handleReject}
-            >
+            <Button variant="contained" color="error" onClick={handleReject}>
               Hủy
             </Button>
           </Stack>
