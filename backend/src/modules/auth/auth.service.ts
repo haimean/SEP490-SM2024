@@ -1,8 +1,10 @@
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-import { Role } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+
+import { Role } from '@prisma/client';
+
 import database from '../../lib/db.server';
 
 dotenv.config();
@@ -29,15 +31,15 @@ const authService = {
       },
     });
     if (!existingUser) {
-      throw new Error('Account does not exist');
+      throw new Error('Tài khoản không tại');
     }
     const isVerify = existingUser.isVerified;
     const isBan = existingUser.isActive;
     if (!isVerify) {
-      throw new Error('Not verify');
+      throw new Error('Tài khoản chưa xác minh');
     }
     if (!isBan) {
-      throw new Error('Ban account');
+      throw new Error('Tài khoản bị cấm');
     }
     const isPasswordValid = await bcrypt.compare(
       password,
@@ -45,7 +47,7 @@ const authService = {
     );
 
     if (!isPasswordValid) {
-      throw new Error('Password not correct');
+      throw new Error('Mật khẩu không đúng');
     }
 
     const token = jwt.sign(
@@ -70,7 +72,7 @@ const authService = {
       where: { email },
     });
     if (account) {
-      throw new Error('Account exist');
+      throw new Error('Tài khoản tồn tại');
     } else {
       const hashPassword = await bcrypt.hash(
         password,
