@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   Typography,
   Box,
@@ -7,6 +8,7 @@ import {
   CardContent,
   Stack,
   Tooltip,
+  Container,
 } from "@mui/material";
 import haversine from "haversine";
 import { useEffect, useState } from "react";
@@ -50,11 +52,16 @@ const TopBranches = ({ branches, role = "USER" }) => {
 
   return (
     <section className="block">
-      <Box sx={{ py: 6, px: { xs: 2, md: 4, lg: 6 } }}>
-        <Typography variant="h2" align="center" gutterBottom>
+      <Container sx={{ py: 6, px: { xs: 2, md: 4, lg: 6 } }}>
+        <Typography
+          variant="h4"
+          component="h2"
+          mb={6}
+          fontWeight={600}
+          align="center"
+        >
           Các sân đấu mới nhất
         </Typography>
-
         <Grid container spacing={4}>
           {branches?.map((branch, index) => {
             const cardContent = (
@@ -100,11 +107,7 @@ const TopBranches = ({ branches, role = "USER" }) => {
                     <Typography component="h3" variant="h4" gutterBottom>
                       {branch?.name}
                     </Typography>
-                    <Stack
-                      direction="row"
-                      alignItems="center"
-                      spacing={1}
-                    >
+                    <Stack direction="row" alignItems="center" spacing={1}>
                       <DirectionsRunIcon className="text-red-600" />
                       <Typography>
                         Sân cách vị trí của bạn:{" "}
@@ -137,42 +140,26 @@ const TopBranches = ({ branches, role = "USER" }) => {
                         {branch?.address?.detail}
                       </Typography>
                     </Stack>
-                    <Stack
-                      direction="row"
-                      alignItems="center"
-                      spacing={1}
-                    >
+                    <Stack direction="row" alignItems="center" spacing={1}>
                       <AccessTimeIcon className="text-red-600" />
                       <Typography>
                         Giờ hoạt động: {branch?.openingHours} -{" "}
                         {branch?.closingHours}
                       </Typography>
                     </Stack>
-                    <Stack
-                      direction="row"
-                      alignItems="center"
-                      spacing={1}
-                    >
+                    <Stack direction="row" alignItems="center" spacing={1}>
                       <StadiumIcon className="text-red-600" />
                       <Typography>
                         Số sân: {branch?.court?.length} sân
                       </Typography>
                     </Stack>
-                    <Stack
-                      direction="row"
-                      alignItems="center"
-                      spacing={1}
-                    >
+                    <Stack direction="row" alignItems="center" spacing={1}>
                       <LocalPhoneIcon className="text-red-600" />
                       <Typography>
                         Số điện thoại liên hệ: {branch?.phone}
                       </Typography>
                     </Stack>
-                    <Stack
-                      direction="row"
-                      alignItems="center"
-                      spacing={1}
-                    >
+                    <Stack direction="row" alignItems="center" spacing={1}>
                       <MailIcon className="text-red-600" />
                       <Typography>Email: {branch?.email}</Typography>
                     </Stack>
@@ -192,7 +179,7 @@ const TopBranches = ({ branches, role = "USER" }) => {
             );
           })}
         </Grid>
-      </Box>
+      </Container>
     </section>
   );
 };
