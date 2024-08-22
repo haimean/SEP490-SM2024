@@ -60,7 +60,7 @@ const TopBranches = ({ branches, role = "USER" }) => {
           fontWeight={600}
           align="center"
         >
-          Các sân đấu mới nhất
+          Các cơ sở mới nhất
         </Typography>
         <Grid container spacing={4}>
           {branches?.map((branch, index) => {

@@ -21,7 +21,7 @@ const PostLandingPage = ({ post }) => {
       </div>
 
       <Grid container spacing={3}>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={7}>
           <PostCard
             postId={post[0]?.id}
             owner={post[0]?.booking?.bookingInfo?.name}
@@ -32,7 +32,7 @@ const PostLandingPage = ({ post }) => {
             isLarge={true}
           />
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={5}>
           <Grid container spacing={3}>
             {post?.slice(1, 3)?.map((post, index) => (
               <Grid item xs={12} key={index}>
