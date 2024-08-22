@@ -41,8 +41,6 @@ const RightSectionHost = ({ id, type, court1 }) => {
     getAllCourt();
   }, [id, court1, type]);
 
-  const longText = "Sàn: Gỗ<br/>Chất lượng: Tốt<br/>Số lượng: 4 người";
-
   const [updateCourtModal, setUpdateCourtModal] = useState(false);
   const handleOpenModalUpdateCourt = () => {
     setUpdateCourtModal(true);
@@ -147,7 +145,7 @@ const RightSectionHost = ({ id, type, court1 }) => {
           >
             {courts?.map((item) => (
               <Link key={item?.id} to={`/host/branch/${id}/court/${item?.id}`}>
-                <CustomTooltip title={longText}>
+                <CustomTooltip title={item?.TypeCourt?.name}>
                   <ListItemButton>
                     <img
                       src="https://bizweb.dktcdn.net/100/352/498/products/sancaulong105langha1.jpg?v=1716193376243"
