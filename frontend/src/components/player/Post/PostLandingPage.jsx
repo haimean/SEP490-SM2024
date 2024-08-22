@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import PostCard from "./PostCard";
-import { Box, Button, Grid, Link, Typography } from "@mui/material";
+import { Button, Container, Grid, Link, Typography } from "@mui/material";
 
 const PostLandingPage = ({ post }) => {
   return (
-    <Box sx={{ my: { xs: 2, sm: 4, md: 8 }, mx: { xs: 2, sm: 8, md: 14 } }}>
+    <Container sx={{ my: { xs: 2, sm: 4, md: 8 } }} className="mx-auto">
       <div className="flex justify-between py-4">
         <Typography variant="h4" component="h2" mb={6} fontWeight={600}>
           Trận đấu sắp tới
@@ -49,7 +50,7 @@ const PostLandingPage = ({ post }) => {
           </Grid>
         </Grid>
       </Grid>
-    </Box>
+    </Container>
   );
 };
 
