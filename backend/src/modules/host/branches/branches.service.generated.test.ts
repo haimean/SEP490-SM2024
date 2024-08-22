@@ -95,7 +95,7 @@ describe('branchesHostService', () => {
         email: 'branch@example.com',
         description: 'A branch',
         isAccept: false,
-        isPayment: false,
+        isPayment: true,
         orderId: null,
       };
 

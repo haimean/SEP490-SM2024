@@ -1,12 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
-import branchesHostService from './branches.service';
-import { ResponseHandler } from '../../../outcomes/responseHandler';
-import CustomError from '../../../outcomes/customError';
+
 import { Branches, Prisma } from '@prisma/client';
-import {
-  AddressBranchHostServiceCreate,
-  BranchesHostServiceCreate,
-} from './branches.model';
+
+import CustomError from '../../../outcomes/customError';
+import { ResponseHandler } from '../../../outcomes/responseHandler';
+import { AddressBranchHostServiceCreate, BranchesHostServiceCreate } from './branches.model';
+import branchesHostService from './branches.service';
 
 const branchesHostController = {
   listBranch: async (
@@ -81,7 +80,7 @@ const branchesHostController = {
         isAccept: false,
         phone,
         orderId: null,
-        isPayment: false,
+        isPayment: true,
       };
 
       const addressPayload: AddressBranchHostServiceCreate = {
