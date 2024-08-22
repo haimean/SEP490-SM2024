@@ -134,7 +134,7 @@ const ResetPasswordForm = ({ onSubmit }) => {
         required="Không được bỏ trống trường này."
         type="password"
       />
-      <Button type="submit" variant="contained">
+      <Button type="submit" fullWidth variant="contained">
         Đặt lại mật khẩu
       </Button>
     </form>
