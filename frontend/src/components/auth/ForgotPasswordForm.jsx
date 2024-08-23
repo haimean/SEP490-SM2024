@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
+
 import { Button, TextField } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import CallApi from "../../service/CallAPI.jsx";
 import InputLabel from "../common/InputLabel.jsx";

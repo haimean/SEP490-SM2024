@@ -1,8 +1,10 @@
+import { UploadApiResponse } from 'cloudinary';
 import crypto from 'crypto';
 import dotenv from 'dotenv';
-import cloudinary from './cloudinary';
+import { v4 as uuidv4 } from 'uuid';
+
 import { logger } from '../utils/logger';
-import { UploadApiResponse } from 'cloudinary';
+import cloudinary from './cloudinary';
 
 dotenv.config();
 
@@ -15,8 +17,9 @@ export async function uploadFile(
         cloudinary.uploader
           .upload_stream(
             {
-              folder: 'your_folder_name', // Thay 'your_folder_name' bằng tên thư mục bạn muốn lưu trữ trên Cloudinary
-              public_id: file.filename + new Date().getTime(), // Đặt tên file tùy chỉnh
+              folder: uuidv4(), // Thay 'your_folder_name' bằng tên thư mục bạn muốn lưu trữ trên Cloudinary
+              public_id:
+                file.filename + new Date().getTime().toString(), // Đặt tên file tùy chỉnh
               overwrite: true, // Tùy chọn để ghi đè nếu file có cùng tên đã tồn tại
             },
             (error, result) => {
