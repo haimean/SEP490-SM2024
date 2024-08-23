@@ -21,6 +21,7 @@ export default function RequestListTable2({ open, onClose, postId }) {
           orderNumber: index + 1,
           id: item?.id,
           fullName: item?.account?.user?.fullName || "",
+          numberPhone: item?.account?.user?.numberPhone || "",
           level: getRatingDescription(item?.level),
           invitation: item?.Invitation,
           vote: item?.Invitation,
@@ -37,7 +38,7 @@ export default function RequestListTable2({ open, onClose, postId }) {
     {
       field: "fullName",
       headerName: "Họ tên",
-      width: 200,
+      width: 290,
       sortable: false,
       renderCell: (params) => {
         return (
@@ -56,16 +57,11 @@ export default function RequestListTable2({ open, onClose, postId }) {
       width: 100,
     },
     {
-      field: "rate",
-      headerName: "Đánh giá",
-      width: 150,
+      field: "numberPhone",
+      headerName: "Số điện thoại",
+      width: 200,
       renderCell: (params) => {
-        console.log("🚀 ========= params:", params?.row);
-        return (
-          <div className="w-full h-full flex items-center">
-            <Rating value={params?.row?.rate} />
-          </div>
-        );
+        return <div>{params?.row?.numberPhone}</div>;
       },
     },
     {

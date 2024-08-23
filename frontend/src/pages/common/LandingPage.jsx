@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import tick from "../../assets/svg/tick.svg";
 import PostLandingPage from "../../components/player/Post/PostLandingPage";
 import CallApi from "../../service/CallAPI";
 import BannerHost from "../../components/common/LandingPage/BannerHost";
