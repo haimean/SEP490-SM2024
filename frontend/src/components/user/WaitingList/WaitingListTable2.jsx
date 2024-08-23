@@ -1,4 +1,4 @@
-import { Button, Dialog, Rating } from "@mui/material";
+import { Button, Dialog } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import CallApi from "../../../service/CallAPI";
@@ -46,7 +46,7 @@ export default function WaitingListTable2({ open, onClose, postId }) {
     {
       field: "fullName",
       headerName: "Họ tên",
-      width: 250,
+      width: 290,
       sortable: false,
       renderCell: (params) => {
         return (

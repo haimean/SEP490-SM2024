@@ -2,12 +2,9 @@ import * as React from "react";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import CallApi from "../../../service/CallAPI";
-import { getTimeSinceCreation } from "../../../utils/getTimeSinceCreation";
 import Loading from "../../../components/common/Loading";
-import { Box, Button, Card, Grid, Tab, Tabs } from "@mui/material";
+import { Box, Grid, Tab, Tabs } from "@mui/material";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
-import FormatTime from "../../../utils/user/formatTime";
 import haversine from "haversine";
 import useDialogConfirm from "../../../hooks/useDialogConfirm";
 import RequestListJoinCp from "../../../components/user/RequestListJoin/RequestListJoinCp";
@@ -42,7 +39,7 @@ export default function RequestListJoin() {
     setIsLoading(true);
     try {
       const data = await CallApi(api, "post", {
-        status: value == 0 ? "NEW" : value == 1 ? "ACCEPT" : "NOACCEPT",
+        status: value == 0 ? "NEW" : value == 1 ? "ACCEPT" : "CANCEL",
       });
       console.log("🚀 ========= data:", data);
       setRequestList(data.data);
