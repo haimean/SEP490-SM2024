@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Button, Card, Grid, Typography } from "@mui/material";
 import haversine from "haversine";
 import React from "react";
@@ -44,6 +45,16 @@ export default function RequestListJoinCp({ item, changeStatusInvitation }) {
   React.useEffect(() => {
     getLocation();
   }, []);
+  function hasTimePassed(dateString) {
+    const inputDate = new Date(dateString);
+    const currentDate = new Date();
+
+    if (currentDate > inputDate) {
+      return true; //đã qua
+    } else {
+      return false; //chưa qua
+    }
+  }
   return (
     <Grid key={item?.id} item xs={12}>
       <Card variant="outlined" className="p-4 pb-2">
@@ -143,51 +154,59 @@ export default function RequestListJoinCp({ item, changeStatusInvitation }) {
               {`Địa chỉ: ${item?.Post?.booking?.Court?.Branches?.address?.detail}`}
             </Typography>
           </Grid>
-          {item?.status == "NEW" && (
-            <Grid item xs={12}>
-              <Typography
-                component="span"
-                variant="body2"
-                color="text.primary"
-                className="flex justify-end"
-              >
-                <Button
-                  onClick={() =>
-                    changeStatusInvitation(item?.id, "CANCEL", "Hủy lời mời")
-                  }
-                  color="error"
-                  variant="contained"
-                  size="small"
-                >
-                  Hủy yêu cầu
-                </Button>
-              </Typography>
-            </Grid>
-          )}
-          {item?.status == "ACCEPT" && (
-            <Grid item xs={12}>
-              <Typography
-                component="span"
-                variant="body2"
-                color="text.primary"
-                className="flex justify-end"
-              >
-                <Button
-                  onClick={() =>
-                    changeStatusInvitation(
-                      item?.id,
-                      "CANCEL",
-                      "Hủy tham gia trận đấu"
-                    )
-                  }
-                  color="error"
-                  variant="contained"
-                  size="small"
-                >
-                  Hủy yêu cầu
-                </Button>
-              </Typography>
-            </Grid>
+          {!hasTimePassed(item?.Post?.booking?.startTime) && (
+            <>
+              {item?.status == "NEW" && (
+                <Grid item xs={12}>
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    color="text.primary"
+                    className="flex justify-end"
+                  >
+                    <Button
+                      onClick={() =>
+                        changeStatusInvitation(
+                          item?.id,
+                          "CANCEL",
+                          "Hủy lời mời"
+                        )
+                      }
+                      color="error"
+                      variant="contained"
+                      size="small"
+                    >
+                      Hủy yêu cầu
+                    </Button>
+                  </Typography>
+                </Grid>
+              )}
+              {item?.status == "ACCEPT" && (
+                <Grid item xs={12}>
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    color="text.primary"
+                    className="flex justify-end"
+                  >
+                    <Button
+                      onClick={() =>
+                        changeStatusInvitation(
+                          item?.id,
+                          "CANCEL",
+                          "Hủy tham gia trận đấu"
+                        )
+                      }
+                      color="error"
+                      variant="contained"
+                      size="small"
+                    >
+                      Hủy yêu cầu
+                    </Button>
+                  </Typography>
+                </Grid>
+              )}
+            </>
           )}
         </Grid>
       </Card>
