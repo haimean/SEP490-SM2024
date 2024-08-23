@@ -128,8 +128,10 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
       const priceLists = {};
       response.data.TypeCourt.priceTypeCourt.forEach((p) => {
         const priceObject = {
-          start: new Date(p.startTime.replace("Z", "")),
-          end: new Date(p.endTime.replace("Z", "")),
+          // start: new Date(p.startTime.replace("Z", "")),
+          // end: new Date(p.endTime.replace("Z", "")),
+          start: new Date(p.startTime),
+          end: new Date(p.endTime),
           price: p.price,
         };
         if (!priceLists[p.times]) {
@@ -282,6 +284,7 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
             totalPrice += priceRange.price * duration;
         }
     });
+    totalPrice = Math.floor(totalPrice / 1000) * 1000;
 
     return totalPrice;
 };
