@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Box, Typography, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { format ,addHours} from 'date-fns';
+import { format, addHours } from 'date-fns';
 
 const PriceListModal = ({ isOpen, onRequestClose, priceLists, openHour, closeHour }) => {
 
@@ -24,37 +24,37 @@ const PriceListModal = ({ isOpen, onRequestClose, priceLists, openHour, closeHou
     }
     return date.getHours() * 60 + date.getMinutes();
   };
-  
+
 
   const adjustPriceListByOpenCloseHours = (list) => {
     return list
       .map((item) => {
         const startTime = new Date(item.start);
         const endTime = new Date(item.end);
-  
+
         if (isNaN(startTime.getTime()) || isNaN(endTime.getTime())) {
           console.error("Invalid start or end time:", item);
           return null;
         }
-  
+
         const startHourMinute = getTimeInMinutes(startTime);
         const endHourMinute = getTimeInMinutes(endTime);
         const openHourMinute = getTimeInMinutes(openHour);
         const closeHourMinute = getTimeInMinutes(closeHour);
-  
+
         if (startHourMinute < openHourMinute && endHourMinute > openHourMinute) {
           return {
             ...item,
             start: new Date(startTime.setHours(openHour.getHours(), openHour.getMinutes())),
           };
         }
-  
+
         if (startHourMinute < openHourMinute && endHourMinute <= openHourMinute) {
           return null;
         }
-  
+
         if (startHourMinute >= closeHourMinute && endHourMinute > closeHourMinute) {
-          return null; 
+          return null;
         }
 
         if (startHourMinute < closeHourMinute && endHourMinute > closeHourMinute) {
@@ -63,14 +63,14 @@ const PriceListModal = ({ isOpen, onRequestClose, priceLists, openHour, closeHou
             end: new Date(endTime.setHours(closeHour.getHours(), closeHour.getMinutes())),
           };
         }
-  
-        const adjustedStartTime = startHourMinute < openHourMinute 
+
+        const adjustedStartTime = startHourMinute < openHourMinute
           ? new Date(startTime.setHours(openHour.getHours(), openHour.getMinutes()))
           : startTime;
-        const adjustedEndTime = endHourMinute > closeHourMinute 
+        const adjustedEndTime = endHourMinute > closeHourMinute
           ? new Date(endTime.setHours(closeHour.getHours(), closeHour.getMinutes()))
           : endTime;
-  
+
         return {
           ...item,
           start: adjustedStartTime,
@@ -79,12 +79,15 @@ const PriceListModal = ({ isOpen, onRequestClose, priceLists, openHour, closeHou
       })
       .filter((item) => item && item.start < item.end);
   };
-  
-  
+
+
 
   return (
     <Modal open={isOpen} onClose={onRequestClose} aria-labelledby="price-list-modal-title" aria-describedby="price-list-modal-description">
-      <Box sx={{ bgcolor: 'background.paper', p: 4, borderRadius: 1, maxWidth: 700, mx: 'auto', mt: 10, position: 'relative' }}>
+      <Box sx={{
+        bgcolor: 'background.paper', p: 4, pl: 6, borderRadius: 1, maxWidth: 700, mx: 'auto', mt: 10, position: 'relative', maxHeight: '80vh',
+        overflowY: 'auto'
+      }}>
         <Typography id="price-list-modal-title" variant="h6" component="h2" className="mb-4">
           Bảng Giá
         </Typography>

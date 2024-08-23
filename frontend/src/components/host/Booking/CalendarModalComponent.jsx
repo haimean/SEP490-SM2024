@@ -171,8 +171,10 @@ const CalendarModalComponent = ({ courtId }) => {
       const priceLists = {};
       response.data.TypeCourt.priceTypeCourt.forEach((p) => {
         const priceObject = {
-          start: new Date(p.startTime.replace("Z", "")),
-          end: new Date(p.endTime.replace("Z", "")),
+          // start: new Date(p.startTime.replace("Z", "")),
+          // end: new Date(p.endTime.replace("Z", "")),
+          start: new Date(p.startTime),
+          end: new Date(p.endTime),
           price: p.price,
         };
         if (!priceLists[p.times]) {
@@ -386,10 +388,7 @@ const CalendarModalComponent = ({ courtId }) => {
     let totalPrice = 0;
     priceListToUse.forEach((priceRange) => {
       const rangeStart = new Date(start);
-      rangeStart.setHours(
-        priceRange.start.getHours(),
-        priceRange.start.getMinutes()
-      );
+      rangeStart.setHours(priceRange.start.getHours(), priceRange.start.getMinutes());
       const rangeEnd = new Date(start);
       rangeEnd.setHours(priceRange.end.getHours(), priceRange.end.getMinutes());
 
@@ -401,6 +400,8 @@ const CalendarModalComponent = ({ courtId }) => {
         totalPrice += priceRange.price * duration;
       }
     });
+
+    totalPrice = Math.floor(totalPrice / 1000) * 1000;
 
     return totalPrice;
   };
