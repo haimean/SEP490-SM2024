@@ -96,13 +96,15 @@ export default function FormDetailCourt({
           <FormControl fullWidth>
             <InputLabel>Chọn kiểu sân</InputLabel>
             <Controller
-              id="typeCourtId"
               name="typeCourtId"
               control={control}
-              errors={errors}
-              rules={{ required: true }}
+              rules={{ required: "Kiểu sân là bắt buộc" }}
               render={({ field: { onChange, value } }) => (
-                <Select value={value} onChange={onChange} label="Chọn kiểu sân">
+                <Select
+                  value={value || ""} // Use a fallback value if `value` is undefined
+                  onChange={onChange}
+                  label="Chọn kiểu sân"
+                >
                   {typeCourtList?.map((option) => (
                     <MenuItem key={option?.id} value={option?.id}>
                       {option?.name}
@@ -111,6 +113,11 @@ export default function FormDetailCourt({
                 </Select>
               )}
             />
+            {errors.typeCourtId && (
+              <Typography color="error">
+                {errors.typeCourtId.message}
+              </Typography>
+            )}
           </FormControl>
         </div>
         <Button

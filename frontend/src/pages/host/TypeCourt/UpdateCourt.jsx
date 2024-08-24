@@ -25,7 +25,7 @@ export default function UpdateCourt() {
     const getListTypeCourt = async () => {
       try {
         const listTypeCourt = await CallApi("/api/host/type-court", "get");
-        setTypeCourtList(listTypeCourt.data);
+        setTypeCourtList(listTypeCourt?.data);
       } catch (error) {
         console.log("🚀 ========= error:", error);
       }
