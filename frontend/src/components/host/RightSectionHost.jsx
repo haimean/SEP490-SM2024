@@ -105,6 +105,7 @@ const RightSectionHost = ({ id, type, court1 }) => {
               fullWidth
               onClick={handleOpenCalendarModal}
               sx={{ mb: 2 }}
+              disabled={courts?.length === 0}
             >
               Lịch sử đặt sân
             </Button>
