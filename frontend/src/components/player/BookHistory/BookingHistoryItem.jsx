@@ -1,16 +1,17 @@
 /* eslint-disable react/prop-types */
+
 import { Box, Button, Grid, Paper, Typography } from "@mui/material";
-import { format } from "date-fns";
-import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
+
 import CallApi from "../../../service/CallAPI";
 import CreatePostModal from "../../../components/player/Post/CreatePostModal";
+import { Link } from "react-router-dom";
+import { format } from "date-fns";
+import { toast } from "react-toastify";
 import useDialogConfirm from "../../../hooks/useDialogConfirm";
-import { subHours } from "date-fns";
 
 const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
   const now = new Date().getTime();
-  const bookingStartTime = subHours(new Date(bookings?.startTime).getTime(), 14);
+  const bookingStartTime = new Date(bookings?.startTime).getTime();
   const canCancel = bookingStartTime > now;
   const { openDialog, DialogComponent } = useDialogConfirm();
 
@@ -39,7 +40,7 @@ const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
             <Grid item xs={6}>
               <Typography variant="body2" color="text.secondary">
                 Thời gian: {format(bookingStartTime, "HH:mm")} -{" "}
-                {format(subHours(new Date(bookings?.endTime), 14), "HH:mm")}
+                {format(new Date(bookings?.endTime), "HH:mm")}
               </Typography>
             </Grid>
             <Grid item xs={6}>

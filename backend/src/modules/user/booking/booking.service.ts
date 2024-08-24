@@ -157,10 +157,10 @@ const bookingUserService = {
         isDelete: false,
         courtId,
         startTime: {
-          lte: subHours(new Date(endTime), 7),
+          lte: new Date(endTime),
         },
         endTime: {
-          gte: subHours(new Date(startTime), 7),
+          gte: new Date(startTime),
         },
       },
     });

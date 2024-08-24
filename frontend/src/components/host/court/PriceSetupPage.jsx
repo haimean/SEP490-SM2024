@@ -1,16 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Typography, Button } from '@mui/material';
-import { toast } from 'react-toastify';
-import CallApi from '../../../service/CallAPI';
-import { subHours, addHours, parseISO, isBefore, isAfter, isEqual } from 'date-fns';
-import PriceTable from './PriceTable';
-import AddNewTimesGroupForm from './AddNewTimesGroupForm';
+/* eslint-disable react/prop-types */
+
+import { Box, Button, Typography } from "@mui/material";
+import { addHours, isAfter, isBefore, isEqual, parseISO } from "date-fns";
+import { useEffect, useState } from "react";
+
+import AddNewTimesGroupForm from "./AddNewTimesGroupForm";
+import CallApi from "../../../service/CallAPI";
+import PriceTable from "./PriceTable";
+import { toast } from "react-toastify";
 
 const PriceSetupPage = ({ typeCourtId = 1 }) => {
   const [priceLists, setPriceLists] = useState({});
   const [newRows, setNewRows] = useState({});
   const [editingRows, setEditingRows] = useState({});
-  const [newTimesGroup, setNewTimesGroup] = useState({ start: '', end: '', price: '', times: '' });
+  const [newTimesGroup, setNewTimesGroup] = useState({
+    start: "",
+    end: "",
+    price: "",
+    times: "",
+  });
   const [showNewTimesForm, setShowNewTimesForm] = useState(false);
 
   useEffect(() => {
@@ -19,7 +27,12 @@ const PriceSetupPage = ({ typeCourtId = 1 }) => {
 
   const fetchData = async () => {
     try {
-      const response = await CallApi(`/api/host/type-court/${typeCourtId}/price`, 'get', {}, {});
+      const response = await CallApi(
+        `/api/host/type-court/${typeCourtId}/price`,
+        "get",
+        {},
+        {}
+      );
       const data = response.data.reduce((acc, item) => {
         const times = item.times;
         if (!acc[times]) {
@@ -27,8 +40,12 @@ const PriceSetupPage = ({ typeCourtId = 1 }) => {
         }
         acc[times].push({
           id: item.id,
-          start: subHours(new Date(item.startTime.replace('Z', '')), 0).toISOString().substring(11, 16),
-          end: subHours(new Date(item.endTime.replace('Z', '')), 0).toISOString().substring(11, 16),
+          start: new Date(item.startTime.replace("Z", ""))
+            .toISOString()
+            .substring(11, 16),
+          end: new Date(item.endTime.replace("Z", ""))
+            .toISOString()
+            .substring(11, 16),
           price: item.price,
         });
         return acc;
@@ -38,22 +55,32 @@ const PriceSetupPage = ({ typeCourtId = 1 }) => {
       });
       setPriceLists(data);
     } catch (error) {
-      toast.error(error.response?.data?.error || 'Đã xảy ra lỗi');
+      toast.error(error.response?.data?.error || "Đã xảy ra lỗi");
     }
   };
 
   const isOverlapping = (times, newStart, newEnd, ignoreIndex = null) => {
     const existingPrices = priceLists[times] || [];
-    const newStartDate = addHours(parseISO(`1970-01-01T${newStart}:00.000Z`), 7);
+    const newStartDate = addHours(
+      parseISO(`1970-01-01T${newStart}:00.000Z`),
+      7
+    );
     const newEndDate = addHours(parseISO(`1970-01-01T${newEnd}:00.000Z`), 7);
 
     return existingPrices.some((price, index) => {
       if (ignoreIndex !== null && index === ignoreIndex) return false;
 
-      const startDate = addHours(parseISO(`1970-01-01T${price.start}:00.000Z`), 7);
+      const startDate = addHours(
+        parseISO(`1970-01-01T${price.start}:00.000Z`),
+        7
+      );
       const endDate = addHours(parseISO(`1970-01-01T${price.end}:00.000Z`), 7);
 
-      return (isBefore(newStartDate, endDate) && isAfter(newEndDate, startDate)) || isEqual(newStartDate, startDate) || isEqual(newEndDate, endDate);
+      return (
+        (isBefore(newStartDate, endDate) && isAfter(newEndDate, startDate)) ||
+        isEqual(newStartDate, startDate) ||
+        isEqual(newEndDate, endDate)
+      );
     });
   };
 
@@ -72,7 +99,7 @@ const PriceSetupPage = ({ typeCourtId = 1 }) => {
     } else {
       const updatedNewRows = { ...newRows };
       if (!updatedNewRows[times]) {
-        updatedNewRows[times] = { start: '', end: '', price: '' };
+        updatedNewRows[times] = { start: "", end: "", price: "" };
       }
       updatedNewRows[times][name] = value;
       setNewRows(updatedNewRows);
@@ -86,12 +113,12 @@ const PriceSetupPage = ({ typeCourtId = 1 }) => {
       const endTime = addHours(new Date(`1970-01-01T${end}:00.000Z`), 7);
 
       if (isAfter(startTime, endTime) || isEqual(startTime, endTime)) {
-        toast.error('Giờ bắt đầu phải nhỏ hơn giờ kết thúc');
+        toast.error("Giờ bắt đầu phải nhỏ hơn giờ kết thúc");
         return;
       }
 
       if (isOverlapping(times, start, end)) {
-        toast.error('Khoảng thời gian bị trùng với giá hiện tại');
+        toast.error("Khoảng thời gian bị trùng với giá hiện tại");
         return;
       }
 
@@ -103,19 +130,23 @@ const PriceSetupPage = ({ typeCourtId = 1 }) => {
       };
 
       try {
-        await CallApi(`/api/host/type-court/${typeCourtId}/price`, 'post', { data: [newPriceData] }, {});
-        toast.success('Đã thêm nhóm thời gian mới thành công');
+        await CallApi(
+          `/api/host/type-court/${typeCourtId}/price`,
+          "post",
+          { data: [newPriceData] },
+          {}
+        );
+        toast.success("Đã thêm nhóm thời gian mới thành công");
         fetchData();
         setShowNewTimesForm(false);
-        setNewTimesGroup({ start: '', end: '', price: '', times: '' });
+        setNewTimesGroup({ start: "", end: "", price: "", times: "" });
       } catch (error) {
-        toast.error(error.response?.data?.error || 'Đã xảy ra lỗi');
+        toast.error(error.response?.data?.error || "Đã xảy ra lỗi");
       }
     } else {
-      toast.error('Vui lòng điền tất cả các trường');
+      toast.error("Vui lòng điền tất cả các trường");
     }
   };
-
 
   const handleAddPrice = async (times) => {
     const { start, end, price } = newRows[times];
@@ -124,12 +155,12 @@ const PriceSetupPage = ({ typeCourtId = 1 }) => {
       const endTime = addHours(new Date(`1970-01-01T${end}:00.000Z`), 7);
 
       if (isAfter(startTime, endTime) || isEqual(startTime, endTime)) {
-        toast.error('Giờ bắt đầu phải nhỏ hơn giờ kết thúc');
+        toast.error("Giờ bắt đầu phải nhỏ hơn giờ kết thúc");
         return;
       }
 
       if (isOverlapping(times, start, end)) {
-        toast.error('Khoảng thời gian bị trùng với giá hiện tại');
+        toast.error("Khoảng thời gian bị trùng với giá hiện tại");
         return;
       }
 
@@ -141,18 +172,23 @@ const PriceSetupPage = ({ typeCourtId = 1 }) => {
       };
 
       try {
-        await CallApi(`/api/host/type-court/${typeCourtId}/price`, 'post', { data: [newPriceData] }, {});
-        toast.success('Đã thêm giá thành công');
+        await CallApi(
+          `/api/host/type-court/${typeCourtId}/price`,
+          "post",
+          { data: [newPriceData] },
+          {}
+        );
+        toast.success("Đã thêm giá thành công");
         fetchData();
       } catch (error) {
-        toast.error(error.response?.data?.error || 'Đã xảy ra lỗi');
+        toast.error(error.response?.data?.error || "Đã xảy ra lỗi");
       }
 
       const updatedNewRows = { ...newRows };
       delete updatedNewRows[times];
       setNewRows(updatedNewRows);
     } else {
-      toast.error('Vui lòng điền tất cả các trường');
+      toast.error("Vui lòng điền tất cả các trường");
     }
   };
 
@@ -160,27 +196,41 @@ const PriceSetupPage = ({ typeCourtId = 1 }) => {
     const priceToDelete = priceLists[times][index];
     if (priceToDelete.id) {
       try {
-        await CallApi(`/api/host/type-court/${typeCourtId}/price`, 'delete', { data: [{ id: priceToDelete.id }] }, {});
-        toast.success('Đã xóa giá thành công');
+        await CallApi(
+          `/api/host/type-court/${typeCourtId}/price`,
+          "delete",
+          { data: [{ id: priceToDelete.id }] },
+          {}
+        );
+        toast.success("Đã xóa giá thành công");
         fetchData();
       } catch (error) {
-        toast.error(error.response?.data?.error || 'Đã xảy ra lỗi');
+        toast.error(error.response?.data?.error || "Đã xảy ra lỗi");
       }
     }
 
     const updatedPriceLists = { ...priceLists };
-    updatedPriceLists[times] = updatedPriceLists[times].filter((_, i) => i !== index);
+    updatedPriceLists[times] = updatedPriceLists[times].filter(
+      (_, i) => i !== index
+    );
     setPriceLists(updatedPriceLists);
   };
 
   const handleDeleteAllPrices = async (times) => {
     const priceIdsToDelete = priceLists[times].map((price) => price.id);
     try {
-      await CallApi(`/api/host/type-court/${typeCourtId}/price`, 'delete', { data: priceIdsToDelete.map((id) => ({ id })) }, {});
-      toast.success(`Đã xóa tất cả giá cho khoảng thời gian ${times} thành công`);
+      await CallApi(
+        `/api/host/type-court/${typeCourtId}/price`,
+        "delete",
+        { data: priceIdsToDelete.map((id) => ({ id })) },
+        {}
+      );
+      toast.success(
+        `Đã xóa tất cả giá cho khoảng thời gian ${times} thành công`
+      );
       fetchData();
     } catch (error) {
-      toast.error(error.response?.data?.error || 'Đã xảy ra lỗi');
+      toast.error(error.response?.data?.error || "Đã xảy ra lỗi");
     }
   };
 
@@ -195,16 +245,22 @@ const PriceSetupPage = ({ typeCourtId = 1 }) => {
 
   const handleConfirmEditPrice = async (times, index) => {
     const updatedPrice = editingRows[times][index];
-    const startTime = addHours(new Date(`1970-01-01T${updatedPrice.start}:00.000Z`), 7);
-    const endTime = addHours(new Date(`1970-01-01T${updatedPrice.end}:00.000Z`), 7);
+    const startTime = addHours(
+      new Date(`1970-01-01T${updatedPrice.start}:00.000Z`),
+      7
+    );
+    const endTime = addHours(
+      new Date(`1970-01-01T${updatedPrice.end}:00.000Z`),
+      7
+    );
 
     if (isAfter(startTime, endTime) || isEqual(startTime, endTime)) {
-      toast.error('Giờ bắt đầu phải nhỏ hơn giờ kết thúc');
+      toast.error("Giờ bắt đầu phải nhỏ hơn giờ kết thúc");
       return;
     }
 
     if (isOverlapping(times, updatedPrice.start, updatedPrice.end, index)) {
-      toast.error('Khoảng thời gian bị trùng với giá hiện tại');
+      toast.error("Khoảng thời gian bị trùng với giá hiện tại");
       return;
     }
 
@@ -217,11 +273,16 @@ const PriceSetupPage = ({ typeCourtId = 1 }) => {
     };
 
     try {
-      await CallApi(`/api/host/type-court/${typeCourtId}/price`, 'put', { data: [priceData] }, {});
-      toast.success('Đã cập nhật giá thành công');
+      await CallApi(
+        `/api/host/type-court/${typeCourtId}/price`,
+        "put",
+        { data: [priceData] },
+        {}
+      );
+      toast.success("Đã cập nhật giá thành công");
       fetchData();
     } catch (error) {
-      toast.error(error.response?.data?.error || 'Đã xảy ra lỗi');
+      toast.error(error.response?.data?.error || "Đã xảy ra lỗi");
     }
 
     const updatedEditingRows = { ...editingRows };
@@ -245,7 +306,11 @@ const PriceSetupPage = ({ typeCourtId = 1 }) => {
     <Box sx={{ p: 3 }}>
       <Box sx={{ my: 8 }}>
         {!showNewTimesForm ? (
-          <Button variant="contained" color="primary" onClick={() => setShowNewTimesForm(true)}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => setShowNewTimesForm(true)}
+          >
             Thêm nhóm thời gian mới
           </Button>
         ) : (

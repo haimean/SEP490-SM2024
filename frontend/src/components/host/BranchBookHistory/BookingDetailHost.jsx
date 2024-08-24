@@ -1,19 +1,19 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   Box,
-  Typography,
-  Paper,
-  Grid,
   Button,
   Chip,
+  Grid,
   Modal,
+  Paper,
   TextField,
+  Typography,
 } from "@mui/material";
-import { format } from "date-fns";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 import CallApi from "../../../service/CallAPI";
+import { format } from "date-fns";
 import { toast } from "react-toastify";
-import { subHours } from "date-fns";
 
 const BookingDetailHost = () => {
   const { id } = useParams();
@@ -21,7 +21,6 @@ const BookingDetailHost = () => {
   const [booking, setBooking] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [reasonCancel, setReasonCancel] = useState("");
-  const branchId = location.state?.branchId || booking?.Court?.branchesId;
 
   const now = new Date().getTime();
   const bookingStartTime = booking ? new Date(booking?.startTime).getTime() : 0;
@@ -94,28 +93,37 @@ const BookingDetailHost = () => {
       <Typography variant="h6">Chi tiết đặt sân</Typography>
       <Paper elevation={3} sx={{ p: 3 }}>
         <Grid container spacing={3}>
-        {booking?.Court && (
+          {booking?.Court && (
             <Grid item xs={12} md={6}>
               <Typography variant="h6">Thông tin sân</Typography>
-              <Typography>Tên sân: {""}
+              <Typography>
+                Tên sân: {""}
                 <Link
                   to={`/host/branch/${booking?.Court?.Branches?.id}/court/${booking?.Court?.id}`}
-                  style={{ textDecoration: "underline", color: "#1976d2", fontWeight: "bold" }}
+                  style={{
+                    textDecoration: "underline",
+                    color: "#1976d2",
+                    fontWeight: "bold",
+                  }}
                 >
                   {booking?.Court?.name}
                 </Link>
               </Typography>
-              <Typography>Cơ sở: {""}
+              <Typography>
+                Cơ sở: {""}
                 <Link
                   to={`/host/branch/${booking?.Court?.Branches?.id}`}
-                  style={{ textDecoration: "underline", color: "#1976d2", fontWeight: "bold" }}
+                  style={{
+                    textDecoration: "underline",
+                    color: "#1976d2",
+                    fontWeight: "bold",
+                  }}
                 >
                   {booking?.Court?.Branches?.name}
                 </Link>
               </Typography>
             </Grid>
           )}
-
 
           <Grid item xs={12} md={6}>
             <Typography variant="h6">Thông tin người đặt</Typography>
@@ -127,11 +135,11 @@ const BookingDetailHost = () => {
           <Grid item xs={12} md={6}>
             <Typography variant="h6">Thông tin đặt sân</Typography>
             <Typography>
-              Ngày: {format(subHours(new Date(booking?.startTime), 14), "dd/MM/yyyy")}
+              Ngày: {format(new Date(booking?.startTime), "dd/MM/yyyy")}
             </Typography>
             <Typography>
-              Thời gian: {format(subHours(new Date(booking?.startTime), 14), "HH:mm")} -{" "}
-              {format(subHours(new Date(booking?.endTime), 14), "HH:mm")}
+              Thời gian: {format(new Date(booking?.startTime), "HH:mm")} -{" "}
+              {format(new Date(booking?.endTime), "HH:mm")}
             </Typography>
             <Typography>
               Giá: {booking?.price?.toLocaleString("vi-VN")} VNĐ
@@ -150,7 +158,6 @@ const BookingDetailHost = () => {
               sx={{ mt: 1 }}
             />
           </Grid>
-
         </Grid>
 
         <Box

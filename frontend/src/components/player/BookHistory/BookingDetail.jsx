@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
+import { Box, Button, Chip, Grid, Paper, Typography } from "@mui/material";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Box, Typography, Paper, Grid, Button, Chip } from "@mui/material";
-import { format } from "date-fns";
+import { useEffect, useState } from "react";
+
 import CallApi from "../../../service/CallAPI";
-import { toast } from "react-toastify";
-import Loading from "../../common/Loading";
 import DialogAccept from "../../common/DialogAccept";
-import { subHours } from "date-fns";
+import Loading from "../../common/Loading";
+import { format } from "date-fns";
+import { toast } from "react-toastify";
 
 const BookingDetail = () => {
   const { id } = useParams();
@@ -66,14 +66,11 @@ const BookingDetail = () => {
           <Grid item xs={12} md={6}>
             <Typography variant="h6">Thông tin đặt sân</Typography>
             <Typography>
-              Ngày:{" "}
-              {format(subHours(new Date(booking?.startTime), 14), "dd/MM/yyyy")}
-              {/* {format(subHours(new Date(booking?.endTime || new Date()), 14), "dd/MM/yyyy")} */}
+              Ngày: {format(new Date(booking?.startTime), "dd/MM/yyyy")}
             </Typography>
             <Typography>
-              Thời gian:{" "}
-              {format(subHours(new Date(booking?.startTime), 14), "HH:mm")} -{" "}
-              {format(subHours(new Date(booking?.endTime), 14), "HH:mm")}
+              Thời gian: {format(new Date(booking?.startTime), "HH:mm")} -{" "}
+              {format(new Date(booking?.endTime), "HH:mm")}
             </Typography>
             <Typography>
               Giá: {booking?.price?.toLocaleString("vi-VN")} VNĐ

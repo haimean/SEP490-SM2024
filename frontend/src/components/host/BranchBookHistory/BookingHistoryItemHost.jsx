@@ -1,25 +1,27 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+
 import {
   Box,
   Button,
   Grid,
-  Paper,
-  Typography,
   Modal,
+  Paper,
   TextField,
+  Typography,
 } from "@mui/material";
-import { format } from "date-fns";
-import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
+
 import CallApi from "../../../service/CallAPI";
-import { subHours } from "date-fns";
+import { Link } from "react-router-dom";
+import { format } from "date-fns";
+import { toast } from "react-toastify";
+import { useState } from "react";
 
 const BookingsHistoryItemHost = ({ bookings, onCancelSuccess, branchId }) => {
   const [openModal, setOpenModal] = useState(false);
   const [reasonCancel, setReasonCancel] = useState("");
 
   const now = new Date().getTime();
-  const bookingStartTime = subHours(new Date(bookings?.startTime).getTime(), 14);
+  const bookingStartTime = new Date(bookings?.startTime).getTime();
   const canCancel = bookingStartTime > now;
 
   const handleOpenModal = () => {
@@ -73,7 +75,7 @@ const BookingsHistoryItemHost = ({ bookings, onCancelSuccess, branchId }) => {
           </Typography>
           <Typography variant="body2" color="text.secondary">
             Thời gian thuê: {format(bookingStartTime, "HH:mm")} -{" "}
-            {format(subHours(new Date(bookings?.endTime), 14), "HH:mm")}
+            {format(new Date(bookings?.endTime), "HH:mm")}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             Giá: {bookings?.price}
