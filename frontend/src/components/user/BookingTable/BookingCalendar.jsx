@@ -45,14 +45,26 @@ const messages = {
 };
 
 const formats = {
-  timeGutterFormat: 'HH:mm', // Time shown on the left side gutter
+  timeGutterFormat: "HH:mm", // Time shown on the left side gutter
   eventTimeRangeFormat: ({ start, end }, culture, local) =>
-    `${local.format(start, 'HH:mm', culture)} - ${local.format(end, 'HH:mm', culture)}`,
-  dayHeaderFormat: 'dddd, MMMM d',  // Format for day headers
+    `${local.format(start, "HH:mm", culture)} - ${local.format(
+      end,
+      "HH:mm",
+      culture
+    )}`,
+  dayHeaderFormat: "dddd, MMMM d", // Format for day headers
   dayRangeHeaderFormat: ({ start, end }, culture, local) =>
-    `${local.format(start, 'MMMM d', culture)} - ${local.format(end, 'MMMM d', culture)}`,
+    `${local.format(start, "MMMM d", culture)} - ${local.format(
+      end,
+      "MMMM d",
+      culture
+    )}`,
   agendaTimeRangeFormat: ({ start, end }, culture, local) =>
-    `${local.format(start, 'HH:mm', culture)} - ${local.format(end, 'HH:mm', culture)}`,
+    `${local.format(start, "HH:mm", culture)} - ${local.format(
+      end,
+      "HH:mm",
+      culture
+    )}`,
 };
 
 const CreateEventWithNoOverlap = ({ courtId }) => {
@@ -164,7 +176,7 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
     const hoursDifference = timeDifference / (1000 * 60 * 60);
 
     if (hoursDifference >= 24) {
-        return;
+      return;
     }
     const durationInMinutes = differenceInMinutes(end, start);
     if (durationInMinutes < 60) {
@@ -221,7 +233,7 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
     }
 
     let updatedEvents = [...filteredEvents, newEvent];
-    if (selectedEvents.length + 1 >= 5) {
+    if (selectedEvents.length + 1 >= selectedCount) {
       updatedEvents = updatedEvents.map((event) => ({
         ...event,
         price: calculatePrice(event.start, event.end, newApplicablePriceList),
@@ -271,24 +283,26 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
   const calculatePrice = (start, end, priceListToUse) => {
     let totalPrice = 0;
     priceListToUse.forEach((priceRange) => {
-        const rangeStart = new Date(start);
-        rangeStart.setHours(priceRange.start.getHours(), priceRange.start.getMinutes());
-        const rangeEnd = new Date(start);
-        rangeEnd.setHours(priceRange.end.getHours(), priceRange.end.getMinutes());
+      const rangeStart = new Date(start);
+      rangeStart.setHours(
+        priceRange.start.getHours(),
+        priceRange.start.getMinutes()
+      );
+      const rangeEnd = new Date(start);
+      rangeEnd.setHours(priceRange.end.getHours(), priceRange.end.getMinutes());
 
-        const effectiveStart = start > rangeStart ? start : rangeStart;
-        const effectiveEnd = end < rangeEnd ? end : rangeEnd;
+      const effectiveStart = start > rangeStart ? start : rangeStart;
+      const effectiveEnd = end < rangeEnd ? end : rangeEnd;
 
-        if (effectiveStart < effectiveEnd) {
-            const duration = (effectiveEnd - effectiveStart) / (1000 * 60 * 60); // thời gian theo giờ
-            totalPrice += priceRange.price * duration;
-        }
+      if (effectiveStart < effectiveEnd) {
+        const duration = (effectiveEnd - effectiveStart) / (1000 * 60 * 60); // thời gian theo giờ
+        totalPrice += priceRange.price * duration;
+      }
     });
     totalPrice = Math.floor(totalPrice / 1000) * 1000;
 
     return totalPrice;
-};
-
+  };
 
   const slotPropGetter = (date) => {
     const hours = date.getHours();
