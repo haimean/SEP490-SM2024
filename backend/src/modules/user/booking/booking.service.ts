@@ -1,3 +1,5 @@
+import { subHours } from 'date-fns';
+
 import database from '../../../lib/db.server';
 import { Pagination } from '../../index.model';
 import { getQueryPagination } from '../../index.service';
@@ -153,47 +155,13 @@ const bookingUserService = {
     const conflictingBooking = await database.booking.findFirst({
       where: {
         isDelete: false,
-        OR: [
-          // booking của account
-          {
-            accountId: accountId,
-            startTime: {
-              lte: endTime,
-            },
-            endTime: {
-              gte: startTime,
-            },
-          },
-          // check lịch sân
-          {
-            courtId,
-            startTime: {
-              lte: endTime,
-            },
-            endTime: {
-              gte: startTime,
-            },
-          },
-
-          {
-            startTime: {
-              lte: endTime,
-            },
-            endTime: {
-              gte: startTime,
-            },
-            post: {
-              invitation: {
-                every: {
-                  status: 'ACCEPT',
-                  userAvailability: {
-                    accountId: accountId,
-                  },
-                },
-              },
-            },
-          },
-        ],
+        courtId,
+        startTime: {
+          lte: subHours(new Date(endTime), 7),
+        },
+        endTime: {
+          gte: subHours(new Date(startTime), 7),
+        },
       },
     });
     return conflictingBooking !== null;

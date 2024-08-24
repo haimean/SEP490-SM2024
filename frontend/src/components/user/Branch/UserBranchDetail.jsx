@@ -1,23 +1,25 @@
 /* eslint-disable react/prop-types */
-import {
-  Box,
-  Typography,
-  Card,
-  CardMedia,
-  CardContent,
-  Grid,
-  Stack,
-} from "@mui/material";
 
 import {
-  LocationOn,
-  Phone,
-  Email,
-  SportsBasketball,
   AccountBox,
   Checklist,
+  Email,
+  LocationOn,
+  Phone,
+  SportsBasketball,
 } from "@mui/icons-material";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Grid,
+  Stack,
+  Typography,
+} from "@mui/material";
+
 import CourtCard from "../Court/CourtCard";
+
 // import testImg from "D:/1_2024-05-SEM9/DOAN/scl.jpg"
 
 const UserBranchDetail = ({
@@ -66,7 +68,7 @@ const UserBranchDetail = ({
               >
                 <Typography>-&nbsp;</Typography>
                 <Typography>
-                  {att.value}: {att?.attributeKeyBranches.name}
+                  {att?.attributeKeyBranches.name}: {att.value}
                 </Typography>
               </Stack>
             ))}
@@ -82,7 +84,7 @@ const UserBranchDetail = ({
       </Grid>
       <Grid item xs={12} md={4}>
         <CardContent>
-        <Typography variant="h6" component="div" gutterBottom>
+          <Typography variant="h6" component="div" gutterBottom>
             Thông tin liên hệ:
           </Typography>
           <Typography variant="h6" component="div" gutterBottom>
