@@ -17,6 +17,7 @@ import DialogInfo from "../../common/DialogInfo";
 import ImageModal from "./ImageModal";
 import NewTypeCourtModal from "./NewTypeCourtModal";
 import { toast } from "react-toastify";
+import useDialogConfirm from "../../../hooks/useDialogConfirm";
 
 const TypeCourtTable = () => {
   const [typeCourts, setTypeCourts] = useState([]);
@@ -78,6 +79,7 @@ const TypeCourtTable = () => {
       console.log("Lỗi khi tìm nạp thuộc tính thông tin thêm ", error);
     }
   };
+  const { openDialog, DialogComponent } = useDialogConfirm();
 
   const handleOpenModal = (typeCourt) => {
     setCurrentTypeCourt(typeCourt);
@@ -99,6 +101,7 @@ const TypeCourtTable = () => {
     try {
       await CallApi(`/api/host/type-court/${id}`, "delete");
       await fetchTypeCourts();
+      toast.success("Xóa kiểu sân thành công");
     } catch (error) {
       console.log("Lỗi khi tìm nạp thuộc tính thông tin thêm ", error);
     }
@@ -107,9 +110,10 @@ const TypeCourtTable = () => {
     if (numberCourt !== 0) {
       handleOpenDialogInfo("Không thể xóa vì đang có sân đấu");
     } else {
-      await fetchApiDelete(typeCourtId);
-
-      toast.success("Xóa kiểu sân thành công");
+      openDialog(
+        "Bạn có chắc chắn muốn xóa kiểu sân này không?",
+        async () => await fetchApiDelete(typeCourtId)
+      );
     }
   };
 
@@ -207,6 +211,7 @@ const TypeCourtTable = () => {
         onClose={handleCloseImageModal}
         image={currentImage}
       />
+      <DialogComponent />
     </BaseBox>
   );
 };

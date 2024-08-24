@@ -32,12 +32,13 @@ const CourtDetailList = ({ activity, onDeleteCourt, role, branchId }) => {
             Kiểu sân: {activity?.TypeCourt?.name}
           </Typography>
         </div>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="mt-3 w-full">
           {role === "HOST" && (
             <Button
               variant="contained"
               color="error"
               onClick={() => onDeleteCourt(activity?.id, activity?.name)}
+              className="w-full"
             >
               Xóa sân
             </Button>

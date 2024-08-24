@@ -45,7 +45,7 @@ const PriceTypeCourtForm = ({ listTime = [], open, onClose, onSubmit }) => {
   } = useForm();
 
   const steps = [
-    "Bước 1: Nhập số lần",
+    "Bước 1: Nhập số ca/lần",
     "Bước 2: Chọn các mốc thời gian",
     "Bước 3: Nhập chi tiết giá",
   ];

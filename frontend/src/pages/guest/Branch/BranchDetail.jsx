@@ -4,19 +4,22 @@ import DetailPageCp from "../../../components/host/DetailPageCp";
 import { useParams } from "react-router-dom";
 import CallApi from "../../../service/CallAPI";
 import BaseBox from "../../common/BaseBox";
+import Loading from "../../../components/common/Loading";
 
 const BranchDetail = () => {
   const [userRole, setUserRole] = useState("");
   const [branchDetail, setBranchDetail] = useState({});
   const { id } = useParams();
   const role = localStorage.getItem("userRole");
-
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const fetchBranchDetail = async () => {
+      setIsLoading(true);
       try {
         const apiUrl = role === "host" ? "/api/host/branches" : "/api/branches";
         const response = await CallApi(`${apiUrl}/${id}`, "get");
         setBranchDetail(response?.data);
+        setIsLoading(false);
       } catch (error) {
         console.log(
           "=============== fetch list branch ERROR: " +
@@ -47,19 +50,23 @@ const BranchDetail = () => {
   );
   return (
     <BaseBox title="Thông tin cơ sở">
-      <DetailPageCp
-        name={branchDetail?.name}
-        image={branchDetail?.image}
-        locations={branchDetail?.address?.districts}
-        openingHours={branchDetail?.openingHours}
-        description={branchDetail?.description}
-        closingHours={branchDetail?.closingHours}
-        branch={branchDetail}
-        id={id}
-        role={userRole}
-        map={map}
-        type={"Branch"}
-      />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <DetailPageCp
+          name={branchDetail?.name}
+          image={branchDetail?.image}
+          locations={branchDetail?.address?.districts}
+          openingHours={branchDetail?.openingHours}
+          description={branchDetail?.description}
+          closingHours={branchDetail?.closingHours}
+          branch={branchDetail}
+          id={id}
+          role={userRole}
+          map={map}
+          type={"Branch"}
+        />
+      )}
     </BaseBox>
   );
 };
