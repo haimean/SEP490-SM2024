@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
 import React, { useEffect, useState } from "react";
@@ -5,6 +7,7 @@ import { format, isValid, parse } from "date-fns";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import DialogInfo from "../../common/DialogInfo";
+import { dateUntil } from "../../../utils/date";
 import dayjs from "dayjs";
 
 const EventModal = ({
@@ -57,12 +60,12 @@ const EventModal = ({
     const date = parse(value, "yyyy-MM-dd", new Date());
     if (isValid(date)) {
       const newStart = parse(
-        `${value}T${format(new Date(eventData.start), "HH:mm")}`,
+        `${value}T${dateUntil.getStringTime(eventData.start)}`,
         "yyyy-MM-dd'T'HH:mm",
         new Date()
       );
       const newEnd = parse(
-        `${value}T${format(new Date(eventData.end), "HH:mm")}`,
+        `${value}T${dateUntil.getStringTime(eventData.end)}`,
         "yyyy-MM-dd'T'HH:mm",
         new Date()
       );
@@ -89,10 +92,6 @@ const EventModal = ({
 
   const formatDate = (date) => {
     return isValid(new Date(date)) ? format(new Date(date), "yyyy-MM-dd") : "";
-  };
-
-  const formatTime = (date) => {
-    return isValid(new Date(date)) ? dayjs(date).format("HH:mm") : "";
   };
 
   const formatNumber = (value) => {

@@ -1,27 +1,30 @@
-import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+/* eslint-disable react/prop-types */
+
 import {
+  Button,
   Card,
   CardContent,
   CardMedia,
-  Typography,
   Stack,
-  Button,
   Tooltip,
+  Typography,
 } from "@mui/material";
-import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import EventIcon from "@mui/icons-material/Event";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
 import { format, parseISO } from "date-fns";
-import CallApi from "../../../service/CallAPI";
-import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import LoginModal from "../../auth/LoginModal";
-import haversine from "haversine";
+
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import CallApi from "../../../service/CallAPI";
 import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
+import EventIcon from "@mui/icons-material/Event";
 import { Group } from "@mui/icons-material";
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import LoginModal from "../../auth/LoginModal";
+import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
+import { dateUntil } from "../../../utils/date";
+import haversine from "haversine";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const PostCard = ({ activity, updateStatusInvitation }) => {
   // console.log("🚀 ========= activity:", activity);
@@ -59,17 +62,15 @@ const PostCard = ({ activity, updateStatusInvitation }) => {
         postId: activity?.post?.id,
       });
       updateStatusInvitation();
-      // TODO: Khi xin vaof thanfh coong -> update theme 1 truowngf owr
       toast.success("Xin tham gia thành công!");
     } catch (error) {
       console.log(error);
       toast.error(error.response?.data?.error);
     }
   };
-
   //   const formattedDate = format(parseISO(activity?.dateTime), "yyyy-MM-dd");
-  const formattedStartTime = format(parseISO(activity?.startTime), "HH:mm");
-  const formattedEndTime = format(parseISO(activity?.endTime), "HH:mm");
+  const formattedStartTime = dateUntil.getStringTime(activity?.startTime);
+  const formattedEndTime = dateUntil.getStringTime(activity?.endTime);
   const formattedPrice = new Intl.NumberFormat("vi-VN", {
     style: "currency",
     currency: "VND",

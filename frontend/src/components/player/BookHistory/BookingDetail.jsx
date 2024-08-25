@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import CallApi from "../../../service/CallAPI";
 import DialogAccept from "../../common/DialogAccept";
 import Loading from "../../common/Loading";
+import { dateUntil } from "../../../utils/date";
 import { format } from "date-fns";
 import { toast } from "react-toastify";
 
@@ -69,8 +70,8 @@ const BookingDetail = () => {
               Ngày: {format(new Date(booking?.startTime), "dd/MM/yyyy")}
             </Typography>
             <Typography>
-              Thời gian: {format(new Date(booking?.startTime), "HH:mm")} -{" "}
-              {format(new Date(booking?.endTime), "HH:mm")}
+              Thời gian: {dateUntil.getStringTime(booking?.startTime)} -{" "}
+              {dateUntil.getStringTime(booking?.endTime)}
             </Typography>
             <Typography>
               Giá: {booking?.price?.toLocaleString("vi-VN")} VNĐ

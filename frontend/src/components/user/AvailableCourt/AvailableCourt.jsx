@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
 import { Container, Grid, Pagination, Typography } from "@mui/material";
-import PostCard from "../Post/PostCard";
-import LocationFilter from "./LocationFilter";
-import CallApi from "../../../service/CallAPI";
-import { toast } from "react-toastify";
 import { format, parseISO } from "date-fns";
+import { useEffect, useState } from "react";
+
+import CallApi from "../../../service/CallAPI";
 import Loading from "../../common/Loading";
+import LocationFilter from "./LocationFilter";
+import PostCard from "../Post/PostCard";
+import { dateUntil } from "../../../utils/date";
+import { toast } from "react-toastify";
 
 const AvailableCourt = () => {
   const [activities, setActivities] = useState([]);
@@ -59,8 +61,8 @@ const AvailableCourt = () => {
 
   const filteredActivities = activities?.filter((activity) => {
     const formattedDate = format(parseISO(activity?.startTime), "yyyy-MM-dd");
-    const formattedStartTime = format(parseISO(activity?.startTime), "HH:mm");
-    const formattedEndTime = format(parseISO(activity?.endTime), "HH:mm");
+    const formattedStartTime = dateUntil.getStringTime(activity?.startTime);
+    const formattedEndTime = dateUntil.getStringTime(activity?.endTime);
     if (
       filters.province &&
       activity?.Court.Branches?.address?.provinces !== filters.province

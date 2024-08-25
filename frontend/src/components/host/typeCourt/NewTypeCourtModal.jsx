@@ -21,7 +21,7 @@ import PriceTypeCourtForm from "./PriceTypeCourtForm";
 import SectionCp from "../FormInput/SectionCp";
 import TimeLinePrice from "./TimeLinePrice";
 import TutorialUsing from "./TutorialUsing";
-import dayjs from "dayjs";
+import { dateUntil } from "../../../utils/date";
 import { toast } from "react-toastify";
 
 const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
@@ -101,14 +101,11 @@ const NewTypeCourtModal = ({ isOpen, onClose, onSave, typeCourt }) => {
           acc[key] = [];
         }
         if (item) {
-          console.log(typeof dayjs(new Date(item?.startTime)).format("HH:mm"));
-          console.log(dayjs(new Date(item?.startTime)).format("HH:mm"));
-          // acc[key].push(item);
           acc[key].push({
             price: item.price,
             times: item.times,
-            startTime: dayjs(new Date(item?.startTime)).format("HH:mm"),
-            endTime: dayjs(new Date(item?.endTime)).format("HH:mm"),
+            startTime: dateUntil.getStringTime(item?.startTime),
+            endTime: dateUntil.getStringTime(item?.endTime),
           });
         }
         return acc;
