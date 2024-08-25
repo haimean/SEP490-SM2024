@@ -1,6 +1,6 @@
-import { memo, useEffect, useState } from "react";
+/* eslint-disable react/prop-types */
+import { memo } from "react";
 import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import PropTypes from "prop-types";
 
 const month = [
   { id: 1, label: "3 tháng", value: 3 },
@@ -26,7 +26,7 @@ const OptionChartPlayerFilter = ({
   return (
     <Box sx={{ minWidth: 600, display: "flex", gap: 2 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Filter</InputLabel>
+        <InputLabel id="demo-simple-select-label">Lọc theo tháng</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
@@ -40,7 +40,7 @@ const OptionChartPlayerFilter = ({
       </FormControl>
       {optionChartPlayer === "week" && (
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Filter year</InputLabel>
+          <InputLabel id="demo-simple-select-label">Năm</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
@@ -58,7 +58,7 @@ const OptionChartPlayerFilter = ({
       )}
       {optionChartPlayer === "week" && (
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Filter year</InputLabel>
+          <InputLabel id="demo-simple-select-label">Tháng</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
@@ -83,7 +83,7 @@ const OptionChartPlayerFilter = ({
       )}
       {optionChartPlayer === "month" && (
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Filter month</InputLabel>
+          <InputLabel id="demo-simple-select-label">Tháng</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
