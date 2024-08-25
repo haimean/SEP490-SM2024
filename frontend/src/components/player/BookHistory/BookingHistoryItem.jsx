@@ -5,6 +5,7 @@ import { Box, Button, Grid, Paper, Typography } from "@mui/material";
 import CallApi from "../../../service/CallAPI";
 import CreatePostModal from "../../../components/player/Post/CreatePostModal";
 import { Link } from "react-router-dom";
+import { dateUntil } from "../../../utils/date";
 import { format } from "date-fns";
 import { toast } from "react-toastify";
 import useDialogConfirm from "../../../hooks/useDialogConfirm";
@@ -39,8 +40,8 @@ const BookingsHistoryItem = ({ bookings, onCancelSuccess }) => {
           <Grid container>
             <Grid item xs={6}>
               <Typography variant="body2" color="text.secondary">
-                Thời gian: {format(bookingStartTime, "HH:mm")} -{" "}
-                {format(new Date(bookings?.endTime), "HH:mm")}
+                Thời gian: {dateUntil.getStringTime(bookings?.startTime)} -{" "}
+                {dateUntil.getStringTime(bookings?.endTime)}
               </Typography>
             </Grid>
             <Grid item xs={6}>

@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
-import { format } from "date-fns";
+import { dateUntil } from "../../utils/date";
 
 const PriceListModal = ({
   isOpen,
@@ -184,10 +184,10 @@ const PriceListModal = ({
                     {sortedList.map((item, index) => (
                       <TableRow key={index}>
                         <TableCell>
-                          {format(new Date(item.start), "HH:mm")}
+                          {dateUntil.getStringTime(item.start)}
                         </TableCell>
                         <TableCell>
-                          {format(new Date(item.end), "HH:mm")}
+                          {dateUntil.getStringTime(item.end)}
                         </TableCell>
                         <TableCell>{formatPrice(item.price)}/h</TableCell>
                       </TableRow>
