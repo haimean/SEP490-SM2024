@@ -34,7 +34,7 @@ export default function TableAccount() {
     }
   };
   React.useEffect(() => {
-    getData(1, 5);
+    getData(0, 5);
   }, []);
   return (
     <TableContainer component={Paper} className="col-span-2">
