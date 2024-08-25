@@ -1,13 +1,11 @@
 /* eslint-disable react/prop-types */
-
 import { Button, Card, Grid, Typography } from "@mui/material";
-
-import { Link } from "react-router-dom";
-import React from "react";
-import { dateUntil } from "../../../utils/date";
-import { getTimeSinceCreation } from "../../../utils/getTimeSinceCreation";
 import haversine from "haversine";
+import React from "react";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { getTimeSinceCreation } from "../../../utils/getTimeSinceCreation";
+import FormatTime from "../../../utils/user/formatTime";
 
 export default function RequestListJoinCp({ item, changeStatusInvitation }) {
   const [location, setLocation] = React.useState(null);
@@ -141,9 +139,9 @@ export default function RequestListJoinCp({ item, changeStatusInvitation }) {
               variant="body2"
               color="text.primary"
             >
-              {`Giờ chơi: ${dateUntil.getStringTime(
+              {`Giờ chơi: ${FormatTime(
                 item?.Post?.booking?.startTime
-              )} - ${dateUntil.getStringTime(item?.Post?.booking?.startTime)}`}
+              )} - ${FormatTime(item?.Post?.booking?.endTime)}`}
             </Typography>
           </Grid>
           <Grid item xs={12}>

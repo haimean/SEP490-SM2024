@@ -12,7 +12,6 @@ import {
 
 import CallApi from "../../../service/CallAPI";
 import { Link } from "react-router-dom";
-import { dateUntil } from "../../../utils/date";
 import { format } from "date-fns";
 import { toast } from "react-toastify";
 import { useState } from "react";
@@ -75,8 +74,8 @@ const BookingsHistoryItemHost = ({ bookings, onCancelSuccess, branchId }) => {
             {format(bookingStartTime, "dd/MM/yyyy")}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Thời gian thuê: {dateUntil.getStringTime(bookingStartTime)} -{" "}
-            {dateUntil.getStringTime(bookings?.endTime)}
+            Thời gian thuê: {format(bookingStartTime, "HH:mm")} -{" "}
+            {format(new Date(bookings?.endTime), "HH:mm")}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             Giá: {bookings?.price}

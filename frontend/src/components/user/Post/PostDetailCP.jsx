@@ -1,35 +1,34 @@
 /* eslint-disable react/prop-types */
-
 import {
   Box,
-  Button,
-  Card,
-  CardContent,
-  CardMedia,
-  Grid,
-  Link,
   Typography,
+  Card,
+  CardMedia,
+  CardContent,
+  Grid,
+  Button,
+  Link,
 } from "@mui/material";
 import {
-  Group,
   LocationOn,
+  Group,
   School,
   SportsBasketball,
 } from "@mui/icons-material";
-import { useEffect, useState } from "react";
-
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
-import EventIcon from "@mui/icons-material/Event";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import Map from "../../common/Map";
+import EventIcon from "@mui/icons-material/Event";
 import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
+
+import Map from "../../common/Map";
+import FormatTime from "../../../utils/user/formatTime";
 import PostRightCP from "./PostRightCP";
-import { dateUntil } from "../../../utils/date";
+import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
+import haversine from "haversine";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { format } from "date-fns";
 import { getRatingDescription } from "../../../utils/user/GetRatingDescription";
-import haversine from "haversine";
-import { toast } from "react-toastify";
 
 const PostDetailCP = ({ post, postId }) => {
   console.log("🚀 ========= post:", post);
@@ -62,8 +61,9 @@ const PostDetailCP = ({ post, postId }) => {
   const { TypeCourt } = Court;
   const locations = post?.booking?.Court?.Branches?.address?.detail;
 
-  const formattedStartTime = dateUntil.getStringTime(post?.booking?.startTime);
-  const formattedEndTime = dateUntil.getStringTime(post?.booking?.endTime);
+  // const formattedDate = format(parseISO(post.booking.dateTime), "yyyy-MM-dd");
+  const formattedStartTime = FormatTime(post?.booking?.startTime);
+  const formattedEndTime = FormatTime(post?.booking?.endTime);
   const date = `${formattedStartTime} - ${formattedEndTime}`;
   const address = post?.booking?.Court?.Branches?.address;
   console.log("🚀 ========= address:", address);
