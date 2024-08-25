@@ -99,20 +99,8 @@ const EventModal = ({
     return new Intl.NumberFormat("vi-VN").format(value);
   };
 
-  const validateTime = () => {
-    const now = new Date();
-    const start = new Date(eventData.start);
-    if (isNewEvent && start < now) {
-      handleOpenDialogInfo("Không thể chọn khoảng thời gian đã trôi qua.");
-      return false;
-    }
-    return true;
-  };
-
   const handleSave = () => {
-    if (validateTime()) {
-      onSave();
-    }
+    onSave();
   };
 
   let date = formatDate(eventData.start);
