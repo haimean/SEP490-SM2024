@@ -1,6 +1,4 @@
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import { useEffect, useState } from "react";
-import { dbFireBase } from "../utils/firebase";
+import { Badge, Button, ListItem, Popover } from "@mui/material";
 import {
   equalTo,
   off,
@@ -8,12 +6,15 @@ import {
   orderByChild,
   query,
   ref,
-  update,
   remove,
+  update,
 } from "firebase/database";
-import { Badge, Button, ListItem, Popover } from "@mui/material";
+import { useEffect, useState } from "react";
+
 import CallApi from "./../service/CallAPI";
 import { Link } from "react-router-dom";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import { dbFireBase } from "../utils/firebase";
 
 const Notification = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -85,13 +86,10 @@ const Notification = () => {
       const values = snapshot.val();
       if (values) {
         Object.entries(values).forEach((value) => {
-          // console.log("key", key);
-          console.log("value", `users/${value[0]}`);
           const userRef = ref(dbFireBase, `/users/${value[0]}`);
           remove(userRef)
             .then(() => {
               setRecords([]);
-              console.log("Data removed successfully");
             })
             .catch((error) => {
               console.error("Error removing data: ", error);

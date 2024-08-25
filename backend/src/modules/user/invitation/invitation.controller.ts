@@ -1,9 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
+
+import { Invitation, UserAvailability } from '@prisma/client';
+
+import { createNotifications } from '../../../lib/notificationService';
 import CustomError from '../../../outcomes/customError';
 import { ResponseHandler } from '../../../outcomes/responseHandler';
-import { Invitation, UserAvailability } from '@prisma/client';
 import invitationUserService from './invitation.service';
-import { createNotifications } from '../../../lib/notificationService';
 
 const invitationUserController = {
   // chủ trận mời người rảnh
@@ -159,6 +161,121 @@ const invitationUserController = {
               )
             );
           }
+        } else {
+          const invitation = await invitationUserService.update({
+            invitationId,
+            status,
+            reasonCancel,
+          });
+          const postId = invitation.Post.id;
+          // people without anger
+          if (accountId === invitation.Post.booking.accountId) {
+            //person id has yard
+            const accountId: number =
+              invitation.userAvailability.accountId;
+            // name of person without anger
+            const name = invitation.Post.booking?.bookingInfo?.name;
+            // Notification
+            switch (status) {
+              case 'ACCEPT':
+                // đã accept
+                createNotifications([
+                  {
+                    id: 1,
+                    accountId,
+                    createdAt: new Date(),
+                    message: `${name} đã đồng ý lời mời vào trận đấu của bạn`,
+                    url: `/post/${postId}`,
+                    status: 'SEED',
+                  },
+                ]);
+                break;
+
+              case 'NOACCEPT':
+                createNotifications([
+                  {
+                    id: 1,
+                    accountId,
+                    createdAt: new Date(),
+                    message: `${name} đã từ chối lời mời vào trận đấu của bạn`,
+                    url: `/post/${postId}`,
+                    status: 'SEED',
+                  },
+                ]);
+                break;
+
+              case 'CANCEL':
+                // accepted
+                createNotifications([
+                  {
+                    id: 1,
+                    accountId,
+                    createdAt: new Date(),
+                    message: `${name} đã hủy lời mời vào trận đấu của bạn với lý do: ${reasonCancel}`,
+                    url: `/post/${postId}`,
+                    status: 'SEED',
+                  },
+                ]);
+                break;
+
+              default:
+                break;
+            }
+          } else {
+            // send notification to free person
+            // account of free person
+            const accountId: number =
+              invitation.Post.booking.accountId;
+            const name =
+              invitation.userAvailability.account.user?.fullName;
+            switch (status) {
+              case 'ACCEPT':
+                // đã accept
+                createNotifications([
+                  {
+                    id: 1,
+                    accountId,
+                    createdAt: new Date(),
+                    message: `${name} đã đồng ý lời xin vào trận đấu của bạn`,
+                    url: `/post/${postId}`,
+                    status: 'SEED',
+                  },
+                ]);
+                break;
+
+              case 'NOACCEPT':
+                // đã accept
+                createNotifications([
+                  {
+                    id: 1,
+                    accountId,
+                    createdAt: new Date(),
+                    message: `${name} đã từ chối lời xin vào trận đấu của bạn`,
+                    url: `/post/${postId}`,
+                    status: 'SEED',
+                  },
+                ]);
+                break;
+
+              case 'CANCEL':
+                // đã accept
+                createNotifications([
+                  {
+                    id: 1,
+                    accountId,
+                    createdAt: new Date(),
+                    message: `${name} đã đồng hủy lời xin vào trận đấu của bạn với lý do: ${reasonCancel}`,
+                    url: `/post/${postId}`,
+                    status: 'SEED',
+                  },
+                ]);
+                break;
+
+              default:
+                break;
+            }
+          }
+          ResponseHandler(res, invitation);
         }
       } else {
         const invitation = await invitationUserService.update({
