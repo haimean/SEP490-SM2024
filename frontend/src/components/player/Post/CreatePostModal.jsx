@@ -58,7 +58,7 @@ const CreatePostModal = ({ bookings }) => {
           {
             genderPost: data.genderPost,
             level: data.level,
-            price: bookings?.price.toString(),
+            price: data?.price.toString(),
           },
         ],
       };
