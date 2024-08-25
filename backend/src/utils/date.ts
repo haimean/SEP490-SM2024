@@ -23,7 +23,7 @@ const dateUtils = {
     // Tách giờ và phút từ chuỗi
     const [hours, minutes] = time.split(':').map(Number);
     // Cập nhật giờ và phút cho đối tượng Date
-    currentDate.setHours(hours, minutes, 0, 0); // giờ, phút, giây, milliseconds
+    currentDate.setHours(Number(hours), Number(minutes), 0, 0); // giờ, phút, giây, milliseconds
     return currentDate;
   },
 
