@@ -242,7 +242,7 @@ const LocationFilter = ({ onFilterChange }) => {
       <FormControl className="w-48">
         <Select value={price} onChange={handlePriceChange} displayEmpty>
           <MenuItem value="">
-            <span>Phí giao lưu</span>
+            <span>Phí thuê sân</span>
           </MenuItem>
           <MenuItem value="deal">Thỏa thuận</MenuItem>
           <MenuItem value="50000">Dưới 50,000</MenuItem>

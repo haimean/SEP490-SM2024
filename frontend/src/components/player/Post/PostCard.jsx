@@ -166,7 +166,7 @@ const PostCard = ({
             className="mb-1"
           >
             <PaidOutlinedIcon className="text-red-600" />
-            <Typography>{`Phí giao lưu: ${formattedPrice}`}</Typography>
+            <Typography>{`Phí thuê sân: ${formattedPrice}`}</Typography>
           </Stack>
           <Stack
             direction="row"

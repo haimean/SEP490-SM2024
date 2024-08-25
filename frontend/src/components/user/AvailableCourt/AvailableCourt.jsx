@@ -49,7 +49,6 @@ const AvailableCourt = () => {
     price
   ) => {
     setFilters({ province, district, ward, date, time, level, price });
-    console.log("a", date);
   };
 
   const isTimeInRange = (start, end, selectedTime) => {
