@@ -1,23 +1,20 @@
-import "react-big-calendar/lib/css/react-big-calendar.css";
-
-import { Backdrop, CircularProgress } from "@mui/material";
+import { useState, useEffect } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import {
-  differenceInMinutes,
-  format,
-  getDay,
   parse,
   startOfWeek,
+  getDay,
+  format,
+  differenceInMinutes,
 } from "date-fns";
-import { useEffect, useState } from "react";
-
-import CallApi from "../../../service/CallAPI";
-import ConfirmBookingModal from "./ConfirmBookingModal";
-import DialogInfo from "../../common/DialogInfo";
-import PriceListModal from "../../common/PriceListModal";
-import { dateUntil } from "../../../utils/date";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 import enUS from "date-fns/locale/en-US";
 import { toast } from "react-toastify";
+import { CircularProgress, Backdrop } from "@mui/material";
+import CallApi from "../../../service/CallAPI";
+import PriceListModal from "../../common/PriceListModal";
+import ConfirmBookingModal from "./ConfirmBookingModal";
+import DialogInfo from "../../common/DialogInfo";
 
 const locales = {
   "en-US": enUS,
@@ -413,8 +410,8 @@ const CreateEventWithNoOverlap = ({ courtId }) => {
         {openHour && closeHour && (
           <>
             <h2>
-              Giờ hoạt động: {dateUntil.getStringTime(openHour)} -{" "}
-              {dateUntil.getStringTime(closeHour)}
+              Giờ hoạt động: {format(openHour, "HH:mm")} -{" "}
+              {format(closeHour, "HH:mm")}
             </h2>
             <div className="text-center my-2">
               <button

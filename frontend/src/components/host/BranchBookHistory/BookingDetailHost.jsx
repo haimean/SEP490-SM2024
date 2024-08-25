@@ -12,7 +12,6 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import CallApi from "../../../service/CallAPI";
-import { dateUntil } from "../../../utils/date";
 import { format } from "date-fns";
 import { toast } from "react-toastify";
 
@@ -139,8 +138,8 @@ const BookingDetailHost = () => {
               Ngày: {format(new Date(booking?.startTime), "dd/MM/yyyy")}
             </Typography>
             <Typography>
-              Thời gian: {dateUntil.getStringTime(booking?.startTime)} -{" "}
-              {dateUntil.getStringTime(booking?.endTime)}
+              Thời gian: {format(new Date(booking?.startTime), "HH:mm")} -{" "}
+              {format(new Date(booking?.endTime), "HH:mm")}
             </Typography>
             <Typography>
               Giá: {booking?.price?.toLocaleString("vi-VN")} VNĐ
