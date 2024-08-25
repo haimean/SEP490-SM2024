@@ -5,7 +5,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Backdrop, Box, Button, CircularProgress } from "@mui/material";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import React, { useEffect, useState } from "react";
-import { addHours, format, getDay, parse, startOfWeek } from "date-fns";
+import { format, getDay, parse, startOfWeek } from "date-fns";
 
 import CallApi from "../../../service/CallAPI";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
@@ -294,8 +294,8 @@ const CalendarModalComponent = ({ courtId }) => {
           "post",
           {
             courtId,
-            startTime: addHours(new Date(eventData.start), 14),
-            endTime: addHours(new Date(eventData.end), 14),
+            startTime: new Date(eventData.start),
+            endTime: new Date(eventData.end),
             price: eventData.price,
             name: eventData.name,
             numberPhone: eventData.numberPhone,
@@ -388,7 +388,10 @@ const CalendarModalComponent = ({ courtId }) => {
     let totalPrice = 0;
     priceListToUse.forEach((priceRange) => {
       const rangeStart = new Date(start);
-      rangeStart.setHours(priceRange.start.getHours(), priceRange.start.getMinutes());
+      rangeStart.setHours(
+        priceRange.start.getHours(),
+        priceRange.start.getMinutes()
+      );
       const rangeEnd = new Date(start);
       rangeEnd.setHours(priceRange.end.getHours(), priceRange.end.getMinutes());
 

@@ -1,19 +1,19 @@
-import React from "react";
 import {
-  Modal,
   Box,
-  Typography,
   IconButton,
+  Modal,
+  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
+  Typography,
 } from "@mui/material";
+
 import CloseIcon from "@mui/icons-material/Close";
-import { format, addHours } from "date-fns";
+import { format } from "date-fns";
 
 const PriceListModal = ({
   isOpen,

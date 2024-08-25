@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import { Box, Button, Typography } from "@mui/material";
-import { addHours, isAfter, isBefore, isEqual, parseISO } from "date-fns";
+import { isAfter, isBefore, isEqual, parseISO } from "date-fns";
 import { useEffect, useState } from "react";
 
 import AddNewTimesGroupForm from "./AddNewTimesGroupForm";
@@ -61,20 +61,14 @@ const PriceSetupPage = ({ typeCourtId = 1 }) => {
 
   const isOverlapping = (times, newStart, newEnd, ignoreIndex = null) => {
     const existingPrices = priceLists[times] || [];
-    const newStartDate = addHours(
-      parseISO(`1970-01-01T${newStart}:00.000Z`),
-      7
-    );
-    const newEndDate = addHours(parseISO(`1970-01-01T${newEnd}:00.000Z`), 7);
+    const newStartDate = parseISO(`1970-01-01T${newStart}:00.000Z`);
+    const newEndDate = parseISO(`1970-01-01T${newEnd}:00.000Z`);
 
     return existingPrices.some((price, index) => {
       if (ignoreIndex !== null && index === ignoreIndex) return false;
 
-      const startDate = addHours(
-        parseISO(`1970-01-01T${price.start}:00.000Z`),
-        7
-      );
-      const endDate = addHours(parseISO(`1970-01-01T${price.end}:00.000Z`), 7);
+      const startDate = parseISO(`1970-01-01T${price.start}:00.000Z`);
+      const endDate = parseISO(`1970-01-01T${price.end}:00.000Z`);
 
       return (
         (isBefore(newStartDate, endDate) && isAfter(newEndDate, startDate)) ||
@@ -109,8 +103,8 @@ const PriceSetupPage = ({ typeCourtId = 1 }) => {
   const handleAddNewTimesGroup = async () => {
     const { start, end, price, times } = newTimesGroup;
     if (start && end && price && times) {
-      const startTime = addHours(new Date(`1970-01-01T${start}:00.000Z`), 7);
-      const endTime = addHours(new Date(`1970-01-01T${end}:00.000Z`), 7);
+      const startTime = new Date(`1970-01-01T${start}:00.000Z`);
+      const endTime = new Date(`1970-01-01T${end}:00.000Z`);
 
       if (isAfter(startTime, endTime) || isEqual(startTime, endTime)) {
         toast.error("Giờ bắt đầu phải nhỏ hơn giờ kết thúc");
@@ -151,8 +145,8 @@ const PriceSetupPage = ({ typeCourtId = 1 }) => {
   const handleAddPrice = async (times) => {
     const { start, end, price } = newRows[times];
     if (start && end && price) {
-      const startTime = addHours(new Date(`1970-01-01T${start}:00.000Z`), 7);
-      const endTime = addHours(new Date(`1970-01-01T${end}:00.000Z`), 7);
+      const startTime = new Date(`1970-01-01T${start}:00.000Z`);
+      const endTime = new Date(`1970-01-01T${end}:00.000Z`);
 
       if (isAfter(startTime, endTime) || isEqual(startTime, endTime)) {
         toast.error("Giờ bắt đầu phải nhỏ hơn giờ kết thúc");
@@ -245,14 +239,9 @@ const PriceSetupPage = ({ typeCourtId = 1 }) => {
 
   const handleConfirmEditPrice = async (times, index) => {
     const updatedPrice = editingRows[times][index];
-    const startTime = addHours(
-      new Date(`1970-01-01T${updatedPrice.start}:00.000Z`),
-      7
-    );
-    const endTime = addHours(
-      new Date(`1970-01-01T${updatedPrice.end}:00.000Z`),
-      7
-    );
+    const startTime = new Date(`1970-01-01T${updatedPrice.start}:00.000Z`);
+
+    const endTime = new Date(`1970-01-01T${updatedPrice.end}:00.000Z`);
 
     if (isAfter(startTime, endTime) || isEqual(startTime, endTime)) {
       toast.error("Giờ bắt đầu phải nhỏ hơn giờ kết thúc");

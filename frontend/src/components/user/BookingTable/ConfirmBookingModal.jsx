@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import {
   Backdrop,
   Box,
@@ -7,7 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 
 import CallApi from "../../../service/CallAPI";
 import RedirectConfirmModal from "./RedirectConfirmModal";
@@ -44,19 +46,13 @@ const ConfirmBookingModal = ({
 
   const pad = (n) => n.toString().padStart(2, "0");
 
-  const addHours = (date, hours) => {
-    const result = new Date(date);
-    result.setHours(result.getHours() + hours);
-    return result;
-  };
   const formatDateTime = (date) => {
-    const newDate = addHours(date, 7);
-    const year = newDate.getFullYear();
-    const month = pad(newDate.getMonth() + 1);
-    const day = pad(newDate.getDate());
-    const hours = pad(newDate.getHours());
-    const minutes = pad(newDate.getMinutes());
-    const seconds = pad(newDate.getSeconds());
+    const year = date.getFullYear();
+    const month = pad(date.getMonth() + 1);
+    const day = pad(date.getDate());
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+    const seconds = pad(date.getSeconds());
     return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.000Z`;
   };
 
