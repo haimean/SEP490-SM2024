@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getTimeSinceCreation } from "../../../utils/getTimeSinceCreation";
 import FormatTime from "../../../utils/user/formatTime";
+import { format } from "date-fns";
 
 export default function RequestListJoinCp({ item, changeStatusInvitation }) {
   const [location, setLocation] = React.useState(null);
@@ -137,7 +138,30 @@ export default function RequestListJoinCp({ item, changeStatusInvitation }) {
             >
               {`Giờ chơi: ${FormatTime(
                 item?.Post?.booking?.startTime
-              )} - ${FormatTime(item?.Post?.booking?.endTime)}`}
+              )} - ${FormatTime(item?.Post?.booking?.endTime)} (${format(
+                new Date(item?.Post?.booking?.startTime),
+                "dd/MM/yyyy"
+              )})`}
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography
+              sx={{ display: "inline" }}
+              component="span"
+              variant="body2"
+              color="text.primary"
+            >
+              Cơ sở: {item?.Post?.booking?.Court?.Branches?.name}
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography
+              sx={{ display: "inline" }}
+              component="span"
+              variant="body2"
+              color="text.primary"
+            >
+              Sân: {item?.Post?.booking?.Court?.name}
             </Typography>
           </Grid>
           <Grid item xs={12}>
