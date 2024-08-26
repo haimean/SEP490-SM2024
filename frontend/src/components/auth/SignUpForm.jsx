@@ -1,15 +1,17 @@
-import { useState } from "react";
-import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
-import { useForm } from "react-hook-form";
-import CallApi from "../../service/CallAPI.jsx";
-import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setUser } from "../../middleware/redux/userSlice.jsx";
 import { Button, IconButton, InputAdornment, TextField } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+
+import CallApi from "../../service/CallAPI.jsx";
+import { GoogleLogin } from "@react-oauth/google";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { jwtDecode } from "jwt-decode";
+import { setUser } from "../../middleware/redux/userSlice.jsx";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+
 // eslint-disable-next-line react/prop-types
 const SignUpForm = ({ role }) => {
   const {
@@ -30,7 +32,7 @@ const SignUpForm = ({ role }) => {
   }
 
   const onSubmit = async (data) => {
-    const { name, email, password, confirmPassword } = data;
+    const { name, email, password, confirmPassword, numberPhone } = data;
     if (password !== confirmPassword) {
       toast.error("Mật khẩu nhập lại không trùng khớp.");
       return;
@@ -44,6 +46,7 @@ const SignUpForm = ({ role }) => {
           name,
           password,
           role,
+          numberPhone,
         },
         {}
       );
@@ -141,6 +144,22 @@ const SignUpForm = ({ role }) => {
           })}
           error={!!errors.email}
           helperText={errors.email?.message}
+        />
+        <TextField
+          label="Số điện thoại"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          type="text"
+          {...register("numberPhone", {
+            required: "Không được bỏ trống trường này.",
+            pattern: {
+              value: /(84|0[3|5|7|8|9])+(\d{8})\b/,
+              message: "Vui lòng nhập số điện thoại hợp lệ",
+            },
+          })}
+          error={!!errors.numberPhone}
+          helperText={errors.numberPhone?.message}
         />
         <TextField
           label="Mật Khẩu"

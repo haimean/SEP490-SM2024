@@ -16,6 +16,7 @@ interface Register {
   email: string;
   password: string;
   role: Role;
+  numberPhone: string;
   name: string;
 }
 interface LoginGoogle {
@@ -67,7 +68,13 @@ const authService = {
     };
   },
 
-  register: async ({ email, password, role, name }: Register) => {
+  register: async ({
+    email,
+    password,
+    role,
+    name,
+    numberPhone,
+  }: Register) => {
     let account = await database.account.findUnique({
       where: { email },
     });
@@ -92,7 +99,7 @@ const authService = {
           accountId: account.id,
           fullName: name,
           gender: 'OTHER',
-          numberPhone: '',
+          numberPhone,
         },
       });
       return account;

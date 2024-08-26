@@ -1,12 +1,13 @@
+import ejs from 'ejs';
 import { NextFunction, Request, Response } from 'express';
-import authService from './auth.service';
-import CustomError from '../../outcomes/customError';
-import sendEmail from '../../lib/sendEmail';
-import NotFoundError from '../../outcomes/notFoundError';
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import ejs from 'ejs';
+
+import sendEmail from '../../lib/sendEmail';
+import CustomError from '../../outcomes/customError';
+import NotFoundError from '../../outcomes/notFoundError';
 import { ResponseHandler } from '../../outcomes/responseHandler';
+import authService from './auth.service';
 
 const getEmailContent = (link: string) => {
   const templatePath = join(
@@ -35,13 +36,14 @@ const authController = {
     res: Response,
     next: NextFunction
   ) => {
-    const { email, password, role, name } = req.body;
+    const { email, password, role, name, numberPhone } = req.body;
     try {
       const newAccount = await authService.register({
         email,
         password,
         role,
         name,
+        numberPhone,
       });
       const verifyUrl = `${
         req.protocol + '://' + req.get('host')
