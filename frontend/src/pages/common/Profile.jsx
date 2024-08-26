@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 
 import CallApi from "../../service/CallAPI.jsx";
 import ChangePassword from "../../components/auth/ChangePassword.jsx";
-import InputLabel from "../../components/common/InputLabel.jsx";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 
@@ -34,9 +33,11 @@ const Profile = () => {
   useEffect(() => {
     if (profile?.user) {
       setValue("fullName", profile?.user?.fullName);
-      setValue("dob", formatDate(profile?.user?.dob));
+      if (profile?.user?.dob) {
+        setValue("dob", formatDate(profile?.user?.dob));
+      }
       setValue("numberPhone", profile?.user?.numberPhone);
-      setValue("gender", profile?.user?.gender);
+      setValue("gender", profile?.user?.gender ?? "");
     }
   }, [profile, setValue]);
 
@@ -68,14 +69,11 @@ const Profile = () => {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    date.setHours(date.getHours() + 14);
     return date.toISOString().split("T")[0];
   };
 
   const onSubmit = async (data) => {
     const formData = new FormData();
-    console.log(formData.dob);
-    console.log(formatDate(data.dob));
 
     formData.append("name", data.fullName || profile?.user?.fullName);
     formData.append(
@@ -231,9 +229,7 @@ const Profile = () => {
                   fullWidth
                   margin="normal"
                   type="date"
-                  defaultValue={
-                    profile?.user?.dob && formatDate(profile?.user?.dob)
-                  }
+                  defaultValue={profile?.user?.dob}
                   required
                   InputLabelProps={{
                     shrink: true, // Đảm bảo label luôn di chuyển lên trên
@@ -275,19 +271,6 @@ const Profile = () => {
                     </p>
                   )}
                 </div>
-                {/* <InputLabel
-                  label="Email"
-                  id="email"
-                  placeholder="email@example.com"
-                  register={register}
-                  defaultValue={profile?.email}
-                  disabled={true}
-                  pattern={{
-                    value: EMAIL_REGEX,
-                    message: "Vui lòng nhập email hợp lệ",
-                  }}
-                  errors={errors}
-                /> */}
                 <TextField
                   label="Email"
                   id="email"
