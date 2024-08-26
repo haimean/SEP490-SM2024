@@ -146,7 +146,7 @@ const PostCard = ({
           >
             <AccountBalanceIcon className="text-red-600" />
             <Typography>
-              {`Chi nhánh: ${branchName}` || "Chưa có thông tin"}
+              {`Cơ sở: ${branchName}` || "Chưa có thông tin"}
             </Typography>
           </Stack>
           <Stack
