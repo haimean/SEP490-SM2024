@@ -63,42 +63,57 @@ export const getRoutes = () => {
         );
       case "host":
         return (
-          <Route
-            key={route.path}
-            path={route.path}
-            element={
-              <LayoutHost>
-                <ProtectedRoute
-                  component={route.component}
-                  roles={route.role}
-                />
-              </LayoutHost>
-            }
-          />
+          <>
+            <Helmet>
+              <title>{route.name}</title>
+            </Helmet>
+            <Route
+              key={route.path}
+              path={route.path}
+              element={
+                <LayoutHost>
+                  <ProtectedRoute
+                    component={route.component}
+                    roles={route.role}
+                  />
+                </LayoutHost>
+              }
+            />
+          </>
         );
 
       case "admin":
         return (
-          <Route
-            key={route.path}
-            path={route.path}
-            element={
-              <LayoutAdmin>
-                <ProtectedRoute
-                  component={route.component}
-                  roles={route.role}
-                />
-              </LayoutAdmin>
-            }
-          />
+          <>
+            <Helmet>
+              <title>{route.name}</title>
+            </Helmet>
+            <Route
+              key={route.path}
+              path={route.path}
+              element={
+                <LayoutAdmin>
+                  <ProtectedRoute
+                    component={route.component}
+                    roles={route.role}
+                  />
+                </LayoutAdmin>
+              }
+            />{" "}
+          </>
         );
       case "auth":
         return (
-          <Route
-            key={route.path}
-            path={route.path}
-            element={<LayoutAuth>{route.component}</LayoutAuth>}
-          />
+          <>
+            <Helmet>
+              <title>{route.name}</title>
+            </Helmet>
+            <Route
+              key={route.path}
+              path={route.path}
+              element={<LayoutAuth>{route.component}</LayoutAuth>}
+            />
+          </>
         );
       default:
         return route.component;
