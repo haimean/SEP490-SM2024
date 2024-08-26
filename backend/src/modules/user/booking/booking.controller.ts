@@ -109,7 +109,7 @@ const bookingUserController = {
               id: 1,
               accountId: Number(court?.Branches?.accountId),
               createdAt: new Date(),
-              message: `Người chơi đã đắng ký trận của bạn`,
+              message: `Người chơi đã đăng ký trận của bạn`,
               url: `/host/booking-history/detail/${booking.id}`,
               status: 'SEED',
             },
