@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   Card,
   CardContent,
@@ -19,19 +20,10 @@ import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 import { useEffect, useState } from "react";
 import haversine from "haversine";
 import { Group } from "@mui/icons-material";
-const PostCard = ({
-  post,
-  postId,
-  owner,
-  court,
-  price,
-  time,
-  image,
-  isLarge,
-}) => {
+const PostCard = ({ post, postId, owner, court, time, image, isLarge }) => {
   console.log("🚀 ========= post:", post);
   const [location, setLocation] = useState(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
   const getLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -42,7 +34,8 @@ const PostCard = ({
           });
         },
         (error) => {
-          setError(error.message);
+          console.log("🚀 ========= error:", error?.message);
+          setError(true);
         }
       );
     } else {
@@ -117,7 +110,7 @@ const PostCard = ({
           >
             <DirectionsRunIcon className="text-red-600" />
             <Typography component="h6" variant="h6">
-              Vị trí cách bạn {distance ? distance?.toFixed(2) : "~"} km
+              Vị trí cách bạn {!error ? distance?.toFixed(2) : "~"} km
             </Typography>
           </Stack>
           <Tooltip title={post?.booking?.Court?.Branches?.address?.detail}>

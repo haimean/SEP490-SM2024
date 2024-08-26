@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Button, Card, Grid, Typography } from "@mui/material";
 import haversine from "haversine";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getTimeSinceCreation } from "../../../utils/getTimeSinceCreation";
@@ -9,6 +9,7 @@ import FormatTime from "../../../utils/user/formatTime";
 
 export default function RequestListJoinCp({ item, changeStatusInvitation }) {
   const [location, setLocation] = React.useState(null);
+  const [error, setError] = useState(false);
   const getLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -19,7 +20,8 @@ export default function RequestListJoinCp({ item, changeStatusInvitation }) {
           });
         },
         (error) => {
-          toast.warning(error.message);
+          console.log("🚀 ========= error:", error?.message);
+          setError(true);
         }
       );
     } else {
@@ -38,10 +40,7 @@ export default function RequestListJoinCp({ item, changeStatusInvitation }) {
       }
     );
   };
-  console.log(
-    "🚀 ========= distance:",
-    distance("21.013393218627524", "105.52526950492785")
-  );
+
   React.useEffect(() => {
     getLocation();
   }, []);
@@ -98,10 +97,7 @@ export default function RequestListJoinCp({ item, changeStatusInvitation }) {
               color="text.primary"
             >
               Vị trí cách bạn:{" "}
-              {distance(
-                item?.Post?.booking?.Court?.Branches?.address?.latitude,
-                item?.Post?.booking?.Court?.Branches?.address?.longitude
-              ) != null
+              {!error
                 ? distance(
                     item?.Post?.booking?.Court?.Branches?.address?.latitude,
                     item?.Post?.booking?.Court?.Branches?.address?.longitude
