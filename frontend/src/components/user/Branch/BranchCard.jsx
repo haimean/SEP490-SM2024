@@ -19,7 +19,7 @@ import { useEffect, useState } from "react";
 
 const BranchCard = ({ name, branchLocation, image, branch, onClick }) => {
   const [location, setLocation] = useState(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
   const getLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -30,7 +30,8 @@ const BranchCard = ({ name, branchLocation, image, branch, onClick }) => {
           });
         },
         (error) => {
-          setError(error.message);
+          console.log("🚀 ========= error:", error?.message);
+          setError(true);
         }
       );
     } else {
@@ -82,7 +83,7 @@ const BranchCard = ({ name, branchLocation, image, branch, onClick }) => {
         <Stack direction="row" alignItems="center" spacing={1}>
           <DirectionsRunIcon className="text-red-600" />
           <Typography component="h6" variant="h6">
-            Vị trí cách bạn {distance ? distance.toFixed(2) : "~"} km
+            Vị trí cách bạn {!error ? distance.toFixed(2) : "~"} km
           </Typography>
         </Stack>
         <Stack direction="row" alignItems="center" spacing={1} className="mt-2">
