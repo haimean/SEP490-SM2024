@@ -19,7 +19,8 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import EventIcon from "@mui/icons-material/Event";
 import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
-
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import StadiumIcon from "@mui/icons-material/Stadium";
 import Map from "../../common/Map";
 import FormatTime from "../../../utils/user/formatTime";
 import PostRightCP from "./PostRightCP";
@@ -108,7 +109,7 @@ const PostDetailCP = ({ post, postId }) => {
           />
           <CardContent>
             <Typography variant="h4" gutterBottom>
-              {Court?.name}
+              {post?.title}
             </Typography>
             {renderInfoItem(
               DirectionsRunIcon,
@@ -120,6 +121,11 @@ const PostDetailCP = ({ post, postId }) => {
               EventIcon,
               format(new Date(post?.booking?.startTime), "dd/MM/yyyy")
             )}
+            {renderInfoItem(
+              AccountBalanceIcon,
+              `Chi nhánh: ${post?.booking?.Court?.Branches?.name}`
+            )}
+            {renderInfoItem(StadiumIcon, post?.booking?.Court?.name)}
             {renderInfoItem(AccessTimeIcon, date)}
             {renderInfoItem(
               Group,
