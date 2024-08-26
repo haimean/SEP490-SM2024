@@ -17,11 +17,21 @@ import BookingHostModal from "./Booking/BookingHostModal";
 import CallApi from "../../service/CallAPI";
 import { Link } from "react-router-dom";
 import UpdateCourt from "../../pages/host/Court/UpdateCourt";
+import DialogInfo from "../common/DialogInfo";
 
 const RightSectionHost = ({ id, type, court1 }) => {
   const [court, setCourt] = useState([]);
   const [courts, setCourts] = useState([]);
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
+  const [isOpenDialogInfo, setIsOpenDialogInfo] = useState(false);
+  const [titleDialog, setTitleDialog] = useState("");
+  const handleCloseDialogInfo = () => {
+    setIsOpenDialogInfo(false);
+  };
+  const handleOpenDialogInfo = (title) => {
+    setTitleDialog(title);
+    setIsOpenDialogInfo(true);
+  };
 
   useEffect(() => {
     const getAllCourt = async () => {
@@ -61,6 +71,16 @@ const RightSectionHost = ({ id, type, court1 }) => {
       </Tooltip>
     );
   };
+
+  const handleBookingHistoryBranch = () => {
+    if (courts?.length === 0) {
+      handleOpenDialogInfo(
+        "Cơ sở này chưa có sân"
+      );
+      return;
+    }
+    handleOpenCalendarModal();
+  }
 
   const handleOpenCalendarModal = () => {
     // TODO: check xem là type nào nếu branch thì sửa
@@ -103,9 +123,9 @@ const RightSectionHost = ({ id, type, court1 }) => {
               variant="contained"
               color="primary"
               fullWidth
-              onClick={handleOpenCalendarModal}
+              onClick={handleBookingHistoryBranch}
               sx={{ mb: 2 }}
-              disabled={courts?.length === 0}
+              // disabled={courts?.length === 0}
             >
               Lịch sử đặt sân
             </Button>
@@ -174,6 +194,13 @@ const RightSectionHost = ({ id, type, court1 }) => {
           id={court1?.id}
           open={updateCourtModal}
           handleClose={handleCloseModalUpdateCourt}
+        />
+      )}
+      {isOpenDialogInfo && (
+        <DialogInfo
+          handleClose={handleCloseDialogInfo}
+          open={isOpenDialogInfo}
+          title={titleDialog}
         />
       )}
     </Grid>
