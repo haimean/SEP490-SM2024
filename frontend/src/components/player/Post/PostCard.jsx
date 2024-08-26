@@ -16,11 +16,22 @@ import EventIcon from "@mui/icons-material/Event";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
 import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
-
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import StadiumIcon from "@mui/icons-material/Stadium";
 import { useEffect, useState } from "react";
 import haversine from "haversine";
 import { Group } from "@mui/icons-material";
-const PostCard = ({ post, postId, owner, court, time, image, isLarge }) => {
+const PostCard = ({
+  post,
+  postId,
+  owner,
+  branchName,
+  courtName,
+  court,
+  time,
+  image,
+  isLarge,
+}) => {
   console.log("🚀 ========= post:", post);
   const [location, setLocation] = useState(null);
   const [error, setError] = useState(false);
@@ -127,6 +138,24 @@ const PostCard = ({ post, postId, owner, court, time, image, isLarge }) => {
               </Typography>
             </Stack>
           </Tooltip>
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={1}
+            className="mb-1"
+          >
+            <AccountBalanceIcon className="text-red-600" />
+            <Typography>{`Chi nhánh: ${branchName}`}</Typography>
+          </Stack>
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={1}
+            className="mb-1"
+          >
+            <StadiumIcon className="text-red-600" />
+            <Typography>{courtName}</Typography>
+          </Stack>
           <Stack
             direction="row"
             alignItems="center"
