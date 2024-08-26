@@ -145,7 +145,9 @@ const PostCard = ({
             className="mb-1"
           >
             <AccountBalanceIcon className="text-red-600" />
-            <Typography>{`Chi nhánh: ${branchName}`}</Typography>
+            <Typography>
+              {`Chi nhánh: ${branchName}` || "Chưa có thông tin"}
+            </Typography>
           </Stack>
           <Stack
             direction="row"
@@ -154,7 +156,7 @@ const PostCard = ({
             className="mb-1"
           >
             <StadiumIcon className="text-red-600" />
-            <Typography>{courtName}</Typography>
+            <Typography>{courtName || "Chưa có thông tin"}</Typography>
           </Stack>
           <Stack
             direction="row"
