@@ -206,7 +206,7 @@ const PostCard = ({ activity, updateStatusInvitation }) => {
         </Stack>
         <Stack direction="row" alignItems="center" spacing={1} className="mb-1">
           <AccountBalanceIcon className="text-red-600" />
-          <Typography>{`Chi nhánh: ${activity?.Court?.Branches?.name}`}</Typography>
+          <Typography>{`Cơ sở: ${activity?.Court?.Branches?.name}`}</Typography>
         </Stack>
         <Stack direction="row" alignItems="center" spacing={1} className="mb-1">
           <StadiumIcon className="text-red-600" />

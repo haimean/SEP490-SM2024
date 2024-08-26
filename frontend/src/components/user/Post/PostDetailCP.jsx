@@ -123,7 +123,7 @@ const PostDetailCP = ({ post, postId }) => {
             )}
             {renderInfoItem(
               AccountBalanceIcon,
-              `Chi nhánh: ${post?.booking?.Court?.Branches?.name}`
+              `Cơ sở: ${post?.booking?.Court?.Branches?.name}`
             )}
             {renderInfoItem(StadiumIcon, post?.booking?.Court?.name)}
             {renderInfoItem(AccessTimeIcon, date)}
