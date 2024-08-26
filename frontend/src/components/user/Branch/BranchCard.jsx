@@ -43,7 +43,7 @@ const BranchCard = ({ name, branchLocation, image, branch, onClick }) => {
   }, []);
   const distance = haversine(
     {
-      latitude: branch?.address.latitude || "21.013393218627524",
+      latitude: branch?.address?.latitude || "21.013393218627524",
       longitude: branch?.address?.longitude || "105.52526950492785",
     },
     {
@@ -83,7 +83,7 @@ const BranchCard = ({ name, branchLocation, image, branch, onClick }) => {
         <Stack direction="row" alignItems="center" spacing={1}>
           <DirectionsRunIcon className="text-red-600" />
           <Typography component="h6" variant="h6">
-            Vị trí cách bạn {!error ? distance.toFixed(2) : "~"} km
+            Vị trí cách bạn {!error ? distance?.toFixed(2) : "~"} km
           </Typography>
         </Stack>
         <Stack direction="row" alignItems="center" spacing={1} className="mt-2">
