@@ -67,12 +67,17 @@ export const getRoutes = () => {
             key={route.path}
             path={route.path}
             element={
-              <LayoutHost>
-                <ProtectedRoute
-                  component={route.component}
-                  roles={route.role}
-                />
-              </LayoutHost>
+              <>
+                <Helmet>
+                  <title>{route.name}</title>
+                </Helmet>
+                <LayoutHost>
+                  <ProtectedRoute
+                    component={route.component}
+                    roles={route.role}
+                  />
+                </LayoutHost>
+              </>
             }
           />
         );
@@ -83,12 +88,17 @@ export const getRoutes = () => {
             key={route.path}
             path={route.path}
             element={
-              <LayoutAdmin>
-                <ProtectedRoute
-                  component={route.component}
-                  roles={route.role}
-                />
-              </LayoutAdmin>
+              <>
+                <Helmet>
+                  <title>{route.name}</title>
+                </Helmet>
+                <LayoutAdmin>
+                  <ProtectedRoute
+                    component={route.component}
+                    roles={route.role}
+                  />
+                </LayoutAdmin>
+              </>
             }
           />
         );
@@ -97,7 +107,14 @@ export const getRoutes = () => {
           <Route
             key={route.path}
             path={route.path}
-            element={<LayoutAuth>{route.component}</LayoutAuth>}
+            element={
+              <>
+                <Helmet>
+                  <title>{route.name}</title>
+                </Helmet>
+                <LayoutAuth>{route.component}</LayoutAuth>{" "}
+              </>
+            }
           />
         );
       default:
