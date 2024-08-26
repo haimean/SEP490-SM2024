@@ -24,8 +24,10 @@ const PostLandingPage = ({ post }) => {
         <Grid item xs={12} md={7}>
           <PostCard
             postId={post[0]?.id}
-            owner={post[0]?.booking?.bookingInfo?.name}
+            owner={post[0]?.title}
             court={post[0]?.booking?.Court?.TypeCourt?.name}
+            branchName={post[0]?.booking?.Court?.Branches?.name}
+            courtName={post[0]?.booking?.Court?.name}
             price={post[0]?.booking?.price}
             time={post[0]?.booking?.startTime}
             image={post[0]?.booking?.Court?.TypeCourt?.image}
@@ -39,8 +41,10 @@ const PostLandingPage = ({ post }) => {
                 <PostCard
                   post={post}
                   postId={post?.id}
-                  owner={post?.booking?.bookingInfo?.name}
+                  owner={post?.title}
                   court={post?.booking?.Court?.TypeCourt?.name}
+                  branchName={post?.booking?.Court?.Branches?.name}
+                  courtName={post?.booking?.Court?.name}
                   price={post?.booking?.price}
                   time={post?.booking?.startTime}
                   image={post?.booking?.Court?.TypeCourt?.image}

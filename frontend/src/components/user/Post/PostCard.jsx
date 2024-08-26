@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+/* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
 import {
   Card,
@@ -21,6 +21,8 @@ import { useSelector } from "react-redux";
 import LoginModal from "../../auth/LoginModal";
 import haversine from "haversine";
 import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import StadiumIcon from "@mui/icons-material/Stadium";
 import { Group } from "@mui/icons-material";
 
 const PostCard = ({ activity, updateStatusInvitation }) => {
@@ -67,7 +69,6 @@ const PostCard = ({ activity, updateStatusInvitation }) => {
     }
   };
 
-  //   const formattedDate = format(parseISO(activity?.dateTime), "yyyy-MM-dd");
   const formattedStartTime = format(parseISO(activity?.startTime), "HH:mm");
   const formattedEndTime = format(parseISO(activity?.endTime), "HH:mm");
   const formattedPrice = new Intl.NumberFormat("vi-VN", {
@@ -152,11 +153,12 @@ const PostCard = ({ activity, updateStatusInvitation }) => {
           });
         },
         (error) => {
-          setError(error.message);
+          console.log("🚀 ========= error:", error);
+          setError(true);
         }
       );
     } else {
-      setError("Geolocation is not supported by this browser.");
+      console.log("Geolocation is not supported by this browser.");
     }
   };
   useEffect(() => {
@@ -179,7 +181,7 @@ const PostCard = ({ activity, updateStatusInvitation }) => {
         <Stack direction="row" alignItems="center" spacing={1} className="my-1">
           <DirectionsRunIcon className="text-red-600" />
           <Typography component="h6" variant="h6">
-            Vị trí cách bạn {distance ? distance.toFixed(2) : "~"} km
+            Vị trí cách bạn {!error ? distance.toFixed(2) : "~"} km
           </Typography>
         </Stack>
         <Tooltip title={activity?.Court?.Branches?.address?.detail}>
@@ -201,6 +203,14 @@ const PostCard = ({ activity, updateStatusInvitation }) => {
           <Typography>
             {format(parseISO(activity?.startTime), "yyyy-MM-dd")}
           </Typography>
+        </Stack>
+        <Stack direction="row" alignItems="center" spacing={1} className="mb-1">
+          <AccountBalanceIcon className="text-red-600" />
+          <Typography>{`Chi nhánh: ${activity?.Court?.Branches?.name}`}</Typography>
+        </Stack>
+        <Stack direction="row" alignItems="center" spacing={1} className="mb-1">
+          <StadiumIcon className="text-red-600" />
+          <Typography>{activity?.Court?.name}</Typography>
         </Stack>
         <Stack direction="row" alignItems="center" spacing={1} className="mb-1">
           <AccessTimeIcon className="text-red-600" />
