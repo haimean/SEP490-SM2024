@@ -1,4 +1,4 @@
-import { Collapse, Tooltip } from "@mui/material";
+import { Collapse, Tooltip, Typography } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -19,7 +19,6 @@ import TurnedInNotIcon from "@mui/icons-material/TurnedInNot";
 export default function Sidebar() {
   const [listBranch, setListBranch] = useState([]);
   const { id } = useParams();
-  console.log("🚀 ========= listBranch:", listBranch);
   const [open, setOpen] = useState(true);
   const handleClick = () => {
     setOpen(!open);
@@ -27,7 +26,6 @@ export default function Sidebar() {
   useEffect(() => {
     fetchBranchList();
   }, []);
-  console.log(window.location.pathname);
   const fetchBranchList = async () => {
     try {
       const apiUrl = "/api/host/branches";
@@ -40,11 +38,28 @@ export default function Sidebar() {
       );
     }
   };
-  function truncateString(str) {
+  function truncateString(str, isAccept) {
     if (str.length > 16) {
-      return <Tooltip title={str}>{`${str.slice(0, 16)}...`}</Tooltip>;
+      str = `${str.slice(0, 16)}...`;
     }
-    return str;
+    return (
+      <>
+        <Tooltip title={str}>{str}</Tooltip>
+        {!isAccept && (
+          <>
+            <br />
+            <Typography
+              variant="caption"
+              className="text-red-500"
+              display="block"
+              gutterBottom
+            >
+              Chưa kích hoạt
+            </Typography>
+          </>
+        )}
+      </>
+    );
   }
   return (
     <Box sx={{ width: "100%", bgcolor: "background.paper", mt: "9vh" }}>
@@ -70,7 +85,8 @@ export default function Sidebar() {
             <ListItem
               disablePadding
               className={
-                window.location.pathname == "/host/type-court-table" && "bg-[#ddd]"
+                window.location.pathname == "/host/type-court-table" &&
+                "bg-[#ddd]"
               }
             >
               <ListItemButton>
@@ -117,21 +133,41 @@ export default function Sidebar() {
                 </ListItem>
               </Link>
               <Divider />
-              {listBranch?.map((item) => (
-                <>
-                  <Link to={`/host/branch/${item?.id}`} key={item?.id}>
-                    <ListItem className={id == item?.id && "bg-[#ddd]"}>
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <TurnedInNotIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={truncateString(item?.name)} />
-                      </ListItemButton>
-                    </ListItem>
-                  </Link>{" "}
-                  <Divider />
-                </>
-              ))}
+              {listBranch?.map((item) => {
+                return item.isAccept ? (
+                  <>
+                    <Link to={`/host/branch/${item?.id}`} key={item?.id}>
+                      <ListItem className={id == item?.id && "bg-[#ddd]"}>
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <TurnedInNotIcon />
+                          </ListItemIcon>
+                          <ListItemText
+                            primary={truncateString(item?.name, item.isAccept)}
+                          />
+                        </ListItemButton>
+                      </ListItem>
+                    </Link>
+                    <Divider />
+                  </>
+                ) : (
+                  <>
+                    <div key={item?.id}>
+                      <ListItem className="bg-[#f0f0f0] cursor-not-allowed">
+                        <ListItemButton disabled>
+                          <ListItemIcon>
+                            <TurnedInNotIcon />
+                          </ListItemIcon>
+                          <ListItemText
+                            primary={truncateString(item?.name, item.isAccept)}
+                          />
+                        </ListItemButton>
+                      </ListItem>
+                    </div>
+                    <Divider />
+                  </>
+                );
+              })}
             </List>
           </Collapse>
         </List>
