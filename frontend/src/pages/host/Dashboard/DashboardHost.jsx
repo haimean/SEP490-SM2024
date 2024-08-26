@@ -10,7 +10,7 @@ import {
   TextField,
 } from "@mui/material";
 import SectionDashboard from "../../../components/host/Dashboard/SectionDashboard";
-import PieChartAdmin from "../../../components/host/Dashboard/PieChartAdmin";
+import PieChartHost from "../../../components/host/Dashboard/PieChartHost";
 import UsageTable from "../../../components/host/Dashboard/UsageTable";
 import CallApi from "../../../service/CallAPI";
 import BarHostChart from "../../../components/host/Dashboard/BarHostChart";
@@ -407,7 +407,7 @@ const DashboardHost = () => {
             </TextField>
           </Box>
         </Box>
-        <PieChartAdmin data={usageRevenue} />
+        <PieChartHost data={usageRevenue} />
       </Card>
       {!selectedCourtForDay || !selectedCourtForHour ? (
         <Box

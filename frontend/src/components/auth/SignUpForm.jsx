@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { CircularProgress, Backdrop } from "@mui/material";
 
 // eslint-disable-next-line react/prop-types
 const SignUpForm = ({ role }) => {
@@ -24,6 +25,8 @@ const SignUpForm = ({ role }) => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   let roleName;
   if (role === "HOST") {
     roleName = "Chủ Sân";
@@ -37,6 +40,7 @@ const SignUpForm = ({ role }) => {
       toast.error("Mật khẩu nhập lại không trùng khớp.");
       return;
     }
+    setLoading(true);
     try {
       await CallApi(
         "/api/auth/register",
@@ -56,6 +60,8 @@ const SignUpForm = ({ role }) => {
       navigate("/login");
     } catch (error) {
       toast.error(error.response?.data?.error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -116,6 +122,12 @@ const SignUpForm = ({ role }) => {
   };
   return (
     <div className="border-t-8 rounded-sm bg-white p-12 shadow-2xl w-96">
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <h1 className="font-bold text-center block text-2xl mb-2">
         Đăng Kí Tài Khoản Cho {roleName}
       </h1>

@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { PieChart } from "@mui/x-charts";
 import { Typography } from "@mui/material";
 
-// Function to generate colors dynamically based on the number of items
 const generateColors = (numItems) => {
   const colors = [];
   const step = 360 / numItems;
@@ -13,7 +12,7 @@ const generateColors = (numItems) => {
   return colors;
 };
 
-const PieChartAdmin = ({ data }) => {
+const PieChartHost = ({ data }) => {
   const [dataChart, setDataChart] = useState([]);
   const [isNull, setIsNull] = useState(true);
 
@@ -25,7 +24,7 @@ const PieChartAdmin = ({ data }) => {
     }
 
     const totalRevenue = data.reduce((sum, item) => sum + item.totalRevenue, 0);
-    const colors = generateColors(data.length); // Generate colors based on the number of items
+    const colors = generateColors(data.length);
 
     const value = data.map((item, index) => {
       return {
@@ -33,7 +32,7 @@ const PieChartAdmin = ({ data }) => {
         value: item.totalRevenue,
         label: item.courtName,
         color: colors[index],
-        percentage: ((item.totalRevenue / totalRevenue) * 100).toFixed(2), // Calculate percentage
+        percentage: ((item.totalRevenue / totalRevenue) * 100).toFixed(2),
       };
     });
 
@@ -74,25 +73,27 @@ const PieChartAdmin = ({ data }) => {
             <PieChart
               series={[
                 {
+                  // arcLabel: (item) =>
+                  //   `${new Intl.NumberFormat("vi-VN", {
+                  //     style: "currency",
+                  //     currency: "VND",
+                  //   }).format(item.value)} (${item.percentage}%)`, 
                   arcLabel: (item) =>
-                    `${new Intl.NumberFormat("vi-VN", {
-                      style: "currency",
-                      currency: "VND",
-                    }).format(item.value)} (${item.percentage}%)`, // Display value and percentage
+                    `${item.percentage}%`, 
                   arcLabelMinAngle: 45,
                   data: dataChart.map((item) => ({
                     id: item.id,
                     value: item.value,
                     label: item.label,
                     color: item.color,
-                    percentage: item.percentage, // Pass percentage to PieChart
+                    percentage: item.percentage, 
                   })),
-                  color: ({ datum }) => datum.color, // Apply the color from the dataChart
+                  color: ({ datum }) => datum.color, 
                   valueFormatter: (item) =>
                     `${new Intl.NumberFormat("vi-VN", {
                       style: "currency",
                       currency: "VND",
-                    }).format(item.value)} (${item.percentage}%)`, // Tooltip shows value and percentage
+                    }).format(item.value)} (${item.percentage}%)`, 
                 },
               ]}
               width={500}
@@ -107,4 +108,4 @@ const PieChartAdmin = ({ data }) => {
   );
 };
 
-export default PieChartAdmin;
+export default PieChartHost;
