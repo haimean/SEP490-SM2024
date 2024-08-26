@@ -61,7 +61,7 @@ const router = [
     path: "/host/profile",
     name: "Profile",
     component: <Profile />,
-    role: ["USER", "HOST", "ADMIN"],
+    role: ["HOST"],
     layout: "host",
   },
   {

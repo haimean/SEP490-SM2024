@@ -90,6 +90,7 @@ const Notification = () => {
           remove(userRef)
             .then(() => {
               setRecords([]);
+              seenNumber(0);
             })
             .catch((error) => {
               console.error("Error removing data: ", error);

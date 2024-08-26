@@ -1,15 +1,16 @@
-import { useEffect, useState } from "react";
-import InputLabel from "../../components/common/InputLabel.jsx";
-import CallApi from "../../service/CallAPI.jsx";
-import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import { Button, Container, Grid, TextField } from "@mui/material";
 import {
   EMAIL_REGEX,
   PHONE_REGEX,
   WHITE_SPACE_REGEX,
 } from "../../utils/regex/index.js";
-import { Button, Container, Grid, TextField } from "@mui/material";
+import { useEffect, useState } from "react";
+
+import CallApi from "../../service/CallAPI.jsx";
 import ChangePassword from "../../components/auth/ChangePassword.jsx";
+import InputLabel from "../../components/common/InputLabel.jsx";
+import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
 
 const Profile = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -70,15 +71,17 @@ const Profile = () => {
     date.setHours(date.getHours() + 14);
     return date.toISOString().split("T")[0];
   };
-  
 
   const onSubmit = async (data) => {
     const formData = new FormData();
     console.log(formData.dob);
     console.log(formatDate(data.dob));
-    
+
     formData.append("name", data.fullName || profile?.user?.fullName);
-    formData.append("dob", formatDate(data.dob) || formatDate(profile?.user?.dob));
+    formData.append(
+      "dob",
+      formatDate(data.dob) || formatDate(profile?.user?.dob)
+    );
     formData.append(
       "numberPhone",
       data.numberPhone || profile?.user?.numberPhone
@@ -213,23 +216,6 @@ const Profile = () => {
                     shrink: true, // Đảm bảo label luôn di chuyển lên trên
                   }}
                 />
-                {/* <InputLabel
-                  label="Ngày sinh"
-                  id="dob"
-                  placeholder="01-01-2000"
-                  register={register}
-                  defaultValue={
-                    profile?.user?.dob && formatDate(profile?.user?.dob)
-                  }
-                  pattern={{
-                    value: WHITE_SPACE_REGEX,
-                    message: "Vui lòng chọn ngày tháng năm hợp lệ",
-                  }}
-                  errors={errors}
-                  required={true}
-                  type="date"
-                /> */}
-
                 <TextField
                   label="Ngày sinh"
                   id="dob"
