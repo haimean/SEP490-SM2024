@@ -462,6 +462,8 @@ const CalendarModalComponent = ({ courtId }) => {
           <Calendar
             localizer={localizer}
             events={events}
+            defaultView="week"
+            views={["month", "week", "day"]}
             startAccessor="start"
             endAccessor="end"
             titleAccessor="title"
