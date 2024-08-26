@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
-import bookingUserService from './booking.service';
-import { ResponseHandler } from '../../../outcomes/responseHandler';
-import CustomError from '../../../outcomes/customError';
+
 import { createNotifications } from '../../../lib/notificationService';
+import CustomError from '../../../outcomes/customError';
+import { ResponseHandler } from '../../../outcomes/responseHandler';
+import bookingUserService from './booking.service';
 
 const bookingUserController = {
   remove: async (req: Request, res: Response, next: NextFunction) => {
@@ -68,21 +69,11 @@ const bookingUserController = {
     try {
       const { data } = req.body;
       const accountId = Number(req.headers.authorization);
-
+      let status = true;
       for (const element of data) {
-        const {
-          courtId,
-          startTime,
-          endTime,
-          price,
-          name,
-          numberPhone,
-        } = element;
-
+        const { courtId, startTime, endTime } = element;
         if (
-          // check người đăt sân đã đặt ở sân nào khác ở thời điểm này chưa
-          //  check người chơi đã xin vào 1 trận đấu và được acccept ở khoảng thời gian này chưas
-          // !59: check thời gian của sân
+          // Check the yard time
           await bookingUserService.checkBookingConflict(
             accountId,
             startTime,
@@ -90,8 +81,20 @@ const bookingUserController = {
             courtId
           )
         ) {
-          next(new CustomError('Bạn đã tham gia ở trận đấu', 400));
-        } else {
+          status = false;
+          break;
+        }
+      }
+      if (status) {
+        for (const element of data) {
+          const {
+            courtId,
+            startTime,
+            endTime,
+            price,
+            name,
+            numberPhone,
+          } = element;
           const booking = await bookingUserService.create({
             accountId,
             courtId,
@@ -115,9 +118,10 @@ const bookingUserController = {
             },
           ]);
         }
+        ResponseHandler(res, 'success');
+      } else {
+        next(new CustomError('Bạn đã tham gia ở trận đấu', 400));
       }
-      // check giờ đặt có người đặt chưa
-      ResponseHandler(res, 'success');
     } catch (error: any) {
       next(new CustomError(error?.message, 500));
     }
