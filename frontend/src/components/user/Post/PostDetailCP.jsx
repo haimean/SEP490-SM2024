@@ -33,6 +33,7 @@ import { getRatingDescription } from "../../../utils/user/GetRatingDescription";
 const PostDetailCP = ({ post, postId }) => {
   console.log("🚀 ========= post:", post);
   const [location, setLocation] = useState(null);
+  const [error, setError] = useState(false);
   const getLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -43,7 +44,8 @@ const PostDetailCP = ({ post, postId }) => {
           });
         },
         (error) => {
-          console.log("🚀 ========= error:", error.message);
+          console.log("🚀 ========= error:", error?.message);
+          setError(true);
         }
       );
     } else {
@@ -66,7 +68,6 @@ const PostDetailCP = ({ post, postId }) => {
   const formattedEndTime = FormatTime(post?.booking?.endTime);
   const date = `${formattedStartTime} - ${formattedEndTime}`;
   const address = post?.booking?.Court?.Branches?.address;
-  console.log("🚀 ========= address:", address);
 
   const renderInfoItem = (Icon, text) => (
     <Box display="flex" alignItems="center" mb={1}>
@@ -90,6 +91,7 @@ const PostDetailCP = ({ post, postId }) => {
       longitude: location?.longitude || "105.52526950492785",
     }
   );
+  console.log("🚀 ========= distance:", distance);
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} md={8}>
@@ -110,7 +112,7 @@ const PostDetailCP = ({ post, postId }) => {
             </Typography>
             {renderInfoItem(
               DirectionsRunIcon,
-              `Vị trí cách bạn ${distance ? distance.toFixed(2) : "~"} km` ||
+              `Vị trí cách bạn ${!error ? distance.toFixed(2) : "~"} km` ||
                 "Không có thông tin"
             )}
             {renderInfoItem(LocationOnOutlinedIcon, locations)}

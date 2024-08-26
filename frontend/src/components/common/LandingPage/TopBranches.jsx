@@ -20,17 +20,27 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import StadiumIcon from "@mui/icons-material/Stadium";
 import PersonIcon from "@mui/icons-material/Person";
 import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
+import { toast } from "react-toastify";
 
 const TopBranches = ({ branches, role = "USER" }) => {
   const [location, setLocation] = useState(null);
+  const [error, setError] = useState(false);
   const getLocation = () => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setLocation({
-          latitude: position?.coords?.latitude,
-          longitude: position?.coords?.longitude,
-        });
-      });
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            latitude: position?.coords?.latitude,
+            longitude: position?.coords?.longitude,
+          });
+        },
+        (error) => {
+          console.log("🚀 ========= error:", error?.message);
+          setError(true);
+        }
+      );
+    } else {
+      toast.warning("Geolocation is not supported by this browser.");
     }
   };
   const distance = (latitude, longitude) => {
@@ -111,10 +121,7 @@ const TopBranches = ({ branches, role = "USER" }) => {
                       <DirectionsRunIcon className="text-red-600" />
                       <Typography>
                         Sân cách vị trí của bạn:{" "}
-                        {distance(
-                          branch?.address?.latitude,
-                          branch?.address?.longitude
-                        ).toFixed(0) == 0
+                        {error
                           ? " ~ "
                           : distance(
                               branch?.address?.latitude,

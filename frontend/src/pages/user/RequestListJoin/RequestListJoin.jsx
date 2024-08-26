@@ -5,33 +5,14 @@ import CallApi from "../../../service/CallAPI";
 import Loading from "../../../components/common/Loading";
 import { Box, Grid, Tab, Tabs } from "@mui/material";
 import { toast } from "react-toastify";
-import haversine from "haversine";
 import useDialogConfirm from "../../../hooks/useDialogConfirm";
 import RequestListJoinCp from "../../../components/user/RequestListJoin/RequestListJoinCp";
 
 export default function RequestListJoin() {
   const [requestList, setRequestList] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [location, setLocation] = React.useState(null);
   const [value, setValue] = React.useState(0);
 
-  const getLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setLocation({
-            latitude: position?.coords?.latitude,
-            longitude: position?.coords?.longitude,
-          });
-        },
-        (error) => {
-          toast.warning(error.message);
-        }
-      );
-    } else {
-      toast.warning("Không lấy được vị trí hiện tại");
-    }
-  };
   const api = "/api/user/user-available/request-list-join";
   const apiInvitation = "/api/user/invitation/update";
 
@@ -73,26 +54,6 @@ export default function RequestListJoin() {
   React.useEffect(() => {
     getRequestList();
   }, [value]);
-
-  const distance = (latitude, longitude) => {
-    return haversine(
-      {
-        latitude: latitude || "21.013393218627524",
-        longitude: longitude || "105.52526950492785",
-      },
-      {
-        latitude: location?.latitude || "21.013393218627524",
-        longitude: location?.longitude || "105.52526950492785",
-      }
-    );
-  };
-  console.log(
-    "🚀 ========= distance:",
-    distance("21.013393218627524", "105.52526950492785")
-  );
-  React.useEffect(() => {
-    getLocation();
-  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
