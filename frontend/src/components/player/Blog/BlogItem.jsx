@@ -12,6 +12,7 @@ import {
   Menu,
   MenuItem,
   Divider,
+  Tooltip,
 } from "@mui/material";
 import { MoreVert, Flag, Comment } from "@mui/icons-material";
 import { getTimeSinceCreation } from "../../../utils/getTimeSinceCreation";
@@ -122,16 +123,21 @@ const BlogItem = ({ blog, onOpenDetail, onDelete }) => {
         )}
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton
-          aria-label="comment"
-          onClick={() => handleCommentClick(blog?.id)}
-        >
-          <Comment />
-        </IconButton>
-        {currentAccountId !== blog?.accountId && (
-          <IconButton aria-label="report" onClick={handleReportClick}>
-            <Flag />
+        <Tooltip title="Bình luận">
+          <IconButton
+            aria-label="comment"
+            onClick={() => handleCommentClick(blog?.id)}
+          >
+            <Comment />
           </IconButton>
+        </Tooltip>
+
+        {currentAccountId !== blog?.accountId && (
+          <Tooltip title="Báo cáo">
+            <IconButton aria-label="report" onClick={handleReportClick}>
+              <Flag />
+            </IconButton>
+          </Tooltip>
         )}
       </CardActions>
       {commentingBlogId === blog?.id && (
