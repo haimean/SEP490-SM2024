@@ -91,7 +91,7 @@ const DashboardCp = () => {
           subTitle={`Đăng ký mới : ${totalMonthAccount} người/ tháng`}
         />
         <SectionDashboard
-          title={"Số lượng bài đăng tìm người chơi: 28 người"}
+          title={`Số lượng bài đăng tìm người chơi: ${totalMonthBooking} bài`}
           direction={percentageBooking >= 0}
           percentage={
             percentageBooking !== 3
