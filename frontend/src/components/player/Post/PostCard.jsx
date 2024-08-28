@@ -58,8 +58,12 @@ const PostCard = ({
   }, []);
   const distance = haversine(
     {
-      latitude: post?.address?.latitude || "21.013393218627524",
-      longitude: post?.address?.longitude || "105.52526950492785",
+      latitude:
+        post?.booking?.Court?.Branches?.address?.latitude ||
+        "21.013393218627524",
+      longitude:
+        post?.booking?.Court?.Branches?.address?.longitude ||
+        "105.52526950492785",
     },
     {
       latitude: location?.latitude || "21.013393218627524",

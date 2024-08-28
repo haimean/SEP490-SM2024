@@ -23,6 +23,7 @@ const PostLandingPage = ({ post }) => {
       <Grid container spacing={3}>
         <Grid item xs={12} md={7}>
           <PostCard
+            post={post[0]}
             postId={post[0]?.id}
             owner={post[0]?.title}
             court={post[0]?.booking?.Court?.TypeCourt?.name}
