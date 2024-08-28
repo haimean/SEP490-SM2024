@@ -31,6 +31,7 @@ const PostCard = ({
   time,
   image,
   isLarge,
+  price,
 }) => {
   console.log("🚀 ========= post:", post);
   const [location, setLocation] = useState(null);
@@ -58,8 +59,12 @@ const PostCard = ({
   }, []);
   const distance = haversine(
     {
-      latitude: post?.address?.latitude || "21.013393218627524",
-      longitude: post?.address?.longitude || "105.52526950492785",
+      latitude:
+        post?.booking?.Court?.Branches?.address?.latitude ||
+        "21.013393218627524",
+      longitude:
+        post?.booking?.Court?.Branches?.address?.longitude ||
+        "105.52526950492785",
     },
     {
       latitude: location?.latitude || "21.013393218627524",
@@ -81,7 +86,7 @@ const PostCard = ({
   const formattedPrice = new Intl.NumberFormat("vi-VN", {
     style: "currency",
     currency: "VND",
-  }).format(post?.booking?.price || 0);
+  }).format(price || 0);
   return (
     <Link to={`post/${postId}`}>
       <Card
@@ -190,7 +195,7 @@ const PostCard = ({
             className="mb-1"
           >
             <PaidOutlinedIcon className="text-red-600" />
-            <Typography>{`Phí thuê sân: ${formattedPrice}`}</Typography>
+            <Typography>{`Phí giao lưu: ${formattedPrice}`}</Typography>
           </Stack>
           <Stack
             direction="row"
