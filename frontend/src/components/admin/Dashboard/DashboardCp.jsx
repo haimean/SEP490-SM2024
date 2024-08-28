@@ -85,7 +85,7 @@ const DashboardCp = () => {
           direction={percentage >= 0}
           percentage={
             percentage !== 3
-              ? `${(percentage * 100 * -1).toFixed(2)} % so với tháng trước`
+              ? `${percentage.toFixed(2)} % so với tháng trước`
               : "Không có dữ liệu tháng trước"
           }
           subTitle={`Đăng ký mới : ${totalMonthAccount} người/ tháng`}

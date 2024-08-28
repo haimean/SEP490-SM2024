@@ -87,6 +87,9 @@ const PostCard = ({
     style: "currency",
     currency: "VND",
   }).format(price || 0);
+  const acceptCount = post?.invitation?.filter(
+    (invite) => invite?.status === "ACCEPT"
+  ).length;
   return (
     <Link to={`post/${postId}`}>
       <Card
@@ -205,8 +208,8 @@ const PostCard = ({
           >
             <Group className="text-red-600" />
             <Typography>
-              Tuyển {post?.numberMember || 1} người (Hiện có:{" "}
-              {post?.invitation?.length || 0}/{post?.numberMember || 1})
+              Tuyển {post?.numberMember || 1} người (Hiện có: {acceptCount || 0}
+              /{post?.numberMember || 1})
             </Typography>
           </Stack>
         </CardContent>
