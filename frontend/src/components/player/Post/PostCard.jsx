@@ -31,6 +31,7 @@ const PostCard = ({
   time,
   image,
   isLarge,
+  price,
 }) => {
   console.log("🚀 ========= post:", post);
   const [location, setLocation] = useState(null);
@@ -85,7 +86,7 @@ const PostCard = ({
   const formattedPrice = new Intl.NumberFormat("vi-VN", {
     style: "currency",
     currency: "VND",
-  }).format(post?.booking?.price || 0);
+  }).format(price || 0);
   return (
     <Link to={`post/${postId}`}>
       <Card
@@ -194,7 +195,7 @@ const PostCard = ({
             className="mb-1"
           >
             <PaidOutlinedIcon className="text-red-600" />
-            <Typography>{`Phí thuê sân: ${formattedPrice}`}</Typography>
+            <Typography>{`Phí giao lưu: ${formattedPrice}`}</Typography>
           </Stack>
           <Stack
             direction="row"

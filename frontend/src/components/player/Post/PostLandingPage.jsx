@@ -29,7 +29,7 @@ const PostLandingPage = ({ post }) => {
             court={post[0]?.booking?.Court?.TypeCourt?.name}
             branchName={post[0]?.booking?.Court?.Branches?.name}
             courtName={post[0]?.booking?.Court?.name}
-            price={post[0]?.booking?.price}
+            price={post[0]?.memberPost[0]?.price}
             time={post[0]?.booking?.startTime}
             image={post[0]?.booking?.Court?.TypeCourt?.image}
             isLarge={true}
@@ -46,7 +46,7 @@ const PostLandingPage = ({ post }) => {
                   court={post?.booking?.Court?.TypeCourt?.name}
                   branchName={post?.booking?.Court?.Branches?.name}
                   courtName={post?.booking?.Court?.name}
-                  price={post?.booking?.price}
+                  price={post?.memberPost[0]?.price}
                   time={post?.booking?.startTime}
                   image={post?.booking?.Court?.TypeCourt?.image}
                 />
